@@ -1,0 +1,17 @@
+ -----
+ The Site
+ -----
+ The Rockhopper Team
+ -----
+
+Rockhopper Music
+
+	This library is for creating music via JavaSound.
+	
+	The site is generated via maven using this invocation:
+	
++-----+
+
+mvn site
+
++-----+

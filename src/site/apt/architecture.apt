@@ -1,0 +1,34 @@
+ -----
+ Rockhopper Music
+ -----
+ Gene De Lisa
+ -----
+ August 1998
+ -----
+
+
+Architecture
+
+*Layers
+
+	
+*Logical architecture
+
+**Domain layer
+
+	*Regular Java objects. Knows nothing about other layers.
+
+ 
+*Issues
+
+	None so far
+	
+
+**Links
+
+   * {{{./architecture.html}Architecture}}
+   * {{{./setup.html}Set up}}
+   
+ 
+	
+ 
