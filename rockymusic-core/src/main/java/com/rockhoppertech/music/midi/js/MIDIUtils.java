@@ -1219,7 +1219,7 @@ public class MIDIUtils {
 	}
 
 	public static void print(MetaMessage event) {
-		PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
+		//PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
 
 		int type = event.getType();
 		logger.debug("printMetaMessage " + type);

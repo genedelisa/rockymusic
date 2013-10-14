@@ -16,7 +16,7 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
  * 
  */
 
-public class MIDINote extends Note {
+public class MIDINote extends Note implements Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger logger = LoggerFactory
@@ -580,7 +580,7 @@ public class MIDINote extends Note {
 		sb.append(super.getString()).append(',');
 		sb.append(this.velocity).append(',');
 		sb.append(this.pan).append(',');
-		sb.append(this.channel).append(',');
+		sb.append(this.channel).append(','); 
 		sb.append(this.bank).append(',');
 		sb.append(this.program).append(' ');
 
