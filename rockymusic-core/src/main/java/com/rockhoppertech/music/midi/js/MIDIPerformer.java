@@ -18,16 +18,14 @@ import javax.sound.midi.Transmitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class MIDIPerformer {
-	
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(MIDIPerformer.class);
-	
 
 	public static MidiDevice.Info getMidiDeviceInfo(String strDeviceName,
 			boolean bForOutput) {
@@ -109,6 +107,16 @@ public class MIDIPerformer {
 		}
 	}
 
+	public void play(Score score) {
+		Sequence s = ScoreFactory.scoreToSequence(score);
+		play(s);
+	}
+
+	public void play(MIDITrack track) {
+		Sequence sequence = MIDITrackFactory.trackToSequence(track, 480);
+		this.play(sequence);
+	}
+
 	public void play(Sequence sequence) {
 		this.sequence = sequence;
 
@@ -121,6 +129,7 @@ public class MIDIPerformer {
 				if (logger.isErrorEnabled()) {
 					logger.error(me.getMessage(), me);
 				}
+				return;
 			}
 		}
 
@@ -128,16 +137,18 @@ public class MIDIPerformer {
 			this.sequencer.stop();
 			this.sequencer.close();
 			logger.error("stopped and closed already open sequencer");
-		}
 
-		try {
-			this.sequencer.open();
-		} catch (MidiUnavailableException e) {
-			e.printStackTrace();
-			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(), e);
+		}
+		if (sequencer != null) {
+			try {
+				this.sequencer.open();
+			} catch (MidiUnavailableException e) {
+				e.printStackTrace();
+				if (logger.isErrorEnabled()) {
+					logger.error(e.getMessage(), e);
+				}
+				return;
 			}
-			return;
 		}
 
 		if (this.continuousLoop) {
@@ -163,10 +174,12 @@ public class MIDIPerformer {
 		synchronized (this.playLock) {
 			if (this.sequencer != null && this.sequencer.isRunning()) {
 				logger.debug("already RUNNING");
-				try {
-					this.playLock.wait();
-				} catch (InterruptedException e) {
-					logger.error(e.getLocalizedMessage(), e);
+				while (true) {
+					try {
+						this.playLock.wait();
+					} catch (InterruptedException e) {
+						logger.error(e.getLocalizedMessage(), e);
+					}
 				}
 			}
 			this.play(sequence);
