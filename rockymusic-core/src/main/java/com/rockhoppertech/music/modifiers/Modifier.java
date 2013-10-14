@@ -23,7 +23,7 @@ package com.rockhoppertech.music.modifiers;
  * @since 1.0
  */
 public interface Modifier {
-    /**
+    /** 
      * <code>getName</code>
      *
      * @return a <code>String</code> value
