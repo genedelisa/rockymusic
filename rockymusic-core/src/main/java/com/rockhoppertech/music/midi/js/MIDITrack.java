@@ -7,12 +7,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
@@ -38,6 +44,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
 	private List<MIDIEvent> events;
 	private List<MIDINote> notes;
+	
+	private NavigableMap<Double, TimeSignature>	timeSignatures		= new TreeMap<Double, TimeSignature>();
+	private NavigableMap<Double, KeySignature>	keySignatureMap		= new TreeMap<Double, KeySignature>();
+	private transient MIDIStringParser midiStringParser	= new MIDIStringParser();
 
 	public MIDITrack() {
 		this.events = new ArrayList<>();
@@ -65,6 +75,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 */
 	public MIDITrack(MIDITrack orig) {
 		this();
+		if(orig.getName() != null)
 		this.name = new String(orig.getName());
 		if (orig.getDescription() != null)
 			this.description = new String(orig.getDescription());
@@ -108,6 +119,19 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		for (MIDINote n : c) {
 			this.notes.add(n);
 		}
+	}
+	
+	/**
+	 * Parses a note string. It is not sequential by default since the
+	 * noteString
+	 * may contain start beats and durations.
+	 * 
+	 * @param noteString
+	 * @see MIDIStringParser
+	 */
+	public MIDITrack(String noteString) {
+		this();
+		this.midiStringParser.parseString(this, noteString);
 	}
 
 	
@@ -167,8 +191,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		return this.append(note);
 	}
 
-	public Integer size() {
+	public int size() {
 		return this.notes.size();
+	}
+	
+	public boolean contains(Pitch p) {
+		for (MIDINote n : this) {
+			if (n.getPitch().equals(p))
+				return true;
+		}
+		return false;
 	}
 
 	public MIDINote get(int i) {
@@ -363,7 +395,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		boolean b = false;
 		b = this.notes.remove(n);
 		if (!b) {
-			logger.debug(String.format("%s did not exist in this notelist\n", n));
+			logger.debug(String.format("%s did not exist in this notelist%n", n));
 			return;
 		}
 	}
@@ -622,7 +654,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		if (this.notes.isEmpty()) {
 			return 0d;
 		}
-		MIDINote first = (MIDINote) this.notes.get(0);
+		MIDINote first = this.notes.get(0);
 		return first.getStartBeat();
 	}
 
@@ -674,8 +706,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		int len = this.notes.size();
 		int[] intervals = new int[len - 1];
 		for (int i = 0; i < intervals.length; i++) {
-			MIDINote i1 = (MIDINote) this.notes.get(i);
-			MIDINote i2 = (MIDINote) this.notes.get(i + 1);
+			MIDINote i1 = this.notes.get(i);
+			MIDINote i2 = this.notes.get(i + 1);
 			intervals[i] = i2.getMidiNumber() - i1.getMidiNumber();
 		}
 		return intervals;
@@ -692,7 +724,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		int[] intervals = new int[len - 1];
 		int root = this.notes.get(0).getMidiNumber();
 		for (int i = 1; i <= intervals.length; i++) {
-			MIDINote i1 = (MIDINote) this.notes.get(i);
+			MIDINote i1 = this.notes.get(i);
 			intervals[i - 1] = i1.getMidiNumber() - root;
 		}
 		return intervals;
@@ -714,7 +746,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 */
 	public MIDITrack sequential(int pad) {
 		int size = this.size();
-		MIDINote n = (MIDINote) this.notes.get(0);
+		MIDINote n = this.notes.get(0);
 		double s = n.getStartBeat();
 		double d = n.getDuration();
 		if (logger.isDebugEnabled()) {
@@ -723,7 +755,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 
 		for (int i = 1; i < size; i++) {
-			MIDINote nn = (MIDINote) this.notes.get(i);
+			MIDINote nn = this.notes.get(i);
 			logger.debug("old startbeat:" + nn.getStartBeat());
 			nn.setStartBeat(s + d + pad);
 			logger.debug("new startbeat:" + nn.getStartBeat());
@@ -909,5 +941,447 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 //		}
 //		return this;
 //	}
+	
+	public void play() {
+		MIDIPerformer perf = new MIDIPerformer();
+		perf.play(this);
+	}
+	
+	/**
+	 * <code>retrograde</code> simply reverses the order of the notes list. The beats
+	 * of the Notes are not modified. It is assumed that you will change them yourself or just ignore them.
+	 * 
+	 * The original track is not modified
+	 * either.
+	 * 
+	 * @return a new <code>MIDITrack</code> 
+	 */
+	public MIDITrack retrograde() {
+		List<MIDINote> retro = new ArrayList<>();
 
+		for (MIDINote n : this.notes) {
+			retro.add((MIDINote) n.clone());
+		}
+		Collections.reverse(retro);
+		//Collections.sort(retro, new NotePitchComparator(false));
+		return new MIDITrack(retro);
+	}
+
+
+	public double getEndBeatOfNote(MIDINote test) {
+		double endBeat = 0d;
+		for (MIDINote n : this.notes) {
+			if (n.equals(test)) {
+				endBeat = n.getEndBeat();
+			}
+		}
+		return endBeat;
+	}
+
+	/**
+	 * Iterate through the notelist to find the Note with the lowest pitch midi
+	 * number.
+	 * 
+	 * @return
+	 */
+	public MIDINote getLowestPitchedNote() {
+		MIDINote n = new MIDINote(Pitch.GS9);
+		for (MIDINote e : this.notes) {
+			if (e.getMidiNumber() < n.getMidiNumber()) {
+				n = e;
+			}
+		}
+		return n;
+	}
+
+	public MIDINote getHighestPitchedNote() {
+		MIDINote n = new MIDINote(Pitch.A0);
+		for (MIDINote e : this.notes) {
+			if (e.getMidiNumber() > n.getMidiNumber()) {
+				n = e;
+			}
+		}
+		return n;
+	}
+
+	/**
+	 * Retrieve the duration of the entire MIDINoteList. Literally the end beat
+	 * minus the startbeat.
+	 * 
+	 * @return the duration of the notelist in beats
+	 */
+	public double getDuration() {
+		return this.getEndBeat() - this.getStartBeat();
+	}
+	
+	public static String getDurationsAsString(MIDITrack n) {
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote note : n) {
+			sb.append(note.getDuration()).append(' ');
+
+		}
+		return sb.toString();
+	}
+	
+	public static String getPitchesAsString(MIDITrack n) {
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote note : n) {
+			sb.append(PitchFormat.getInstance().format(note.getPitch()))
+					.append(' ');
+		}
+		return sb.toString();
+	}
+
+	public static String getStartBeatsAsString(MIDITrack n) {
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote note : n) {
+			sb.append(note.getStartBeat()).append(' ');
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * <p>
+	 * </p>
+	 * 
+	 * @param note
+	 * @return
+	 */
+	public int indexOfNote(MIDINote note) {
+		return this.notes.indexOf(note);
+	}
+	
+	/**
+	 * <code>sublist</code> will get MIDINotes with start times between the
+	 * given times (inclusive). The MIDINotes contained are "live" - not cloned
+	 * unless you specify the clone parameter
+	 * 
+	 * @param after
+	 *            a <code>double</code> value
+	 * @param before
+	 *            a <code>double</code> value
+	 * @param clone
+	 *            clone the Notes
+	 * @return a <code>MIDITrack</code> value
+	 */
+	public MIDITrack sublist(double after, double before, boolean clone) {
+		MIDITrack list = new MIDITrack();
+		for (MIDINote n : this) {
+			double s = n.getStartBeat();
+			if (s >= after && s <= before) {
+				if (clone) {
+					list.add((MIDINote) n.clone());
+				} else {
+					list.add(n);
+				}
+			}
+		}
+		return list;
+	}
+
+	// using apache collections predicates would make this nonsense easier
+	public MIDITrack sublist(double after, double before, boolean clone,
+			boolean endInclusive) {
+		MIDITrack list = new MIDITrack();
+		for (MIDINote n : this) {
+			double s = n.getStartBeat();
+			if (endInclusive == false) {
+				if (s >= after && s < before) {
+					if (clone) {
+						list.add((MIDINote) n.clone());
+					} else {
+						list.add(n);
+					}
+				}
+			} else {
+				if (s >= after && s <= before) {
+					if (clone) {
+						list.add((MIDINote) n.clone());
+					} else {
+						list.add(n);
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * Notes are not cloned.
+	 * 
+	 * @param after
+	 * @param before
+	 * @return
+	 */
+	public MIDITrack sublist(double after, double before) {
+		return sublist(after, before, false);
+	}
+
+	/**
+	 * Create a sublist of the original MIDITrack beginning at the specified
+	 * index and continuing to the end of the list.
+	 * 
+	 * @param index
+	 *            The index to begin copying from.
+	 * @return a MIDITrack
+	 */
+	public MIDITrack sublist(int index) {
+		List<MIDINote> sl = this.notes.subList(index, this.notes.size());
+		MIDITrack list = new MIDITrack(sl);
+		return list;
+	}
+	
+	/**
+	 * <code>sublist</code> is sort of a band pass filter. Returns a MIDITrack with
+	 * MIDINotes in the given range. No modifications to start times or any
+	 * other parameters.
+	 * 
+	 * @param low
+	 *            a <code>Pitch</code> value
+	 * @param high
+	 *            a <code>Pitch</code> value
+	 * @return a <code>MIDITrack</code> instance
+	 */
+	public MIDITrack sublist(Pitch low, Pitch high) {
+		MIDITrack list = new MIDITrack();
+		for (MIDINote n : this) {
+			int num = n.getMidiNumber();
+			if (num >= low.getMidiNumber() && num <= high.getMidiNumber()) {
+				list.add(n);
+			}
+		}
+		// for (Iterator it = this.iterator(); it.hasNext();) {
+		// MIDINote n = (MIDINote) it.next();
+		// int num = n.getMidiNumber();
+		// if (num >= low.getMidiNumber() && num <= high.getMidiNumber()) {
+		// list.add(n);
+		// }
+		// }
+		return list;
+	}
+
+	/**
+	 * <code>getInversion</code>
+	 * 
+	 * @return a <code>MIDITrack</code> value
+	 */
+	public MIDITrack getInversion() {
+		int[] intervals = this.getPitchIntervals();
+		for (int i = 0; i < intervals.length; i++) {
+			intervals[i] *= -1;
+		}
+		int base =  this.notes.get(0).getMidiNumber();
+		if (logger.isDebugEnabled()) {
+			logger.debug("base " + base);
+			//ArrayUtils.printArray(intervals, logger);
+		}
+		return MIDITrackFactory.createFromIntervals(intervals, base, 1,
+				false);
+	}
+
+	/**
+	 * Creates a new List of List<MIDINote> organized by the MIDINoteList's
+	 * note's channels. The original MIDINoteList is unchanged.
+	 * 
+	 * @return A List of a List of MIDINotes organized by channel
+	 */
+	public List<List<MIDINote>> channelize() {
+		List<List<MIDINote>> channelList = new ArrayList<List<MIDINote>>(16);
+		for (int i = 0; i < 16; i++) {
+			channelList.add(i, new ArrayList<MIDINote>());
+		}
+		for (MIDINote n : this.notes) {
+			int channel = n.getChannel();
+			List<MIDINote> list = channelList.get(channel);
+			list.add(n);
+		}
+		// remove all the empty ones
+		List<List<MIDINote>> channels = new ArrayList<List<MIDINote>>();
+		for (List<MIDINote> list : channelList) {
+			if (list.isEmpty() == false) {
+				channels.add(list);
+			}
+		}
+		return channels;
+	}
+	
+	/**
+	 * <code>setStartBeat</code>
+	 * 
+	 * @param b
+	 *            a <code>double</code> value
+	 */
+	public void setStartBeat(double b) {
+		double now = this.getStartBeat();
+		double diff = now - b;
+
+		if (b < 0) {
+			logger.error("setstrt < 0");
+			throw new IllegalArgumentException("Start beat < 0");
+		}
+
+		//TODO use the start beat modifier
+		for (MIDINote n : this.notes) {
+			double s = n.getStartBeat();
+			n.setStartBeat(s - diff);
+		}
+		
+//		StartBeatModifier m = new StartBeatModifier(Modifier.Operation.SUBTRACT);
+		//m.setValues(new double[]{diff});
+		//this.map(m);
+	}
+	
+	/**
+	 * <p>
+	 * </p>
+	 * 
+	 * @param selectedIndex
+	 * @param i
+	 */
+	public void changeStartBeatOfNoteAtIndex(int selectedIndex, double i) {
+		MIDINote n = this.get(selectedIndex);
+		n.setStartBeat(i);
+	}
+
+	public void changeDurationOfNoteAtIndex(int selectedIndex, double i) {
+		MIDINote n = this.get(selectedIndex);
+		n.setDuration(i);
+	}
+
+	/**
+	 * <code>getNoteDurations</code>
+	 * 
+	 * @return a <code>double[]</code> value
+	 */
+	public double[] getNoteDurations() {
+		int len = this.notes.size();
+		double[] durations = new double[len];
+		for (int i = 0; i < len; i++) {
+			MIDINote note = this.notes.get(i);
+			durations[i] = note.getDuration();
+		}
+		return durations;
+	}
+	
+	/**
+	 * <p>
+	 * </p>
+	 * 
+	 * @param selectedIndex
+	 * @param d
+	 */
+	public void changeEndBeatOfNoteAtIndex(int selectedIndex, double d) {
+		MIDINote n = this.get(selectedIndex);
+		n.setEndBeat(d);
+	}
+
+	/**
+	 * Get the MIDINote at the specified index and set its Pitch to the
+	 * specified pitch.
+	 * <p>
+	 * Fires a MIDINoteList.PITCH_CHANGE event.
+	 * 
+	 * @param selectedIndex
+	 *            The index of the MIDINote to be modified.
+	 * @param num
+	 *            The MIDI number of the pitch to set
+	 */
+	public void changePitchOfNoteAtIndex(int selectedIndex, int num) {
+		MIDINote n = this.get(selectedIndex);
+		n.setMidiNumber(num);
+	}
+
+	
+	/**
+	 * Does not create a defensive copy.
+	 * 
+	 * @return the keySignatureMap
+	 */
+	public NavigableMap<Double, KeySignature> getKeySignatures() {
+		return this.keySignatureMap;
+	}
+
+	/**
+	 * Does not create a defensive copy.
+	 * 
+	 * @return the timeSignatures
+	 */
+	public NavigableMap<Double, TimeSignature> getTimeSignatures() {
+		return this.timeSignatures;
+	}
+
+	/**
+	 * @param timeSignatures
+	 *            the timeSignatures to set
+	 */
+	public void setTimeSignatures(
+			NavigableMap<Double, TimeSignature> timeSignatures) {
+		this.timeSignatures = timeSignatures;
+	}
+
+	/**
+	 * This does no checking on whether the designated beat actually makes
+	 * sense.
+	 * 
+	 * @param beat
+	 * @param ts
+	 */
+	public void addTimeSignatureAtBeat(double beat, TimeSignature ts) {
+		this.timeSignatures.put(beat, ts);
+	}
+
+	public void addTimeSignatureAtBeat(double beat, int numerator,
+			int denominator) {
+		this.timeSignatures
+				.put(beat, new TimeSignature(numerator, denominator));
+	}
+
+	public void addKeySignatureAtBeat(double beat, KeySignature keysig) {
+		this.keySignatureMap.put(beat, keysig);
+	}
+
+	public KeySignature getKeySignatureAtBeat(double beat) {
+		KeySignature ks = null;
+		Double key = this.keySignatureMap.floorKey(beat);
+		if (key != null) {
+			ks = this.keySignatureMap.get(key);
+		}
+		return ks;
+	}
+
+	public List<Integer> getPitchClasses() {
+		List<Integer> pitchClasses = new ArrayList<Integer>();
+		for (MIDINote n : this) {
+			int pc = n.getPitch().getMidiNumber() % 12;
+			pitchClasses.add(pc);
+		}
+		return pitchClasses;
+	}
+
+	public List<Integer> getPitchesAsIntegers() {
+		List<Integer> pitches = new ArrayList<Integer>();
+		for (MIDINote n : this) {
+			int pc = n.getPitch().getMidiNumber();
+			pitches.add(pc);
+		}
+		return pitches;
+	}
+
+	public List<Pitch> getPitches() {
+		List<Pitch> pitches = new ArrayList<Pitch>();
+		for (MIDINote n : this) {
+			Pitch pc = n.getPitch();
+			pitches.add(pc);
+		}
+		return pitches;
+	}
+
+	public Set<Integer> getPitchClassSet() {
+		Set<Integer> pitchClasses = new TreeSet<Integer>();
+		for (MIDINote n : this) {
+			int pc = n.getPitch().getMidiNumber() % 12;
+			pitchClasses.add(pc);
+		}
+		return pitchClasses;
+	}
 }
