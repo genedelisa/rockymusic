@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class PitchFormat implements Serializable {
-	/**
+	/** 
      * 
      */
 	private static final long serialVersionUID = 1L;
@@ -160,37 +160,46 @@ public class PitchFormat implements Serializable {
 		}
 	}
 
-	/*
-	 * <p> </p>
-	 * 
+	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (displayAsSharp ? 1231 : 1237);
+		result = prime * result + justification;
+		result = prime * result + width;
+		return result;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
 			return true;
 		}
-		if (o instanceof PitchFormat == false) {
-			throw new IllegalArgumentException("Not a PitchFormat: " + o);
+		if (obj == null) {
+			return false;
 		}
-		PitchFormat op = (PitchFormat) o;
-		boolean val = false;
-		if (this.width == op.width) {
-			val = true;
-		} else {
-			val = false;
+		if (getClass() != obj.getClass()) {
+			return false;
 		}
-		if (this.justification == op.justification) {
-			val = true;
-		} else {
-			val = false;
+		PitchFormat other = (PitchFormat) obj;
+		if (displayAsSharp != other.displayAsSharp) {
+			return false;
 		}
-		if (this.displayAsSharp == op.displayAsSharp) {
-			val = true;
-		} else {
-			val = false;
+		if (justification != other.justification) {
+			return false;
 		}
-		return val;
+		if (width != other.width) {
+			return false;
+		}
+		return true;
 	}
 
 	/*

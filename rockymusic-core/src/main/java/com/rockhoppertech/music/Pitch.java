@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>
+ * <p> 
  * A representation of musical frequency (Pitch).
  * <p>
  * <p>
@@ -1677,8 +1677,13 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 
     public static final PitchClassComparator pitchClassComparator = new PitchClassComparator();
 
-    public static final class PitchClassComparator implements Comparator<Pitch> {
-        @Override
+    public static final class PitchClassComparator implements Comparator<Pitch>, Serializable {
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 4929792298044867022L;
+
+		@Override
         public int compare(Pitch o1, Pitch o2) {
             int val = 0;
             if (o1.getPitchClass() == o2.getPitchClass()) {

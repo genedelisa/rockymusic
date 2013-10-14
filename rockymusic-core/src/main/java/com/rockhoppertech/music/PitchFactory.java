@@ -52,6 +52,11 @@ public class PitchFactory {
 	private static Map<Integer, Pitch> pitches = new HashMap<Integer, Pitch>();
 	private static PitchFactory instance;
 
+	/**
+	 * Singleton pattern.
+	 * But, since all methods are static, this is not really needed.
+	 * @return a PitchFactory instance
+	 */
 	public static synchronized PitchFactory getInstance() {
 		if (instance == null) {
 			instance = new PitchFactory();

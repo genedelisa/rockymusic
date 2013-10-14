@@ -39,7 +39,7 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * @see Serializable
  * @see MIDINote
  */
-public class Note implements Comparable<Note>, Timed, Serializable {
+public class Note implements Comparable<Note>, Timed, Cloneable, Serializable {
 	/**
 	 * Class <code>BeatComparator</code> compares start beats
 	 * 
