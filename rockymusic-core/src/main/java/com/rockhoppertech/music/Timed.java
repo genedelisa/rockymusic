@@ -13,4 +13,4 @@ public interface Timed {
 
     public abstract void setDuration(double d);
 
-}
+} 
