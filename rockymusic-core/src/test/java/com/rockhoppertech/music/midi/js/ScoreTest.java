@@ -30,7 +30,8 @@ public class ScoreTest {
 		assertThat("The score is not null.", score, notNullValue());
 		assertThat("the pitch is E5", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.E5));
-		assertThat("there is 1 track", score.getTracks().size(), equalTo(1));
+		// Score automatically creates a metaevent track
+		assertThat("there are 2 track", score.getTracks().size(), equalTo(2));
 		assertThat("there are 2 notes on the track", track.getNotes().size(), equalTo(2));		
 	}
 
