@@ -15,4 +15,4 @@ public interface CircularList<E> extends List<E> {
 
     public abstract void reset();
 
-}
+} 

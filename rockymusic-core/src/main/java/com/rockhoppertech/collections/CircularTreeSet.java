@@ -37,9 +37,9 @@ public class CircularTreeSet<E> extends TreeSet<E> {
         }
     }
 
-    private Iterator<E> currentIterator = this.iterator();
+    private transient Iterator<E> currentIterator = this.iterator();
 
-    private Iterator<E> descendingIterator = this.descendingIterator();
+    private transient Iterator<E> descendingIterator = this.descendingIterator();
 
     public CircularTreeSet() {
     }

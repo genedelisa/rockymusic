@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  *
- * @param <E>
+ * @param <E> 
  */
 public class CircularArrayList<E> extends ArrayList<E> implements
         CircularList<E>,Serializable {
@@ -37,7 +37,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
         cal.add(3);
         for (int i = 0; i < 10; i++) {
             System.err.println("index " + i);
-            System.err.printf("value %d\n",
+            System.err.printf("value %d%n",
                               cal.next());
             System.err.printf("is first %b ",
                               cal.isFirst());
