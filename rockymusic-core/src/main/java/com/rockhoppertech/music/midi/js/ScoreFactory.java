@@ -24,7 +24,7 @@ public class ScoreFactory {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ScoreFactory.class);
 
-	public static Score readSequence(String filename) {
+	public static Score readSequence(String filename) throws InvalidMidiDataException , IOException {
 
 		Score score = new Score();
 		if (filename == null) {
@@ -33,10 +33,13 @@ public class ScoreFactory {
 
 		Sequence sequence = MIDIUtils.read(filename);
 		MidiFileFormat fileFormat = null;
+
 		try {
 			fileFormat = MidiSystem.getMidiFileFormat(new File(filename));
 		} catch (InvalidMidiDataException | IOException e) {
+			logger.error(e.getLocalizedMessage(), e);
 			e.printStackTrace();
+			throw e;
 		}
 
 		Track[] tracks = sequence.getTracks();
@@ -53,7 +56,7 @@ public class ScoreFactory {
 
 		if (fileFormat.getType() == 0) {
 			logger.debug("{} is a MIDI file type 0", filename);
-			logger.debug("{} tracks", tracks.length);			
+			logger.debug("{} tracks", tracks.length);
 			// well, it should be just one track
 			for (int i = 0; i < tracks.length; i++) {
 				track = MIDITrackFactory
@@ -67,13 +70,13 @@ public class ScoreFactory {
 				}
 				score.add(track);
 			}
-			
+
 		} else if (fileFormat.getType() == 1) {
 			logger.debug("{} is a MIDI file type 1", filename);
-			logger.debug("{} tracks", tracks.length);						
+			logger.debug("{} tracks", tracks.length);
 			Track metaTrack = tracks[0];
 			extractMetaData(score, metaTrack);
-			
+
 			for (int i = 1; i < tracks.length; i++) {
 				track = MIDITrackFactory
 						.trackToMIDITrack(tracks[i], resolution);
@@ -100,30 +103,35 @@ public class ScoreFactory {
 	private static void extractMetaData(Score score, Track metaTrack) {
 		score.setName(MIDIUtils.getSequenceTrackName(metaTrack));
 		logger.debug("Extracting meta data for {}", score.getName());
-		
-		//TODO do something with the rest of these guys
-		
+
+		// TODO do something with the rest of these guys
+
 		List<MidiEvent> allmeta = MIDIUtils.getMetaMessages(metaTrack);
 		logger.debug("there are {} meta messages", allmeta.size());
-		for(MidiEvent me: allmeta) {
-			logger.debug("meta {} at tick {}",MIDIUtils.toString(me.getMessage()), me.getTick());
+		for (MidiEvent me : allmeta) {
+			logger.debug(
+					"meta {} at tick {}",
+					MIDIUtils.toString(me.getMessage()),
+					me.getTick());
 		}
-		
-		
+
 		List<MidiEvent> keysigs = MIDIUtils.getKeySignatures(metaTrack);
 		logger.debug("there are {} keysigs", keysigs.size());
-		for(MidiEvent me: keysigs) {
-			logger.debug("key sig {}",MIDIUtils.toString(me.getMessage()));
+		for (MidiEvent me : keysigs) {
+			logger.debug("key sig {}", MIDIUtils.toString(me.getMessage()));
 		}
-		
+
 		List<MidiEvent> timesigs = MIDIUtils.getTimeSignatures(metaTrack);
 		logger.debug("there are {} timesigs", timesigs.size());
-		for(MidiEvent me: timesigs) {
-			logger.debug("timesig {} at tick {}",MIDIUtils.toString(me.getMessage()), me.getTick());			
+		for (MidiEvent me : timesigs) {
+			logger.debug(
+					"timesig {} at tick {}",
+					MIDIUtils.toString(me.getMessage()),
+					me.getTick());
 		}
-		
+
 		List<MetaMessage> mm = MIDIUtils.getMetaTextEvents(metaTrack);
-		for(MetaMessage m : mm) {
+		for (MetaMessage m : mm) {
 			logger.debug("{} metatext", MIDIUtils.toString(m));
 		}
 	}
@@ -132,15 +140,13 @@ public class ScoreFactory {
 	 * Create a JavaSound Sequence instance from the Score.
 	 * 
 	 * @param score
-	 * @param resolution
-	 *            in PPQ
 	 * @return the Sequence
 	 */
-	public static Sequence scoreToSequence(Score score, int resolution) {
+	public static Sequence scoreToSequence(Score score) {
 		Sequence sequence = null;
 		// scores have a list of MIDITracks
 		try {
-			sequence = new Sequence(Sequence.PPQ, resolution);
+			sequence = new Sequence(Sequence.PPQ, score.getResolution());
 
 			for (MIDITrack t : score) {
 				// convert the MIDITracks to Tracks
@@ -158,9 +164,8 @@ public class ScoreFactory {
 		return sequence;
 	}
 
-	public static Sequence writeToMIDIFile(String fileName, Score score,
-			int resolution) {
-		Sequence s = scoreToSequence(score, resolution);
+	public static Sequence writeToMIDIFile(String fileName, Score score) {
+		Sequence s = scoreToSequence(score);
 		MIDIUtils.write(s, fileName);
 		return s;
 	}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.sound.midi.Sequence;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +78,12 @@ public class Score implements Iterable<MIDITrack> {
 
 	public void setResolution(int resolution) {
 		this.resolution = resolution;
+	}
+	
+	public void play() {
+		//Sequence sequence = ScoreFactory.scoreToSequence(this);
+		MIDIPerformer perf = new MIDIPerformer();
+		perf.play(this);
 	}
 
 }
