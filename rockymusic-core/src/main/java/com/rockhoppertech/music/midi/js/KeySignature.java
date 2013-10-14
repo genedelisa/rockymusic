@@ -16,8 +16,8 @@ import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.Track;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
@@ -37,7 +37,9 @@ import com.rockhoppertech.music.PitchFactory;
  */
 @SuppressWarnings("serial")
 public class KeySignature implements Serializable {
-    private final static Log logger = LogFactory.getLog(KeySignature.class);
+    private static final Logger logger = LoggerFactory
+			.getLogger(KeySignature.class);
+    
     static final Map<String, KeySignature> names;
     static final Map<Integer, KeySignature> major;
     static final Map<Integer, KeySignature> minor;
