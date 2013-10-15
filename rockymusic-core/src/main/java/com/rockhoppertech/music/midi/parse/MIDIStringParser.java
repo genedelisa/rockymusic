@@ -153,7 +153,7 @@ public class MIDIStringParser {
         } else {
         	String tok = sc.next();
         	sc.close();
-            throw new IllegalArgumentException(String
+            throw new MIDIParserException(String
                     .format("Bad pitch token '%s'",
                             tok));
         }
@@ -169,7 +169,7 @@ public class MIDIStringParser {
 
         if (sc.hasNext(DurationParser.allPattern)) {
             String tok = sc.next(DurationParser.allPattern);
-            logger.debug("token " + tok);
+            logger.debug("token {}", tok);
             duration = DurationParser.getDuration(tok);
         } else if (sc.hasNextDouble()) {
             duration = sc.nextDouble();
@@ -182,6 +182,11 @@ public class MIDIStringParser {
                           p,
                           n,
                           runningOctave));
+        
+        logger.debug("pitch {} note {} running octave {}",
+                p,
+                n,
+                runningOctave);
 
         if (sc.hasNextInt()) {
             int velocity = sc.nextInt();
@@ -242,7 +247,7 @@ public class MIDIStringParser {
             logger.debug("short " + p);
         } else {
         	sc.close();
-            throw new IllegalArgumentException(String
+            throw new MIDIParserException(String
                     .format("Bad pitch token '%s'",
                             sc.next()));
         }
@@ -287,8 +292,7 @@ public class MIDIStringParser {
 
     public MIDITrack parseString(String s) {
     	MIDITrack list = new MIDITrack();
-        return parseString(list,
-                           s);
+        return parseString(list, s);
     }
 
     public MIDITrack parseString(MIDITrack list, String s) {
@@ -298,20 +302,17 @@ public class MIDIStringParser {
         boolean isRunningVelocitySet = false;
         double startBeat = -1d; // an invalid value
 
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("scanning '%s'",
-                                       s));
-        }
+        logger.debug("scanning '{}'", s);
+
         if (s != null && !s.equals("")) {
             Scanner sc = new Scanner(s);
             // sc.useDelimiter("\\W");
 
             while (sc.hasNext()) {
                 String tok = sc.next();
-                if (logger.isDebugEnabled()) {
-                    logger.debug(String.format("token '%s'",
-                                               tok));
-                }
+
+                logger.debug("token '{}'",  tok);
+
 
                 // if (tok.contains("+")) {
                 // MIDINoteList chord = parseChord(tok);
@@ -346,13 +347,7 @@ public class MIDIStringParser {
                         op = op.substring(1);
                         if (op != null && !op.equals("")) {
                             startBeat = Double.parseDouble(op);
-                            if (logger.isDebugEnabled()) {
-                                String st = String
-                                        .format("Start op arg '%s'=%f%n",
-                                                op,
-                                                startBeat);
-                                logger.debug(st);
-                            }
+                            logger.debug("Start op arg '{}'={}",  op, startBeat);
                         }
                     }
                     continue;
@@ -360,7 +355,7 @@ public class MIDIStringParser {
 
                 // will create a ShortMessage.PROGRAM_CHANGE
                 if (tok.startsWith("I") || tok.startsWith("i")) {
-                    try {
+                  //  try {
                         // skip over I
                         tok = tok.substring(1);
                         if (tok.startsWith("\"")) {
@@ -385,9 +380,9 @@ public class MIDIStringParser {
                         }
 
                         isRunningProgramSet = true;
-                    } catch (IllegalArgumentException e) {
-                    	 logger.error(e.getLocalizedMessage(), e);
-                    }
+					// } catch (MIDIParserException e) {
+					// logger.error(e.getLocalizedMessage(), e);
+					// }
                     continue;
                 }
 
@@ -401,13 +396,10 @@ public class MIDIStringParser {
 
                 	 if (startBeat != -1d) {
                          note.setStartBeat(startBeat);
-                         if (logger.isDebugEnabled()) {
-                             String st = String
-                                     .format("Set start beat to %f for %s%n",
-                                             startBeat,
-                                             note);
-                             logger.debug(st);
-                         }
+                             logger.debug("Set start beat to {} for {}",
+                                     startBeat,
+                                     note);
+
                      }
                     list.add(note);
                     if (logger.isDebugEnabled()) {
@@ -418,14 +410,12 @@ public class MIDIStringParser {
                 } else if (startOp == StartMode.APPEND) {
                 	// since append ignores startbeat, there's no point in specifying it!
                 	// parseBrief is just pitch and duration.
+
                 	note = parseBriefNote(tok);
+                	logger.debug("APPEND, parsing brief. note {} ", note);
                 	
                     list.append(note);
-                    if (logger.isDebugEnabled()) {
-                        String st = String.format("appended %s",
-                                                  note);
-                        logger.debug(st);
-                    }
+                        logger.debug("appended {}", note);
                 }
                 
                 if (isRunningDurationSet) {
