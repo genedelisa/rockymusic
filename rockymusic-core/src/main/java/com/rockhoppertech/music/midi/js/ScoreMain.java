@@ -49,6 +49,10 @@ public class ScoreMain {
 		System.out.println(score);
 
 		Sequence sequence = ScoreFactory.scoreToSequence(score);
+		if(sequence == null) {
+			System.err.println("oops");
+			return;
+		}
 		MIDIPerformer perf = new MIDIPerformer();
 		perf.play(sequence);
 
