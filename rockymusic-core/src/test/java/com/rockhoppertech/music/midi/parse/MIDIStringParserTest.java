@@ -511,7 +511,7 @@ public class MIDIStringParserTest {
 	/**
 	 * If you specify a pitch incorrectly, you should get this exception.
 	 */
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = MIDIParserException.class)
 	public void expectBadNote() {
 		String s;
 		s = "Z";
