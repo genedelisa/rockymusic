@@ -23,11 +23,11 @@ import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
 
-
 /**
  * A rewrite of my ancient MIDITrack from the 1990s.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
@@ -39,25 +39,24 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			.getLogger(MIDITrack.class);
 
 	private String name;
-	private String description;	
-	
+	private String description;
 
 	private List<MIDIEvent> events;
 	private List<MIDINote> notes;
-	
-	private NavigableMap<Double, TimeSignature>	timeSignatures		= new TreeMap<Double, TimeSignature>();
-	private NavigableMap<Double, KeySignature>	keySignatureMap		= new TreeMap<Double, KeySignature>();
-	private transient MIDIStringParser midiStringParser	= new MIDIStringParser();
+
+	private NavigableMap<Double, TimeSignature> timeSignatures = new TreeMap<Double, TimeSignature>();
+	private NavigableMap<Double, KeySignature> keySignatureMap = new TreeMap<Double, KeySignature>();
+	private transient MIDIStringParser midiStringParser = new MIDIStringParser();
 
 	public MIDITrack() {
 		this.events = new ArrayList<>();
 		this.notes = new ArrayList<>();
 	}
-	
+
 	/**
-	 * Initializes a new MIDITrack instance as a deep copy of specified MIDITrack.
-	 * Sort of like a C++ copy constructor (- but without C++ crap like virtual
-	 * destructors and overloaded operators...) 
+	 * Initializes a new MIDITrack instance as a deep copy of specified
+	 * MIDITrack. Sort of like a C++ copy constructor (- but without C++ crap
+	 * like virtual destructors and overloaded operators...)
 	 * 
 	 * <blockquote>
 	 * 
@@ -75,8 +74,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 */
 	public MIDITrack(MIDITrack orig) {
 		this();
-		if(orig.getName() != null)
-		this.name = new String(orig.getName());
+		if (orig.getName() != null)
+			this.name = new String(orig.getName());
 		if (orig.getDescription() != null)
 			this.description = new String(orig.getDescription());
 
@@ -87,18 +86,18 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			this.events.add(new MIDIEvent(n.toMidiEvent()));
 		}
 
-//		NavigableMap<Double, TimeSignature> ts = orig.getTimeSignatures();
-//		for (Iterator<Double> i = ts.keySet().iterator(); i.hasNext();) {
-//			double time = i.next();
-//			TimeSignature sig = ts.get(time);
-//			this.timeSignatures.put(time, sig);
-//		}
-//
-//		NavigableMap<Double, KeySignature> ks = orig.keySignatureMap;
-//		for (Double time : ks.keySet()) {
-//			KeySignature sig = ks.get(time);
-//			this.keySignatureMap.put(time, sig);
-//		}
+		// NavigableMap<Double, TimeSignature> ts = orig.getTimeSignatures();
+		// for (Iterator<Double> i = ts.keySet().iterator(); i.hasNext();) {
+		// double time = i.next();
+		// TimeSignature sig = ts.get(time);
+		// this.timeSignatures.put(time, sig);
+		// }
+		//
+		// NavigableMap<Double, KeySignature> ks = orig.keySignatureMap;
+		// for (Double time : ks.keySet()) {
+		// KeySignature sig = ks.get(time);
+		// this.keySignatureMap.put(time, sig);
+		// }
 		// for (Iterator<Double> i = ts.keySet().iterator(); i.hasNext();) {
 		// double time = i.next();
 		// KeySignature sig = ks.get(time);
@@ -106,10 +105,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		// }
 
 	}
-	
+
 	/**
-	 * Initializes a new <code>MIDITrack</code> instance. The MIDINotes from
-	 * the provided collection are copied - not cloned.
+	 * Initializes a new <code>MIDITrack</code> instance. The MIDINotes from the
+	 * provided collection are copied - not cloned.
 	 * 
 	 * @param c
 	 *            a <code>Collection<MIDINote></code> value
@@ -120,11 +119,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			this.notes.add(n);
 		}
 	}
-	
+
 	/**
 	 * Parses a note string. It is not sequential by default since the
-	 * noteString
-	 * may contain start beats and durations.
+	 * noteString may contain start beats and durations.
 	 * 
 	 * @param noteString
 	 * @see MIDIStringParser
@@ -134,7 +132,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		this.midiStringParser.parseString(this, noteString);
 	}
 
-	
 	public String getDescription() {
 		return description;
 	}
@@ -142,7 +139,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public MIDITrack add(MIDIEvent event) {
 		this.events.add(event);
 		return this;
@@ -177,8 +174,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		return this.notes.iterator();
 	}
 
-	
-
 	public MIDITrack append(MIDINote note) {
 		double end = this.getEndBeat();
 		note.setStartBeat(end);
@@ -194,7 +189,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	public int size() {
 		return this.notes.size();
 	}
-	
+
 	public boolean contains(Pitch p) {
 		for (MIDINote n : this) {
 			if (n.getPitch().equals(p))
@@ -220,8 +215,42 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
 		return sb.toString();
 	}
-	
-	
+
+	public String toBriefMIDIString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("S+ ");
+		for (MIDINote note : this.notes) {
+			sb.append(PitchFormat.getInstance().format(note.getPitch()))
+					.append(",");
+			sb.append(note.getDuration()).append(' ');
+		}
+
+		// for (MIDIEvent n : this.events) {
+		// sb.append(n.toReadableString()).append('\n');
+		// }
+
+		return sb.toString();
+	}
+
+	public String toMIDIString() {
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote note : this.notes) {
+			String s = String.format("%s,%f,%f,%d,%d,%d,%d,%d,%d",
+					note.getPitch(),
+					note.getStartBeat(),
+					note.getDuration(),
+					note.getVelocity(),
+					note.getPan(),
+					note.getChannel(),
+					note.getBank(),
+					note.getProgram(),
+					note.getPitchBend()
+					);
+			sb.append(s).append("\n");
+		}
+		return sb.toString();
+	}
+
 	/**
 	 * returns the last MIDINote in the list
 	 * 
@@ -395,7 +424,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		boolean b = false;
 		b = this.notes.remove(n);
 		if (!b) {
-			logger.debug(String.format("%s did not exist in this notelist%n", n));
+			logger.debug(String
+					.format("%s did not exist in this notelist%n", n));
 			return;
 		}
 	}
@@ -438,8 +468,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		MIDINote n = this.get(index);
 		this.notes.remove(n);
 	}
-
-	
 
 	/**
 	 * <code>remove</code>
@@ -695,7 +723,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return longest;
 	}
-	
+
 	/**
 	 * <code>getPitchIntervals</code> returns intervals in relation to each
 	 * other.
@@ -729,7 +757,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return intervals;
 	}
-	
+
 	/**
 	 * Reset each note's startBeat. The pad is 0.
 	 */
@@ -874,8 +902,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	/**
 	 * Modify MIDINotes only if the specified criteria tests true.
 	 * 
-	 * This is the preferred way. MIDITrack has two special criteria for
-	 * start beats. With this you can build arbitrary criteria. If the specified
+	 * This is the preferred way. MIDITrack has two special criteria for start
+	 * beats. With this you can build arbitrary criteria. If the specified
 	 * critera are true then the note is modified.
 	 * 
 	 * <blockquote>
@@ -910,51 +938,51 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * @see com.rockhoppertech.music.midi.js.MIDITrack#map(NoteModifier)
 	 * @see com.rockhoppertech.music.modifiers.criteria.ModifierCriteria
 	 */
-//	public MIDITrack map(NoteModifier mod, ModifierCriteria criteria) {
-//		for (MIDINote n : this) {
-//			if (criteria.test(n)) {
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("Passed " + n);
-//				}
-//				mod.modify(n);
-//			} else {
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("Failed " + n);
-//				}
-//			}
-//		}
-//		return this;
-//	}
+	// public MIDITrack map(NoteModifier mod, ModifierCriteria criteria) {
+	// for (MIDINote n : this) {
+	// if (criteria.test(n)) {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("Passed " + n);
+	// }
+	// mod.modify(n);
+	// } else {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("Failed " + n);
+	// }
+	// }
+	// }
+	// return this;
+	// }
 
-//	public MIDITrack map(MIDINoteModifier mod, ModifierCriteria criteria) {
-//		for (MIDINote n : this) {
-//			if (criteria.test(n)) {
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("Passed " + n);
-//				}
-//				mod.modify(n);
-//			} else {
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("Failed " + n);
-//				}
-//			}
-//		}
-//		return this;
-//	}
-	
+	// public MIDITrack map(MIDINoteModifier mod, ModifierCriteria criteria) {
+	// for (MIDINote n : this) {
+	// if (criteria.test(n)) {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("Passed " + n);
+	// }
+	// mod.modify(n);
+	// } else {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("Failed " + n);
+	// }
+	// }
+	// }
+	// return this;
+	// }
+
 	public void play() {
 		MIDIPerformer perf = new MIDIPerformer();
 		perf.play(this);
 	}
-	
+
 	/**
-	 * <code>retrograde</code> simply reverses the order of the notes list. The beats
-	 * of the Notes are not modified. It is assumed that you will change them yourself or just ignore them.
+	 * <code>retrograde</code> simply reverses the order of the notes list. The
+	 * beats of the Notes are not modified. It is assumed that you will change
+	 * them yourself or just ignore them.
 	 * 
-	 * The original track is not modified
-	 * either.
+	 * The original track is not modified either.
 	 * 
-	 * @return a new <code>MIDITrack</code> 
+	 * @return a new <code>MIDITrack</code>
 	 */
 	public MIDITrack retrograde() {
 		List<MIDINote> retro = new ArrayList<>();
@@ -963,10 +991,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			retro.add((MIDINote) n.clone());
 		}
 		Collections.reverse(retro);
-		//Collections.sort(retro, new NotePitchComparator(false));
+		// Collections.sort(retro, new NotePitchComparator(false));
 		return new MIDITrack(retro);
 	}
-
 
 	public double getEndBeatOfNote(MIDINote test) {
 		double endBeat = 0d;
@@ -1013,7 +1040,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	public double getDuration() {
 		return this.getEndBeat() - this.getStartBeat();
 	}
-	
+
 	public static String getDurationsAsString(MIDITrack n) {
 		StringBuilder sb = new StringBuilder();
 		for (MIDINote note : n) {
@@ -1022,7 +1049,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return sb.toString();
 	}
-	
+
 	public static String getPitchesAsString(MIDITrack n) {
 		StringBuilder sb = new StringBuilder();
 		for (MIDINote note : n) {
@@ -1039,7 +1066,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * <p>
 	 * </p>
@@ -1050,7 +1077,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	public int indexOfNote(MIDINote note) {
 		return this.notes.indexOf(note);
 	}
-	
+
 	/**
 	 * <code>sublist</code> will get MIDINotes with start times between the
 	 * given times (inclusive). The MIDINotes contained are "live" - not cloned
@@ -1130,10 +1157,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		MIDITrack list = new MIDITrack(sl);
 		return list;
 	}
-	
+
 	/**
-	 * <code>sublist</code> is sort of a band pass filter. Returns a MIDITrack with
-	 * MIDINotes in the given range. No modifications to start times or any
+	 * <code>sublist</code> is sort of a band pass filter. Returns a MIDITrack
+	 * with MIDINotes in the given range. No modifications to start times or any
 	 * other parameters.
 	 * 
 	 * @param low
@@ -1170,10 +1197,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		for (int i = 0; i < intervals.length; i++) {
 			intervals[i] *= -1;
 		}
-		int base =  this.notes.get(0).getMidiNumber();
+		int base = this.notes.get(0).getMidiNumber();
 		if (logger.isDebugEnabled()) {
 			logger.debug("base " + base);
-			//ArrayUtils.printArray(intervals, logger);
+			// ArrayUtils.printArray(intervals, logger);
 		}
 		return MIDITrackFactory.createFromIntervals(intervals, base, 1,
 				false);
@@ -1204,7 +1231,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return channels;
 	}
-	
+
 	/**
 	 * <code>setStartBeat</code>
 	 * 
@@ -1220,17 +1247,18 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			throw new IllegalArgumentException("Start beat < 0");
 		}
 
-		//TODO use the start beat modifier
+		// TODO use the start beat modifier
 		for (MIDINote n : this.notes) {
 			double s = n.getStartBeat();
 			n.setStartBeat(s - diff);
 		}
-		
-//		StartBeatModifier m = new StartBeatModifier(Modifier.Operation.SUBTRACT);
-		//m.setValues(new double[]{diff});
-		//this.map(m);
+
+		// StartBeatModifier m = new
+		// StartBeatModifier(Modifier.Operation.SUBTRACT);
+		// m.setValues(new double[]{diff});
+		// this.map(m);
 	}
-	
+
 	/**
 	 * <p>
 	 * </p>
@@ -1262,7 +1290,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		}
 		return durations;
 	}
-	
+
 	/**
 	 * <p>
 	 * </p>
@@ -1291,7 +1319,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		n.setMidiNumber(num);
 	}
 
-	
 	/**
 	 * Does not create a defensive copy.
 	 * 
