@@ -1134,20 +1134,20 @@ public class MIDITrackTest {
 		assertThat(
 				"the string's contents are correct",
 				s.trim(),
-				equalToIgnoringCase("S+ C5 ,1.0 D5 ,1.0 E5 ,1.0 F5 ,1.0 G5 ,1.0 A5 ,1.0 B5 ,1.0"));
+				equalToIgnoringCase("S+ C5,1.0 D5,1.0 E5,1.0 F5,1.0 G5,1.0 A5,1.0 B5,1.0"));
 	}
 
 	@Test
 	public void shoudCreateMIDIString() {
 		String s = testTrack.toMIDIString();
 		StringBuilder sb = new StringBuilder();
-		sb.append("C5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("D5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("E5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("F5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("G5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("A5 ,1.000000,1.000000,64,64,0,0,0,0").append('\n');
-		sb.append("B5 ,1.000000,1.000000,64,64,0,0,0,0");
+		sb.append("C5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("D5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("E5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("F5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("G5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("A5,1.000,1.000,64,64,0,0,0,0").append('\n');
+		sb.append("B5,1.000,1.000,64,64,0,0,0,0");
 		
 		// logger.debug("MIDI String: {}", s);
 		System.out.println(s);
@@ -1156,7 +1156,7 @@ public class MIDITrackTest {
 		assertThat(
 				"the string's contents are correct",
 				s.trim(),
-				equalTo(sb.toString()));
+				equalToIgnoringCase(sb.toString()));
 		
 	}
 

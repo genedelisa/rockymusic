@@ -220,7 +220,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		StringBuilder sb = new StringBuilder();
 		sb.append("S+ ");
 		for (MIDINote note : this.notes) {
-			sb.append(PitchFormat.getInstance().format(note.getPitch()))
+			sb.append(PitchFormat.getInstance().format(note.getPitch()).trim())
 					.append(",");
 			sb.append(note.getDuration()).append(' ');
 		}
@@ -235,8 +235,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	public String toMIDIString() {
 		StringBuilder sb = new StringBuilder();
 		for (MIDINote note : this.notes) {
-			String s = String.format("%s,%f,%f,%d,%d,%d,%d,%d,%d",
-					note.getPitch(),
+			String s = String.format("%s,%.3f,%.3f,%d,%d,%d,%d,%d,%d",
+					PitchFormat.getInstance().format(note.getPitch()).trim(),
 					note.getStartBeat(),
 					note.getDuration(),
 					note.getVelocity(),
