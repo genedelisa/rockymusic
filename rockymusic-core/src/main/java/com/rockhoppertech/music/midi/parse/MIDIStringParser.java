@@ -27,410 +27,586 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
  * 
  */
 /**
- *
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class MIDIStringParser {
-    private static final Logger logger = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(MIDIStringParser.class);
 
-    public MIDITrack parseChord(String s) {
-    	MIDITrack list = new MIDITrack();
-        Scanner sc = new Scanner(s);
-        sc.useDelimiter("+");
-        while (sc.hasNext()) {
-            String p = sc.next();
-            MIDINote n = parseNote(p);
-            list.add(n);
-        }
-        sc.close();
-        return list;
-    }
+	public MIDITrack parseChord(String s) {
+		MIDITrack list = new MIDITrack();
+		Scanner sc = new Scanner(s);
+		sc.useDelimiter("+");
+		while (sc.hasNext()) {
+			String p = sc.next();
+			MIDINote n = parseNote(p);
+			list.add(n);
+		}
+		sc.close();
+		return list;
+	}
 
-    public static String createString(MIDITrack notelist) {
-        // Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Pitchbend
-        StringBuilder sb = new StringBuilder();
-        for (MIDINote n : notelist) {
-            sb.append(n.getPitch().toString().trim()).append(',');
-            sb.append(n.getStartBeat()).append(',');
-            sb.append(n.getDuration()).append(',');
-            sb.append(n.getVelocity()).append(',');
-            sb.append(n.getPan()).append(',');
-            sb.append(n.getChannel()).append(',');
-            sb.append(n.getBank()).append(',');
-            sb.append(n.getProgram()).append(',');
-            sb.append(n.getPitchBend()).append(' ');
-        }
-        return sb.toString();
-    }
-    public static String createStringBrief(MIDITrack notelist) {
-        // Pitch, Start beat, Duration
-        StringBuilder sb = new StringBuilder();
-        for (MIDINote n : notelist) {
-            sb.append(n.getPitch().toString().trim()).append(',');
-            sb.append(n.getStartBeat()).append(',');
-            sb.append(n.getDuration()).append(' ');
-        }
-        return sb.toString();
-    }
+	public static String createString(MIDITrack notelist) {
+		// Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Pitchbend
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote n : notelist) {
+			sb.append(n.getPitch().toString().trim()).append(',');
+			sb.append(n.getStartBeat()).append(',');
+			sb.append(n.getDuration()).append(',');
+			sb.append(n.getVelocity()).append(',');
+			sb.append(n.getPan()).append(',');
+			sb.append(n.getChannel()).append(',');
+			sb.append(n.getBank()).append(',');
+			sb.append(n.getProgram()).append(',');
+			sb.append(n.getPitchBend()).append(' ');
+		}
+		return sb.toString();
+	}
 
-    /*
-     *  +    The plus sign indicates that there is one or more
-     *  ?    The question mark indicates there is zero or one 
-     *  *   The asterisk indicates there are zero or more 
-     */
+	public static String createStringBrief(MIDITrack notelist) {
+		// Pitch, Start beat, Duration
+		StringBuilder sb = new StringBuilder();
+		for (MIDINote n : notelist) {
+			sb.append(n.getPitch().toString().trim()).append(',');
+			sb.append(n.getStartBeat()).append(',');
+			sb.append(n.getDuration()).append(' ');
+		}
+		return sb.toString();
+	}
 
-    public final static int REGEX_FLAGS = Pattern.CASE_INSENSITIVE
-            | Pattern.UNICODE_CASE | Pattern.CANON_EQ;
-    // any whitespace followed by one or more pc specifiers (C, Ef, F#) then one
-    // or more octave chars
-    // (e.g. octave 10 is two chars)
-    static Pattern fullPitchPattern = Pattern.compile("\\s*[A-Ga-gsS#]+[0-9]+",
-                                                      REGEX_FLAGS);
-    static Pattern shortPitchPattern = Pattern.compile("\\s*[A-Ga-gsS#]+\\s*");
+	/*
+	 * + The plus sign indicates that there is one or more ? The question mark
+	 * indicates there is zero or one * The asterisk indicates there are zero or
+	 * more
+	 */
 
-    public void setRunningOctave(int runningOctave) {
-        this.runningOctave = runningOctave;
-    }
+	public final static int REGEX_FLAGS = Pattern.CASE_INSENSITIVE
+			| Pattern.UNICODE_CASE | Pattern.CANON_EQ;
+	// any whitespace followed by one or more pc specifiers (C, Ef, F#) then one
+	// or more octave chars
+	// (e.g. octave 10 is two chars)
+	static Pattern fullPitchPattern = Pattern.compile("\\s*[A-Ga-gsS#]+[0-9]+",
+			REGEX_FLAGS);
+	static Pattern shortPitchPattern = Pattern.compile("\\s*[A-Ga-gsS#]+\\s*");
 
-    public Pitch parsePitch(String s) {
-        //TODO need this? not used yet
-        // ?:  Non-capturing parentheses
-      //  String noteNameWithOctave1 = "([A-G](?:bb|b||f||#|s|x))(\\d)";
-        String noteNameWithOctave = "(([A-G])(bb|b||f||#|s|x)(\\d))";
-        Pattern pattern = Pattern.compile(noteNameWithOctave,
-                                          REGEX_FLAGS);
-        Matcher match = pattern.matcher(s);
-        if (match.matches()) {
-            // the entire thing
-            System.err.println(match.group(0));
-            // the letter number
-            System.err.println(match.group(1));
-            // the octave
-            System.err.println(match.group(2));
-            System.err.println(match.group(3));
-            
-            String letter = match.group(1);
-            String oct = match.group(2);
-            System.err.println("letter " + letter);
-            System.err.println("oct " + oct);
-     
-        }
+	public void setRunningOctave(int runningOctave) {
+		this.runningOctave = runningOctave;
+	}
 
-        return null;
-    }
+	public Pitch parsePitch(String s) {
+		// TODO need this? not used yet
+		// ?: Non-capturing parentheses
+		// String noteNameWithOctave1 = "([A-G](?:bb|b||f||#|s|x))(\\d)";
+		String noteNameWithOctave = "(([A-G])(bb|b||f||#|s|x)(\\d))";
+		Pattern pattern = Pattern.compile(noteNameWithOctave,
+				REGEX_FLAGS);
+		Matcher match = pattern.matcher(s);
+		if (match.matches()) {
+			// the entire thing
+			System.err.println(match.group(0));
+			// the letter number
+			System.err.println(match.group(1));
+			// the octave
+			System.err.println(match.group(2));
+			System.err.println(match.group(3));
 
-    /**
-     * Format:
-     * <p>
-     *  Pitch
-     *  Pitch, Start beat
-     *  Pitch, Start beat, Duration
-     *  Pitch, Start beat, Duration, Velocity
-     *  Pitch, Start beat, Duration, Velocity, Pan
-     *  Pitch, Start beat, Duration, Velocity, Pan, Channel
-     *  Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Program
-     *  Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Program, Pitchbend  
-     *  
-     * @param s
-     * @return
-     */
-    public MIDINote parseNote(String s) {
-        MIDINote n = null;
-        Scanner sc = new Scanner(s);
-        sc.useDelimiter(",");
-        
+			String letter = match.group(1);
+			String oct = match.group(2);
+			System.err.println("letter " + letter);
+			System.err.println("oct " + oct);
 
-        String p = null;
+		}
 
-        if (sc.hasNext(fullPitchPattern)) {
-            p = sc.next();
-        } else if (sc.hasNext(shortPitchPattern)) {
-            p = sc.next();
-            p += this.runningOctave;
-            logger.debug("short " + p);
-        } else {
-        	String tok = sc.next();
-        	sc.close();
-            throw new MIDIParserException(String
-                    .format("Bad pitch token '%s'",
-                            tok));
-        }
+		return null;
+	}
 
-        double start = 1d;
-        double duration = 1d;
+	/**
+	 * Format:
+	 * <p>
+	 * Pitch Pitch, Start beat Pitch, Start beat, Duration Pitch, Start beat,
+	 * Duration, Velocity Pitch, Start beat, Duration, Velocity, Pan Pitch,
+	 * Start beat, Duration, Velocity, Pan, Channel Pitch, Start beat, Duration,
+	 * Velocity, Pan, Channel, Bank, Program Pitch, Start beat, Duration,
+	 * Velocity, Pan, Channel, Bank, Program, Pitchbend
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public MIDINote parseNote(String s) {
+		MIDINote n = null;
+		Scanner sc = new Scanner(s);
+		sc.useDelimiter(",");
 
-        if (sc.hasNextDouble()) {
-            start = sc.nextDouble();
-        }
+		String p = null;
 
-        // couldBeDurationString(tok);
+		if (sc.hasNext(fullPitchPattern)) {
+			p = sc.next();
+		} else if (sc.hasNext(shortPitchPattern)) {
+			p = sc.next();
+			p += this.runningOctave;
+			logger.debug("short " + p);
+		} else {
+			String tok = sc.next();
+			sc.close();
+			throw new MIDIParserException(String
+					.format("Bad pitch token '%s'",
+							tok));
+		}
 
-        if (sc.hasNext(DurationParser.allPattern)) {
-            String tok = sc.next(DurationParser.allPattern);
-            logger.debug("token {}", tok);
-            duration = DurationParser.getDuration(tok);
-        } else if (sc.hasNextDouble()) {
-            duration = sc.nextDouble();
-        }
+		double start = 1d;
+		double duration = 1d;
 
-        n = new MIDINote(p, start, duration);
-        runningOctave = n.getPitch().getMidiNumber() / 12;
-        logger.debug(
-        String.format("p %s note %s ro %d",
-                          p,
-                          n,
-                          runningOctave));
-        
-        logger.debug("pitch {} note {} running octave {}",
-                p,
-                n,
-                runningOctave);
+		if (sc.hasNextDouble()) {
+			start = sc.nextDouble();
+		}
 
-        if (sc.hasNextInt()) {
-            int velocity = sc.nextInt();
-            n.setVelocity(velocity);
-        }
+		// couldBeDurationString(tok);
 
-        if (sc.hasNextInt()) {
-            int pan = sc.nextInt();
-            n.setPan(pan);
-        }
+		if (sc.hasNext(DurationParser.allPattern)) {
+			String tok = sc.next(DurationParser.allPattern);
+			logger.debug("token {}", tok);
+			duration = DurationParser.getDuration(tok);
+		} else if (sc.hasNextDouble()) {
+			duration = sc.nextDouble();
+		}
 
-        if (sc.hasNextInt()) {
-            int channel = sc.nextInt();
-            n.setChannel(channel);
-        }
+		n = new MIDINote(p, start, duration);
+		runningOctave = n.getPitch().getMidiNumber() / 12;
+		logger.debug(
+				String.format("p %s note %s ro %d",
+						p,
+						n,
+						runningOctave));
 
-        if (sc.hasNextInt()) {
-            int bank = sc.nextInt();
-            n.setBank(bank);
-        }
-        if (sc.hasNextInt()) {
-            int program = sc.nextInt();
-            n.setProgram(program);
-        }
+		logger.debug("pitch {} note {} running octave {}",
+				p,
+				n,
+				runningOctave);
 
-        if (sc.hasNextInt()) {
-            int pb = sc.nextInt();
-            n.setPitchBend(pb);
-        }
-        sc.close();
-        return n;
-    }
-    /**
-     * Just the pitch and duration. The start beatw will be 1.
-     * Tell the track to be sequential if desired: track.sequential()
-     * 
-     * Format:
-     * <p>
-     *  Pitch
-     *  Pitch, Duration  
-     *  
-     * @param s
-     * @return
-     */
-    public MIDINote parseBriefNote(String s) {
-        MIDINote n = null;
-        Scanner sc = new Scanner(s);
-        sc.useDelimiter(",");
-        
+		if (sc.hasNextInt()) {
+			int velocity = sc.nextInt();
+			n.setVelocity(velocity);
+		}
 
-        String p = null;
+		if (sc.hasNextInt()) {
+			int pan = sc.nextInt();
+			n.setPan(pan);
+		}
 
-        if (sc.hasNext(fullPitchPattern)) {
-            p = sc.next();
-        } else if (sc.hasNext(shortPitchPattern)) {
-            p = sc.next();
-            p += this.runningOctave;
-            logger.debug("short " + p);
-        } else {
-        	sc.close();
-            throw new MIDIParserException(String
-                    .format("Bad pitch token '%s'",
-                            sc.next()));
-        }
+		if (sc.hasNextInt()) {
+			int channel = sc.nextInt();
+			n.setChannel(channel);
+		}
 
+		if (sc.hasNextInt()) {
+			int bank = sc.nextInt();
+			n.setBank(bank);
+		}
+		if (sc.hasNextInt()) {
+			int program = sc.nextInt();
+			n.setProgram(program);
+		}
 
-        double duration = 1d;
-        if (sc.hasNext(DurationParser.allPattern)) {
-            String tok = sc.next(DurationParser.allPattern);
-            logger.debug("token " + tok);
-            duration = DurationParser.getDuration(tok);
-        } else if (sc.hasNextDouble()) {
-            duration = sc.nextDouble();
-        }
+		if (sc.hasNextInt()) {
+			int pb = sc.nextInt();
+			n.setPitchBend(pb);
+		}
+		sc.close();
+		return n;
+	}
 
-        n = new MIDINote(p, 1d, duration);
-        runningOctave = n.getPitch().getMidiNumber() / 12;
-        logger.debug(
-        String.format("p %s note %s ro %d",
-                          p,
-                          n,
-                          runningOctave));
-        sc.close();
-        return n;
-    }
+	/**
+	 * Just the pitch and duration. The start beatw will be 1. Tell the track to
+	 * be sequential if desired: track.sequential()
+	 * 
+	 * Format:
+	 * <p>
+	 * Pitch, Duration
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public MIDINote parseBriefNote(String s) {
+		MIDINote n = null;
+		Scanner sc = new Scanner(s);
+		sc.useDelimiter(",");
 
-    double runningDuration = 1d;
-    double runningStart = 1d;
-    int runningVelocity = 64;
-    int runningBank = 0;
-    int runningProgram = 1;
-    int runningBend = 0;
-    int runningVoice = 1;
-    int runningOctave = 5;
+		String p = null;
 
-    public enum StartMode {
-        ADD,
-        APPEND
-    }
+		if (sc.hasNext(fullPitchPattern)) {
+			p = sc.next();
+		} else if (sc.hasNext(shortPitchPattern)) {
+			p = sc.next();
+			p += this.runningOctave;
+			logger.debug("short " + p);
+		} else {
+			String se = String
+					.format("Bad pitch token '%s'",
+							sc.next());
+			sc.close();
+			throw new MIDIParserException(se);
+		}
 
-    // by default all startbeats are the same
-    StartMode startOp = StartMode.ADD;
+		double duration = 1d;
+		if (sc.hasNext(DurationParser.allPattern)) {
+			String tok = sc.next(DurationParser.allPattern);
+			logger.debug("token " + tok);
+			duration = DurationParser.getDuration(tok);
+		} else if (sc.hasNextDouble()) {
+			duration = sc.nextDouble();
+		}
 
-    public MIDITrack parseString(String s) {
-    	MIDITrack list = new MIDITrack();
-        return parseString(list, s);
-    }
+		n = new MIDINote(p, 1d, duration);
+		runningOctave = n.getPitch().getMidiNumber() / 12;
+		logger.debug(
+				String.format("p %s note %s ro %d",
+						p,
+						n,
+						runningOctave));
+		sc.close();
+		return n;
+	}
 
-    public MIDITrack parseString(MIDITrack list, String s) {
-        s = s.trim();
-        boolean isRunningDurationSet = false;
-        boolean isRunningProgramSet = false;
-        boolean isRunningVelocitySet = false;
-        double startBeat = -1d; // an invalid value
+	double runningDuration = 1d;
+	double runningStart = 1d;
+	int runningVelocity = 64;
+	int runningBank = 0;
+	int runningProgram = 1;
+	int runningBend = 0;
+	int runningVoice = 1;
+	int runningOctave = 5;
 
-        logger.debug("scanning '{}'", s);
+	public enum StartMode {
+		ADD,
+		APPEND
+	}
 
-        if (s != null && !s.equals("")) {
-            Scanner sc = new Scanner(s);
-            // sc.useDelimiter("\\W");
+	// by default all startbeats are the same
+	StartMode startOp = StartMode.ADD;
 
-            while (sc.hasNext()) {
-                String tok = sc.next();
+	public MIDITrack parseString(String s) {
+		MIDITrack list = new MIDITrack();
+		return parseString(list, s);
+	}
 
-                logger.debug("token '{}'",  tok);
+	/**
+	 * Pretty much the main logic of the parser.
+	 * 
+	 * @param track
+	 * @param s
+	 * @return
+	 */
+	public MIDITrack parseString(MIDITrack track, String s) {
+		s = s.trim();
+		logger.debug("string '{}'", s);
 
+		// get rid of comments
+		String removeSlashSplat = s.replaceAll("/\\*.*\\*/", "");
+		s = removeSlashSplat.replaceAll("//.*(?=\\n)", "");
+		// s = s.replaceAll("//.*?\n","\n");
+		logger.debug("string minus comments '{}'", s);
+		boolean isRunningDurationSet = false;
+		boolean isRunningProgramSet = false;
+		boolean isRunningVelocitySet = false;
+		boolean isRepeatSet = false;
+		double startBeat = -1d; // an invalid value
 
-                // if (tok.contains("+")) {
-                // MIDINoteList chord = parseChord(tok);
-                // list.append(chord);
-                // }
+		logger.debug("scanning '{}'", s);
 
-                if (tok.startsWith("R") || tok.startsWith("r")) {
-                    double d = Double.parseDouble(tok.substring(1));
-                    isRunningDurationSet = true;
-                    if (d != runningDuration) {
-                        runningDuration = d;
-                    }
-                    continue;
-                }
+		if (s != null && !s.equals("")) {
+			Scanner sc = new Scanner(s);
+			// sc.useDelimiter("\\W");
 
-                if (tok.startsWith("V") || tok.startsWith("v")) {
-                    runningVelocity = Integer.parseInt(tok.substring(1));
-                    isRunningVelocitySet = true;
-                    continue;
-                }
+			while (sc.hasNext()) {
+				String tok = sc.next();
 
-                // S+ C5,.5
-                // S= C5, 1.0, .5
-                if (tok.startsWith("S") || tok.startsWith("s")) {
-                    String op = tok.substring(1);
-                    op = op.trim();
-                    if (op.startsWith("+")) {
-                        startOp = StartMode.APPEND;
-                    }
-                    if (op.startsWith("=")) {
-                        startOp = StartMode.ADD;
-                        op = op.substring(1);
-                        if (op != null && !op.equals("")) {
-                            startBeat = Double.parseDouble(op);
-                            logger.debug("Start op arg '{}'={}",  op, startBeat);
-                        }
-                    }
-                    continue;
-                }
+				logger.debug("token '{}'", tok);
 
-                // will create a ShortMessage.PROGRAM_CHANGE
-                if (tok.startsWith("I") || tok.startsWith("i")) {
-                  //  try {
-                        // skip over I
-                        tok = tok.substring(1);
-                        if (tok.startsWith("\"")) {
-                            int end = tok.lastIndexOf("\"");
-                            tok = tok.substring(1,
-                                                end);
-                            // this.runningProgram =
-                            // MIDIUtils.getPatchNumber(tok);
-                            this.runningProgram = MIDIGMPatch.getPatch(tok)
-                                    .getProgram();
-                        } else if (tok.startsWith("'")) {
-                            int end = tok.lastIndexOf("'");
-                            tok = tok.substring(1,
-                                                end);
-                            // this.runningProgram =
-                            // MIDIUtils.getPatchNumber(tok);
-                            this.runningProgram = MIDIGMPatch.getPatch(tok)
-                                    .getProgram();
-                        } else {
-                            int num = Integer.parseInt(tok);
-                            this.runningProgram = num;
-                        }
+				// if (sc.hasNext(pat1)) {
+				// tok = sc.next(pat1);
+				// logger.debug("pat1 found paren token {}", tok);
+				// } else {
+				// logger.debug("pat1 no parens");
+				// }
 
-                        isRunningProgramSet = true;
+				// System.out.println(sc.findInLine("\\w+"));
+
+				// if (tok.contains("+")) {
+				// MIDINoteList chord = parseChord(tok);
+				// list.append(chord);
+				// }
+
+				if (tok.startsWith("R") || tok.startsWith("r")) {
+					String ds = tok.substring(1);
+					logger.debug("running dur string: {}", ds);
+					double d = 1d;
+
+					// is it a duration string e.g. q or just a float?
+					Matcher matcher = DurationParser.allPattern.matcher(ds);
+					if (matcher.find()) {
+						d = DurationParser.getDuration(matcher.group(0));
+						logger.debug("found dur string {}", d);
+					} else {
+						d = Double.parseDouble(ds);
+					}
+
+					logger.debug("running dur candidate {}", d);
+
+					isRunningDurationSet = true;
+					if (d != runningDuration) {
+						runningDuration = d;
+					}
+					continue;
+				}
+
+				if (tok.startsWith("V") || tok.startsWith("v")) {
+					runningVelocity = Integer.parseInt(tok.substring(1));
+					isRunningVelocitySet = true;
+					continue;
+				}
+
+				// repeat next note this many times
+				int numRepeats = 0;
+				// for X3 C D E to get C C C D E
+				if (tok.startsWith("X") || tok.startsWith("x")) {
+					// skip over X
+					String op = tok.substring(1);
+					// get the value
+					op = op.trim();
+					numRepeats = Integer.parseInt(op);
+					logger.debug("num repeats {}", numRepeats);
+
+					// not greedy
+					// Pattern pat = Pattern
+					// .compile("\\((.+?)\\)");
+
+					// Pattern square = Pattern.compile("\\[([^\\]]+)]");
+
+					// square = Pattern.compile("\\[([A-Za-z0-9.]+)\\]",
+					// Pattern.DOTALL);
+
+					// Scanner sc2 = new Scanner(s);
+					// sc2.useDelimiter("^.*$");
+					// sc.useDelimiter("\\[.*?\\]|w+");
+
+					// if (sc.hasNext(pat)) {
+					// tok = sc.next(pat);
+					// logger.debug("sc2 found paren token {}", tok);
+					// } else {
+					// logger.debug("sc2 no parens");
+					// }
+
+					// String next = sc.next();
+					// logger.debug("next {}", next);
+					// Matcher match = square.matcher(next);
+					// if (match.matches()) {
+					// logger.debug("mather {}", match.group(0));
+					// }
+
+					// Pattern pat = Pattern
+					// .compile(Pattern.quote("((.*?))"),Pattern.CASE_INSENSITIVE);
+					// .compile(Pattern.quote("((.*?))"), Pattern.DOTALL);
+					// logger.debug("pattern {}", pat);
+					// logger.debug("findinline {}", sc.findWithinHorizon(pat,
+					// 90));
+					// logger.debug("findinline {}", sc.findInLine(pat));
+					// logger.debug("findinline match {}", sc.match().group(0));
+					// logger.debug("findinline {}", sc.findInLine("C D E"));
+
+					// sc.useDelimiter(pat);
+					// while (sc.hasNext()) {
+					// logger.debug("dump {}", sc.next());
+					// }
+					//
+					// if (sc.hasNext(pat)) {
+					// tok = sc.next(pat);
+					// logger.debug("found paren token {}", tok);
+					// } else {
+					// logger.debug("no parens");
+					// tok = sc.next();
+					// }
+
+					// now get the note
+					tok = sc.next();
+					// sc.useDelimiter("\\W");
+				}
+
+				Pattern pat1 = Pattern
+						.compile("X(\\d) \\((.+?)\\)");
+				sc.useDelimiter("\\Z");
+				String multi = sc.findInLine(pat1);
+				logger.debug("multi '{}'", multi);
+				if (multi != null) {
+					logger.debug("multi group 1 '{}'", sc.match().group(1));
+					logger.debug("multi group 2 '{}'", sc.match().group(2));
+					numRepeats = Integer.parseInt(sc.match().group(1));
+					tok = sc.match().group(2);
+					logger.debug("multi group count '{}'", sc.match()
+							.groupCount());
+
+				} else {
+					sc.reset();
+					if (tok.startsWith("X") || tok.startsWith("x")) {
+						tok = sc.next();
+						logger.debug("nexttok x '{}'", tok);
+					}
+					// tok = sc.next();
+					// logger.debug("nexttok '{}'", tok);
+
+				}
+
+				// S+ C5,.5
+				// S= C5, 1.0, .5
+				if (tok.startsWith("S") || tok.startsWith("s")) {
+					String op = tok.substring(1);
+					op = op.trim();
+					if (op.startsWith("+")) {
+						startOp = StartMode.APPEND;
+					}
+					if (op.startsWith("=")) {
+						startOp = StartMode.ADD;
+						op = op.substring(1);
+						if (op != null && !op.equals("")) {
+							startBeat = Double.parseDouble(op);
+							logger.debug("Start op arg '{}'={}", op, startBeat);
+						}
+					}
+					continue;
+				}
+
+				// will create a ShortMessage.PROGRAM_CHANGE
+				if (tok.startsWith("I") || tok.startsWith("i")) {
+					// try {
+					// skip over I
+					tok = tok.substring(1);
+					if (tok.startsWith("\"")) {
+						int end = tok.lastIndexOf("\"");
+						tok = tok.substring(1,
+								end);
+						this.runningProgram = MIDIGMPatch.getPatch(tok)
+								.getProgram();
+					} else if (tok.startsWith("'")) {
+						int end = tok.lastIndexOf("'");
+						tok = tok.substring(1,
+								end);
+						this.runningProgram = MIDIGMPatch.getPatch(tok)
+								.getProgram();
+					} else {
+						int num = Integer.parseInt(tok);
+						this.runningProgram = num;
+					}
+
+					isRunningProgramSet = true;
 					// } catch (MIDIParserException e) {
 					// logger.error(e.getLocalizedMessage(), e);
 					// }
-                    continue;
-                }
+					continue;
+				}
 
-                MIDINote note = null;
+				MIDINote note = null;
+				do {
+					if (startOp == StartMode.ADD) {
+						// start beat is honored with add.
+						// the start beat is chenged with append
 
-                if (startOp == StartMode.ADD) {
-                	//start beat is honored with add.
-                	// the start beat is chenged with append
-                	
-                	note = parseNote(tok);
+						if (multi != null) {
 
-                	 if (startBeat != -1d) {
-                         note.setStartBeat(startBeat);
-                             logger.debug("Set start beat to {} for {}",
-                                     startBeat,
-                                     note);
+							Scanner ms = new Scanner(sc.match().group(2));
+							while (ms.hasNext()) {
+								String mt = ms.next();
+								if (mt.startsWith("X")) {
+									continue;
+								}
+								note = parseNote(mt);
+								track.add(note);
+								logger.debug("added {}", note);
+								if (startBeat != -1d) {
+									note.setStartBeat(startBeat);
+									logger.debug("Set start beat to {} for {}",
+											startBeat,
+											note);
 
-                     }
-                    list.add(note);
-                    if (logger.isDebugEnabled()) {
-                        String st = String.format("added %s",
-                                                  note);
-                        logger.debug(st);
-                    }
-                } else if (startOp == StartMode.APPEND) {
-                	// since append ignores startbeat, there's no point in specifying it!
-                	// parseBrief is just pitch and duration.
+								}
+							}
+							ms.close();
 
-                	note = parseBriefNote(tok);
-                	logger.debug("APPEND, parsing brief. note {} ", note);
-                	
-                    list.append(note);
-                        logger.debug("appended {}", note);
-                }
-                
-                if (isRunningDurationSet) {
-                    note.setDuration(runningDuration);
-                }
-                if (isRunningProgramSet) {
-                    note.setProgram(runningProgram);
-                }
-                if (isRunningVelocitySet) {
-                    note.setVelocity(runningVelocity);
-                }
-            }
-            sc.close();
-        }
-       
-        return list;
-    }
+						} else {
+							note = parseNote(tok);
+							track.add(note);
+							logger.debug("added {}", note);
+							if (startBeat != -1d) {
+								note.setStartBeat(startBeat);
+								logger.debug("Set start beat to {} for {}",
+										startBeat,
+										note);
+
+							}
+						}
+
+					} else if (startOp == StartMode.APPEND) {
+						// since append ignores startbeat, there's no point in
+						// specifying it!
+						// parseBrief is just pitch and duration.
+						// logger.debug("multi group count '{}'",sc.match().groupCount()
+						// );
+						logger.debug("appending {}", tok);
+						if (tok.startsWith("X") || tok.startsWith("x")) {
+							logger.debug("skipping note creation for {}", tok);
+							continue;
+						}
+
+						if (multi != null) {
+							logger.debug("multi append '{}'", multi);
+							Scanner ms = new Scanner(sc.match().group(2));
+							while (ms.hasNext()) {
+								String mt = ms.next();
+//								if (mt.startsWith("X")) {
+//									continue;
+//								}
+								note = parseNote(mt);
+								track.add(note);
+								logger.debug("added {}", note);
+								if (startBeat != -1d) {
+									note.setStartBeat(startBeat);
+									logger.debug("Set start beat to {} for {}",
+											startBeat,
+											note);
+
+								}
+							}
+							ms.close();
+						} else {
+							logger.debug("multi  null append tok '{}'", tok);
+							note = parseBriefNote(tok);
+						}
+
+						logger.debug("APPEND, parsing brief. note {} ", note);
+
+						track.append(note);
+						logger.debug("appended {}", note);
+					}
+				} while (--numRepeats > 0);
+
+				if (isRunningDurationSet) {
+					note.setDuration(runningDuration);
+				}
+				if (isRunningProgramSet) {
+					note.setProgram(runningProgram);
+				}
+				if (isRunningVelocitySet) {
+					note.setVelocity(runningVelocity);
+				}
+
+				if (isRepeatSet) {
+					logger.debug("repeat is set");
+					isRepeatSet = false;
+				}
+			}
+			sc.close();
+		}
+
+		return track;
+	}
 }
