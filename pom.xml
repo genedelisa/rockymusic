@@ -294,7 +294,7 @@
 			<version>${google-guava.version}</version>
 		</dependency>
 
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.rockhoppertech</groupId>
 			<artifactId>rockymusic-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -304,7 +304,7 @@
 					<groupId>org.slf4j</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 	<modules>
