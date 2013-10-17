@@ -558,6 +558,69 @@ public class MIDIStringParserTest {
 
 	}
 
+	@Test
+	public void checkMulti() {
+		String s;
+		String r;
+
+		s = "S+ X3 (C5 D5)";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		assertThat("The returned string is not null.", r, notNullValue());
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("S+ C5 D5 C5 D5 C5 D5"));
+
+		//
+
+		s = "S+ X3 (C5 D5) X2 (E G)";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("S+ C5 D5 C5 D5 C5 D5 E G E G"));
+
+//		s = "S+ X3 C5 D5"; // doesn't work
+//		r = this.parser.checkMulti(s);
+//		logger.debug("returned '{}'", r);
+//		assertThat("The returned string is not null.", r, notNullValue());
+//		assertThat("the returned string is correct", r.trim(),
+//				equalTo("S+ C5 D5"));
+
+		s = "S+ X3 (C5 D5) E F";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
+		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("S+ C5 D5 C5 D5 C5 D5 E F"));
+
+		s = "S+ C5 D5 E F";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("S+ C5 D5 E F"));
+		
+		s = "S+ X3 (C5) E F";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("S+ C5 C5 C5 E F"));
+		
+		s = "X3 (C5) E F";
+		r = this.parser.checkMulti(s);
+		logger.debug("returned '{}'", r);
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("the returned string is correct", r.trim(),
+				equalTo("C5 C5 C5 E F"));
+	}
+
 	/**
 	 * S+ append mode. When the token is simply the pitch, the duration is 1.0
 	 */
@@ -1411,11 +1474,11 @@ public class MIDIStringParserTest {
 		MIDITrack track;
 		MIDINote n;
 
-		s = "S+ X3 (C D E) F";
+		s = "S+ \nX3 (C D E) F";
 		// should become C D E C D E C D E F
 
 		track = this.parser.parseString(s);
-		logger.debug("returned track: {}",  track);
+		logger.debug("returned track: {}", track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(10));
