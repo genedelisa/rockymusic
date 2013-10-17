@@ -56,6 +56,106 @@ You can also use a text based format for creating a **MIDITrack**. There is a co
 
 	MIDITrack track = new MIDITrack("C5 D E F G A B C6");
 
+This creates a track with the specified pitches, but all of the start times are at beat 1. In some cases this is what you want. You can modify the track by calling
+
+	track.sequential();
+
+or you can specify sequential start times in the string by prepending "S+" to the string.
+
+	MIDITrack track = new MIDITrack("S+ C5 D E F G A B C6");
+
+You can specify a start beat with S=N, where N is the beat. This will be a "running"	start time which will apply to all pitches until the next S.
+
+	S+ C D E S=5 E S=8 G
+	
+No spaces around the =!
+
+### Comments
+
+Multi line comments are not supported yet. But you can
+use single line comments using either // or /* */ on a singe line
+
+	C D E // a couple notes
+	C /* blah blah */ D E
+	
+
+### Durations
+
+You can specify durations as a real number of beats
+
+	C,1 D,1.5 E,2.0
+
+Or you can use these strings:
+
+<table>
+    <tr>
+        <td>d</td>
+        <td>double whole note</td>
+    </tr>
+     <tr>
+        <td>w</td>
+        <td>whole note</td>
+    </tr>
+    <tr>
+        <td>h</td>
+        <td>half note</td>
+    </tr>
+
+     <tr>
+        <td>q</td>
+        <td>quarter note</td>
+    </tr>
+
+     <tr>
+        <td>e</td>
+        <td>eighth note</td>
+    </tr>
+
+     <tr>
+        <td>s</td>
+        <td>sixteenth note</td>
+    </tr>
+
+     <tr>
+        <td>t</td>
+        <td>thirtysecond note</td>
+    </tr>
+
+     <tr>
+        <td>x</td>
+        <td>sixtyfourth note</td>
+    </tr>
+
+     <tr>
+        <td>o</td>
+        <td>one twenty eighth note</td>
+    </tr>
+
+</table>
+
+Each can be modified by appending a t to indicate a triplet.
+
+	C,qt D,qt E,qt
+	
+You can use dots too.
+
+	C,q. D,e
+	
+### Repeating
+
+Xn (element) can specify a number of repeated elements
+
+	X3 (C)
+	yields
+	C C C
+	
+	X3 (C D) E F
+	yields
+	C D C D C D E F
+	
+	X2 (C D) E F X2 (G A)
+	yields
+	C D C D E F G A G A
 
 ## Where to go now
 
