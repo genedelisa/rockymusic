@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
+import com.rockhoppertech.music.modifiers.InstrumentModifier;
 import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
@@ -1410,5 +1412,22 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 			pitchClasses.add(pc);
 		}
 		return pitchClasses;
+	}
+
+	
+	public void useInstrument(MIDIGMPatch gmpatch) {
+		InstrumentModifier mod = new InstrumentModifier(gmpatch.getProgram());
+		this.map(mod);
+
+	}
+
+	public void useInstrument(int program) {
+		InstrumentModifier mod = new InstrumentModifier(program);
+		this.map(mod);
+	}
+
+	public void useInstrument(int bank, int program) {
+		InstrumentModifier mod = new InstrumentModifier(bank, program);
+		this.map(mod);
 	}
 }
