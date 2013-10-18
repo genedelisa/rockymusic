@@ -47,7 +47,7 @@ public class ScaleFactory {
 	/**
 	 * <pre>
 	 * MIDITrack notelist = new ScaleFactory.Builder().name("Major").root(
-				Pitch.C5).notelist().sequential();
+				Pitch.C5).track().sequential();
 	 * </pre>
 	 * @author gene
 	 *
@@ -69,9 +69,9 @@ public class ScaleFactory {
 			return result;
 		}
 
-		public MIDITrack notelist() {
+		public MIDITrack track() {
 			MIDITrack result = null;
-			Scale scale = null;
+			//Scale scale = null;
 
 			result = createMIDITrack(name);
 //			result = createMIDITrack(name, rootMidiNum);
