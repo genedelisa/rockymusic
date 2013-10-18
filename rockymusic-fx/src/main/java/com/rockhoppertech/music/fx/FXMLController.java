@@ -18,29 +18,22 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.fx.components.RTIDialog;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.parse.MIDIParserException;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
@@ -110,7 +103,7 @@ public class FXMLController {
 
 	@FXML
 	void helpMenuAboutAction(ActionEvent event) {
-
+		RTIDialog.showMessageDialog("Cool app, huh?");
 	}
 
 	/**
@@ -134,7 +127,7 @@ public class FXMLController {
 		fileChooser.getExtensionFilters().add(extentionFilter);
 
 		fileChooser.setTitle("Open MIDI String File");
-		File f = fileChooser.showOpenDialog(null);
+		File f = fileChooser.showOpenDialog(stage);
 		readFile(f);
 		stage.setTitle(f.getName());
 
@@ -145,7 +138,7 @@ public class FXMLController {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save MIDI String File");
 		if (currentSaveFile == null) {
-			currentSaveFile = fileChooser.showSaveDialog(null);
+			currentSaveFile = fileChooser.showSaveDialog(this.stage);
 		}
 		writeFile(currentSaveFile);
 	}
@@ -192,7 +185,7 @@ public class FXMLController {
 			addTrackButton.setDisable(false);
 		} catch (MIDIParserException e) {
 			logger.error("Cannot create track {}", e.getMessage(), e);
-			showDialog(e.getLocalizedMessage());
+			RTIDialog.showMessageDialog("Cannot create track: \n" + e.getMessage());
 		}
 
 	}
@@ -251,55 +244,6 @@ public class FXMLController {
 
 	}
 
-	void showDialog(String msg) {
-		final Stage dialog = new Stage();
-		dialog.initStyle(StageStyle.UTILITY);
-		dialog.setResizable(false);
-		dialog.initStyle(StageStyle.UTILITY);
-		dialog.initModality(Modality.APPLICATION_MODAL);
-		dialog.setIconified(false);
-		dialog.centerOnScreen();
-
-		BorderPane pane = new BorderPane();
-		// ImageView icon = new ImageView();
-		Label message = new Label();
-		BorderPane.setAlignment(message, Pos.CENTER);
-		BorderPane.setMargin(message, new Insets(5, 5, 5, 5));
-		pane.setCenter(message);
-		Scene scene = new Scene(pane);
-
-		dialog.setScene(scene);
-
-		HBox buttonBox = new HBox(10);
-		buttonBox.setAlignment(Pos.CENTER);
-		BorderPane.setAlignment(buttonBox, Pos.CENTER);
-		BorderPane.setMargin(buttonBox, new Insets(5, 5, 5, 5));
-		pane.setBottom(buttonBox);
-
-		final Button btn = new Button("OK");
-		btn.setDefaultButton(true);
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				btn.requestFocus();
-			}
-		});
-		btn.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent evt) {
-				dialog.close();
-			}
-		});
-		buttonBox.getChildren().add(btn);
-
-		message.setText(msg);
-		message.setWrapText(
-				true);
-
-		dialog.sizeToScene();
-		dialog.centerOnScreen();
-		dialog.showAndWait();
-	}
 
 	void writeFile(File file) {
 		String content = midiStringText.getText();
@@ -333,12 +277,6 @@ public class FXMLController {
 			for (String s : alllLines) {
 				midiStringText.appendText(s);
 				midiStringText.appendText("\n");
-
-				// System.out.println(s);
-				// String[] split = s.split("\\s");
-				// for (String w : split) {
-				// System.out.println(w);
-				// }
 			}
 		}
 	}
