@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.FXMLController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="true" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#fileMenuOpenAction" text="Open…" fx:id="fileMenuOpen">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="O" control="UP" meta="ANY" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" onAction="#fileMenuSaveAction" text="Save">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="S" control="UP" meta="ANY" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+            <MenuItem mnemonicParsing="false" onAction="#fileMenuSaveAsAction" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#fileMenuQuitAction" text="Quit" fx:id="fileMenuQuit">
+              <accelerator>
+                <KeyCodeCombination alt="UP" code="Q" control="UP" meta="ANY" shift="UP" shortcut="UP" />
+              </accelerator>
+            </MenuItem>
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="true" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="true" text="View">
+          <items>
+            <CheckMenuItem mnemonicParsing="false" onAction="#displayListAction" selected="true" text="Display List" fx:id="viewMenuDisplayList" />
+            <MenuItem mnemonicParsing="false" text="Something" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#helpMenuAboutAction" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+        <BorderPane fx:id="borderPane" prefHeight="376.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <bottom>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0" BorderPane.alignment="CENTER">
+              <children>
+                <Button fx:id="playButton" defaultButton="true" mnemonicParsing="false" onAction="#playAction" text="Play" />
+                <Button fx:id="addTrackButton" disable="true" mnemonicParsing="false" onAction="#addTrackToListAction" text="Add track to List" />
+              </children>
+            </HBox>
+          </bottom>
+          <center>
+            <SplitPane dividerPositions="0.7518248175182481" focusTraversable="true" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                    <TextArea fx:id="midiStringText" prefHeight="134.0" prefWidth="438.0" promptText="Enter a MIDI String here" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                    <TextArea fx:id="trackText" prefHeight="134.0" prefWidth="438.0" text="Track output" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+              </items>
+            </SplitPane>
+          </center>
+          <left>
+            <ListView fx:id="trackList" editable="true" focusTraversable="false" prefHeight="200.0" prefWidth="200.0">
+              <contextMenu>
+                <ContextMenu>
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#clearListAction" text="Clear" />
+                  </items>
+                </ContextMenu>
+              </contextMenu>
+            </ListView>
+          </left>
+        </BorderPane>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
