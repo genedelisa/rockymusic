@@ -63,10 +63,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
-	 * MIDITrack notelistCopy = new MIDITrack(notelist);
+	 * track.add(note);
+	 * MIDITrack trackCopy = new MIDITrack(track);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -272,9 +272,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
+	 * track.add(note);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -306,8 +306,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
-	 * notelist.add(&quot;C5&quot;);
+	 * MIDITrack track = new MIDITrack();
+	 * track.add(&quot;C5&quot;);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -350,8 +350,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
-	 * notelist.add(Pitch.C5, 2d);
+	 * MIDITrack track = new MIDITrack();
+	 * track.add(Pitch.C5, 2d);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -379,8 +379,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
-	 * notelist.add(&quot;C5&quot;, 1.5, 2d);
+	 * MIDITrack track = new MIDITrack();
+	 * track.add(&quot;C5&quot;, 1.5, 2d);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -405,15 +405,15 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * Removes the specified MIDINote from the notelist.
+	 * Removes the specified MIDINote from the track.
 	 * <p>
 	 * {@code PropertyChange MIDITrack.REMOVE} is fired. <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
-	 * notelist.remove(note);
+	 * track.add(note);
+	 * track.remove(note);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -427,7 +427,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		b = this.notes.remove(n);
 		if (!b) {
 			logger.debug(String
-					.format("%s did not exist in this notelist%n", n));
+					.format("%s did not exist in this track%n", n));
 			return;
 		}
 	}
@@ -454,10 +454,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * {@code PropertyChange MIDITrack.REMOVE} is fired. <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
-	 * notelist.remove(0);
+	 * track.add(note);
+	 * track.remove(0);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -557,83 +557,81 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	/**
 	 * this is cumulative.
 	 * 
-	 * @param notelist
+	 * @param track
 	 * @param n
 	 * @return
 	 */
-	public MIDITrack appendNTimes(MIDITrack notelist, int n) {
+	public MIDITrack appendNTimes(MIDITrack track, int n) {
 		MIDITrack r = null;
 		for (int i = 0; i < n; i++) {
-			r = this.append(notelist, 0);
+			r = this.append(track, 0);
 		}
 		return r;
 	}
 
 	/**
-	 * Appends the notelist to the current one. The start beats of the parameter
-	 * notelist are modified to start after the current notelist.
+	 * Appends the track to the current one. The start beats of the parameter
+	 * track are modified to start after the current track.
 	 * 
-	 * @param notelist
-	 *            the notelist to append
+	 * @param track
+	 *            the track to append
 	 */
-	public MIDITrack append(MIDITrack notelist) {
-		return this.append(notelist, 0);
+	public MIDITrack append(MIDITrack track) {
+		return this.append(track, 0);
 	}
 
-	public MIDITrack append(MIDITrack notelist, double gap) {
+	public MIDITrack append(MIDITrack track, double gap) {
 		int fromIndex = 0;
-		int toIndex = notelist.size();
-		return this.append(notelist, gap, fromIndex, toIndex);
+		int toIndex = track.size();
+		return this.append(track, gap, fromIndex, toIndex);
 	}
 
 	/**
-	 * Appends the parameter notelist to the current one with an optional gap
-	 * between them. A negative value for the gap will overlap the notelists.
+	 * Appends the parameter track to the current one with an optional gap
+	 * between them. A negative value for the gap will overlap the tracks.
 	 * nl.append(nl2, 0).append(nl3,0);
 	 * 
-	 * @param notelist
+	 * @param track
 	 * @param gap
-	 *            the durational space between the notelists in beats
+	 *            the durational space between the tracks in beats
 	 * @param fromIndex
 	 *            low endpoint (inclusive) of the subList.
 	 * @param toIndex
 	 *            high endpoint (exclusive) of the subList.
 	 */
-	public MIDITrack append(MIDITrack notelist, double gap,
+	public MIDITrack append(MIDITrack track, double gap,
 			int fromIndex, int toIndex) {
-		if (this == notelist) {
-			notelist = new MIDITrack(this);
+		if (this == track) {
+			track = new MIDITrack(this);
 		}
 		double end = this.getEndBeat() + gap;
-		if (logger.isDebugEnabled()) {
-			String s = String.format("notelist '%s'", notelist);
-			logger.debug(s);
-			logger.debug("end " + end);
-			logger.debug("gap " + gap);
-			logger.debug("this.size() " + this.size());
-			logger.debug("this.getEndBeat() " + this.getEndBeat());
-		}
-		// case if the notelist appended to is empty.
+
+		logger.debug("track {}", track);
+		logger.debug("end which is endbeat + gap {}", end);
+		logger.debug("gap {}", gap);
+		logger.debug("this.getEndBeat() {}", this.getEndBeat());
+		logger.debug("this.size() {}", this.size());
+
+		// case if the track appended to is empty.
 		if (this.size() == 0) {
 			end = 1d;
-			notelist
+			track
 					.map(new StartBeatModifier(NoteModifier.Operation.SET, end));
-			logger.debug("setting to " + end);
+			logger.debug("setting to end {}", end);
 		} else {
-			notelist
-					.map(new StartBeatModifier(NoteModifier.Operation.ADD, end));
-			logger.debug("adding to " + end);
+			// track
+			// .map(new StartBeatModifier(NoteModifier.Operation.ADD, end));
+			// logger.debug("adding to end {} ", end);
 		}
-		if (logger.isDebugEnabled()) {
-			String s = String.format("notelist after start beat mod'%s'",
-					notelist);
-			logger.debug(s);
-		}
-		List<MIDINote> sub = notelist.notes.subList(fromIndex, toIndex);
-		if (logger.isDebugEnabled()) {
-			String s = String.format("sublist '%s'", notelist);
-			logger.debug(s);
-		}
+
+		logger.debug("track after start beat mod {}", track);
+
+		List<MIDINote> sub = track.notes.subList(fromIndex, toIndex);
+		sub.get(0).setStartBeat(end);
+		logger.debug("sublist {} from {} to {}", sub, fromIndex, toIndex);
+		sub = sequential(sub);
+		logger.debug("sublist after mod {} END {}", sub, end);
+
 		for (MIDINote note : sub) {
 			this.notes.add((MIDINote) note.clone());
 		}
@@ -667,7 +665,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * <code>clear</code> emptys the notelist.
+	 * <code>clear</code> emptys the track.
 	 * 
 	 */
 	public void clear() {
@@ -675,8 +673,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * <code>getStartBeat</code> returns the start beat of the first Note.
-	 * Notelist is sorted on the start beat because Note implements Comparable.
+	 * <code>getStartBeat</code> returns the start beat of the first Note. track
+	 * is sorted on the start beat because Note implements Comparable.
 	 * 
 	 * @return a <code>double</code> value
 	 */
@@ -768,7 +766,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * Reset each note's startbeat in the notelist to be sequential based on the
+	 * Reset each note's startbeat in the track to be sequential based on the
 	 * duration. The first note is unaffected.
 	 * 
 	 * @param pad
@@ -779,10 +777,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		MIDINote n = this.notes.get(0);
 		double s = n.getStartBeat();
 		double d = n.getDuration();
-		if (logger.isDebugEnabled()) {
-			logger.debug("startbeat0:" + s);
-			logger.debug("dur0:" + d);
-		}
+		logger.debug("startbeat0: {}", s);
+		logger.debug("dur0: {}", d);
 
 		for (int i = 1; i < size; i++) {
 			MIDINote nn = this.notes.get(i);
@@ -796,6 +792,26 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		return this;
 	}
 
+	public List<MIDINote> sequential(List<MIDINote> list) {
+		int size = list.size();
+		MIDINote n = list.get(0);
+		double s = n.getStartBeat();
+		double d = n.getDuration();
+		logger.debug("startbeat0: {}", s);
+		logger.debug("dur0: {}", d);
+
+		for (int i = 1; i < size; i++) {
+			MIDINote nn = list.get(i);
+			logger.debug("old startbeat: {}", nn.getStartBeat());
+			nn.setStartBeat(s + d);
+			logger.debug("new startbeat: {}", nn.getStartBeat());
+			s = nn.getStartBeat();
+			d = nn.getDuration();
+
+		}
+		return list;
+	}
+
 	/**
 	 * <code>map</code> is the GoF visitor(331) design pattern. It loops through
 	 * all the MIDINotes and applies the modifier to each note. Sort of like
@@ -805,10 +821,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
-	 * notelist.map(new DurationModifier(1d, NoteModifier.Operation.ADD));
+	 * track.add(note);
+	 * track.map(new DurationModifier(1d, NoteModifier.Operation.ADD));
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -911,15 +927,15 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * <blockquote>
 	 * 
 	 * <pre>
-	 * MIDITrack notelist = new MIDITrack();
+	 * MIDITrack track = new MIDITrack();
 	 * MIDINote note = new MIDINote(Pitch.C5);
-	 * notelist.add(note);
+	 * track.add(note);
 	 * etc.
 	 * // before or equal to start beat 3 and the pitch is lower than or equal to E5
 	 * ModifierCriteria criteria = new StartBeatCriteria(3d,
 	 * 		ModifierCriteria.Operator.LT_EQ, new PitchCriteria(Pitch.E5,
 	 * 				ModifierCriteria.Operator.LT_EQ, null));
-	 * notelist.map(new StartBeatModifier(1d, NoteModifier.Operation.SET), criteria);
+	 * track.map(new StartBeatModifier(1d, NoteModifier.Operation.SET), criteria);
 	 * </pre>
 	 * 
 	 * </blockquote>
@@ -1008,7 +1024,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * Iterate through the notelist to find the Note with the lowest pitch midi
+	 * Iterate through the track to find the Note with the lowest pitch midi
 	 * number.
 	 * 
 	 * @return
@@ -1034,10 +1050,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * Retrieve the duration of the entire MIDINoteList. Literally the end beat
+	 * Retrieve the duration of the entire MIDItrack. Literally the end beat
 	 * minus the startbeat.
 	 * 
-	 * @return the duration of the notelist in beats
+	 * @return the duration of the track in beats
 	 */
 	public double getDuration() {
 		return this.getEndBeat() - this.getStartBeat();
@@ -1209,8 +1225,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	}
 
 	/**
-	 * Creates a new List of List<MIDINote> organized by the MIDINoteList's
-	 * note's channels. The original MIDINoteList is unchanged.
+	 * Creates a new List of List<MIDINote> organized by the MIDItrack's note's
+	 * channels. The original MIDItrack is unchanged.
 	 * 
 	 * @return A List of a List of MIDINotes organized by channel
 	 */
@@ -1309,7 +1325,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 	 * Get the MIDINote at the specified index and set its Pitch to the
 	 * specified pitch.
 	 * <p>
-	 * Fires a MIDINoteList.PITCH_CHANGE event.
+	 * Fires a MIDItrack.PITCH_CHANGE event.
 	 * 
 	 * @param selectedIndex
 	 *            The index of the MIDINote to be modified.
@@ -1414,7 +1430,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 		return pitchClasses;
 	}
 
-	
 	public void useInstrument(MIDIGMPatch gmpatch) {
 		InstrumentModifier mod = new InstrumentModifier(gmpatch.getProgram());
 		this.map(mod);

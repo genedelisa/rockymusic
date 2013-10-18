@@ -34,10 +34,11 @@ public class MIDITrackFactory {
 			.getLogger(MIDITrackFactory.class);
 
 	/**
-	 * You would usually use the ScoreFactory scoreToSequence() method to get a Sequence.
-	 * This might be useful for testing just one MIDITrack.
+	 * You would usually use the ScoreFactory scoreToSequence() method to get a
+	 * Sequence. This might be useful for testing just one MIDITrack.
 	 * 
-	 * @param mt - a MIDITrack which already has notes and events.
+	 * @param mt
+	 *            - a MIDITrack which already has notes and events.
 	 * @param resolution
 	 * @return
 	 */
@@ -67,7 +68,8 @@ public class MIDITrackFactory {
 	 * @param sequence
 	 *            a JavaSound <code>Sequence</code> instance
 	 * 
-	 * @return a JavaSound <code>Track</code> instance, which is already part of the Sequence
+	 * @return a JavaSound <code>Track</code> instance, which is already part of
+	 *         the Sequence
 	 */
 	public static Track trackFromMIDITrack(MIDITrack mt, Sequence sequence) {
 		logger.debug("Enter toTrack");
@@ -326,10 +328,10 @@ public class MIDITrackFactory {
 	}
 
 	/**
-	 * <code>eventsToNotelist</code> turns a collection of MidiEvents containing
-	 * ShortMessages only (e.g. no sysex) into a notelist. The Note Messages are
-	 * placed in notes as <code>MIDINotes</code>, other messages wrapped and are
-	 * placed in a separate list - the instance variable <code>events</code>
+	 * <code>trackToMIDITrack</code> turns a collection of MidiEvents containing
+	 * ShortMessages only (e.g. no sysex) into a MIDITrack. The Note Messages
+	 * are placed in notes as <code>MIDINotes</code>, other messages wrapped and
+	 * are placed in a separate list - the instance variable <code>events</code>
 	 * 
 	 * <p>
 	 * You might get the division like this: double div = (double)
@@ -374,37 +376,37 @@ public class MIDITrackFactory {
 		Map<Integer, MidiEvent> outstanding = new HashMap<Integer, MidiEvent>();
 
 		for (MidiEvent me : events) {
-			
+
 			if (me.getMessage() instanceof MetaMessage) {
 				MetaMessage mm = (MetaMessage) me.getMessage();
-				if(mm.getType() == MIDIUtils.META_TEXT) {
+				if (mm.getType() == MIDIUtils.META_TEXT) {
 					logger.debug("meta text");
 					logger.debug(new String(mm.getData()));
 				}
-				if(mm.getType() == MIDIUtils.META_TIME_SIG) {
+				if (mm.getType() == MIDIUtils.META_TIME_SIG) {
 					logger.debug("time sig");
 					logger.debug(MIDIUtils.getTimeSignature(mm));
 				}
-				if(mm.getType() == MIDIUtils.META_COPYRIGHT) {
+				if (mm.getType() == MIDIUtils.META_COPYRIGHT) {
 					logger.debug("copyright");
-					logger.debug(new String(mm.getData()));					
+					logger.debug(new String(mm.getData()));
 				}
-				if(mm.getType() == MIDIUtils.META_KEY_SIG) {
+				if (mm.getType() == MIDIUtils.META_KEY_SIG) {
 					logger.debug("Key signature");
-					logger.debug(MIDIUtils.getTimeSignature(mm));					
-					
-					
+					logger.debug(MIDIUtils.getTimeSignature(mm));
+
 				}
-				if(mm.getType() == MIDIUtils.META_TEMPO) {
-					
+				if (mm.getType() == MIDIUtils.META_TEMPO) {
+
 				}
-				// In a format 1 midifile, track 0 will contain the sequence name.
+				// In a format 1 midifile, track 0 will contain the sequence
+				// name.
 				// in Sibelius, this would be the title
 				// Track 1 will be the instrument name, e.g. Piano
-				if(mm.getType() == MIDIUtils.META_NAME) {
+				if (mm.getType() == MIDIUtils.META_NAME) {
 					logger.debug("name");
-					logger.debug(new String(mm.getData()));					
-					track.setName(new String(mm.getData()));										
+					logger.debug(new String(mm.getData()));
+					track.setName(new String(mm.getData()));
 				}
 			}
 
@@ -499,14 +501,7 @@ public class MIDITrackFactory {
 		}
 		return track;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * <pre>
 	 * import static com.rockhoppertech.music.Pitch.*;
@@ -518,24 +513,24 @@ public class MIDITrackFactory {
 	 * @return
 	 */
 	public static MIDITrack createFromPitches(int... pitches) {
-		MIDITrack list = new MIDITrack();
+		MIDITrack track = new MIDITrack();
 		for (int i = 0; i < pitches.length; i++) {
 			MIDINote note = new MIDINote(pitches[i]);
-			list.add(note);
+			track.add(note);
 		}
-		return list;
+		return track;
 	}
 
 	// public static MIDITrack createFromPitches(Integer[] a) {
 	// return null;
 	// }
 
-	public static MIDITrack createRepeated(final MIDITrack notelist,
+	public static MIDITrack createRepeated(final MIDITrack track,
 			final CircularList<Integer> mask) {
 		MIDITrack repeated = new MIDITrack();
 		mask.reset();
 		int maskValue = 0;
-		for (final MIDINote note : notelist) {
+		for (final MIDINote note : track) {
 			maskValue = mask.next();
 			for (int i = 0; i < maskValue; i++) {
 				repeated.add((MIDINote) note.clone());
@@ -544,7 +539,7 @@ public class MIDITrackFactory {
 		return repeated.sequential();
 	}
 
-	public static MIDITrack createRepeated(final MIDITrack notelist,
+	public static MIDITrack createRepeated(final MIDITrack track,
 			Integer... maskInts) {
 		CircularList<Integer> mask = new CircularArrayList<Integer>();
 		for (Integer i : maskInts) {
@@ -554,7 +549,7 @@ public class MIDITrackFactory {
 		MIDITrack repeated = new MIDITrack();
 		mask.reset();
 		int maskValue = 0;
-		for (final MIDINote note : notelist) {
+		for (final MIDINote note : track) {
 			maskValue = mask.next();
 			for (int i = 0; i < maskValue; i++) {
 				repeated.add((MIDINote) note.clone());
@@ -563,40 +558,40 @@ public class MIDITrackFactory {
 		return repeated.sequential();
 	}
 
-	public static MIDITrack repeat(final MIDITrack notelist,
+	public static MIDITrack repeat(final MIDITrack track,
 			final int numberOfRepeats) {
 		MIDITrack repeated = new MIDITrack();
 
 		for (int i = 0; i < numberOfRepeats; i++) {
-			repeated.append(notelist);
+			repeated.append(track);
 		}
 		return repeated.sequential();
 	}
 
-	static MIDIStringParser	parser	= new MIDIStringParser();
+	static MIDIStringParser parser = new MIDIStringParser();
 
 	public static MIDITrack createFromString(String s) {
-		MIDITrack list = parser.parseString(s);
-		return list;
+		MIDITrack track = parser.parseString(s);
+		return track;
 	}
 
 	public static MIDITrack createFromIntervalsChained(boolean mirrored,
 			int... intervals) {
-		MIDITrack notelist = createFromIntervals(intervals);
-		List<Integer> ints = notelist.getPitchesAsIntegers();
-		notelist.clear();
+		MIDITrack track = createFromIntervals(intervals);
+		List<Integer> ints = track.getPitchesAsIntegers();
+		track.clear();
 		for (Integer midiNumber : ints) {
-			MIDITrack list = MIDITrackFactory.createFromIntervals(
+			MIDITrack tmpTrack = MIDITrackFactory.createFromIntervals(
 					intervals, midiNumber, 1, false, 1);
 			if (mirrored) {
-				final MIDITrack inversion = list.getInversion();
+				final MIDITrack inversion = tmpTrack.getInversion();
 				inversion.remove(0);
-				list = inversion.append(list);
-				list.sortByAscendingPitches();
+				tmpTrack = inversion.append(tmpTrack);
+				tmpTrack.sortByAscendingPitches();
 			}
-			notelist = notelist.append(list);
+			track = track.append(tmpTrack);
 		}
-		return notelist;
+		return track;
 	}
 
 	public static MIDITrack createFromIntervals(int... intervals) {
@@ -619,7 +614,7 @@ public class MIDITrackFactory {
 
 	public static MIDITrack createFromIntervals(int[] intervals,
 			int baseInt, int unit, boolean absolute, int numOctaves) {
-		MIDITrack list = new MIDITrack();
+		MIDITrack track = new MIDITrack();
 		int toIndex = 0;
 		int gap = -1;
 		int fromIndex = 1;
@@ -640,15 +635,15 @@ public class MIDITrackFactory {
 				String s = String.format("before append '%s'", current);
 				logger.debug(s);
 			}
-			list.append(current, gap, fromIndex, toIndex);
+			track.append(current, gap, fromIndex, toIndex);
 			baseInt += 12;
 		}
-		return list;
+		return track;
 	}
 
 	/**
-	 * <code>createFromIntervals</code> generates a MIDITrack from the
-	 * provided intervals. Only the pitches in the Notes are set.
+	 * <code>createFromIntervals</code> generates a MIDITrack from the provided
+	 * intervals. Only the pitches in the Notes are set.
 	 * 
 	 * 
 	 * @param intervals
@@ -754,7 +749,8 @@ public class MIDITrackFactory {
 	 * If you want the degrees you can do this: <code>
       int[] degrees = Interval.intervalsToDegrees(chord.getIntervals(),
                 numOcts);
-       </code> or if it is a scale this <code>scale.getDegrees()</code>
+       </code> or if it is a scale this
+	 * <code>scale.getDegrees()</code>
 	 * 
 	 * The pattern for the first Hanon exercise would be 0 2 3 4 5 4 3 2
 	 * 
@@ -776,7 +772,7 @@ public class MIDITrackFactory {
 			final int nOctaves, final double duration, final boolean reverse,
 			final double restBetweenPatterns, final boolean upAndDown) {
 
-		final MIDITrack list = new MIDITrack();
+		final MIDITrack track = new MIDITrack();
 		MIDINote newnote = null;
 
 		// int numOcts = (Pitch.MAX - startingMIDINumber) / 12 + 1;
@@ -816,21 +812,21 @@ public class MIDITrackFactory {
 				for (int i = 0; i < limit; i++) {
 					for (int j = pattern.length - 1; j >= 0; j--) {
 						// int n = startingMIDINumber + degrees[pattern[j] + i];
-						if (logger.isDebugEnabled()) {
-							logger.debug("reverse i " + i);
-							logger.debug("reverse j " + j);
-							logger.debug("reverse pattern " + pattern[j]);
-							logger.debug("reverse pattern length "
-									+ pattern.length);
-						}
+
+						logger.debug("reverse i {}", i);
+						logger.debug("reverse j {}", j);
+						logger.debug("reverse pattern {}", pattern[j]);
+						logger.debug("reverse pattern length {}",
+								pattern.length);
+
 						final int d = (dlist.get(pattern[j] + i)).intValue();
 						int n = 0;
 						n = startingMIDINumber + d;
-						logger.debug("n " + n);
+						logger.debug("n {}", n);
 						// newnote = new MIDINote(n);
 						newnote = new MIDINote(n, startBeat, duration);
 						startBeat += duration;
-						list.add(newnote);
+						track.add(newnote);
 						logger.debug("new note {}", newnote);
 					}
 					startBeat += restBetweenPatterns;
@@ -840,7 +836,7 @@ public class MIDITrackFactory {
 							newnote = new MIDINote(startingMIDINumber + d,
 									startBeat, duration);
 							startBeat += duration;
-							list.add(newnote);
+							track.add(newnote);
 						}
 						startBeat += restBetweenPatterns;
 					}
@@ -852,38 +848,39 @@ public class MIDITrackFactory {
 			for (int oct = 0; oct < nOctaves; oct++) {
 				for (int i = 0; i < limit; i++) {
 					for (int j = 0; j < pattern.length; j++) {
-						if (logger.isDebugEnabled()) {
-							logger
-									.debug(String
-											.format(
-													"j %d < plen %d, i %d < limit %d, dlist size %d",
-													j, pattern.length, i,
-													limit, dlist.size()));
-						}
+
+						logger.debug(
+								"j {} < plen {}, i {} < limit {}, dlist size {}",
+								j,
+								pattern.length,
+								i,
+								limit,
+								dlist.size());
+
 						int index = pattern[j] + i;
-						if (logger.isDebugEnabled()) {
-							logger.debug(String.format("index into dlist %d",
-									index));
-						}
+
+							logger.debug("index into dlist {}",
+									index);
+
 						if (index == dlist.size()) {
-							if (logger.isDebugEnabled()) {
-								logger.debug(String.format("continue %d %d",
-										index, dlist.size()));
-							}
+
+								logger.debug("continue {} {}",
+										index, dlist.size());
+
 							continue;
 						}
 
 						final int d = (dlist.get(index)).intValue();
 						int n = 0;
 						n = startingMIDINumber + d;
-						logger.debug("n " + n + " d=" + d);
+						logger.debug("n {} d {}",  n , d);
 						newnote = new MIDINote(n, startBeat, duration);
-						logger.debug("note " + newnote);
+						logger.debug("note {}", newnote);
 						startBeat += duration;
-						list.add(newnote);
+						track.add(newnote);
 					}
 					startBeat += restBetweenPatterns;
-					logger.debug("bumped up sb with rest between " + startBeat);
+					logger.debug("bumped up sb with rest between ", startBeat);
 					if (upAndDown) {
 						for (int j = pattern.length - 1; j >= 0; j--) {
 							final int d = (dlist.get(pattern[j] + i))
@@ -891,11 +888,11 @@ public class MIDITrackFactory {
 							newnote = new MIDINote(startingMIDINumber + d,
 									startBeat, duration);
 							startBeat += duration;
-							list.add(newnote);
+							track.add(newnote);
 						}
 						startBeat += restBetweenPatterns;
-						logger.debug("bumped up sb with rest between "
-								+ startBeat);
+						logger.debug("bumped up sb with rest between ",
+								 startBeat);
 					}
 				}
 
@@ -905,30 +902,29 @@ public class MIDITrackFactory {
 		}
 		// list.map(new DurationModifier(duration));
 		// list.sequential();
-		return list;
+		return track;
 	}
 
 	/**
-	 * the pattern is a collection of indices into the notelist.
-	 * no bounds checking
+	 * the pattern is a collection of indices into the notelist. no bounds
+	 * checking
 	 * 
 	 * <pre>
-	 * Integer[]	pattern	= new Integer[] { 0, 0, 3, 2, 1 };
-	 * 														MIDITrack	patterned	= MIDITrackFactory
-	 * 																							.applyPattern(
-	 * 																									notelist,
-	 * 																									pattern);
+	 * Integer[] pattern = new Integer[] { 0, 0, 3, 2, 1 };
+	 * MIDITrack patterned = MIDITrackFactory
+	 * 		.applyPattern(
+	 * 				notelist,
+	 * 				pattern);
 	 * </pre>
 	 * 
 	 * A cleaner replacement for getNoteListPattern(blah blah) but doesn't do
-	 * the hanon like
-	 * sequencing - which you can do externally
+	 * the hanon like sequencing - which you can do externally
 	 * 
-	 * @param notelist
+	 * @param track
 	 * @param pattern
 	 * @return
 	 */
-	public static MIDITrack applyPattern(MIDITrack notelist,
+	public static MIDITrack applyPattern(MIDITrack track,
 			final Integer[] patternArray, boolean reverse) {
 		// MIDITrack result = new MIDITrack();
 		//
@@ -943,12 +939,12 @@ public class MIDITrackFactory {
 		// }
 		// return result;
 
-		return applyPattern(notelist, patternArray, notelist.get(0)
+		return applyPattern(track, patternArray, track.get(0)
 				.getMidiNumber(), 1, reverse, false);
 
 	}
 
-	public static MIDITrack applyPattern(final MIDITrack notelist,
+	public static MIDITrack applyPattern(final MIDITrack track,
 			final Integer[] patternArray, int startingMIDINumber,
 			final int nOctaves, final boolean reverse, boolean upAndDown) {
 
@@ -957,7 +953,7 @@ public class MIDITrackFactory {
 		// List<Integer> pattern = Arrays.asList(patternArray);
 		List<Integer> pattern = new ArrayList<Integer>(patternArray.length);
 		Collections.addAll(pattern, patternArray);
-		return applyPattern(notelist, pattern, startingMIDINumber, nOctaves,
+		return applyPattern(track, pattern, startingMIDINumber, nOctaves,
 				reverse, upAndDown);
 
 		// pattern.addAll(patternArray);
@@ -987,7 +983,7 @@ public class MIDITrackFactory {
 		// return result;
 	}
 
-	public static MIDITrack applyPattern(MIDITrack notelist,
+	public static MIDITrack applyPattern(MIDITrack track,
 			List<Integer> pattern, int startingMIDINumber, final int nOctaves,
 			final boolean reverse, boolean upAndDown) {
 
@@ -1008,10 +1004,10 @@ public class MIDITrackFactory {
 		}
 
 		for (int oct = 0; oct < nOctaves; oct++) {
-			int trans = startingMIDINumber - notelist.get(0).getMidiNumber();
+			int trans = startingMIDINumber - track.get(0).getMidiNumber();
 			for (int index : pattern) {
 				System.err.println(index);
-				MIDINote note = (MIDINote) notelist.get(index).clone();
+				MIDINote note = (MIDINote) track.get(index).clone();
 				note.transpose(trans);
 				result.add(note);
 			}
@@ -1126,48 +1122,48 @@ public class MIDITrackFactory {
 		return notelist;
 	}
 
-	public static String getPitchMaskAsString(MIDITrack notelist) {
+	public static String getPitchMaskAsString(MIDITrack track) {
 		StringBuilder sb = new StringBuilder();
-		Integer[] a = MIDITrackFactory.getPitchMask(notelist);
+		Integer[] a = MIDITrackFactory.getPitchMask(track);
 		for (Integer i : a) {
 			sb.append(i).append(' ');
 		}
 		return sb.toString();
 	}
 
-	public static String getDurationMaskAsString(MIDITrack notelist) {
+	public static String getDurationMaskAsString(MIDITrack track) {
 		StringBuilder sb = new StringBuilder();
-		Integer[] a = MIDITrackFactory.getDurationMask(notelist);
+		Integer[] a = MIDITrackFactory.getDurationMask(track);
 		for (Integer i : a) {
 			sb.append(i).append(' ');
 		}
 		return sb.toString();
 	}
 
-	public static Integer[] getPitchMask(MIDITrack notelist) {
+	public static Integer[] getPitchMask(MIDITrack track) {
 		int count = 1;
 		List<Integer> mask = new ArrayList<Integer>();
 		MIDINote lastNote = null;
-		for (int i = 0; i < notelist.size(); i++) {
-			MIDINote n = notelist.get(i);
+		for (int i = 0; i < track.size(); i++) {
+			MIDINote n = track.get(i);
 
 			if (lastNote != null) {
 				if (n.getPitch().equals(lastNote.getPitch())) {
 					count++;
-					System.err.println(String.format(
-							"Incrementing count to %d for %s", count, n
-									.getPitch()));
+					logger.debug(
+							"Incrementing count to {} for {}", count, n
+									.getPitch());
 				} else {
 					mask.add(count);
 					count = 1;
-					System.err.println(String.format(
-							"Resetting for pitches %s and %s", lastNote
-									.getPitch(), n.getPitch()));
+					logger.debug(
+							"Resetting for pitches {} and {}", lastNote
+									.getPitch(), n.getPitch());
 				}
 			}
-			if (i == notelist.size() - 1) {
-				System.err.println(String.format(
-						"last note was alone, adding %d for %s", count, n));
+			if (i == track.size() - 1) {
+				logger.debug(
+						"last note was alone, adding {} for {}", count, n);
 				mask.add(count);
 			}
 			lastNote = n;
@@ -1189,7 +1185,7 @@ public class MIDITrackFactory {
 		// }
 		// }
 		// lastNote = n;
-		//			
+		//
 		// // if(lastNote == null) {
 		// // count++;
 		// // } else {
@@ -1206,30 +1202,30 @@ public class MIDITrackFactory {
 		return mask.toArray(new Integer[mask.size()]);
 	}
 
-	public static Integer[] getDurationMask(MIDITrack notelist) {
+	public static Integer[] getDurationMask(MIDITrack track) {
 		int count = 1;
 		List<Integer> mask = new ArrayList<Integer>();
 		MIDINote lastNote = null;
-		for (int i = 0; i < notelist.size(); i++) {
-			MIDINote n = notelist.get(i);
+		for (int i = 0; i < track.size(); i++) {
+			MIDINote n = track.get(i);
 			if (lastNote != null) {
 				if (n.getDuration() == lastNote.getDuration()) {
 					count++;
-					System.err.println(String.format(
-							"Incrementing count to %d for %s", count, n
-									.getPitch()));
+					logger.debug(
+							"Incrementing count to {} for {}", count, n
+									.getPitch());
 				} else {
 					mask.add(count);
 					count = 1;
-					System.err.println(String.format(
-							"Resetting for pitches %s and %s", lastNote
-									.getPitch(), n.getPitch()));
+					logger.debug(
+							"Resetting for pitches {} and {}", lastNote
+									.getPitch(), n.getPitch());
 
 				}
 			}
-			if (i == notelist.size() - 1) {
-				System.err.println(String.format(
-						"last note was alone, adding %d for %s", count, n));
+			if (i == track.size() - 1) {
+				logger.debug(
+						"last note was alone, adding {} for {}", count, n);
 				mask.add(count);
 			}
 			lastNote = n;
@@ -1252,24 +1248,24 @@ public class MIDITrackFactory {
 		</pre>
 		</code>
 	 * 
-	 * @param notelist
+	 * @param track
 	 * @param values
 	 * @param absolute
 	 * @return
 	 */
-	public static MIDITrack modifyPitchIntervals(MIDITrack notelist,
+	public static MIDITrack modifyPitchIntervals(MIDITrack track,
 			CircularList<Integer> values, boolean absolute) {
 		MIDITrack result = null;
 		int[] intervals = null;
 		if (absolute) {
-			intervals = notelist.getPitchIntervals();
+			intervals = track.getPitchIntervals();
 		} else {
-			intervals = notelist.getPitchIntervalsAbsolute();
+			intervals = track.getPitchIntervalsAbsolute();
 		}
 		for (int i = 0; i < intervals.length; i++) {
 			intervals[i] += values.next();
 		}
-		result = createFromIntervals(intervals, notelist.get(0).getMidiNumber());
+		result = createFromIntervals(intervals, track.get(0).getMidiNumber());
 
 		// public static MIDITrack createFromIntervals(int[] intervals,
 		// int baseInt, int unit, boolean absolute, int numOctaves)

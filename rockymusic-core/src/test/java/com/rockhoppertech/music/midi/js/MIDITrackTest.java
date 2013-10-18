@@ -29,10 +29,13 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
+import com.rockhoppertech.music.midi.parse.MIDIStringParserTest;
 import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.PitchModifier;
@@ -45,6 +48,8 @@ import com.rockhoppertech.music.modifiers.PitchModifier;
  * 
  */
 public class MIDITrackTest {
+	private static final Logger logger = LoggerFactory
+			.getLogger(MIDITrackTest.class);
 
 	MIDITrack testTrack;
 
@@ -52,7 +57,6 @@ public class MIDITrackTest {
 	public void cmajor() {
 		MIDIStringParser parser = new MIDIStringParser();
 		this.testTrack = parser.parseString("C D E F G A B");
-		assertNotNull(testTrack);
 		assertThat("The test track is not null.", testTrack, notNullValue());
 
 		MIDINote n = testTrack.get(0);
@@ -112,7 +116,7 @@ public class MIDITrackTest {
 	@Test
 	public void fromString() {
 		MIDITrack nl = new MIDITrack("c d e f c4 d e f");
-		System.err.println(nl);
+		logger.debug("{}", nl);
 		assertThat("nl is non null",
 				nl,
 				notNullValue());
@@ -966,9 +970,87 @@ public class MIDITrackTest {
 	 * {@link com.rockhoppertech.music.midi.js.MIDITrack#append(com.rockhoppertech.music.midi.js.MIDITrack, double)}
 	 * .
 	 */
-	// @Test
-	public void testAppendMIDITrackDouble() {
-		fail("Not yet implemented");
+	@Test
+	public void shouldAppendMIDITrackWithGap() {
+		MIDITrack track = new MIDITrackBuilder()
+				.name("track n with indexes")
+				.noteString("C D E F G A ")
+				.sequential()
+				.build();
+
+		double gap = 1.5;
+		int from = 2; // start at the E
+		int to = 5; // stop with the G
+		track.append(track, gap, from, to);
+		logger.debug("appended {}", track);
+
+		MIDINote note = track.get(0);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.C5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(1d));
+
+		note = track.get(1);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.D5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(2d));
+
+		note = track.get(2);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.E5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(3d));
+
+		note = track.get(3);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.F5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(4d));
+
+		note = track.get(4);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.G5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(5d));
+
+		note = track.get(5);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.A5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(6d));
+
+		// now the appended part
+		// the end beat of the previous list was 7, the gap is 1.5, so the start
+		// should be 7 + 1.5
+
+		note = track.get(6);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.E5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(8.5));
+
+		note = track.get(7);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.F5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(9.5));
+
+		note = track.get(8);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.G5));
+		assertThat("the start beat is correct", note.getStartBeat(),
+				equalTo(10.5));
+
 	}
 
 	/**
@@ -1031,7 +1113,7 @@ public class MIDITrackTest {
 	 */
 	// @Test
 	public void testGetStartBeat() {
-		//double sb = testTrack.getStartBeat();
+		// double sb = testTrack.getStartBeat();
 
 		fail("Not yet implemented");
 	}
@@ -1042,7 +1124,7 @@ public class MIDITrackTest {
 	 */
 	// @Test
 	public void testGetEndBeat() {
-		//double sb = testTrack.getEndBeat();
+		// double sb = testTrack.getEndBeat();
 		fail("Not yet implemented");
 	}
 
@@ -1148,16 +1230,16 @@ public class MIDITrackTest {
 		sb.append("G5,1.000,1.000,64,64,0,0,0,0").append('\n');
 		sb.append("A5,1.000,1.000,64,64,0,0,0,0").append('\n');
 		sb.append("B5,1.000,1.000,64,64,0,0,0,0");
-		
+
 		// logger.debug("MIDI String: {}", s);
 		System.out.println(s);
-		
+
 		assertThat("The string is not null.", s, notNullValue());
 		assertThat(
 				"the string's contents are correct",
 				s.trim(),
 				equalToIgnoringCase(sb.toString()));
-		
+
 	}
 
 	/**
