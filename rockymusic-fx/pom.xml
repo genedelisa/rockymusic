@@ -20,9 +20,11 @@
 	</organization>
 
 	<properties>
-
+		<!-- so you can specify which main to run from the cmd line: -DappClassname=whatever -->
+		<!-- In eclipse, add a parameter in the run configuration -->
+		<appClassname>com.rockhoppertech.music.fx.MainApp</appClassname>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.rockhoppertech</groupId>
@@ -35,6 +37,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -49,7 +52,7 @@
 				<version>2.0</version>
 				<configuration>
 
-					<mainClass>com.rockhoppertech.music.fx.MainApp</mainClass>
+					<mainClass>${appClassname}</mainClass>
 
 					<!-- only required if signing the jar file -->
 					<keyStoreAlias>example-user</keyStoreAlias>
