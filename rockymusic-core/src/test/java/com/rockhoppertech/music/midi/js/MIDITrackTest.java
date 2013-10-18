@@ -314,28 +314,22 @@ public class MIDITrackTest {
 				unit,
 				absolute,
 				nOctaves);
-		assertNotNull(list);
-		assertEquals(2,
-				list.size());
-		System.err.println(list);
+		
+		assertThat("The track is not null.", list, notNullValue());	
+		assertThat("the track size is correct", list.size(),
+				equalTo(2));
+		logger.debug("list {}", list);		
 
-		MIDINote c5 = new MIDINote(Pitch.C5);
-		MIDINote e5 = new MIDINote(Pitch.E5);
-		MIDINote n = list.get(0);
-		assertNotNull(n);
-		// System.err.println(n);
-		assertEquals(c5.getMidiNumber(),
-				n.getMidiNumber());
-		assertEquals(c5,
-				n);
+		MIDINote note = list.get(0);
+		assertThat("The note is not null.", note, notNullValue());
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.C5));
 
-		n = list.get(1);
-		// System.err.println(n);
-		assertNotNull(n);
-		assertEquals(e5.getMidiNumber(),
-				n.getMidiNumber());
-		assertEquals(e5,
-				n);
+		note = list.get(1);
+		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.E5));
+
 
 		absolute = false;
 		list = MIDITrackFactory.createFromIntervals(new int[] { 4 },
@@ -343,13 +337,20 @@ public class MIDITrackTest {
 				unit,
 				absolute,
 				nOctaves);
-		assertNotNull(list);
-		assertEquals(2,
-				list.size());
-		n = list.get(0);
-		assertNotNull(n);
-		assertEquals(new MIDINote(Pitch.C5),
-				n);
+		logger.debug("list {}", list);
+		assertThat("The track is not null.", list, notNullValue());	
+		assertThat("the track size is correct", list.size(),
+				equalTo(2));
+
+		note = list.get(0);
+		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.C5));
+		
+		note = list.get(1);
+		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+				equalTo(Pitch.E5)); // 4 semitones up from c5
 
 	}
 
