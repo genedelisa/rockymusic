@@ -1014,7 +1014,7 @@ public class MIDITrackTest {
 	 */
 	@Test
 	public void shouldAppendMIDITrackWithGap() {
-		MIDITrack track = new MIDITrackBuilder()
+		MIDITrack track =  MIDITrackBuilder.create()
 				.name("track n with indexes")
 				.noteString("C D E F G A ")
 				.sequential()

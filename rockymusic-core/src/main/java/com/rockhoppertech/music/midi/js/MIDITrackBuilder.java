@@ -50,6 +50,12 @@ public class MIDITrackBuilder {
 	private MIDIGMPatch instrument;
 	private boolean sequential;
 
+	private MIDITrackBuilder() {
+	    
+	}
+	public static MIDITrackBuilder create() {
+	    return new MIDITrackBuilder();
+	}
 	public MIDITrack build() {
 		MIDITrack result = null;
 		if (noteString != null && scaleName != null) {
