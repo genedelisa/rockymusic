@@ -14,6 +14,26 @@
 
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,16 +41,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiDevice.Info;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiFileFormat;
 import javax.sound.midi.MidiMessage;
@@ -53,109 +71,32 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 
 //TODO get all the cruft out of here
 // removed the play methods
+// removed the controller and patch stuff
 
 /**
  * Class <code>MidiUtils</code> is a collection of ,um, MIDI utilities.
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
  */
-public class MIDIUtils {
-	public static final String ALL_CONTROLLERS_OFF_CONTROLLER = "All Controllers Off";
-	public static final String ALL_NOTES_OFF_CONTROLLER = "All Notes Off";
-	public static final String ALL_SOUND_OFF_CONTROLLER = "All Sound Off";
-	public static final String BALANCE_COARSE_CONTROLLER = "Balance (coarse)";
-	public static final String BALANCE_FINE_CONTROLLER = "Balance (fine)";
-	public static final String BANK_SELECT_COARSE_CONTROLLER = "Bank Select (coarse)";
-	public static final String BANK_SELECT_FINE_CONTROLLER = "Bank Select (fine)";
-	public static final String BREATH_CONTROLLER_COARSE_CONTROLLER = "Breath controller (coarse)";
-	public static final String BREATH_CONTROLLER_FINE_CONTROLLER = "Breath controller (fine)";
-
-	// look at CONTROLLER_NAMES
-	public static final int CC_BANK_SELECT_COARSE = 0;
-
-	public static final int CC_BANK_SELECT_FINE = 32;
-
-	public static final int CC_MODWHEEL_COARSE = 1;
-
-	public static final int CC_MODWHEEL_FINE = 33;
-
-	public static final int CC_PAN_COARSE = 10;
-
-	public static final int CC_PAN_FINE = 42;
-
+public final class MIDIUtils {
+	
 	/**
-	 * 0 (to 63) is off. 127 (to 64) is on.
+	 * Default division (resolution) for Sequences generated
 	 */
-	public static final int CC_PORTAMENTO_ON_OFF = 65;
-
-	public static final int CC_PORTAMENTO_TIME_COARSE = 5;
-
-	public static final int CC_PORTAMENTO_TIME_FINE = 37;
-
-	/**
-	 * sometimes called the hold pedal. 0 (to 63) is off. 127 (to 64) is on.
-	 */
-	public static final int CC_SUSTAIN = 64;
-
-	public static final int CC_VOLUME_COARSE = 7;
-
-	public static final int CC_VOLUME_FINE = 39;
-
-	public static final String CELESTE_LEVEL_CONTROLLER = "Celeste Level";
-
-	public static final String CHORUS_LEVEL_CONTROLLER = "Chorus Level";
-
-	// defined controllers
-	public static final Map<String, Integer> CONTROLLER_NAMES = new HashMap<String, Integer>();
-
-	public static final String DATA_BUTTON_DECREMENT_CONTROLLER = "Data Button decrement";
-
-	public static final String DATA_BUTTON_INCREMENT_CONTROLLER = "Data Button increment";
-
-	public static final String DATA_ENTRY_COARSE_CONTROLLER = "Data Entry (coarse)";
-
-	public static final String DATA_ENTRY_FINE_CONTROLLER = "Data Entry (fine)";
-
-	public static boolean debug = false;
-
 	private static int division = 256;
 
-	public static final String EFFECT_CONTROL_1_COARSE_CONTROLLER = "Effect Control 1 (coarse)";
-	public static final String EFFECT_CONTROL_1_FINE_CONTROLLER = "Effect Control 1 (fine)";
-	public static final String EFFECT_CONTROL_2_COARSE_CONTROLLER = "Effect Control 2 (coarse)";
-	public static final String EFFECT_CONTROL_2_FINE_CONTROLLER = "Effect Control 2 (fine)";
-	public static final String EFFECTS_LEVEL_CONTROLLER = "Effects Level";
-
+	
+	/**
+	 * End of track message
+	 */
 	public static final byte ENDOFTRACK = 0x2F;
 
-	public static final String EXPRESSION_COARSE_CONTROLLER = "Expression (coarse)";
-	public static final String EXPRESSION_FINE_CONTROLLER = "Expression (fine)";
-
-	// FF 03 len text
-
-	public static final String FOOT_PEDAL_COARSE_CONTROLLER = "Foot Pedal (coarse)";
-
-	public static final String FOOT_PEDAL_FINE_CONTROLLER = "Foot Pedal (fine)";
-
-	public static final String GENERAL_PURPOSE_BUTTON_1_ON_OFF_CONTROLLER = "General Purpose Button 1 (on/off)";
-
-	public static final String GENERAL_PURPOSE_BUTTON_2_ON_OFF_CONTROLLER = "General Purpose Button 2 (on/off)";
-
-	public static final String GENERAL_PURPOSE_BUTTON_3_ON_OFF_CONTROLLER = "General Purpose Button 3 (on/off)";
-
-	public static final String GENERAL_PURPOSE_BUTTON_4_ON_OFF_CONTROLLER = "General Purpose Button 4 (on/off)";
-
-	public static final String GENERAL_PURPOSE_SLIDER_1_CONTROLLER = "General Purpose Slider 1";
-
-	public static final String GENERAL_PURPOSE_SLIDER_2_CONTROLLER = "General Purpose Slider 2";
-
-	public static final String GENERAL_PURPOSE_SLIDER_3_CONTROLLER = "General Purpose Slider 3";
-
-	public static final String GENERAL_PURPOSE_SLIDER_4_CONTROLLER = "General Purpose Slider 4";
-
+	
+	/**
+	 * General MIDI reset
+	 */
 	public static final byte gmreset[] = { 0x05, 0x7E, 0x7F, 0x09, 0x01 };
 
 	// Sequencer sequencer = MIDIUtils.getSequencer();
@@ -175,13 +116,10 @@ public class MIDIUtils {
 	 * sequencer.setMicrosecondPosition(long microseconds)
 	 */
 
-	public static final String HOLD_2_PEDAL_ON_OFF_CONTROLLER = "Hold 2 Pedal (on/off)";
-	public static final String HOLD_PEDAL_ON_OFF_CONTROLLER = "Hold Pedal (on/off)";
-
-	public static final String LEGATO_PEDAL_ON_OFF_CONTROLLER = "Legato Pedal (on/off)";
-
-	public static final String LOCAL_KEYBOARD_ON_OFF_CONTROLLER = "Local Keyboard (on/off)";
-
+	
+	/**
+	 * logging
+	 */
 	private static final Logger logger = LoggerFactory
 			.getLogger(MIDIUtils.class);
 
@@ -203,227 +141,14 @@ public class MIDIUtils {
 	public static final int META_TEMPO = 0x51;
 	public static final int META_TEXT = 1;
 	public static final int META_TIME_SIG = 0x58;
-	public static final String MODULATION_WHEEL_COARSE_CONTROLLER = "Modulation Wheel (coarse)";
-	public static final String MODULATION_WHEEL_FINE_CONTROLLER = "Modulation Wheel (fine)";
-	public static final String MONO_OPERATION_CONTROLLER = "Mono Operation";
-	public static final String NON_REGISTERED_PARAMETER_COARSE_CONTROLLER = "Non-registered Parameter (coarse)";
-	public static final String NON_REGISTERED_PARAMETER_FINE_CONTROLLER = "Non-registered Parameter (fine)";
-
-	public static final String PAN_POSITION_COARSE_CONTROLLER = "Pan position (coarse)";
-	public static final String PAN_POSITION_FINE_CONTROLLER = "Pan position (fine)";
-
-	public static final String PHASER_LEVEL_CONTROLLER = "Phaser Level";
-
-	public static final String POLY_OPERATION_CONTROLLER = "Poly Operation";
-	public static final String PORTAMENTO_ON_OFF_CONTROLLER = "Portamento (on/off)";
-	public static final String PORTAMENTO_TIME_COARSE_CONTROLLER = "Portamento Time (coarse)";
-	public static final String PORTAMENTO_TIME_FINE_CONTROLLER = "Portamento Time (fine)";
-	public static final String REGISTERED_PARAMETER_COARSE_CONTROLLER = "Registered Parameter (coarse)";
-	public static final String REGISTERED_PARAMETER_FINE_CONTROLLER = "Registered Parameter (fine)";
-
+	
 	private static Sequencer sequencer;
 
-	public static final String SOFT_PEDAL_ON_OFF_CONTROLLER = "Soft Pedal (on/off)";
-	public static final String SOUND_ATTACK_TIME_CONTROLLER = "Sound Attack Time";
-	public static final String SOUND_BRIGHTNESS_CONTROLLER = "Sound Brightness";
-	public static final String SOUND_CONTROL_10_CONTROLLER = "Sound Control 10";
-	public static final String SOUND_CONTROL_6_CONTROLLER = "Sound Control 6";
-	public static final String SOUND_CONTROL_7_CONTROLLER = "Sound Control 7";
-	public static final String SOUND_CONTROL_8_CONTROLLER = "Sound Control 8";
-	public static final String SOUND_CONTROL_9_CONTROLLER = "Sound Control 9";
-	public static final String SOUND_RELEASE_TIME_CONTROLLER = "Sound Release Time";
-	public static final String SOUND_TIMBRE_CONTROLLER = "Sound Timbre";
-	public static final String SOUND_VARIATION_CONTROLLER = "Sound Variation";
 
-	public static final String SUSTENUTO_PEDAL_ON_OFF_CONTROLLER = "Sustenuto Pedal (on/off)";
-
-	// public static final List SYNTH_LIST;
-
-	// private static float tempo = 120f;
-	//
-	// static {
-	// SYNTH_LIST = new LinkedList();
-	// }
-	static {
-
-		// public static final String BANK_SELECT_CONTROLLER = "Bank Select
-		// (coarse)";
-		CONTROLLER_NAMES.put(HOLD_PEDAL_ON_OFF_CONTROLLER, new Integer(64));
-		CONTROLLER_NAMES.put(ALL_NOTES_OFF_CONTROLLER, new Integer(123));
-		CONTROLLER_NAMES.put(SOUND_TIMBRE_CONTROLLER, new Integer(71));
-		CONTROLLER_NAMES.put(
-				GENERAL_PURPOSE_BUTTON_2_ON_OFF_CONTROLLER,
-				new Integer(81));
-		CONTROLLER_NAMES.put(FOOT_PEDAL_FINE_CONTROLLER, new Integer(36));
-		CONTROLLER_NAMES
-				.put(BREATH_CONTROLLER_FINE_CONTROLLER, new Integer(34));
-		CONTROLLER_NAMES.put(BALANCE_FINE_CONTROLLER, new Integer(40));
-		CONTROLLER_NAMES.put(FOOT_PEDAL_COARSE_CONTROLLER, new Integer(4));
-		CONTROLLER_NAMES.put(SOUND_CONTROL_7_CONTROLLER, new Integer(76));
-		CONTROLLER_NAMES.put(
-				GENERAL_PURPOSE_BUTTON_1_ON_OFF_CONTROLLER,
-				new Integer(80));
-		CONTROLLER_NAMES.put(PHASER_LEVEL_CONTROLLER, new Integer(95));
-		CONTROLLER_NAMES.put(MONO_OPERATION_CONTROLLER, new Integer(126));
-		CONTROLLER_NAMES.put(
-				EFFECT_CONTROL_2_COARSE_CONTROLLER,
-				new Integer(13));
-		CONTROLLER_NAMES.put(DATA_ENTRY_FINE_CONTROLLER, new Integer(38));
-		CONTROLLER_NAMES.put(SOUND_CONTROL_9_CONTROLLER, new Integer(78));
-		CONTROLLER_NAMES.put(BANK_SELECT_FINE_CONTROLLER, new Integer(32));
-		CONTROLLER_NAMES.put(EFFECT_CONTROL_2_FINE_CONTROLLER, new Integer(45));
-		CONTROLLER_NAMES.put(BALANCE_COARSE_CONTROLLER, new Integer(8));
-		CONTROLLER_NAMES.put(EXPRESSION_COARSE_CONTROLLER, new Integer(11));
-		CONTROLLER_NAMES
-				.put(LOCAL_KEYBOARD_ON_OFF_CONTROLLER, new Integer(122));
-		CONTROLLER_NAMES.put(SOUND_ATTACK_TIME_CONTROLLER, new Integer(73));
-		CONTROLLER_NAMES
-				.put(SUSTENUTO_PEDAL_ON_OFF_CONTROLLER, new Integer(66));
-		CONTROLLER_NAMES.put(
-				REGISTERED_PARAMETER_COARSE_CONTROLLER,
-				new Integer(101));
-		CONTROLLER_NAMES.put(DATA_BUTTON_DECREMENT_CONTROLLER, new Integer(97));
-		CONTROLLER_NAMES.put(SOUND_CONTROL_8_CONTROLLER, new Integer(77));
-		CONTROLLER_NAMES.put(LEGATO_PEDAL_ON_OFF_CONTROLLER, new Integer(68));
-		CONTROLLER_NAMES.put(CHORUS_LEVEL_CONTROLLER, new Integer(93));
-		CONTROLLER_NAMES.put(PAN_POSITION_COARSE_CONTROLLER, new Integer(10));
-		CONTROLLER_NAMES.put(ALL_CONTROLLERS_OFF_CONTROLLER, new Integer(121));
-		CONTROLLER_NAMES.put(SOUND_CONTROL_6_CONTROLLER, new Integer(75));
-		// CONTROLLER_NAMES.put(VOLUME_FINE_CONTROLLER,
-		// new Integer(39));
-		// CONTROLLER_NAMES.put(OMNI_MODE_ON_CONTROLLER,
-		// new Integer(125));
-		CONTROLLER_NAMES.put(PORTAMENTO_ON_OFF_CONTROLLER, new Integer(65));
-		CONTROLLER_NAMES.put(SOUND_RELEASE_TIME_CONTROLLER, new Integer(72));
-		CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_3_CONTROLLER, new Integer(
-				18));
-		CONTROLLER_NAMES.put(
-				GENERAL_PURPOSE_BUTTON_3_ON_OFF_CONTROLLER,
-				new Integer(82));
-		CONTROLLER_NAMES.put(PORTAMENTO_TIME_FINE_CONTROLLER, new Integer(37));
-		// CONTROLLER_NAMES.put(VOLUME_COARSE_CONTROLLER,
-		// new Integer(7));
-		CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_4_CONTROLLER, new Integer(
-				19));
-		CONTROLLER_NAMES.put(DATA_BUTTON_INCREMENT_CONTROLLER, new Integer(96));
-		CONTROLLER_NAMES.put(REGISTERED_PARAMETER_FINE_CONTROLLER, new Integer(
-				100));
-		CONTROLLER_NAMES.put(PAN_POSITION_FINE_CONTROLLER, new Integer(42));
-		CONTROLLER_NAMES.put(EFFECTS_LEVEL_CONTROLLER, new Integer(91));
-		CONTROLLER_NAMES.put(
-				NON_REGISTERED_PARAMETER_COARSE_CONTROLLER,
-				new Integer(99));
-		// CONTROLLER_NAMES.put(TREMULO_LEVEL_CONTROLLER,
-		// new Integer(92));
-		CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_2_CONTROLLER, new Integer(
-				17));
-		CONTROLLER_NAMES.put(CELESTE_LEVEL_CONTROLLER, new Integer(94));
-		CONTROLLER_NAMES.put(EFFECT_CONTROL_1_FINE_CONTROLLER, new Integer(44));
-		CONTROLLER_NAMES.put(EXPRESSION_FINE_CONTROLLER, new Integer(43));
-		CONTROLLER_NAMES.put(SOUND_BRIGHTNESS_CONTROLLER, new Integer(74));
-		CONTROLLER_NAMES.put(
-				NON_REGISTERED_PARAMETER_FINE_CONTROLLER,
-				new Integer(98));
-		CONTROLLER_NAMES.put(SOUND_CONTROL_10_CONTROLLER, new Integer(79));
-		CONTROLLER_NAMES.put(
-				BREATH_CONTROLLER_COARSE_CONTROLLER,
-				new Integer(2));
-		CONTROLLER_NAMES.put(PORTAMENTO_TIME_COARSE_CONTROLLER, new Integer(5));
-		CONTROLLER_NAMES
-				.put(MODULATION_WHEEL_COARSE_CONTROLLER, new Integer(1));
-		CONTROLLER_NAMES.put(HOLD_2_PEDAL_ON_OFF_CONTROLLER, new Integer(69));
-		CONTROLLER_NAMES.put(
-				EFFECT_CONTROL_1_COARSE_CONTROLLER,
-				new Integer(12));
-		CONTROLLER_NAMES.put(BANK_SELECT_COARSE_CONTROLLER, new Integer(0));
-		CONTROLLER_NAMES.put(POLY_OPERATION_CONTROLLER, new Integer(127));
-		CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_1_CONTROLLER, new Integer(
-				16));
-		CONTROLLER_NAMES.put(ALL_SOUND_OFF_CONTROLLER, new Integer(120));
-		CONTROLLER_NAMES.put(
-				GENERAL_PURPOSE_BUTTON_4_ON_OFF_CONTROLLER,
-				new Integer(83));
-		CONTROLLER_NAMES.put(MODULATION_WHEEL_FINE_CONTROLLER, new Integer(33));
-		// CONTROLLER_NAMES.put(OMNI_MODE_OFF_CONTROLLER,
-		// new Integer(124));
-		CONTROLLER_NAMES.put(DATA_ENTRY_COARSE_CONTROLLER, new Integer(6));
-		CONTROLLER_NAMES.put(SOFT_PEDAL_ON_OFF_CONTROLLER, new Integer(67));
-		CONTROLLER_NAMES.put(SOUND_VARIATION_CONTROLLER, new Integer(70));
-		/*
-		 * CONTROLLER_NAMES.put("Bank Select (coarse)", new Integer(0));
-		 * CONTROLLER_NAMES.put("Modulation Wheel (coarse)", new Integer(1));
-		 * CONTROLLER_NAMES.put("Breath controller (coarse)", new Integer(2));
-		 * CONTROLLER_NAMES.put("Foot Pedal (coarse)", new Integer(4));
-		 * CONTROLLER_NAMES.put("Portamento Time (coarse)", new Integer(5));
-		 * CONTROLLER_NAMES.put("Data Entry (coarse)", new Integer(6));
-		 * CONTROLLER_NAMES.put("Volume (coarse)", new Integer(7));
-		 * CONTROLLER_NAMES.put("Balance (coarse)", new Integer(8));
-		 * CONTROLLER_NAMES.put("Pan position (coarse)", new Integer(10));
-		 * CONTROLLER_NAMES.put("Expression (coarse)", new Integer(11));
-		 * CONTROLLER_NAMES.put("Effect Control 1 (coarse)", new Integer(12));
-		 * CONTROLLER_NAMES.put("Effect Control 2 (coarse)", new Integer(13));
-		 * CONTROLLER_NAMES.put("General Purpose Slider 1", new Integer(16));
-		 * CONTROLLER_NAMES.put("General Purpose Slider 2", new Integer(17));
-		 * CONTROLLER_NAMES.put("General Purpose Slider 3", new Integer(18));
-		 * CONTROLLER_NAMES.put("General Purpose Slider 4", new Integer(19));
-		 * CONTROLLER_NAMES.put("Bank Select (fine)", new Integer(32));
-		 * CONTROLLER_NAMES.put("Modulation Wheel (fine)", new Integer(33));
-		 * CONTROLLER_NAMES.put("Breath controller (fine)", new Integer(34));
-		 * CONTROLLER_NAMES.put("Foot Pedal (fine)", new Integer(36));
-		 * CONTROLLER_NAMES.put("Portamento Time (fine)", new Integer(37));
-		 * CONTROLLER_NAMES.put("Data Entry (fine)", new Integer(38));
-		 * CONTROLLER_NAMES.put("Volume (fine)", new Integer(39));
-		 * CONTROLLER_NAMES.put("Balance (fine)", new Integer(40));
-		 * CONTROLLER_NAMES.put("Pan position (fine)", new Integer(42));
-		 * CONTROLLER_NAMES.put("Expression (fine)", new Integer(43));
-		 * CONTROLLER_NAMES.put("Effect Control 1 (fine)", new Integer(44));
-		 * CONTROLLER_NAMES.put("Effect Control 2 (fine)", new Integer(45));
-		 * CONTROLLER_NAMES.put("Hold Pedal (on/off)", new Integer(64));
-		 * CONTROLLER_NAMES.put("Portamento (on/off)", new Integer(65));
-		 * CONTROLLER_NAMES.put("Sustenuto Pedal (on/off)", new Integer(66));
-		 * CONTROLLER_NAMES.put("Soft Pedal (on/off)", new Integer(67));
-		 * CONTROLLER_NAMES.put("Legato Pedal (on/off)", new Integer(68));
-		 * CONTROLLER_NAMES.put("Hold 2 Pedal (on/off)", new Integer(69));
-		 * CONTROLLER_NAMES.put("Sound Variation", new Integer(70));
-		 * CONTROLLER_NAMES.put("Sound Timbre", new Integer(71));
-		 * CONTROLLER_NAMES.put("Sound Release Time", new Integer(72));
-		 * CONTROLLER_NAMES.put("Sound Attack Time", new Integer(73));
-		 * CONTROLLER_NAMES.put("Sound Brightness", new Integer(74));
-		 * CONTROLLER_NAMES.put("Sound Control 6", new Integer(75));
-		 * CONTROLLER_NAMES.put("Sound Control 7", new Integer(76));
-		 * CONTROLLER_NAMES.put("Sound Control 8", new Integer(77));
-		 * CONTROLLER_NAMES.put("Sound Control 9", new Integer(78));
-		 * CONTROLLER_NAMES.put("Sound Control 10", new Integer(79));
-		 * CONTROLLER_NAMES.put("General Purpose Button 1 (on/off)", new
-		 * Integer( 80)); CONTROLLER_NAMES.put("General Purpose Button 2
-		 * (on/off)", new Integer( 81)); CONTROLLER_NAMES.put("General Purpose
-		 * Button 3 (on/off)", new Integer( 82)); CONTROLLER_NAMES.put("General
-		 * Purpose Button 4 (on/off)", new Integer( 83));
-		 * CONTROLLER_NAMES.put("Effects Level", new Integer(91));
-		 * CONTROLLER_NAMES.put("Tremulo Level", new Integer(92));
-		 * CONTROLLER_NAMES.put("Chorus Level", new Integer(93));
-		 * CONTROLLER_NAMES.put("Celeste Level", new Integer(94));
-		 * CONTROLLER_NAMES.put("Phaser Level", new Integer(95));
-		 * CONTROLLER_NAMES.put("Data Button increment", new Integer(96));
-		 * CONTROLLER_NAMES.put("Data Button decrement", new Integer(97));
-		 * CONTROLLER_NAMES .put("Non-registered Parameter (fine)", new
-		 * Integer(98)); CONTROLLER_NAMES.put("Non-registered Parameter
-		 * (coarse)", new Integer( 99)); CONTROLLER_NAMES.put("Registered
-		 * Parameter (fine)", new Integer(100));
-		 * CONTROLLER_NAMES.put("Registered Parameter (coarse)", new
-		 * Integer(101)); CONTROLLER_NAMES.put("All Sound Off", new
-		 * Integer(120)); CONTROLLER_NAMES.put("All Controllers Off", new
-		 * Integer(121)); CONTROLLER_NAMES.put("Local Keyboard (on/off)", new
-		 * Integer(122)); CONTROLLER_NAMES.put("All Notes Off", new
-		 * Integer(123)); CONTROLLER_NAMES.put("Omni Mode Off", new
-		 * Integer(124)); CONTROLLER_NAMES.put("Omni Mode On", new
-		 * Integer(125)); CONTROLLER_NAMES.put("Mono Operation", new
-		 * Integer(126)); CONTROLLER_NAMES.put("Poly Operation", new
-		 * Integer(127));
-		 */
-	}
-
-	// every track must end with: FF 2F 00
+	/**
+	 * every track must end with: FF 2F 00
+	 * @param track
+	 */
 	public static void addEndOfTrack(Track track) {
 		try {
 			MetaMessage message = new MetaMessage();
@@ -436,6 +161,12 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param track
+	 * @param chan
+	 * @param d1
+	 * @param d2
+	 */
 	public static void appendControlChange(Track track, int chan, int d1, int d2) {
 		try {
 			ShortMessage message = new ShortMessage();
@@ -450,7 +181,12 @@ public class MIDIUtils {
 	}
 
 	/**
-	 * adds the note to the end of the track.
+	 *  adds the note to the end of the track.
+	 * @param track
+	 * @param chan
+	 * @param num
+	 * @param vel
+	 * @param duration
 	 */
 	public static void appendNote(Track track, int chan, int num, int vel,
 			long duration) {
@@ -475,6 +211,11 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param track
+	 * @param chan
+	 * @param num
+	 */
 	public static void appendProgramChange(Track track, int chan, int num) {
 		try {
 			ShortMessage message = new ShortMessage();
@@ -508,6 +249,11 @@ public class MIDIUtils {
 		return event;
 	}
 
+	/**
+	 * @param origstatus
+	 * @param bytes
+	 * @return
+	 */
 	public static ShortMessage createShortMessage(int origstatus, byte[] bytes) {
 		int status = origstatus & 0xF0;
 		// int origstatus = bytes[0];
@@ -565,6 +311,10 @@ public class MIDIUtils {
 		return track;
 	}
 
+	/**
+	 * @param command
+	 * @return
+	 */
 	public static String getCommandName(int command) {
 		StringBuilder sb = new StringBuilder();
 		switch (command) {
@@ -604,27 +354,7 @@ public class MIDIUtils {
 
 	}
 
-	public static String getControllerName(Integer value) {
-		String r = "Unknown controller: " + value;
-		for (Iterator<Entry<String, Integer>> i = CONTROLLER_NAMES.entrySet()
-				.iterator(); i.hasNext();) {
-			Entry<String, Integer> e = i.next();
-			if (e.getValue().equals(value)) {
-				r = e.getKey();
-				break;
-			}
-		}
-		return r;
-	}
-
-	public static int getControllerNumber(String name) {
-		Integer i = (Integer) CONTROLLER_NAMES.get(name);
-		if (i == null) {
-			System.err.println("name is null");
-			throw new IllegalArgumentException(name);
-		}
-		return i.intValue();
-	}
+	
 
 	/**
 	 * @param event
@@ -675,6 +405,10 @@ public class MIDIUtils {
 		return str;
 	}
 
+	/**
+	 * @param t
+	 * @return
+	 */
 	public static List<MetaMessage> getMetaTextEvents(Track t) {
 		List<MetaMessage> list = new ArrayList<>();
 		int ts = t.size();
@@ -691,6 +425,10 @@ public class MIDIUtils {
 		return list;
 	}
 
+	/**
+	 * @param t
+	 * @return
+	 */
 	public static List<MidiEvent> getMetaMessages(Track t) {
 		List<MidiEvent> list = new ArrayList<>();
 		int ts = t.size();
@@ -704,6 +442,10 @@ public class MIDIUtils {
 		return list;
 	}
 
+	/**
+	 * @param t
+	 * @return
+	 */
 	public static List<MidiEvent> getKeySignatures(Track t) {
 		List<MidiEvent> list = new ArrayList<>();
 		int ts = t.size();
@@ -712,7 +454,7 @@ public class MIDIUtils {
 			MidiMessage mm = me.getMessage();
 			if (mm instanceof MetaMessage) {
 				MetaMessage meta = (MetaMessage) mm;
-				logger.debug("checking mm for keysig {}", toString(mm));				
+				logger.debug("checking mm for keysig {}", toString(mm));
 				if (meta.getType() == META_KEY_SIG) {
 					logger.debug("adding ks");
 					list.add(me);
@@ -722,6 +464,10 @@ public class MIDIUtils {
 		return list;
 	}
 
+	/**
+	 * @param t
+	 * @return
+	 */
 	public static List<MidiEvent> getTimeSignatures(Track t) {
 		List<MidiEvent> list = new ArrayList<>();
 		int ts = t.size();
@@ -738,6 +484,10 @@ public class MIDIUtils {
 		return list;
 	}
 
+	/**
+	 * @param t
+	 * @return
+	 */
 	public static List<MidiEvent> getTempi(Track t) {
 		List<MidiEvent> list = new ArrayList<>();
 		int ts = t.size();
@@ -754,6 +504,9 @@ public class MIDIUtils {
 		return list;
 	}
 
+	/**
+	 * @return
+	 */
 	public static Sequencer getSequencer() {
 		if (MIDIUtils.sequencer == null) {
 			try {
@@ -765,6 +518,10 @@ public class MIDIUtils {
 		return MIDIUtils.sequencer;
 	}
 
+	/**
+	 * @param info
+	 * @return
+	 */
 	public static Sequencer getSequencer(MidiDevice.Info info) {
 		try {
 			MidiDevice md = MidiSystem.getMidiDevice(info);
@@ -778,6 +535,10 @@ public class MIDIUtils {
 		return null;
 	}
 
+	/**
+	 * @param synth
+	 * @return
+	 */
 	public static Sequencer getSequencer(Synthesizer synth) {
 		Sequencer seq = null;
 		try {
@@ -789,6 +550,10 @@ public class MIDIUtils {
 		return seq;
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static String getSequenceTrackName(MetaMessage mm) {
 		if (isName(mm)) {
 			return new String(mm.getData());
@@ -818,15 +583,18 @@ public class MIDIUtils {
 		return null;
 	}
 
+	/**
+	 * @return
+	 */
 	static Map<String, MidiDevice.Info> getSynthList() {
 		MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
 		Map<String, MidiDevice.Info> map = new HashMap<String, MidiDevice.Info>();
 		try {
-			for (int i = 0; i < info.length; i++) {
-				MidiDevice md = MidiSystem.getMidiDevice(info[i]);
+			for (Info element : info) {
+				MidiDevice md = MidiSystem.getMidiDevice(element);
 				if (md instanceof Synthesizer) {
-					map.put(info[i].getName(), info[i]);
-					logger.debug("name " + info[i].getName());
+					map.put(element.getName(), element);
+					logger.debug("name " + element.getName());
 					logger.debug(" Is a synthesizer ");
 				}
 			}
@@ -836,6 +604,10 @@ public class MIDIUtils {
 		return map;
 	}
 
+	/**
+	 * @param event
+	 * @return
+	 */
 	static String getTimeSignature(MetaMessage event) {
 		StringBuilder sb = new StringBuilder();
 		byte[] message = event.getData();
@@ -847,6 +619,13 @@ public class MIDIUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * @param track
+	 * @param tick
+	 * @param chan
+	 * @param d1
+	 * @param d2
+	 */
 	public static void insertControlChange(Track track, long tick, int chan,
 			int d1, int d2) {
 		try {
@@ -988,22 +767,14 @@ public class MIDIUtils {
 		}
 	}
 
-	public static void insertPan(Track track, long tick, int chan, int value) {
-		if (value < 0 || value > 127) {
-			throw new IllegalArgumentException(
-					"value must be between 0 and 127");
-		}
-		insertControlChange(track, tick, chan, CC_PAN_COARSE, value);
-	}
+	
 
-	public static void insertPortamentoOff(Track track, long tick, int chan) {
-		insertControlChange(track, tick, chan, CC_PORTAMENTO_ON_OFF, 0);
-	}
-
-	public static void insertPortamentoOn(Track track, long tick, int chan) {
-		insertControlChange(track, tick, chan, CC_PORTAMENTO_ON_OFF, 127);
-	}
-
+	/**
+	 * @param track
+	 * @param tick
+	 * @param chan
+	 * @param num
+	 */
 	public static void insertProgramChange(Track track, long tick, int chan,
 			int num) {
 		try {
@@ -1041,14 +812,12 @@ public class MIDIUtils {
 		insertMetaText(track, tick, META_NAME, name);
 	}
 
-	public static void insertSustainOff(Track track, long tick, int chan) {
-		insertControlChange(track, tick, chan, CC_SUSTAIN, 0);
-	}
 
-	public static void insertSustainOn(Track track, long tick, int chan) {
-		insertControlChange(track, tick, chan, CC_SUSTAIN, 127);
-	}
-
+	/**
+	 * @param track
+	 * @param tick
+	 * @param tempo
+	 */
 	public static void insertTempo(Track track, long tick, int tempo) {
 		int temp = 60000000 / tempo;
 		tempo = temp;
@@ -1070,6 +839,11 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param track
+	 * @param tick
+	 * @param text
+	 */
 	public static void insertText(Track track, long tick, String text) {
 		insertMetaText(track, tick, META_TEXT, text);
 	}
@@ -1106,11 +880,12 @@ public class MIDIUtils {
 		}
 	}
 
-	public static void insertVolumeChange(Track track, long tick, int chan,
-			int value) {
-		insertControlChange(track, tick, chan, CC_VOLUME_COARSE, value);
-	}
+	
 
+	/**
+	 * @param b
+	 * @return
+	 */
 	public static boolean isChannelMessage(int b) {
 		if ((b < 0xF0) && (b >= 0x80)) {
 			return true;
@@ -1119,6 +894,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isCopyright(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_COPYRIGHT) {
@@ -1128,6 +907,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isCuePoint(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_CUE_POINT) {
@@ -1137,6 +920,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isInstrument(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_INSTRUMENT) {
@@ -1146,6 +933,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isLyric(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_LYRIC) {
@@ -1155,6 +946,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isMarker(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_MARKER) {
@@ -1164,6 +959,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param aByte
+	 * @return
+	 */
 	public static boolean isMetaMessage(int aByte) {
 		if (0xFF == aByte) {
 			return true;
@@ -1172,6 +971,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isName(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_NAME) {
@@ -1181,6 +984,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param aByte
+	 * @return
+	 */
 	public static boolean isSysexMessage(int aByte) {
 		if (0xF0 == aByte) {
 			return true;
@@ -1189,6 +996,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static boolean isText(MetaMessage mm) {
 		int type = mm.getType();
 		if (type == META_TEXT) {
@@ -1198,28 +1009,47 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void log(ShortMessage se) {
 		logger.debug(toString(se));
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void logDebug(ShortMessage se) {
 		logger.debug(toString(se));
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void logError(ShortMessage se) {
 		logger.error(toString(se));
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void logInfo(ShortMessage se) {
 		logger.info(toString(se));
 	}
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		MIDIUtils.systemInfo();
 	}
 
+	/**
+	 * @param event
+	 */
 	public static void print(MetaMessage event) {
-		//PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
+		// PrintWriter writer = new PrintWriter(new
+		// OutputStreamWriter(System.out));
 
 		int type = event.getType();
 		logger.debug("printMetaMessage " + type);
@@ -1279,11 +1109,14 @@ public class MIDIUtils {
 
 		byte[] data = event.getData();
 		logger.debug("data: ");
-		for (int i = 0; i < data.length; i++) {
-			System.out.print(" " + Integer.toHexString(data[i]));
+		for (byte element : data) {
+			System.out.print(" " + Integer.toHexString(element));
 		}
 	}
 
+	/**
+	 * @param form
+	 */
 	public static void print(MidiFileFormat form) {
 		logger.debug("form: " + form);
 		logger.debug("form division: " + form.getDivisionType());
@@ -1293,6 +1126,9 @@ public class MIDIUtils {
 		logger.debug("form type: " + form.getType());
 	}
 
+	/**
+	 * @param sequence
+	 */
 	public static void print(Sequence sequence) {
 		logger.debug("Sequence length: " + sequence.getTickLength() + " ticks");
 		logger.debug("Sequence duration: " + sequence.getMicrosecondLength()
@@ -1320,9 +1156,9 @@ public class MIDIUtils {
 		logger.debug("Resolution: " + sequence.getResolution() + str);
 		logger.debug("patches");
 		Patch[] patches = sequence.getPatchList();
-		for (int i = 0; i < patches.length; i++) {
-			logger.debug("bank: " + patches[i].getBank() + " p: "
-					+ patches[i].getProgram());
+		for (Patch patche : patches) {
+			logger.debug("bank: " + patche.getBank() + " p: "
+					+ patche.getProgram());
 		}
 
 		Track[] st = sequence.getTracks();
@@ -1334,34 +1170,47 @@ public class MIDIUtils {
 		}
 
 		Patch[] p = sequence.getPatchList();
-		for (int i = 0; i < p.length; i++) {
-			logger.debug("patch bank: " + p[i].getBank());
-			logger.debug("patch program: " + p[i].getProgram());
+		for (Patch element : p) {
+			logger.debug("patch bank: " + element.getBank());
+			logger.debug("patch program: " + element.getProgram());
 		}
 	}
 
+	/**
+	 * @param sequence
+	 * @param filter
+	 */
 	public static void print(Sequence sequence, MIDIEventFilter filter) {
 		Track[] st = sequence.getTracks();
-		for (int i = 0; i < st.length; i++) {
-			print(st[i], filter);
+		for (Track element : st) {
+			print(element, filter);
 		}
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void print(ShortMessage se) {
 		logger.debug(toString(se));
 	}
 
+	/**
+	 * @param event
+	 */
 	public static void print(SysexMessage event) {
 		PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
 		writer.println("Sysex event");
 		byte[] data = event.getData();
 		writer.println("data: ");
-		for (int i = 0; i < data.length; i++) {
-			writer.print(" " + Integer.toHexString(data[i]));
+		for (byte element : data) {
+			writer.print(" " + Integer.toHexString(element));
 		}
 		writer.println();
 	}
 
+	/**
+	 * @param t
+	 */
 	public static void print(Track t) {
 		int ts = t.size();
 		for (int i = 0; i < ts; i++) {
@@ -1394,6 +1243,10 @@ public class MIDIUtils {
 		logger.debug("track ticks: " + tt);
 	}
 
+	/**
+	 * @param t
+	 * @param filter
+	 */
 	public static void print(Track t, MIDIEventFilter filter) {
 		int ts = t.size();
 		for (int i = 0; i < ts; i++) {
@@ -1421,6 +1274,9 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void printChannelModeMessage(ShortMessage se) {
 		switch (se.getData1()) {
 		case 0x78:
@@ -1490,7 +1346,7 @@ public class MIDIUtils {
 		case ShortMessage.CONTROL_CHANGE:
 			sb.append("Control Change controller=").append(se.getData1())
 					.append(" value=").append(se.getData2());
-			sb.append(" ").append(getControllerName(se.getData1()));
+			sb.append(" ").append(MIDIControllers.getControllerName(se.getData1()));
 
 			break;
 
@@ -1537,11 +1393,17 @@ public class MIDIUtils {
 
 	}
 
+	/**
+	 * @param event
+	 */
 	static void printKeySignature(MetaMessage event) {
 		String str = getKeySignature(event);
 		logger.debug(str);
 	}
 
+	/**
+	 * @param se
+	 */
 	public static void printSystemCommonMessage(ShortMessage se) {
 		switch (se.getData1()) {
 		case 0xF1:
@@ -1568,11 +1430,18 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param event
+	 */
 	static void printTimeSignature(MetaMessage event) {
 		PrintWriter writer = new PrintWriter(new OutputStreamWriter(System.out));
 		printTimeSignature(writer, event);
 	}
 
+	/**
+	 * @param writer
+	 * @param event
+	 */
 	static void printTimeSignature(PrintWriter writer, MetaMessage event) {
 		byte[] message = event.getData();
 		byte numerator = message[0];
@@ -1584,10 +1453,18 @@ public class MIDIUtils {
 		writer.println("1/32 per clock " + thirtyseconds);
 	}
 
+	/**
+	 * @param f
+	 * @return
+	 */
 	public static Sequence read(File f) {
 		return read(f.getAbsolutePath());
 	}
 
+	/**
+	 * @param filename
+	 * @return
+	 */
 	public static Sequence read(String filename) {
 		Sequence sequence = null;
 		try {
@@ -1604,17 +1481,20 @@ public class MIDIUtils {
 		return sequence;
 	}
 
+	/**
+	 * 
+	 */
 	static void systemInfo() {
 		MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
 		logger.debug("system info " + info.length);
 
 		try {
-			for (int i = 0; i < info.length; i++) {
-				logger.debug("name " + info[i].getName());
-				logger.debug("vendor " + info[i].getVendor());
-				logger.debug("version " + info[i].getVersion());
-				logger.debug("description " + info[i].getDescription());
-				MidiDevice md = MidiSystem.getMidiDevice(info[i]);
+			for (Info element : info) {
+				logger.debug("name " + element.getName());
+				logger.debug("vendor " + element.getVendor());
+				logger.debug("version " + element.getVersion());
+				logger.debug("description " + element.getDescription());
+				MidiDevice md = MidiSystem.getMidiDevice(element);
 				logger.debug("device class " + md.getClass().getName());
 
 				if (md instanceof Synthesizer) {
@@ -1623,8 +1503,8 @@ public class MIDIUtils {
 					logger.debug("Is a synthesizer ");
 					Synthesizer synth = (Synthesizer) md;
 					Instrument[] insts = synth.getAvailableInstruments();
-					for (int j = 0; j < insts.length; j++) {
-						logger.debug("inst: " + insts[j].getName());
+					for (Instrument inst : insts) {
+						logger.debug("inst: " + inst.getName());
 					}
 
 				} else if (md instanceof Sequencer) {
@@ -1636,6 +1516,10 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param event
+	 * @return
+	 */
 	public static String toString(MetaMessage event) {
 		StringBuilder sb = new StringBuilder();
 
@@ -1691,14 +1575,18 @@ public class MIDIUtils {
 		}
 
 		byte[] data = event.getData();
-		for (int i = 0; i < data.length; i++) {
-			sb.append(" ").append(Integer.toHexString(data[i]));
+		for (byte element : data) {
+			sb.append(" ").append(Integer.toHexString(element));
 		}
 		return sb.toString();
 	}
 
+	/**
+	 * @param me
+	 * @return
+	 */
 	public static String toString(MidiEvent me) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		MidiMessage mess = me.getMessage();
 		long tick = me.getTick();
 		sb.append("tick=" + tick); // no append for long!
@@ -1706,6 +1594,10 @@ public class MIDIUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static String toString(MidiMessage mm) {
 		String s = null;
 		if (mm instanceof ShortMessage) {
@@ -1741,8 +1633,12 @@ public class MIDIUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * @param me
+	 * @return
+	 */
 	public static String toStringFull(MidiEvent me) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		MidiMessage mess = me.getMessage();
 		long tick = me.getTick();
 		sb.append("tick=" + tick); // no append for long!
@@ -1750,6 +1646,10 @@ public class MIDIUtils {
 		return sb.toString();
 	}
 
+	/**
+	 * @param mm
+	 * @return
+	 */
 	public static String toStringFull(MidiMessage mm) {
 		String s = null;
 		if (mm instanceof ShortMessage) {
@@ -1767,6 +1667,10 @@ public class MIDIUtils {
 		return s;
 	}
 
+	/**
+	 * @param sequence
+	 * @param os
+	 */
 	public static void write(Sequence sequence, OutputStream os) {
 		try {
 			int[] types = MidiSystem.getMidiFileTypes(sequence);
@@ -1781,11 +1685,15 @@ public class MIDIUtils {
 				}
 			}
 
-		} catch (java.io.IOException ie) {
-			System.err.println(ie);
+		} catch (IOException ie) {
+			logger.error(ie.getLocalizedMessage(), ie);
 		}
 	}
 
+	/**
+	 * @param sequence
+	 * @param filename
+	 */
 	public static void write(Sequence sequence, String filename) {
 		/*
 		 * this seems to be only used to read.
@@ -1820,6 +1728,11 @@ public class MIDIUtils {
 		}
 	}
 
+	/**
+	 * @param sequence
+	 * @param filename
+	 * @param type
+	 */
 	public static void write(Sequence sequence, String filename, int type) {
 		try {
 			int[] types = MidiSystem.getMidiFileTypes(sequence);
@@ -1841,11 +1754,14 @@ public class MIDIUtils {
 			 * { throw new IOException("Problems writing to file"); } }
 			 */
 
-		} catch (java.io.IOException ie) {
-			System.err.println(ie);
+		} catch (IOException ie) {
+			logger.error(ie.getLocalizedMessage(),ie);
 		}
 	}
 
+	/**
+	 * No instantiation
+	 */
 	private MIDIUtils() {
 	}
 
@@ -1911,12 +1827,4 @@ public class MIDIUtils {
  * 
  * name Maestro WaveSynth vendor Unknown Vendor version Unknown Version
  * description Internal synthesizer (generic)
- */
-
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
  */
