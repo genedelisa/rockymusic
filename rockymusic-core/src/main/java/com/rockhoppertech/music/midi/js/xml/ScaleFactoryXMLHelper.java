@@ -14,6 +14,26 @@
 
 package com.rockhoppertech.music.midi.js.xml;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,7 +65,6 @@ import org.xml.sax.SAXParseException;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
-
 /**
  * Class <code>ScaleFactoryXMLHelper</code>
  * 
@@ -57,7 +76,8 @@ import com.rockhoppertech.music.scale.ScaleFactory;
  */
 
 public class ScaleFactoryXMLHelper {
-	private static Logger logger = LoggerFactory.getLogger(ScaleFactoryXMLHelper.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(ScaleFactoryXMLHelper.class);
 	static String scaleDefinitionFileName = ScaleFactory
 			.getDefinitionFileName();
 
@@ -100,7 +120,7 @@ public class ScaleFactoryXMLHelper {
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
-		Document doc = (Document) db.newDocument();
+		Document doc = db.newDocument();
 
 		Element chords = doc.createElement("scales");
 		doc.appendChild(chords);
@@ -210,7 +230,7 @@ public class ScaleFactoryXMLHelper {
 		} catch (ParserConfigurationException e) {
 			System.err.println(e);
 			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(),e);
+				logger.error(e.getMessage(), e);
 			}
 			e.printStackTrace();
 		}
@@ -259,7 +279,7 @@ public class ScaleFactoryXMLHelper {
 			Exception x = sxe;
 			if (sxe.getException() != null) {
 				x = sxe.getException();
-				logger.error(x.getMessage(),x);
+				logger.error(x.getMessage(), x);
 			}
 			// } catch (MalformedURLException mue) {
 
@@ -291,8 +311,8 @@ public class ScaleFactoryXMLHelper {
 	}
 
 	/**
-	 * Attempt to parse each scale element and register it with the ScaleFactory.
-	 * Ignores the spelling if the intervals are specified.
+	 * Attempt to parse each scale element and register it with the
+	 * ScaleFactory. Ignores the spelling if the intervals are specified.
 	 * 
 	 * ScaleFactory.registerScale(mc);
 	 * 
@@ -310,7 +330,8 @@ public class ScaleFactoryXMLHelper {
 		NamedNodeMap pa = scale.getAttributes();
 		Node ni = pa.getNamedItem("name");
 		if (ni == null) {
-			throw new IllegalArgumentException("Invalid scale; no name attribute");
+			throw new IllegalArgumentException(
+					"Invalid scale; no name attribute");
 		}
 		String name = ni.getNodeValue();
 		logger.debug(name);
@@ -339,17 +360,18 @@ public class ScaleFactoryXMLHelper {
 				}
 			}
 		}
-//		String s = String.format("xml %s has intervals %s \n", name, ArrayUtils
-//				.asString(intervals));
-//		System.err.println(s);
+		// String s = String.format("xml %s has intervals %s \n", name,
+		// ArrayUtils
+		// .asString(intervals));
+		// System.err.println(s);
 
 		Scale mc = null;
 		if (intervals != null) {
 			mc = new Scale(name, intervals, description);
 			logger.debug("creating from intervals " + name);
-			 if (spelling != null) {
-			     mc.setSpelling(spelling);
-			 }
+			if (spelling != null) {
+				mc.setSpelling(spelling);
+			}
 		} else if (spelling != null) {
 			mc = new Scale(name, spelling);
 			mc.setDescription(description);

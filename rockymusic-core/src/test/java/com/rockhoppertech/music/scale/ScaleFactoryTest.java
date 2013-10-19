@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.scale;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -76,7 +96,10 @@ public class ScaleFactoryTest {
 		Scale scale = null;
 		scale = ScaleFactory.createFromName("Major");
 		assertThat("major scale is not null", scale, notNullValue());
-		assertThat("major scale is in the group of size 7", scales, hasItem(scale));
+		assertThat(
+				"major scale is in the group of size 7",
+				scales,
+				hasItem(scale));
 	}
 
 	/**
@@ -173,7 +196,7 @@ public class ScaleFactoryTest {
 				note.getMidiNumber(),
 				equalTo(Pitch.D0));
 		assertThat("note duration is 4", note.getDuration(), equalTo(4d));
-		
+
 		note = track.get(2);
 		assertThat("note is not null", note, notNullValue());
 		assertThat(
@@ -181,7 +204,7 @@ public class ScaleFactoryTest {
 				note.getMidiNumber(),
 				equalTo(Pitch.E0));
 		assertThat("note duration is 4", note.getDuration(), equalTo(4d));
-		
+
 		note = track.get(3);
 		assertThat("note is not null", note, notNullValue());
 		assertThat(
@@ -189,7 +212,7 @@ public class ScaleFactoryTest {
 				note.getMidiNumber(),
 				equalTo(Pitch.F0));
 		assertThat("note duration is 4", note.getDuration(), equalTo(4d));
-		
+
 		note = track.get(4);
 		assertThat("note is not null", note, notNullValue());
 		assertThat(
@@ -197,7 +220,7 @@ public class ScaleFactoryTest {
 				note.getMidiNumber(),
 				equalTo(Pitch.G0));
 		assertThat("note duration is 4", note.getDuration(), equalTo(4d));
-		
+
 		note = track.get(5);
 		assertThat("note is not null", note, notNullValue());
 		assertThat(
@@ -205,7 +228,7 @@ public class ScaleFactoryTest {
 				note.getMidiNumber(),
 				equalTo(Pitch.A0));
 		assertThat("note duration is 4", note.getDuration(), equalTo(4d));
-		
+
 		note = track.get(6);
 		assertThat("note is not null", note, notNullValue());
 		assertThat(

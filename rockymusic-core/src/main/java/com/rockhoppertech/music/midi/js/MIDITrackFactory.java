@@ -1,5 +1,25 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import static com.rockhoppertech.music.Pitch.C5;
 
 import java.util.ArrayList;
@@ -289,7 +309,7 @@ public class MIDITrackFactory {
 				ShortMessage se = (ShortMessage) mm;
 				int chan = se.getChannel();
 				List<MidiEvent> elist = null;
-				if ((elist = (ArrayList<MidiEvent>) channelList.get(chan)) == null) {
+				if ((elist = channelList.get(chan)) == null) {
 					// this shouldn't happen
 					logger.debug("null list, creating new for " + chan);
 					elist = new ArrayList<MidiEvent>();
@@ -466,7 +486,7 @@ public class MIDITrackFactory {
 						logger.error("no outstanding:");
 						continue;
 					}
-					me = (MidiEvent) outstanding.remove(new Integer(d1));
+					me = outstanding.remove(new Integer(d1));
 					ShortMessage out = null;
 					if (me != null) {
 						out = (ShortMessage) me.getMessage();
@@ -475,7 +495,7 @@ public class MIDITrackFactory {
 					if (out != null) {
 						long tickdelta = tick - me.getTick();
 						double duration = tickdelta / div;
-						double start = (double) me.getTick();
+						double start = me.getTick();
 						if (start != 0d) {
 							start = start / div;
 						}
@@ -514,8 +534,8 @@ public class MIDITrackFactory {
 	 */
 	public static MIDITrack createFromPitches(int... pitches) {
 		MIDITrack track = new MIDITrack();
-		for (int i = 0; i < pitches.length; i++) {
-			MIDINote note = new MIDINote(pitches[i]);
+		for (int pitche : pitches) {
+			MIDINote note = new MIDINote(pitche);
 			track.add(note);
 		}
 		return track;
@@ -673,7 +693,7 @@ public class MIDITrackFactory {
 		} else {
 			newCollection.add(0, new MIDINote(baseInt));
 			for (int i = 0; i < intervals.length; i++) {
-				int num = ((MIDINote) newCollection.get(i)).getMidiNumber();
+				int num = newCollection.get(i).getMidiNumber();
 				int pitch = num + (intervals[i] * unit);
 				if (logger.isDebugEnabled()) {
 					logger.debug("pitch " + pitch);
@@ -859,13 +879,13 @@ public class MIDITrackFactory {
 
 						int index = pattern[j] + i;
 
-							logger.debug("index into dlist {}",
-									index);
+						logger.debug("index into dlist {}",
+								index);
 
 						if (index == dlist.size()) {
 
-								logger.debug("continue {} {}",
-										index, dlist.size());
+							logger.debug("continue {} {}",
+									index, dlist.size());
 
 							continue;
 						}
@@ -873,7 +893,7 @@ public class MIDITrackFactory {
 						final int d = (dlist.get(index)).intValue();
 						int n = 0;
 						n = startingMIDINumber + d;
-						logger.debug("n {} d {}",  n , d);
+						logger.debug("n {} d {}", n, d);
 						newnote = new MIDINote(n, startBeat, duration);
 						logger.debug("note {}", newnote);
 						startBeat += duration;
@@ -892,7 +912,7 @@ public class MIDITrackFactory {
 						}
 						startBeat += restBetweenPatterns;
 						logger.debug("bumped up sb with rest between ",
-								 startBeat);
+								startBeat);
 					}
 				}
 
@@ -1088,9 +1108,9 @@ public class MIDITrackFactory {
 		for (MIDINote n : original) {
 			logger.debug("embellishing " + n);
 			list.add(n);
-			for (int i = 0; i < intervalPattern.length; i++) {
+			for (int element : intervalPattern) {
 				MIDINote newnote = new MIDINote(n.getMidiNumber()
-						+ intervalPattern[i]);
+						+ element);
 				list.add(newnote);
 				logger.debug("new note {}", newnote);
 			}
@@ -1108,8 +1128,9 @@ public class MIDITrackFactory {
 		final MIDITrack inversion = notelist.getInversion();
 		inversion.remove(0);
 		notelist = inversion.append(notelist);
-		if (sortAscending)
+		if (sortAscending) {
 			notelist.sortByAscendingPitches();
+		}
 		return notelist;
 	}
 

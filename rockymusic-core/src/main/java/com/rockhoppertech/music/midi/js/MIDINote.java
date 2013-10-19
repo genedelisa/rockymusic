@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,78 +85,78 @@ public class MIDINote extends Note implements Cloneable {
 		private int velocity = defaultVelocity;
 		private int voice = defaultVoice;
 
-//		public Builder(int pitch, double startBeat) {
-//			this.pitch = pitch;
-//			this.startBeat = startBeat;
-//		}
+		// public Builder(int pitch, double startBeat) {
+		// this.pitch = pitch;
+		// this.startBeat = startBeat;
+		// }
 
 		public MIDINote build() {
-			MIDINote result = new MIDINote(this.pitch);
-			result.setStartBeat(this.startBeat);
-			result.setDuration(this.duration);
-			result.setRest(this.rest);
-			result.setPan(this.pan);
-			result.setBank(this.bank);
-			result.setChannel(this.channel);
-			result.setPitchBend(this.pitchBend);
-			result.setProgram(this.program);
-			result.setVelocity(this.velocity);
-			result.setVoice(this.voice);
+			MIDINote result = new MIDINote(pitch);
+			result.setStartBeat(startBeat);
+			result.setDuration(duration);
+			result.setRest(rest);
+			result.setPan(pan);
+			result.setBank(bank);
+			result.setChannel(channel);
+			result.setPitchBend(pitchBend);
+			result.setProgram(program);
+			result.setVelocity(velocity);
+			result.setVoice(voice);
 			return result;
 		}
 
 		public Builder pitch(int pitchNumber) {
-			this.pitch = pitchNumber;
+			pitch = pitchNumber;
 			return this;
 		}
 
 		public Builder startBeat(double value) {
-			this.startBeat = value;
+			startBeat = value;
 			return this;
 		}
 
 		public Builder duration(double beats) {
-			this.duration = beats;
+			duration = beats;
 			return this;
 		}
 
 		public Builder rest(boolean value) {
-			this.rest = value;
+			rest = value;
 			return this;
 		}
 
 		public Builder pan(int value) {
-			this.pan = value;
+			pan = value;
 			return this;
 		}
 
 		public Builder bank(int value) {
-			this.bank = value;
+			bank = value;
 			return this;
 		}
 
 		public Builder channel(int value) {
-			this.channel = value;
+			channel = value;
 			return this;
 		}
 
 		public Builder pitchBend(int value) {
-			this.pitchBend = value;
+			pitchBend = value;
 			return this;
 		}
 
 		public Builder program(int value) {
-			this.program = value;
+			program = value;
 			return this;
 		}
 
 		public Builder velocity(int value) {
-			this.velocity = value;
+			velocity = value;
 			return this;
 		}
 
 		public Builder voice(int value) {
-			this.voice = value;
+			voice = value;
 			return this;
 		}
 	}
@@ -239,18 +259,18 @@ public class MIDINote extends Note implements Cloneable {
 		this.bank = bank;
 		this.program = program;
 		this.velocity = velocity;
-		this.pitchbend = bend;
+		pitchbend = bend;
 		this.voice = voice;
 	}
 
 	public MIDINote(final MIDINote n) {
 		super(n.getPitch(), n.getStartBeat(), n.getDuration());
-		this.channel = n.getChannel();
-		this.bank = n.getBank();
-		this.program = n.getProgram();
-		this.velocity = n.getVelocity();
-		this.pitchbend = n.getPitchBend();
-		this.voice = n.getVoice();
+		channel = n.getChannel();
+		bank = n.getBank();
+		program = n.getProgram();
+		velocity = n.getVelocity();
+		pitchbend = n.getPitchBend();
+		voice = n.getVoice();
 	}
 
 	/**
@@ -342,10 +362,10 @@ public class MIDINote extends Note implements Cloneable {
 	 */
 	@Override
 	public Object clone() {
-		final MIDINote clone = new MIDINote(this.getPitch().getMidiNumber(),
-				this.getStartBeat(), this.getDuration(), this.channel,
-				this.velocity, this.program, this.pitchbend, this.bank,
-				this.voice);
+		final MIDINote clone = new MIDINote(getPitch().getMidiNumber(),
+				getStartBeat(), getDuration(), channel,
+				velocity, program, pitchbend, bank,
+				voice);
 		return clone;
 	}
 
@@ -360,22 +380,22 @@ public class MIDINote extends Note implements Cloneable {
 
 		final MIDINote n = (MIDINote) o;
 
-		if (n.channel != this.channel) {
+		if (n.channel != channel) {
 			return false;
 		}
-		if (n.bank != this.bank) {
+		if (n.bank != bank) {
 			return false;
 		}
-		if (n.program != this.program) {
+		if (n.program != program) {
 			return false;
 		}
-		if (n.velocity != this.velocity) {
+		if (n.velocity != velocity) {
 			return false;
 		}
-		if (n.pitchbend != this.pitchbend) {
+		if (n.pitchbend != pitchbend) {
 			return false;
 		}
-		if (n.voice != this.voice) {
+		if (n.voice != voice) {
 			return false;
 		}
 
@@ -388,7 +408,7 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return an <code>int</code> value
 	 */
 	public int getBank() {
-		return this.bank;
+		return bank;
 	}
 
 	/**
@@ -397,14 +417,14 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return an <code>int</code> value
 	 */
 	public int getChannel() {
-		return this.channel;
+		return channel;
 	}
 
 	/**
 	 * @return the pan
 	 */
 	public int getPan() {
-		return this.pan;
+		return pan;
 	}
 
 	/**
@@ -413,7 +433,7 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return an <code>int</code> value
 	 */
 	public int getPitchBend() {
-		return this.pitchbend;
+		return pitchbend;
 	}
 
 	/**
@@ -422,7 +442,7 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return an <code>int</code> value
 	 */
 	public int getProgram() {
-		return this.program;
+		return program;
 	}
 
 	/**
@@ -431,7 +451,7 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return an <code>int</code> value
 	 */
 	public int getVelocity() {
-		return this.velocity;
+		return velocity;
 	}
 
 	/**
@@ -439,7 +459,7 @@ public class MIDINote extends Note implements Cloneable {
 	 * @return
 	 */
 	public int getVoice() {
-		return this.voice;
+		return voice;
 	}
 
 	/*
@@ -453,7 +473,7 @@ public class MIDINote extends Note implements Cloneable {
 		int result = 1;
 		result = PRIME
 				* result
-				+ (this.getPitch().getMidiNumber() + this.channel + this.program);
+				+ (getPitch().getMidiNumber() + channel + program);
 		return result;
 	}
 
@@ -464,7 +484,7 @@ public class MIDINote extends Note implements Cloneable {
 	 *            an <code>int</code> value
 	 */
 	public void setBank(final int p) {
-		this.bank = p;
+		bank = p;
 	}
 
 	/**
@@ -478,7 +498,7 @@ public class MIDINote extends Note implements Cloneable {
 			throw new IllegalArgumentException(
 					"value must be between 0 and 127");
 		}
-		this.channel = c;
+		channel = c;
 	}
 
 	/**
@@ -500,7 +520,7 @@ public class MIDINote extends Note implements Cloneable {
 	 *            an <code>int</code> value
 	 */
 	public void setPitchBend(final int b) {
-		this.pitchbend = b;
+		pitchbend = b;
 	}
 
 	/**
@@ -510,7 +530,7 @@ public class MIDINote extends Note implements Cloneable {
 	 *            an <code>int</code> value
 	 */
 	public void setProgram(final int p) {
-		this.program = p;
+		program = p;
 	}
 
 	/**
@@ -531,10 +551,10 @@ public class MIDINote extends Note implements Cloneable {
 			throw new IllegalArgumentException(
 					"value must be between 0 and 127");
 		}
-		this.velocity = v;
+		velocity = v;
 		if (MIDINote.logger.isDebugEnabled()) {
 			MIDINote.logger.debug(String.format(
-					"firing velocity new %d", this.velocity));
+					"firing velocity new %d", velocity));
 		}
 	}
 
@@ -555,13 +575,13 @@ public class MIDINote extends Note implements Cloneable {
 		// nf.setMaximumIntegerDigits(3);
 		// nf.setMinimumIntegerDigits(3);
 		sb.append(super.toString());
-		sb.append(" chan: ").append(this.channel).append(' ');
-		sb.append("velocity: ").append(this.velocity).append(' ');
-		sb.append("bank: ").append(this.bank).append(' ');
-		sb.append("program: ").append(this.program).append(' ');
-		sb.append("(").append(MIDIGMPatch.getName(this.program)).append(") ");
-		sb.append("pitchbend: ").append(this.pitchbend).append(' ');
-		sb.append("voice: ").append(this.voice).append(' ');
+		sb.append(" chan: ").append(channel).append(' ');
+		sb.append("velocity: ").append(velocity).append(' ');
+		sb.append("bank: ").append(bank).append(' ');
+		sb.append("program: ").append(program).append(' ');
+		sb.append("(").append(MIDIGMPatch.getName(program)).append(") ");
+		sb.append("pitchbend: ").append(pitchbend).append(' ');
+		sb.append("voice: ").append(voice).append(' ');
 		sb.append(']');
 		return sb.toString();
 	}
@@ -578,11 +598,11 @@ public class MIDINote extends Note implements Cloneable {
 	public String getString() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(super.getString()).append(',');
-		sb.append(this.velocity).append(',');
-		sb.append(this.pan).append(',');
-		sb.append(this.channel).append(','); 
-		sb.append(this.bank).append(',');
-		sb.append(this.program).append(' ');
+		sb.append(velocity).append(',');
+		sb.append(pan).append(',');
+		sb.append(channel).append(',');
+		sb.append(bank).append(',');
+		sb.append(program).append(' ');
 
 		return sb.toString();
 	}

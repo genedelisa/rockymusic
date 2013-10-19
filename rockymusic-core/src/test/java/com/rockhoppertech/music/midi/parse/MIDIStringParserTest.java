@@ -3,6 +3,39 @@
  */
 package com.rockhoppertech.music.midi.parse;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import static com.rockhoppertech.music.Pitch.C5;
+import static com.rockhoppertech.music.Pitch.C6;
+import static com.rockhoppertech.music.Pitch.D6;
+import static com.rockhoppertech.music.Pitch.E4;
+import static com.rockhoppertech.music.Pitch.E6;
+import static com.rockhoppertech.music.Pitch.F4;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -16,12 +49,6 @@ import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
-import static com.rockhoppertech.music.Pitch.*;
 
 /**
  * 
@@ -99,7 +126,7 @@ public class MIDIStringParserTest {
 
 	@Before
 	public void setUp() {
-		this.parser = new MIDIStringParser();
+		parser = new MIDIStringParser();
 	}
 
 	@Test
@@ -109,7 +136,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C, C6, D, E, F4, E";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertThat("list size is correct",
 				list.size(),
@@ -166,88 +193,88 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C10";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(120,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C#10";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(121,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Db10";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(121,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C9";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(108,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C8";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(96,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C7";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(84,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C6";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(72,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C5";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(60,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C4";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(48,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C3";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(36,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C2";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(24,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C1";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertNotNull(n);
 		assertEquals(12,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 	}
 
 	private void checkNoteDefaults(MIDINote n) {
@@ -297,213 +324,213 @@ public class MIDIStringParserTest {
 
 		// default oct is 5
 		s = "CF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertThat("the note's pitch is correct", n.getMidiNumber(),
 				equalTo(Pitch.B4));
 		assertThat("the note's pitch is correct", n.getMidiNumber(),
 				equalTo(59));
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		// the previous parse set the running octave to 4
-		this.parser.setRunningOctave(5);
+		parser.setRunningOctave(5);
 		s = "Cb";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("the note's pitch is correct", n.getMidiNumber(),
 				equalTo(Pitch.B4));
 		assertThat("the note's pitch is correct", n.getMidiNumber(),
 				equalTo(59));
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
-		this.parser.setRunningOctave(5);
+		parser.setRunningOctave(5);
 		s = "C";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(60,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C#";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(61,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "DF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(61,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Df";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(61,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Db";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(61,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "D";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(62,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "D#";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(63,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "EF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(63,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Ef";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(63,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Eb";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(63,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "E";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(64,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "F";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(65,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "F#";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(66,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "GF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(66,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Gf";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(66,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Gb";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(66,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "G";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(67,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "G#";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(68,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "AF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(68,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Af";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(68,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Ab";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(68,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "A";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(69,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "A#";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(70,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "BF";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(70,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Bf";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(70,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "Bb";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(70,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "B";
-		n = this.parser.parseNote(s);
+		n = parser.parseNote(s);
 		assertThat("The note is not null.", n, notNullValue());
 		assertEquals(71,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 	}
 
 	/**
@@ -513,7 +540,7 @@ public class MIDIStringParserTest {
 	public void expectBadNote() {
 		String s;
 		s = "Z";
-		this.parser.parseNote(s);
+		parser.parseNote(s);
 	}
 
 	/**
@@ -529,7 +556,7 @@ public class MIDIStringParserTest {
 		// S+ puts it in append mode
 		// the token is now brief; just the pitch and duration
 		s = "S+ C5,.5 D5,1";
-		track = this.parser.parseString(s);
+		track = parser.parseString(s);
 
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -564,9 +591,9 @@ public class MIDIStringParserTest {
 		String r;
 
 		s = "S+ X3 (C5 D5)";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
-		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
 		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("S+ C5 D5 C5 D5 C5 D5"));
@@ -574,49 +601,49 @@ public class MIDIStringParserTest {
 		//
 
 		s = "S+ X3 (C5 D5) X2 (E G)";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
-		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
-		assertThat("The returned string is not null.", r, notNullValue());		
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
+		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("S+ C5 D5 C5 D5 C5 D5 E G E G"));
 
-//		s = "S+ X3 C5 D5"; // doesn't work
-//		r = this.parser.checkMulti(s);
-//		logger.debug("returned '{}'", r);
-//		assertThat("The returned string is not null.", r, notNullValue());
-//		assertThat("the returned string is correct", r.trim(),
-//				equalTo("S+ C5 D5"));
+		// s = "S+ X3 C5 D5"; // doesn't work
+		// r = this.parser.checkMulti(s);
+		// logger.debug("returned '{}'", r);
+		// assertThat("The returned string is not null.", r, notNullValue());
+		// assertThat("the returned string is correct", r.trim(),
+		// equalTo("S+ C5 D5"));
 
 		s = "S+ X3 (C5 D5) E F";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
 		r = r.replaceAll(" +", " "); // collapse multi spaces to one
-		assertThat("The returned string is not null.", r, notNullValue());		
+		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("S+ C5 D5 C5 D5 C5 D5 E F"));
 
 		s = "S+ C5 D5 E F";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
-		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
-		assertThat("The returned string is not null.", r, notNullValue());		
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
+		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("S+ C5 D5 E F"));
-		
+
 		s = "S+ X3 (C5) E F";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
-		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
-		assertThat("The returned string is not null.", r, notNullValue());		
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
+		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("S+ C5 C5 C5 E F"));
-		
+
 		s = "X3 (C5) E F";
-		r = this.parser.checkMulti(s);
+		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
-		r = r.replaceAll(" +", " "); // collapse multi spaces to one		
-		assertThat("The returned string is not null.", r, notNullValue());		
+		r = r.replaceAll(" +", " "); // collapse multi spaces to one
+		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
 				equalTo("C5 C5 C5 E F"));
 	}
@@ -633,7 +660,7 @@ public class MIDIStringParserTest {
 		// S+ puts it in append mode
 		// the token is now brief; just the pitch and nothing else.
 		s = "S+ C5 D5";
-		track = this.parser.parseString(s);
+		track = parser.parseString(s);
 
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -668,7 +695,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C D";
-		midiTrack = this.parser.parseString(s);
+		midiTrack = parser.parseString(s);
 
 		assertThat("The track is not null.", midiTrack, notNullValue());
 		assertThat("the track size is correct", midiTrack.size(),
@@ -679,16 +706,16 @@ public class MIDIStringParserTest {
 		assertThat("The note is not null.", n, notNullValue());
 		assertThat("the note pitch midi number is correct", n.getMidiNumber(),
 				equalTo(Pitch.C5));
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(1);
 		assertNotNull(n);
 		assertEquals(Pitch.D5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		s = "C C# DF Db D D# Ef Eb E F F# Gb Gf G G# Af Ab A A# Bb B";
-		midiTrack = this.parser.parseString(s);
+		midiTrack = parser.parseString(s);
 		assertThat("The list is not null.", midiTrack, notNullValue());
 		assertThat("the track size is correct", midiTrack.size(),
 				equalTo(21));
@@ -700,7 +727,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.C5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(1);
 		assertNotNull(n);
@@ -708,7 +735,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.CS5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(2);
 		assertNotNull(n);
@@ -716,7 +743,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.DF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(3);
 		assertNotNull(n);
@@ -724,7 +751,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.DF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(4);
 		assertNotNull(n);
@@ -732,7 +759,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.D5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		// D#
 		n = midiTrack.get(5);
@@ -741,7 +768,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.DS5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(6);
 		assertNotNull(n);
@@ -749,7 +776,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.EF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(7);
 		assertNotNull(n);
@@ -757,7 +784,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.EF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(8);
 		assertNotNull(n);
@@ -765,7 +792,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.E5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(9);
 		assertNotNull(n);
@@ -773,7 +800,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.F5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(10);
 		assertNotNull(n);
@@ -781,7 +808,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.FS5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(11);
 		assertNotNull(n);
@@ -789,7 +816,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.GF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(12);
 		assertNotNull(n);
@@ -797,7 +824,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.GF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(13);
 		assertNotNull(n);
@@ -805,7 +832,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.G5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(14);
 		assertNotNull(n);
@@ -813,7 +840,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.GS5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(15);
 		assertNotNull(n);
@@ -821,7 +848,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.AF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(16);
 		assertNotNull(n);
@@ -829,7 +856,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.AF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(17);
 		assertNotNull(n);
@@ -837,7 +864,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.A5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(18);
 		assertNotNull(n);
@@ -845,7 +872,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.AS5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(19);
 		assertNotNull(n);
@@ -853,7 +880,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.BF5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 		n = midiTrack.get(20);
 		assertNotNull(n);
@@ -861,7 +888,7 @@ public class MIDIStringParserTest {
 				n.getMidiNumber());
 		assertEquals(Pitch.B5,
 				n.getMidiNumber());
-		this.checkNoteDefaults(n);
+		checkNoteDefaults(n);
 
 	}
 
@@ -872,7 +899,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C,1 D,2";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertEquals(2,
 				list.size());
@@ -890,7 +917,7 @@ public class MIDIStringParserTest {
 		assertEquals(2d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertNotNull(n);
@@ -905,10 +932,10 @@ public class MIDIStringParserTest {
 		assertEquals(3d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		s = "C#,1 Df,2";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertEquals(2,
 				list.size());
@@ -926,7 +953,7 @@ public class MIDIStringParserTest {
 		assertEquals(2d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertNotNull(n);
@@ -941,7 +968,7 @@ public class MIDIStringParserTest {
 		assertEquals(3d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 	}
 
@@ -952,7 +979,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C,1,h D,2,q.";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertEquals(2,
 				list.size());
@@ -970,7 +997,7 @@ public class MIDIStringParserTest {
 		assertEquals(3d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertNotNull(n);
@@ -985,7 +1012,7 @@ public class MIDIStringParserTest {
 		assertEquals(3.5d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 	}
 
 	@Test
@@ -995,7 +1022,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "C,1,2 D,2,2.5";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
@@ -1023,7 +1050,7 @@ public class MIDIStringParserTest {
 		assertEquals(3d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1038,13 +1065,13 @@ public class MIDIStringParserTest {
 		assertEquals(4.5d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		// whitespace delimits notes
 		// so, D,1, 2 would not be a note! The 2 would be seen as a pitch
 
 		s = "C#,1,3    Df,2.1,2.5";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertEquals(2,
 				list.size());
@@ -1062,7 +1089,7 @@ public class MIDIStringParserTest {
 		assertEquals(4d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1077,7 +1104,7 @@ public class MIDIStringParserTest {
 		assertEquals(4.6d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 	}
 
@@ -1088,7 +1115,7 @@ public class MIDIStringParserTest {
 		MIDINote n;
 
 		s = "R2.5 C,1 D,2";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertNotNull(list);
 		assertEquals(2,
 				list.size());
@@ -1106,7 +1133,7 @@ public class MIDIStringParserTest {
 		assertEquals(3.5d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1121,10 +1148,10 @@ public class MIDIStringParserTest {
 		assertEquals(4.5d,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		s = "R.5 C,1 D,2 R1.5 G5 D";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
@@ -1144,7 +1171,7 @@ public class MIDIStringParserTest {
 		assertEquals(1.5,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(1);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1159,7 +1186,7 @@ public class MIDIStringParserTest {
 		assertEquals(2.5,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(2);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1174,7 +1201,7 @@ public class MIDIStringParserTest {
 		assertEquals(2.5,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 
 		n = list.get(3);
 		assertThat("The note is not null.", n, notNullValue());
@@ -1189,7 +1216,7 @@ public class MIDIStringParserTest {
 		assertEquals(2.5,
 				n.getEndBeat(),
 				0d);
-		this.checkNoteNonTimeDefaults(n);
+		checkNoteNonTimeDefaults(n);
 	}
 
 	@Test
@@ -1207,7 +1234,7 @@ public class MIDIStringParserTest {
 				duration,
 				velocity);
 		System.err.println(s);
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 
 		assertThat("list is not null",
 				list,
@@ -1254,7 +1281,7 @@ public class MIDIStringParserTest {
 				program,
 				pitchBend);
 		System.err.println(s);
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertThat("list is not null",
 				list,
 				notNullValue());
@@ -1298,7 +1325,7 @@ public class MIDIStringParserTest {
 		sb.append("// a b c").append('\n');
 		sb.append("E G").append('\n');
 		System.err.println("input " + sb.toString());
-		track = this.parser.parseString(sb.toString());
+		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1315,7 +1342,7 @@ public class MIDIStringParserTest {
 		sb.append("/* a b c */").append('\n');
 		sb.append("E G").append('\n');
 		System.err.println("input " + sb.toString());
-		track = this.parser.parseString(sb.toString());
+		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1325,7 +1352,7 @@ public class MIDIStringParserTest {
 		sb.append("C5 D").append('\n');
 		sb.append("/* a b c */ E G").append('\n');
 		System.err.println("input " + sb.toString());
-		track = this.parser.parseString(sb.toString());
+		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1344,7 +1371,7 @@ public class MIDIStringParserTest {
 				MIDIGMPatch.BRASS.getName());
 		System.err.println(s);
 
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
@@ -1397,7 +1424,7 @@ public class MIDIStringParserTest {
 		// .getPatchNumber(MIDIUtils.PIANO_PATCH), MIDIUtils
 		// .getPatchNumber(MIDIUtils.BRASS_PATCH));
 
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
 				equalTo(2));
@@ -1448,7 +1475,7 @@ public class MIDIStringParserTest {
 
 		s = "S+ Re C D E";
 
-		track = this.parser.parseString(s);
+		track = parser.parseString(s);
 		System.err.println(track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1477,7 +1504,7 @@ public class MIDIStringParserTest {
 		s = "S+ \nX3 (C D E) F";
 		// should become C D E C D E C D E F
 
-		track = this.parser.parseString(s);
+		track = parser.parseString(s);
 		logger.debug("returned track: {}", track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1560,7 +1587,7 @@ public class MIDIStringParserTest {
 		s = "S+ X3 C D E";
 		// should become C C C D E
 
-		track = this.parser.parseString(s);
+		track = parser.parseString(s);
 		System.err.println(track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
@@ -1611,7 +1638,7 @@ public class MIDIStringParserTest {
 
 		s = "S+ C D E";
 
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		System.err.println(list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
@@ -1660,7 +1687,7 @@ public class MIDIStringParserTest {
 
 		s = "S= C D E";
 
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		System.err.println(list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
@@ -1701,7 +1728,7 @@ public class MIDIStringParserTest {
 				0d);
 
 		s = "S=4.5 C D E";
-		list = this.parser.parseString(s);
+		list = parser.parseString(s);
 		System.err.println(list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),

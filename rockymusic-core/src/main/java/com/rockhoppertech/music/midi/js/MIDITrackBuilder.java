@@ -1,5 +1,25 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,23 +46,23 @@ public class MIDITrackBuilder {
 	private String startPitch = "C";
 	private String scaleName;
 	private List<Double> durationList;
-	private List<MIDINote> noteList;	
+	private List<MIDINote> noteList;
 	private MIDIGMPatch instrument;
 	private boolean sequential;
 
 	public MIDITrack build() {
 		MIDITrack result = null;
-		if (this.noteString != null && this.scaleName != null) {
+		if (noteString != null && scaleName != null) {
 			throw new IllegalArgumentException(
 					"Make up your mind. string or scale?");
 		}
-		if (this.noteString != null) {
-			result = new MIDITrack(this.noteString);
-		} else if (this.noteList != null) {
+		if (noteString != null) {
+			result = new MIDITrack(noteString);
+		} else if (noteList != null) {
 			result = new MIDITrack(noteList);
-		} else if (this.scaleName != null) {			
+		} else if (scaleName != null) {
 			Scale scale = ScaleFactory.getScaleByName(scaleName);
-			if (this.startPitch != null) {
+			if (startPitch != null) {
 				result = ScaleFactory.createMIDITrack(scale,
 						startPitch);
 			} else {
@@ -53,38 +73,38 @@ public class MIDITrackBuilder {
 			result = new MIDITrack();
 		}
 
-		result.setName(this.name);
-		result.setDescription(this.description);
+		result.setName(name);
+		result.setDescription(description);
 
-		if (this.durationList != null) {
-			DurationModifier mod = new DurationModifier(this.durationList);
+		if (durationList != null) {
+			DurationModifier mod = new DurationModifier(durationList);
 			result.map(mod);
 			// } else if (this.duration != 0d) {
 			// DurationModifier mod = new DurationModifier(this.duration);
 			// result.map(mod);
 		}
 
-		if (this.instrument != null) {
-			result.useInstrument(this.instrument);
+		if (instrument != null) {
+			result.useInstrument(instrument);
 		}
-		
-		if (this.sequential) {
+
+		if (sequential) {
 			result.sequential();
 		}
 
-		this.reset();
+		reset();
 		return result;
 	}
 
 	private void reset() {
-		this.startPitch = "C";
+		startPitch = "C";
 		// this.duration = Duration.Q;
-		this.noteString = null;
-		this.scaleName = null;
-		this.name = null;
-		this.description = null;
-		this.durationList = null;
-		this.instrument = null;
+		noteString = null;
+		scaleName = null;
+		name = null;
+		description = null;
+		durationList = null;
+		instrument = null;
 	}
 
 	public MIDITrackBuilder name(String name) {
@@ -111,8 +131,9 @@ public class MIDITrackBuilder {
 		this.startPitch = startPitch;
 		return this;
 	}
+
 	public MIDITrackBuilder sequential() {
-		this.sequential = true;
+		sequential = true;
 		return this;
 	}
 
@@ -122,9 +143,9 @@ public class MIDITrackBuilder {
 	// }
 
 	public MIDITrackBuilder durations(double... durations) {
-		this.durationList = new ArrayList<Double>();
+		durationList = new ArrayList<Double>();
 		for (Double d : durations) {
-			this.durationList.add(d);
+			durationList.add(d);
 		}
 		return this;
 	}
@@ -134,12 +155,10 @@ public class MIDITrackBuilder {
 		return this;
 	}
 
-	
-
 	public MIDITrackBuilder notes(MIDINote... notes) {
-		this.noteList = new ArrayList<>();
+		noteList = new ArrayList<>();
 		for (MIDINote n : notes) {
-			this.noteList.add(n);
+			noteList.add(n);
 		}
 		return this;
 	}

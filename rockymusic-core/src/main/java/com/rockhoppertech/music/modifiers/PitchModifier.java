@@ -14,6 +14,26 @@
 
 package com.rockhoppertech.music.modifiers;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -37,178 +57,180 @@ import com.rockhoppertech.music.PitchFactory;
  */
 public class PitchModifier extends AbstractModifier implements NoteModifier {
 
-    private static final Logger logger = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(PitchModifier.class);
-    
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Number> values;
-    private NoteModifier successor;
 
-    public PitchModifier() {
-        this.values = new CircularArrayList<Number>();
-        this.values.add(Pitch.C5);
-    }
+	private Operation operation = Operation.SET;
+	private CircularArrayList<Number> values;
+	private NoteModifier successor;
 
-    public PitchModifier(final int n) {
-        this.values = new CircularArrayList<Number>();
-        this.values.add(n);
-    }
+	public PitchModifier() {
+		values = new CircularArrayList<Number>();
+		values.add(Pitch.C5);
+	}
 
-    public PitchModifier(final List<Double> list) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Number>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(this.values);
-    }
+	public PitchModifier(final int n) {
+		values = new CircularArrayList<Number>();
+		values.add(n);
+	}
 
-    public PitchModifier(final Operation op, final double... array) {
-        this.operation = op;
-        this.values = new CircularArrayList<Number>();
-        this.setValues(array);
-    }
+	public PitchModifier(final List<Double> list) {
+		if (values == null) {
+			values = new CircularArrayList<Number>();
+		} else {
+			values.clear();
+		}
+		values.addAll(values);
+	}
 
-    public PitchModifier(final Operation op, final int n) {
-        this.operation = op;
-        this.values = new CircularArrayList<Number>();
-        this.values.add(n);
-    }
+	public PitchModifier(final Operation op, final double... array) {
+		operation = op;
+		values = new CircularArrayList<Number>();
+		this.setValues(array);
+	}
 
-    public PitchModifier(final Operation op, final List<Integer> values2) {
-        this.operation = op;
-        this.values = new CircularArrayList<Number>();
-        this.values.addAll(values2);
-    }
+	public PitchModifier(final Operation op, final int n) {
+		operation = op;
+		values = new CircularArrayList<Number>();
+		values.add(n);
+	}
 
-    /**
-     * <code>getDescription</code>
-     * 
-     * @return a <code>String</code> value
-     */
-    @Override
-    public String getDescription() {
-        return "Pitch modifier changes the MIDI number";
-    }
+	public PitchModifier(final Operation op, final List<Integer> values2) {
+		operation = op;
+		values = new CircularArrayList<Number>();
+		values.addAll(values2);
+	}
 
-    /**
-     * <code>getName</code>
-     * 
-     * @return a <code>String</code> value
-     */
-    @Override
-    public String getName() {
-        return "Pitch Modifier";
-    }
+	/**
+	 * <code>getDescription</code>
+	 * 
+	 * @return a <code>String</code> value
+	 */
+	@Override
+	public String getDescription() {
+		return "Pitch modifier changes the MIDI number";
+	}
 
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return this.operation;
-    }
+	/**
+	 * <code>getName</code>
+	 * 
+	 * @return a <code>String</code> value
+	 */
+	@Override
+	public String getName() {
+		return "Pitch Modifier";
+	}
 
-    @Override
-    public void modify(final Note note) {
-        logger.debug("before: " + note);
-        final double value = this.values.next().doubleValue();
-        Pitch newPitch = null;
-        int midiNumber = 0;
+	/**
+	 * @return the operation
+	 */
+	public Operation getOperation() {
+		return operation;
+	}
 
-        switch (this.operation) {
-        case ADD:
-            midiNumber = (int) (note.getMidiNumber() + value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            note.setPitch(newPitch);
-            break;
-        case SUBTRACT:
-            midiNumber = (int) (note.getMidiNumber() - value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            note.setPitch(newPitch);
-            break;
-        case DIVIDE:
-            midiNumber = (int) (note.getMidiNumber() / value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            note.setPitch(newPitch);
-            break;
-        case MULTIPLY:
-            midiNumber = (int) (note.getMidiNumber() * value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            note.setPitch(newPitch);
-            break;
-        case MOD:
-            midiNumber = (int) (note.getMidiNumber() % value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            note.setPitch(newPitch);
-            break;
-        case SET:
-            newPitch = PitchFactory.getPitch(value);
-            note.setPitch(newPitch);
-            break;
-        case QUANTIZE:
-            double d = AbstractModifier.quantize(note.getMidiNumber(),
-                                                 value);
-            if ((d < 0) || (d > 127)) {
-                d = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(d);
-            note.setPitch(newPitch);
-        }
-        logger.debug("after: " + note);
+	@Override
+	public void modify(final Note note) {
+		logger.debug("before: " + note);
+		final double value = values.next().doubleValue();
+		Pitch newPitch = null;
+		int midiNumber = 0;
 
-        if (this.successor != null) {
-            this.successor.modify(note);
-        }
-    }
+		switch (operation) {
+		case ADD:
+			midiNumber = (int) (note.getMidiNumber() + value);
+			if ((midiNumber < 0) || (midiNumber > 127)) {
+				midiNumber = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(midiNumber);
+			note.setPitch(newPitch);
+			break;
+		case SUBTRACT:
+			midiNumber = (int) (note.getMidiNumber() - value);
+			if ((midiNumber < 0) || (midiNumber > 127)) {
+				midiNumber = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(midiNumber);
+			note.setPitch(newPitch);
+			break;
+		case DIVIDE:
+			midiNumber = (int) (note.getMidiNumber() / value);
+			if ((midiNumber < 0) || (midiNumber > 127)) {
+				midiNumber = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(midiNumber);
+			note.setPitch(newPitch);
+			break;
+		case MULTIPLY:
+			midiNumber = (int) (note.getMidiNumber() * value);
+			if ((midiNumber < 0) || (midiNumber > 127)) {
+				midiNumber = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(midiNumber);
+			note.setPitch(newPitch);
+			break;
+		case MOD:
+			midiNumber = (int) (note.getMidiNumber() % value);
+			if ((midiNumber < 0) || (midiNumber > 127)) {
+				midiNumber = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(midiNumber);
+			note.setPitch(newPitch);
+			break;
+		case SET:
+			newPitch = PitchFactory.getPitch(value);
+			note.setPitch(newPitch);
+			break;
+		case QUANTIZE:
+			double d = AbstractModifier.quantize(note.getMidiNumber(),
+					value);
+			if ((d < 0) || (d > 127)) {
+				d = note.getMidiNumber();
+			}
+			newPitch = PitchFactory.getPitch(d);
+			note.setPitch(newPitch);
+		}
+		logger.debug("after: " + note);
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
+		if (successor != null) {
+			successor.modify(note);
+		}
+	}
 
-    public void setSuccessor(final NoteModifier successor) {
-        this.successor = successor;
-    }
+	/**
+	 * @param operation
+	 *            the operation to set
+	 */
+	@Override
+	public void setOperation(final Operation operation) {
+		this.operation = operation;
+	}
 
-    @Override
-    public void setValues(final double[] array) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Number>();
-        } else {
-            this.values.clear();
-        }
+	@Override
+	public void setSuccessor(final NoteModifier successor) {
+		this.successor = successor;
+	}
 
-        for (final Double element : array) {
-            this.values.add(element.intValue());
-        }
-    }
+	@Override
+	public void setValues(final double[] array) {
+		if (values == null) {
+			values = new CircularArrayList<Number>();
+		} else {
+			values.clear();
+		}
 
-    public void setValues(final List<Number> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Number>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
+		for (final Double element : array) {
+			values.add(element.intValue());
+		}
+	}
+
+	public void setValues(final List<Number> values) {
+		if (this.values == null) {
+			this.values = new CircularArrayList<Number>();
+		} else {
+			this.values.clear();
+		}
+		this.values.addAll(values);
+	}
 
 }
 /*
@@ -216,7 +238,5 @@ public class PitchModifier extends AbstractModifier implements NoteModifier {
  * 
  * $Log$
  * 
- * This version: $Revision$ 
- * Last modified: $Date$ 
- * Last modified by: $Author$
+ * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
  */

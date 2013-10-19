@@ -14,6 +14,26 @@
 
 package com.rockhoppertech.music.modifiers;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +46,12 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * Class <code>ArpeggiateModifier</code> Modifies the note's start beat by the
  * amount and operation.
  * <p>
- * Beats are 1 based as defined in MIDINoteList toTrack(sequence, division)
- * If the pattern size is smaller than the notelist size, it will wrap.
+ * Beats are 1 based as defined in MIDINoteList toTrack(sequence, division) If
+ * the pattern size is smaller than the notelist size, it will wrap.
  * 
- * <blockquote><pre>
+ * <blockquote>
+ * 
+ * <pre>
  * MIDINoteList notelist = ...
  * double startBeat = 1d;
  * double duration = 4d;
@@ -41,7 +63,9 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * series.add(.5d);
  * series.add(1d);
  * notelist.map(new ArpeggiateModifier(startBeat, duration, series, NoteModifier.Operation.SET));
- * </pre></blockquote>
+ * </pre>
+ * 
+ * </blockquote>
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @version $Revision$, $Date$
@@ -50,154 +74,158 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  */
 public class ArpeggiateModifier implements MIDINoteModifier {
 
-    private static final Logger logger = LoggerFactory
+	private static final Logger logger = LoggerFactory
 			.getLogger(ArpeggiateModifier.class);
 
-    private Operation operation = Operation.ADD;
-    private List<Double> values;
-    private int index;
+	private Operation operation = Operation.ADD;
+	private List<Double> values;
+	private int index;
 
-    /** gap distance between attacks */
-   // private double gap;
-    /** total duration of the chord */
-    private double duration;
-    private double startBeat;
+	/** gap distance between attacks */
+	// private double gap;
+	/** total duration of the chord */
+	private double duration;
+	private double startBeat;
 
-    /**
-     *
-     * @param startBeat
-     * 
-     * @param duration
-     * total duration of the chord
-     * 
-     * @param gap
-     * gap distance between attacks
-     */
-    public ArpeggiateModifier(double startBeat, double duration, double gap) {
-        if(gap > duration) {
-            throw new IllegalArgumentException("gap cannot be > duration");
-        }
-        this.startBeat = startBeat;
-        this.duration = duration;
-        this.values = new ArrayList<Double>();
-        this.values.add(gap);
-    }
+	/**
+	 * 
+	 * @param startBeat
+	 * 
+	 * @param duration
+	 *            total duration of the chord
+	 * 
+	 * @param gap
+	 *            gap distance between attacks
+	 */
+	public ArpeggiateModifier(double startBeat, double duration, double gap) {
+		if (gap > duration) {
+			throw new IllegalArgumentException("gap cannot be > duration");
+		}
+		this.startBeat = startBeat;
+		this.duration = duration;
+		values = new ArrayList<Double>();
+		values.add(gap);
+	}
 
-    public ArpeggiateModifier(double startBeat, double duration, double gap,
-            Operation op) {
-        this.startBeat = startBeat;
-        this.duration = duration;
-        this.operation = op;
-        this.values = new ArrayList<Double>();
-        this.values.add(gap);
-    }
+	public ArpeggiateModifier(double startBeat, double duration, double gap,
+			Operation op) {
+		this.startBeat = startBeat;
+		this.duration = duration;
+		operation = op;
+		values = new ArrayList<Double>();
+		values.add(gap);
+	}
 
-    public ArpeggiateModifier(double startBeat, double duration,
-            List<Double> gapValues, Operation op) {
-        this.startBeat = startBeat;
-        this.duration = duration;
-        this.operation = op;
-        this.values = gapValues;
-    }
+	public ArpeggiateModifier(double startBeat, double duration,
+			List<Double> gapValues, Operation op) {
+		this.startBeat = startBeat;
+		this.duration = duration;
+		operation = op;
+		values = gapValues;
+	}
 
-    double nextValue() {
-        logger.debug("next value index: " + this.index);
-        logger.debug("size: " + this.values.size());
+	double nextValue() {
+		logger.debug("next value index: " + index);
+		logger.debug("size: " + values.size());
 
-        if (this.index + 1 > this.values.size()) {
-            logger.debug("setting index to 0");
-            this.index = 0;
-        }
-        double v = this.values.get(index++);
-        logger.debug("returning " + v);
-        return v;
-    }
+		if (index + 1 > values.size()) {
+			logger.debug("setting index to 0");
+			index = 0;
+		}
+		double v = values.get(index++);
+		logger.debug("returning " + v);
+		return v;
+	}
 
-    /**
-     * <code>modify</code>
-     * Each note starts after the gap.
-     * They all end at the same time.
-     * @param note
-     *            a <code>Note</code> value
-     */
-    public void modify(MIDINote note) {
-        note.setStartBeat(startBeat);
-        double d = duration - startBeat + 1d;
-        if (d <= 0d) {
-            throw new IllegalArgumentException("gaps cannot be > duration");
-        }
-        note.setDuration(d); // beats are 1 based and not zero based
+	/**
+	 * <code>modify</code> Each note starts after the gap. They all end at the
+	 * same time.
+	 * 
+	 * @param note
+	 *            a <code>Note</code> value
+	 */
+	@Override
+	public void modify(MIDINote note) {
+		note.setStartBeat(startBeat);
+		double d = duration - startBeat + 1d;
+		if (d <= 0d) {
+			throw new IllegalArgumentException("gaps cannot be > duration");
+		}
+		note.setDuration(d); // beats are 1 based and not zero based
 
-        if (operation == Operation.ADD) {
-            startBeat += this.nextValue();
-        } else if (operation == Operation.SUBTRACT) {
-            // does this make sense?
-            startBeat -= this.nextValue();
-        } else if (operation == Operation.DIVIDE) {
-            startBeat /= this.nextValue();
-        } else if (operation == Operation.MULTIPLY) {
-            startBeat *= this.nextValue();
-        } else if (operation == Operation.MOD) {
-            startBeat %= this.nextValue();
-        } else if (operation == Operation.SET) {
-            startBeat = this.nextValue();
-        }
+		if (operation == Operation.ADD) {
+			startBeat += nextValue();
+		} else if (operation == Operation.SUBTRACT) {
+			// does this make sense?
+			startBeat -= nextValue();
+		} else if (operation == Operation.DIVIDE) {
+			startBeat /= nextValue();
+		} else if (operation == Operation.MULTIPLY) {
+			startBeat *= nextValue();
+		} else if (operation == Operation.MOD) {
+			startBeat %= nextValue();
+		} else if (operation == Operation.SET) {
+			startBeat = nextValue();
+		}
 
-    }
+	}
 
-    //    public void arpeggiate(double gap, double duration) {
-    //        double totalDuration = this.notelist.getDuration();
-    //        // double delay = totalDuration / (this.notelist.size() / 1);
-    //        double delay = this.notelist.size() / duration;
-    //        double sb = notelist.getStartBeat();
-    //        logger.debug("delay " + delay);
-    //        double dur = duration / notelist.size();
-    //
-    //        for (MIDINote note : this.notelist) {
-    //            note.setStartBeat(sb);
-    //            note.setDuration(duration - sb);
-    //            sb += gap;
-    //        }
-    //    }
+	// public void arpeggiate(double gap, double duration) {
+	// double totalDuration = this.notelist.getDuration();
+	// // double delay = totalDuration / (this.notelist.size() / 1);
+	// double delay = this.notelist.size() / duration;
+	// double sb = notelist.getStartBeat();
+	// logger.debug("delay " + delay);
+	// double dur = duration / notelist.size();
+	//
+	// for (MIDINote note : this.notelist) {
+	// note.setStartBeat(sb);
+	// note.setDuration(duration - sb);
+	// sb += gap;
+	// }
+	// }
 
-    /**
-     * <code>getName</code>
-     * 
-     * @return a <code>String</code> value
-     */
-    public String getName() {
-        return "Arpeggiate";
-    }
+	/**
+	 * <code>getName</code>
+	 * 
+	 * @return a <code>String</code> value
+	 */
+	@Override
+	public String getName() {
+		return "Arpeggiate";
+	}
 
-    /**
-     * <code>getDescription</code>
-     * 
-     * @return a <code>String</code> value
-     */
-    public String getDescription() {
-        return "Arpeggiate";
-    }
+	/**
+	 * <code>getDescription</code>
+	 * 
+	 * @return a <code>String</code> value
+	 */
+	@Override
+	public String getDescription() {
+		return "Arpeggiate";
+	}
 
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return this.operation;
-    }
+	/**
+	 * @return the operation
+	 */
+	public Operation getOperation() {
+		return operation;
+	}
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    public void setOperation(Operation operation) {
-        this.operation = operation;
-    }
+	/**
+	 * @param operation
+	 *            the operation to set
+	 */
+	@Override
+	public void setOperation(Operation operation) {
+		this.operation = operation;
+	}
 
 	@Override
 	public void setValues(double[] array) {
-		this.values = new ArrayList<Double>();
-		for (int i = 0; i < array.length; i++) {
-			this.values.add(array[i]);
+		values = new ArrayList<Double>();
+		for (double element : array) {
+			values.add(element);
 		}
 	}
 }
@@ -206,7 +234,5 @@ public class ArpeggiateModifier implements MIDINoteModifier {
  * 
  * $Log$
  * 
- * This version: $Revision$ 
- * Last modified: $Date$ 
- * Last modified by: $Author$
+ * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
  */

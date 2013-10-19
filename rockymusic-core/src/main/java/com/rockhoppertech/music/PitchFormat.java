@@ -1,5 +1,24 @@
 package com.rockhoppertech.music;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -10,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class PitchFormat implements Serializable {
 	/** 
@@ -19,7 +38,7 @@ public class PitchFormat implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory
 			.getLogger(PitchFormat.class);
-	
+
 	protected static boolean isTraceEnabled;
 	protected static boolean isDebugEnabled;
 	protected static boolean isInfoEnabled;
@@ -57,8 +76,6 @@ public class PitchFormat implements Serializable {
 		}
 
 	}
-
-
 
 	/**
 	 * Justification constant
@@ -126,7 +143,7 @@ public class PitchFormat implements Serializable {
 	 * </p>
 	 */
 	public void setDisplaySharps() {
-		this.displayAsSharp = true;
+		displayAsSharp = true;
 	}
 
 	/**
@@ -135,7 +152,7 @@ public class PitchFormat implements Serializable {
 	 * </p>
 	 */
 	public void setDisplayFlats() {
-		this.displayAsSharp = false;
+		displayAsSharp = false;
 	}
 
 	/**
@@ -152,7 +169,7 @@ public class PitchFormat implements Serializable {
 		case PitchFormat.LEFT_JUSTIFY:
 		case PitchFormat.RIGHT_JUSTIFY:
 		case PitchFormat.CENTER_JUSTIFY:
-			this.justification = j;
+			justification = j;
 			break;
 		default:
 			logger.error("Invalid justification!" + j);
@@ -160,9 +177,9 @@ public class PitchFormat implements Serializable {
 		}
 	}
 
-	
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -175,7 +192,9 @@ public class PitchFormat implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -211,9 +230,9 @@ public class PitchFormat implements Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("PitchFormat[");
-		sb.append(" width=").append(this.width);
-		sb.append(" justification=").append(this.justification);
-		sb.append(" displayAsSharp=").append(this.displayAsSharp);
+		sb.append(" width=").append(width);
+		sb.append(" justification=").append(justification);
+		sb.append(" displayAsSharp=").append(displayAsSharp);
 		sb.append("]");
 		return sb.toString();
 	}
@@ -221,67 +240,67 @@ public class PitchFormat implements Serializable {
 	/**
      *
      */
-//	private String rightJustify(String p) {
-//		if (isTraceEnabled) {
-//			logger.trace(new Throwable().getStackTrace()[0].getMethodName());
-//		}
-//
-//		StringBuilder b = new StringBuilder(width);
-//
-//		int index = width - p.length();
-//		for (int i = 0; i < index; i++) {
-//			b.insert(i, ' ');
-//		}
-//		b.insert(index, p);
-//		return b.toString();
-//	}
+	// private String rightJustify(String p) {
+	// if (isTraceEnabled) {
+	// logger.trace(new Throwable().getStackTrace()[0].getMethodName());
+	// }
+	//
+	// StringBuilder b = new StringBuilder(width);
+	//
+	// int index = width - p.length();
+	// for (int i = 0; i < index; i++) {
+	// b.insert(i, ' ');
+	// }
+	// b.insert(index, p);
+	// return b.toString();
+	// }
 
 	/**
 	 * Used internally to get a left justified string.
 	 */
-//	private String leftJustify(String p) {
-//		if (isTraceEnabled) {
-//			logger.trace(new Throwable().getStackTrace()[0].getMethodName());
-//		}
-//
-//		StringBuilder b = new StringBuilder(width);
-//		b.insert(0, p);
-//		int index = p.length();
-//		for (int i = index; i < width; i++) {
-//			b.insert(i, ' ');
-//		}
-//		return b.toString();
-//	}
+	// private String leftJustify(String p) {
+	// if (isTraceEnabled) {
+	// logger.trace(new Throwable().getStackTrace()[0].getMethodName());
+	// }
+	//
+	// StringBuilder b = new StringBuilder(width);
+	// b.insert(0, p);
+	// int index = p.length();
+	// for (int i = index; i < width; i++) {
+	// b.insert(i, ' ');
+	// }
+	// return b.toString();
+	// }
 
 	/**
 	 * Used internally to get a center justified string.
 	 */
-//	private String centerJustify(String p) {
-//		if (isTraceEnabled) {
-//			logger.trace(new Throwable().getStackTrace()[0].getMethodName());
-//		}
-//
-//		StringBuilder b = new StringBuilder(width);
-//
-//		int len = p.length();
-//		int pad = (width - len) / 2;
-//
-//		if (isDebugEnabled) {
-//			logger.debug("string length: " + len);
-//			logger.debug("pad: " + pad);
-//		}
-//
-//		for (int i = 0; i < pad; i++) {
-//			b.insert(i, ' ');
-//		}
-//
-//		b.insert(pad, p);
-//		for (int i = pad + len; i < width; i++) {
-//			b.insert(i, ' ');
-//		}
-//
-//		return b.toString();
-//	}
+	// private String centerJustify(String p) {
+	// if (isTraceEnabled) {
+	// logger.trace(new Throwable().getStackTrace()[0].getMethodName());
+	// }
+	//
+	// StringBuilder b = new StringBuilder(width);
+	//
+	// int len = p.length();
+	// int pad = (width - len) / 2;
+	//
+	// if (isDebugEnabled) {
+	// logger.debug("string length: " + len);
+	// logger.debug("pad: " + pad);
+	// }
+	//
+	// for (int i = 0; i < pad; i++) {
+	// b.insert(i, ' ');
+	// }
+	//
+	// b.insert(pad, p);
+	// for (int i = pad + len; i < width; i++) {
+	// b.insert(i, ' ');
+	// }
+	//
+	// return b.toString();
+	// }
 
 	/**
 	 * Used internally to get a right justified string.
@@ -358,7 +377,7 @@ public class PitchFormat implements Serializable {
 			throw new IllegalArgumentException("Invalid width. Must not be < 3"
 					+ w);
 		}
-		this.width = w;
+		width = w;
 	}
 
 	/**
@@ -407,10 +426,10 @@ public class PitchFormat implements Serializable {
 		int oct = midiNumber / 12;
 		String str = null;
 		if (pdisplayAsSharp) {
-			str = ((String) sharpPitchMap.get(new Integer(pc))) + oct;
+			str = (sharpPitchMap.get(new Integer(pc))) + oct;
 		} else {
 			// str = FLATPITCHES[pc] + oct;
-			str = ((String) flatPitchMap.get(new Integer(pc))) + oct;
+			str = (flatPitchMap.get(new Integer(pc))) + oct;
 		}
 		switch (justification) {
 		case PitchFormat.LEFT_JUSTIFY:
@@ -472,9 +491,10 @@ public class PitchFormat implements Serializable {
 		}
 
 		String ostr = pitch.substring(octIndex);
-		if (ostr == null || ostr.equals(""))
+		if (ostr == null || ostr.equals("")) {
 			ostr = "5";
-		
+		}
+
 		try {
 			octave = Integer.parseInt(ostr) * 12;
 		} catch (NumberFormatException e) {
@@ -540,29 +560,30 @@ public class PitchFormat implements Serializable {
 	 * @return
 	 */
 	public String format(Pitch p) {
-	    String preferred = p.getPreferredSpelling();
-	    if(preferred != null) {
-	        switch (justification) {
-	        case PitchFormat.LEFT_JUSTIFY:
-	            preferred = PitchFormat.leftJustify(preferred, width);
-	            break;
-	        case PitchFormat.RIGHT_JUSTIFY:
-	            preferred = PitchFormat.rightJustify(preferred, width);
-	            break;
-	        case PitchFormat.CENTER_JUSTIFY:
-	            preferred = PitchFormat.centerJustify(preferred, width);
-	            break;
-	        }
-	        return preferred;
-	    }
-	   
+		String preferred = p.getPreferredSpelling();
+		if (preferred != null) {
+			switch (justification) {
+			case PitchFormat.LEFT_JUSTIFY:
+				preferred = PitchFormat.leftJustify(preferred, width);
+				break;
+			case PitchFormat.RIGHT_JUSTIFY:
+				preferred = PitchFormat.rightJustify(preferred, width);
+				break;
+			case PitchFormat.CENTER_JUSTIFY:
+				preferred = PitchFormat.centerJustify(preferred, width);
+				break;
+			}
+			return preferred;
+		}
+
 		String s = PitchFormat.midiNumberToString(p.getMidiNumber(),
-				this.displayAsSharp, this.justification, this.width);
+				displayAsSharp, justification, width);
 		return s;
 	}
+
 	public String format(int midiNumber) {
 		String s = PitchFormat.midiNumberToString(midiNumber,
-				this.displayAsSharp, this.justification, this.width);
+				displayAsSharp, justification, width);
 		return s;
 	}
 

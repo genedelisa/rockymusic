@@ -1,5 +1,25 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,13 +99,13 @@ public class MIDIPerformer {
 	private float tempoFactor = 1f;
 
 	public MIDIPerformer() {
-		this.openedMidiDeviceList = new ArrayList<MidiDevice>();
+		openedMidiDeviceList = new ArrayList<MidiDevice>();
 		// moved this to play()
 		// this.setupSequencer();
 	}
 
 	public MIDIPerformer atTempo(float t) {
-		this.tempo = t;
+		tempo = t;
 		return this;
 	}
 
@@ -97,9 +117,9 @@ public class MIDIPerformer {
 		try {
 			MidiDevice midiDevice = MidiSystem.getMidiDevice(info);
 			midiDevice.open();
-			this.openedMidiDeviceList.add(midiDevice);
+			openedMidiDeviceList.add(midiDevice);
 			Receiver midiReceiver = midiDevice.getReceiver();
-			Transmitter midiTransmitter = this.sequencer.getTransmitter();
+			Transmitter midiTransmitter = sequencer.getTransmitter();
 			midiTransmitter.setReceiver(midiReceiver);
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
@@ -121,10 +141,10 @@ public class MIDIPerformer {
 		this.sequence = sequence;
 
 		logger.debug("play");
-		this.setupSequencer();
-		if (this.receiver != null) {
+		setupSequencer();
+		if (receiver != null) {
 			try {
-				this.sequencer.getTransmitter().setReceiver(this.receiver);
+				sequencer.getTransmitter().setReceiver(receiver);
 			} catch (MidiUnavailableException me) {
 				if (logger.isErrorEnabled()) {
 					logger.error(me.getMessage(), me);
@@ -133,15 +153,15 @@ public class MIDIPerformer {
 			}
 		}
 
-		if (this.sequencer != null && this.sequencer.isOpen()) {
-			this.sequencer.stop();
-			this.sequencer.close();
+		if (sequencer != null && sequencer.isOpen()) {
+			sequencer.stop();
+			sequencer.close();
 			logger.error("stopped and closed already open sequencer");
 
 		}
 		if (sequencer != null) {
 			try {
-				this.sequencer.open();
+				sequencer.open();
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 				if (logger.isErrorEnabled()) {
@@ -151,17 +171,17 @@ public class MIDIPerformer {
 			}
 		}
 
-		if (this.continuousLoop) {
-			this.sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
+		if (continuousLoop) {
+			sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
 		}
 
 		try {
-			logger.debug("setting tempo to " + this.tempo);
+			logger.debug("setting tempo to " + tempo);
 
-			this.sequencer.setTempoFactor(1f);
-			this.sequencer.setTempoInBPM(this.tempo);
-			this.sequencer.setSequence(this.sequence);
-			this.sequencer.start();
+			sequencer.setTempoFactor(1f);
+			sequencer.setTempoInBPM(tempo);
+			sequencer.setSequence(this.sequence);
+			sequencer.start();
 		} catch (InvalidMidiDataException e) {
 			if (logger.isErrorEnabled()) {
 				logger.error(e.getMessage(), e);
@@ -171,12 +191,12 @@ public class MIDIPerformer {
 	}
 
 	public void playlock(Sequence sequence) {
-		synchronized (this.playLock) {
-			if (this.sequencer != null && this.sequencer.isRunning()) {
+		synchronized (playLock) {
+			if (sequencer != null && sequencer.isRunning()) {
 				logger.debug("already RUNNING");
 				while (true) {
 					try {
-						this.playLock.wait();
+						playLock.wait();
 					} catch (InterruptedException e) {
 						logger.error(e.getLocalizedMessage(), e);
 					}
@@ -190,26 +210,26 @@ public class MIDIPerformer {
 	 * @see http://java.sun.com/docs/books/tutorial/sound/MIDI-messages.html
 	 */
 	private void setupSequencer() {
-		if (this.sequencerName != null) {
-			MidiDevice.Info seqInfo = getMidiDeviceInfo(this.sequencerName,
+		if (sequencerName != null) {
+			MidiDevice.Info seqInfo = getMidiDeviceInfo(sequencerName,
 					true);
 			if (seqInfo == null) {
 				System.exit(1);
 			}
 			try {
-				this.sequencer = (Sequencer) MidiSystem.getMidiDevice(seqInfo);
+				sequencer = (Sequencer) MidiSystem.getMidiDevice(seqInfo);
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				this.sequencer = MidiSystem.getSequencer();
+				sequencer = MidiSystem.getSequencer();
 			} catch (MidiUnavailableException e) {
 				e.printStackTrace();
 			}
 		}
-		this.sequencer.setTempoFactor(this.tempoFactor);
-		this.sequencer.setTempoInBPM(this.tempo);
+		sequencer.setTempoFactor(tempoFactor);
+		sequencer.setTempoInBPM(tempo);
 
 		// if (this.sequencer instanceof Synthesizer) {
 		// /* Sun implementation; no action required. */
@@ -242,18 +262,19 @@ public class MIDIPerformer {
 		// }
 		// }, anControllers);
 
-		this.sequencer.addMetaEventListener(new MetaEventListener() {
+		sequencer.addMetaEventListener(new MetaEventListener() {
+			@Override
 			public void meta(MetaMessage event) {
 				logger.debug("MidiUtil meta: "
 						+ Integer.toHexString(event.getType()));
 				MIDIUtils.print(event);
 
 				if (event.getType() == 0x2F) {
-					if (MIDIPerformer.this.sequencer.isRunning()) {
-						MIDIPerformer.this.sequencer.stop();
+					if (sequencer.isRunning()) {
+						sequencer.stop();
 					}
-					if (MIDIPerformer.this.sequencer.isOpen()) {
-						MIDIPerformer.this.sequencer.close();
+					if (sequencer.isOpen()) {
+						sequencer.close();
 					}
 					// MIDIPerformer.this.playLock.notifyAll();
 
@@ -263,7 +284,7 @@ public class MIDIPerformer {
 					// }
 
 					// bug in jdk1.3
-					if (MIDIPerformer.this.exit) {
+					if (exit) {
 						System.exit(0);
 					}
 				}

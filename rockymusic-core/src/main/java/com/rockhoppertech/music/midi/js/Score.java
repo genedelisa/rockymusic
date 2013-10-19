@@ -1,17 +1,35 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.sound.midi.Sequence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author <a href="http://rockhoppertech.com/">Gene De Lisa</a>
- *
+ * 
  */
 public class Score implements Iterable<MIDITrack> {
 	private static final Logger logger = LoggerFactory.getLogger(Score.class);
@@ -21,16 +39,17 @@ public class Score implements Iterable<MIDITrack> {
 	private MIDITrack metaTrack;
 
 	public Score() {
-		this.tracks = new ArrayList<>();
-		this.metaTrack = new MIDITrack();
+		tracks = new ArrayList<>();
+		metaTrack = new MIDITrack();
 		// if the score's name is set, then this name is overwritten
-		this.metaTrack.setName("meta");
-		this.tracks.add(metaTrack);
+		metaTrack.setName("meta");
+		tracks.add(metaTrack);
 	}
 
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Score Name:").append(this.name).append('\n');
+		sb.append("Score Name:").append(name).append('\n');
 		for (MIDITrack t : tracks) {
 			sb.append("Track Name: ").append(t.getName()).append('\n');
 			for (MIDINote n : t.getNotes()) {
@@ -38,15 +57,15 @@ public class Score implements Iterable<MIDITrack> {
 			}
 			for (MIDIEvent n : t.getEvents()) {
 				sb.append(n).append('\n');
-				sb.append(n.toReadableString()).append('\n');				
+				sb.append(n.toReadableString()).append('\n');
 			}
 		}
 		return sb.toString();
 	}
 
 	public Score add(MIDITrack track) {
-		this.tracks.add(track);
-		logger.debug("added track. ntracks is now {}", this.tracks.size());
+		tracks.add(track);
+		logger.debug("added track. ntracks is now {}", tracks.size());
 		return this;
 	}
 
@@ -56,7 +75,7 @@ public class Score implements Iterable<MIDITrack> {
 
 	public void setName(String name) {
 		this.name = name;
-		this.metaTrack.setName(this.name);
+		metaTrack.setName(this.name);
 	}
 
 	public List<MIDITrack> getTracks() {
@@ -69,19 +88,19 @@ public class Score implements Iterable<MIDITrack> {
 
 	@Override
 	public Iterator<MIDITrack> iterator() {
-		return this.tracks.iterator();
+		return tracks.iterator();
 	}
 
 	public int getResolution() {
-		return this.resolution;
+		return resolution;
 	}
 
 	public void setResolution(int resolution) {
 		this.resolution = resolution;
 	}
-	
+
 	public void play() {
-		//Sequence sequence = ScoreFactory.scoreToSequence(this);
+		// Sequence sequence = ScoreFactory.scoreToSequence(this);
 		MIDIPerformer perf = new MIDIPerformer();
 		perf.play(this);
 	}

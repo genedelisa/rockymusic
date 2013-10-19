@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import static com.rockhoppertech.music.Pitch.C5;
 import static com.rockhoppertech.music.Pitch.D5;
 import static com.rockhoppertech.music.Pitch.E5;
@@ -55,7 +75,7 @@ public class MIDITrackTest {
 	@Before
 	public void cmajor() {
 		MIDIStringParser parser = new MIDIStringParser();
-		this.testTrack = parser.parseString("C D E F G A B");
+		testTrack = parser.parseString("C D E F G A B");
 		assertThat("The test track is not null.", testTrack, notNullValue());
 
 		MIDINote n = testTrack.get(0);
@@ -290,30 +310,31 @@ public class MIDITrackTest {
 	 */
 	@Test
 	public void createFromIntervalsIntArrayInt() {
-		MIDITrack track = MIDITrackFactory.createFromIntervals(new int[] { 4, 1, 2 },
+		MIDITrack track = MIDITrackFactory.createFromIntervals(new int[] { 4,
+				1, 2 },
 				Pitch.C5);
-		assertThat("The track is not null.", track, notNullValue());	
+		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(4));
-		logger.debug("track {}", track);	
-		
+		logger.debug("track {}", track);
+
 		MIDINote note = track.get(0);
 		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.C5));
 
 		note = track.get(1);
-		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.E5));
-		
-		 note = track.get(2);
+
+		note = track.get(2);
 		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.F5));
 
 		note = track.get(3);
-		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.G5));
 	}
@@ -334,11 +355,11 @@ public class MIDITrackTest {
 				unit,
 				absolute,
 				nOctaves);
-		
-		assertThat("The track is not null.", track, notNullValue());	
+
+		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(2));
-		logger.debug("track {}", track);		
+		logger.debug("track {}", track);
 
 		MIDINote note = track.get(0);
 		assertThat("The note is not null.", note, notNullValue());
@@ -346,10 +367,9 @@ public class MIDITrackTest {
 				equalTo(Pitch.C5));
 
 		note = track.get(1);
-		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.E5));
-
 
 		absolute = false;
 		track = MIDITrackFactory.createFromIntervals(new int[] { 4 },
@@ -358,17 +378,17 @@ public class MIDITrackTest {
 				absolute,
 				nOctaves);
 		logger.debug("list {}", track);
-		assertThat("The track is not null.", track, notNullValue());	
+		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(2));
 
 		note = track.get(0);
-		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.C5));
-		
+
 		note = track.get(1);
-		assertThat("The note is not null.", note, notNullValue());		
+		assertThat("The note is not null.", note, notNullValue());
 		assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
 				equalTo(Pitch.E5)); // 4 semitones up from c5
 
@@ -880,6 +900,7 @@ public class MIDITrackTest {
 	@Test
 	public void sort() {
 		Comparator<MIDINote> comp = new Comparator<MIDINote>() {
+			@Override
 			public int compare(MIDINote o1, MIDINote o2) {
 				if (o1.getMidiNumber() > o2.getMidiNumber()) {
 					return 1;

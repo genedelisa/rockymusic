@@ -1,6 +1,26 @@
 package com.rockhoppertech.music;
 
 /*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+/*
  * $Id$
  *
  * Copyright 1998,1999,2000,2001,2002,2003 by Rockhopper Technologies,
@@ -53,8 +73,9 @@ public class PitchFactory {
 	private static PitchFactory instance;
 
 	/**
-	 * Singleton pattern.
-	 * But, since all methods are static, this is not really needed.
+	 * Singleton pattern. But, since all methods are static, this is not really
+	 * needed.
+	 * 
 	 * @return a PitchFactory instance
 	 */
 	public static synchronized PitchFactory getInstance() {
@@ -142,7 +163,7 @@ public class PitchFactory {
 		Integer i = new Integer(PitchFormat.stringToMidiNumber(pitchString));
 		Pitch p = null;
 		if (pitches.containsKey(i)) {
-			p = (Pitch) pitches.get(i);
+			p = pitches.get(i);
 			if (isDebugEnabled) {
 				logger.debug("retrieved existing pitch: " + p);
 			}
@@ -216,8 +237,9 @@ public class PitchFactory {
 		// The exact range of the pitch bend is specific to the synthesizer.
 
 		double note = (octave * 12d) + semitone;
-		if (note > 127)
+		if (note > 127) {
 			note = 127;
+		}
 
 		Pitch p = new Pitch((int) note);
 		p.setCents((short) cents);

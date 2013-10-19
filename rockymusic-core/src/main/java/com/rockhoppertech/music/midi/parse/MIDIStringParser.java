@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.midi.parse;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -145,7 +165,7 @@ public class MIDIStringParser {
 			p = sc.next();
 		} else if (sc.hasNext(shortPitchPattern)) {
 			p = sc.next();
-			p += this.runningOctave;
+			p += runningOctave;
 			logger.debug("short " + p);
 		} else {
 			String tok = sc.next();
@@ -239,7 +259,7 @@ public class MIDIStringParser {
 			p = sc.next();
 		} else if (sc.hasNext(shortPitchPattern)) {
 			p = sc.next();
-			p += this.runningOctave;
+			p += runningOctave;
 			logger.debug("short " + p);
 		} else {
 			String se = String
@@ -297,7 +317,7 @@ public class MIDIStringParser {
 		Pattern multiPattern = Pattern
 				.compile(patternString);
 		int numRepeats = 0;
-		StringBuilder origsb = new StringBuilder(s);		
+		StringBuilder origsb = new StringBuilder(s);
 
 		logger.debug("checking for multi '{}'", s);
 		sc.useDelimiter("\\Z");
@@ -308,27 +328,27 @@ public class MIDIStringParser {
 			numRepeats = Integer.parseInt(sc.match().group(1));
 			int start = sc.match().start();
 			int end = sc.match().end();
-			
+
 			logger.debug("multi group 1 '{}'", sc.match().group(1));
 			logger.debug("multi group 2 '{}'", sc.match().group(2));
 			logger.debug("multi group count '{}'", sc.match()
 					.groupCount());
-			logger.debug("multi start {} end {}", start,end);
+			logger.debug("multi start {} end {}", start, end);
 
 			StringBuilder sb2 = new StringBuilder();
 			sb2.append(' ');
 			for (int i = 0; i < numRepeats; i++) {
 				sb2.append(sc.match().group(2)).append(' ');
 			}
-			
-			logger.debug("origsb before '{}'", origsb);			
+
+			logger.debug("origsb before '{}'", origsb);
 			origsb.replace(start, end, sb2.toString());
-			logger.debug("origsb after '{}'", origsb);		
-			
-			Matcher matcher = multiPattern.matcher(origsb);			
+			logger.debug("origsb after '{}'", origsb);
+
+			Matcher matcher = multiPattern.matcher(origsb);
 			boolean recurse = matcher.find();
 			logger.debug("recurse {}", recurse);
-			if(recurse) {
+			if (recurse) {
 				origsb = new StringBuilder(checkMulti(origsb.toString()));
 			}
 		} else {
@@ -389,8 +409,8 @@ public class MIDIStringParser {
 				// list.append(chord);
 				// }
 
-//				Pattern multiPattern = Pattern
-//						.compile(" +X(\\d)\\s+\\((.+?)\\)");
+				// Pattern multiPattern = Pattern
+				// .compile(" +X(\\d)\\s+\\((.+?)\\)");
 				String multi = null;
 
 				if (tok.startsWith("R") || tok.startsWith("r")) {
@@ -544,17 +564,17 @@ public class MIDIStringParser {
 						int end = tok.lastIndexOf("\"");
 						tok = tok.substring(1,
 								end);
-						this.runningProgram = MIDIGMPatch.getPatch(tok)
+						runningProgram = MIDIGMPatch.getPatch(tok)
 								.getProgram();
 					} else if (tok.startsWith("'")) {
 						int end = tok.lastIndexOf("'");
 						tok = tok.substring(1,
 								end);
-						this.runningProgram = MIDIGMPatch.getPatch(tok)
+						runningProgram = MIDIGMPatch.getPatch(tok)
 								.getProgram();
 					} else {
 						int num = Integer.parseInt(tok);
-						this.runningProgram = num;
+						runningProgram = num;
 					}
 
 					isRunningProgramSet = true;
@@ -570,39 +590,38 @@ public class MIDIStringParser {
 						// start beat is honored with add.
 						// the start beat is chenged with append
 
-//						if (multi != null) {
-//
-//							Scanner ms = new Scanner(sc.match().group(2));
-//							while (ms.hasNext()) {
-//								String mt = ms.next();
-//								if (mt.startsWith("X")) {
-//									continue;
-//								}
-//								note = parseNote(mt);
-//								track.add(note);
-//								logger.debug("added {}", note);
-//								if (startBeat != -1d) {
-//									note.setStartBeat(startBeat);
-//									logger.debug("Set start beat to {} for {}",
-//											startBeat,
-//											note);
-//
-//								}
-//							}
-//							ms.close();
-//
-//						} else {
-							note = parseNote(tok);
-							track.add(note);
-							logger.debug("added {}", note);
-							if (startBeat != -1d) {
-								note.setStartBeat(startBeat);
-								logger.debug("Set start beat to {} for {}",
-										startBeat,
-										note);
+						// if (multi != null) {
+						//
+						// Scanner ms = new Scanner(sc.match().group(2));
+						// while (ms.hasNext()) {
+						// String mt = ms.next();
+						// if (mt.startsWith("X")) {
+						// continue;
+						// }
+						// note = parseNote(mt);
+						// track.add(note);
+						// logger.debug("added {}", note);
+						// if (startBeat != -1d) {
+						// note.setStartBeat(startBeat);
+						// logger.debug("Set start beat to {} for {}",
+						// startBeat,
+						// note);
+						//
+						// }
+						// }
+						// ms.close();
+						//
+						// } else {
+						note = parseNote(tok);
+						track.add(note);
+						logger.debug("added {}", note);
+						if (startBeat != -1d) {
+							note.setStartBeat(startBeat);
+							logger.debug("Set start beat to {} for {}",
+									startBeat,
+									note);
 
-							}
-						
+						}
 
 					} else if (startOp == StartMode.APPEND) {
 						// since append ignores startbeat, there's no point in
@@ -616,22 +635,22 @@ public class MIDIStringParser {
 							continue;
 						}
 
-//						if (multi != null) {
-//							logger.debug("multi append '{}'", multi);
-//							Scanner ms = new Scanner(sc.match().group(2));
-//							while (ms.hasNext()) {
-//								String mt = ms.next();
-//								note = parseBriefNote(mt);
-//								track.append(note);
-//								logger.debug("appended {}", note);
-//							}
-//							ms.close();
-//						} else {
-							logger.debug("multi  null append tok '{}'", tok);
-							note = parseBriefNote(tok);
-							track.append(note);
-							logger.debug("appended {}", note);
-//						}
+						// if (multi != null) {
+						// logger.debug("multi append '{}'", multi);
+						// Scanner ms = new Scanner(sc.match().group(2));
+						// while (ms.hasNext()) {
+						// String mt = ms.next();
+						// note = parseBriefNote(mt);
+						// track.append(note);
+						// logger.debug("appended {}", note);
+						// }
+						// ms.close();
+						// } else {
+						logger.debug("multi  null append tok '{}'", tok);
+						note = parseBriefNote(tok);
+						track.append(note);
+						logger.debug("appended {}", note);
+						// }
 
 						logger.debug("APPEND, parsing brief. note {} ", note);
 

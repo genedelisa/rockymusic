@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.scale;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -29,108 +49,108 @@ import com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper;
 
 /**
  * Reads Scale definitions from an XML file (scaledefs.xml by default) and
- * caches them.
- * You can retrieve a Scale clone or create a MIDITrack from a specified
- * Scale.
+ * caches them. You can retrieve a Scale clone or create a MIDITrack from a
+ * specified Scale.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 public class ScaleFactory {
-	private final static Logger	logger				= LoggerFactory
-															.getLogger(ScaleFactory.class);
-	private static Set<Scale>	scales				= new HashSet<Scale>();
-	static Map<String, Scale>	scaleMap;
-	static String				definitionFileName	= "scaledefs.xml";
+	private final static Logger logger = LoggerFactory
+			.getLogger(ScaleFactory.class);
+	private static Set<Scale> scales = new HashSet<Scale>();
+	static Map<String, Scale> scaleMap;
+	static String definitionFileName = "scaledefs.xml";
 
 	// TODO finish this
 	/**
 	 * <pre>
-	 * MIDITrack notelist = new ScaleFactory.Builder().name("Major").root(
-				Pitch.C5).track().sequential();
+	 * MIDITrack notelist = new ScaleFactory.Builder().name(&quot;Major&quot;).root(
+	 * 		Pitch.C5).track().sequential();
 	 * </pre>
+	 * 
 	 * @author gene
-	 *
+	 * 
 	 */
 	public static class Builder {
-		String	name;
-		int		rootMidiNum	= -1;
-		int[]	intervals;
-		double	startBeat;
-		double	duration;
-		boolean	upAndDown;
-		int		nOct;
+		String name;
+		int rootMidiNum = -1;
+		int[] intervals;
+		double startBeat;
+		double duration;
+		boolean upAndDown;
+		int nOct;
 
 		public Scale build() {
 			Scale result = null;
-			result = createFromName(this.name);
+			result = createFromName(name);
 
-			this.reset();
+			reset();
 			return result;
 		}
 
 		public MIDITrack track() {
 			MIDITrack result = null;
-			//Scale scale = null;
+			// Scale scale = null;
 
 			result = createMIDITrack(name);
-//			result = createMIDITrack(name, rootMidiNum);
-//			result = createMIDITrack(scale);
-//			result = createMIDITrack(scale, rootMidiNum, startBeat,
-//					duration, upAndDown, nOct);
-//			result = createMIDITrack(name);
+			// result = createMIDITrack(name, rootMidiNum);
+			// result = createMIDITrack(scale);
+			// result = createMIDITrack(scale, rootMidiNum, startBeat,
+			// duration, upAndDown, nOct);
+			// result = createMIDITrack(name);
 
-			this.reset();
+			reset();
 			return result;
 		}
 
 		public Builder name(String s) {
-			this.name = s;
+			name = s;
 			return this;
 		}
 
 		public Builder root(int n) {
-			this.rootMidiNum = n;
+			rootMidiNum = n;
 			return this;
 		}
 
 		private void reset() {
-			this.name = null;
+			name = null;
 		}
 	}
 
 	// TODO better way?
-	static Map<String, String[]>	majorsSpellingMap;
+	static Map<String, String[]> majorsSpellingMap;
 	static {
 		majorsSpellingMap = new LinkedHashMap<String, String[]>();
 		majorsSpellingMap.put("C", new String[] { "C", "D", "E", "F", "G", "A",
-			"B" });
+				"B" });
 		majorsSpellingMap.put("Db", new String[] { "Db", "Eb", "F", "Gb", "Ab",
-			"Bb", "C" });
+				"Bb", "C" });
 		majorsSpellingMap.put("C#", new String[] { "C#", "D#", "E#", "F#",
-			"G#", "A#", "B#" });
+				"G#", "A#", "B#" });
 		majorsSpellingMap.put("D", new String[] { "C#", "D", "E", "F#", "G",
-			"A", "B" });
+				"A", "B" });
 		majorsSpellingMap.put("E", new String[] { "C#", "D#", "E", "F#", "G#",
-			"A", "B" });
+				"A", "B" });
 		majorsSpellingMap.put("Eb", new String[] { "C", "D", "Eb", "F", "G",
-			"Ab", "Bb" });
+				"Ab", "Bb" });
 		majorsSpellingMap.put("F", new String[] { "C", "D", "E", "F", "G", "A",
-			"Bb" });
+				"Bb" });
 		majorsSpellingMap.put("F#", new String[] { "C#", "D#", "E#", "F#",
-			"G#", "A#", "B" });
+				"G#", "A#", "B" });
 		majorsSpellingMap.put("Gb", new String[] { "Cb", "Db", "Eb", "F", "Gb",
-			"Ab", "Bb" });
+				"Ab", "Bb" });
 		majorsSpellingMap.put("G", new String[] { "C", "D", "E", "F#", "G",
-			"A", "B" });
+				"A", "B" });
 		majorsSpellingMap.put("G#", new String[] { "C", "D", "E", "F", "G",
-			"A", "B" });
+				"A", "B" });
 		majorsSpellingMap.put("Ab", new String[] { "C", "Db", "Eb", "F", "G",
-			"Ab", "Bb" });
+				"Ab", "Bb" });
 		majorsSpellingMap.put("A", new String[] { "C#", "D", "E", "F#", "G#",
-			"A", "B" });
+				"A", "B" });
 		majorsSpellingMap.put("B", new String[] { "C#", "D#", "E", "F#", "G#",
-			"A#", "B" });
+				"A#", "B" });
 	}
 
 	// don't know where we're reading from at this point
@@ -152,8 +172,6 @@ public class ScaleFactory {
 	public static void add(final Scale scale) {
 		scales.add(scale);
 	}
-
-
 
 	/**
 	 * Return a clone of a registered Scale that matches the specified
@@ -257,8 +275,8 @@ public class ScaleFactory {
 	}
 
 	/**
-	 * Create a one octave scale based on the scale's key and octave.
-	 * Startbeat and duration are 1.
+	 * Create a one octave scale based on the scale's key and octave. Startbeat
+	 * and duration are 1.
 	 * 
 	 * @param scale
 	 * @return
@@ -511,7 +529,7 @@ public class ScaleFactory {
 
 	// public static MIDITrack getNoteListFromScale(final int[] intervals,
 	// final int startPitch, final int numOctaves, final double duration) {
-	//        
+	//
 	// final int unit = Pitch.MINOR_SECOND;
 	// final boolean absoluteIntervals = false; // all in relation to base
 	// final MIDITrack notelist = MIDITrack
@@ -661,7 +679,7 @@ public class ScaleFactory {
 		} catch (final FileNotFoundException e) {
 			e.printStackTrace();
 			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(),e);
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -804,7 +822,7 @@ public class ScaleFactory {
 		} catch (final FileNotFoundException e) {
 			e.printStackTrace();
 			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(),e);
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}
@@ -833,10 +851,9 @@ public class ScaleFactory {
 	}
 
 	/**
-	 * E.g. for a c major scale, mode 1 will be d dorian.
-	 * The returned scale will have the same octave as the one passed in.
-	 * The key will of course be different (e.g. for mode 1 in c major it will
-	 * be d)
+	 * E.g. for a c major scale, mode 1 will be d dorian. The returned scale
+	 * will have the same octave as the one passed in. The key will of course be
+	 * different (e.g. for mode 1 in c major it will be d)
 	 * 
 	 * @param scale
 	 * @param mode
@@ -852,8 +869,8 @@ public class ScaleFactory {
 
 		int[] i = scale.getIntervals();
 		List<Integer> intervals = new ArrayList<Integer>();
-		for (int j = 0; j < i.length; j++) {
-			intervals.add(i[j]);
+		for (int element : i) {
+			intervals.add(element);
 		}
 		Collections.rotate(intervals, mode);
 		i = new int[intervals.size()];
