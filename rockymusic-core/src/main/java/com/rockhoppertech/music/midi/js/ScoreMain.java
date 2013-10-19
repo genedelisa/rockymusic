@@ -1,5 +1,28 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import static com.rockhoppertech.music.Pitch.E5;
+import static com.rockhoppertech.music.Pitch.F5;
+
 import java.io.IOException;
 
 import javax.sound.midi.InvalidMidiDataException;
@@ -7,8 +30,6 @@ import javax.sound.midi.Sequence;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
-
-import static com.rockhoppertech.music.Pitch.*;
 
 public class ScoreMain {
 
@@ -27,7 +48,7 @@ public class ScoreMain {
 		// multi keys, time sigs
 		// String filename = "src/test/resources/midifiles/sib-e-minor.mid";
 		String filename = "src/test/resources/midifiles/multiKeySigs.mid";
-		Score score=null;
+		Score score = null;
 		try {
 			score = ScoreFactory.readSequence(filename);
 		} catch (InvalidMidiDataException | IOException e) {
@@ -49,7 +70,7 @@ public class ScoreMain {
 		System.out.println(score);
 
 		Sequence sequence = ScoreFactory.scoreToSequence(score);
-		if(sequence == null) {
+		if (sequence == null) {
 			System.err.println("oops");
 			return;
 		}
@@ -91,7 +112,8 @@ public class ScoreMain {
 		note = new MIDINote.Builder().pitch(Pitch.D5).build();
 		track.append(note);
 
-		// append changes the start beats. Use add if you want the specified start beat.
+		// append changes the start beats. Use add if you want the specified
+		// start beat.
 		// with import static com.rockhoppertech.music.Pitch.*;
 		// you can say just E5 instead of Pitch.E5
 		track.add(
@@ -115,9 +137,8 @@ public class ScoreMain {
 		track.append(Pitch.G5).append(Pitch.A5);
 		String ps = MIDIStringParser.createStringBrief(track);
 		System.out.println(ps);
-		//C5,1.0,1.0 D5,2.0,1.0 E5,2.5,0.5 F5,6.5,1.5 G5,8.0,1.0 A5,9.0,1.0 G5,10.0,1.0 A5,11.0,1.0 
-
-
+		// C5,1.0,1.0 D5,2.0,1.0 E5,2.5,0.5 F5,6.5,1.5 G5,8.0,1.0 A5,9.0,1.0
+		// G5,10.0,1.0 A5,11.0,1.0
 
 		MIDIStringParser parser = new MIDIStringParser();
 		// S+ puts it into append mode, so start beats are sequential
