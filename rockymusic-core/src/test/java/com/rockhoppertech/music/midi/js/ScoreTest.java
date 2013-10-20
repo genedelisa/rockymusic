@@ -36,30 +36,36 @@ import com.rockhoppertech.music.Pitch;
  * 
  */
 public class ScoreTest {
-	private static final Logger logger = LoggerFactory
-			.getLogger(ScoreTest.class);
+    /**
+     * Logger.
+     */
+    private static final Logger logger = LoggerFactory
+            .getLogger(ScoreTest.class);
 
-	@Test
-	public void shouldHaveDefaultPitch() {
+    /**
+	 * 
+	 */
+    @Test
+    public void shouldHaveDefaultPitch() {
 
-		Score score = new Score();
-		MIDITrack track = new MIDITrack();
-		score.add(track);
-		MIDINote note = new MIDINote.Builder().build();
-		track.add(note);
-		note = new MIDINote.Builder().pitch(Pitch.E5).build();
-		track.append(note);
-		logger.debug("score with E5 \n{}", score);
+        Score score = new Score();
+        MIDITrack track = new MIDITrack();
+        score.add(track);
+        MIDINote note = MIDINoteBuilder.create().build();
+        track.add(note);
+        note = MIDINoteBuilder.create().pitch(Pitch.E5).build();
+        track.append(note);
+        logger.debug("score with E5 \n{}", score);
 
-		assertThat("The score is not null.", score, notNullValue());
-		assertThat("the pitch is E5", note.getPitch().getMidiNumber(),
-				equalTo(Pitch.E5));
-		// Score automatically creates a metaevent track
-		assertThat("there are 2 tracks", score.getTracks().size(), equalTo(2));
-		assertThat(
-				"there are 2 notes on the track",
-				track.getNotes().size(),
-				equalTo(2));
-	}
+        assertThat("The score is not null.", score, notNullValue());
+        assertThat("the pitch is E5", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.E5));
+        // Score automatically creates a metaevent track
+        assertThat("there are 2 tracks", score.getTracks().size(), equalTo(2));
+        assertThat(
+                "there are 2 notes on the track",
+                track.getNotes().size(),
+                equalTo(2));
+    }
 
 }

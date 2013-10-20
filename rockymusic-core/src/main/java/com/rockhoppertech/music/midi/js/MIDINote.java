@@ -42,16 +42,16 @@ public class MIDINote extends Note implements Cloneable {
 	private static final Logger logger = LoggerFactory
 			.getLogger(MIDINote.class);
 
-	private static final int defaultPitch = Pitch.C5;
-	private static final double defaultStartbeat = 1d;
-	private static final double defaultDuration = 1d;
-	private static final int defaultChannel = 0;
-	private static final int defaultVelocity = 64;
-	private static final int defaultProgram = 0;
-	private static final int defaultBend = 0;
-	private static final int defaultBank = 0;
-	private static final int defaultVoice = 0;
-	private static final int defaultPan = 64; // center
+	static final int defaultPitch = Pitch.C5;
+	static final double defaultStartbeat = 1d;
+	static final double defaultDuration = 1d;
+	static final int defaultChannel = 0;
+	static final int defaultVelocity = 64;
+	static final int defaultProgram = 0;
+	static final int defaultBend = 0;
+	static final int defaultBank = 0;
+	static final int defaultVoice = 0;
+	static final int defaultPan = 64; // center
 
 	// MIDI attributes in addition to "regular" Note attributes
 	private int channel;
@@ -71,95 +71,6 @@ public class MIDINote extends Note implements Cloneable {
 	 * not exactly midi
 	 */
 	private int voice;
-
-	public static class Builder {
-		private int pitch = defaultPitch;
-		private double startBeat = defaultStartbeat;
-		private double duration = defaultDuration; // in beats
-		private boolean rest = false;
-		private int pan = defaultPan;
-		private int bank = defaultBank;
-		private int channel = defaultChannel;
-		private int pitchBend = defaultBend;
-		private int program = defaultProgram;
-		private int velocity = defaultVelocity;
-		private int voice = defaultVoice;
-
-		// public Builder(int pitch, double startBeat) {
-		// this.pitch = pitch;
-		// this.startBeat = startBeat;
-		// }
-
-		public MIDINote build() {
-			MIDINote result = new MIDINote(pitch);
-			result.setStartBeat(startBeat);
-			result.setDuration(duration);
-			result.setRest(rest);
-			result.setPan(pan);
-			result.setBank(bank);
-			result.setChannel(channel);
-			result.setPitchBend(pitchBend);
-			result.setProgram(program);
-			result.setVelocity(velocity);
-			result.setVoice(voice);
-			return result;
-		}
-
-		public Builder pitch(int pitchNumber) {
-			pitch = pitchNumber;
-			return this;
-		}
-
-		public Builder startBeat(double value) {
-			startBeat = value;
-			return this;
-		}
-
-		public Builder duration(double beats) {
-			duration = beats;
-			return this;
-		}
-
-		public Builder rest(boolean value) {
-			rest = value;
-			return this;
-		}
-
-		public Builder pan(int value) {
-			pan = value;
-			return this;
-		}
-
-		public Builder bank(int value) {
-			bank = value;
-			return this;
-		}
-
-		public Builder channel(int value) {
-			channel = value;
-			return this;
-		}
-
-		public Builder pitchBend(int value) {
-			pitchBend = value;
-			return this;
-		}
-
-		public Builder program(int value) {
-			program = value;
-			return this;
-		}
-
-		public Builder velocity(int value) {
-			velocity = value;
-			return this;
-		}
-
-		public Builder voice(int value) {
-			voice = value;
-			return this;
-		}
-	}
 
 	public MIDINote() {
 		this(defaultPitch, defaultStartbeat, defaultDuration, defaultChannel,
