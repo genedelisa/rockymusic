@@ -1,5 +1,25 @@
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -370,10 +390,14 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track append to this track
-     * @param chan on this channel
-     * @param d1 data1
-     * @param d2 data2
+     * @param track
+     *            append to this JavaSound Track
+     * @param chan
+     *            on this channel
+     * @param d1
+     *            data1
+     * @param d2
+     *            data2
      */
     public static void appendControlChange(final Track track, final int chan,
             final int d1, final int d2) {
@@ -393,7 +417,8 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param value the controller number
+     * @param value
+     *            the controller number
      * @return the controller name
      */
     public static String getControllerName(final Integer value) {
@@ -408,7 +433,8 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param name controller name
+     * @param name
+     *            controller name
      * @return the controller number
      */
     public static int getControllerNumber(final String name) {
@@ -421,11 +447,16 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track the track to be modified
-     * @param tick when to insert it
-     * @param chan on which channel
-     * @param d1 data1
-     * @param d2 data2
+     * @param track
+     *            - the JavaSound Track to modify.
+     * @param tick
+     *            when to insert it
+     * @param chan
+     *            on which channel
+     * @param d1
+     *            data1
+     * @param d2
+     *            data2
      */
     public static void insertControlChange(final Track track, final long tick,
             final int chan,
@@ -445,7 +476,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      */
@@ -459,7 +490,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      */
@@ -473,7 +504,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      * @param value
@@ -489,7 +520,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      * @param value
@@ -504,7 +535,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      */
@@ -514,7 +545,7 @@ public final class MIDIControllers {
     }
 
     /**
-     * @param track
+     * @param track - the JavaSound Track to modify.
      * @param tick
      * @param chan
      */
