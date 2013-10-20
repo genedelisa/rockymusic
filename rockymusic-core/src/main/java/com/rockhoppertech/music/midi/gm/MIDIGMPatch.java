@@ -44,383 +44,522 @@ import java.util.EnumSet;
  */
 public enum MIDIGMPatch {
 
-	PIANO("Piano", 0),
-	BRITEPIANO("BritePiano", 1),
-	HAMMERPIANO("HammerPiano", 2),
-	HONKEYTONK("HonkeyTonk", 3),
-	NEWTINES("NewTines", 4),
-	DIGIPIANO("DigiPiano", 5),
-	HARPSICORD("Harpsicord", 6),
-	CLAV("Clav", 7),
-	CELESTA("Celesta", 8),
-	GLOCKEN("Glocken", 9),
-	MUSICBOX("MusicBox", 10),
-	VIBES("Vibes", 11),
-	MARIMBA("Marimba", 12),
-	XYLOPHON("Xylophon", 13),
-	TUBULAR("Tubular", 14),
-	DULCIMER("Dulcimer", 15),
-	FULLORGAN("FullOrgan", 16),
-	PERCORGAN("PercOrgan", 17),
-	BX3ORGAN("BX3Organ", 18),
-	CHURCHPIPE("ChurchPipe", 19),
-	POSITIVE("Positive", 20),
-	MUSETTE("Musette", 21),
-	HARMONICA("Harmonica", 22),
-	TANGO("Tango", 23),
-	CLASSICGTR("ClassicGtr", 24),
-	ACOUSTICGUITAR("AcousticGuitar", 25),
-	JAZZGUITAR("JazzGuitar", 26),
-	CLEANGTR("CleanGtr", 27),
-	MUTEGUITAR("MuteGuitar", 28),
-	OVERDRIVE("OverDrive", 29),
-	DISTGUITAR("DistGuitar", 30),
-	ROCKMONICS("RockMonics", 31),
-	JAZZBASS("JazzBass", 32),
-	DEEPBASS("DeepBass", 33),
-	PICKBASS("PickBass", 34),
-	FRETLESS("FretLess", 35),
-	SLAPBASS1("SlapBass1", 36),
-	SLAPBASS2("SlapBass2", 37),
-	SYNTHBASS1("SynthBass1", 38),
-	SYNTHBASS2("SynthBass2", 39),
-	VIOLIN("Violin", 40),
-	VIOLA("Viola", 41),
-	CELLO("Cello", 42),
-	CONTRABASS("ContraBass", 43),
-	TREMOLOSTR("TremoloStr", 44),
-	PIZZICATO("Pizzicato", 45),
-	HARP("Harp", 46),
-	TIMPANI("Timpani", 47),
-	StringEnsemble1("String Ensemble 1", 48),
-	StringEnsemble2("String Ensemble 2", 49),
-	SynthStrings1("SynthStrings 1", 50),
-	SynthStrings2("SynthStrings 2", 51),
-	CHOIR("Choir", 52),
-	DOOVOICE("DooVoice", 53),
-	VOICES("Voices", 54),
-	ORCHHIT("OrchHit", 55),
-	TRUMPET("Trumpet", 56),
-	TROMBONE("Trombone", 57),
-	TUBA("Tuba", 58),
-	MUTEDTRUMPET("MutedTrumpet", 59),
-	FRENCHHORN("FrenchHorn", 60),
-	BRASS("Brass", 61),
-	SYNBRASS1("SynBrass1", 62),
-	SYNBRASS2("SynBrass2", 63),
-	SOPRANOSAX("SopranoSax", 64),
-	ALTOSAX("AltoSax", 65),
-	TENORSAX("TenorSax", 66),
-	BARISAX("BariSax", 67),
-	OBOE("Oboe", 68),
-	ENGLISHHORN("EnglishHorn", 69),
-	BASSOON("Bassoon", 70),
-	CLARINET("Clarinet", 71),
-	PICCOLO("Piccolo", 72),
-	FLUTE("Flute", 73),
-	RECORDER("Recorder", 74),
-	PANFLUTE("PanFlute", 75),
-	BOTTLE("Bottle", 76),
-	SHAKUHACHI("Shakuhachi", 77),
-	WHISTLE("Whistle", 78),
-	OCARINA("Ocarina", 79),
-	SQUAREWAVE("SquareWave", 80),
-	SAWWAVE("SawWave", 81),
-	CALLIOPE("Calliope", 82),
-	SYNCHIFF("SynChiff", 83),
-	CHARANG("Charang", 84),
-	AIRCHORUS("AirChorus", 85),
-	FIFTHS("fifths", 86),
-	BASSLEAD("BassLead", 87),
-	NewAgePad("New Age", 88),
-	WARMPAD("WarmPad", 89),
-	POLYPAD("PolyPad", 90),
-	GHOSTPAD("GhostPad", 91),
-	BOWEDGLAS("BowedGlas", 92),
-	METALPAD("MetalPad", 93),
-	HALOPAD("HaloPad", 94),
-	SWEEP("Sweep", 95),
-	ICERAIN("IceRain", 96),
-	SOUNDTRACK("SoundTrack", 97),
-	CRYSTAL("Crystal", 98),
-	ATMOSPHERE("Atmosphere", 99),
-	BRIGHTNESS("Brightness", 100),
-	GOBLIN("Goblin", 101),
-	ECHODROP("EchoDrop", 102),
-	SCIFI("SciFi effect", 103),
-	SITAR("Sitar", 104),
-	BANJO("Banjo", 105),
-	SHAMISEN("Shamisen", 106),
-	KOTO("Koto", 107),
-	KALIMBA("Kalimba", 108),
-	SCOTLAND("Scotland", 109),
-	FIDDLE("Fiddle", 110),
-	SHANAI("Shanai", 111),
-	METALBELL("MetalBell", 112),
-	AGOGO("Agogo", 113),
-	STEELDRUMS("SteelDrums", 114),
-	WOODBLOCK("Woodblock", 115),
-	TAIKO("Taiko", 116),
-	TOM("Tom", 117),
-	SYNTHTOM("SynthTom", 118),
-	REVCYMBAL("RevCymbal", 119),
-	FRETNOISE("FretNoise", 120),
-	NOISECHIFF("NoiseChiff", 121),
-	SEASHORE("Seashore", 122),
-	BIRDS("Birds", 123),
-	TELEPHONE("Telephone", 124),
-	HELICOPTER("Helicopter", 125),
-	STADIUM("Stadium", 126),
-	GUNSHOT("GunShot", 127),
+    PIANO("Piano", 0),
+    BRITEPIANO("BritePiano", 1),
+    HAMMERPIANO("HammerPiano", 2),
+    HONKEYTONK("HonkeyTonk", 3),
+    NEWTINES("NewTines", 4),
+    DIGIPIANO("DigiPiano", 5),
+    HARPSICORD("Harpsicord", 6),
+    CLAV("Clav", 7),
+    CELESTA("Celesta", 8),
+    GLOCKEN("Glocken", 9),
+    MUSICBOX("MusicBox", 10),
+    VIBES("Vibes", 11),
+    MARIMBA("Marimba", 12),
+    XYLOPHON("Xylophon", 13),
+    TUBULAR("Tubular", 14),
+    DULCIMER("Dulcimer", 15),
+    FULLORGAN("FullOrgan", 16),
+    PERCORGAN("PercOrgan", 17),
+    BX3ORGAN("BX3Organ", 18),
+    CHURCHPIPE("ChurchPipe", 19),
+    POSITIVE("Positive", 20),
+    MUSETTE("Musette", 21),
+    HARMONICA("Harmonica", 22),
+    TANGO("Tango", 23),
+    CLASSICGTR("ClassicGtr", 24),
+    ACOUSTICGUITAR("AcousticGuitar", 25),
+    JAZZGUITAR("JazzGuitar", 26),
+    CLEANGTR("CleanGtr", 27),
+    MUTEGUITAR("MuteGuitar", 28),
+    OVERDRIVE("OverDrive", 29),
+    DISTGUITAR("DistGuitar", 30),
+    ROCKMONICS("RockMonics", 31),
+    JAZZBASS("JazzBass", 32),
+    DEEPBASS("DeepBass", 33),
+    PICKBASS("PickBass", 34),
+    FRETLESS("FretLess", 35),
+    SLAPBASS1("SlapBass1", 36),
+    SLAPBASS2("SlapBass2", 37),
+    SYNTHBASS1("SynthBass1", 38),
+    SYNTHBASS2("SynthBass2", 39),
+    VIOLIN("Violin", 40),
+    VIOLA("Viola", 41),
+    CELLO("Cello", 42),
+    CONTRABASS("ContraBass", 43),
+    TREMOLOSTR("TremoloStr", 44),
+    PIZZICATO("Pizzicato", 45),
+    HARP("Harp", 46),
+    TIMPANI("Timpani", 47),
+    StringEnsemble1("String Ensemble 1", 48),
+    StringEnsemble2("String Ensemble 2", 49),
+    SynthStrings1("SynthStrings 1", 50),
+    SynthStrings2("SynthStrings 2", 51),
+    CHOIR("Choir", 52),
+    DOOVOICE("DooVoice", 53),
+    VOICES("Voices", 54),
+    ORCHHIT("OrchHit", 55),
+    TRUMPET("Trumpet", 56),
+    TROMBONE("Trombone", 57),
+    TUBA("Tuba", 58),
+    MUTEDTRUMPET("MutedTrumpet", 59),
+    FRENCHHORN("FrenchHorn", 60),
+    BRASS("Brass", 61),
+    SYNBRASS1("SynBrass1", 62),
+    SYNBRASS2("SynBrass2", 63),
+    SOPRANOSAX("SopranoSax", 64),
+    ALTOSAX("AltoSax", 65),
+    TENORSAX("TenorSax", 66),
+    BARISAX("BariSax", 67),
+    OBOE("Oboe", 68),
+    ENGLISHHORN("EnglishHorn", 69),
+    BASSOON("Bassoon", 70),
+    CLARINET("Clarinet", 71),
+    PICCOLO("Piccolo", 72),
+    FLUTE("Flute", 73),
+    RECORDER("Recorder", 74),
+    PANFLUTE("PanFlute", 75),
+    BOTTLE("Bottle", 76),
+    SHAKUHACHI("Shakuhachi", 77),
+    WHISTLE("Whistle", 78),
+    OCARINA("Ocarina", 79),
+    SQUAREWAVE("SquareWave", 80),
+    SAWWAVE("SawWave", 81),
+    CALLIOPE("Calliope", 82),
+    SYNCHIFF("SynChiff", 83),
+    CHARANG("Charang", 84),
+    AIRCHORUS("AirChorus", 85),
+    FIFTHS("fifths", 86),
+    BASSLEAD("BassLead", 87),
+    NewAgePad("New Age", 88),
+    WARMPAD("WarmPad", 89),
+    POLYPAD("PolyPad", 90),
+    GHOSTPAD("GhostPad", 91),
+    BOWEDGLAS("BowedGlas", 92),
+    METALPAD("MetalPad", 93),
+    HALOPAD("HaloPad", 94),
+    SWEEP("Sweep", 95),
+    ICERAIN("IceRain", 96),
+    SOUNDTRACK("SoundTrack", 97),
+    CRYSTAL("Crystal", 98),
+    ATMOSPHERE("Atmosphere", 99),
+    BRIGHTNESS("Brightness", 100),
+    GOBLIN("Goblin", 101),
+    ECHODROP("EchoDrop", 102),
+    SCIFI("SciFi effect", 103),
+    SITAR("Sitar", 104),
+    BANJO("Banjo", 105),
+    SHAMISEN("Shamisen", 106),
+    KOTO("Koto", 107),
+    KALIMBA("Kalimba", 108),
+    SCOTLAND("Scotland", 109),
+    FIDDLE("Fiddle", 110),
+    SHANAI("Shanai", 111),
+    METALBELL("MetalBell", 112),
+    AGOGO("Agogo", 113),
+    STEELDRUMS("SteelDrums", 114),
+    WOODBLOCK("Woodblock", 115),
+    TAIKO("Taiko", 116),
+    TOM("Tom", 117),
+    SYNTHTOM("SynthTom", 118),
+    REVCYMBAL("RevCymbal", 119),
+    FRETNOISE("FretNoise", 120),
+    NOISECHIFF("NoiseChiff", 121),
+    SEASHORE("Seashore", 122),
+    BIRDS("Birds", 123),
+    TELEPHONE("Telephone", 124),
+    HELICOPTER("Helicopter", 125),
+    STADIUM("Stadium", 126),
+    GUNSHOT("GunShot", 127),
 
-	// 35-81
-	OPEN_TRIANGLE_PERC("OPEN TRIANGLE", 81),
-	COWBELL_PERC("COWBELL", 56),
-	HI_BONGO_PERC("HI_BONGO", 60),
-	LOW_FLOOR_TOM_PERC("LOW_FLOOR_TOM", 41),
-	CABASA_PERC("CABASA", 69),
-	LOW_WOOD_BLOCK_PERC("LOW_WOOD_BLOCK", 77),
-	RIDE_BELL_PERC("RIDE_BELL", 53),
-	ELECTRIC_SNARE_PERC("ELECTRIC_SNARE", 40),
-	LONG_GUIRO_PERC("LONG_GUIRO", 74),
-	CRASH_CYMBAL_1_PERC("CRASH_CYMBAL_1", 49),
-	MUTE_CUICA_PERC("MUTE_CUICA", 78),
-	HAND_CLAP_PERC("HAND_CLAP", 39),
-	HIGH_FLOOR_TOM_PERC("HIGH_FLOOR_TOM", 43),
-	ACOUSTIC_BASS_DRUM_PERC("ACOUSTIC_BASS_DRUM", 35),
-	LOW_TOM_PERC("LOW_TOM", 45),
-	SHORT_GUIRO_PERC("SHORT_GUIRO", 73),
-	HI_WOOD_BLOCK_PERC("HI_WOOD_BLOCK", 76),
-	LOW_TIMBALE_PERC("LOW_TIMBALE", 66),
-	LOW_AGOGO_PERC("LOW_AGOGO", 68),
-	MUTE_TRIANGLE_PERC("MUTE_TRIANGLE", 80),
-	OPEN_HI_CONGA_PERC("OPEN_HI_CONGA", 63),
-	MUTE_HI_CONGA_PERC("MUTE_HI_CONGA", 62),
-	TAMBOURINE_PERC("TAMBOURINE", 54),
-	PEDAL_HI_HAT_PERC("PEDAL_HI_HAT", 44),
-	HIGH_TOM_PERC("HIGH_TOM", 50),
-	SPLASH_CYMBAL_PERC("SPLASH_CYMBAL", 55),
-	BASS_DRUM_1_PERC("BASS_DRUM_1", 36),
-	SHORT_WHISTLE_PERC("SHORT_WHISTLE", 71),
-	MARACAS_PERC("MARACAS", 70),
-	OPEN_CUICA_PERC("OPEN_CUICA", 79),
-	RIDE_CYMBAL_1_PERC("RIDE_CYMBAL_1", 51),
-	HI_MID_TOM_PERC("HI_MID_TOM", 48),
-	LOW_MID_TOM_PERC("LOW_MID_TOM", 47),
-	CLOSED_HI_HAT_PERC("CLOSED_HI_HAT", 42),
-	HIGH_TIMBALE_PERC("HIGH_TIMBALE", 65),
-	CRASH_CYMBAL_2_PERC("CRASH_CYMBAL_2", 57),
-	VIBRASLAP_PERC("VIBRASLAP", 58),
-	LONG_WHISTLE_PERC("LONG_WHISTLE", 72),
-	RIDE_CYMBAL_2_PERC("RIDE_CYMBAL_2", 59),
-	LOW_BONGO_PERC("LOW_BONGO", 61),
-	CHINESE_CYMBAL_PERC("CHINESE_CYMBAL", 52),
-	HIGH_AGOGO_PERC("HIGH_AGOGO", 67),
-	SIDE_STICK_PERC("SIDE_STICK", 37),
-	CLAVES_PERC("CLAVES", 75),
-	OPEN_HI_HAT_PERC("OPEN_HI_HAT", 46),
-	ACOUSTIC_SNARE_PERC("ACOUSTIC_SNARE", 38),
-	LOW_CONGA_PERC("LOW_CONGA", 64);
-	int p;
-	String name;
+    // 35-81
+    OPEN_TRIANGLE_PERC("OPEN TRIANGLE", 81),
+    COWBELL_PERC("COWBELL", 56),
+    HI_BONGO_PERC("HI_BONGO", 60),
+    LOW_FLOOR_TOM_PERC("LOW_FLOOR_TOM", 41),
+    CABASA_PERC("CABASA", 69),
+    LOW_WOOD_BLOCK_PERC("LOW_WOOD_BLOCK", 77),
+    RIDE_BELL_PERC("RIDE_BELL", 53),
+    ELECTRIC_SNARE_PERC("ELECTRIC_SNARE", 40),
+    LONG_GUIRO_PERC("LONG_GUIRO", 74),
+    CRASH_CYMBAL_1_PERC("CRASH_CYMBAL_1", 49),
+    MUTE_CUICA_PERC("MUTE_CUICA", 78),
+    HAND_CLAP_PERC("HAND_CLAP", 39),
+    HIGH_FLOOR_TOM_PERC("HIGH_FLOOR_TOM", 43),
+    ACOUSTIC_BASS_DRUM_PERC("ACOUSTIC_BASS_DRUM", 35),
+    LOW_TOM_PERC("LOW_TOM", 45),
+    SHORT_GUIRO_PERC("SHORT_GUIRO", 73),
+    HI_WOOD_BLOCK_PERC("HI_WOOD_BLOCK", 76),
+    LOW_TIMBALE_PERC("LOW_TIMBALE", 66),
+    LOW_AGOGO_PERC("LOW_AGOGO", 68),
+    MUTE_TRIANGLE_PERC("MUTE_TRIANGLE", 80),
+    OPEN_HI_CONGA_PERC("OPEN_HI_CONGA", 63),
+    MUTE_HI_CONGA_PERC("MUTE_HI_CONGA", 62),
+    TAMBOURINE_PERC("TAMBOURINE", 54),
+    PEDAL_HI_HAT_PERC("PEDAL_HI_HAT", 44),
+    HIGH_TOM_PERC("HIGH_TOM", 50),
+    SPLASH_CYMBAL_PERC("SPLASH_CYMBAL", 55),
+    BASS_DRUM_1_PERC("BASS_DRUM_1", 36),
+    SHORT_WHISTLE_PERC("SHORT_WHISTLE", 71),
+    MARACAS_PERC("MARACAS", 70),
+    OPEN_CUICA_PERC("OPEN_CUICA", 79),
+    RIDE_CYMBAL_1_PERC("RIDE_CYMBAL_1", 51),
+    HI_MID_TOM_PERC("HI_MID_TOM", 48),
+    LOW_MID_TOM_PERC("LOW_MID_TOM", 47),
+    CLOSED_HI_HAT_PERC("CLOSED_HI_HAT", 42),
+    HIGH_TIMBALE_PERC("HIGH_TIMBALE", 65),
+    CRASH_CYMBAL_2_PERC("CRASH_CYMBAL_2", 57),
+    VIBRASLAP_PERC("VIBRASLAP", 58),
+    LONG_WHISTLE_PERC("LONG_WHISTLE", 72),
+    RIDE_CYMBAL_2_PERC("RIDE_CYMBAL_2", 59),
+    LOW_BONGO_PERC("LOW_BONGO", 61),
+    CHINESE_CYMBAL_PERC("CHINESE_CYMBAL", 52),
+    HIGH_AGOGO_PERC("HIGH_AGOGO", 67),
+    SIDE_STICK_PERC("SIDE_STICK", 37),
+    CLAVES_PERC("CLAVES", 75),
+    OPEN_HI_HAT_PERC("OPEN_HI_HAT", 46),
+    ACOUSTIC_SNARE_PERC("ACOUSTIC_SNARE", 38),
+    LOW_CONGA_PERC("LOW_CONGA", 64);
 
-	MIDIGMPatch(String name, int p) {
-		this.p = p;
-		this.name = name;
+    int p;
+    String name;
 
-	}
+    /**
+     * @param name
+     * @param p
+     */
+    MIDIGMPatch(String name, int p) {
+        this.p = p;
+        this.name = name;
 
-	public int getProgram() {
-		return p;
-	}
+    }
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return
+     */
+    public int getProgram() {
+        return p;
+    }
 
-	// static EnumMap<MIDIGMPatch, String> map = new EnumMap<MIDIGMPatch,
-	// String>(
-	// MIDIGMPatch.class);
+    /**
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
 
-	// families
-	public static EnumSet<MIDIGMPatch> pianos;
-	public static EnumSet<MIDIGMPatch> chromaticPercussion;
-	public static EnumSet<MIDIGMPatch> organ;
-	public static EnumSet<MIDIGMPatch> guitar;
-	public static EnumSet<MIDIGMPatch> bass;
-	public static EnumSet<MIDIGMPatch> strings;
-	public static EnumSet<MIDIGMPatch> ensemble;
-	public static EnumSet<MIDIGMPatch> brass;
-	public static EnumSet<MIDIGMPatch> reed;
-	public static EnumSet<MIDIGMPatch> pipe;
-	public static EnumSet<MIDIGMPatch> synthLead;
-	public static EnumSet<MIDIGMPatch> synthPad;
-	public static EnumSet<MIDIGMPatch> synthEffects;
-	public static EnumSet<MIDIGMPatch> ethnic;
-	public static EnumSet<MIDIGMPatch> percussive;
-	public static EnumSet<MIDIGMPatch> soundEffects;
-	private static EnumSet<MIDIGMPatch> percussion;
+    // static EnumMap<MIDIGMPatch, String> map = new EnumMap<MIDIGMPatch,
+    // String>(
+    // MIDIGMPatch.class);
 
-	public static EnumSet<MIDIGMPatch> getPianos() {
-		if (pianos == null) {
-			pianos = EnumSet.range(MIDIGMPatch.PIANO,
-					MIDIGMPatch.CLAV);
-		}
-		return pianos;
-	}
-
-	public static EnumSet<MIDIGMPatch> getChromaticPercussion() {
-		if (chromaticPercussion == null) {
-			chromaticPercussion = EnumSet.range(MIDIGMPatch.CELESTA,
-					MIDIGMPatch.DULCIMER);
-		}
-		return chromaticPercussion;
-	}
-
-	public static EnumSet<MIDIGMPatch> getOrgans() {
-		if (organ == null) {
-			organ = EnumSet.range(MIDIGMPatch.FULLORGAN,
-					MIDIGMPatch.TANGO);
-		}
-		return organ;
-	}
-
-	public static EnumSet<MIDIGMPatch> getGuitars() {
-		if (guitar == null) {
-			guitar = EnumSet.range(MIDIGMPatch.CLASSICGTR,
-					MIDIGMPatch.ROCKMONICS);
-		}
-		return guitar;
-	}
-
-	public static EnumSet<MIDIGMPatch> getBasses() {
-		if (bass == null) {
-			bass = EnumSet.range(MIDIGMPatch.JAZZBASS,
-					MIDIGMPatch.SYNTHBASS2);
-		}
-		return bass;
-	}
-
-	public static EnumSet<MIDIGMPatch> getStrings() {
-		if (strings == null) {
-			strings = EnumSet.range(MIDIGMPatch.VIOLIN,
-					MIDIGMPatch.TIMPANI);
-			// yeah. I know. Timpani. on what planet is that a stringed
-			// instrument?
-		}
-		return strings;
-	}
-
-	public static EnumSet<MIDIGMPatch> getEnsemble() {
-		if (ensemble == null) {
-			ensemble = EnumSet.range(MIDIGMPatch.StringEnsemble1,
-					MIDIGMPatch.ORCHHIT);
-		}
-		return ensemble;
-	}
-
-	public static EnumSet<MIDIGMPatch> getBrass() {
-		if (brass == null) {
-			brass = EnumSet.range(MIDIGMPatch.TRUMPET,
-					MIDIGMPatch.SYNBRASS2);
-		}
-		return brass;
-	}
-
-	public static EnumSet<MIDIGMPatch> getReeds() {
-		if (reed == null) {
-			reed = EnumSet.range(MIDIGMPatch.SOPRANOSAX,
-					MIDIGMPatch.CLARINET);
-		}
-		return reed;
-	}
-
-	public static EnumSet<MIDIGMPatch> getPipes() {
-		if (pipe == null) {
-			pipe = EnumSet.range(MIDIGMPatch.PICCOLO,
-					MIDIGMPatch.OCARINA);
-		}
-		return pipe;
-	}
-
-	public static EnumSet<MIDIGMPatch> getSynthLeads() {
-		if (synthLead == null) {
-			synthLead = EnumSet.range(MIDIGMPatch.SQUAREWAVE,
-					MIDIGMPatch.BASSLEAD);
-		}
-		return synthLead;
-	}
-
-	public static EnumSet<MIDIGMPatch> getSynthPads() {
-		if (synthPad == null) {
-			synthPad = EnumSet.range(MIDIGMPatch.NewAgePad,
-					MIDIGMPatch.SWEEP);
-		}
-		return synthPad;
-	}
-
-	public static EnumSet<MIDIGMPatch> getSynthEffects() {
-		if (synthEffects == null) {
-			synthEffects = EnumSet.range(MIDIGMPatch.ICERAIN,
-					MIDIGMPatch.SCIFI);
-		}
-		return synthEffects;
-	}
-
-	public static EnumSet<MIDIGMPatch> getEthnic() {
-		if (ethnic == null) {
-			ethnic = EnumSet.range(MIDIGMPatch.SITAR,
-					MIDIGMPatch.SHANAI);
-		}
-		return ethnic;
-	}
-
-	public static EnumSet<MIDIGMPatch> getPercussive() {
-		if (percussive == null) {
-			percussive = EnumSet.range(MIDIGMPatch.METALBELL,
-					MIDIGMPatch.REVCYMBAL);
-		}
-		return percussive;
-	}
-
-	public static EnumSet<MIDIGMPatch> getPercussion() {
-		if (percussion == null) {
-			percussion = EnumSet.range(MIDIGMPatch.OPEN_TRIANGLE_PERC,
-					MIDIGMPatch.LOW_CONGA_PERC);
-		}
-		return percussion;
-	}
-
-	public static EnumSet<MIDIGMPatch> getSoundEffects() {
-		if (soundEffects == null) {
-			soundEffects = EnumSet.range(MIDIGMPatch.FRETNOISE,
-					MIDIGMPatch.GUNSHOT);
-		}
-		return soundEffects;
-	}
-
-	public static MIDIGMPatch getPatch(String name) {
-		MIDIGMPatch match = null;
-		for (MIDIGMPatch patch : MIDIGMPatch.values()) {
-			if (patch.getName().equals(name)) {
-				match = patch;
-				break;
-			}
-		}
-		return match;
-	}
-
-	public static String getName(int program) {
-		String match = null;
-		for (MIDIGMPatch patch : MIDIGMPatch.values()) {
-			if (patch.getProgram() == program) {
-				match = patch.getName();
-				break;
-			}
-		}
-		return match;
-	}
-	/*
-	 * http://www.midi.org/about-midi/gm/gm1sound.shtml
+    // families
+    /**
+	 * 
 	 */
+    public static EnumSet<MIDIGMPatch> pianos;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> chromaticPercussion;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> organ;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> guitar;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> bass;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> strings;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> ensemble;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> brass;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> reed;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> pipe;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> synthLead;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> synthPad;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> synthEffects;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> ethnic;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> percussive;
+    /**
+	 * 
+	 */
+    public static EnumSet<MIDIGMPatch> soundEffects;
+    /**
+     * 
+     */
+    private static EnumSet<MIDIGMPatch> percussion;
+
+    /**
+     * 
+     */
+    private static EnumSet<MIDIGMPatch> allPitched;
+
+    ;
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getPianos() {
+        if (pianos == null) {
+            pianos = EnumSet.range(MIDIGMPatch.PIANO,
+                    MIDIGMPatch.CLAV);
+        }
+        return pianos;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getChromaticPercussion() {
+        if (chromaticPercussion == null) {
+            chromaticPercussion = EnumSet.range(MIDIGMPatch.CELESTA,
+                    MIDIGMPatch.DULCIMER);
+        }
+        return chromaticPercussion;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getOrgans() {
+        if (organ == null) {
+            organ = EnumSet.range(MIDIGMPatch.FULLORGAN,
+                    MIDIGMPatch.TANGO);
+        }
+        return organ;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getGuitars() {
+        if (guitar == null) {
+            guitar = EnumSet.range(MIDIGMPatch.CLASSICGTR,
+                    MIDIGMPatch.ROCKMONICS);
+        }
+        return guitar;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getBasses() {
+        if (bass == null) {
+            bass = EnumSet.range(MIDIGMPatch.JAZZBASS,
+                    MIDIGMPatch.SYNTHBASS2);
+        }
+        return bass;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getStrings() {
+        if (strings == null) {
+            strings = EnumSet.range(MIDIGMPatch.VIOLIN,
+                    MIDIGMPatch.TIMPANI);
+            // yeah. I know. Timpani. on what planet is that a stringed
+            // instrument?
+        }
+        return strings;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getEnsemble() {
+        if (ensemble == null) {
+            ensemble = EnumSet.range(MIDIGMPatch.StringEnsemble1,
+                    MIDIGMPatch.ORCHHIT);
+        }
+        return ensemble;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getBrass() {
+        if (brass == null) {
+            brass = EnumSet.range(MIDIGMPatch.TRUMPET,
+                    MIDIGMPatch.SYNBRASS2);
+        }
+        return brass;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getReeds() {
+        if (reed == null) {
+            reed = EnumSet.range(MIDIGMPatch.SOPRANOSAX,
+                    MIDIGMPatch.CLARINET);
+        }
+        return reed;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getPipes() {
+        if (pipe == null) {
+            pipe = EnumSet.range(MIDIGMPatch.PICCOLO,
+                    MIDIGMPatch.OCARINA);
+        }
+        return pipe;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getSynthLeads() {
+        if (synthLead == null) {
+            synthLead = EnumSet.range(MIDIGMPatch.SQUAREWAVE,
+                    MIDIGMPatch.BASSLEAD);
+        }
+        return synthLead;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getSynthPads() {
+        if (synthPad == null) {
+            synthPad = EnumSet.range(MIDIGMPatch.NewAgePad,
+                    MIDIGMPatch.SWEEP);
+        }
+        return synthPad;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getSynthEffects() {
+        if (synthEffects == null) {
+            synthEffects = EnumSet.range(MIDIGMPatch.ICERAIN,
+                    MIDIGMPatch.SCIFI);
+        }
+        return synthEffects;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getEthnic() {
+        if (ethnic == null) {
+            ethnic = EnumSet.range(MIDIGMPatch.SITAR,
+                    MIDIGMPatch.SHANAI);
+        }
+        return ethnic;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getPercussive() {
+        if (percussive == null) {
+            percussive = EnumSet.range(MIDIGMPatch.METALBELL,
+                    MIDIGMPatch.REVCYMBAL);
+        }
+        return percussive;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getPercussion() {
+        if (percussion == null) {
+            percussion = EnumSet.range(MIDIGMPatch.OPEN_TRIANGLE_PERC,
+                    MIDIGMPatch.LOW_CONGA_PERC);
+        }
+        return percussion;
+    }
+
+    /**
+     * @return
+     */
+    public static EnumSet<MIDIGMPatch> getSoundEffects() {
+        if (soundEffects == null) {
+            soundEffects = EnumSet.range(MIDIGMPatch.FRETNOISE,
+                    MIDIGMPatch.GUNSHOT);
+        }
+        return soundEffects;
+    }
+
+    /**
+     * @return a set of MIDIGMPatches for non percussion insts
+     */
+    public static EnumSet<MIDIGMPatch> getAllPitched() {
+        if (allPitched == null) {
+            allPitched = EnumSet.range(MIDIGMPatch.PIANO,
+                    MIDIGMPatch.GUNSHOT);
+        }
+        return allPitched;
+    }
+
+    /**
+     * @param name
+     * @return
+     */
+    public static MIDIGMPatch getPatch(String name) {
+        MIDIGMPatch match = null;
+        for (MIDIGMPatch patch : MIDIGMPatch.values()) {
+            if (patch.getName().equals(name)) {
+                match = patch;
+                break;
+            }
+        }
+        return match;
+    }
+
+    /**
+     * @param program
+     * @return
+     */
+    public static String getName(int program) {
+        String match = null;
+        for (MIDIGMPatch patch : MIDIGMPatch.values()) {
+            if (patch.getProgram() == program) {
+                match = patch.getName();
+                break;
+            }
+        }
+        return match;
+    }
+    /*
+     * http://www.midi.org/about-midi/gm/gm1sound.shtml
+     */
 }
