@@ -82,7 +82,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.0</version>
+				<version>2.1</version>
 				<dependencies>
 					<dependency>
 						<groupId>junit</groupId>
@@ -117,7 +117,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- <plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>1.5</version>
@@ -136,8 +136,8 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
-			
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -185,7 +185,7 @@
 							<version>2.10</version>
 							<configuration>
 								<aggregate>true</aggregate>
-								<configLocation>checkstyle-sun-eclipse.xml</configLocation>
+								<configLocation>checkstyle-rockhopper.xml</configLocation>
 							</configuration>
 						</plugin>
 						<plugin>
@@ -213,22 +213,16 @@
 						<!-- <aggregate>true</aggregate> -->
 						<!-- </configuration> -->
 						<!-- </plugin> -->
-						
+
 						<!-- doesn't work with 1.7 yet -->
-						<!-- Caused by: org.apache.maven.reporting.MavenReportException: Unsupported targetJdk value '1.7.0_17'.
-	at org.apache.maven.plugin.pmd.PmdReport.getPMDConfiguration(PmdReport.java:421) -->
-						
- 						<!-- <plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-pmd-plugin</artifactId>
-						<version>3.0.1</version>
-						<configuration>
-						<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-						<minimumTokens>100</minimumTokens>
-						<targetJdk>${java.version}</targetJdk>
-						</configuration>
-						</plugin>  -->
-						
+						<!-- Caused by: org.apache.maven.reporting.MavenReportException: Unsupported 
+							targetJdk value '1.7.0_17'. at org.apache.maven.plugin.pmd.PmdReport.getPMDConfiguration(PmdReport.java:421) -->
+
+						<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-pmd-plugin</artifactId> 
+							<version>3.0.1</version> <configuration> <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding> 
+							<minimumTokens>100</minimumTokens> <targetJdk>${java.version}</targetJdk> 
+							</configuration> </plugin> -->
+
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>findbugs-maven-plugin</artifactId>
@@ -266,12 +260,64 @@
 							</configuration>
 						</plugin>
 
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>versions-maven-plugin</artifactId>
+							<version>2.1</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>dependency-updates-report</report>
+										<report>plugin-updates-report</report>
+										<report>property-updates-report</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+
 					</reportPlugins>
 					<locales>en</locales>
 				</configuration>
 			</plugin>
 
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											license-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.5,)
+										</versionRange>
+										<goals>
+											<goal>
+												update-file-header
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<dependencies>
