@@ -76,381 +76,377 @@ import com.rockhoppertech.music.scale.ScaleFactory;
  */
 
 public class ScaleFactoryXMLHelper {
-	private static Logger logger = LoggerFactory
-			.getLogger(ScaleFactoryXMLHelper.class);
-	static String scaleDefinitionFileName = ScaleFactory
-			.getDefinitionFileName();
+    private static Logger logger = LoggerFactory
+            .getLogger(ScaleFactoryXMLHelper.class);
+    static String scaleDefinitionFileName = ScaleFactory
+            .getDefinitionFileName();
 
-	/**
-	 * @return the scaleDefinitionFileName
-	 */
-	public static String getScaleDefinitionFileName() {
-		return scaleDefinitionFileName;
-	}
+    /**
+     * @return the scaleDefinitionFileName
+     */
+    public static String getScaleDefinitionFileName() {
+        return scaleDefinitionFileName;
+    }
 
-	/**
-	 * @param scaleDefinitionFileName
-	 *            the scaleDefinitionFileName to set
-	 */
-	public static void setScaleDefinitionFileName(String scaleDefinitionFileName) {
-		ScaleFactoryXMLHelper.scaleDefinitionFileName = scaleDefinitionFileName;
-	}
+    /**
+     * @param scaleDefinitionFileName
+     *            the scaleDefinitionFileName to set
+     */
+    public static void setScaleDefinitionFileName(String scaleDefinitionFileName) {
+        ScaleFactoryXMLHelper.scaleDefinitionFileName = scaleDefinitionFileName;
+    }
 
-	static void stdout(Document doc) {
-		logger.debug("Enter stdout");
-		try {
-			DOMSource domSource = new DOMSource(doc);
-			StreamResult streamResult = new StreamResult(System.out);
-			TransformerFactory tf = TransformerFactory.newInstance();
-			Transformer transformer = tf.newTransformer();
-			transformer.transform(domSource, streamResult);
-		} catch (TransformerException e) {
-			System.err.println(e);
-		}
-	}
+    static void stdout(Document doc) {
+        logger.debug("Enter stdout");
+        try {
+            DOMSource domSource = new DOMSource(doc);
+            StreamResult streamResult = new StreamResult(System.out);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer = tf.newTransformer();
+            transformer.transform(domSource, streamResult);
+        } catch (TransformerException e) {
+            System.err.println(e);
+        }
+    }
 
-	public static void writeScaleXML(OutputStream out) {
-		logger.debug("enter writeScaleXML");
-		DocumentBuilderFactory dbf = null;
-		DocumentBuilder db = null;
-		try {
-			dbf = DocumentBuilderFactory.newInstance();
-			dbf.setValidating(false);
-			db = dbf.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-		Document doc = db.newDocument();
+    public static void writeScaleXML(OutputStream out) {
+        logger.debug("enter writeScaleXML");
+        DocumentBuilderFactory dbf = null;
+        DocumentBuilder db = null;
+        try {
+            dbf = DocumentBuilderFactory.newInstance();
+            dbf.setValidating(false);
+            db = dbf.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        Document doc = db.newDocument();
 
-		Element chords = doc.createElement("scales");
-		doc.appendChild(chords);
+        Element chords = doc.createElement("scales");
+        doc.appendChild(chords);
 
-		// Element extends Node
+        // Element extends Node
 
-		List<String> list = ScaleFactory.getScaleNames();
+        List<String> list = ScaleFactory.getScaleNames();
 
-		for (String name : list) {
-			Scale scale = ScaleFactory.getScaleByName(name);
-			logger.debug("writing scale " + scale);
-			Element scaleElement = doc.createElement("scale");
-			chords.appendChild(scaleElement);
-			scaleElement.setAttribute("name", scale.getName());
+        for (String name : list) {
+            Scale scale = ScaleFactory.getScaleByName(name);
+            logger.debug("writing scale " + scale);
+            Element scaleElement = doc.createElement("scale");
+            chords.appendChild(scaleElement);
+            scaleElement.setAttribute("name", scale.getName());
 
-			Element intervals = doc.createElement("intervals");
-			scaleElement.appendChild(intervals);
-			for (Integer i : scale.getIntervals()) {
-				Element intervalel = doc.createElement("interval");
-				String interval = i.toString();
-				intervalel.appendChild(doc.createTextNode(interval));
-				intervals.appendChild(intervalel);
-			}
+            Element intervals = doc.createElement("intervals");
+            scaleElement.appendChild(intervals);
+            for (Integer i : scale.getIntervals()) {
+                Element intervalel = doc.createElement("interval");
+                String interval = i.toString();
+                intervalel.appendChild(doc.createTextNode(interval));
+                intervals.appendChild(intervalel);
+            }
 
-			if (scale.isDescendingDifferent()) {
-				logger.debug("scale descending is different");
-				Element dintervals = doc.createElement("descendingIntervals");
-				scaleElement.appendChild(dintervals);
-				for (Integer i : scale.getDescendingIntervals()) {
-					Element intervalel = doc.createElement("interval");
-					String interval = i.toString();
-					intervalel.appendChild(doc.createTextNode(interval));
-					dintervals.appendChild(intervalel);
-				}
-			}
+            if (scale.isDescendingDifferent()) {
+                logger.debug("scale descending is different");
+                Element dintervals = doc.createElement("descendingIntervals");
+                scaleElement.appendChild(dintervals);
+                for (Integer i : scale.getDescendingIntervals()) {
+                    Element intervalel = doc.createElement("interval");
+                    String interval = i.toString();
+                    intervalel.appendChild(doc.createTextNode(interval));
+                    dintervals.appendChild(intervalel);
+                }
+            }
 
-			Element spelling = doc.createElement("spelling");
-			scaleElement.appendChild(spelling);
-			String s = scale.getSpelling();
-			String[] spellings = s.split("\\s");
-			for (String degree : spellings) {
-				Element degreeEl = doc.createElement("degree");
-				degreeEl.appendChild(doc.createTextNode(degree));
-				spelling.appendChild(degreeEl);
-			}
+            Element spelling = doc.createElement("spelling");
+            scaleElement.appendChild(spelling);
+            String s = scale.getSpelling();
+            String[] spellings = s.split("\\s");
+            for (String degree : spellings) {
+                Element degreeEl = doc.createElement("degree");
+                degreeEl.appendChild(doc.createTextNode(degree));
+                spelling.appendChild(degreeEl);
+            }
 
-			String descr = scale.getDescription();
-			if (descr != null) {
-				Element el = doc.createElement("description");
-				scaleElement.appendChild(el);
-				el.appendChild(doc.createTextNode(descr));
-			}
-		}
-		// logger.debug("writing to stdout");
-		// try {
-		// DOMSource domSource = new DOMSource(doc);
-		// StreamResult streamResult = new StreamResult(out);
-		// TransformerFactory tf = TransformerFactory.newInstance();
-		// Transformer transformer = tf.newTransformer();
-		// Properties oprops = new Properties();
-		// oprops.put(OutputKeys.INDENT, "yes");
-		// oprops.put(OutputKeys.METHOD, "xml");
-		// oprops.put(OutputKeys.OMIT_XML_DECLARATION, "no");
-		// oprops.put(OutputKeys.DOCTYPE_PUBLIC,
-		// "-//Rockhopper Technologies//DTD scales 1.0//EN");
-		// oprops.put(OutputKeys.DOCTYPE_SYSTEM,
-		// "http://www.rockhoppertech.com/dtds/scales.dtd");
-		//
-		// transformer.setOutputProperties(oprops);
-		// transformer.transform(domSource, streamResult);
-		// } catch (TransformerException e) {
-		// System.err.println(e);
-		// }
-		logger.debug("leave writexml scale");
-	}
+            String descr = scale.getDescription();
+            if (descr != null) {
+                Element el = doc.createElement("description");
+                scaleElement.appendChild(el);
+                el.appendChild(doc.createTextNode(descr));
+            }
+        }
+        // logger.debug("writing to stdout");
+        // try {
+        // DOMSource domSource = new DOMSource(doc);
+        // StreamResult streamResult = new StreamResult(out);
+        // TransformerFactory tf = TransformerFactory.newInstance();
+        // Transformer transformer = tf.newTransformer();
+        // Properties oprops = new Properties();
+        // oprops.put(OutputKeys.INDENT, "yes");
+        // oprops.put(OutputKeys.METHOD, "xml");
+        // oprops.put(OutputKeys.OMIT_XML_DECLARATION, "no");
+        // oprops.put(OutputKeys.DOCTYPE_PUBLIC,
+        // "-//Rockhopper Technologies//DTD scales 1.0//EN");
+        // oprops.put(OutputKeys.DOCTYPE_SYSTEM,
+        // "http://www.rockhoppertech.com/dtds/scales.dtd");
+        //
+        // transformer.setOutputProperties(oprops);
+        // transformer.transform(domSource, streamResult);
+        // } catch (TransformerException e) {
+        // System.err.println(e);
+        // }
+        logger.debug("leave writexml scale");
+    }
 
-	public static void readScales() {
-		InputStream is = ScaleFactory.class.getResourceAsStream("/"
-				+ getScaleDefinitionFileName());
-		if (logger.isDebugEnabled()) {
-			logger.debug("input stream " + is);
-		}
-		setDefinitionInputStream(is);
+    public static void readScales() {
+        InputStream is = ScaleFactory.class.getResourceAsStream("/"
+                + getScaleDefinitionFileName());
 
-		// this will probably ignore the filename and use the inputstream
-		// we just made
-		readScales(getScaleDefinitionFileName());
-	}
+        logger.debug("input stream ", is);
 
-	public static void readScales(String filename) {
-		// these are jaxp classes
-		DocumentBuilder db = null;
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        setDefinitionInputStream(is);
 
-			// dbf.setCoalescing(true);
-			// dbf.setExpandEntityReferences(true);
-			// dbf.setIgnoringComments(false);
-			// dbf.setIgnoringElementContentWhitespace(true);
-			// dbf.setNamespaceAware(true);
+        // this will probably ignore the filename and use the inputstream
+        // we just made
+        readScales(getScaleDefinitionFileName());
+    }
 
-			dbf.setValidating(false);
-			db = dbf.newDocumentBuilder();
-			// db.setEntityResolver(EntityResolver er);
-			// db.setErrorHandler(ErrorHandler eh);
+    public static void readScales(String filename) {
+        // these are jaxp classes
+        DocumentBuilder db = null;
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-		} catch (ParserConfigurationException e) {
-			System.err.println(e);
-			if (logger.isErrorEnabled()) {
-				logger.error(e.getMessage(), e);
-			}
-			e.printStackTrace();
-		}
+            // dbf.setCoalescing(true);
+            // dbf.setExpandEntityReferences(true);
+            // dbf.setIgnoringComments(false);
+            // dbf.setIgnoringElementContentWhitespace(true);
+            // dbf.setNamespaceAware(true);
 
-		Document doc = null;
+            dbf.setValidating(false);
+            db = dbf.newDocumentBuilder();
+            // db.setEntityResolver(EntityResolver er);
+            // db.setErrorHandler(ErrorHandler eh);
 
-		try {
+        } catch (ParserConfigurationException e) {
+            System.err.println(e);
+            if (logger.isErrorEnabled()) {
+                logger.error(e.getMessage(), e);
+            }
+            e.printStackTrace();
+        }
 
-			// all of this nonsense in case you're using this from
-			// a swing app or from a servlet. A servlet would set the
-			// inputstream
-			// in its init method.
-			InputSource is = null;
+        Document doc = null;
 
-			if (inputStream != null) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("reading from inputstream");
-				}
-				is = new InputSource(inputStream);
-			} else {
+        try {
 
-				File f = new File(filename);
-				String uri = f.toURL().toString();
-				if (logger.isDebugEnabled()) {
-					logger.debug("defs " + scaleDefinitionFileName);
-					logger.debug("uri " + uri);
-				}
-				is = new InputSource(new FileReader(f));
-				// is = new InputSource(ScaleFactoryXMLHelper.class
-				// .getResourceAsStream(uri));
-				// if not set, then it won't show up in exceptions
-				is.setSystemId(uri);
-			}
+            // all of this nonsense in case you're using this from
+            // a swing app or from a servlet. A servlet would set the
+            // inputstream
+            // in its init method.
+            InputSource is = null;
 
-			doc = db.parse(is);
-			doc.normalize();
-		} catch (SAXParseException spe) {
-			logger.error("error parsing", spe);
-			System.err.println(spe);
-			Exception x = spe.getException();
-			if (x != null) {
-				System.err.println(x);
-				logger.error("error parsing", x);
-			}
-		} catch (SAXException sxe) {
-			Exception x = sxe;
-			if (sxe.getException() != null) {
-				x = sxe.getException();
-				logger.error(x.getMessage(), x);
-			}
-			// } catch (MalformedURLException mue) {
+            if (inputStream != null) {
+                logger.debug("reading from inputstream");
+                is = new InputSource(inputStream);
+            } else {
 
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			logger.error("io problem", ioe);
-			return;
+                File f = new File(filename);
+                // String uri = f.toURL().toString();
+                String uri = f.toURI().toURL().toString();
 
-		} catch (Throwable t) {
-			t.printStackTrace();
-			return;
-		}
+                logger.debug("defs ", scaleDefinitionFileName);
+                logger.debug("uri ", uri);
 
-		Element e = doc.getDocumentElement();
-		String name = e.getTagName();
-		logger.debug("parsing scales document element " + name);
+                is = new InputSource(new FileReader(f));
+                // is = new InputSource(ScaleFactoryXMLHelper.class
+                // .getResourceAsStream(uri));
+                // if not set, then it won't show up in exceptions
+                is.setSystemId(uri);
+            }
 
-		NodeList scales = e.getElementsByTagName("scale");
-		if (scales != null) {
-			int length = scales.getLength();
-			for (int i = 0; i < length; i++) {
-				Node nl = scales.item(i);
-				logger.debug("parsing scale ");
-				parseScale(nl);
-			}
-		} else {
-			System.err.println("no scales!");
-		}
-	}
+            doc = db.parse(is);
+            doc.normalize();
+        } catch (SAXParseException spe) {
+            logger.error("error parsing", spe);
+            Exception x = spe.getException();
+            if (x != null) {
+                logger.error("error parsing", x);
+            }
+        } catch (SAXException sxe) {
+            Exception x = sxe;
+            if (sxe.getException() != null) {
+                x = sxe.getException();
+                logger.error(x.getMessage(), x);
+            }
+            // } catch (MalformedURLException mue) {
 
-	/**
-	 * Attempt to parse each scale element and register it with the
-	 * ScaleFactory. Ignores the spelling if the intervals are specified.
-	 * 
-	 * ScaleFactory.registerScale(mc);
-	 * 
-	 * @param scale
-	 */
-	private static void parseScale(Node scale) {
-		if (scale == null) {
-			System.err.println("parseScale: node is null");
-			return;
-		}
-		if (scale.getNodeName().equals("scale") == false) {
-			System.err.println("parseScale: node is not a scale");
-			return;
-		}
-		NamedNodeMap pa = scale.getAttributes();
-		Node ni = pa.getNamedItem("name");
-		if (ni == null) {
-			throw new IllegalArgumentException(
-					"Invalid scale; no name attribute");
-		}
-		String name = ni.getNodeValue();
-		logger.debug(name);
-		Integer[] intervals = null;
-		Integer[] dintervals = null;
-		String spelling = null;
-		String description = null;
+        } catch (IOException ioe) {
+            logger.error("io problem", ioe);
+            return;
 
-		if (scale.hasChildNodes()) {
-			NodeList sc = scale.getChildNodes();
-			int len = sc.getLength();
-			for (int i = 0; i < len; i++) {
-				Node nn = sc.item(i);
-				if (nn.getNodeName().equalsIgnoreCase("intervals")) {
-					intervals = parseIntervals(nn);
-				}
-				if (nn.getNodeName().equalsIgnoreCase("descendingIntervals")) {
-					dintervals = parseDescendingIntervals(nn);
-				}
-				if (nn.getNodeName().equalsIgnoreCase("spelling")) {
-					spelling = parseSpelling(nn);
-				}
-				if (nn.getNodeName().equalsIgnoreCase("description")) {
-					description = nn.getTextContent();
-					logger.debug("description " + description);
-				}
-			}
-		}
-		// String s = String.format("xml %s has intervals %s \n", name,
-		// ArrayUtils
-		// .asString(intervals));
-		// System.err.println(s);
+        } catch (Throwable t) {
+            t.printStackTrace();
+            return;
+        }
 
-		Scale mc = null;
-		if (intervals != null) {
-			mc = new Scale(name, intervals, description);
-			logger.debug("creating from intervals " + name);
-			if (spelling != null) {
-				mc.setSpelling(spelling);
-			}
-		} else if (spelling != null) {
-			mc = new Scale(name, spelling);
-			mc.setDescription(description);
-		}
+        Element e = doc.getDocumentElement();
+        String name = e.getTagName();
+        logger.debug("parsing scales document element " + name);
 
-		if (dintervals != null) {
-			mc.setDescendingIntervals(dintervals);
-		}
-		ScaleFactory.registerScale(mc);
-	}
+        NodeList scales = e.getElementsByTagName("scale");
+        if (scales != null) {
+            int length = scales.getLength();
+            for (int i = 0; i < length; i++) {
+                Node nl = scales.item(i);
+                logger.debug("parsing scale ");
+                parseScale(nl);
+            }
+        } else {
+            System.err.println("no scales!");
+        }
+    }
 
-	private static Integer[] parseIntervals(Node intervals) {
-		NodeList sc = intervals.getChildNodes();
-		int len = sc.getLength();
-		// int[] a = new int[len];
-		List<Integer> list = new ArrayList<Integer>();
+    /**
+     * Attempt to parse each scale element and register it with the
+     * ScaleFactory. Ignores the spelling if the intervals are specified.
+     * 
+     * ScaleFactory.registerScale(mc);
+     * 
+     * @param scale
+     */
+    private static void parseScale(Node scale) {
+        if (scale == null) {
+            System.err.println("parseScale: node is null");
+            return;
+        }
+        if (scale.getNodeName().equals("scale") == false) {
+            System.err.println("parseScale: node is not a scale");
+            return;
+        }
+        NamedNodeMap pa = scale.getAttributes();
+        Node ni = pa.getNamedItem("name");
+        if (ni == null) {
+            throw new IllegalArgumentException(
+                    "Invalid scale; no name attribute");
+        }
+        String name = ni.getNodeValue();
+        logger.debug(name);
+        Integer[] intervals = null;
+        Integer[] dintervals = null;
+        String spelling = null;
+        String description = null;
 
-		for (int i = 0; i < len; i++) {
-			Node nn = sc.item(i);
-			if (nn.getNodeName().equalsIgnoreCase("interval")) {
-				// System.out.println(nn.getTextContent());
-				// a[i] = Integer.parseInt(nn.getTextContent());
-				list.add(Integer.parseInt(nn.getTextContent()));
-			}
-		}
-		Integer[] array = new Integer[list.size()];
-		return list.toArray(array);
-	}
+        if (scale.hasChildNodes()) {
+            NodeList sc = scale.getChildNodes();
+            int len = sc.getLength();
+            for (int i = 0; i < len; i++) {
+                Node nn = sc.item(i);
+                if (nn.getNodeName().equalsIgnoreCase("intervals")) {
+                    intervals = parseIntervals(nn);
+                }
+                if (nn.getNodeName().equalsIgnoreCase("descendingIntervals")) {
+                    dintervals = parseDescendingIntervals(nn);
+                }
+                if (nn.getNodeName().equalsIgnoreCase("spelling")) {
+                    spelling = parseSpelling(nn);
+                }
+                if (nn.getNodeName().equalsIgnoreCase("description")) {
+                    description = nn.getTextContent();
+                    logger.debug("description " + description);
+                }
+            }
+        }
+        // String s = String.format("xml %s has intervals %s \n", name,
+        // ArrayUtils
+        // .asString(intervals));
+        // System.err.println(s);
 
-	/**
-	 * <p>
-	 * delete this. no different from parseIntervals
-	 * </p>
-	 * 
-	 * @param intervals
-	 * @return
-	 */
-	private static Integer[] parseDescendingIntervals(Node intervals) {
-		NodeList sc = intervals.getChildNodes();
-		int len = sc.getLength();
-		int[] a = new int[len];
-		List<Integer> list = new ArrayList<Integer>();
+        Scale mc = null;
+        if (intervals != null) {
+            mc = new Scale(name, intervals, description);
+            logger.debug("creating from intervals " + name);
+            if (spelling != null) {
+                mc.setSpelling(spelling);
+            }
+        } else if (spelling != null) {
+            mc = new Scale(name, spelling);
+            mc.setDescription(description);
+        }
 
-		for (int i = 0; i < len; i++) {
-			Node nn = sc.item(i);
-			if (nn.getNodeName().equalsIgnoreCase("interval")) {
-				// System.out.println(nn.getTextContent());
-				a[i] = Integer.parseInt(nn.getTextContent());
-				list.add(Integer.parseInt(nn.getTextContent()));
-			}
-		}
-		Integer[] array = new Integer[list.size()];
-		return list.toArray(array);
-	}
+        if (dintervals != null) {
+            mc.setDescendingIntervals(dintervals);
+        }
+        ScaleFactory.registerScale(mc);
+    }
 
-	private static String parseSpelling(Node spelling) {
-		StringBuilder sb = new StringBuilder();
-		NodeList sc = spelling.getChildNodes();
-		int len = sc.getLength();
-		for (int i = 0; i < len; i++) {
-			Node nn = sc.item(i);
-			if (nn.getNodeName().equalsIgnoreCase("degree")) {
-				sb.append(nn.getTextContent());
-				sb.append(' ');
-			}
-		}
-		return sb.toString();
-	}
+    private static Integer[] parseIntervals(Node intervals) {
+        NodeList sc = intervals.getChildNodes();
+        int len = sc.getLength();
+        // int[] a = new int[len];
+        List<Integer> list = new ArrayList<Integer>();
 
-	/**
-	 * 
-	 * @param is
-	 */
-	public static void setDefinitionInputStream(InputStream is) {
-		inputStream = is;
+        for (int i = 0; i < len; i++) {
+            Node nn = sc.item(i);
+            if (nn.getNodeName().equalsIgnoreCase("interval")) {
+                // System.out.println(nn.getTextContent());
+                // a[i] = Integer.parseInt(nn.getTextContent());
+                list.add(Integer.parseInt(nn.getTextContent()));
+            }
+        }
+        Integer[] array = new Integer[list.size()];
+        return list.toArray(array);
+    }
 
-	}
+    /**
+     * <p>
+     * delete this. no different from parseIntervals
+     * </p>
+     * 
+     * @param intervals
+     * @return
+     */
+    private static Integer[] parseDescendingIntervals(Node intervals) {
+        NodeList sc = intervals.getChildNodes();
+        int len = sc.getLength();
+        int[] a = new int[len];
+        List<Integer> list = new ArrayList<Integer>();
 
-	static InputStream inputStream;
+        for (int i = 0; i < len; i++) {
+            Node nn = sc.item(i);
+            if (nn.getNodeName().equalsIgnoreCase("interval")) {
+                // System.out.println(nn.getTextContent());
+                a[i] = Integer.parseInt(nn.getTextContent());
+                list.add(Integer.parseInt(nn.getTextContent()));
+            }
+        }
+        Integer[] array = new Integer[list.size()];
+        return list.toArray(array);
+    }
+
+    private static String parseSpelling(Node spelling) {
+        StringBuilder sb = new StringBuilder();
+        NodeList sc = spelling.getChildNodes();
+        int len = sc.getLength();
+        for (int i = 0; i < len; i++) {
+            Node nn = sc.item(i);
+            if (nn.getNodeName().equalsIgnoreCase("degree")) {
+                sb.append(nn.getTextContent());
+                sb.append(' ');
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 
+     * @param is
+     */
+    public static void setDefinitionInputStream(InputStream is) {
+        inputStream = is;
+
+    }
+
+    static InputStream inputStream;
 
 }
 /*

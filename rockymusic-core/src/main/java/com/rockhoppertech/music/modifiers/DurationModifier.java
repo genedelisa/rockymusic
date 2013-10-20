@@ -54,191 +54,192 @@ import com.rockhoppertech.music.Timed;
  * @see NoteModifier
  */
 public class DurationModifier extends AbstractModifier implements
-		TimedModifier, NoteModifier {
+        TimedModifier, NoteModifier {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(DurationModifier.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(DurationModifier.class);
 
-	private Operation operation = Operation.SET;
-	private CircularArrayList<Double> values;
-	private NoteModifier successor;
+    private Operation operation = Operation.SET;
+    private CircularArrayList<Double> values;
+    private NoteModifier successor;
 
-	public DurationModifier() {
-		values = new CircularArrayList<Double>();
-		values.add(1d);
-	}
+    public DurationModifier() {
+        values = new CircularArrayList<Double>();
+        values.add(1d);
+    }
 
-	public DurationModifier(final double n) {
-		values = new CircularArrayList<Double>();
-		values.add(n);
-	}
+    public DurationModifier(final double n) {
+        values = new CircularArrayList<Double>();
+        values.add(n);
+    }
 
-	public DurationModifier(final double... array) {
-		values = new CircularArrayList<Double>();
-		this.setValues(array);
-	}
+    public DurationModifier(final double... array) {
+        values = new CircularArrayList<Double>();
+        this.setValues(array);
+    }
 
-	public DurationModifier(final List<Double> values2) {
-		values = new CircularArrayList<Double>();
-		values.addAll(values2);
-	}
+    public DurationModifier(final List<Double> values2) {
+        values = new CircularArrayList<Double>();
+        values.addAll(values2);
+    }
 
-	public DurationModifier(final Operation op, final double n) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		values.add(n);
-	}
+    public DurationModifier(final Operation op, final double n) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        values.add(n);
+    }
 
-	public DurationModifier(final Operation op, final double... array) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		this.setValues(array);
-	}
+    public DurationModifier(final Operation op, final double... array) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        this.setValues(array);
+    }
 
-	public DurationModifier(final Operation op, final List<Double> values2) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		values.addAll(values2);
-	}
+    public DurationModifier(final Operation op, final List<Double> values2) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        values.addAll(values2);
+    }
 
-	private void doit(final Timed timed) {
-		double d = 0d;
-		final double value = values.next();
-		switch (operation) {
-		case ADD:
-			d = timed.getDuration() + value;
-			if (d <= 0) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(String.format("value %f is <=0, setting to 1",
-							d));
-				}
-				d = 1d;
-			}
-			timed.setDuration(d);
+    /**
+     * @param timed
+     */
+    private void doit(final Timed timed) {
+        double d = 0d;
+        final double value = values.next();
+        switch (operation) {
+        case ADD:
+            d = timed.getDuration() + value;
+            if (d <= 0) {
 
-			break;
+                logger.debug("value {} is <=0, setting to 1",
+                        d);
 
-		case SUBTRACT:
-			d = timed.getDuration() - value;
-			if (d <= 0) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(String.format("value %f is <=0, setting to 1",
-							d));
-				}
-				d = 1d;
-			}
-			timed.setDuration(d);
-			break;
+                d = 1d;
+            }
+            timed.setDuration(d);
 
-		case DIVIDE:
-			d = timed.getDuration() / value;
-			if (d <= 0) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setDuration(d);
-			break;
+            break;
 
-		case MULTIPLY:
-			d = timed.getDuration() * value;
-			if (d <= 0) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setDuration(d);
-			break;
+        case SUBTRACT:
+            d = timed.getDuration() - value;
+            if (d <= 0) {
+                logger.debug("value {} is <=0, setting to 1",
+                        d);
+                d = 1d;
+            }
+            timed.setDuration(d);
+            break;
 
-		case SET:
-			timed.setDuration(value);
-			break;
+        case DIVIDE:
+            d = timed.getDuration() / value;
+            if (d <= 0) {
+                logger.debug("Rounding to 1: " + d);
+                d = 1d;
+            }
+            timed.setDuration(d);
+            break;
 
-		case MOD:
-			timed.setDuration(timed.getDuration() % value);
-			break;
+        case MULTIPLY:
+            d = timed.getDuration() * value;
+            if (d <= 0) {
+                logger.debug("Rounding to 1: " + d);
+                d = 1d;
+            }
+            timed.setDuration(d);
+            break;
 
-		case QUANTIZE:
-			timed.setDuration(AbstractModifier.quantize(timed.getDuration(),
-					value));
-			break;
-		}
+        case SET:
+            timed.setDuration(value);
+            break;
 
-	}
+        case MOD:
+            timed.setDuration(timed.getDuration() % value);
+            break;
 
-	/**
-	 * <code>getDescription</code>
-	 * 
-	 * @return a <code>String</code> value
-	 */
-	@Override
-	public String getDescription() {
-		return "Duration modifier";
-	}
+        case QUANTIZE:
+            timed.setDuration(AbstractModifier.quantize(timed.getDuration(),
+                    value));
+            break;
+        }
 
-	/**
-	 * <code>getName</code>
-	 * 
-	 * @return a <code>String</code> value
-	 */
-	@Override
-	public String getName() {
-		return "Duration";
-	}
+    }
 
-	/**
-	 * @return the operation
-	 */
-	public Operation getOperation() {
-		return operation;
-	}
+    /**
+     * <code>getDescription</code>
+     * 
+     * @return a <code>String</code> value
+     */
+    @Override
+    public String getDescription() {
+        return "Duration modifier";
+    }
 
-	@Override
-	public void modify(final Note note) {
-		doit(note);
-		if (successor != null) {
-			successor.modify(note);
-		}
-	}
+    /**
+     * <code>getName</code>
+     * 
+     * @return a <code>String</code> value
+     */
+    @Override
+    public String getName() {
+        return "Duration";
+    }
 
-	@Override
-	public void modify(final Timed timed) {
-		doit(timed);
-	}
+    /**
+     * @return the operation
+     */
+    public Operation getOperation() {
+        return operation;
+    }
 
-	/**
-	 * @param operation
-	 *            the operation to set
-	 */
-	@Override
-	public void setOperation(final Operation operation) {
-		this.operation = operation;
-	}
+    @Override
+    public void modify(final Note note) {
+        doit(note);
+        if (successor != null) {
+            successor.modify(note);
+        }
+    }
 
-	@Override
-	public void setSuccessor(final NoteModifier successor) {
-		this.successor = successor;
-	}
+    @Override
+    public void modify(final Timed timed) {
+        doit(timed);
+    }
 
-	@Override
-	public void setValues(final double[] array) {
-		if (values == null) {
-			values = new CircularArrayList<Double>();
-		} else {
-			values.clear();
-		}
+    /**
+     * @param operation
+     *            the operation to set
+     */
+    @Override
+    public void setOperation(final Operation operation) {
+        this.operation = operation;
+    }
 
-		for (final double element : array) {
-			values.add(element);
-		}
-	}
+    @Override
+    public void setSuccessor(final NoteModifier successor) {
+        this.successor = successor;
+    }
 
-	public void setValues(final List<Double> values) {
-		if (this.values == null) {
-			this.values = new CircularArrayList<Double>();
-		} else {
-			this.values.clear();
-		}
-		this.values.addAll(values);
-	}
+    @Override
+    public void setValues(final double[] array) {
+        if (values == null) {
+            values = new CircularArrayList<Double>();
+        } else {
+            values.clear();
+        }
+
+        for (final double element : array) {
+            values.add(element);
+        }
+    }
+
+    public void setValues(final List<Double> values) {
+        if (this.values == null) {
+            this.values = new CircularArrayList<Double>();
+        } else {
+            this.values.clear();
+        }
+        this.values.addAll(values);
+    }
 }
 /*
  * History:

@@ -56,196 +56,192 @@ import com.rockhoppertech.music.Timed;
  * @see TimedModifier
  */
 public class StartBeatModifier extends AbstractModifier implements
-		TimedModifier, NoteModifier {
+        TimedModifier, NoteModifier {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(StartBeatModifier.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(StartBeatModifier.class);
 
-	private Operation operation = Operation.SET;
-	private CircularArrayList<Double> values;
-	private NoteModifier successor;
+    private Operation operation = Operation.SET;
+    private CircularArrayList<Double> values;
+    private NoteModifier successor;
 
-	public StartBeatModifier() {
-		values = new CircularArrayList<Double>();
-		values.add(1d);
-	}
+    public StartBeatModifier() {
+        values = new CircularArrayList<Double>();
+        values.add(1d);
+    }
 
-	public StartBeatModifier(final double n) {
-		values = new CircularArrayList<Double>();
-		values.add(n);
-	}
+    public StartBeatModifier(final double n) {
+        values = new CircularArrayList<Double>();
+        values.add(n);
+    }
 
-	public StartBeatModifier(final Operation op, final double n) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		values.add(n);
-	}
+    public StartBeatModifier(final Operation op, final double n) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        values.add(n);
+    }
 
-	public StartBeatModifier(final Operation op, final double... array) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		this.setValues(array);
-	}
+    public StartBeatModifier(final Operation op, final double... array) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        this.setValues(array);
+    }
 
-	public StartBeatModifier(final Operation op, final List<Double> values2) {
-		operation = op;
-		values = new CircularArrayList<Double>();
-		values.addAll(values2);
-	}
+    public StartBeatModifier(final Operation op, final List<Double> values2) {
+        operation = op;
+        values = new CircularArrayList<Double>();
+        values.addAll(values2);
+    }
 
-	private void doit(final Timed timed) {
-		double d = 0d;
-		final double value = values.next();
-		switch (operation) {
-		case ADD:
-			d = timed.getStartBeat() + value;
-			if (d < 1d) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(String.format("value %f is < 1, setting to 1",
-							d));
-				}
-				d = 1d;
-			}
-			timed.setStartBeat(d);
+    private void doit(final Timed timed) {
+        double d = 0d;
+        final double value = values.next();
+        switch (operation) {
+        case ADD:
+            d = timed.getStartBeat() + value;
+            if (d < 1d) {
+                logger.debug("value {} is < 1, setting to 1",
+                        d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
 
-			break;
+            break;
 
-		case SUBTRACT:
-			d = timed.getStartBeat() - value;
-			if (d < 1d) {
-				if (logger.isDebugEnabled()) {
-					logger.debug(String.format("value %f is < 1, setting to 1",
-							d));
-				}
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
+        case SUBTRACT:
+            d = timed.getStartBeat() - value;
+            if (d < 1d) {
+                logger.debug("value {} is < 1, setting to 1",
+                        d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
 
-		case DIVIDE:
-			d = timed.getStartBeat() / value;
-			if (d < 1d) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
+        case DIVIDE:
+            d = timed.getStartBeat() / value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
 
-		case MULTIPLY:
-			d = timed.getStartBeat() * value;
-			if (d < 1d) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
+        case MULTIPLY:
+            d = timed.getStartBeat() * value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
 
-		case SET:
-			d = value;
-			if (d < 1d) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
+        case SET:
+            d = value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
 
-		case MOD:
-			d = timed.getStartBeat() % value;
-			if (d < 1d) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
+        case MOD:
+            d = timed.getStartBeat() % value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
 
-		case QUANTIZE:
-			d = AbstractModifier.quantize(timed.getStartBeat(),
-					value);
-			if (d < 1d) {
-				logger.debug("Rounding to 1: " + d);
-				d = 1d;
-			}
-			timed.setStartBeat(d);
-			break;
-		}
+        case QUANTIZE:
+            d = AbstractModifier.quantize(timed.getStartBeat(),
+                    value);
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1d;
+            }
+            timed.setStartBeat(d);
+            break;
+        }
 
-	}
+    }
 
-	/**
-	 * <code>getDescription</code>
-	 * 
-	 * @return a <code>String</code> value
-	 */
-	@Override
-	public String getDescription() {
-		return "Start Beat modifier";
-	}
+    /**
+     * <code>getDescription</code>
+     * 
+     * @return a <code>String</code> value
+     */
+    @Override
+    public String getDescription() {
+        return "Start Beat modifier";
+    }
 
-	/**
-	 * <code>getName</code>
-	 * 
-	 * @return a <code>String</code> value
-	 */
-	@Override
-	public String getName() {
-		return "Start Beat";
-	}
+    /**
+     * <code>getName</code>
+     * 
+     * @return a <code>String</code> value
+     */
+    @Override
+    public String getName() {
+        return "Start Beat";
+    }
 
-	/**
-	 * @return the operation
-	 */
-	public Operation getOperation() {
-		return operation;
-	}
+    /**
+     * @return the operation
+     */
+    public Operation getOperation() {
+        return operation;
+    }
 
-	@Override
-	public void modify(final Note note) {
-		doit(note);
-		if (successor != null) {
-			successor.modify(note);
-		}
-	}
+    @Override
+    public void modify(final Note note) {
+        doit(note);
+        if (successor != null) {
+            successor.modify(note);
+        }
+    }
 
-	@Override
-	public void modify(final Timed timed) {
-		doit(timed);
-	}
+    @Override
+    public void modify(final Timed timed) {
+        doit(timed);
+    }
 
-	/**
-	 * @param operation
-	 *            the operation to set
-	 */
-	@Override
-	public void setOperation(final Operation operation) {
-		this.operation = operation;
-	}
+    /**
+     * @param operation
+     *            the operation to set
+     */
+    @Override
+    public void setOperation(final Operation operation) {
+        this.operation = operation;
+    }
 
-	@Override
-	public void setSuccessor(final NoteModifier successor) {
-		this.successor = successor;
-	}
+    @Override
+    public void setSuccessor(final NoteModifier successor) {
+        this.successor = successor;
+    }
 
-	@Override
-	public void setValues(final double[] array) {
-		if (values == null) {
-			values = new CircularArrayList<Double>();
-		} else {
-			values.clear();
-		}
+    @Override
+    public void setValues(final double[] array) {
+        if (values == null) {
+            values = new CircularArrayList<Double>();
+        } else {
+            values.clear();
+        }
 
-		for (final double element : array) {
-			values.add(element);
-		}
-	}
+        for (final double element : array) {
+            values.add(element);
+        }
+    }
 
-	public void setValues(final List<Double> values) {
-		if (this.values == null) {
-			this.values = new CircularArrayList<Double>();
-		} else {
-			this.values.clear();
-		}
-		this.values.addAll(values);
-	}
+    public void setValues(final List<Double> values) {
+        if (this.values == null) {
+            this.values = new CircularArrayList<Double>();
+        } else {
+            this.values.clear();
+        }
+        this.values.addAll(values);
+    }
 }
 /*
  * History:

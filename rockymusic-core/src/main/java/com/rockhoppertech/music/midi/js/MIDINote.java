@@ -457,10 +457,8 @@ public class MIDINote extends Note implements Cloneable {
         logger.debug("new velocity {}", v);
 
         if ((v < 0) || (v > 127)) {
-            if (MIDINote.logger.isDebugEnabled()) {
                 MIDINote.logger.debug("setVelocity bad value {}",
                         v);
-            }
             throw new IllegalArgumentException(
                     "value must be between 0 and 127");
         }
