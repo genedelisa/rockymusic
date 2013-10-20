@@ -107,6 +107,8 @@ public class App2 extends Application {
 				// }
 				// })
 				.build();
+		
+        //not a singleton: logger.debug("button builder {}", ButtonBuilder.create());
 
 		// the controller has the action handler
 		this.controller.setButton(b);
