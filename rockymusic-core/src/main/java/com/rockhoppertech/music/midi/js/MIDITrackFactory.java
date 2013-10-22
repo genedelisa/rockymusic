@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -80,19 +81,37 @@ public class MIDITrackFactory {
     }
 
     /**
-     * <code>trackFromMIDITrack</code> creates a new Track that belongs to the
-     * supplied Sequence. The MIDITRack is iterated and <code>MidiEvent</code>
+     * <code>trackFromMIDITrack</code> creates a new JavaSound Track that belongs to the
+     * supplied Sequence. The MIDITrack is iterated and <code>MidiEvent</code>
      * objects (patch, note on/off, eotrack) are created and placed into the
      * Track.
+     * 
+     * MIDIUtils is used to insert events into the Track.
+     * 
+     * Both the MIDITrack's MIDIEvents and MIDINotes are iterated.
+     * 
+     * Beats are 1 based, but ticks are zero based. This does the conversion.
+     * 
+     * Each MIDINote's bank and program are used. There will be a bank select control message and a program change message
+     * if the current values are different from the previous values (i.e. each MIDINote has a bank and program. The first
+     * MIDINote will send the change messages. Those messages are sent from succeeding MIDINotes only if the values are different.)
+     * 
+     * Called from the ScoreFactory method scoreToSequence().
+     * 
+     * The new Track is returned, but it is already part of the Sequence, so that's
+     * just for debugging or some other use.
      * 
      * @param sequence
      *            a JavaSound <code>Sequence</code> instance
      * 
      * @return a JavaSound <code>Track</code> instance, which is already part of
      *         the Sequence
+     *         
+     * @see ScoreFactory#scoreToSequence(Score)
+     * @see MIDIUtils
      */
     public static Track trackFromMIDITrack(MIDITrack mt, Sequence sequence) {
-        logger.debug("Enter toTrack");
+        logger.debug("Enter trackFromMIDITrack");
 
         if (sequence.getDivisionType() == Sequence.PPQ) {
             logger.debug("ppq: ");
@@ -105,6 +124,20 @@ public class MIDITrackFactory {
         if (mt.getName() != null) {
             MIDIUtils.insertSequenceName(track, 0, mt.getName());
 
+        }
+        
+       NavigableMap<Double, KeySignature> keys = mt.getKeySignatures();
+        for(Double time : keys.keySet()) {
+            KeySignature key = keys.get(time);
+            long tick = (long) ((time - 1) * resolution);
+            MIDIUtils.insertKeySignature(track, tick, key.getSf(), key.getMm());
+        }
+        
+        NavigableMap<Double, TimeSignature> timeSigs = mt.getTimeSignatures();
+        for(Double time : timeSigs.keySet()) {
+            TimeSignature ts = timeSigs.get(time);
+            long tick = (long) ((time - 1) * resolution);
+            MIDIUtils.insertTimeSignature(track, tick, ts.getNumerator(), ts.getDenominator());
         }
 
         /*
@@ -131,6 +164,7 @@ public class MIDITrackFactory {
             try {
                 int p = n.getProgram();
                 int b = n.getBank();
+                // do the bank/program change only if the value is different from the last note
                 if (p != program || b != bank) {
 
                     logger.debug(
@@ -154,7 +188,6 @@ public class MIDITrackFactory {
                     // Musicicans don't say "start at the zeroth beat"
                     tick = (long) ((n.getStartBeat() - 1) * resolution);
                     MidiEvent event = new MidiEvent(se, tick);
-
                     track.add(event);
 
                     se = new ShortMessage();
@@ -200,7 +233,7 @@ public class MIDITrackFactory {
                 event = new MidiEvent(se, tick);
                 track.add(event);
             } catch (InvalidMidiDataException e) {
-                System.err.println(e);
+                logger.error(e.getLocalizedMessage(),e);
                 MIDIUtils.print(se);
             }
         }
@@ -214,10 +247,15 @@ public class MIDITrackFactory {
         // } catch (InvalidMidiDataException e) {
         // System.err.println(e);
         // }
-        logger.debug("leaving toTrack");
+        logger.debug("leaving trackFromMIDITrack");
         return track;
     }
 
+    /**
+     * @param track
+     * @param resolution
+     * @return a channelized Score
+     */
     public Score createChannelizedMIDITracks(Track track, int resolution) {
         List<List<MidiEvent>> channelList = new ArrayList<List<MidiEvent>>(16);
         for (int i = 0; i < 16; i++) {
@@ -242,7 +280,7 @@ public class MIDITrackFactory {
      * 
      * @param score
      * @param track
-     * @return
+     * @return a Score
      */
     public Score createChannelizedMIDITracks(Score score, Track track) {
         List<List<MidiEvent>> channelList = new ArrayList<List<MidiEvent>>(16);
@@ -262,11 +300,10 @@ public class MIDITrackFactory {
         return score;
     }
 
+
     /**
-     * Describe <code>logChannelList</code> method here.
-     * 
-     * @param channelList
-     *            a <code>List</code> value
+     * for debugging. Simply dumps the info to the logger.
+     * @param channelList a List of a List of MidiEvents
      */
     private static void logChannelList(final List<List<MidiEvent>> channelList) {
 
