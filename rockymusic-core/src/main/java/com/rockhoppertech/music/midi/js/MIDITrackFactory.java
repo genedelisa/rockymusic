@@ -81,10 +81,10 @@ public class MIDITrackFactory {
     }
 
     /**
-     * <code>trackFromMIDITrack</code> creates a new JavaSound Track that belongs to the
-     * supplied Sequence. The MIDITrack is iterated and <code>MidiEvent</code>
-     * objects (patch, note on/off, eotrack) are created and placed into the
-     * Track.
+     * <code>trackFromMIDITrack</code> creates a new JavaSound Track that
+     * belongs to the supplied Sequence. The MIDITrack is iterated and
+     * <code>MidiEvent</code> objects (patch, note on/off, eotrack) are created
+     * and placed into the Track.
      * 
      * MIDIUtils is used to insert events into the Track.
      * 
@@ -92,21 +92,23 @@ public class MIDITrackFactory {
      * 
      * Beats are 1 based, but ticks are zero based. This does the conversion.
      * 
-     * Each MIDINote's bank and program are used. There will be a bank select control message and a program change message
-     * if the current values are different from the previous values (i.e. each MIDINote has a bank and program. The first
-     * MIDINote will send the change messages. Those messages are sent from succeeding MIDINotes only if the values are different.)
+     * Each MIDINote's bank and program are used. There will be a bank select
+     * control message and a program change message if the current values are
+     * different from the previous values (i.e. each MIDINote has a bank and
+     * program. The first MIDINote will send the change messages. Those messages
+     * are sent from succeeding MIDINotes only if the values are different.)
      * 
      * Called from the ScoreFactory method scoreToSequence().
      * 
-     * The new Track is returned, but it is already part of the Sequence, so that's
-     * just for debugging or some other use.
+     * The new Track is returned, but it is already part of the Sequence, so
+     * that's just for debugging or some other use.
      * 
      * @param sequence
      *            a JavaSound <code>Sequence</code> instance
      * 
      * @return a JavaSound <code>Track</code> instance, which is already part of
      *         the Sequence
-     *         
+     * 
      * @see ScoreFactory#scoreToSequence(Score)
      * @see MIDIUtils
      */
@@ -125,19 +127,30 @@ public class MIDITrackFactory {
             MIDIUtils.insertSequenceName(track, 0, mt.getName());
 
         }
-        
-       NavigableMap<Double, KeySignature> keys = mt.getKeySignatures();
-        for(Double time : keys.keySet()) {
+
+        NavigableMap<Double, KeySignature> keys = mt.getKeySignatures();
+        for (Double time : keys.keySet()) {
             KeySignature key = keys.get(time);
             long tick = (long) ((time - 1) * resolution);
             MIDIUtils.insertKeySignature(track, tick, key.getSf(), key.getMm());
         }
-        
+
         NavigableMap<Double, TimeSignature> timeSigs = mt.getTimeSignatures();
-        for(Double time : timeSigs.keySet()) {
+        for (Double time : timeSigs.keySet()) {
             TimeSignature ts = timeSigs.get(time);
             long tick = (long) ((time - 1) * resolution);
-            MIDIUtils.insertTimeSignature(track, tick, ts.getNumerator(), ts.getDenominator());
+            MIDIUtils.insertTimeSignature(
+                    track,
+                    tick,
+                    ts.getNumerator(),
+                    ts.getDenominator());
+        }
+
+        NavigableMap<Double, Integer> tempoMap = mt.getTempoMap();
+        for (Double time : tempoMap.keySet()) {
+            Integer tempo = tempoMap.get(time);
+            long tick = (long) ((time - 1) * resolution);
+            MIDIUtils.insertTempo(track, tick, tempo);
         }
 
         /*
@@ -164,7 +177,8 @@ public class MIDITrackFactory {
             try {
                 int p = n.getProgram();
                 int b = n.getBank();
-                // do the bank/program change only if the value is different from the last note
+                // do the bank/program change only if the value is different
+                // from the last note
                 if (p != program || b != bank) {
 
                     logger.debug(
@@ -233,7 +247,7 @@ public class MIDITrackFactory {
                 event = new MidiEvent(se, tick);
                 track.add(event);
             } catch (InvalidMidiDataException e) {
-                logger.error(e.getLocalizedMessage(),e);
+                logger.error(e.getLocalizedMessage(), e);
                 MIDIUtils.print(se);
             }
         }
@@ -300,10 +314,11 @@ public class MIDITrackFactory {
         return score;
     }
 
-
     /**
      * for debugging. Simply dumps the info to the logger.
-     * @param channelList a List of a List of MidiEvents
+     * 
+     * @param channelList
+     *            a List of a List of MidiEvents
      */
     private static void logChannelList(final List<List<MidiEvent>> channelList) {
 
