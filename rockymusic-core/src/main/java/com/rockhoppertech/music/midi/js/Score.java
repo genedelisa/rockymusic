@@ -23,22 +23,49 @@ package com.rockhoppertech.music.midi.js;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NavigableMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * A Score instance represents a standard MIDI file format 1.
+ * 
+ * There is a collection of MIDITracks, which will map to JavaSound Tracks.
+ * 
+ * The zeroth track is for meta messages such as tempo, key signature, time
+ * signature.
+ * 
+ * The name of the Score will be the sequence name in the MIDI file.
+ * 
  * @author <a href="http://rockhoppertech.com/">Gene De Lisa</a>
  * 
  */
 public class Score implements Iterable<MIDITrack> {
+    /**
+     * for logging.
+     */
     private static final Logger logger = LoggerFactory.getLogger(Score.class);
+    /**
+     * The name of the score. It will be written as the Sequence name in the
+     * MIDI file.
+     */
     private String name;
+    /**
+     * The tracks.
+     */
     private List<MIDITrack> tracks;
+    /**
+     * The resolution of the MIDI file.
+     */
     private int resolution = 256;
+    /**
+     * The zeroth track in the score for meta messages.
+     */
     private MIDITrack metaTrack;
 
+    /**
+     * Initializes the Score instance and adds the meta track.
+     */
     public Score() {
         tracks = new ArrayList<>();
         metaTrack = new MIDITrack();
@@ -47,81 +74,121 @@ public class Score implements Iterable<MIDITrack> {
         tracks.add(metaTrack);
     }
 
+    /**
+     * The usual. Delegates to the MIDITrack's toString.
+     * 
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Score Name:").append(name).append('\n');
+        sb.append("Resolution:").append(resolution).append('\n');
         for (MIDITrack t : tracks) {
-//            sb.append("Track Name: ").append(t.getName()).append('\n');
-//            for (MIDINote n : t.getNotes()) {
-//                sb.append(n).append('\n');
-//            }
-//            for (MIDIEvent n : t.getEvents()) {
-//                sb.append(n).append('\n');
-//                sb.append(n.toReadableString()).append('\n');
-//            }
-//
-//            NavigableMap<Double, KeySignature> keys = t.getKeySignatures();
-//            for (Double time : keys.keySet()) {
-//                KeySignature key = keys.get(time);
-//                sb.append("Key: ").append(key).append(" at time ").append(time).append('\n');                
-//            }
-//
-//            NavigableMap<Double, TimeSignature> timeSigs = t
-//                    .getTimeSignatures();
-//            for (Double time : timeSigs.keySet()) {
-//                TimeSignature ts = timeSigs.get(time);
-//                sb.append("Time signature: ").append(ts).append(" at time ").append(time).append('\n');                                
-//            }
-//
-//            NavigableMap<Double, Integer> tempoMap = t.getTempoMap();
-//            for (Double time : tempoMap.keySet()) {
-//                Integer tempo = tempoMap.get(time);
-//                sb.append("Tempo: ").append(tempo).append(" at time ").append(time).append('\n');                
-//            }
-
-             sb.append(t.toString());
+            sb.append(t.toString());
         }
         return sb.toString();
     }
 
-    public Score add(MIDITrack track) {
+    /**
+     * Adds a track to the Score.
+     * 
+     * @param track
+     *            the track to add
+     * @return the Score for a fluent interface
+     */
+    public final Score add(final MIDITrack track) {
         tracks.add(track);
         logger.debug("added track. ntracks is now {}", tracks.size());
         return this;
     }
 
+    /**
+     * Removes a track from the Score.
+     * 
+     * @param track
+     *            the track to remove.
+     * @return the Score for a fluent interface
+     */
+    public final Score remove(final MIDITrack track) {
+        tracks.remove(track);
+        logger.debug("removed track. ntracks is now {}", tracks.size());
+        return this;
+    }
+
+    /**
+     * Removes the track from the Score. This does not check if the index is
+     * valid.
+     * 
+     * @param index
+     *            the index of the track.
+     * @return the Score for a fluent interface
+     */
+    public final Score remove(final int index) {
+        tracks.remove(index);
+        logger.debug(
+                "removed track at index {}. ntracks is now {}",
+                index,
+                tracks.size());
+        return this;
+    }
+
+    /**
+     * @return the Score's name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * @param name
+     */
+    public void setName(final String name) {
         this.name = name;
         metaTrack.setName(this.name);
     }
 
+    /**
+     * @return the tracks. Not a copy.
+     */
     public List<MIDITrack> getTracks() {
         return tracks;
     }
 
-    public void setTracks(List<MIDITrack> tracks) {
+    /**
+     * @param tracks
+     */
+    public void setTracks(final List<MIDITrack> tracks) {
         this.tracks = tracks;
     }
 
+    /**
+     * @see java.lang.Iterable#iterator()
+     */
     @Override
     public Iterator<MIDITrack> iterator() {
         return tracks.iterator();
     }
 
+    /**
+     * @return
+     */
     public int getResolution() {
         return resolution;
     }
 
+    /**
+     * @param resolution
+     *            the MIDI file's resolution
+     */
     public void setResolution(int resolution) {
         this.resolution = resolution;
     }
 
-    public void play() {
+    /**
+     * Creates a MIDIPerformer and plays the Score.
+     */
+    public final void play() {
         // Sequence sequence = ScoreFactory.scoreToSequence(this);
         MIDIPerformer perf = new MIDIPerformer();
         perf.play(this);
