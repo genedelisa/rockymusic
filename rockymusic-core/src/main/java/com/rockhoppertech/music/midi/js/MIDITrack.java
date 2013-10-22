@@ -48,15 +48,18 @@ import com.rockhoppertech.music.modifiers.StartBeatModifier;
 /**
  * A rewrite of my ancient MIDITrack from the 1990s.
  * 
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
+
 public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     /**
 	 * 
 	 */
     private static final long serialVersionUID = 1L;
+
     private static final Logger logger = LoggerFactory
             .getLogger(MIDITrack.class);
 
@@ -66,8 +69,19 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     private List<MIDIEvent> events;
     private List<MIDINote> notes;
 
+    /**
+     * 
+     */
     private NavigableMap<Double, TimeSignature> timeSignatures = new TreeMap<Double, TimeSignature>();
+    /**
+     * 
+     */
     private NavigableMap<Double, KeySignature> keySignatureMap = new TreeMap<Double, KeySignature>();
+
+    private NavigableMap<Double, Integer> tempoMap = new TreeMap<Double, Integer>();
+    /**
+     * 
+     */
     private transient MIDIStringParser midiStringParser = new MIDIStringParser();
 
     public MIDITrack() {
@@ -235,8 +249,31 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         for (MIDINote n : notes) {
             sb.append(n).append('\n');
         }
+        
         for (MIDIEvent n : events) {
             sb.append(n.toReadableString()).append('\n');
+        }
+        
+        NavigableMap<Double, KeySignature> keys = this.getKeySignatures();
+        for (Double time : keys.keySet()) {
+            KeySignature key = keys.get(time);
+            sb.append("Key: ").append(key.getDisplayName()).append(" at beat ")
+                    .append(time).append('\n');
+        }
+
+        NavigableMap<Double, TimeSignature> timeSigs = this
+                .getTimeSignatures();
+        for (Double time : timeSigs.keySet()) {
+            TimeSignature ts = timeSigs.get(time);
+            sb.append("Time signature: ").append(ts.getDisplayName())
+                    .append(" at beat ").append(time).append('\n');
+        }
+
+        NavigableMap<Double, Integer> tempoMap = this.getTempoMap();
+        for (Double time : tempoMap.keySet()) {
+            Integer tempo = tempoMap.get(time);
+            sb.append("Tempo: ").append(tempo).append(" at beat ").append(time)
+                    .append('\n');
         }
 
         return sb.toString();
@@ -1364,6 +1401,15 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Does not create a defensive copy.
      * 
+     * @return the tempoMap
+     */
+    public NavigableMap<Double, Integer> getTempoMap() {
+        return tempoMap;
+    }
+
+    /**
+     * Does not create a defensive copy.
+     * 
      * @return the keySignatureMap
      */
     public NavigableMap<Double, KeySignature> getKeySignatures() {
@@ -1380,6 +1426,15 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
+     * @param tempoMap
+     *            the tempi to set
+     */
+    public void setTempoMap(
+            NavigableMap<Double, Integer> tempoMap) {
+        this.tempoMap = tempoMap;
+    }
+
+    /**
      * @param timeSignatures
      *            the timeSignatures to set
      */
@@ -1393,7 +1448,22 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * sense.
      * 
      * @param beat
+     *            the beat where this should occur.
+     * @param tempo
+     *            the tempo in BPM
+     */
+    public void addTempoAtBeat(double beat, Integer tempo) {
+        tempoMap.put(beat, tempo);
+    }
+
+    /**
+     * This does no checking on whether the designated beat actually makes
+     * sense.
+     * 
+     * @param beat
+     *            the beat where this should occur.
      * @param ts
+     *            the time signature
      */
     public void addTimeSignatureAtBeat(double beat, TimeSignature ts) {
         timeSignatures.put(beat, ts);
@@ -1409,6 +1479,24 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         keySignatureMap.put(beat, keysig);
     }
 
+    /**
+     * @param beat
+     *            the beat "key" in the tempo map.
+     * @return the tempo or null
+     */
+    public Integer getTempoAtBeat(double beat) {
+        Integer tempo = null;
+        Double key = tempoMap.floorKey(beat);
+        if (key != null) {
+            tempo = tempoMap.get(key);
+        }
+        return tempo;
+    }
+
+    /**
+     * @param beat
+     * @return the key signature or null
+     */
     public KeySignature getKeySignatureAtBeat(double beat) {
         KeySignature ks = null;
         Double key = keySignatureMap.floorKey(beat);
@@ -1418,6 +1506,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return ks;
     }
 
+    /**
+     * @return a List of the pitch classes
+     */
     public List<Integer> getPitchClasses() {
         List<Integer> pitchClasses = new ArrayList<Integer>();
         for (MIDINote n : this) {
@@ -1427,6 +1518,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return pitchClasses;
     }
 
+    /**
+     * @return a List of the pitch's midi numbers
+     */
     public List<Integer> getPitchesAsIntegers() {
         List<Integer> pitches = new ArrayList<Integer>();
         for (MIDINote n : this) {
@@ -1436,6 +1530,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return pitches;
     }
 
+    /**
+     * @return a list as Pitches
+     */
     public List<Pitch> getPitches() {
         List<Pitch> pitches = new ArrayList<Pitch>();
         for (MIDINote n : this) {
@@ -1445,6 +1542,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return pitches;
     }
 
+    /**
+     * @return a Set of the pitch classes.
+     */
     public Set<Integer> getPitchClassSet() {
         Set<Integer> pitchClasses = new TreeSet<Integer>();
         for (MIDINote n : this) {
@@ -1454,17 +1554,37 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return pitchClasses;
     }
 
+    /**
+     * Modifies all MIDINotes in the Track to use this patch.
+     * 
+     * @param gmpatch
+     *            The patch to use.
+     */
     public void useInstrument(MIDIGMPatch gmpatch) {
         InstrumentModifier mod = new InstrumentModifier(gmpatch.getProgram());
         this.map(mod);
 
     }
 
+    /**
+     * Modifies all MIDINotes in the Track to use this patch.
+     * 
+     * @param program
+     *            The instrument number.
+     */
     public void useInstrument(int program) {
         InstrumentModifier mod = new InstrumentModifier(program);
         this.map(mod);
     }
 
+    /**
+     * Modifies all MIDINotes in the Track to use this patch.
+     * 
+     * @param bank
+     *            The instrument bank.
+     * @param program
+     *            The instrument number.
+     */
     public void useInstrument(int bank, int program) {
         InstrumentModifier mod = new InstrumentModifier(bank, program);
         this.map(mod);
