@@ -23,6 +23,7 @@ package com.rockhoppertech.music.midi.js;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NavigableMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,77 +33,98 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Score implements Iterable<MIDITrack> {
-	private static final Logger logger = LoggerFactory.getLogger(Score.class);
-	private String name;
-	private List<MIDITrack> tracks;
-	private int resolution = 256;
-	private MIDITrack metaTrack;
+    private static final Logger logger = LoggerFactory.getLogger(Score.class);
+    private String name;
+    private List<MIDITrack> tracks;
+    private int resolution = 256;
+    private MIDITrack metaTrack;
 
-	public Score() {
-		tracks = new ArrayList<>();
-		metaTrack = new MIDITrack();
-		// if the score's name is set, then this name is overwritten
-		metaTrack.setName("meta");
-		tracks.add(metaTrack);
-	}
+    public Score() {
+        tracks = new ArrayList<>();
+        metaTrack = new MIDITrack();
+        // if the score's name is set, then this name is overwritten
+        metaTrack.setName("meta");
+        tracks.add(metaTrack);
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Score Name:").append(name).append('\n');
-		for (MIDITrack t : tracks) {
-			sb.append("Track Name: ").append(t.getName()).append('\n');
-			for (MIDINote n : t.getNotes()) {
-				sb.append(n).append('\n');
-			}
-			for (MIDIEvent n : t.getEvents()) {
-				sb.append(n).append('\n');
-				sb.append(n.toReadableString()).append('\n');
-			}
-		}
-		return sb.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Score Name:").append(name).append('\n');
+        for (MIDITrack t : tracks) {
+//            sb.append("Track Name: ").append(t.getName()).append('\n');
+//            for (MIDINote n : t.getNotes()) {
+//                sb.append(n).append('\n');
+//            }
+//            for (MIDIEvent n : t.getEvents()) {
+//                sb.append(n).append('\n');
+//                sb.append(n.toReadableString()).append('\n');
+//            }
+//
+//            NavigableMap<Double, KeySignature> keys = t.getKeySignatures();
+//            for (Double time : keys.keySet()) {
+//                KeySignature key = keys.get(time);
+//                sb.append("Key: ").append(key).append(" at time ").append(time).append('\n');                
+//            }
+//
+//            NavigableMap<Double, TimeSignature> timeSigs = t
+//                    .getTimeSignatures();
+//            for (Double time : timeSigs.keySet()) {
+//                TimeSignature ts = timeSigs.get(time);
+//                sb.append("Time signature: ").append(ts).append(" at time ").append(time).append('\n');                                
+//            }
+//
+//            NavigableMap<Double, Integer> tempoMap = t.getTempoMap();
+//            for (Double time : tempoMap.keySet()) {
+//                Integer tempo = tempoMap.get(time);
+//                sb.append("Tempo: ").append(tempo).append(" at time ").append(time).append('\n');                
+//            }
 
-	public Score add(MIDITrack track) {
-		tracks.add(track);
-		logger.debug("added track. ntracks is now {}", tracks.size());
-		return this;
-	}
+             sb.append(t.toString());
+        }
+        return sb.toString();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Score add(MIDITrack track) {
+        tracks.add(track);
+        logger.debug("added track. ntracks is now {}", tracks.size());
+        return this;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-		metaTrack.setName(this.name);
-	}
+    public String getName() {
+        return name;
+    }
 
-	public List<MIDITrack> getTracks() {
-		return tracks;
-	}
+    public void setName(String name) {
+        this.name = name;
+        metaTrack.setName(this.name);
+    }
 
-	public void setTracks(List<MIDITrack> tracks) {
-		this.tracks = tracks;
-	}
+    public List<MIDITrack> getTracks() {
+        return tracks;
+    }
 
-	@Override
-	public Iterator<MIDITrack> iterator() {
-		return tracks.iterator();
-	}
+    public void setTracks(List<MIDITrack> tracks) {
+        this.tracks = tracks;
+    }
 
-	public int getResolution() {
-		return resolution;
-	}
+    @Override
+    public Iterator<MIDITrack> iterator() {
+        return tracks.iterator();
+    }
 
-	public void setResolution(int resolution) {
-		this.resolution = resolution;
-	}
+    public int getResolution() {
+        return resolution;
+    }
 
-	public void play() {
-		// Sequence sequence = ScoreFactory.scoreToSequence(this);
-		MIDIPerformer perf = new MIDIPerformer();
-		perf.play(this);
-	}
+    public void setResolution(int resolution) {
+        this.resolution = resolution;
+    }
+
+    public void play() {
+        // Sequence sequence = ScoreFactory.scoreToSequence(this);
+        MIDIPerformer perf = new MIDIPerformer();
+        perf.play(this);
+    }
 
 }
