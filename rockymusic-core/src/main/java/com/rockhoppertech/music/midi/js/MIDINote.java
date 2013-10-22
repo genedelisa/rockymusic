@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Note;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 
 /**
@@ -457,15 +458,12 @@ public class MIDINote extends Note implements Cloneable {
         logger.debug("new velocity {}", v);
 
         if ((v < 0) || (v > 127)) {
-                MIDINote.logger.debug("setVelocity bad value {}",
-                        v);
+            MIDINote.logger.debug("setVelocity bad value {}",
+                    v);
             throw new IllegalArgumentException(
                     "value must be between 0 and 127");
         }
         velocity = v;
-        MIDINote.logger.debug(
-                "firing velocity new {}", velocity);
-
     }
 
     /**
@@ -475,18 +473,39 @@ public class MIDINote extends Note implements Cloneable {
     public void setVoice(final int voice) {
         this.voice = voice;
     }
-    
+
     /**
      * @return the string representation of the program (instrument)
      */
     public String getProgramName() {
         return MIDIGMPatch.getName(this.program);
     }
+
     /**
-     * @param name the MIDI GM Patch name
+     * @param name
+     *            the MIDI GM Patch name
      */
     public void setProgramName(final String name) {
         this.program = MIDIGMPatch.getPatch(name).getProgram();
+    }
+
+    /**
+     * @param pitchString
+     */
+    public void setPitchString(String pitchString) {
+        logger.debug("new pitch string {}", pitchString);
+        logger.debug("value {}" + PitchFactory.getPitch(pitchString).getMidiNumber());
+        setMidiNumber(PitchFactory.getPitch(pitchString).getMidiNumber());        
+    }
+
+    /**
+     * @return
+     */
+    public String getPitchString() {
+        logger.debug("getting pitch string");
+        return PitchFormat
+                .midiNumberToString(this.getMidiNumber());
+        // return PitchFormat.getPitchString(this.getMidiNumber());
     }
 
     @Override
