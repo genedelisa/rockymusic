@@ -475,6 +475,19 @@ public class MIDINote extends Note implements Cloneable {
     public void setVoice(final int voice) {
         this.voice = voice;
     }
+    
+    /**
+     * @return the string representation of the program (instrument)
+     */
+    public String getProgramName() {
+        return MIDIGMPatch.getName(this.program);
+    }
+    /**
+     * @param name the MIDI GM Patch name
+     */
+    public void setProgramName(final String name) {
+        this.program = MIDIGMPatch.getPatch(name).getProgram();
+    }
 
     @Override
     public String toString() {
