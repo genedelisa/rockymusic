@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -157,7 +158,7 @@ public final class MIDIUtils {
 			MidiEvent event = new MidiEvent(message, track.ticks() + 480);
 			track.add(event);
 		} catch (InvalidMidiDataException e) {
-			System.err.println(e);
+		    logger.error(e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -285,10 +286,12 @@ public final class MIDIUtils {
 				msg.setMessage(origstatus, bytes[0], bytes[1]);
 				break;
 			default:
-				System.err.println("MidiUtils.CreateShortMess Bad status "
-						+ (status));
+			    logger.error(
+				"MidiUtils.CreateShortMess Bad status {}",
+						status);
 			}
 		} catch (InvalidMidiDataException e) {
+		    logger.error(e.getLocalizedMessage(),e);
 			e.printStackTrace();
 		}
 		return msg;
@@ -682,7 +685,7 @@ public final class MIDIUtils {
 			MidiEvent event = new MidiEvent(message, tick);
 			track.add(event);
 		} catch (InvalidMidiDataException e) {
-			System.err.println(e);
+		    logger.error(e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -835,7 +838,7 @@ public final class MIDIUtils {
 			MidiEvent event = new MidiEvent(message, tick);
 			track.add(event);
 		} catch (InvalidMidiDataException e) {
-			System.err.println(e);
+			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
 
@@ -876,7 +879,7 @@ public final class MIDIUtils {
 			MidiEvent event = new MidiEvent(message, tick);
 			track.add(event);
 		} catch (InvalidMidiDataException e) {
-			System.err.println(e);
+			logger.error(e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -1045,7 +1048,8 @@ public final class MIDIUtils {
 	}
 
 	/**
-	 * @param event
+	 * Write the event to the logger at debug level.
+	 * @param event The event to display
 	 */
 	public static void print(MetaMessage event) {
 		// PrintWriter writer = new PrintWriter(new
@@ -1056,7 +1060,8 @@ public final class MIDIUtils {
 		switch (type) {
 		case META_TEXT:
 			logger.debug("Text");
-			logger.debug(new String(event.getData()));
+			logger.debug(new String(event.getData(), StandardCharsets.UTF_8));
+			//TODO set the encoding on the rest
 			return;
 		case META_COPYRIGHT:
 			logger.debug("Copyright");
@@ -1090,8 +1095,8 @@ public final class MIDIUtils {
 			value = (value << 8) + (message[1] & 0xff);
 			value = (value << 8) + (message[2] & 0xff);
 			int tempo = 60000000 / value;
-			logger.debug("value " + value + " BPM");
-			logger.debug("tempo " + tempo + " microseconds per quarter note");
+			logger.debug("value {} BPM", value);
+			logger.debug("tempo {} microseconds per quarter note", tempo);
 			break;
 		case META_SMPTE_OFFSET:
 			logger.debug("SMPTE Offset");
@@ -1104,6 +1109,9 @@ public final class MIDIUtils {
 			logger.debug("Key Signature");
 			printKeySignature(event);
 			break;
+        default:
+            logger.debug("Unknown type: {}", type);
+            break;
 
 		}
 
@@ -1723,8 +1731,8 @@ public final class MIDIUtils {
 				}
 			}
 
-		} catch (java.io.IOException ie) {
-			System.err.println(ie);
+		} catch (IOException e) {
+		    logger.error(e.getLocalizedMessage(),e);
 		}
 	}
 
