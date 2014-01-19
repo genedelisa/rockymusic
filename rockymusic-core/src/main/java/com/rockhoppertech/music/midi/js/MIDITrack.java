@@ -253,8 +253,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             sb.append(n).append('\n');
         }
         
+        sb.append("events").append('\n');
         for (MIDIEvent n : events) {
             sb.append(n.toReadableString()).append('\n');
+            sb.append(n.toString()).append('\n');            
         }
         
         NavigableMap<Double, KeySignature> keys = this.getKeySignatures();
