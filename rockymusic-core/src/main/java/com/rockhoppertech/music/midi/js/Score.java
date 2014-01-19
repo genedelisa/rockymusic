@@ -67,10 +67,17 @@ public class Score implements Iterable<MIDITrack> {
      * Initializes the Score instance and adds the meta track.
      */
     public Score() {
+        // if the score's name is set, then this name is overwritten        
+        this("meta");
+    }
+    
+    /**
+     * Initializes the Score instance and adds the meta track.
+     */
+    public Score(String scoreName) {
         tracks = new ArrayList<>();
         metaTrack = new MIDITrack();
-        // if the score's name is set, then this name is overwritten
-        metaTrack.setName("meta");
+        metaTrack.setName(scoreName);
         tracks.add(metaTrack);
     }
 
