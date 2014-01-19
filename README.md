@@ -17,7 +17,7 @@ middle c at beat 3 played softly.
 So I needed a way to turn the MIDI stream of events into Notes and back again to a MIDI stream to 
 save to a midifile or play in real time.
 
-I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point. So, I'm in the process of refactoring.
+I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point. So, I'm still in the process of refactoring.
 
 ### Another music library for Java?
 
@@ -39,6 +39,7 @@ The **MIDITrack**'s **add** method is overloaded. You can simply pass in a **Pit
 Here is a **Score** with a track that contains just middle C:
 
 	Score score = new Score();
+	// c.f. MIDITrackBuilder
 	MIDITrack track = new MIDITrack();
 	score.add(track);
 	track.add(Pitch.C5);
@@ -50,6 +51,8 @@ Here is a **Score** with a track that contains just middle C:
 	track.play();
 
 This will create a MIDI file (format 1) with a metamessage track (tempo, key signatures etc.) and the specified track[s].
+
+I've created Builders for many of the classes. You'd probably be better off using the **MIDITrackBuilder** class to create **MIDITrack**s.
 
 ## Text based note specification
 
@@ -171,9 +174,54 @@ You can specify an instrument with **In** where n=program number or **I"name"**
 	I"Piano"
 	I25
 	
+Not sure that this is very useful. I usually just set the instrument on the **MIDITrack**.	
+
+## Builders
+
+I've created a few Builders (ask the Google about the builder design pattern). To create a **MIDITrack**, you can use the **MIDITrackBuilder**. Here is an example that builds a track with the meta text name set, the patch is set to a General MIDI patch, pitches from a note string, and durations set to 4. The start beat is 4.5, and the succeeding notes start after the previous note ends due to the call to **sequential**. Without this, you'd create a chord with the notes all having the same start beat.
+
+	 Score score = new Score("Chord");
+     MIDITrack violin = MIDITrackBuilder.create()
+                .name("Violin I")
+                .instrument(MIDIGMPatch.VIOLIN)
+                .noteString("C6 E G")
+                .startBeat(4.5)
+                .durations(4d)
+                .sequential()
+                .build();
+     score.add(violin);
+
+The durations can be a comma delimited list that will be cycled. There are also constants for common durations. (A static import can make these easier to use).
+	
+	...as before
+	.durations(Duration.SIXTEENTH_NOTE, Duration.EIGHTH_NOTE)
+	...
+	
+### Scales
+
+There are also Scale classes. One easy way to use them is through the **MIDITrackBuilder**. Here is a 3 octave D Major scale. You don't need to call **.sequential** since that is assumed.
+
+	 MIDITrack track = MIDITrackBuilder.create()
+                .scaleName("Major")
+                .startPitch("D3")
+                .nScaleOctaves(3)
+                .build();
+              
+ You can see the predefined Scales like this:
+ 
+ 	for (String scalename : ScaleFactory.getScaleNames()) {
+            logger.debug(scalename);
+        }
+        
+Or just take a peek at src/main/resources/scaledefs.xml. You can add more Scales here. Be nice and send me any Scales I've missed.
+
+### Chords
+
+I have Chord classes also in my legacy library. I'll refactor them RSN.
+		
 ### GUI
 
-There ia JavaFX 2 project that will let you play around with the text format
+There ia JavaFX 2 project that will let you play around with the note text format.
 	
 ### There is a lot more to document
 
