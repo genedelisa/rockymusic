@@ -145,12 +145,16 @@ public class MIDIStringParser {
 	/**
 	 * Format:
 	 * <p>
-	 * Pitch Pitch, Start beat Pitch, Start beat, Duration Pitch, Start beat,
-	 * Duration, Velocity Pitch, Start beat, Duration, Velocity, Pan Pitch,
-	 * Start beat, Duration, Velocity, Pan, Channel Pitch, Start beat, Duration,
-	 * Velocity, Pan, Channel, Bank, Program Pitch, Start beat, Duration,
-	 * Velocity, Pan, Channel, Bank, Program, Pitchbend
-	 * 
+	 * <pre>
+	 * Pitch 
+	 * Pitch, Start beat 
+	 * Pitch, Start beat, Duration 
+	 * Pitch, Start beat, Duration, Velocity 
+	 * Pitch, Start beat, Duration, Velocity, Pan 
+	 * Pitch, Start beat, Duration, Velocity, Pan, Channel 
+	 * Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Program 
+	 * Pitch, Start beat, Duration, Velocity, Pan, Channel, Bank, Program, Pitchbend
+	 * </pre>
 	 * @param s
 	 * @return
 	 */
