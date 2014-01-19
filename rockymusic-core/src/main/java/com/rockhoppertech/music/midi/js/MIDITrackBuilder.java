@@ -23,8 +23,15 @@ package com.rockhoppertech.music.midi.js;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.modifiers.DurationModifier;
+import com.rockhoppertech.music.modifiers.Modifier;
+import com.rockhoppertech.music.modifiers.StartBeatModifier;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
@@ -39,134 +46,197 @@ import com.rockhoppertech.music.scale.ScaleFactory;
  * 
  */
 public class MIDITrackBuilder {
-	private String name;
-	private String description;
-	private String noteString;
-	// private double duration = Duration.Q;
-	private String startPitch = "C";
-	private String scaleName;
-	private List<Double> durationList;
-	private List<MIDINote> noteList;
-	private MIDIGMPatch instrument;
-	private boolean sequential;
+    private static final Logger logger = LoggerFactory
+            .getLogger(MIDITrackBuilder.class);
+    private String name;
+    private String description;
+    private String noteString;
+    // private double duration = Duration.Q;
+    private String startPitch = "C";
+    private String scaleName;
+    private List<Double> durationList;
+    private List<MIDINote> noteList;
+    private MIDIGMPatch instrument;
+    private boolean sequential;
+    private double startBeat = -1d;
+    private int nScaleOctaves = 1;
+    boolean chord = false;
 
-	private MIDITrackBuilder() {
-	    
-	}
-	public static MIDITrackBuilder create() {
-	    return new MIDITrackBuilder();
-	}
-	public MIDITrack build() {
-		MIDITrack result = null;
-		if (noteString != null && scaleName != null) {
-			throw new IllegalArgumentException(
-					"Make up your mind. string or scale?");
-		}
-		if (noteString != null) {
-			result = new MIDITrack(noteString);
-		} else if (noteList != null) {
-			result = new MIDITrack(noteList);
-		} else if (scaleName != null) {
-			Scale scale = ScaleFactory.getScaleByName(scaleName);
-			if (startPitch != null) {
-				result = ScaleFactory.createMIDITrack(scale,
-						startPitch);
-			} else {
-				result = ScaleFactory.createMIDITrack(scale);
-			}
+    private MIDITrackBuilder() {
 
-		} else {
-			result = new MIDITrack();
-		}
+    }
 
-		result.setName(name);
-		result.setDescription(description);
+    public static MIDITrackBuilder create() {
+        return new MIDITrackBuilder();
+    }
 
-		if (durationList != null) {
-			DurationModifier mod = new DurationModifier(durationList);
-			result.map(mod);
-			// } else if (this.duration != 0d) {
-			// DurationModifier mod = new DurationModifier(this.duration);
-			// result.map(mod);
-		}
+    public MIDITrack build() {
+        MIDITrack result = null;
+        if (noteString != null && scaleName != null) {
+            throw new IllegalArgumentException(
+                    "Make up your mind. string or scale?");
+        }
+        if (noteString != null) {
+            result = new MIDITrack(noteString);
+        } else if (noteList != null) {
+            result = new MIDITrack(noteList);
+        } else if (scaleName != null) {
+            Scale scale = ScaleFactory.getScaleByName(scaleName);
+            if (startPitch != null) {
+//                result = ScaleFactory.createMIDITrack(scale,
+//                        startPitch);
+                result = ScaleFactory.createMIDITrack(
+                        scale,
+                        PitchFactory.getPitch(
+                                startPitch).getMidiNumber(),
+                        startBeat == -1 ? 1d: startBeat,
+                        1d,
+                        nScaleOctaves);
+            } else {
+             //   result = ScaleFactory.createMIDITrack(scale);
+                result = ScaleFactory.createMIDITrack(
+                        scale,
+                        Pitch.C5,
+                        1d,
+                        1d,
+                        nScaleOctaves);
+            }
 
-		if (instrument != null) {
-			result.useInstrument(instrument);
-		}
+        } else {
+            result = new MIDITrack();
+        }
 
-		if (sequential) {
-			result.sequential();
-		}
+        result.setName(name);
+        result.setDescription(description);
 
-		reset();
-		return result;
-	}
+        if (durationList != null) {
+            DurationModifier mod = new DurationModifier(durationList);
+            result.map(mod);
+            // } else if (this.duration != 0d) {
+            // DurationModifier mod = new DurationModifier(this.duration);
+            // result.map(mod);
+        }
 
-	private void reset() {
-		startPitch = "C";
-		// this.duration = Duration.Q;
-		noteString = null;
-		scaleName = null;
-		name = null;
-		description = null;
-		durationList = null;
-		instrument = null;
-	}
+        if (instrument != null) {
+            result.useInstrument(instrument);
+        }
 
-	public MIDITrackBuilder name(String name) {
-		this.name = name;
-		return this;
-	}
+        logger.debug("startBeat is {}", startBeat);
+        if (startBeat != -1d) {
+            Modifier.Operation op;
+            // if(chord) {
+            // op = Modifier.Operation.SET;
+            // logger.debug("op is set, startBeat is {}", startBeat);
+            // } else {
+            // op = Modifier.Operation.ADD;
+            // logger.debug("op is add, startBeat is {}", startBeat);
+            // }
 
-	public MIDITrackBuilder description(String description) {
-		this.description = description;
-		return this;
-	}
+            op = Modifier.Operation.SET;
+            logger.debug("op is set, startBeat is {}", startBeat);
+            StartBeatModifier mod = new StartBeatModifier(op, startBeat);
+            result.map(mod);
+        }
 
-	public MIDITrackBuilder noteString(String noteString) {
-		this.noteString = noteString;
-		return this;
-	}
+        // this needs to be after setting the start beat
+        if (sequential) {
+            result.sequential();
+        }
 
-	public MIDITrackBuilder scaleName(String scaleName) {
-		this.scaleName = scaleName;
-		return this;
-	}
+        reset();
+        return result;
+    }
 
-	public MIDITrackBuilder startPitch(String startPitch) {
-		this.startPitch = startPitch;
-		return this;
-	}
+    private void reset() {
+        startPitch = "C";
+        // this.duration = Duration.Q;
+        noteString = null;
+        scaleName = null;
+        name = null;
+        description = null;
+        durationList = null;
+        instrument = null;
+        startBeat = -1d;
+        chord = false;
+        nScaleOctaves = 1;
+    }
+    
+    public MIDITrackBuilder nScaleOctaves(int nScaleOctaves) {
+        this.nScaleOctaves = nScaleOctaves;
+        return this;
+    }
+    
+    public MIDITrackBuilder name(String name) {
+        this.name = name;
+        return this;
+    }
 
-	public MIDITrackBuilder sequential() {
-		sequential = true;
-		return this;
-	}
+    public MIDITrackBuilder description(String description) {
+        this.description = description;
+        return this;
+    }
 
-	// public MIDITrackBuilder duration(double duration) {
-	// this.duration = duration;
-	// return this;
-	// }
+    public MIDITrackBuilder noteString(String noteString) {
+        this.noteString = noteString;
+        return this;
+    }
 
-	public MIDITrackBuilder durations(double... durations) {
-		durationList = new ArrayList<Double>();
-		for (Double d : durations) {
-			durationList.add(d);
-		}
-		return this;
-	}
+    public MIDITrackBuilder scaleName(String scaleName) {
+        this.scaleName = scaleName;
+        return this;
+    }
 
-	public MIDITrackBuilder instrument(MIDIGMPatch instrument) {
-		this.instrument = instrument;
-		return this;
-	}
+    public MIDITrackBuilder startPitch(String startPitch) {
+        this.startPitch = startPitch;
+        return this;
+    }
 
-	public MIDITrackBuilder notes(MIDINote... notes) {
-		noteList = new ArrayList<>();
-		for (MIDINote n : notes) {
-			noteList.add(n);
-		}
-		return this;
-	}
+    public MIDITrackBuilder sequential() {
+        sequential = true;
+        return this;
+    }
+
+    public MIDITrackBuilder chord() {
+        chord = true;
+        startBeat = 1d;
+        return this;
+    }
+
+    public MIDITrackBuilder chord(double startBeat) {
+        this.startBeat = startBeat;
+        return this;
+    }
+
+    public MIDITrackBuilder startBeat(double startBeat) {
+        chord = false;
+        this.startBeat = startBeat;
+        return this;
+    }
+
+    // public MIDITrackBuilder duration(double duration) {
+    // this.duration = duration;
+    // return this;
+    // }
+
+    public MIDITrackBuilder durations(double... durations) {
+        durationList = new ArrayList<Double>();
+        for (Double d : durations) {
+            durationList.add(d);
+        }
+        return this;
+    }
+
+    public MIDITrackBuilder instrument(MIDIGMPatch instrument) {
+        this.instrument = instrument;
+        return this;
+    }
+
+    public MIDITrackBuilder notes(MIDINote... notes) {
+        noteList = new ArrayList<>();
+        for (MIDINote n : notes) {
+            noteList.add(n);
+        }
+        return this;
+    }
 
 }

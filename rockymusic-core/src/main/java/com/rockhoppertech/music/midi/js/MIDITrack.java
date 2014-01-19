@@ -68,6 +68,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     private List<MIDIEvent> events;
     private List<MIDINote> notes;
+    
+    private MIDIGMPatch gmpatch = MIDIGMPatch.PIANO;
 
     /**
      * 
@@ -245,6 +247,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Track Name:").append(name).append('\n');
+        sb.append("Instrument:").append(this.gmpatch).append('\n');        
 
         for (MIDINote n : notes) {
             sb.append(n).append('\n');
@@ -311,7 +314,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
                     );
             sb.append(s).append("\n");
         }
+        
+        
         return sb.toString();
+    }
+
+    /**
+     * @return the gmpatch
+     */
+    public MIDIGMPatch getGmpatch() {
+        return gmpatch;
     }
 
     /**
@@ -643,6 +655,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return this.append(track, 0);
     }
 
+    /**
+     * Append the entire track with the specified gap.
+     * @param track the track to append
+     * @param gap the duration between the end of the track and the appended track
+     * @return
+     */
     public MIDITrack append(MIDITrack track, double gap) {
         int fromIndex = 0;
         int toIndex = track.size();
@@ -651,9 +669,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     /**
      * Appends the parameter track to the current one with an optional gap
-     * between them. A negative value for the gap will overlap the tracks.
+     * between them. A negative value for the gap will overlap the tracks. 
+     * The Notes are cloned.
+     * <pre>
      * nl.append(nl2, 0).append(nl3,0);
-     * 
+     * </pre>
      * @param track
      * @param gap
      *            the durational space between the tracks in beats
@@ -690,13 +710,17 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         logger.debug("track after start beat mod {}", track);
 
         List<MIDINote> sub = track.notes.subList(fromIndex, toIndex);
-        sub.get(0).setStartBeat(end);
-        logger.debug("sublist {} from {} to {}", sub, fromIndex, toIndex);
-        sub = sequential(sub);
-        logger.debug("sublist after mod {} END {}", sub, end);
+//        sub.get(0).setStartBeat(end);
+//        logger.debug("sublist {} from {} to {}", sub, fromIndex, toIndex);
+//        sub = sequential(sub);
+//        logger.debug("sublist after mod {} END {}", sub, end);
 
+        double substart = sub.get(0).getStartBeat();
         for (MIDINote note : sub) {
-            notes.add((MIDINote) note.clone());
+            MIDINote noteClone = (MIDINote) note.clone();
+            logger.debug("clone {}", noteClone);
+            noteClone.setStartBeat(noteClone.getStartBeat() + end - substart);
+            notes.add(noteClone);
         }
         // this.notes.addAll(sub);
         return this;
@@ -1554,6 +1578,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return pitchClasses;
     }
 
+   
     /**
      * Modifies all MIDINotes in the Track to use this patch.
      * 
@@ -1563,11 +1588,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public void useInstrument(MIDIGMPatch gmpatch) {
         InstrumentModifier mod = new InstrumentModifier(gmpatch.getProgram());
         this.map(mod);
-
+        this.gmpatch = gmpatch;
     }
 
     /**
      * Modifies all MIDINotes in the Track to use this patch.
+     * Use gmpatch instead.
      * 
      * @param program
      *            The instrument number.
@@ -1579,6 +1605,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     /**
      * Modifies all MIDINotes in the Track to use this patch.
+     * Use gmpatch instead
      * 
      * @param bank
      *            The instrument bank.
@@ -1588,5 +1615,25 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public void useInstrument(int bank, int program) {
         InstrumentModifier mod = new InstrumentModifier(bank, program);
         this.map(mod);
+    }
+    
+    // TODO write unit tests for these two
+    /**
+     * @param string a MIDIString
+     */
+    public MIDITrack append(String noteString) {
+        MIDITrack tmp = new MIDITrack(noteString);
+        tmp.useInstrument(this.gmpatch);;
+        this.append(tmp);
+        return this;
+        // returning tmp might be more useful
+        //return tmp;
+    }
+    /**
+     * This doesn't change the startBeats.
+     * @param string a MIDIString
+     */
+    public void insertMIDIString(String noteString) {
+       midiStringParser.parseString(this, noteString);
     }
 }
