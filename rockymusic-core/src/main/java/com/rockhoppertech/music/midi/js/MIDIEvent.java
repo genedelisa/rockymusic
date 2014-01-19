@@ -303,7 +303,7 @@ public class MIDIEvent implements Serializable {
 		// switch(se.getType()) {
 		// case MidiEvent.CHANNEL_VOICE_MESSAGE:
 
-		switch (status) {
+		switch (status & 0xF0) {
 		case ShortMessage.NOTE_OFF:
 			sb.append("Note Off Key=").append(bytes[0])
 					.append(" Velocity=").append(bytes[1]);
@@ -349,7 +349,8 @@ public class MIDIEvent implements Serializable {
 			sb.append(" val=").append(s14bit);
 			break;
 		}
-		sb.append(" Channel=").append(status & 0x0F);
+        sb.append(" Channel=").append(status & 0x0F);
+        sb.append(" status=").append(Integer.toHexString(status));        
 
 		/*
 		 * case MidiEvent.CHANNEL_MODE_MESSAGE: printChannelModeMessage(se);
