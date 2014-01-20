@@ -452,7 +452,8 @@ public class MIDITrackFactory {
                 MetaMessage mm = (MetaMessage) me.getMessage();
                 if (mm.getType() == MIDIUtils.META_TEXT) {
                     logger.debug("meta text");
-                    logger.debug(new String(mm.getData()));
+                    logger.debug(MIDIUtils.bytesToText(mm.getData()));
+                    //logger.debug(new String(mm.getData()));                    
                 }
                 if (mm.getType() == MIDIUtils.META_TIME_SIG) {
                     logger.debug("time sig");
@@ -519,7 +520,7 @@ public class MIDITrackFactory {
 
                 if (command == ShortMessage.NOTE_ON && d2 != 0) {
                     logger.debug("Note on {} tick {}", d1, tick);
-                    outstanding.put(new Integer(d1), me);
+                    outstanding.put(Integer.valueOf(d1), me);
                 }
 
                 if ((command == ShortMessage.NOTE_ON && d2 == 0)
