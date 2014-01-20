@@ -59,10 +59,7 @@
 
 		<menu name="Project dox">
 			<item name="Overview" href="overview.html" />
-			<item name="Architecture" href="architecture.html" />
-			<item name="Setup" href="setup.html" />
 			<item name="FAQ" href="faq.html" />
-			<item name="Vision" href="vision-statement.html" />
 		</menu>
 
 	</body>
