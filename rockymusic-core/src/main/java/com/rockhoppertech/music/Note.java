@@ -59,7 +59,7 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * @see Serializable
  * @see MIDINote
  */
-public class Note implements Comparable<Note>, Timed, Cloneable, Serializable {
+public class Note implements Comparable<Note>, Timed, Serializable {
     /**
      * Class <code>BeatComparator</code> compares start beats.
      * 
@@ -202,21 +202,6 @@ public class Note implements Comparable<Note>, Timed, Cloneable, Serializable {
      */
     public void addPropertyChangeListener(final PropertyChangeListener l) {
         changes.addPropertyChangeListener(l);
-    }
-
-    /**
-     * <code>clone</code>
-     * 
-     * @return an <code>Object</code> value
-     */
-    @Override
-    public Object clone() {
-        try {
-            super.clone();
-        } catch (final CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return new Note(pitch, startBeat, duration);
     }
 
     /**

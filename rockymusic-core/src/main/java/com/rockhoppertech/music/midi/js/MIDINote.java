@@ -31,13 +31,14 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
+import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 
-public class MIDINote extends Note implements Cloneable {
+public class MIDINote extends Note {
     private static final long serialVersionUID = 1L;
 
     private static final Logger logger = LoggerFactory
@@ -269,13 +270,23 @@ public class MIDINote extends Note implements Cloneable {
     }
 
     /**
-     * <code>clone</code> simply calls the copy constructor. Consider using the
-     * copy constructor directly instead. MIDINote is not Cloneable[sic].
+     * cloning sucks. Just say no.
      * 
-     * @return a <code>MIDINote</code> value
+     * @see java.lang.Object#clone()
      */
     @Override
-    public Object clone() {
+    public final Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
+
+   
+
+    /**
+     * Cloning sucks. http://www.artima.com/intv/bloch13.html
+     * 
+     * @return a duplicate of this instance
+     */
+    public MIDINote duplicate() {
         final MIDINote clone = new MIDINote(getPitch().getMidiNumber(),
                 getStartBeat(), getDuration(), channel,
                 velocity, program, pitchbend, bank,
@@ -494,8 +505,9 @@ public class MIDINote extends Note implements Cloneable {
      */
     public void setPitchString(String pitchString) {
         logger.debug("new pitch string {}", pitchString);
-        logger.debug("value {}" + PitchFactory.getPitch(pitchString).getMidiNumber());
-        setMidiNumber(PitchFactory.getPitch(pitchString).getMidiNumber());        
+        logger.debug("value {}"
+                + PitchFactory.getPitch(pitchString).getMidiNumber());
+        setMidiNumber(PitchFactory.getPitch(pitchString).getMidiNumber());
     }
 
     /**
