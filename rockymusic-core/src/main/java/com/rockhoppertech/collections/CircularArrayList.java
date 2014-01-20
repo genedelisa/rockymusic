@@ -20,7 +20,6 @@ package com.rockhoppertech.collections;
  * #L%
  */
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -30,7 +29,7 @@ import java.util.Collection;
  * @param <E>
  */
 public class CircularArrayList<E> extends ArrayList<E> implements
-        CircularList<E>, Serializable {
+        CircularList<E> {
 
     /**
      * 
