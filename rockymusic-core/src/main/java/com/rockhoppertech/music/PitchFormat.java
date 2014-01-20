@@ -22,12 +22,22 @@ package com.rockhoppertech.music;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Formats the text representation of a Pitch.
+ * 
+<code>
+   PitchFormat pf = PitchFormat.instance();
+   pf.setJustification(PitchFormat.CENTER_JUSTIFY);
+   pf.setWidth(4);
+   pf.format(pitch);
+</code>
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
@@ -43,25 +53,25 @@ public class PitchFormat implements Serializable {
     private int justification = LEFT_JUSTIFY;
     private int width = 3;
 
-    public static final String[] FLATPITCHES = { "C", "Db", "D", "Eb", "E",
+    static final String[] FLATPITCHES = { "C", "Db", "D", "Eb", "E",
             "F", "Gb", "G", "Ab", "A", "Bb", "B" };
 
     // TODO allow this to be selectable
     // public static final String[] FLATPITCHES = { "C", "Df", "D", "Ef", "E",
     // "F", "Gf", "G", "Af", "A", "Bf", "B" };
 
-    public static final String[] SHARPPITCHES = { "C", "C#", "D", "D#", "E",
+    static final String[] SHARPPITCHES = { "C", "C#", "D", "D#", "E",
             "F", "F#", "G", "G#", "A", "A#", "B" };
     private static Map<Integer, String> flatPitchMap;
     private static Map<Integer, String> sharpPitchMap;
     static {
         flatPitchMap = new HashMap<Integer, String>();
         for (int i = 0; i < FLATPITCHES.length; i++) {
-            flatPitchMap.put(new Integer(i), FLATPITCHES[i]);
+            flatPitchMap.put(Integer.valueOf(i), FLATPITCHES[i]);
         }
         sharpPitchMap = new HashMap<Integer, String>();
         for (int i = 0; i < SHARPPITCHES.length; i++) {
-            sharpPitchMap.put(new Integer(i), SHARPPITCHES[i]);
+            sharpPitchMap.put(Integer.valueOf(i), SHARPPITCHES[i]);
         }
 
     }
@@ -406,10 +416,10 @@ public class PitchFormat implements Serializable {
         int oct = midiNumber / 12;
         String str = null;
         if (pdisplayAsSharp) {
-            str = (sharpPitchMap.get(new Integer(pc))) + oct;
+            str = (sharpPitchMap.get(Integer.valueOf(pc))) + oct;
         } else {
             // str = FLATPITCHES[pc] + oct;
-            str = (flatPitchMap.get(new Integer(pc))) + oct;
+            str = (flatPitchMap.get(Integer.valueOf(pc))) + oct;
         }
         switch (justification) {
         case PitchFormat.LEFT_JUSTIFY:
@@ -420,6 +430,8 @@ public class PitchFormat implements Serializable {
             break;
         case PitchFormat.CENTER_JUSTIFY:
             str = PitchFormat.centerJustify(str, width);
+            break;
+        default:
             break;
         }
         return (str);
@@ -446,7 +458,7 @@ public class PitchFormat implements Serializable {
      * @return the midinumber of the string parameter
      */
     public static int stringToMidiNumber(final String pitch) {
-        char c = pitch.toLowerCase().trim().charAt(0);
+        char c = pitch.toLowerCase(Locale.ENGLISH).trim().charAt(0);
 
         // the . is a dummy place holder just to yield the correct pitch class
         String s = "c.d.ef.g.a.b";
@@ -561,7 +573,6 @@ public class PitchFormat implements Serializable {
                 preferred = PitchFormat.centerJustify(preferred, width);
                 break;
             default:
-                preferred = PitchFormat.leftJustify(preferred, width);
                 break;
             }
             return preferred;
