@@ -164,7 +164,7 @@ public class Duration {
 					.format("value must be >= 1 (%d)",
 							n));
 		}
-		double r = val;
+		//double r = val;
 		// for (int i = 1; i <= n; i++) {
 		// double d = Math.pow(2d,
 		// i);
@@ -172,7 +172,7 @@ public class Duration {
 		// }
 
 		// or simpler
-		r = 2d * val - val / Math.pow(2d,
+		double r = 2d * val - val / Math.pow(2d,
 				n);
 		return r;
 	}
