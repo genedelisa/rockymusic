@@ -257,76 +257,76 @@ public enum MIDIGMPatch {
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> pianos;
+    public static volatile EnumSet<MIDIGMPatch> pianos;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> chromaticPercussion;
+    public static volatile EnumSet<MIDIGMPatch> chromaticPercussion;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> organ;
+    public static volatile EnumSet<MIDIGMPatch> organ;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> guitar;
+    public static volatile EnumSet<MIDIGMPatch> guitar;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> bass;
+    public static volatile EnumSet<MIDIGMPatch> bass;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> strings;
+    public static volatile EnumSet<MIDIGMPatch> strings;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> ensemble;
+    public static volatile EnumSet<MIDIGMPatch> ensemble;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> brass;
+    public static volatile EnumSet<MIDIGMPatch> brass;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> reed;
+    public static volatile EnumSet<MIDIGMPatch> reed;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> pipe;
+    public static volatile EnumSet<MIDIGMPatch> pipe;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> synthLead;
+    public static volatile EnumSet<MIDIGMPatch> synthLead;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> synthPad;
+    public static volatile EnumSet<MIDIGMPatch> synthPad;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> synthEffects;
+    public static volatile EnumSet<MIDIGMPatch> synthEffects;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> ethnic;
+    public static volatile EnumSet<MIDIGMPatch> ethnic;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> percussive;
+    public static volatile EnumSet<MIDIGMPatch> percussive;
     /**
 	 * 
 	 */
-    public static EnumSet<MIDIGMPatch> soundEffects;
+    public static volatile EnumSet<MIDIGMPatch> soundEffects;
     /**
      * 
      */
-    private static EnumSet<MIDIGMPatch> percussion;
+    private static volatile EnumSet<MIDIGMPatch> percussion;
 
     /**
      * 
      */
-    private static EnumSet<MIDIGMPatch> allPitched;
+    private static volatile EnumSet<MIDIGMPatch> allPitched;
 
     ;
 
