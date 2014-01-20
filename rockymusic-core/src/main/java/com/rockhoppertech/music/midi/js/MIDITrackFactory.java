@@ -596,7 +596,7 @@ public class MIDITrackFactory {
         for (final MIDINote note : track) {
             maskValue = mask.next();
             for (int i = 0; i < maskValue; i++) {
-                repeated.add((MIDINote) note.clone());
+                repeated.add((MIDINote) note.duplicate());
             }
         }
         return repeated.sequential();
@@ -615,7 +615,7 @@ public class MIDITrackFactory {
         for (final MIDINote note : track) {
             maskValue = mask.next();
             for (int i = 0; i < maskValue; i++) {
-                repeated.add((MIDINote) note.clone());
+                repeated.add((MIDINote) note.duplicate());
             }
         }
         return repeated.sequential();
@@ -1073,7 +1073,7 @@ public class MIDITrackFactory {
             int trans = startingMIDINumber - track.get(0).getMidiNumber();
             for (int index : pattern) {
                 System.err.println(index);
-                MIDINote note = (MIDINote) track.get(index).clone();
+                MIDINote note = (MIDINote) track.get(index).duplicate();
                 note.transpose(trans);
                 result.add(note);
             }

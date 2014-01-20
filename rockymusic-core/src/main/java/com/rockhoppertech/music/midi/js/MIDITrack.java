@@ -611,12 +611,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         double endBeat = n.getEndBeat();
         newlist.map(new StartBeatModifier(NoteModifier.Operation.ADD, endBeat));
         for (MIDINote note : newlist.notes) {
-            n.notes.add((MIDINote) note.clone());
+            n.notes.add((MIDINote) note.duplicate());
         }
         endBeat = n.getEndBeat();
         endlist.map(new StartBeatModifier(NoteModifier.Operation.ADD, endBeat));
         for (MIDINote note : endlist.notes) {
-            n.notes.add((MIDINote) note.clone());
+            n.notes.add((MIDINote) note.duplicate());
         }
         return n;
 
@@ -719,7 +719,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
         double substart = sub.get(0).getStartBeat();
         for (MIDINote note : sub) {
-            MIDINote noteClone = (MIDINote) note.clone();
+            MIDINote noteClone = (MIDINote) note.duplicate();
             logger.debug("clone {}", noteClone);
             noteClone.setStartBeat(noteClone.getStartBeat() + end - substart);
             notes.add(noteClone);
@@ -1093,7 +1093,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         List<MIDINote> retro = new ArrayList<>();
 
         for (MIDINote n : notes) {
-            retro.add((MIDINote) n.clone());
+            retro.add((MIDINote) n.duplicate());
         }
         Collections.reverse(retro);
         // Collections.sort(retro, new NotePitchComparator(false));
@@ -1202,7 +1202,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             double s = n.getStartBeat();
             if (s >= after && s <= before) {
                 if (clone) {
-                    list.add((MIDINote) n.clone());
+                    list.add((MIDINote) n.duplicate());
                 } else {
                     list.add(n);
                 }
@@ -1220,7 +1220,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             if (endInclusive == false) {
                 if (s >= after && s < before) {
                     if (clone) {
-                        list.add((MIDINote) n.clone());
+                        list.add((MIDINote) n.duplicate());
                     } else {
                         list.add(n);
                     }
@@ -1228,7 +1228,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             } else {
                 if (s >= after && s <= before) {
                     if (clone) {
-                        list.add((MIDINote) n.clone());
+                        list.add((MIDINote) n.duplicate());
                     } else {
                         list.add(n);
                     }
