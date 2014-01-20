@@ -222,6 +222,12 @@ public final class MIDIUtils {
         }
     }
 
+    /**
+     * Uses the encoding specified by the encoder. 8859-1
+     * 
+     * @param text
+     * @return
+     */
     public static byte[] textToBytes(String text) {
         byte[] b = null;
         encoder.reset();
@@ -236,6 +242,11 @@ public final class MIDIUtils {
         return b;
     }
 
+    /**
+     * Uses the encoding specified by the decoder. 8859-1
+     * @param b
+     * @return
+     */
     public static String bytesToText(byte[] b) {
         String result = null;
         decoder.reset();
