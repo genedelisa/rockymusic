@@ -890,6 +890,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     public MIDITrack sequential(int pad) {
         int size = size();
+        if (size == 0) {
+            return this;
+        }
         MIDINote n = notes.get(0);
         double s = n.getStartBeat();
         double d = n.getDuration();
@@ -1744,5 +1747,25 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         // we're used to thinking in beats starting at 1 not zero.
         e.setBeat(beat - 1d);
         this.events.add(e);
+    }
+
+    /**
+     * The opposite of sequential. Sets all the start beats to 1.
+     */
+    public void chordify() {
+        StartBeatModifier mod = new StartBeatModifier(Modifier.Operation.SET,
+                1d);
+        this.map(mod);
+    }
+
+    /**
+     * Sets all the start beats to the specified beat.
+     * 
+     * @param beat the new start beat
+     */
+    public void chordify(double beat) {
+        StartBeatModifier mod = new StartBeatModifier(Modifier.Operation.SET,
+                beat);
+        this.map(mod);
     }
 }
