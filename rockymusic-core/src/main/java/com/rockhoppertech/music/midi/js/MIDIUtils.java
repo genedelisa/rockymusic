@@ -82,7 +82,8 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 /**
  * Class <code>MidiUtils</code> is a collection of, um, MIDI utilities.
  * 
- * JavaSound is a bit difficult to use, so these methods are intented to relieve the pain.
+ * JavaSound is a bit difficult to use, so these methods are intented to relieve
+ * the pain.
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -244,6 +245,7 @@ public final class MIDIUtils {
 
     /**
      * Uses the encoding specified by the decoder. 8859-1
+     * 
      * @param b
      * @return
      */
@@ -367,6 +369,9 @@ public final class MIDIUtils {
 
         case ShortMessage.PITCH_BEND:
             sb.append("Pitch Wheel");
+            break;
+        case MetaMessage.META:
+            sb.append("Meta message");
             break;
         default:
             sb.append("What's this?: ").append(command);
@@ -1242,6 +1247,9 @@ public final class MIDIUtils {
             logger.debug("patch bank: " + element.getBank());
             logger.debug("patch program: " + element.getProgram());
         }
+
+        logger.debug("End of Sequence {}"
+                , " ======================================");
     }
 
     /**
