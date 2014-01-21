@@ -1,0 +1,41 @@
+= Rocky Music
+:Author:    Gene De_Lisa
+:Email:     <gene@genedelisa.com>
+:revdate:   2014-1-16
+:revnumber: 1.0
+:Author Initials: EFD
+:gdcom: http://genedelisa.com/
+:sectids!:
+:numbered!:
+:bookseries: Computer Music
+:encoding: iso-8859-1
+
+<<<
+Rockhopper Music
+
+//image:images/cover.png[width=400]
+
+
+//include::foreword.asciidoc[]
+
+//include::ch00.asciidoc[]
+
+//include::ch01.asciidoc[]
+
+//include::ch02.asciidoc[]
+
+//include::ch03.asciidoc[]
+
+//include::ch04.asciidoc[]
+
+//include::ch05.asciidoc[]
+
+// turn off numbering
+:numbered!:
+
+//include::glossary.asciidoc[]
+
+[index]
+= Index
+
+//include::colo.asciidoc[]
