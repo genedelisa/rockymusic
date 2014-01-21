@@ -40,52 +40,131 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.collections.CircularArrayList;
-import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.Note;
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
- * Class <code>ChannelModifier</code>
+ * Class <code>VelocityModifier</code> Modifies the note's velocity by the
+ * amount. The series provided will wrap.
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @since 1.0
- * @see MIDINoteModifier
+ * @see NoteModifier
+ * @see AbstractModifier
+ * @see TimedModifier
  */
-public class ChannelModifier implements MIDINoteModifier {
+public class VelocityModifier extends AbstractModifier implements
+        MIDINoteModifier {
 
     private static final Logger logger = LoggerFactory
-            .getLogger(ChannelModifier.class);
+            .getLogger(VelocityModifier.class);
 
     private Operation operation = Operation.SET;
     private CircularArrayList<Integer> values;
     private MIDINoteModifier successor;
 
-    public ChannelModifier() {
+    public VelocityModifier() {
         values = new CircularArrayList<Integer>();
-        values.add(Pitch.C5);
+        values.add(1);
     }
 
-    public ChannelModifier(final int n) {
+    public VelocityModifier(final int n) {
         values = new CircularArrayList<Integer>();
         values.add(n);
     }
 
-    public ChannelModifier(final Operation op, final int n) {
+    public VelocityModifier(final Operation op, final int n) {
         operation = op;
         values = new CircularArrayList<Integer>();
         values.add(n);
     }
 
-    public ChannelModifier(final Operation op, final double... array) {
+    public VelocityModifier(final Operation op, final double... array) {
         operation = op;
         values = new CircularArrayList<Integer>();
         this.setValues(array);
     }
 
-    public ChannelModifier(final Operation op, final List<Integer> values2) {
+    public VelocityModifier(final Operation op, final List<Integer> values2) {
         operation = op;
         values = new CircularArrayList<Integer>();
         values.addAll(values2);
+    }
+
+    private void doit(final MIDINote midiNote) {
+        int d = 0;
+        final int value = values.next();
+        switch (operation) {
+        case ADD:
+            d = midiNote.getVelocity() + value;
+            if (d < 1d) {
+                logger.debug("value {} is < 1, setting to 1",
+                        d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+
+            break;
+
+        case SUBTRACT:
+            d = midiNote.getVelocity() - value;
+            if (d < 1d) {
+                logger.debug("value {} is < 1, setting to 1",
+                        d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+
+        case DIVIDE:
+            d = midiNote.getVelocity() / value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+
+        case MULTIPLY:
+            d = midiNote.getVelocity() * value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+
+        case SET:
+            d = value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+
+        case MOD:
+            d = midiNote.getVelocity() % value;
+            if (d < 1d) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+
+        case QUANTIZE:
+            d = (int) AbstractModifier.quantize(midiNote.getVelocity(),
+                    value);
+            if (d < 1) {
+                logger.debug("Rounding to 1: ", d);
+                d = 1;
+            }
+            midiNote.setVelocity(d);
+            break;
+        }
+
     }
 
     /**
@@ -95,7 +174,7 @@ public class ChannelModifier implements MIDINoteModifier {
      */
     @Override
     public String getDescription() {
-        return "Channel modifier changes the MIDI channel";
+        return "Start Beat modifier";
     }
 
     /**
@@ -105,7 +184,7 @@ public class ChannelModifier implements MIDINoteModifier {
      */
     @Override
     public String getName() {
-        return "Channel Modifier";
+        return "Start Beat";
     }
 
     /**
@@ -117,60 +196,10 @@ public class ChannelModifier implements MIDINoteModifier {
 
     @Override
     public void modify(final MIDINote note) {
-        logger.debug("before: " + note);
-        final double value = values.next();
-        int midiChannel = 0;
-        int max = 16;
-
-        switch (operation) {
-        case ADD:
-            midiChannel = (int) (note.getChannel() + value);
-            if (midiChannel < 0 || midiChannel > max) {
-                midiChannel = note.getChannel();
-            }
-            note.setChannel(midiChannel);
-            break;
-        case SUBTRACT:
-            midiChannel = (int) (note.getChannel() - value);
-            if (midiChannel < 0 || midiChannel > max) {
-                midiChannel = note.getChannel();
-            }
-            note.setChannel(midiChannel);
-            break;
-        case DIVIDE:
-            midiChannel = (int) (note.getChannel() / value);
-            if (midiChannel < 0 || midiChannel > max) {
-                midiChannel = note.getChannel();
-            }
-            note.setChannel(midiChannel);
-            break;
-        case MULTIPLY:
-            midiChannel = (int) (note.getChannel() * value);
-            if (midiChannel < 0 || midiChannel > max) {
-                midiChannel = note.getChannel();
-            }
-            note.setChannel(midiChannel);
-            break;
-        case MOD:
-            midiChannel = (int) (note.getChannel() % value);
-            if (midiChannel < 0 || midiChannel > max) {
-                midiChannel = note.getChannel();
-            }
-            note.setChannel(midiChannel);
-            break;
-        case SET:
-            midiChannel = (int) value;
-            note.setChannel(midiChannel);
-            break;
-        case QUANTIZE:
-            double d = AbstractModifier.quantize(note.getChannel(),
-                    value);
-            if (d < 0 || d > max) {
-                d = note.getChannel();
-            }
-            note.setChannel(midiChannel);
+        doit(note);
+        if (successor != null) {
+            successor.modify(note);
         }
-        logger.debug("after: " + note);
     }
 
     /**
@@ -183,6 +212,11 @@ public class ChannelModifier implements MIDINoteModifier {
     }
 
     @Override
+    public void setSuccessor(final MIDINoteModifier successor) {
+        this.successor = successor;
+    }
+
+    @Override
     public void setValues(final double[] array) {
         if (values == null) {
             values = new CircularArrayList<Integer>();
@@ -190,8 +224,8 @@ public class ChannelModifier implements MIDINoteModifier {
             values.clear();
         }
 
-        for (final Double element : array) {
-            values.add(element.intValue());
+        for (final double element : array) {
+            values.add((int) element);
         }
     }
 
@@ -202,11 +236,5 @@ public class ChannelModifier implements MIDINoteModifier {
             this.values.clear();
         }
         this.values.addAll(values);
-    }
-
-    @Override
-    public void setSuccessor(MIDINoteModifier successor) {
-        this.successor = successor;
-
     }
 }

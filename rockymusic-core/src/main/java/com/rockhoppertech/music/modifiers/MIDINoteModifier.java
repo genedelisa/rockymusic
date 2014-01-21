@@ -42,28 +42,24 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * interface <code>NoteModifier</code>
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
  */
 public interface MIDINoteModifier extends Modifier {
-	/**
-	 * <code>modify</code>
-	 * 
-	 * @param n
-	 *            a <code>MIDINote</code> instance
-	 */
-	public void modify(MIDINote n);
+    /**
+     * <code>modify</code>
+     * 
+     * @param n
+     *            a <code>MIDINote</code> instance
+     */
+    public void modify(MIDINote n);
+
+    /**
+     * @param successor
+     */
+    public void setSuccessor(MIDINoteModifier successor);
 
 }
 /*
  * maybe a modifier info class? kinda like beaninfo? could describe
  * inputs,params etc
- */
-
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
  */

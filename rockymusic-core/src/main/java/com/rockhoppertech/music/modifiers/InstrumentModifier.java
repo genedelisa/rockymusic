@@ -47,140 +47,140 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
- * @see NoteModifier
+ * @see MIDINoteModifier
  */
 public class InstrumentModifier implements MIDINoteModifier {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(InstrumentModifier.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(InstrumentModifier.class);
 
-	private List<Integer> programs;
-	private List<Integer> banks;
-	private Operation operation = Operation.SET;
-	private int index;
-	private int bindex;
+    private List<Integer> programs;
+    private List<Integer> banks;
+    private Operation operation = Operation.SET;
+    private int index;
+    private int bindex;
+    private MIDINoteModifier successor;
 
-	public InstrumentModifier() {
-		banks = new ArrayList<Integer>();
-		banks.add(0);
-		programs = new ArrayList<Integer>();
-		programs.add(0);
-	}
+    public InstrumentModifier() {
+        banks = new ArrayList<Integer>();
+        banks.add(0);
+        programs = new ArrayList<Integer>();
+        programs.add(0);
+    }
 
-	public InstrumentModifier(List<Integer> programs) {
-		this(programs, Operation.SET);
-	}
+    public InstrumentModifier(List<Integer> programs) {
+        this(programs, Operation.SET);
+    }
 
-	public InstrumentModifier(List<Integer> programs, Operation op) {
-		this.programs = programs;
-		operation = op;
-	}
+    public InstrumentModifier(List<Integer> programs, Operation op) {
+        this.programs = programs;
+        operation = op;
+    }
 
-	public InstrumentModifier(int program) {
-		this(program, Operation.SET);
-	}
+    public InstrumentModifier(int program) {
+        this(program, Operation.SET);
+    }
 
-	public InstrumentModifier(int program, Operation op) {
-		programs = new ArrayList<Integer>();
-		banks = new ArrayList<Integer>();
-		banks.add(0);
-		programs.add(program);
-		operation = op;
-	}
+    public InstrumentModifier(int program, Operation op) {
+        programs = new ArrayList<Integer>();
+        banks = new ArrayList<Integer>();
+        banks.add(0);
+        programs.add(program);
+        operation = op;
+    }
 
-	public InstrumentModifier(int bank, int program) {
-		banks = new ArrayList<Integer>();
-		banks.add(bank);
-		programs = new ArrayList<Integer>();
-		programs.add(program);
-	}
+    public InstrumentModifier(int bank, int program) {
+        banks = new ArrayList<Integer>();
+        banks.add(bank);
+        programs = new ArrayList<Integer>();
+        programs.add(program);
+    }
 
-	@Override
-	public String getName() {
-		return "Instrument";
-	}
+    @Override
+    public String getName() {
+        return "Instrument";
+    }
 
-	@Override
-	public String getDescription() {
-		return "Instrument modifier. Only the SET operation makes sense";
-	}
+    @Override
+    public String getDescription() {
+        return "Instrument modifier. Only the SET operation makes sense";
+    }
 
-	@Override
-	public void setOperation(Operation operation) {
-		this.operation = operation;
-	}
+    @Override
+    public void setOperation(Operation operation) {
+        this.operation = operation;
+    }
 
-	@Override
-	public void setValues(double[] progs) {
-		programs = new ArrayList<Integer>();
-		for (double prog : progs) {
-			programs.add((int) prog);
-		}
-	}
+    @Override
+    public void setValues(double[] progs) {
+        programs = new ArrayList<Integer>();
+        for (double prog : progs) {
+            programs.add((int) prog);
+        }
+    }
 
-	public void setBanks(double[] banks) {
-		this.banks = new ArrayList<Integer>();
-		for (double bank : banks) {
-			this.banks.add((int) bank);
-		}
-	}
+    public void setBanks(double[] banks) {
+        this.banks = new ArrayList<Integer>();
+        for (double bank : banks) {
+            this.banks.add((int) bank);
+        }
+    }
 
-	private int nextValue() {
-		logger.debug("next value index: " + index);
-		logger.debug("size: " + programs.size());
+    private int nextValue() {
+        logger.debug("next value index: " + index);
+        logger.debug("size: " + programs.size());
 
-		if (index + 1 > programs.size()) {
-			logger.debug("setting index to 0");
-			index = 0;
-		}
-		int v = programs.get(index++);
-		logger.debug("returning " + v);
-		return v;
-	}
+        if (index + 1 > programs.size()) {
+            logger.debug("setting index to 0");
+            index = 0;
+        }
+        int v = programs.get(index++);
+        logger.debug("returning " + v);
+        return v;
+    }
 
-	private int nextBank() {
-		if (bindex + 1 > banks.size()) {
-			bindex = 0;
-		}
-		int v = banks.get(bindex++);
-		return v;
-	}
+    private int nextBank() {
+        if (bindex + 1 > banks.size()) {
+            bindex = 0;
+        }
+        int v = banks.get(bindex++);
+        return v;
+    }
 
-	/**
-	 * 
-	 * @param note
-	 *            a <code>MIDINote</code> value
-	 */
-	@Override
-	public void modify(MIDINote note) {
-		logger.debug("before: " + note);
-		int program = nextValue();
-		int bank = nextBank();
+    /**
+     * 
+     * @param note
+     *            a <code>MIDINote</code> value
+     */
+    @Override
+    public void modify(MIDINote note) {
+        logger.debug("before: " + note);
+        int program = nextValue();
+        int bank = nextBank();
 
-		switch (operation) {
-		case ADD:
-		case SUBTRACT:
-		case DIVIDE:
-		case MULTIPLY:
-		case MOD:
-		case SET:
-			note.setBank(bank);
-			note.setProgram(program);
-			break;
-		case QUANTIZE:
-			break;
-		default:
-			break;
-		}
-		logger.debug("after: " + note);
-	}
+        switch (operation) {
+        case ADD:
+        case SUBTRACT:
+        case DIVIDE:
+        case MULTIPLY:
+        case MOD:
+        case SET:
+            note.setBank(bank);
+            note.setProgram(program);
+            break;
+        case QUANTIZE:
+            break;
+        default:
+            break;
+        }
+        logger.debug("after: " + note);
+    }
+
+    @Override
+    public void setSuccessor(MIDINoteModifier successor) {
+        this.successor = successor;
+
+    }
+
 }
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
- */
