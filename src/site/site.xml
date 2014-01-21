@@ -31,17 +31,19 @@
 				<showFollowers>true</showFollowers>
 			</twitter>
 			<gitHub>
-				<projectId>genedelisa/rockymusic</projectId>
+				<projectId>genedelisa/rocky-music</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
-				<ribbonColor>blue</ribbonColor>
+				<ribbonColor>darkblue</ribbonColor>
 			</gitHub>
+			<!--  red/green/black/darkblue/orange/gray  (red by default). -->
+			
 			<sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
 		</fluidoSkin>
 	</custom>
 
 	<bannerLeft>
 		<name>Rockhopper</name>
-		<src>http://www.rockhoppertech.com/images/rocky-scream-25.jpg</src>
+		<src>images/rocky-scream-25.jpg</src>
 		<href>http://www.rockhoppertech.com/blog//</href>
 	</bannerLeft>
 
