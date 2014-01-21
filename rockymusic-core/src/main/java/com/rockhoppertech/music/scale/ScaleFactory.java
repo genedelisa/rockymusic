@@ -296,19 +296,27 @@ public class ScaleFactory {
     public static MIDITrack createMIDITrack(final Scale scale,
             final double startBeat, final double duration) {
 
-        final MIDITrack notelist = new MIDITrack();
+        final MIDITrack track = new MIDITrack();
+        track.setName(scale.getName());
+        String s = String.format(
+                "created track from scale %s, start beat %d duration %d",
+                scale.getName(),
+                startBeat,
+                duration);
+        track.addMetaText(1d, s);
+
         final int rootMidiNum = PitchFactory.getPitch(
                 scale.getKey() + scale.getOctave()).getMidiNumber();
         MIDINote note = new MIDINote(rootMidiNum, startBeat, duration);
-        notelist.add(note);
+        track.add(note);
         final int[] intervals = scale.getIntervals();
         int previous = rootMidiNum;
         for (final int interval : intervals) {
             note = new MIDINote(previous + interval, startBeat, duration);
-            notelist.add(note);
+            track.add(note);
             previous = note.getMidiNumber();
         }
-        return notelist;
+        return track;
     }
 
     /**
@@ -351,21 +359,31 @@ public class ScaleFactory {
             // throw new IllegalArgumentException("Null scale");
         }
 
-        final MIDITrack notelist = new MIDITrack();
+        final MIDITrack track = new MIDITrack();
+        track.setName(scale.getName());
+        String s = String
+                .format(
+                        "created track from scale %s, root %d start beat %f duration %f",
+                        scale.getName(),
+                        rootMidiNum,
+                        startBeat,
+                        duration);
+        track.addMetaText(1d, s);
+
         final int[] intervals = scale.getIntervals();
 
         MIDINote note = new MIDINote(rootMidiNum, startBeat, duration);
-        notelist.add(note);
+        track.add(note);
 
         int previous = rootMidiNum;
         for (final int interval : intervals) {
             note = new MIDINote(previous + interval, startBeat += duration,
                     duration);
-            notelist.add(note);
+            track.add(note);
             previous = note.getMidiNumber();
         }
 
-        return notelist;
+        return track;
     }
 
     public static MIDITrack createMIDITrack(final Scale scale,
