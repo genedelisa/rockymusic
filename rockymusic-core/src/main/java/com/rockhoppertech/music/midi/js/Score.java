@@ -67,10 +67,10 @@ public class Score implements Iterable<MIDITrack> {
      * Initializes the Score instance and adds the meta track.
      */
     public Score() {
-        // if the score's name is set, then this name is overwritten        
+        // if the score's name is set, then this name is overwritten
         this("meta");
     }
-    
+
     /**
      * Initializes the Score instance and adds the meta track.
      */
@@ -106,6 +106,7 @@ public class Score implements Iterable<MIDITrack> {
      */
     public final Score add(final MIDITrack track) {
         tracks.add(track);
+        track.setScore(this);
         logger.debug("added track. ntracks is now {}", tracks.size());
         return this;
     }
@@ -119,6 +120,7 @@ public class Score implements Iterable<MIDITrack> {
      */
     public final Score remove(final MIDITrack track) {
         tracks.remove(track);
+        track.setScore(null);
         logger.debug("removed track. ntracks is now {}", tracks.size());
         return this;
     }
@@ -132,7 +134,9 @@ public class Score implements Iterable<MIDITrack> {
      * @return the Score for a fluent interface
      */
     public final Score remove(final int index) {
-        tracks.remove(index);
+        MIDITrack track = tracks.remove(index);
+        track.setScore(null);
+
         logger.debug(
                 "removed track at index {}. ntracks is now {}",
                 index,
@@ -163,10 +167,15 @@ public class Score implements Iterable<MIDITrack> {
     }
 
     /**
+     * Creates a copy of the tracks.
+     * 
      * @param tracks
      */
     public void setTracks(final List<MIDITrack> tracks) {
-        this.tracks = tracks;
+        this.tracks.clear();
+        for (MIDITrack track : tracks) {
+            this.add(new MIDITrack(track));
+        }
     }
 
     /**
@@ -199,6 +208,46 @@ public class Score implements Iterable<MIDITrack> {
         // Sequence sequence = ScoreFactory.scoreToSequence(this);
         MIDIPerformer perf = new MIDIPerformer();
         perf.play(this);
+    }
+
+    /**
+     * @return the meta track
+     */
+    public MIDITrack getMetaTrack() {
+        return this.metaTrack;
+    }
+
+    /**
+     * @param beat
+     * @param bpm
+     * @return this instance
+     */
+    public Score setTempoAtBeat(double beat, int bpm) {
+        this.metaTrack.addTempoAtBeat(beat, bpm);
+        return this;
+    }
+
+    /**
+     * @param beat
+     * @param key
+     * @return this instance
+     */
+    public Score setKeySignatureAtBeat(double beat, KeySignature key) {
+        this.metaTrack.addKeySignatureAtBeat(beat, key);
+        return this;
+    }
+
+    /**
+     * @param beat
+     * @param numerator
+     * @param denominator
+     * @return this instance
+     */
+    public Score setTimeSignatureAtBeat(double beat, int numerator,
+            int denominator) {
+        this.metaTrack.addTimeSignatureAtBeat(beat, new TimeSignature(
+                numerator, denominator));
+        return this;
     }
 
 }
