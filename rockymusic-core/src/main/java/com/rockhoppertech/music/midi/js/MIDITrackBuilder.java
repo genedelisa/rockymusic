@@ -56,11 +56,13 @@ public class MIDITrackBuilder {
     private String scaleName;
     private List<Double> durationList;
     private List<MIDINote> noteList;
-    private MIDIGMPatch instrument;
+   // private MIDIGMPatch instrument;
     private boolean sequential;
     private double startBeat = -1d;
     private int nScaleOctaves = 1;
     boolean chord = false;
+    private int repeats = 1;
+    private Instrument instrument;
 
     private MIDITrackBuilder() {
 
@@ -83,17 +85,17 @@ public class MIDITrackBuilder {
         } else if (scaleName != null) {
             Scale scale = ScaleFactory.getScaleByName(scaleName);
             if (startPitch != null) {
-//                result = ScaleFactory.createMIDITrack(scale,
-//                        startPitch);
+                // result = ScaleFactory.createMIDITrack(scale,
+                // startPitch);
                 result = ScaleFactory.createMIDITrack(
                         scale,
                         PitchFactory.getPitch(
                                 startPitch).getMidiNumber(),
-                        startBeat == -1 ? 1d: startBeat,
+                        startBeat == -1 ? 1d : startBeat,
                         1d,
                         nScaleOctaves);
             } else {
-             //   result = ScaleFactory.createMIDITrack(scale);
+                // result = ScaleFactory.createMIDITrack(scale);
                 result = ScaleFactory.createMIDITrack(
                         scale,
                         Pitch.C5,
@@ -143,6 +145,10 @@ public class MIDITrackBuilder {
             result.sequential();
         }
 
+        if (repeats > 1) {
+            result = repeat(result, repeats);
+        }
+
         reset();
         return result;
     }
@@ -159,15 +165,31 @@ public class MIDITrackBuilder {
         startBeat = -1d;
         chord = false;
         nScaleOctaves = 1;
+        repeats = 1;
     }
-    
+
+    private static MIDITrack repeat(final MIDITrack track,
+            final int numberOfRepeats) {
+        MIDITrack repeated = new MIDITrack(track);
+
+        for (int i = 0; i < numberOfRepeats; i++) {
+            repeated.append(track);
+        }
+        return repeated.sequential();
+    }
+
     public MIDITrackBuilder nScaleOctaves(int nScaleOctaves) {
         this.nScaleOctaves = nScaleOctaves;
         return this;
     }
-    
+
     public MIDITrackBuilder name(String name) {
         this.name = name;
+        return this;
+    }
+    
+    public MIDITrackBuilder repeats(int repeats) {
+        this.repeats = repeats;
         return this;
     }
 
@@ -226,7 +248,7 @@ public class MIDITrackBuilder {
         return this;
     }
 
-    public MIDITrackBuilder instrument(MIDIGMPatch instrument) {
+    public MIDITrackBuilder instrument(Instrument instrument) {
         this.instrument = instrument;
         return this;
     }
