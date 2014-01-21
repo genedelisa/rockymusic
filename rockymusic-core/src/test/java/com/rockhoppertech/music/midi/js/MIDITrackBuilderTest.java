@@ -65,7 +65,7 @@ public class MIDITrackBuilderTest {
         MIDITrack track = MIDITrackBuilder.create()
                 .noteString("C E G")
                 .sequential()
-                .instrument(MIDIGMPatch.VIOLIN)
+                .instrument(Instrument.VIOLIN)
                 .build();
         logger.debug("the track is {}", track);
 
@@ -105,7 +105,7 @@ public class MIDITrackBuilderTest {
                 .noteString("C E G")
                 .durations(4d)
                 .sequential()
-                .instrument(MIDIGMPatch.VIOLIN)
+                .instrument(Instrument.VIOLIN)
                 .build();
 
         logger.debug("the track is {}", track);
@@ -231,7 +231,7 @@ public class MIDITrackBuilderTest {
                 .noteString("C E G")
                 .durations(expectedDuration, expectedDuration2)
                 .sequential()
-                .instrument(MIDIGMPatch.VIOLIN)
+                .instrument(Instrument.VIOLIN)
                 .build();
 
         logger.debug("the track is {}", track);
@@ -365,108 +365,108 @@ public class MIDITrackBuilderTest {
 
     @Test
     public void shouldCreateSequenceFromScaleAndKeyNOctaves() {
-    
+
         MIDITrack track = MIDITrackBuilder.create()
                 .scaleName("Major")
                 .startPitch("D3")
                 .nScaleOctaves(3)
                 .build();
         logger.debug("D major is {}", track);
-    
+
         int expectedSize = 22;
         assertThat("track is not null", track, notNullValue());
         assertThat("track size is correct", track.size(),
                 equalTo(expectedSize));
-    
+
         int noteIndex = 0;
         MIDINote note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(D3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(E3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(FS3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(G3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(A3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(B3));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(CS4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(D4));
-        
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(E4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(FS4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(G4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(A4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(B4));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(CS5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(D5));
-        
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(E5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(FS5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(G5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(A5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(B5));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(CS6));
-    
+
         note = track.get(noteIndex++);
         assertThat("pitch is correct", note.getMidiNumber(),
                 equalTo(D6));
-    
+
     }
 
 }
