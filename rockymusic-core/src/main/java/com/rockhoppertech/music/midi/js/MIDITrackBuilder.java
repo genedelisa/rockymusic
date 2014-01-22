@@ -28,10 +28,11 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.modifiers.DurationModifier;
+import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.Modifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
+import com.rockhoppertech.music.modifiers.VelocityModifier;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
@@ -54,14 +55,16 @@ public class MIDITrackBuilder {
     // private double duration = Duration.Q;
     private String startPitch = "C";
     private String scaleName;
-    private List<Double> durationList;
+    private List<Double> startBeatList;
+    private List<Double> durationList;    
+    private List<Integer> velocityList;
     private List<MIDINote> noteList;
-   // private MIDIGMPatch instrument;
     private boolean sequential;
     private double startBeat = -1d;
     private int nScaleOctaves = 1;
     boolean chord = false;
     private int repeats = 1;
+    // private MIDIGMPatch instrument;    
     private Instrument instrument;
 
     private MIDITrackBuilder() {
@@ -118,6 +121,15 @@ public class MIDITrackBuilder {
             // DurationModifier mod = new DurationModifier(this.duration);
             // result.map(mod);
         }
+        if (startBeatList != null) {
+            StartBeatModifier mod = new StartBeatModifier(startBeatList);
+            result.map(mod);
+        }
+        
+        if (velocityList != null) {
+            MIDINoteModifier mod = new VelocityModifier(velocityList);
+            result.map(mod);
+        }
 
         if (instrument != null) {
             result.useInstrument(instrument);
@@ -160,7 +172,9 @@ public class MIDITrackBuilder {
         scaleName = null;
         name = null;
         description = null;
-        durationList = null;
+        startBeatList = null;
+        durationList = null;        
+        velocityList = null;
         instrument = null;
         startBeat = -1d;
         chord = false;
@@ -187,7 +201,7 @@ public class MIDITrackBuilder {
         this.name = name;
         return this;
     }
-    
+
     public MIDITrackBuilder repeats(int repeats) {
         this.repeats = repeats;
         return this;
@@ -218,17 +232,28 @@ public class MIDITrackBuilder {
         return this;
     }
 
+    /**
+     * @return
+     */
     public MIDITrackBuilder chord() {
         chord = true;
         startBeat = 1d;
         return this;
     }
 
+    /**
+     * @param startBeat
+     * @return
+     */
     public MIDITrackBuilder chord(double startBeat) {
         this.startBeat = startBeat;
         return this;
     }
 
+    /**
+     * @param startBeat
+     * @return
+     */
     public MIDITrackBuilder startBeat(double startBeat) {
         chord = false;
         this.startBeat = startBeat;
@@ -240,6 +265,10 @@ public class MIDITrackBuilder {
     // return this;
     // }
 
+    /**
+     * @param durations
+     * @return
+     */
     public MIDITrackBuilder durations(double... durations) {
         durationList = new ArrayList<Double>();
         for (Double d : durations) {
@@ -247,12 +276,43 @@ public class MIDITrackBuilder {
         }
         return this;
     }
+    
+    /**
+     * @param startBeats
+     * @return
+     */
+    public MIDITrackBuilder startBeats(double... startBeats) {
+        startBeatList = new ArrayList<Double>();
+        for (Double d : startBeats) {
+            startBeatList.add(d);
+        }
+        return this;
+    }
+    /**
+     * @param velocities
+     * @return
+     */
+    public MIDITrackBuilder velocities(int... velocities) {
+        velocityList = new ArrayList<Integer>();
+        for (Integer d : velocities) {
+            velocityList.add(d);
+        }
+        return this;
+    }
 
+    /**
+     * @param instrument
+     * @return
+     */
     public MIDITrackBuilder instrument(Instrument instrument) {
         this.instrument = instrument;
         return this;
     }
 
+    /**
+     * @param notes
+     * @return
+     */
     public MIDITrackBuilder notes(MIDINote... notes) {
         noteList = new ArrayList<>();
         for (MIDINote n : notes) {
