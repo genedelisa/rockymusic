@@ -74,10 +74,10 @@ public class MIDITrackBuilderTest {
         assertThat("track size is correct", track.size(),
                 equalTo(expectedSize));
 
-        MIDIGMPatch gmpatch = track.getGmpatch();
-        assertThat("gmpatch is not null", gmpatch, notNullValue());
-        assertThat("gmpatch is correct", gmpatch,
-                equalTo(MIDIGMPatch.VIOLIN));
+        Instrument instrument = track.getInstrument();
+        assertThat("Instrument is not null", instrument, notNullValue());
+        assertThat("Instrument is correct", instrument,
+                equalTo(Instrument.VIOLIN));
 
         MIDINote note = track.get(0);
         assertThat("pitch is correct", note.getMidiNumber(),
