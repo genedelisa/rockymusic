@@ -86,11 +86,19 @@ public class StartBeatModifier extends AbstractModifier implements
         values = new CircularArrayList<Double>();
         this.setValues(array);
     }
+    
+    public StartBeatModifier(final double... array) {
+        this(Operation.SET, array);
+    }
 
-    public StartBeatModifier(final Operation op, final List<Double> values2) {
+    public StartBeatModifier(final Operation op, final List<Double> startBeatList) {
         operation = op;
         values = new CircularArrayList<Double>();
-        values.addAll(values2);
+        values.addAll(startBeatList);
+    }
+
+    public StartBeatModifier(List<Double> startBeatList) {
+        this(Operation.SET, startBeatList);
     }
 
     private void doit(final Timed timed) {

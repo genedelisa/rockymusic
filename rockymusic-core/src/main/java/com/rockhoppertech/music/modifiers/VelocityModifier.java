@@ -87,10 +87,18 @@ public class VelocityModifier extends AbstractModifier implements
         this.setValues(array);
     }
 
-    public VelocityModifier(final Operation op, final List<Integer> values2) {
+    public VelocityModifier(final double... array) {
+        this(Operation.SET, array);
+    }
+
+    public VelocityModifier(final Operation op, final List<Integer> velocityList) {
         operation = op;
         values = new CircularArrayList<Integer>();
-        values.addAll(values2);
+        values.addAll(velocityList);
+    }
+
+    public VelocityModifier(List<Integer> velocityList) {
+        this(Operation.SET, velocityList);
     }
 
     private void doit(final MIDINote midiNote) {
