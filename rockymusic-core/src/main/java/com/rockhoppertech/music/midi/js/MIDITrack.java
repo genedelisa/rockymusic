@@ -131,7 +131,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             notes.add(new MIDINote(n));
         }
         for (MIDIEvent n : orig.events) {
-            events.add(new MIDIEvent(n.toMidiEvent()));
+            events.add(new MIDIEvent(n.toMidiEvent(), this));
         }
 
         // NavigableMap<Double, TimeSignature> ts = orig.getTimeSignatures();
@@ -190,6 +190,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     public MIDITrack add(MIDIEvent event) {
         events.add(event);
+        event.setTrack(this);
+        ;
         return this;
     }
 
@@ -577,19 +579,36 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     public void remove(MIDIEvent n) {
         events.remove(n);
+        n.setTrack(null);
     }
 
     /**
      * <code>merge</code> merges and sorts the additions based on start time.
-     * Notes are comparable.
+     * MIDINotes and MIDIEvents are comparable.
+     * 
+     * Duplicates the notes and events.
      * 
      * @param l
      *            a <code>MIDITrack</code> value
      */
     public MIDITrack merge(MIDITrack l) {
-        notes.addAll(l.notes);
-        Collections.sort(notes);
+        //notes.addAll(l.notes);
+        for (MIDINote n : l.notes) {
+            this.add(n.duplicate());
+        }
+        for (MIDIEvent e : l.events) {
+            this.add(e.duplicate());
+        }
+        sortByStartBeat();
         return this;
+    }
+
+    public int getResolution() {
+        int resolution = 480; 
+        if (this.score != null) {
+            resolution = this.score.getResolution();
+        }
+        return resolution;
     }
 
     public void sort(Comparator<MIDINote> c) {
@@ -597,10 +616,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * Note implements comparable which compares start beats.
+     * Note and MIDIEvent implement comparable which compares start beats.
      */
     public void sortByStartBeat() {
         Collections.sort(notes);
+        Collections.sort(events);        
     }
 
     /**
@@ -1743,9 +1763,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
                 tick,
                 MIDIUtils.META_TEXT,
                 text);
-        MIDIEvent e = new MIDIEvent(event);
+        MIDIEvent e = new MIDIEvent(event, this);
         // we're used to thinking in beats starting at 1 not zero.
-        e.setBeat(beat - 1d);
+        e.setStartBeat(beat - 1d);
         this.events.add(e);
     }
 
@@ -1761,11 +1781,14 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Sets all the start beats to the specified beat.
      * 
-     * @param beat the new start beat
+     * @param beat
+     *            the new start beat
      */
     public void chordify(double beat) {
         StartBeatModifier mod = new StartBeatModifier(Modifier.Operation.SET,
                 beat);
         this.map(mod);
     }
+
+   
 }
