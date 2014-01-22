@@ -20,7 +20,6 @@ package com.rockhoppertech.music.examples.track;
  * #L%
  */
 
-
 import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
@@ -51,7 +50,7 @@ public class TrackExamples {
         logger.debug("here is the track\b{}", track);
     }
 
-    static void ex02() {
+    static void adds() {
         MIDITrack track = new MIDITrack();
         track.add(Pitch.C5).add(D5).add(E5).add(F5).add(G5);
         track.sequential();
@@ -59,7 +58,7 @@ public class TrackExamples {
         logger.debug("here is the track\b{}", track);
     }
 
-    static void ex03() {
+    static void noteString() {
         MIDITrack track = MIDITrackBuilder.create()
                 .noteString("C5 D E F G")
                 .sequential()
@@ -68,7 +67,7 @@ public class TrackExamples {
         logger.debug("here is the track\b{}", track);
     }
 
-    static void ex04() {
+    static void emptyTrack() {
         // just an empty track
         MIDITrack track = MIDITrackBuilder.create()
                 .build();
@@ -76,7 +75,7 @@ public class TrackExamples {
         logger.debug("here is the track\b{}", track);
     }
 
-    static void ex05() {
+    static void chordProgression() {
         MIDITrack track = new MIDITrack();
         MIDITrack c = MIDITrackBuilder.create()
                 .noteString("C4 C5 E G")
@@ -93,7 +92,7 @@ public class TrackExamples {
         logger.debug("here is the track\b{}", track);
     }
 
-    static void ex06() {
+    static void chordify() {
         MIDITrack track = new MIDITrack();
         MIDITrack c = MIDITrackBuilder.create()
                 .noteString("C4 C5 E G")
@@ -175,49 +174,53 @@ public class TrackExamples {
      * @param args
      */
     public static void main(final String[] args) {
+        select();
+    }
 
-        final Integer[] choices = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        final Integer choice = (Integer) JOptionPane
+    static void select() {
+        final String[] choices = new String[] { "ex1", "adds", "noteString",
+                "emptyTrack",
+                "chordProgression", "chordify", "durations",
+                "durations and velocities",
+                "start beats, durations and velocities"
+        };
+        final String choice = (String) JOptionPane
                 .showInputDialog(null,
                         "Which Example?",
                         "Example chooser",
                         JOptionPane.QUESTION_MESSAGE,
-                        null,
+                        null, // icon
                         choices,
                         choices[0]);
-
-        switch (choice) {
-        case 1:
+        if (choice.equals("ex1")) {
             ex01();
-            break;
-        case 2:
-            ex02();
-            break;
-        case 3:
-            ex03();
-            break;
-        case 4:
-            ex04();
-            break;
-        case 5:
-            ex05();
-            break;
-        case 6:
-            ex06();
-            break;
-        case 7:
+        } else if (choice.equals("adds")) {
+            adds();
+        } else if (choice.equals("noteString")) {
+            noteString();
+        } else if (choice.equals("emptyTrack")) {
+            emptyTrack();
+        } else if (choice.equals("chordProgression")) {
+            chordProgression();
+        } else if (choice.equals("chordify")) {
+            chordify();
+        } else if (choice.equals("durations")) {
             durs();
-            break;
-        case 8:
+        } else if (choice.equals("durations and velocities")) {
             dursAndVelocities();
-            break;
-        case 9:
+        } else if (choice.equals("start beats, durations and velocities")) {
             startBeatsDursAndVelocities();
-            break;
+        } else if (choice.equals("ex2")) {
+            adds();
+        } else if (choice.equals("ex2")) {
+            adds();
+        } else if (choice.equals("ex2")) {
+            adds();
+        } else if (choice.equals("ex2")) {
+            adds();
+        } else if (choice.equals("ex2")) {
+            adds();
 
-        default:
-            ex01();
-            break;
         }
     }
 
