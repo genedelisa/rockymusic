@@ -23,8 +23,6 @@ package com.rockhoppertech.music.examples;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.Duration;
-import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.js.Instrument;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
@@ -40,23 +38,7 @@ public class Chords {
             .getLogger(Chords.class);
 
     public static void main(String[] args) {
-        example();
-        //createScore();
-    }
-
-    static void example() {
-        Score score = new Score("Chord");
-        MIDITrack violin = MIDITrackBuilder.create()
-                .name("Violin I")
-                .instrument(Instrument.VIOLIN)
-                .noteString("C6 E G")
-                .startBeat(4.5)
-                .durations(Duration.SIXTEENTH_NOTE, Duration.EIGHTH_NOTE)
-                .sequential()
-                .build();
-        score.add(violin);
-        logger.debug("score is {}", score);
-
+        createScore();
     }
 
     static void createScore() {
