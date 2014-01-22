@@ -299,7 +299,7 @@ public class ScaleFactory {
         final MIDITrack track = new MIDITrack();
         track.setName(scale.getName());
         String s = String.format(
-                "created track from scale %s, start beat %d duration %d",
+                "created track from scale %s, start beat %f duration %f",
                 scale.getName(),
                 startBeat,
                 duration);
