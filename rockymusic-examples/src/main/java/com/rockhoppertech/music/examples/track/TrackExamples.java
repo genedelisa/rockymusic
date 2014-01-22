@@ -5,7 +5,9 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.midi.js.Instrument;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 
@@ -86,13 +88,65 @@ public class TrackExamples {
         g7.chordify();
         track.append(g7);
         track.append(c);
-        
+
         g7.chordify(12d);
         // ignores g7's start beat!
-        //track.append(g7);   
+        // track.append(g7);
         track.merge(g7);
 
         track.play();
+        logger.debug("here is the track\b{}", track);
+    }
+
+    static void ex07() {
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("Violin I")
+                .instrument(Instrument.VIOLIN)
+                .noteString("C6 E G")
+                .startBeat(4.5)
+                .durations(Duration.SIXTEENTH_NOTE, Duration.EIGHTH_NOTE)
+                .sequential()
+                .build();
+        logger.debug("here is the track\b{}", track);
+    }
+
+    static void durs() {
+        MIDITrack track = MIDITrackBuilder.create()
+                .noteString("C6 E G")
+                .startBeat(4.5)
+                .durations(Duration.SIXTEENTH_NOTE, Duration.EIGHTH_NOTE)
+                .sequential()
+                .build();
+        logger.debug("here is the track\b{}", track);
+    }
+
+    static void dursAndVelocities() {
+        MIDITrack track = MIDITrackBuilder
+                .create()
+                .noteString("C6 E G")
+                .startBeat(4.5)
+                .durations(
+                        Duration.SIXTEENTH_NOTE,
+                        Duration.EIGHTH_NOTE,
+                        Duration.Q)
+                .velocities(32, 64, 127)
+                .sequential()
+                .build();
+        logger.debug("here is the track\b{}", track);
+    }
+
+    static void startBeatsDursAndVelocities() {
+        MIDITrack track = MIDITrackBuilder
+                .create()
+                .name("start beats, durs, and velocities")
+                .noteString("C6 E G")
+                .startBeats(1, 3.5, 4)
+                .durations(
+                        Duration.SIXTEENTH_NOTE,
+                        Duration.EIGHTH_NOTE,
+                        Duration.Q)
+                .velocities(32, 64, 127)
+                .build();
         logger.debug("here is the track\b{}", track);
     }
 
@@ -101,7 +155,7 @@ public class TrackExamples {
      */
     public static void main(final String[] args) {
 
-        final Integer[] choices = new Integer[] { 1, 2, 3, 4, 5, 6 };
+        final Integer[] choices = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
         final Integer choice = (Integer) JOptionPane
                 .showInputDialog(null,
                         "Which Example?",
@@ -130,6 +184,16 @@ public class TrackExamples {
         case 6:
             ex06();
             break;
+        case 7:
+            durs();
+            break;
+        case 8:
+            dursAndVelocities();
+            break;
+        case 9:
+            startBeatsDursAndVelocities();
+            break;
+
         default:
             ex01();
             break;
