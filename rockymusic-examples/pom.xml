@@ -44,6 +44,7 @@
 					<debuglevel>none</debuglevel>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 </project>
