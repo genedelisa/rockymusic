@@ -497,25 +497,25 @@ public class MIDITrackFactory {
                 logger.debug(MIDIUtils.toString(se));
                 if (command == ShortMessage.CONTROL_CHANGE) {
                     logger.debug("control change ", se);
-                    track.add(new MIDIEvent(me));
+                    track.add(new MIDIEvent(me, track));
                 }
                 if (command == ShortMessage.CHANNEL_PRESSURE) {
                     logger.debug("channel pressure ", se);
-                    track.add(new MIDIEvent(me));
+                    track.add(new MIDIEvent(me,track));
                 }
                 if (command == ShortMessage.POLY_PRESSURE) {
                     logger.debug("poly pressure ", se);
-                    track.add(new MIDIEvent(me));
+                    track.add(new MIDIEvent(me,track));
                 }
 
                 if (command == ShortMessage.PROGRAM_CHANGE) {
                     logger.debug("patch:", program);
                     program = d1;
-                    track.add(new MIDIEvent(me));
+                    track.add(new MIDIEvent(me, track));
                 }
                 if (command == ShortMessage.PITCH_BEND) {
                     logger.debug("pitch bend: {} d2 {}", d1, d2);
-                    track.add(new MIDIEvent(me));
+                    track.add(new MIDIEvent(me,track));
                 }
 
                 if (command == ShortMessage.NOTE_ON && d2 != 0) {
