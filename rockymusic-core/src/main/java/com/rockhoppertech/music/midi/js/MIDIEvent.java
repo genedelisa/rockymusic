@@ -44,6 +44,7 @@ import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.SysexMessage;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +61,7 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
  * @see Serializable
  */
 
-public class MIDIEvent implements Serializable {
+public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     /**
      * 
      */
@@ -71,23 +72,49 @@ public class MIDIEvent implements Serializable {
 
     private long division = 256;
 
-    private double beat;
     /**
-     * variable <code>tick</code>
+     * the time in beats when this occurs
+     */
+    private double startBeat;
+    /**
+     * <code>tick</code> is the time in ticks when this occurs
      */
     private long tick;
     /**
-     * variable <code>bytes</code>
+     * <code>bytes</code> are the data
      */
     private byte[] bytes;
     /**
-     * variable <code>status</code>
+     * <code>status</code> is the MIDI status
      */
     private int status;
     /**
-     * variable <code>type</code> is for meta events
+     * <code>type</code> is for meta events
      */
     private int metaMessageType;
+
+    /**
+     * The track to which this belongs.
+     */
+    private MIDITrack track;
+
+    public MIDIEvent(MidiEvent e, MIDITrack track) {
+        this(e);
+        this.setTrack(track);
+    }
+
+    /**
+     * Copy constructor. clone is evil.
+     * 
+     * @param e
+     */
+    public MIDIEvent(MIDIEvent e) {
+        this.tick = e.getTick();
+        this.startBeat = e.getStartBeat();
+        this.bytes = ArrayUtils.clone(e.getBytes());
+        this.status = e.getStatus();
+        this.metaMessageType = e.getMetaMessageType();
+    }
 
     /**
      * Creates a new <code>MIDIEvent</code> instance from JavaSound's MidiEvent.
@@ -97,7 +124,7 @@ public class MIDIEvent implements Serializable {
      */
     public MIDIEvent(MidiEvent e) {
         tick = e.getTick();
-        beat = (double) (tick) / (double) (division);
+        startBeat = (double) (tick) / (double) (division);
         MidiMessage mm = e.getMessage();
         byte[] ba = mm.getMessage();
         logger.debug("Original message: " + ba.length);
@@ -147,7 +174,7 @@ public class MIDIEvent implements Serializable {
      */
     public MIDIEvent(MidiMessage mm, long tick) {
         this.tick = tick;
-        beat = this.tick * division;
+        startBeat = this.tick * division;
 
         if (mm instanceof ShortMessage) {
             // ShortMessage se = (ShortMessage) mm;
@@ -277,12 +304,12 @@ public class MIDIEvent implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("MIDIEvent [");
         sb.append(" tick=").append(tick);
-        sb.append(" beat=").append(beat);
+        sb.append(" beat=").append(startBeat);
         sb.append(" division=").append(division);
         sb.append(" status=").append(Integer.toHexString(status)).append(
                 ' ');
         sb.append(MIDIUtils.getCommandName(status));
-        
+
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             data.append("0x").append(
@@ -295,9 +322,9 @@ public class MIDIEvent implements Serializable {
         if (status == MetaMessage.META) {
             sb.append("\nMeta text:").append(MIDIUtils.bytesToText(bytes));
         } else {
-            sb.append("data=\"").append(data.toString()).append("\" ");    
+            sb.append("data=\"").append(data.toString()).append("\" ");
         }
-        
+
         sb.append("]");
 
         return sb.toString();
@@ -379,7 +406,7 @@ public class MIDIEvent implements Serializable {
     public String toXMLString() {
         StringBuilder sb = new StringBuilder();
         sb.append("<MIDIEvent ");
-        sb.append("beat=\"").append(beat).append("\" ");
+        sb.append("beat=\"").append(startBeat).append("\" ");
         sb.append("type=\"").append(MIDIUtils.getCommandName(status))
                 .append("\" ");
 
@@ -409,16 +436,33 @@ public class MIDIEvent implements Serializable {
     /**
      * @return the beat
      */
-    public double getBeat() {
-        return beat;
+    public double getStartBeat() {
+        return startBeat;
     }
 
     /**
      * @param beat
      *            the beat to set
      */
-    public void setBeat(double beat) {
-        this.beat = beat;
+    public void setStartBeat(double beat) {
+        this.startBeat = beat;
+    }
+
+    /**
+     * @return the track
+     */
+    public MIDITrack getTrack() {
+        return track;
+    }
+
+    /**
+     * @param track
+     *            the track to set
+     */
+    public void setTrack(MIDITrack track) {
+        this.track = track;
+        this.division = track.getResolution();
+        this.startBeat = (double) (this.tick) / (double) (this.division);
     }
 
     /**
@@ -434,7 +478,7 @@ public class MIDIEvent implements Serializable {
      */
     public void setDivision(long division) {
         this.division = division;
-        tick = (long) (beat * division);
+        tick = (long) (startBeat * division);
     }
 
     public byte[] getBytes() {
@@ -513,4 +557,27 @@ public class MIDIEvent implements Serializable {
         return true;
     }
 
+    /**
+     * <code>compareTo</code> checks the startBeat.
+     * 
+     * 
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(final MIDIEvent n) {
+        final double nt = n.getStartBeat();
+        int r = 0;
+        if (this.startBeat < nt) {
+            r = -1;
+        } else if (this.startBeat == nt) {
+            r = 0;
+        } else if (this.startBeat > nt) {
+            r = 1;
+        }
+        return r;
+    }
+
+    public MIDIEvent duplicate() {
+        return new MIDIEvent(this);
+    }
 }
