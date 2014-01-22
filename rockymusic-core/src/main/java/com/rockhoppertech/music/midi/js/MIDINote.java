@@ -61,6 +61,11 @@ public class MIDINote extends Note {
     private int program;
     private int velocity;
     private int pitchbend;
+    
+    /**
+     * The track where this note is contained. Might be null.
+     */
+    private MIDITrack midiTrack;
 
     /**
      * CC 10 0x0a (coarse) 0 = left 64 = center 127 = right most devices ignore
@@ -278,8 +283,6 @@ public class MIDINote extends Note {
     public final Object clone() throws CloneNotSupportedException {
         throw new CloneNotSupportedException();
     }
-
-   
 
     /**
      * Cloning sucks. http://www.artima.com/intv/bloch13.html
@@ -536,6 +539,14 @@ public class MIDINote extends Note {
         sb.append("(").append(MIDIGMPatch.getName(program)).append(") ");
         sb.append("pitchbend: ").append(pitchbend).append(' ');
         sb.append("voice: ").append(voice).append(' ');
+        if (this.midiTrack != null) {
+            String s = this.midiTrack.getName();
+            if(s == null) s = "unnamed track";
+            sb.append("MIDITrack: ").append(s)
+                    .append(' ');
+        } else {
+            sb.append("no track ");
+        }
         sb.append(']');
         return sb.toString();
     }
@@ -558,7 +569,36 @@ public class MIDINote extends Note {
         sb.append(channel).append(',');
         sb.append(bank).append(',');
         sb.append(program).append(' ');
-
+       
         return sb.toString();
+    }
+
+
+    /**
+     * @return the pitchbend
+     */
+    public int getPitchbend() {
+        return pitchbend;
+    }
+
+    /**
+     * @param pitchbend the pitchbend to set
+     */
+    public void setPitchbend(int pitchbend) {
+        this.pitchbend = pitchbend;
+    }
+
+    /**
+     * @return the midiTrack
+     */
+    public MIDITrack getMidiTrack() {
+        return midiTrack;
+    }
+
+    /**
+     * @param midiTrack the midiTrack to set
+     */
+    public void setMidiTrack(MIDITrack midiTrack) {
+        this.midiTrack = midiTrack;
     }
 }
