@@ -539,6 +539,7 @@ public class MIDINote extends Note {
         sb.append("(").append(MIDIGMPatch.getName(program)).append(") ");
         sb.append("pitchbend: ").append(pitchbend).append(' ');
         sb.append("voice: ").append(voice).append(' ');
+        sb.append("pan: ").append(pan).append(' ');        
         if (this.midiTrack != null) {
             String s = this.midiTrack.getName();
             if(s == null) s = "unnamed track";
