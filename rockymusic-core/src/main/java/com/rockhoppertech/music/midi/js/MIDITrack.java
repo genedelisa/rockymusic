@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
-import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 import com.rockhoppertech.music.modifiers.ChannelModifier;
 import com.rockhoppertech.music.modifiers.InstrumentModifier;
@@ -68,19 +67,38 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     private static final Logger logger = LoggerFactory
             .getLogger(MIDITrack.class);
 
+    /**
+     * Meta text track name
+     */
     private String name;
+
+    /**
+     * Meta text inserted at tick 0
+     */
     private String description;
 
+    /**
+     * The events.
+     */
     private List<MIDIEvent> events;
+
+    /**
+     * The notes will be turned into note on/note off messages
+     */
     private List<MIDINote> notes;
 
-    private MIDIGMPatch gmpatch = MIDIGMPatch.PIANO;
+    /**
+     * The GM patch to use.
+     */
     private Instrument instrument = Instrument.PIANO;
 
+    /**
+     * The Score to which this track is attached. Might be null.
+     */
     private Score score;
 
     /**
-     * 
+     * The time signatures
      */
     private NavigableMap<Double, TimeSignature> timeSignatures = new TreeMap<Double, TimeSignature>();
     /**
@@ -89,14 +107,15 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     private NavigableMap<Double, KeySignature> keySignatureMap = new TreeMap<Double, KeySignature>();
 
     private NavigableMap<Double, Integer> tempoMap = new TreeMap<Double, Integer>();
+
     /**
-     * 
+     * To parse midi strings into notes etc.
      */
     private transient MIDIStringParser midiStringParser = new MIDIStringParser();
 
     public MIDITrack() {
-        events = new ArrayList<>();
-        notes = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.notes = new ArrayList<>();
     }
 
     /**
@@ -274,14 +293,22 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         // sb.append("Instrument:").append(this.gmpatch).append('\n');
         sb.append("Instrument:").append(this.instrument).append('\n');
 
-        for (MIDINote n : notes) {
-            sb.append(n).append('\n');
+        if (this.notes.size() > 0) {
+            for (MIDINote n : notes) {
+                sb.append(n).append('\n');
+            }
+        } else {
+            sb.append("no notes").append('\n');
         }
 
-        sb.append("events").append('\n');
-        for (MIDIEvent n : events) {
-            sb.append(n.toReadableString()).append('\n');
-            sb.append(n.toString()).append('\n');
+        if (this.events.size() > 0) {
+            sb.append("events").append('\n');
+            for (MIDIEvent n : events) {
+                sb.append(n.toReadableString()).append('\n');
+                sb.append(n.toString()).append('\n');
+            }
+        } else {
+            sb.append("no events").append('\n');
         }
 
         NavigableMap<Double, KeySignature> keys = this.getKeySignatures();
@@ -315,6 +342,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         for (MIDINote note : notes) {
             sb.append(PitchFormat.getInstance().format(note.getPitch()).trim())
                     .append(",");
+            sb.append(note.getStartBeat()).append(",");
             sb.append(note.getDuration()).append(' ');
         }
 
@@ -343,13 +371,6 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * @return the gmpatch
-     */
-    public MIDIGMPatch getGmpatch() {
-        return gmpatch;
     }
 
     /**
@@ -421,7 +442,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @see com.rockhoppertech.music.PitchFactory
      */
     public MIDITrack add(String pitch) {
-        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch).getMidiNumber());
+        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
+                .getMidiNumber());
         notes.add(note);
         note.setMidiTrack(this);
         return this;
@@ -469,7 +491,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @see com.rockhoppertech.music.PitchFactory
      */
     public MIDITrack add(String pitch, double duration) {
-        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch).getMidiNumber());
+        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
+                .getMidiNumber());
         note.setDuration(duration);
         note.setMidiTrack(this);
         notes.add(note);
@@ -501,7 +524,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @see com.rockhoppertech.music.PitchFactory
      */
     public MIDITrack add(String pitch, double startBeat, double duration) {
-        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch).getMidiNumber());
+        MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
+                .getMidiNumber());
         note.setStartBeat(startBeat);
         note.setDuration(duration);
         note.setMidiTrack(this);
@@ -601,7 +625,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            a <code>MIDITrack</code> value
      */
     public MIDITrack merge(MIDITrack l) {
-        //notes.addAll(l.notes);
+        // notes.addAll(l.notes);
         for (MIDINote n : l.notes) {
             MIDINote dupe = n.duplicate();
             this.add(dupe);
@@ -613,21 +637,40 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         sortByStartBeat();
         return this;
     }
-    
+
+    /**
+     * Removes the notes and events from this track, and set's the track
+     * reference for each back to the parameter track.
+     * 
+     * @param l
+     * @return
+     */
+    public MIDITrack unmerge(MIDITrack l) {
+        for (MIDINote n : l.notes) {
+            this.remove(n);
+            n.setMidiTrack(l);
+        }
+        for (MIDIEvent e : l.events) {
+            this.remove(e);
+            e.setTrack(l);
+        }
+        return this;
+    }
+
     // TODO need this?
-//    public MIDITrack merge(MIDITrack l, int index, boolean sort) {
-//        notes.addAll(index, l.notes);
-//        
-//        
-//        
-//        if (sort) {
-//            Collections.sort(notes);
-//        }
-//        return this;
-//    }
+    // public MIDITrack merge(MIDITrack l, int index, boolean sort) {
+    // notes.addAll(index, l.notes);
+    //
+    //
+    //
+    // if (sort) {
+    // Collections.sort(notes);
+    // }
+    // return this;
+    // }
 
     public int getResolution() {
-        int resolution = 480; 
+        int resolution = 480;
         if (this.score != null) {
             resolution = this.score.getResolution();
         }
@@ -643,7 +686,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     public void sortByStartBeat() {
         Collections.sort(notes);
-        Collections.sort(events);        
+        Collections.sort(events);
     }
 
     /**
@@ -678,20 +721,18 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         newlist.map(new StartBeatModifier(NoteModifier.Operation.ADD, endBeat));
         for (MIDINote note : newlist.notes) {
             MIDINote dupe = note.duplicate();
-            n.add(dupe);            
+            n.add(dupe);
         }
         endBeat = n.getEndBeat();
         endlist.map(new StartBeatModifier(NoteModifier.Operation.ADD, endBeat));
         for (MIDINote note : endlist.notes) {
             MIDINote dupe = note.duplicate();
-            n.add(dupe);   
+            n.add(dupe);
         }
         return n;
 
         // this.sequential();
     }
-
-   
 
     /**
      * this is cumulative.
@@ -1810,5 +1851,4 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         this.map(mod);
     }
 
-   
 }
