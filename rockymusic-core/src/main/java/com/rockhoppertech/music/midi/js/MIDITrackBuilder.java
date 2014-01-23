@@ -57,7 +57,7 @@ public class MIDITrackBuilder {
     private String scaleName;
     private List<Double> startBeatList;
     private List<Double> durationList;    
-    private List<Integer> velocityList;
+    private List<Number> velocityList;
     private List<MIDINote> noteList;
     private boolean sequential;
     private double startBeat = -1d;
@@ -293,7 +293,7 @@ public class MIDITrackBuilder {
      * @return
      */
     public MIDITrackBuilder velocities(int... velocities) {
-        velocityList = new ArrayList<Integer>();
+        velocityList = new ArrayList<Number>();
         for (Integer d : velocities) {
             velocityList.add(d);
         }
