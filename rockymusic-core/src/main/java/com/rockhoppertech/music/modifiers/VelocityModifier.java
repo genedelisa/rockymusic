@@ -39,9 +39,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.collections.CircularArrayList;
-import com.rockhoppertech.music.Note;
-import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
@@ -51,59 +48,38 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @since 1.0
- * @see NoteModifier
- * @see AbstractModifier
- * @see TimedModifier
+ * @see MIDINoteModifier
+ * @see AbstractMIDINoteModifier
  */
-public class VelocityModifier extends AbstractModifier implements
-        MIDINoteModifier {
+public class VelocityModifier extends AbstractMIDINoteModifier
+{
 
     private static final Logger logger = LoggerFactory
             .getLogger(VelocityModifier.class);
-
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Integer> values;
-    private MIDINoteModifier successor;
-
+    
     public VelocityModifier() {
-        values = new CircularArrayList<Integer>();
-        values.add(1);
+        super();
     }
 
-    public VelocityModifier(final int n) {
-        values = new CircularArrayList<Integer>();
-        values.add(n);
+    public VelocityModifier(List<Number> list) {
+        super(list);
     }
 
-    public VelocityModifier(final Operation op, final int n) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        values.add(n);
+    public VelocityModifier(Number... numbers) {
+        super(numbers);
     }
 
-    public VelocityModifier(final Operation op, final double... array) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        this.setValues(array);
+    public VelocityModifier(Operation op, List<Number> list) {
+        super(op, list);
     }
 
-    public VelocityModifier(final double... array) {
-        this(Operation.SET, array);
-    }
-
-    public VelocityModifier(final Operation op, final List<Integer> velocityList) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        values.addAll(velocityList);
-    }
-
-    public VelocityModifier(List<Integer> velocityList) {
-        this(Operation.SET, velocityList);
+    public VelocityModifier(Operation operation, Number... numbers) {
+        super(operation, numbers);
     }
 
     private void doit(final MIDINote midiNote) {
         int d = 0;
-        final int value = values.next();
+        final int value = values.next().intValue();
         switch (operation) {
         case ADD:
             d = midiNote.getVelocity() + value;
@@ -182,7 +158,7 @@ public class VelocityModifier extends AbstractModifier implements
      */
     @Override
     public String getDescription() {
-        return "Start Beat modifier";
+        return "Velocity modifier";
     }
 
     /**
@@ -192,14 +168,7 @@ public class VelocityModifier extends AbstractModifier implements
      */
     @Override
     public String getName() {
-        return "Start Beat";
-    }
-
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return operation;
+        return "Velocity";
     }
 
     @Override
@@ -210,39 +179,4 @@ public class VelocityModifier extends AbstractModifier implements
         }
     }
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    @Override
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
-
-    @Override
-    public void setSuccessor(final MIDINoteModifier successor) {
-        this.successor = successor;
-    }
-
-    @Override
-    public void setValues(final double[] array) {
-        if (values == null) {
-            values = new CircularArrayList<Integer>();
-        } else {
-            values.clear();
-        }
-
-        for (final double element : array) {
-            values.add((int) element);
-        }
-    }
-
-    public void setValues(final List<Integer> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Integer>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
 }
