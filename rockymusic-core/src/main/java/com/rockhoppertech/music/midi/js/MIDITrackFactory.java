@@ -125,7 +125,10 @@ public class MIDITrackFactory {
         Track track = sequence.createTrack();
         if (mt.getName() != null) {
             MIDIUtils.insertSequenceName(track, 0, mt.getName());
-
+        }
+        
+        if (mt.getDescription() != null) {
+            MIDIUtils.insertText(track, 0, mt.getDescription());
         }
 
         NavigableMap<Double, KeySignature> keys = mt.getKeySignatures();
