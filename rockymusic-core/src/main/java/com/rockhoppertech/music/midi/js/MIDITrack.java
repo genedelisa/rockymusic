@@ -1194,9 +1194,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <code>retrograde</code> simply reverses the order of the notes list. The
-     * beats of the Notes are not modified. It is assumed that you will change
-     * them yourself or just ignore them.
+     * <code>retrograde</code> reverses the order of the MIDINotes.
+     * It is made sequential. 
+     * The start beat is the beat of the last note. 
      * 
      * The original track is not modified either.
      * 
@@ -1209,8 +1209,27 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             retro.add((MIDINote) n.duplicate());
         }
         Collections.reverse(retro);
-        // Collections.sort(retro, new NotePitchComparator(false));
-        return new MIDITrack(retro);
+        MIDITrack t = new MIDITrack(retro);
+        t.sequential();
+        return t;
+    }
+    
+    /**
+     * Reverses the order of the MIDINotes.
+     * @param startBeat the beat on which the track will start
+     * @return a new track
+     */
+    public MIDITrack retrograde(double startBeat) {
+        List<MIDINote> retro = new ArrayList<>();
+
+        for (MIDINote n : notes) {
+            retro.add((MIDINote) n.duplicate());
+        }
+        Collections.reverse(retro);
+        MIDITrack t = new MIDITrack(retro);
+        t.sequential();
+        t.setStartBeat(startBeat);
+        return t;
     }
 
     public double getEndBeatOfNote(MIDINote test) {
