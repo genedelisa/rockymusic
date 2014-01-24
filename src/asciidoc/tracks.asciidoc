@@ -1,0 +1,28 @@
+== Tracks
+
+MIDITracks contain MIDINotes and MIDIEvents.
+
+
+.Included Java code
+[source,java]
+----
+include::test.java[]
+----
+
+ blah
+
+
+.Inline Java code
+[source,java,numbered]
+----
+ public class Foo {
+ 	public static void main(String[] args) {
+ 		MIDITrack track = new MIDITrack(); // <1>
+ 		track.play();
+ 	}
+ }
+----
+
+<1> Create a MIDITrack
+
+ How 'bout dat?
