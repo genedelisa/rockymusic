@@ -68,7 +68,9 @@ public class FromIntervals {
         MIDIUtils.print(sequence);
 
         MIDIPerformer perf = new MIDIPerformer();
-        perf.play(sequence);
+        perf.sequence(sequence)
+                .play();
+
     }
 
     static void create() {
@@ -77,8 +79,10 @@ public class FromIntervals {
 
         MIDITrack track = MIDITrackFactory.createFromIntervals(1, 4);
         // track.useInstrument(MIDIGMPatch.VIOLIN);
-       // track.setName("from intervals 1, 4 from default C5, relative to previous note");
-        track.addMetaText(1, "from intervals 1, 4 from default C5, relative to previous note");        
+        // track.setName("from intervals 1, 4 from default C5, relative to previous note");
+        track.addMetaText(
+                1,
+                "from intervals 1, 4 from default C5, relative to previous note");
         track.sequential();
         double endbeat = track.getEndBeat();
         score.add(track);
@@ -89,7 +93,7 @@ public class FromIntervals {
                 4);
         track.useInstrument(Instrument.VIOLIN);
         track.setName("Violin");
-        track.addMetaText(endbeat, "from intervals 1, 4 from ef5");                
+        track.addMetaText(endbeat, "from intervals 1, 4 from ef5");
         track.setStartBeat(endbeat);
         track.sequential();
         track.setChannel(1);
@@ -107,7 +111,7 @@ public class FromIntervals {
                 absolute,
                 numOctaves);
         track.setName("whatever");
-        track.addMetaText(endbeat, "from intervals 3 -1 -5 absolute");        
+        track.addMetaText(endbeat, "from intervals 3 -1 -5 absolute");
         track.setStartBeat(endbeat);
         track.sequential();
         track.setChannel(2);
@@ -122,7 +126,7 @@ public class FromIntervals {
                 intervalUnit,
                 absolute,
                 numOctaves);
-        //track.setName("from intervals 3 -1 -5 absolute unit = 2");
+        // track.setName("from intervals 3 -1 -5 absolute unit = 2");
         track.addMetaText(endbeat, "from intervals 3 -1 -5 absolute unit = 2");
         track.setStartBeat(endbeat);
         track.sequential();

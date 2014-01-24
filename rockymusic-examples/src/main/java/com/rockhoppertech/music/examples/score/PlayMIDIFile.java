@@ -69,12 +69,12 @@ public class PlayMIDIFile {
             return;
         }
         MIDIPerformer perf = new MIDIPerformer();
-        perf.atTempo(240f);
         // this is overloaded with MIDITrack, Score, and Sequence.
         // each has a play method. e.g.
         // Score's play creates a performers and sends the play message.
         // just like here.
-        perf.play(sequence);
+        perf.sequence(sequence)
+                .atTempo(240f)
+                .play();
     }
-
 }

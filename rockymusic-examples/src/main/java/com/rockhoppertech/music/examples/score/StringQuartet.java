@@ -65,14 +65,16 @@ public class StringQuartet {
             return;
         }
         MIDIPerformer perf = new MIDIPerformer();
-        perf.play(sequence);
+        perf.score(score)
+                .atTempo(120)
+                .play();
     }
 
     static void createQuartet() {
         Score score = new Score("String Quartet");
         score.setTempoAtBeat(1d, 120);
         score.setKeySignatureAtBeat(1d, KeySignature.DMAJOR);
-        score.setTimeSignatureAtBeat(1d,3, 4);
+        score.setTimeSignatureAtBeat(1d, 3, 4);
         score.setTempoAtBeat(4d, 240);
         score.setKeySignatureAtBeat(4d, KeySignature.BFMINOR);
         score.setTimeSignatureAtBeat(4d, 5, 4);
@@ -90,7 +92,7 @@ public class StringQuartet {
                 .noteString("S+ C5 D E")
                 .build();
         score.add(violin2);
-        
+
         MIDITrack repeatedLick = MIDITrackBuilder.create()
                 .instrument(Instrument.VIOLIN)
                 .noteString("S+ C5,e D,e E,e A,e")
