@@ -51,41 +51,29 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * @since 1.0
  * @see MIDINoteModifier
  */
-public class ChannelModifier implements MIDINoteModifier {
+public class ChannelModifier extends AbstractMIDINoteModifier {
 
     private static final Logger logger = LoggerFactory
             .getLogger(ChannelModifier.class);
 
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Integer> values;
-    private MIDINoteModifier successor;
-
     public ChannelModifier() {
-        values = new CircularArrayList<Integer>();
-        values.add(Pitch.C5);
+
     }
 
-    public ChannelModifier(final int n) {
-        values = new CircularArrayList<Integer>();
-        values.add(n);
+    public ChannelModifier(List<Number> list) {
+        super(list);
     }
 
-    public ChannelModifier(final Operation op, final int n) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        values.add(n);
+    public ChannelModifier(Number... numbers) {
+        super(numbers);
     }
 
-    public ChannelModifier(final Operation op, final double... array) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        this.setValues(array);
+    public ChannelModifier(Operation op, List<Number> list) {
+        super(op, list);
     }
 
-    public ChannelModifier(final Operation op, final List<Integer> values2) {
-        operation = op;
-        values = new CircularArrayList<Integer>();
-        values.addAll(values2);
+    public ChannelModifier(Operation operation, Number... numbers) {
+        super(operation, numbers);
     }
 
     /**
@@ -108,17 +96,12 @@ public class ChannelModifier implements MIDINoteModifier {
         return "Channel Modifier";
     }
 
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return operation;
-    }
+   
 
     @Override
     public void modify(final MIDINote note) {
         logger.debug("before: " + note);
-        final double value = values.next();
+        final double value = values.next().doubleValue();
         int midiChannel = 0;
         int max = 16;
 
@@ -173,40 +156,5 @@ public class ChannelModifier implements MIDINoteModifier {
         logger.debug("after: " + note);
     }
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    @Override
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
-
-    @Override
-    public void setValues(final double[] array) {
-        if (values == null) {
-            values = new CircularArrayList<Integer>();
-        } else {
-            values.clear();
-        }
-
-        for (final Double element : array) {
-            values.add(element.intValue());
-        }
-    }
-
-    public void setValues(final List<Integer> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Integer>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
-
-    @Override
-    public void setSuccessor(MIDINoteModifier successor) {
-        this.successor = successor;
-
-    }
+  
 }
