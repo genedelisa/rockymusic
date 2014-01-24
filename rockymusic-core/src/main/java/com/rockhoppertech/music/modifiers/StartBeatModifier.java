@@ -118,6 +118,7 @@ public class StartBeatModifier extends AbstractModifier implements
 
         case SUBTRACT:
             d = timed.getStartBeat() - value;
+            logger.debug("value {} start {} d {}", value, timed.getStartBeat(), d);            
             if (d < 1d) {
                 logger.debug("value {} is < 1, setting to 1",
                         d);
@@ -251,10 +252,3 @@ public class StartBeatModifier extends AbstractModifier implements
         this.values.addAll(values);
     }
 }
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
- */
