@@ -148,9 +148,16 @@ public class MIDIPerformer implements Runnable {
         play();
     }
 
-    public void score(Score score) {
+    public MIDIPerformer score(Score score) {
         this.sequence = ScoreFactory.scoreToSequence(score);
         this.resolution = score.getResolution();
+        return this;
+    }
+    
+    public MIDIPerformer sequence(Sequence s) {
+        this.sequence = s;
+        this.resolution = s.getResolution();
+        return this;
     }
 
     public void play(MIDITrack track) {
