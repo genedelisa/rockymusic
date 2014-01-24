@@ -33,6 +33,7 @@ import javax.sound.midi.MetaEventListener;
 import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiDevice.Info;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
@@ -47,13 +48,15 @@ import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
 /**
- * You can play a single Sequence,Track, or Score with play.
- * Or, you can add them, then call start to play them in order.
+ * You can play a single Sequence,Track, or Score with play. Or, you can add
+ * them, then call start to play them in order.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 public class MIDIPerformer implements Runnable {
+
+    // TODO is was 3 different classes. Clean it up.
 
     private static final Logger logger = LoggerFactory
             .getLogger(MIDIPerformer.class);
@@ -80,38 +83,24 @@ public class MIDIPerformer implements Runnable {
         return null;
     }
 
-    // public static void main(String[] args) {
-    // MIDINoteList notelist = null;
-    //
-    // // notelist = MIDINoteListFactory
-    // // .createFromIntervals(1, 2, 3);
-    // // notelist.sequential();
-    // MIDIPerformer perf = new MIDIPerformer();
-    //
-    // // perf.with(notelist).atTempo(240f).clickTrack(true).play();
-    //
-    // notelist = MIDINoteListFactory.createFromIntervals(3, 6, 1)
-    // .sequential();
-    // notelist.setInstrument(MIDIGMPatch.VOICES);
-    // System.err.println(notelist);
-    // perf.notelist(notelist).clickTrack(true).atTempo(60).play();
-    //
-    // }
-
     private boolean continuousLoop = false;
-    private boolean playing;
+    //private boolean playing;
     private boolean midiEnd;
     private int loopCount = 1;
     private List<MidiDevice> openedMidiDeviceList;
-    private Object playLock = new Object();
+    //private Object playLock = new Object();
     private Receiver receiver;
     private Sequence sequence;
     private Sequencer sequencer;
     private String sequencerName;
     private float tempo = 120f;
     private float tempoFactor = 1f;
+    private int resolution = 480;    
     private List<Sequence> sequences;
-    long silenceBetween = 0;
+    private ListIterator<Sequence> listIterator;    
+    private long silenceBetween = 0;
+    private Thread thread;
+    private int maxIterations = 2;
 
     public MIDIPerformer() {
         openedMidiDeviceList = new ArrayList<MidiDevice>();
@@ -121,7 +110,17 @@ public class MIDIPerformer implements Runnable {
     }
 
     public MIDIPerformer atTempo(float t) {
-        tempo = t;
+        this.tempo = t;
+        return this;
+    }
+
+    public MIDIPerformer atTempoFactor(float t) {
+        this.tempoFactor = t;
+        return this;
+    }
+
+    public MIDIPerformer receiver(Receiver receiver) {
+        this.receiver = receiver;
         return this;
     }
 
@@ -144,78 +143,98 @@ public class MIDIPerformer implements Runnable {
     }
 
     public void play(Score score) {
-        Sequence s = ScoreFactory.scoreToSequence(score);
-        play(s);
+        this.sequence = ScoreFactory.scoreToSequence(score);
+        this.resolution = score.getResolution();
+        play();
+    }
+
+    public void score(Score score) {
+        this.sequence = ScoreFactory.scoreToSequence(score);
+        this.resolution = score.getResolution();
     }
 
     public void play(MIDITrack track) {
-        Sequence sequence = MIDITrackFactory.trackToSequence(track, 480);
-        this.play(sequence);
+        this.sequence = MIDITrackFactory
+                .trackToSequence(track, this.resolution);
+        this.play();
+    }
+
+    public MIDIPerformer track(MIDITrack track) {
+        this.sequence = MIDITrackFactory
+                .trackToSequence(track, this.resolution);
+        return this;
     }
 
     /**
-     * To play multiple Sequences in order.
-     * Add them, then start the Performer.
+     * Play the current Sequence. Does nothing if you haven't set the Sequence.
+     */
+    public void play() {
+        if (this.sequence != null) {
+            this.playSequence();
+        }
+    }
+
+    /**
+     * To play multiple Sequences in order. Add them, then start the Performer.
      * 
      * @param sequence
      */
-    public void add(Sequence sequence) {
+    public MIDIPerformer add(Sequence sequence) {
         this.sequences.add(sequence);
         this.maxIterations = this.sequences.size();
-    }
-    
-    public void add(MIDITrack track) {
-        this.add(MIDITrackFactory.trackToSequence(track, 480));
+        this.resolution = sequence.getResolution();
+        return this;
     }
 
-//    public void play(Sequence... sequences) {
-//        this.sequences.clear();
-//        for (Sequence s : sequences) {
-//            this.sequences.add(s);
-//        }
-//    }
+    public MIDIPerformer add(MIDITrack track) {
+        this.add(MIDITrackFactory.trackToSequence(track, resolution));
+        return this;
+    }
 
-    public void play(Sequence sequence) {
-        this.sequence = sequence;
+    // public void play(Sequence... sequences) {
+    // this.sequences.clear();
+    // for (Sequence s : sequences) {
+    // this.sequences.add(s);
+    // }
+    // }
 
-        logger.debug("play");
-        setupSequencer();
-        if (receiver != null) {
-            try {
-                sequencer.getTransmitter().setReceiver(receiver);
-            } catch (MidiUnavailableException me) {
-                if (logger.isErrorEnabled()) {
-                    logger.error(me.getMessage(), me);
-                }
-                return;
-            }
-        }
+    /**
+     * Plays this.sequence.
+     */
+    private void playSequence() {
+        this.midiEnd = false;
 
-        if (sequencer != null && sequencer.isOpen()) {
-            sequencer.stop();
-            sequencer.close();
-            logger.error("stopped and closed already open sequencer");
-
+        if (this.sequencer == null) {
+            setupSequencer();
         }
         openSequencer();
 
+        try {
+            logger.debug("setting tempo to {} BPM", this.tempo);
+            sequencer.setTempoFactor(this.tempoFactor);
+            sequencer.setTempoInBPM(this.tempo);
+            sequencer.setSequence(this.sequence);
+        } catch (InvalidMidiDataException e) {
+            logger.error(e.getMessage(), e);
+            return;
+        }
+        // do this from a GUI where you can send a stop message
         if (continuousLoop) {
             sequencer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY);
         }
 
-        try {
-            logger.debug("setting tempo to " + tempo);
-
-            sequencer.setTempoFactor(1f);
-            sequencer.setTempoInBPM(tempo);
-            sequencer.setSequence(this.sequence);
-            sequencer.start();
-        } catch (InvalidMidiDataException e) {
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
+        logger.debug("Starting sequencer");
+        this.sequencer.start();
+        while (!this.midiEnd && this.thread !=
+                null) {
+            // logger.debug("Haven't reached end yet");
+            try {
+                Thread.sleep(this.silenceBetween);
+            } catch (Exception e) {
+                break;
             }
-            return;
         }
+
     }
 
     private void openSequencer() {
@@ -230,31 +249,36 @@ public class MIDIPerformer implements Runnable {
         }
     }
 
-    public void playlock(Sequence sequence) {
-        synchronized (playLock) {
-            if (sequencer != null && sequencer.isRunning()) {
-                logger.debug("already RUNNING");
-                while (true) {
-                    try {
-                        playLock.wait();
-                    } catch (InterruptedException e) {
-                        logger.error(e.getLocalizedMessage(), e);
-                    }
-                }
-            }
-            this.play(sequence);
-        }
-    }
+    // public void playlock(Sequence sequence) {
+    // synchronized (playLock) {
+    // if (sequencer != null && sequencer.isRunning()) {
+    // logger.debug("already RUNNING");
+    // while (true) {
+    // try {
+    // playLock.wait();
+    // } catch (InterruptedException e) {
+    // logger.error(e.getLocalizedMessage(), e);
+    // }
+    // }
+    // }
+    // this.play();
+    // }
+    // }
 
     /**
+     * Sets this.sequencer. If sequencerName is set, it will try that first.
+     * Otherwise it returns the system sequencer. And end of track listener is
+     * set. If this.receiver is not null, it is set.
+     * 
      * @see http://java.sun.com/docs/books/tutorial/sound/MIDI-messages.html
      */
     private void setupSequencer() {
-        if (sequencerName != null) {
-            MidiDevice.Info seqInfo = getMidiDeviceInfo(sequencerName,
+        if (this.sequencerName != null) {
+            MidiDevice.Info seqInfo = getMidiDeviceInfo(this.sequencerName,
                     true);
             if (seqInfo == null) {
-                System.exit(1);
+                logger.debug("device Info is null for {}", this.sequencerName);
+                return;
             }
             try {
                 sequencer = (Sequencer) MidiSystem.getMidiDevice(seqInfo);
@@ -263,7 +287,8 @@ public class MIDIPerformer implements Runnable {
             }
         } else {
             try {
-                sequencer = MidiSystem.getSequencer();
+                logger.debug("Getting system sequencer");
+                this.sequencer = MidiSystem.getSequencer();
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
             }
@@ -271,54 +296,23 @@ public class MIDIPerformer implements Runnable {
         sequencer.setTempoFactor(tempoFactor);
         sequencer.setTempoInBPM(tempo);
 
-        // if (this.sequencer instanceof Synthesizer) {
-        // /* Sun implementation; no action required. */
-        // } else {
-        // try {
-        // Synthesizer synth = MidiSystem.getSynthesizer();
-        // synth.open();
-        // this.openedMidiDeviceList.add(synth);
-        // Receiver synthReceiver = synth.getReceiver();
-        // Transmitter seqTransmitter = this.sequencer.getTransmitter();
-        // seqTransmitter.setReceiver(synthReceiver);
-        // } catch (MidiUnavailableException e) {
-        // e.printStackTrace();
-        // }
-        // }
-
-        // int[] anControllers = new int[128];
-        // for (int i = 0; i < anControllers.length; i++) {
-        // anControllers[i] = i;
-        // }
-        // this.sequencer.addControllerEventListener(new
-        // ControllerEventListener() {
-        // public void controlChange(ShortMessage message) {
-        // System.out.println("%%% ShortMessage: " +
-        // MIDIUtils.printFull(message));
-        // System.out.println("%%% ShortMessage controller: "
-        // + message.getData1());
-        // System.out.println("%%% ShortMessage value: "
-        // + message.getData2());
-        // }
-        // }, anControllers);
-
         sequencer.addMetaEventListener(new MetaEventListener() {
             @Override
             public void meta(MetaMessage event) {
                 logger.debug("MIDIPerformer meta: "
                         + Integer.toHexString(event.getType()));
                 MIDIUtils.print(event);
-
                 if (event.getType() == 0x2F
                         && loopCount != Sequencer.LOOP_CONTINUOUSLY) {
                     logger.debug("end of MIDI. stopping sequencer");
                     stopPlaying();
-                    playing = false;
+                   // playing = false;
                     midiEnd = true;
                 }
             }
         });
 
+        this.setReceiver(this.receiver);
     }
 
     public void stopPlaying() {
@@ -358,12 +352,8 @@ public class MIDIPerformer implements Runnable {
 
     public void playFirstInList() {
         this.sequence = this.sequences.get(0);
-        this.play(this.sequence);
+        this.play();
     }
-
-    private Thread thread;
-    private ListIterator<Sequence> listIterator;
-    private int maxIterations = 2;
 
     public void start() {
         this.listIterator = this.sequences.listIterator(0);
@@ -398,64 +388,23 @@ public class MIDIPerformer implements Runnable {
             }
         } else {
             for (int i = 0; i < this.maxIterations; i++) {
+                logger.debug("iteration {}", i);
                 this.sequence = this.next();
-                this.openSequencer();
                 this.playSequence();
             }
         }
     }
 
     private Sequence next() {
+        logger.debug("calling next");
         if (this.listIterator.hasNext() == false) {
+            logger.debug(
+                    "new interator. list has {} sequences",
+                    this.sequences.size());
             this.listIterator = this.sequences.listIterator(0);
         }
-        Sequence sequence = (Sequence) this.listIterator.next();
+        Sequence sequence = this.listIterator.next();
         return sequence;
-    }
-
-    private void playSequence() {
-        this.midiEnd = false;
-        if (this.thread != null) {
-            if (this.sequencer == null) {
-                setupSequencer();
-                openSequencer();
-            }
-            try {
-                this.sequencer.setSequence(sequence);
-            } catch (InvalidMidiDataException e) {
-                e.printStackTrace();
-            }
-            this.sequencer.start();
-            while (!this.midiEnd && this.thread !=
-                    null) {
-                try {
-                    
-                    Thread.sleep(silenceBetween);
-                } catch (Exception e) {
-                    break;
-                }
-            }
-            if (this.sequencer.isOpen()) {
-                this.sequencer.stop();
-                this.sequencer.close();
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        Scale scale = ScaleFactory.getScaleByName("Major");
-        MIDITrack track = ScaleFactory.createMIDITrack(scale,
-                C5);
-        MIDIPerformer mp = new MIDIPerformer();
-        Sequence sequence = MIDITrackFactory.trackToSequence(track, 480);
-        mp.add(sequence);
-
-        scale = ScaleFactory.getScaleByName("Pelog");
-        track = ScaleFactory.createMIDITrack(scale,
-                C5);
-        mp.add(track);
-
-        mp.start();
     }
 
     // get this to work?
@@ -475,6 +424,110 @@ public class MIDIPerformer implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @return the maxIterations
+     */
+    public int getMaxIterations() {
+        return maxIterations;
+    }
+
+    /**
+     * @param maxIterations
+     *            the maxIterations to set
+     */
+    public void setMaxIterations(int maxIterations) {
+        this.maxIterations = maxIterations;
+    }
+
+    public void clear() {
+        this.sequences.clear();
+    }
+
+    public void setReceiver(Receiver receiver) {
+        this.receiver = receiver;
+        if (this.receiver != null && this.sequencer != null) {
+            try {
+                sequencer.getTransmitter().setReceiver(this.receiver);
+            } catch (MidiUnavailableException me) {
+                logger.error(me.getMessage(), me);
+            }
+        }
+    }
+
+    /**
+     * @return the tempo
+     */
+    public float getTempo() {
+        return tempo;
+    }
+
+    /**
+     * @param tempo
+     *            the tempo to set
+     */
+    public void setTempo(float bpm) {
+        this.tempo = bpm;
+        if (this.sequencer != null) {
+            logger.debug("setting tempo  to {} BPM", this.tempo);
+            sequencer.setTempoInBPM(bpm);
+        } else {
+            logger.debug("cannot set tempo on null sequencer");
+        }
+    }
+
+    /**
+     * @return the tempoFactor
+     */
+    public float getTempoFactor() {
+        return tempoFactor;
+    }
+
+    /**
+     * @param tempoFactor
+     *            the tempoFactor to set
+     */
+    public void setTempoFactor(float tempoFactor) {
+        this.tempoFactor = tempoFactor;
+        if (this.sequencer != null) {
+            logger.debug("setting tempo factor to {}", this.tempoFactor);
+            sequencer.setTempoFactor(tempoFactor);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scale scale = ScaleFactory.getScaleByName("Major");
+        MIDITrack track = ScaleFactory.createMIDITrack(scale,
+                C5);
+        MIDIPerformer mp = new MIDIPerformer();
+
+        // you can add a Sequence
+        Sequence sequence = MIDITrackFactory.trackToSequence(track, 480);
+        mp.add(sequence);
+
+        // or a track
+        scale = ScaleFactory.getScaleByName("Pelog");
+        track = ScaleFactory.createMIDITrack(scale,
+                C5);
+        mp.add(track);
+
+        mp.setTempoFactor(3f);
+
+        // loop the first sequence
+        mp.setContinuousLoop(true);
+
+        // play both, one after the other if continuous is false
+        mp.start();
+
+        // since we set loop continuously
+        try {
+            Thread.sleep(10 * 1000);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
+        mp.stop();
+
     }
 
 }
