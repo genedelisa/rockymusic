@@ -55,6 +55,10 @@ public class PitchFormat implements Serializable {
 
     static final String[] FLATPITCHES = { "C", "Db", "D", "Eb", "E",
             "F", "Gb", "G", "Ab", "A", "Bb", "B" };
+    
+    public static String[] getFlatPitches() {
+        return FLATPITCHES;
+    }
 
     // TODO allow this to be selectable
     // public static final String[] FLATPITCHES = { "C", "Df", "D", "Ef", "E",
