@@ -839,7 +839,7 @@ public class MIDITrackFactory {
      * @return a MIDITrack
      */
 
-    public static MIDITrack getNoteListPattern(final int[] degrees,
+    public static MIDITrack getTrackPattern(final int[] degrees,
             final int[] pattern, final int limit, int startingMIDINumber,
             final int nOctaves, final double duration, final boolean reverse,
             final double restBetweenPatterns, final boolean upAndDown) {

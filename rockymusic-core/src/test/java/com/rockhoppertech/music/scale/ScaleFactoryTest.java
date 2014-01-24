@@ -302,7 +302,7 @@ public class ScaleFactoryTest {
 
 	/**
 	 * Test method for
-	 * {@link com.rockhoppertech.music.scale.ScaleFactory#getNoteListPattern(com.rockhoppertech.music.Scale, int[], int, int, int, double, boolean, double, boolean)}
+	 * {@link com.rockhoppertech.music.scale.ScaleFactory#getTrackPattern(com.rockhoppertech.music.Scale, int[], int, int, int, double, boolean, double, boolean)}
 	 * .
 	 */
 	@Test

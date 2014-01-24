@@ -569,7 +569,7 @@ public class ScaleFactory {
         final int numOcts = (Pitch.MAX - startingMIDINumber) / 12 + 1;
         final int[] degrees = Interval.intervalsToDegrees(scale.getIntervals(),
                 numOcts);
-        return MIDITrackFactory.getNoteListPattern(degrees, pattern, limit,
+        return MIDITrackFactory.getTrackPattern(degrees, pattern, limit,
                 startingMIDINumber, nOctaves, duration, reverse,
                 restBetweenPatterns, upAndDown);
 

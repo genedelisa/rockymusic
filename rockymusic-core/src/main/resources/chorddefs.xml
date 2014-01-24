@@ -1,0 +1,3044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  Rocky Music Core
+  %%
+  Copyright (C) 1996 - 2014 Rockhopper Technologies
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<!--  chord definitions -->
+<!-- Gene De Lisa gene@genedelisa.com -->
+<chords xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="chords.xsd">
+	<chord name="maj">
+		<aliases>
+			<alias>Maj</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+		</voicing>
+		<description>major</description>
+	</chord>
+	<chord name="m">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+		</voicing>
+		<description>minor</description>
+	</chord>
+
+	<chord name="maj9-5">
+		<aliases>
+			<alias>maj9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</voicing>
+		<description>major ninth diminished fifth</description>
+	</chord>
+	<chord name="7+9">
+		<aliases>
+			<alias>7#9</alias>
+		</aliases>
+
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</voicing>
+
+		<description>seventh augmented ninth</description>
+	</chord>
+
+	<chord name="7+9-13">
+		<aliases>
+			<alias>7#9b13</alias>
+		</aliases>
+
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh augmented ninth lowered thirteenth</description>
+	</chord>
+
+	<chord name="7+9+11-13">
+		<aliases>
+			<alias>7#9#11b13</alias>
+		</aliases>
+
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh augmented ninth augmented eleventh lowered thirteenth</description>
+	</chord>
+
+	<chord name="13+11-9">
+		<aliases>
+			<alias>13+11b9</alias>
+			<alias>13#11b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</voicing>
+		<description>
+			thirteenth augmented eleventh diminished ninth
+		</description>
+	</chord>
+	<chord name="13+11">
+		<aliases>
+			<alias>13#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh
+		</description>
+	</chord>
+	<chord name="13+5">
+		<aliases>
+			<alias>13#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh
+		</description>
+	</chord>
+	<chord name="13+5-9">
+		<aliases>
+			<alias>13#5b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented fifth flat ninth
+		</description>
+	</chord>
+	<chord name="13+5-9+11">
+		<aliases>
+			<alias>13#5b9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented fifth flat ninth sharp 11
+		</description>
+	</chord>
+	<chord name="13+5+11">
+		<aliases>
+			<alias>13#5#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh
+		</description>
+	</chord>
+	<chord name="m11-9">
+		<aliases>
+			<alias>m11b9</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+		</spelling>
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</voicing>
+		<description>minor eleventh flat nine</description>
+	</chord>
+	<chord name="9-5">
+		<aliases>
+			<alias>9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+
+		<voicing>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</voicing>
+		<description>ninth diminished fifth</description>
+	</chord>
+	<chord name="m9-5">
+		<aliases>
+			<alias>m9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>minor ninth diminished fifth</description>
+	</chord>
+	<chord name="7-9">
+		<aliases>
+			<alias>7b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>seventh flat 9</description>
+	</chord>
+	<chord name="7-9-13">
+		<aliases>
+			<alias>7b9b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh flat 9 flat 13</description>
+	</chord>
+	<chord name="7-9+11">
+		<aliases>
+			<alias>7b9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>seventh flat 9 sharp 11</description>
+	</chord>
+	<chord name="m6">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+		</spelling>
+		<description>minor sixth</description>
+	</chord>
+	<chord name="m13-5">
+		<aliases>
+			<alias>m13b5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>minor thirteenth diminished fifth</description>
+	</chord>
+	<chord name="13-5">
+		<aliases>
+			<alias>13b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished fifth</description>
+	</chord>
+	<chord name="13-5-9">
+		<aliases>
+			<alias>13b5b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished fifth diminished ninth</description>
+	</chord>
+	<chord name="13-5+9">
+		<aliases>
+			<alias>13b5#9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished fifth raised ninth</description>
+	</chord>
+	<chord name="7+11-9-5">
+		<aliases>
+			<alias>7+11b9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh diminished ninth diminished
+			fifth
+        </description>
+	</chord>
+
+	<chord name="7+11-13">
+		<aliases>
+			<alias>7+11b13</alias>
+			<alias>7#11b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh diminished thirteenth</description>
+	</chord>
+
+	<chord name="sus4">
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+		</spelling>
+		<description>suspended fourth</description>
+	</chord>
+	<chord name="13+11-9-5">
+		<aliases>
+			<alias>13+11b9b5</alias>
+			<alias>13#11b9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh diminished ninth diminished
+			fifth
+        </description>
+	</chord>
+	<chord name="7+11">
+		<aliases>
+			<alias>7#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>seventh augmented eleventh</description>
+	</chord>
+	<chord name="min/maj9">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>minor/major ninth</description>
+	</chord>
+	<chord name="maj9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>major ninth augmented fifth</description>
+	</chord>
+	<chord name="7+11-9">
+		<aliases>
+			<alias>7+11b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh diminished ninth
+        </description>
+	</chord>
+	<chord name="13+9-5">
+		<aliases>
+			<alias>13+9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented ninth diminished fifth
+        </description>
+	</chord>
+	<chord name="maj11-5">
+		<aliases>
+			<alias>maj11b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>major eleventh augmented fifth</description>
+	</chord>
+	<chord name="13-9">
+		<aliases>
+			<alias>13b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished ninth</description>
+	</chord>
+	<chord name="13-9+11">
+		<aliases>
+			<alias>13b9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>thirteenth diminished ninth raised eleventh</description>
+	</chord>
+	<chord name="7-9+11-13">
+		<aliases>
+			<alias>7b9#11b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh flat thirteenth diminished ninth raised eleventh</description>
+	</chord>
+	<chord name="9b13">
+		<aliases>
+			<alias>9-13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>ninth diminished thirteenth</description>
+	</chord>
+	<chord name="m13">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>minor thirteenth</description>
+	</chord>
+	<chord name="min/maj7">
+		<aliases>
+			<alias>mMaj7</alias>
+			<alias>mM7</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>minor/major seventh</description>
+	</chord>
+	<chord name="maj13">
+		<aliases>
+			<alias>Maj13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>major thirteenth</description>
+	</chord>
+	<chord name="9b5">
+		<aliases>
+			<alias>9-5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>ninth diminished fifth</description>
+	</chord>
+	<chord name="9b5b13">
+		<aliases>
+			<alias>9-5-13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>ninth diminished fifth diminished thirteenth</description>
+	</chord>
+	<chord name="7#5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh sharp 5</description>
+	</chord>
+	<chord name="m11-9-5">
+		<aliases>
+			<alias>m11b9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>
+			minor eleventh flat nine diminished fifth
+        </description>
+	</chord>
+	<chord name="m13-9">
+		<aliases>
+			<alias>m13b9</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>minor thirteenth flat nine</description>
+	</chord>
+	<chord name="13-9+5">
+		<aliases>
+			<alias>13b9+5</alias>
+			<alias>13b9#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished ninth</description>
+	</chord>
+	<chord name="m7-9">
+		<aliases>
+			<alias>m7b9</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>minor seventh flat nine</description>
+	</chord>
+	<chord name="7+11+9">
+		<aliases>
+			<alias>7#11#9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh augmented ninth
+        </description>
+	</chord>
+	<chord name="aug">
+		<aliases>
+			<alias>+</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+		</spelling>
+		<description>augmented</description>
+	</chord>
+	<chord name="13+11+9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh augmented ninth augmented
+			fifth
+        </description>
+	</chord>
+	<chord name="maj11">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>major eleventh</description>
+	</chord>
+	<chord name="7/11">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>seven eleven</description>
+	</chord>
+	<chord name="m11">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>minor eleventh</description>
+	</chord>
+	<chord name="7+9-5">
+		<aliases>
+			<alias>7+9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth diminished fifth
+        </description>
+	</chord>
+	<chord name="maj13+11">
+		<aliases>
+			<alias>maj13#11</alias>
+			<alias>Maj13+11</alias>
+			<alias>Maj13#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>major thirteenth augmented eleventh</description>
+	</chord>
+	<chord name="11-9-5">
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>
+			eleventh diminished ninth diminished fifth
+        </description>
+	</chord>
+	<chord name="7+11+9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh augmented ninth augmented
+			fifth
+        </description>
+	</chord>
+	<chord name="11-9">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>eleventh diminished ninth</description>
+	</chord>
+	<chord name="m6/7/11">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>10</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>b7</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>minor six seven eleven</description>
+	</chord>
+	<chord name="13+11+9-5">
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh augmented ninth diminished
+			fifth
+        </description>
+	</chord>
+	<chord name="13+11+9">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh augmented ninth
+		</description>
+	</chord>
+	<chord name="13">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth</description>
+	</chord>
+	<chord name="7+9+5">
+		<aliases>
+			<alias>7#9#5</alias>
+			<alias>7+5+9</alias>
+			<alias>7#5#9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth
+        </description>
+	</chord>
+	
+	<chord name="7+9+5+11">
+		<aliases>
+			<alias>7#9#5#11</alias>
+			<alias>7+5+9+11</alias>
+			<alias>7#5#9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth augmented eleventh
+        </description>
+	</chord>
+	<chord name="7+5-9">
+		<aliases>
+			<alias>7#5b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth
+        </description>
+	</chord>
+	<chord name="7+5-9+11">
+		<aliases>
+			<alias>7#5b9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth augmented eleventh
+        </description>
+	</chord>
+	<chord name="7+5+11">
+		<aliases>
+			<alias>7#5#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth
+        </description>
+	</chord>
+	<chord name="13+5+9+11">
+		<aliases>
+			<alias>13#5#9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			seventh augmented ninth augmented fifth augmented eleventh
+        </description>
+	</chord>
+	<chord name="9+5">
+		<aliases>
+			<alias>9#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>ninth augmented fifth</description>
+	</chord>
+	<chord name="9+5+11">
+		<aliases>
+			<alias>9#5#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			ninth augmented
+			fifth augmented eleventh  
+        </description>
+	</chord>
+	<chord name="min/maj11">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>minor/major eleventh</description>
+	</chord>
+	<chord name="9">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>ninth</description>
+	</chord>
+	<chord name="6/7">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>six seven</description>
+	</chord>
+	<chord name="13+9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented ninth augmented fifth
+        </description>
+	</chord>
+	<chord name="m7-5">
+		<aliases>
+			<alias>m7b5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>half diminished</description>
+	</chord>
+	<chord name="dim">
+		<aliases>
+			<alias>°</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+		</spelling>
+		<description>diminished</description>
+	</chord>
+	<chord name="13+9">
+		<aliases>
+			<alias>13#9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth augmented ninth</description>
+	</chord>
+	<chord name="13+9+11">
+		<aliases>
+			<alias>13#9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth augmented ninth augmented eleventh</description>
+	</chord>
+	<chord name="11+9-5">
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>
+			eleventh augmented ninth diminished fifth
+        </description>
+	</chord>
+	<chord name="11+9">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>eleventh augmented ninth</description>
+	</chord>
+	<chord name="9+11">
+		<aliases>
+			<alias>9#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>ninth augmented eleventh </description>
+	</chord>
+
+	<chord name="9+11-13">
+		<aliases>
+			<alias>9#11b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>ninth augmented eleventh </description>
+	</chord>
+	<chord name="maj7">
+		<aliases>
+			<alias>Maj7</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>major seventh</description>
+	</chord>
+	<chord name="6/7sus">
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>six seven suspended</description>
+	</chord>
+	<chord name="maj9+11">
+
+		<aliases>
+			<alias>maj9#11</alias>
+			<alias>Maj9+11</alias>
+			<alias>Maj9#11</alias>
+		</aliases>
+
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>major ninth augmented eleventh</description>
+	</chord>
+	<chord name="11+9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>
+			eleventh augmented ninth augmented fifth
+        </description>
+	</chord>
+	<chord name="maj7-5">
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>major seventh flat 5</description>
+	</chord>
+	<chord name="6">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>6</degree>
+		</spelling>
+		<description>six</description>
+	</chord>
+	<chord name="69">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>6</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>added sixth and ninth</description>
+	</chord>
+	<chord name="m69">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>6</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>minor with added sixth and ninth</description>
+	</chord>
+	<chord name="m9">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>minor ninth</description>
+	</chord>
+	<chord name="13+11">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth augmented eleventh</description>
+	</chord>
+	<chord name="6/9">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>major sixth added ninth</description>
+	</chord>
+	<chord name="m7-9-5">
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>
+			minor seventh flat nine diminished fifth
+        </description>
+	</chord>
+	<chord name="m7b9b5">
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>
+			minor seventh flat nine diminished fifth
+        </description>
+	</chord>
+	<chord name="add+11">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>added augmented eleventh</description>
+	</chord>
+	<chord name="maj9">
+		<aliases>
+			<alias>Maj9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>major ninth</description>
+	</chord>
+	<chord name="Maj9(no 3)">
+		<aliases>
+			<alias>maj9(no 3)</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>major ninth no third (biab)</description>
+	</chord>
+	<chord name="7+11-9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh diminished ninth augmented
+			fifth
+        </description>
+	</chord>
+	<chord name="m13/11">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>minor thirteen eleven</description>
+	</chord>
+	<chord name="13+11-9+5">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>
+			thirteenth augmented eleventh diminished ninth augmented
+			fifth
+        </description>
+	</chord>
+	<chord name="7-9-5">
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>seventh flat 9 dimished fifth</description>
+	</chord>
+	<chord name="11">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>eleventh</description>
+	</chord>
+	<chord name="7-5">
+		<aliases>
+			<alias>7b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh flat 5</description>
+	</chord>
+	<chord name="7-5-13">
+		<aliases>
+			<alias>7b5b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh flat 5 flat 13</description>
+	</chord>
+	<chord name="7-5-9">
+		<aliases>
+			<alias>7b5b9</alias>
+			<alias>7alt</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>seventh flat 5 flat 9</description>
+	</chord>
+	<chord name="7-5+9">
+		<aliases>
+			<alias>7b5#9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+		</spelling>
+		<description>seventh flat 5 sharp 9 </description>
+	</chord>
+	<chord name="7-5+9-13">
+		<aliases>
+			<alias>7b5#9b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh flat 5 sharp 9 flat 13</description>
+	</chord>
+	<chord name="7-5-9-13">
+		<aliases>
+			<alias>7b5b9b13</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>seventh flat 5 flat 9 flat 13</description>
+	</chord>
+	<chord name="13sus">
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth suspended</description>
+	</chord>
+	<chord name="11-9+5">
+		<aliases>
+			<alias>11#5b9</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>
+			eleventh diminished ninth augmented fifth
+        </description>
+	</chord>
+	<chord name="7+11+9-5">
+		<aliases>
+			<alias>7#11#9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>15</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>#9</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>
+			seventh augmented eleventh augmented ninth diminished
+			fifth
+        </description>
+	</chord>
+	<chord name="min/maj13">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>minor/major thirteenth</description>
+	</chord>
+
+	<chord name="dim7">
+		<aliases>
+			<alias>°7</alias>
+			<alias>o7</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>9</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>bb7</degree>
+		</spelling>
+		<description>diminished seventh</description>
+	</chord>
+	<chord name="maj7+5">
+		<aliases>
+			<alias>maj7#5</alias>
+			<alias>Maj7#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>major seventh sharp 5</description>
+	</chord>
+	<chord name="m7#5">
+		<aliases>
+			<alias>m7+5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>minor seventh sharp 5</description>
+	</chord>
+	<chord name="7">
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh</description>
+	</chord>
+	<chord name="7+5">
+		<aliases>
+			<alias>7#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh sharp 5</description>
+	</chord>
+	<chord name="m11-5">
+		<aliases>
+			<alias>m11-5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>minor eleventh diminished fifth</description>
+	</chord>
+	<chord name="maj11+5">
+		<aliases>
+			<alias>maj11#5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>major eleventh augmented fifth</description>
+	</chord>
+	<chord name="13-9-5">
+		<aliases>
+			<alias>13b9b5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>thirteenth diminished ninth</description>
+	</chord>
+	<chord name="7-9+5">
+		<aliases>
+			<alias>7b9#5</alias>
+			<alias>7b9+5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+		</spelling>
+		<description>seventh flat 9 augmented fifth</description>
+	</chord>
+	<chord name="m7/11">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>17</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>11</degree>
+		</spelling>
+		<description>minor seven eleven</description>
+	</chord>
+	<chord name="m6/9">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>minor six nine</description>
+	</chord>
+	<chord name="9#5">
+		<aliases>
+			<alias>9+5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b6</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>ninth augmented fifth</description>
+	</chord>
+
+	<chord name="7b5">
+		<aliases>
+			<alias>7-5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh flat 5</description>
+	</chord>
+
+	<chord name="b5">
+		<aliases>
+			<alias>-5</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>6</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>b5</degree>
+		</spelling>
+		<description>flat 5</description>
+	</chord>
+
+	<chord name="maj7sus4">
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>major seventh suspended fourth</description>
+	</chord>
+	<chord name="maj7+11">
+		<aliases>
+			<alias>maj7#11</alias>
+		</aliases>
+		<intervals>
+			<interval>4</interval>
+			<interval>7</interval>
+			<interval>11</interval>
+			<interval>18</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>7</degree>
+			<degree>#11</degree>
+		</spelling>
+		<description>major seventh augmented eleventh</description>
+	</chord>
+	<chord name="m6/7">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>9</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>bb7</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>minor six seven</description>
+	</chord>
+	<chord name="m7">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>minor seventh</description>
+	</chord>
+
+	<!-- TODO check these -->
+	<chord name="2">
+		<intervals>
+			<interval>2</interval>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>2</degree>
+			<degree>5</degree>
+		</spelling>
+		<description>second and fifth</description>
+	</chord>
+	<chord name="4">
+		<intervals>
+			<interval>5</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+		</spelling>
+		<description>fourth</description>
+	</chord>
+	<chord name="5">
+		<intervals>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>5</degree>
+		</spelling>
+		<description>fifth</description>
+	</chord>
+	
+	<chord name="maug">
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+		</spelling>
+		<description>todo</description>
+	</chord>
+
+	<chord name="m#5">
+		<aliases>
+			<alias>m+5</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>8</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+		</spelling>
+		<description>minor augmented fifth</description>
+	</chord>
+
+	<chord name="7+">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>7</degree>
+		</spelling>
+		<description>todo</description>
+	</chord>
+	<chord name="9+">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+		</spelling>
+		<description>todo</description>
+	</chord>
+	<chord name="13+">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>11</interval>
+			<interval>14</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>#5</degree>
+			<degree>7</degree>
+			<degree>9</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>todo</description>
+	</chord>
+	<chord name="7b13">
+		<intervals>
+			<interval>4</interval>
+			<interval>8</interval>
+			<interval>10</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>todo</description>
+	</chord>
+
+	<!--
+		TODO
+		
+		"7alt", 
+		"7sus", /* 128 */ "13sus", /* 129 */ "7susb13", /* 130 */ "7sus#11",
+		/* 131 */ "13sus#11", /* 132 */ "7sus#11b13", /* 133 */ "9sus", /* 134
+		*/ "9susb13", /* 136 */ "9sus#11", /* 137 */ "13sus#11", /* 138 */
+		"9sus#11b13", /* 139 */ "7susb9", /* 140 */ "13susb9", /* 141 */
+		"7susb913", /* 142 */ "7susb9#11", /* 143 */ "13susb9#11", /* 144 */
+		"7susb9#11b13", /* 145 */ "7sus#9", /* 146 */ "13sus#9", /* 147 */
+		"7sus#9b13", /* 148 */ "9sus#11", /* 149 */ "13sus#9#11", /* 150 */
+		"7sus#9#11b13", /* 151 */ "7susb5", /* 152 */ "13susb5", /* 153 */
+		"7susb5b13", /* 154 */ "9susb5", /* 155 */ "9susb5b13", /* 156 */
+		"7susb5b9", /* 157 */ "13susb5b9", /* 158 */ "7susb5b9b13", /* 159 */
+		"7susb5#9", /* 160 */ "13susb5#9", /* 161 */ "7susb5#9b13", /* 162 */
+		"7sus#5", /* 163 */ "13sus#5", /* 164 */ "7sus#5#11", /* 165 */
+		"13sus#5#11", /* 166 */ "9sus#5", /* 167 */ "9sus#5#11", /* 168 */
+		"7sus#5b9", /* 169 */ "13sus#5b9", /* 170 */ "7sus#5b9#11", /* 171 */
+		"13sus#5b9#11", /* 172 */ "7sus#5#9", /* 173 */ "13sus#5#9#11", /* 174
+		*/ "7sus#5#9#11", /* 175 */ "13sus#5#9#11",
+		"sus", /* 184 */
+		
+		
+		
+		
+		
+		"7sus", /* 128 */
+		"7susb13", /* 130 */
+		"7sus#11", /* 131 */
+		"7sus#11b13", /* 133 */
+		7susb9", /* 140 */
+		"7susb913", /* 142 */
+		"7susb9#11", /* 143 */
+		"7susb9#11b13", /* 145 */
+		"7sus#9", /* 146 */
+		"7sus#9b13", /* 148 */
+		"7sus#9#11b13", /* 151 */
+		"7susb5", /* 152 */
+		"7susb5b13", /* 154 */
+		"7susb5b9", /* 157 */
+		"7susb5b9b13", /* 159 */
+		"7susb5#9", /* 160 */
+		"7susb5#9b13", /* 162 */
+		"7sus#5", /* 163 */
+		"7sus#5#11", /* 165 */
+		"7sus#5b9", /* 169 */
+		7sus#5b9#11", /* 171 */
+		"7sus#5#9", /* 173 */
+			"7sus#5#9#11", /* 175 */
+			
+		"13sus", /* 129 */
+		"13sus#11", /* 132 */
+		"13sus#11", /* 138 */
+		"13susb9", /* 141 */
+		"13susb9#11", /* 144 */
+		"13sus#9", /* 147 */
+		"13sus#9#11", /* 150 */
+		"13susb5", /* 153 */
+		"13susb5b9", /* 158 */
+		"13susb5#9", /* 161 */
+		"13sus#5", /* 164 */
+		"13sus#5#11", /* 166 */
+		"13sus#5b9", /* 170 */
+		"13sus#5b9#11", /* 172 */
+		"13sus#5#9#11", /* 174 */
+		"13sus#5#9#11", /* 176 */
+			
+		"9sus", /* 134 */
+		"9susb13", /* 136 */
+		"9sus#11", /* 137 */
+		"9sus#11b13", /* 139 */
+		"9sus#11", /* 149 */
+		"9susb5", /* 155 */
+		"9susb5b13", /* 156 */
+		"9sus#5", /* 167 */
+		"9sus#5#11", /* 168 */
+		
+	
+	"13sus", /* 129 */
+		"13sus#11", /* 132 */
+		"13sus#11", /* 138 */
+		"13susb9", /* 141 */
+		"13susb9#11", /* 144 */
+		"13sus#9", /* 147 */
+		"13sus#9#11", /* 150 */
+		"13susb5", /* 153 */
+		"13susb5b9", /* 158 */
+		"13susb5#9", /* 161 */
+		"13sus#5", /* 164 */
+		"13sus#5#11", /* 166 */
+		"13sus#5b9", /* 170 */
+		"13sus#5b9#11", /* 172 */
+		"13sus#5#9#11", /* 174 */
+		"13sus#5#9#11", /* 176 */	
+	-->
+	<chord name="7sus">
+		<aliases>
+			<alias>7s</alias>
+		</aliases>
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+		</spelling>
+		<description>seventh sustained fourth</description>
+	</chord>
+	
+	<chord name="13sus">
+		<aliases>
+			<alias>13s</alias>
+		</aliases>
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>21</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>thirteenth sustained fourth</description>
+	</chord>
+	
+	<chord name="7susb9#11b13">
+		<aliases>
+			<alias>7sus-9+11-13</alias>
+		</aliases>
+		<intervals>
+			<interval>5</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>18</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>4</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>b9</degree>
+			<degree>#11</degree>
+			<degree>b13</degree>
+		</spelling>
+		<description>sustained fourth seventh lowered ninth augmented eleventh lowered thirteenth</description>
+	</chord>
+	
+	
+	<!-- b d f a c e g -->
+	
+	<chord name="dim791113">
+		<aliases>
+			<alias>dim13</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>6</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>b5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>dim thirteenth</description>
+	</chord>
+	
+	<!-- e g b d f a c -->
+	<chord name="m7-91113">
+		<aliases>
+			<alias>dim13</alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>13</interval>
+			<interval>17</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>wtf</description>
+	</chord>
+	<!--  a c e g b d f-->
+	<chord name="m791113">
+		<aliases>
+			<alias></alias>
+		</aliases>
+		<intervals>
+			<interval>3</interval>
+			<interval>7</interval>
+			<interval>10</interval>
+			<interval>14</interval>
+			<interval>17</interval>
+			<interval>20</interval>
+		</intervals>
+		<spelling>
+			<degree>1</degree>
+			<degree>b3</degree>
+			<degree>5</degree>
+			<degree>b7</degree>
+			<degree>9</degree>
+			<degree>11</degree>
+			<degree>13</degree>
+		</spelling>
+		<description>wtf</description>
+	</chord>
+	
+</chords>

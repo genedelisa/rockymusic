@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="alias" type="xsd:string"/>
+  <xsd:element name="interval" type="xsd:string"/>
+  <xsd:element name="chords">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="chord"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="spelling">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="degree"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="description" type="xsd:string"/>
+  <xsd:element name="degree" type="xsd:string"/>
+  <xsd:element name="chord">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element minOccurs="0" ref="aliases"/>
+        <xsd:element ref="intervals"/>
+        <xsd:element ref="spelling"/>
+        <xsd:element minOccurs="0" ref="voicing"/>
+        <xsd:element ref="description"/>
+      </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="aliases">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="alias"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="intervals">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="interval"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="voicing">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" ref="degree"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
