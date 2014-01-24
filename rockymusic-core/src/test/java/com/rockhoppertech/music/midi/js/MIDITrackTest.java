@@ -1256,10 +1256,11 @@ public class MIDITrackTest {
     public void shoudCreateBriefMIDIString() {
         String s = testTrack.toBriefMIDIString();
         assertThat("The string is not null.", s, notNullValue());
+        System.out.println(s);
         assertThat(
                 "the string's contents are correct",
                 s.trim(),
-                equalToIgnoringCase("S+ C5,1.0 D5,1.0 E5,1.0 F5,1.0 G5,1.0 A5,1.0 B5,1.0"));
+                equalToIgnoringCase("S+ C5,1.0,1.0 D5,1.0,1.0 E5,1.0,1.0 F5,1.0,1.0 G5,1.0,1.0 A5,1.0,1.0 B5,1.0,1.0"));
     }
 
     @Test
