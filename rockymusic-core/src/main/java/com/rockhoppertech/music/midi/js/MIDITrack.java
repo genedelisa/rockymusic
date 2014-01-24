@@ -45,6 +45,7 @@ import com.rockhoppertech.music.modifiers.ChannelModifier;
 import com.rockhoppertech.music.modifiers.InstrumentModifier;
 import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.Modifier;
+import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
 import com.rockhoppertech.music.modifiers.VelocityModifier;
@@ -1195,8 +1196,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     /**
      * <code>retrograde</code> reverses the order of the MIDINotes.
-     * It is made sequential. 
-     * The start beat is the beat of the last note. 
+     * The start beats are not in order! It's up to you to change those
+     * if you so desire. You might use sequential() followed by setStartBeat().
      * 
      * The original track is not modified either.
      * 
@@ -1210,25 +1211,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         }
         Collections.reverse(retro);
         MIDITrack t = new MIDITrack(retro);
-        t.sequential();
-        return t;
-    }
-    
-    /**
-     * Reverses the order of the MIDINotes.
-     * @param startBeat the beat on which the track will start
-     * @return a new track
-     */
-    public MIDITrack retrograde(double startBeat) {
-        List<MIDINote> retro = new ArrayList<>();
-
-        for (MIDINote n : notes) {
-            retro.add((MIDINote) n.duplicate());
-        }
-        Collections.reverse(retro);
-        MIDITrack t = new MIDITrack(retro);
-        t.sequential();
-        t.setStartBeat(startBeat);
+        // double startBeat = t.get(0).getStartBeat() + 1d; // beats are 1 based
+        // logger.debug("retro start is {}", startBeat);
+        // StartBeatModifier m = new StartBeatModifier(Operation.SUBTRACT,
+        // startBeat);
+        // t.map(m);
+        // t.sequential();
         return t;
     }
 
@@ -1470,7 +1458,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <code>setStartBeat</code>
+     * <code>setStartBeat</code> sets the start beat of the entire track. 
+     * This is useful in a GUI where you are moving track representations around.
+     * The track needs to be sequential. If the start beats are not in ascending order, it won't work.
+     * e.g. When you call retrograde(), the start beats are not in ascending order.
      * 
      * @param b
      *            a <code>double</code> value
@@ -1487,7 +1478,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         // TODO use the start beat modifier
         for (MIDINote n : notes) {
             double s = n.getStartBeat();
-            n.setStartBeat(s - diff);
+            double newStart = s - diff;
+            logger.debug("old start {} new start {} diff {}", s, newStart, diff);
+            n.setStartBeat(newStart);
+            // n.setStartBeat(s - newStart);
         }
 
         // StartBeatModifier m = new
