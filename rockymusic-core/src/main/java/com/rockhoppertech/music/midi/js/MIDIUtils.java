@@ -1459,11 +1459,40 @@ public final class MIDIUtils {
                     .append(se.getData2());
             sb.append(" val=").append(s14bit);
             break;
+        case ShortMessage.START:
+            sb.append("Start");
+            break;
+        case ShortMessage.STOP:
+            sb.append("Stop");
+            break;
+        case ShortMessage.CONTINUE:
+            sb.append("Continue");
+            break;
+        case ShortMessage.SYSTEM_RESET:
+            sb.append("System reset");
+            break;
+        case ShortMessage.END_OF_EXCLUSIVE:
+            sb.append("Eox");
+            break;
+        case ShortMessage.SONG_SELECT:
+            sb.append("Song Select");
+            break;
+        case ShortMessage.SONG_POSITION_POINTER:
+            sb.append("Song Position Pointer");
+            break;
+        case ShortMessage.TIMING_CLOCK:
+            sb.append("Timing clock");
+            break;
+
         default:
             sb.append("dont know command: ").append(se.getCommand());
             break;
         }
         sb.append(" Channel=").append(se.getChannel());
+
+        sb.append(" Raw hex ").append(Integer.toHexString(se.getData1()))
+                .append(' ')
+                .append(Integer.toHexString(se.getData2()));
 
         /*
          * case MidiEvent.CHANNEL_MODE_MESSAGE: printChannelModeMessage(se);
