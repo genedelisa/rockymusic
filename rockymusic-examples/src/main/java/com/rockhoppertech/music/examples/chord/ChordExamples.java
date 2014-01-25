@@ -148,10 +148,9 @@ public class ChordExamples {
         for (Chord c : chordProgression) {
             logger.debug("chord: {}", c);
         }
-        Scale scale = ScaleFactory.getScaleByName("Major");
-        String key = "D";
-        RomanChordParser.setDefaultScaleAndKey(scale, key);
-        chordProgression = ChordProgression.createFromRoman(input);
+        
+        chordProgression = ChordProgression
+                .createFromRoman(input, "Major", "D");
         logger.debug("chordprogression in D major:\n{}", chordProgression);        
 
         // MIDITrack track = chordProgression.createMIDITrack();
