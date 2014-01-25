@@ -351,7 +351,7 @@ public class ChordTest {
 
 	/**
 	 * Test method for
-	 * {@link com.rockhoppertech.music.chord.Chord#getNotelist()}.
+	 * {@link com.rockhoppertech.music.chord.Chord#createMIDITrack()}.
 	 */
 	@Test
 	public void testGetNotelist() {
@@ -364,7 +364,7 @@ public class ChordTest {
 		}
 		assertNotNull(c);
 		MIDITrack notelist = null;
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertNotNull(notelist);
 		assertThat(notelist.size(), equalTo(3));
 	}
@@ -384,7 +384,7 @@ public class ChordTest {
 		}
 		assertNotNull(c);
 		MIDITrack notelist = null;
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertNotNull(notelist);
 		assertThat(notelist.size(), equalTo(3));
 	}
@@ -438,7 +438,7 @@ public class ChordTest {
 			e.printStackTrace();
 		}
 		assertNotNull(c2);
-		MIDITrack notelist = c2.getNotelist();
+		MIDITrack notelist = c2.createMIDITrack();
 		// MIDITrack appended = c.appendToNoteList(notelist);
 		// assertNotNull(appended);
 	}
@@ -509,7 +509,7 @@ public class ChordTest {
 		String expected = "1 3 5";
 		System.out.printf("'%s' and '%s'\n", cv, expected);
 		assertThat(cv.trim(), equalTo(expected));
-		list = c.getNotelist();
+		list = c.createMIDITrack();
 		assertNotNull(list);
 		assertThat(list.get(0).getMidiNumber(), equalTo(Pitch.C0));
 		assertThat(list.get(1).getMidiNumber(), equalTo(Pitch.E0));
@@ -518,7 +518,7 @@ public class ChordTest {
 		c.setInversion(1);
 		expected = "3 5 +1";
 		assertThat(c.getChordVoicing().trim(), equalTo(expected));
-		list = c.getNotelist();
+		list = c.createMIDITrack();
 		assertNotNull(list);
 		assertThat(list.get(0).getMidiNumber(), equalTo(Pitch.E0));
 		assertThat(list.get(1).getMidiNumber(), equalTo(Pitch.G0));
@@ -527,7 +527,7 @@ public class ChordTest {
 		c.setInversion(2);
 		expected = "5 +1 +3";
 		assertThat(c.getChordVoicing().trim(), equalTo(expected));
-		list = c.getNotelist();
+		list = c.createMIDITrack();
 		assertNotNull(list);
 		assertThat(list.get(0).getMidiNumber(), equalTo(Pitch.G0));
 		assertThat(list.get(1).getMidiNumber(), equalTo(Pitch.C1));
@@ -601,7 +601,7 @@ public class ChordTest {
 		// the root will be in the 0th octave
 		assertNotNull(c);
 		assertThat(c.getSymbol(), equalTo("maj"));
-		list = c.getNotelist();
+		list = c.createMIDITrack();
 		assertNotNull(list);
 		// assertThat(c.getInversion(), not(equalTo(c2.getInversion())));
 		System.err.println("Voiced notelist");
@@ -615,7 +615,7 @@ public class ChordTest {
 		// setting the symbol essentially creates a new chord.
 		c.setSymbol("maj7");
 		assertThat(c.getSymbol(), equalTo("maj7"));
-		list = c.getNotelist();
+		list = c.createMIDITrack();
 		assertNotNull(list);
 		assertThat(list.size(), equalTo(4));
 		assertThat(list.get(0).getMidiNumber(), equalTo(Pitch.C0));
@@ -926,7 +926,7 @@ public class ChordTest {
 		}
 		assertNotNull(c);
 
-		MIDITrack notelist = c.getNotelist();
+		MIDITrack notelist = c.createMIDITrack();
 		assertThat(c.getVoicingString(notelist), equalTo("1 3 5 7 +9 +11 +13"));
 
 		try {
@@ -935,7 +935,7 @@ public class ChordTest {
 			e.printStackTrace();
 		}
 		assertNotNull(c);
-		assertThat(c.getVoicingString(c.getNotelist()), equalTo("1 3 5"));
+		assertThat(c.getVoicingString(c.createMIDITrack()), equalTo("1 3 5"));
 
 		try {
 			c = ChordFactory.getChordByFullSymbol("C9");
@@ -943,7 +943,7 @@ public class ChordTest {
 			e.printStackTrace();
 		}
 		assertNotNull(c);
-		assertThat(c.getVoicingString(c.getNotelist()), equalTo("1 3 5 7 +9"));
+		assertThat(c.getVoicingString(c.createMIDITrack()), equalTo("1 3 5 7 +9"));
 	}
 
 	/**

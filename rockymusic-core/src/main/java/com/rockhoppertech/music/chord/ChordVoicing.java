@@ -63,15 +63,15 @@ public class ChordVoicing {
         return parse(this.voicing, cl);
     }
 
-    public MIDITrack getNoteList(Chord c) {
+    public MIDITrack getTrack(Chord c) {
         Chord cl = (Chord) c.clone();
         int root = c.getRoot();
         int pc = root % 12;
         int n = this.octave * 12 + pc;
         cl.setRoot(n);
-        logger.debug("new root for chord is " + n);
+        logger.debug("new root for chord is {} ", n);
         MIDITrack nl = ChordVoicing.parse(this.voicing, cl);
-        logger.debug("notelist chord is " + nl);
+        logger.debug("track chord is {}", nl);
         return nl;
     }
 
@@ -258,7 +258,7 @@ public class ChordVoicing {
     // drop 2 is drop the second highest pitch an octave
     public static String getDropString(Chord chord, int drop) {
         StringBuilder sb = new StringBuilder();
-        MIDITrack notelist = chord.getNotelist();
+        MIDITrack notelist = chord.createMIDITrack();
         notelist.sortByAscendingPitches();
         int size = notelist.size();
         int index = 0;
@@ -408,7 +408,7 @@ public class ChordVoicing {
             e.printStackTrace();
         }
         c.setChordVoicing("1 +3 5");
-        notelist = c.getNotelist();
+        notelist = c.createMIDITrack();
         System.out.println(notelist);
         /*
          * or this turnaround C4 Bb4 E5 G5 A5 C6 A3 G4 Cs5 F5 Bb5 D4 A4 C5 E5 A5
@@ -423,8 +423,8 @@ public class ChordVoicing {
         }
         c.setDuration(2);
         c.setChordVoicing("1 7 +3 5 1");
-        prog.append(c.getNotelist());
-        System.out.println(c.getNotelist());
+        prog.append(c.createMIDITrack());
+        System.out.println(c.createMIDITrack());
         try {
             c = ChordFactory.getChordByFullSymbol("A7-9+5");
         } catch (UnknownChordException e) {
@@ -432,8 +432,8 @@ public class ChordVoicing {
         }
         c.setDuration(2);
         c.setChordVoicing("1 7 +3 5 9");
-        System.out.println(c.getNotelist());
-        prog.append(c.getNotelist());
+        System.out.println(c.createMIDITrack());
+        prog.append(c.createMIDITrack());
         try {
             c = ChordFactory.getChordByFullSymbol("D9");
         } catch (UnknownChordException e) {
@@ -444,8 +444,8 @@ public class ChordVoicing {
         // the 5 and the
         // 9 are in same
         // oct
-        System.out.println(c.getNotelist());
-        prog.append(c.getNotelist());
+        System.out.println(c.createMIDITrack());
+        prog.append(c.createMIDITrack());
         try {
             c = ChordFactory.getChordByFullSymbol("g7-9+5");
         } catch (UnknownChordException e) {
@@ -453,8 +453,8 @@ public class ChordVoicing {
         }
         c.setDuration(2);
         c.setChordVoicing("1 +7 3 5 9");
-        System.out.println(c.getNotelist());
-        prog.append(c.getNotelist());
+        System.out.println(c.createMIDITrack());
+        prog.append(c.createMIDITrack());
         try {
             c = ChordFactory.getChordByFullSymbol("Cmaj9");
         } catch (UnknownChordException e) {
@@ -462,8 +462,8 @@ public class ChordVoicing {
         }
         c.setDuration(4);
         c.setChordVoicing("1 7 9 3 5");
-        System.out.println(c.getNotelist());
-        prog.append(c.getNotelist());
+        System.out.println(c.createMIDITrack());
+        prog.append(c.createMIDITrack());
 
         prog.play();
 

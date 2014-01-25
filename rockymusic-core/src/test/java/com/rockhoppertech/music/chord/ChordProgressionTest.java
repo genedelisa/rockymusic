@@ -312,7 +312,7 @@ public class ChordProgressionTest {
                 "chordProgression is not null",
                 chordProgression,
                 notNullValue());
-        MIDITrack track = chordProgression.getMIDITrack();
+        MIDITrack track = chordProgression.createMIDITrack();
         // chordProgression.sortByStartBeat();
 
         assertThat("track is not null", track, notNullValue());

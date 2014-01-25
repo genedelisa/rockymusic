@@ -123,10 +123,10 @@ public class ChordVoicingTest {
 		}
 		assertNotNull(c);
 		c.setOctave(octave);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
         System.err.println(notelist);
 		c.setInversion(1); //TODO this is broken. moves the C up an octave
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		System.err.println(notelist);
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.E5));
@@ -137,7 +137,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(5).getMidiNumber(), equalTo(Pitch.C6));
 
 		c.setInversion(2);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.G5));
 		assertThat(notelist.get(1).getMidiNumber(), equalTo(Pitch.BF5));
@@ -147,7 +147,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(5).getMidiNumber(), equalTo(Pitch.E6));
 
 		c.setInversion(3);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.BF5));
 		assertThat(notelist.get(1).getMidiNumber(), equalTo(Pitch.D6));
@@ -157,7 +157,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(5).getMidiNumber(), equalTo(Pitch.G6));
 
 		c.setInversion(4);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.D6));
 		assertThat(notelist.get(1).getMidiNumber(), equalTo(Pitch.F6));
@@ -167,7 +167,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(5).getMidiNumber(), equalTo(Pitch.BF6));
 
 		c.setInversion(5);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.F6));
 		assertThat(notelist.get(1).getMidiNumber(), equalTo(Pitch.C7));
@@ -197,7 +197,7 @@ public class ChordVoicingTest {
 		assertThat(dropVoicingString, equalTo("1 3 5 -7 9"));
 		System.err.println(dropVoicingString);
 		c.setChordVoicing(dropVoicingString);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		assertThat(notelist.size(), equalTo(5));
 		System.err.println(notelist);
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C5));
@@ -218,7 +218,7 @@ public class ChordVoicingTest {
 		System.err.println(dropVoicingString);
 		assertThat(dropVoicingString, equalTo("1 3 5 7 -9"));
 		c.setChordVoicing(dropVoicingString);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		System.err.println(notelist);
 		assertThat(notelist.size(), equalTo(5));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C5));
@@ -239,7 +239,7 @@ public class ChordVoicingTest {
 		System.err.println(dropVoicingString);
 		assertThat(dropVoicingString, equalTo("1 3 -5 7 9"));
 		c.setChordVoicing(dropVoicingString);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		System.err.println(notelist);
 		assertThat(notelist.size(), equalTo(5));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C5));
@@ -260,7 +260,7 @@ public class ChordVoicingTest {
 		System.err.println(dropVoicingString);
 		assertThat(dropVoicingString, equalTo("1 -3 5 7 9"));
 		c.setChordVoicing(dropVoicingString);
-		notelist = c.getNotelist();
+		notelist = c.createMIDITrack();
 		System.err.println(notelist);
 		assertThat(notelist.size(), equalTo(5));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C5));
@@ -341,7 +341,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(6).getMidiNumber(), equalTo(Pitch.B4));
 
 		cv = new ChordVoicing(octave, "1 +3 5 7 13");
-		notelist = cv.getNoteList(c);
+		notelist = cv.getTrack(c);
 
 		assertThat(notelist.size(), equalTo(5));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.D3));
@@ -366,7 +366,7 @@ public class ChordVoicingTest {
 			e.printStackTrace();
 		}
 		cv = new ChordVoicing(octave, "1 +3 +5 +1 ++3 ++5");
-		notelist = cv.getNoteList(c);
+		notelist = cv.getTrack(c);
 		assertThat(notelist.size(), equalTo(6));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C3));
 		assertThat(notelist.get(1).getMidiNumber(), equalTo(Pitch.E4));
@@ -376,7 +376,7 @@ public class ChordVoicingTest {
 		assertThat(notelist.get(5).getMidiNumber(), equalTo(Pitch.G5));
 		//		
 		cv = new ChordVoicing(octave, "1 3 5 1 +3 +5 +1 ++3 ++5 ++1 +++3 +++5");
-		notelist = cv.getNoteList(c);
+		notelist = cv.getTrack(c);
 		System.err.println(notelist);
 		assertThat(notelist.size(), equalTo(12));
 		assertThat(notelist.get(0).getMidiNumber(), equalTo(Pitch.C3));

@@ -527,12 +527,12 @@ public class Chord implements Cloneable, Comparable<Chord> {
 	}
 
 	/**
-	 * @return the notelist
+	 * @return a new MIDITrack
 	 */
-	public MIDITrack getNotelist() {
-		final MIDITrack notelist = this.chordVoicing.getNoteList(this);
-		notelist.sortByAscendingPitches();
-		return notelist;
+	public MIDITrack createMIDITrack() {
+		final MIDITrack track = this.chordVoicing.getTrack(this);
+		track.sortByAscendingPitches();
+		return track;
 		// return this.notelist;
 	}
 

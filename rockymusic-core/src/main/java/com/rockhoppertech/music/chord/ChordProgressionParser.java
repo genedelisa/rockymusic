@@ -232,13 +232,13 @@ public class ChordProgressionParser {
 
 	}
 
-	public static MIDITrack getMIDITrack(List<Chord> progression) {
+	public static MIDITrack createMIDITrack(List<Chord> progression) {
 		MIDITrack notelist = new MIDITrack();
 		for (Chord chord : progression) {
 			String msg = String.format("%s %f", chord.getDisplayName(), chord
 					.getDuration());
 			logger.debug(msg);
-			notelist.append(chord.getNotelist());
+			notelist.append(chord.createMIDITrack());
 		}
 		logger.debug("{}",notelist);
 		return notelist;

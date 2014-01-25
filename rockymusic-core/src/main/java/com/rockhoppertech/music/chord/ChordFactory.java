@@ -398,7 +398,7 @@ public class ChordFactory {
      * @param chord
      * @return a MIDITrack instance
      * 
-     * @see Chord#getNotelist()
+     * @see Chord#createMIDITrack()
      */
     public static MIDITrack createMIDITrack(Chord chord) {
         MIDITrack notelist = new MIDITrack();
@@ -1117,7 +1117,7 @@ public class ChordFactory {
         test.setRoot(Pitch.C5); // now it's Cmaj7+11
         test.setDuration(2d);
         System.out.println(test);
-        System.out.println(test.getNotelist());
+        System.out.println(test.createMIDITrack());
         Chord chord = ChordFactory
                 .createFromDescription(ChordFactory.MAJOR_SEVENTH);
 

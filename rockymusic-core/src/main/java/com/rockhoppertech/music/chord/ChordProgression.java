@@ -233,10 +233,10 @@ public class ChordProgression implements Iterable<Chord> {
 		return this.chords.size();
 	}
 
-	public MIDITrack getMIDITrack() {
+	public MIDITrack createMIDITrack() {
 		if (this.chords != null) {
 			final MIDITrack notelist = ChordProgressionParser
-					.getMIDITrack(this.chords);
+					.createMIDITrack(this.chords);
 			return notelist;
 		}
 		return null;
@@ -265,7 +265,7 @@ public class ChordProgression implements Iterable<Chord> {
 	}
 
 	public void play() {
-		final MIDITrack notelist = this.getMIDITrack();
+		final MIDITrack notelist = this.createMIDITrack();
 		if (notelist != null) {
 			notelist.play();
 		}
