@@ -21,9 +21,20 @@ package com.rockhoppertech.music.chord;
  */
 
 
-public class UnknownChordException extends Exception {
+/**
+ * If you ask the ChordFactory for a chord that it doesn't grok.
+ * 
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ *
+ */
+public class UnknownChordException extends RuntimeException {
 
-	public UnknownChordException(String m) {
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -6871749688840547515L;
+
+    public UnknownChordException(String m) {
 		super(m);
 	}
 }
