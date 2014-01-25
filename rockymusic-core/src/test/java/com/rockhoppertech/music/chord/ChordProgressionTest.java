@@ -20,7 +20,6 @@ package com.rockhoppertech.music.chord;
  * #L%
  */
 
-
 /**
  * 
  */
@@ -255,7 +254,7 @@ public class ChordProgressionTest {
         System.out.println(chord);
         assertThat(chord.getRoot(), equalTo(Pitch.D5));
         assertThat(chord.getSymbol(), equalTo("m"));
-        //assertThat(chord.getStartBeat(), equalTo(5d));
+        // assertThat(chord.getStartBeat(), equalTo(5d));
         assertThat(chord.getDuration(), equalTo(2d));
 
         double total = chordProgression.closeTimeline();
@@ -480,6 +479,7 @@ public class ChordProgressionTest {
             e.printStackTrace();
         }
         assertNotNull(chordProgression);
+
     }
 
     /**
@@ -519,9 +519,16 @@ public class ChordProgressionTest {
         assertThat(roman, equalTo("Imaj / IVmaj / |IIm / V7 / |Imaj / / /"));
 
         roman = ChordProgression.toRoman(chordProgression, "D", scale, 4);
-        assertNotNull(roman);
+        assertThat(
+                "roman is not null",
+                roman,
+                notNullValue());
+
         System.out.println(roman);
-        assertThat(roman, equalTo("VImaj / #IImaj / |Im / IV7 / |VImaj / / /"));
+        assertThat(
+                "roman contents are correct",
+                roman,
+                equalTo("VImaj / #IImaj / |Im / IV7 / |VImaj / / /"));
 
         input = "C G7 | Dm G7 | C C# | d ef| e f | f# g";
 
@@ -531,10 +538,178 @@ public class ChordProgressionTest {
         } catch (UnknownChordException e) {
             e.printStackTrace();
         }
-        roman = ChordProgression.toRoman(chordProgression, "C", scale, 4);
-        assertNotNull(roman);
+
+        roman = ChordProgression.toRoman(chordProgression, "D", scale, 4);
+        assertThat(
+                "roman is not null",
+                roman,
+                notNullValue());
         System.out.println(roman);
         assertThat(roman, equalTo("Imaj / / IVmaj |IIm V7 / / |Imaj / / /"));
+    }
+
+    @Test
+    public void shouldGetChordAtBeat() {
+        String input = "I V7";
+        ChordProgression chordProgression = ChordProgression
+                .createFromRoman(input);
+        assertThat(
+                "chordProgression is not null",
+                chordProgression,
+                notNullValue());
+
+        chordProgression.append(chordProgression);
+
+        assertThat(
+                "chordProgression length is correct",
+                chordProgression.getLength(),
+                equalTo(4));
+
+        double expectedStart = 1d;
+        Chord chord = chordProgression.getChordAtBeat(expectedStart);
+        assertThat(
+                "chord is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+        assertThat(
+                "chord start beat is correct",
+                chord.getStartBeat(),
+                equalTo(expectedStart));
+
+        expectedStart++;
+        chord = chordProgression.getChordAtBeat(expectedStart);
+        assertThat(
+                "chord at beat 2 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 2 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+
+        expectedStart++;
+        chord = chordProgression.getChordAtBeat(expectedStart);
+        assertThat(
+                "chord at beat 3 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 3 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.G5));
+        
+        expectedStart++;
+        chord = chordProgression.getChordAtBeat(expectedStart);
+        assertThat(
+                "chord at beat 4 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 4 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.G5));
+    }
+
+    @Test
+    public void append() {
+        String input = "I V7";
+        ChordProgression chordProgression = ChordProgression
+                .createFromRoman(input);
+        assertThat(
+                "chordProgression is not null",
+                chordProgression,
+                notNullValue());
+
+        chordProgression.append(chordProgression);
+
+        assertThat(
+                "chordProgression length is correct",
+                chordProgression.getLength(),
+                equalTo(4));
+
+        String progString = chordProgression.toStd(false);
+        assertThat(
+                "std string is not null",
+                progString,
+                notNullValue());
+
+        assertThat(
+                "the std string is correct",
+                progString,
+                equalTo("C / G7 / | C / G7 / |"));
+
+        System.err.println(chordProgression.toChordStrings());
+
+        Chord chord = chordProgression.getChordAtBeat(1d);
+        assertThat(
+                "chord is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+
+        chord = chordProgression.getChordAtBeat(2d);
+        assertThat(
+                "chord at beat 2 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 2 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+
+        chord = chordProgression.getChordAtBeat(3d);
+        assertThat(
+                "chord at beat 3 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 3 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.G5));
+        assertThat(
+                "chord symbol at beat 3 is correct",
+                chord.getSymbol(),
+                equalTo("7"));
+
+        chord = chordProgression.getChordAtBeat(5d);
+        assertThat(
+                "chord at beat 5 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 5 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+
+        chord = chordProgression.getChordAtBeat(6d);
+        assertThat(
+                "chord at beat 6 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 6 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.C5));
+
+        chord = chordProgression.getChordAtBeat(7d);
+        assertThat(
+                "chord at beat 7 is not null",
+                chord,
+                notNullValue());
+        assertThat(
+                "chord root at beat 7 is correct",
+                chord.getRoot(),
+                equalTo(Pitch.G5));
+
+        // chordProgression.append(chordProgression).append(chordProgression);
+
     }
 
     @Test
