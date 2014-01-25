@@ -98,7 +98,8 @@ public class ChordProgression implements Iterable<Chord> {
 
     public static ChordProgression create(final File file)
             throws UnknownChordException {
-        ChordProgression chordProgression =ChordProgressionParser.createFromFile(file);
+        ChordProgression chordProgression = ChordProgressionParser
+                .createFromFile(file);
         chordProgression.closeTimeline();
         return chordProgression;
     }
@@ -117,7 +118,8 @@ public class ChordProgression implements Iterable<Chord> {
 
     public static ChordProgression createFromNames(final String input)
             throws UnknownChordException {
-        ChordProgression chordProgression =ChordProgressionParser.chordsFromStdNames(input);
+        ChordProgression chordProgression = ChordProgressionParser
+                .chordsFromStdNames(input);
         chordProgression.closeTimeline();
         return chordProgression;
     }
@@ -126,11 +128,26 @@ public class ChordProgression implements Iterable<Chord> {
      * Specify roman numerals for chords. The default scale and key is C major.
      * 
      * @param input
-     *            roman numberals
+     *            roman numerals
      * @return a progression based on the input
      */
     public static ChordProgression createFromRoman(final String input) {
-        ChordProgression chordProgression = ChordProgressionParser.chordsFromRoman(input);
+        RomanChordParser.setDefaultScaleAndKey(
+                ScaleFactory.getScaleByName("Major"),
+                "C");
+        ChordProgression chordProgression = ChordProgressionParser
+                .chordsFromRoman(input);
+        chordProgression.closeTimeline();
+        return chordProgression;
+    }
+
+    public static ChordProgression createFromRoman(final String input,
+            final String scaleName, final String key) {
+        RomanChordParser.setDefaultScaleAndKey(
+                ScaleFactory.getScaleByName(scaleName),
+                key);
+        ChordProgression chordProgression = ChordProgressionParser
+                .chordsFromRoman(input);
         chordProgression.closeTimeline();
         return chordProgression;
     }
