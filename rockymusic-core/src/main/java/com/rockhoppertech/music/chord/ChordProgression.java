@@ -98,7 +98,9 @@ public class ChordProgression implements Iterable<Chord> {
 
     public static ChordProgression create(final File file)
             throws UnknownChordException {
-        return ChordProgressionParser.createFromFile(file);
+        ChordProgression chordProgression =ChordProgressionParser.createFromFile(file);
+        chordProgression.closeTimeline();
+        return chordProgression;
     }
 
     /**
@@ -115,7 +117,9 @@ public class ChordProgression implements Iterable<Chord> {
 
     public static ChordProgression createFromNames(final String input)
             throws UnknownChordException {
-        return ChordProgressionParser.chordsFromStdNames(input);
+        ChordProgression chordProgression =ChordProgressionParser.chordsFromStdNames(input);
+        chordProgression.closeTimeline();
+        return chordProgression;
     }
 
     /**
@@ -126,7 +130,9 @@ public class ChordProgression implements Iterable<Chord> {
      * @return a progression based on the input
      */
     public static ChordProgression createFromRoman(final String input) {
-        return ChordProgressionParser.chordsFromRoman(input);
+        ChordProgression chordProgression = ChordProgressionParser.chordsFromRoman(input);
+        chordProgression.closeTimeline();
+        return chordProgression;
     }
 
     public static String toRoman(final ChordProgression chordProgression,
@@ -153,10 +159,9 @@ public class ChordProgression implements Iterable<Chord> {
             // }
 
             final double chordDur = chord.getDuration();
-            if (ChordProgression.logger.isDebugEnabled()) {
-                ChordProgression.logger.debug(String.format(
-                        "beat %f chord dur %f", beat, chordDur));
-            }
+            logger.debug(String.format(
+                    "beat %f chord dur %f", beat, chordDur));
+
             if (chordDur > 1d) {
                 for (int i = 0; i < chordDur - 1; i++) {
                     sb.append("/ ");
