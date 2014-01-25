@@ -28,7 +28,9 @@
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
 			</pattern>
 			-->
-			<pattern>%.-1level|%-40.40logger{0}|%-4.4line|%msg%n</pattern>
+		<!-- 	<pattern>%.-1level|%-40.40logger{0}|%-4.4line|%msg%n</pattern> -->
+		<pattern>%.-1level|%-40.40logger{0}|%M|%-4.4line|%msg%n</pattern>			
+			
 		</encoder>
 	</appender>
 
