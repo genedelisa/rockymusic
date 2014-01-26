@@ -261,29 +261,25 @@ public class ChordProgression implements Iterable<Chord> {
     }
 
     /**
-     * Return the first Chord >= parameter after
+     * Return the Chord that matches if the beat is between the Chord's start
+     * and end.
      * 
-     * @param after
-     *            a start beat
-     * @return a Chord or null
+     * @param beat
+     *            a beat
+     * @return a Chord or null if not chords at beat
      */
-    public Chord getChordAtBeat(final double after) {
-        logger.debug("looking for  sb {}", after);
+    public Chord getChordAtBeat(final double beat) {
+        logger.debug("looking for  sb {}", beat);
         for (final Chord n : this) {
             final double s = n.getStartBeat();
             final double e = n.getEndBeat();
             logger.debug("checking sb {} of chord {}", s, n);
             Range<Double> range = Range.between(s, e - .0001);
             logger.debug("range {}", range);
-            if (range.contains(after)) {
+            if (range.contains(beat)) {
                 logger.debug("returning chord {}", n);
                 return n;
             }
-
-            // if (s >= after) {
-            // logger.debug("matched chord {}", n);
-            // return n;
-            // }
         }
         return null;
     }
