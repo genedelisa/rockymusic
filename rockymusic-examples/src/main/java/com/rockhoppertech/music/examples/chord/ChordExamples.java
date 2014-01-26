@@ -20,6 +20,8 @@ package com.rockhoppertech.music.examples.chord;
  * #L%
  */
 
+import java.io.File;
+
 import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
@@ -29,7 +31,7 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
 import com.rockhoppertech.music.chord.ChordProgression;
-import com.rockhoppertech.music.chord.RomanChordParser;
+import com.rockhoppertech.music.midi.js.MIDIPerformer;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.modifiers.Modifier;
 import com.rockhoppertech.music.modifiers.PitchModifier;
@@ -141,23 +143,34 @@ public class ChordExamples {
     }
 
     static void roman() {
-        String input = "I V7 | ii V7 | I";
+        String input = "I V7 | II V7 | I";
         ChordProgression chordProgression = ChordProgression
                 .createFromRoman(input);
-        logger.debug("chordprogression in default C major: \n{}", chordProgression);
+        logger.debug(
+                "chordprogression in default C major: \n{}",
+                chordProgression);
         for (Chord c : chordProgression) {
             logger.debug("chord: {}", c);
         }
-        
+
         chordProgression = ChordProgression
                 .createFromRoman(input, "Major", "D");
-        logger.debug("chordprogression in D major:\n{}", chordProgression);        
+        logger.debug("chordprogression in D major:\n{}", chordProgression);
 
         // MIDITrack track = chordProgression.createMIDITrack();
         // track.play();
         // logger.debug("track:\n{}", track);
     }
-    
+
+    static void fromFile() {
+        ChordProgression chordProgression = ChordProgression
+                .create(new File("src/test/resources/giantSteps.changes"));
+        logger.debug("Giant Steps:\n{}", chordProgression);
+        MIDITrack track = chordProgression.createMIDITrack();
+        MIDIPerformer mp = new MIDIPerformer();
+        mp.track(track).atTempo(240).play();
+    }
+
     /**
      * Lots of appends
      */
@@ -165,30 +178,33 @@ public class ChordExamples {
         String input = "I V7";
         ChordProgression chordProgression = ChordProgression
                 .createFromRoman(input);
-        logger.debug("chordprogression in default C major: \n{}", chordProgression);
+        logger.debug(
+                "chordprogression in default C major: \n{}",
+                chordProgression);
         for (Chord c : chordProgression) {
             logger.debug("chord: {}", c);
         }
-        
+
         logger.debug("chord progression: \n{}", chordProgression);
-        logger.debug("chord progression end beat: \n{}", chordProgression.getEndBeat());        
+        logger.debug(
+                "chord progression end beat: \n{}",
+                chordProgression.getEndBeat());
         chordProgression.append(chordProgression);
         logger.debug("chord progression after append: \n{}", chordProgression);
-        
+
         chordProgression.append(chordProgression).append(chordProgression);
 
         // append a C major
         chordProgression.add(ChordFactory.getChordByFullSymbol("C"));
-                
-        logger.debug("chord progression after more appends: \n{}", chordProgression);        
-        
-        
-        
+
+        logger.debug(
+                "chord progression after more appends: \n{}",
+                chordProgression);
+
         MIDITrack track = chordProgression.createMIDITrack();
-         track.play();
+        track.play();
         // logger.debug("track:\n{}", track);
     }
-
 
     /**
      * @param args
@@ -205,7 +221,8 @@ public class ChordExamples {
                 "inversion",
                 "progression",
                 "Roman",
-                "append"
+                "append",
+                "From File"
         };
         final String choice = (String) JOptionPane
                 .showInputDialog(null,
@@ -250,8 +267,8 @@ public class ChordExamples {
             showAll();
         } else if (choice.equals("inversion")) {
             inversion();
-        } else if (choice.equals("")) {
-
+        } else if (choice.equals("From File")) {
+            fromFile();
         } else if (choice.equals("")) {
 
         }
