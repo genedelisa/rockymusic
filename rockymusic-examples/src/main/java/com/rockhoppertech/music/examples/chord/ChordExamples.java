@@ -21,12 +21,15 @@ package com.rockhoppertech.music.examples.chord;
  */
 
 import java.io.File;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Duration;
+import com.rockhoppertech.music.Pattern;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
@@ -171,6 +174,31 @@ public class ChordExamples {
         mp.track(track).atTempo(240).play();
     }
 
+    static void pattern() {
+        Chord chord = ChordFactory.getChordByFullSymbol("Cmaj7");
+
+        // indexes into the chord degrees
+        // so this just arpeggiates all the pitches
+        int[] pattern = { 0, 1, 2, 3 };
+
+        Pattern p = new Pattern(chord, pattern, Pitch.C5);
+
+        MIDITrack track = p.createTrack();
+        track.play();
+        logger.debug("track:\n{}", track);
+    }
+
+    static void scales() {
+        Chord chord = ChordFactory.getChordByFullSymbol("C");
+        Set<Scale> scales = chord.getScales();
+        for (Scale s : scales) {
+            logger.debug("scale {}", s.getName());
+        }
+        Scale scale = ScaleFactory.getScaleByName("Major");
+        scale.setKey("C");
+
+    }
+
     /**
      * Lots of appends
      */
@@ -222,7 +250,9 @@ public class ChordExamples {
                 "progression",
                 "Roman",
                 "append",
-                "From File"
+                "From File",
+                "Pattern",
+                "Scales"
         };
         final String choice = (String) JOptionPane
                 .showInputDialog(null,
@@ -247,6 +277,8 @@ public class ChordExamples {
         } else if (choice.equals("append")) {
             lvb();
 
+        } else if (choice.equals("Scales")) {
+            scales();
         } else if (choice.equals("")) {
 
         } else if (choice.equals("")) {
@@ -259,9 +291,8 @@ public class ChordExamples {
 
         } else if (choice.equals("")) {
 
-        } else if (choice.equals("")) {
-
-        } else if (choice.equals("")) {
+        } else if (choice.equals("Pattern")) {
+            pattern();
 
         } else if (choice.equals("Show All")) {
             showAll();
