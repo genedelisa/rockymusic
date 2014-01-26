@@ -86,7 +86,8 @@ public class RomanChordParser {
     // this will match all roman numerals. Music doesn't need all of them.
     // private String romanRegexp =
     // "^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
-    private static String musicRomanRegexp = "(#|b|B)?(IV|V?I{0,3})";
+    //private static String musicRomanRegexp = "(#|b|B)?(IV|V?I{0,3})";
+    private static String musicRomanRegexp = "(#|b)?(IV|V?I{0,3})";    
     private static Pattern romanPattern = Pattern.compile(musicRomanRegexp);
 
     public static Chord getChord(String key, String romanString) {
@@ -111,8 +112,9 @@ public class RomanChordParser {
     }
 
     public static boolean isRoman(String input) {
-        input = input.toUpperCase();
+       // input = input.toUpperCase();
         Matcher matcher = romanPattern.matcher(input);
+        logger.debug("checking {}", input);
         matcher.reset();
         boolean result = false;
         if (matcher.find()) {
@@ -123,10 +125,10 @@ public class RomanChordParser {
             String val = String.format("start %d len %d: roman %s",
                     matcher.start(), length, rs
                     );
-            if (logger.isDebugEnabled()) {
-                String s = String.format("%s", val);
-                logger.debug(s);
-            }
+            logger.debug("matched roman value: {}", val);
+            
+        } else {
+            logger.debug("no match for {}", input);
         }
         return result;
     }
@@ -207,7 +209,7 @@ public class RomanChordParser {
      */
     public static Chord getChord(String key, Scale scale, String romanString) {
         String origRoman = romanString;
-        romanString = romanString.toUpperCase().trim();
+        //romanString = romanString.toUpperCase().trim();
         Pitch p = romanToPitch(scale, key, romanString);
         String chordSymbol = null;
         Matcher matcher = romanPattern.matcher(romanString);
