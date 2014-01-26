@@ -620,6 +620,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         }
         return set;
     }
+    
+    // TODO
+    public Set<Scale> getScalesByChordQuality() {
+        return null;
+    }
 
     public int getSeventh() {
         return this.root + this.intervals[2];
