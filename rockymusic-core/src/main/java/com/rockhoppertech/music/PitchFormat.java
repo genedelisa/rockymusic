@@ -461,8 +461,11 @@ public class PitchFormat implements Serializable {
      *            the string to convert
      * @return the midinumber of the string parameter
      */
-    public static int stringToMidiNumber(final String pitch) {
+    public static int stringToMidiNumber(String pitch) {
+        pitch = pitch.trim();
+        logger.debug("input '{}'", pitch);
         char c = pitch.toLowerCase(Locale.ENGLISH).trim().charAt(0);
+        logger.debug("c '{}'", c);        
 
         // the . is a dummy place holder just to yield the correct pitch class
         String s = "c.d.ef.g.a.b";
@@ -491,6 +494,7 @@ public class PitchFormat implements Serializable {
         }
 
         String ostr = pitch.substring(octIndex);
+        logger.debug("ostr is '{}' from pitch '{}'", ostr, pitch);
         if (ostr == null || ostr.equals("")) {
             ostr = "5";
         }
