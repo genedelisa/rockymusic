@@ -392,6 +392,7 @@ public class ChordProgressionParser {
             logger.debug(String.format("first '%s' from '%s' roman? %b", first,
                     input, isRoman));
         }
+        scanner.close();
         return isRoman;
     }
 }
