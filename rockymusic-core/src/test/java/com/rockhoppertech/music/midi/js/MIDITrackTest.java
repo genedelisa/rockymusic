@@ -35,6 +35,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
+import static org.hamcrest.Matchers.both;
+//import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -1680,4 +1686,175 @@ public class MIDITrackTest {
     // assertEquals(a.length,
     // testTrack.size());
     // }
+
+    @Test
+    public void shouldGetNotesBetweenStartBeatAndEndBeat() {
+
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("sequential track")
+                .noteString("C D E F G A ")
+                .sequential()
+                .build();
+        double startBeat = 1d;
+        double endBeat = 2d;
+        List<MIDINote> list = null;
+        list = track.getNotesBetweenStartBeatAndEndBeat(startBeat, endBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(1));
+        logger.debug("list:\n{}", list);
+
+        MIDINote note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.C5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                equalTo(startBeat));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                greaterThanOrEqualTo(startBeat));
+
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+        startBeat = 2d;
+        endBeat = 4d;
+        list = track.getNotesBetweenStartBeatAndEndBeat(startBeat, endBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(2));
+        logger.debug("list:\n{}", list);
+
+        note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.D5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+        note = list.get(1);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.E5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+    }
+
+    @Test
+    public void shouldGetMultipleNotesBetweenStartBeatAndEndBeat() {
+
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("track with 3 notes at beat 2")
+                .noteString("C D E F G A ")
+                .startBeats(1, 2, 2, 2, 3, 4)
+                .build();
+        double startBeat = 1d;
+        double endBeat = 2d;
+        List<MIDINote> list = null;
+        list = track.getNotesBetweenStartBeatAndEndBeat(startBeat, endBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(1));
+        logger.debug("list:\n{}", list);
+
+        MIDINote note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.C5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                equalTo(startBeat));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                greaterThanOrEqualTo(startBeat));
+
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+        startBeat = 2d;
+        endBeat = 3d;
+        list = track.getNotesBetweenStartBeatAndEndBeat(startBeat, endBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(3));
+        logger.debug("list:\n{}", list);
+
+        note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.D5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+        note = list.get(1);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.E5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+        note = list.get(2);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.F5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(endBeat)));
+
+    }
+
+    @Test
+    public void shouldGetMultipleNotesAtBeat() {
+
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("track with 3 notes at beat 2")
+                .noteString("C D E F G A ")
+                .startBeats(1, 2, 2, 2, 3, 4)
+                .build();
+        double startBeat = 1d;
+        List<MIDINote> list = null;
+        list = track.getNotesAtBeat(startBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(1));
+        logger.debug("list:\n{}", list);
+
+        MIDINote note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.C5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                equalTo(startBeat));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                greaterThanOrEqualTo(startBeat));
+
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+
+        startBeat = 2d;
+        list = track.getNotesAtBeat(startBeat);
+        assertThat("The list is not null.", list, notNullValue());
+        assertThat("the list length correct", list.size(),
+                equalTo(3));
+        logger.debug("list:\n{}", list);
+
+        note = list.get(0);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.D5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+
+        note = list.get(1);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.E5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+
+        note = list.get(2);
+        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
+                equalTo(Pitch.F5));
+        assertThat("the start beat is correct", note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+
+    }
 }

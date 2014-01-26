@@ -34,12 +34,14 @@ import java.util.TreeSet;
 
 import javax.sound.midi.MidiEvent;
 
+import org.apache.commons.lang3.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 import com.rockhoppertech.music.modifiers.ChannelModifier;
 import com.rockhoppertech.music.modifiers.InstrumentModifier;
@@ -1195,9 +1197,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <code>retrograde</code> reverses the order of the MIDINotes.
-     * The start beats are not in order! It's up to you to change those
-     * if you so desire. You might use sequential() followed by setStartBeat().
+     * <code>retrograde</code> reverses the order of the MIDINotes. The start
+     * beats are not in order! It's up to you to change those if you so desire.
+     * You might use sequential() followed by setStartBeat().
      * 
      * The original track is not modified either.
      * 
@@ -1458,10 +1460,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <code>setStartBeat</code> sets the start beat of the entire track. 
-     * This is useful in a GUI where you are moving track representations around.
-     * The track needs to be sequential. If the start beats are not in ascending order, it won't work.
-     * e.g. When you call retrograde(), the start beats are not in ascending order.
+     * <code>setStartBeat</code> sets the start beat of the entire track. This
+     * is useful in a GUI where you are moving track representations around. The
+     * track needs to be sequential. If the start beats are not in ascending
+     * order, it won't work. e.g. When you call retrograde(), the start beats
+     * are not in ascending order.
      * 
      * @param b
      *            a <code>double</code> value
@@ -1862,6 +1865,57 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         StartBeatModifier mod = new StartBeatModifier(Modifier.Operation.SET,
                 beat);
         this.map(mod);
+    }
+
+    /**
+     * Get the MIDINotes at the specified beat.
+     * 
+     * @param beat
+     * @return
+     */
+    // public List<MIDINote> getNotesAtBeat(final double beat) {
+    // List<MIDINote> notes = new ArrayList<MIDINote>();
+    // logger.debug("looking for  sb {}", beat);
+    // for (final MIDINote n : this) {
+    // final double s = n.getStartBeat();
+    // final double e = n.getEndBeat();
+    // logger.debug("checking sb {} of note {}", s, n);
+    // Range<Double> range = Range.between(s, e - .0001);
+    // logger.debug("range {}", range);
+    // if (range.contains(beat)) {
+    // logger.debug("adding note {}", n);
+    // notes.add(n);
+    // }
+    // }
+    // return notes;
+    // }
+
+    public List<MIDINote> getNotesAtBeat(final double beat) {
+        return getNotesBetweenStartBeatAndEndBeat(beat, beat + 1d);
+    }
+
+    /**
+     * Return the notes that have a start beat between the specified beats.
+     * 
+     * @param startBeat begin of beat range
+     * @param endBeat not inclusive
+     * @return a list of matching MIDINotes
+     */
+    public List<MIDINote> getNotesBetweenStartBeatAndEndBeat(
+            final double startBeat, final double endBeat) {
+        List<MIDINote> notes = new ArrayList<MIDINote>();
+        Range<Double> range = Range.between(startBeat, endBeat - .00001);
+        logger.debug("range {}", range);
+        logger.debug("looking for  sb {}", startBeat);
+        for (final MIDINote n : this) {
+            final double s = n.getStartBeat();
+            logger.debug("checking sb {} of note {}", s, n);
+            if (range.contains(s)) {
+                logger.debug("adding note {}", n);
+                notes.add(n);
+            }
+        }
+        return notes;
     }
 
 }
