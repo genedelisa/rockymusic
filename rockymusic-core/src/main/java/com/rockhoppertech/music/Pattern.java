@@ -23,7 +23,6 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -197,6 +196,12 @@ public class Pattern {
                 duration, reverse, restBetweenPatterns);
     }
 
+    public Pattern(final Chord chord, final int[] pattern,
+            final int startPitch) {
+        this(chord.getPitchClasses(), pattern, startPitch, 2,
+                Duration.Q, false, 0d);
+    }
+
     public Pattern(final int[] degrees, final int[] pattern) {
         this(degrees, pattern, Pitch.C5, 1, Duration.Q, false, 0);
     }
@@ -310,13 +315,14 @@ public class Pattern {
 
     public static int max(int[] values) {
         int max = Integer.MIN_VALUE;
-        for(int i : values) {
-            if( i > max)
+        for (int i : values) {
+            if (i > max)
                 max = i;
         }
         return max;
-          
-      }
+
+    }
+
     /**
      * If the pattern is based on degrees instead of midipitches then spread
      * will project the degress over the number of octaves
@@ -333,7 +339,6 @@ public class Pattern {
         // this.limit = this.degrees.length - this.pattern.length + 1;
         this.limit = this.degrees.length;
         final int max = max(this.degrees);
-        
 
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("max %d limit %d", max, limit));
@@ -423,7 +428,6 @@ public class Pattern {
 
         final int[] a = Pattern.spread(this.degrees, numOcts);
 
-        
         final MIDITrack notelist = MIDITrackFactory.getTrackPattern(a,
                 this.getPattern(), this.limit, this.getStartPitch(), this
                         .getNumOctaves(), this.getDuration(), this.isReverse(),
