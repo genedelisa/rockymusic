@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * An implementation of CircularList backed by an ArrayList.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  * @param <E>
@@ -93,14 +95,16 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     }
 
     /**
-     * @param c the collection to copy elements from.
+     * @param c
+     *            the collection to copy elements from.
      */
     public CircularArrayList(final Collection<? extends E> c) {
         super(c);
     }
 
     /**
-     * @param array the array to copy elements from.
+     * @param array
+     *            the array to copy elements from.
      */
     public CircularArrayList(final E[] array) {
         for (final E o : array) {
@@ -109,7 +113,8 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     }
 
     /**
-     * @param initialCapacity initial allocation.
+     * @param initialCapacity
+     *            initial allocation.
      */
     public CircularArrayList(final int initialCapacity) {
         super(initialCapacity);
@@ -142,9 +147,10 @@ public class CircularArrayList<E> extends ArrayList<E> implements
             this.index = 0;
         }
 
+        E result = get(this.index++);
         this.updateFirstLast();
 
-        return get(this.index++);
+        return result;
     }
 
     /**
@@ -174,7 +180,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
 	 * 
 	 */
     private void updateFirstLast() {
-        if (this.index == size() - 1) {
+        if (this.index - 1 == size() - 1) {
             this.last = true;
         } else {
             this.last = false;
