@@ -453,12 +453,20 @@ public class ArrayFunctions {
         }
     }
 
-    static double min(double[] a) {
-        double min = 0;
-        double max = 0;
-        for (int i = 0; i < a.length; i++) {
-            min = Math.min(min, a[i]);
-            max = Math.max(max, a[i]);
+//    static double min(double[] a) {
+//        double min = 0;
+//        double max = 0;
+//        for (int i = 0; i < a.length; i++) {
+//            min = Math.min(min, a[i]);
+//            max = Math.max(max, a[i]);
+//        }
+//        return min;
+//    }
+    public static double min(double[] values) {
+        double min = Double.MAX_VALUE;
+        for (double i : values) {
+            if (i < min)
+                min = i;
         }
         return min;
     }
@@ -665,6 +673,14 @@ public class ArrayFunctions {
                 max = i;
         }
         return max;
-
+    }
+    
+    public static double max(double[] values) {
+        double max = Double.MIN_VALUE;
+        for (double i : values) {
+            if (i > max)
+                max = i;
+        }
+        return max;
     }
 }
