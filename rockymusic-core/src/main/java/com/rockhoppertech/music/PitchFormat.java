@@ -463,7 +463,7 @@ public class PitchFormat implements Serializable {
      */
     public static int stringToMidiNumber(String pitch) {
         pitch = pitch.trim();
-        logger.debug("input '{}'", pitch);
+        logger.debug("stringToMidiNumber input '{}'", pitch);
         char c = pitch.toLowerCase(Locale.ENGLISH).trim().charAt(0);
         logger.debug("c '{}'", c);        
 
@@ -502,6 +502,7 @@ public class PitchFormat implements Serializable {
         try {
             octave = Integer.parseInt(ostr) * 12;
         } catch (NumberFormatException e) {
+            logger.error(e.getLocalizedMessage(), e);
             throw e;
         }
         return (pc + octave);
