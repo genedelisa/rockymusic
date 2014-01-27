@@ -38,6 +38,7 @@ public class CircularTreeSet<E> extends TreeSet<E> {
      */
 	private static final long serialVersionUID = 2099856485946476464L;
 
+	/*
 	public static void main(final String[] args) {
 		final CircularTreeSet<Integer> cal = new CircularTreeSet<Integer>();
 
@@ -56,6 +57,7 @@ public class CircularTreeSet<E> extends TreeSet<E> {
 			System.err.println(cal.previous());
 		}
 	}
+	*/
 
 	private transient Iterator<E> currentIterator = iterator();
 
@@ -85,10 +87,10 @@ public class CircularTreeSet<E> extends TreeSet<E> {
 
 	public E previous() {
 		if (this.descendingIterator.hasNext()) {
-			System.err.println("has next");
+			//System.err.println("has next");
 			return this.descendingIterator.next();
 		} else {
-			System.err.println("new it");
+			//System.err.println("new it");
 			this.descendingIterator = descendingIterator();
 			return this.descendingIterator.next();
 		}
