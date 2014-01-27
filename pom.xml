@@ -169,9 +169,7 @@
 						<id>generate-asciidoc-html</id>
 						<configuration>
 							<commandlineArgs>
-								-d book -a docinfo -o
-								${project.basedir}/target/book.html
-								${project.basedir}/src/asciidoc/book.asciidoc
+								-d book -a docinfo -o ${project.basedir}/target/book.html ${project.basedir}/src/asciidoc/book.asciidoc
 							</commandlineArgs>
 						</configuration>
 						<goals>
