@@ -42,6 +42,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
      * @param args
      *            command line arguments.
      */
+    /*
     public static void main(final String[] args) {
         final CircularArrayList<Integer> cal = new CircularArrayList<Integer>();
         // cal.add(1);
@@ -72,6 +73,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
             System.err.println();
         }
     }
+    */
 
     /**
      * 
