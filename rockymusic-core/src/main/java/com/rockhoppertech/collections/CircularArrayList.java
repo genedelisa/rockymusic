@@ -38,65 +38,32 @@ public class CircularArrayList<E> extends ArrayList<E> implements
      */
     private static final long serialVersionUID = 2099856485946476464L;
 
-    /**
-     * @param args
-     *            command line arguments.
-     */
-    /*
-    public static void main(final String[] args) {
-        final CircularArrayList<Integer> cal = new CircularArrayList<Integer>();
-        // cal.add(1);
-        // cal.add(2);
-        // cal.add(3);
-        // cal.add(4);
-        // for (int i = 0; i < 10; i++) {
-        // System.out.println(cal.next());
-        // }
-        // System.out.println();
-        // for (int i = 0; i < 10; i++) {
-        // System.out.println(cal.previous());
-        // }
-
-        cal.clear();
-        cal.add(1);
-        cal.add(2);
-        cal.add(3);
-        for (int i = 0; i < 10; i++) {
-            System.err.println("index " + i);
-            System.err.printf("value %d%n",
-                    cal.next());
-            System.err.printf("is first %b ",
-                    cal.isFirst());
-            System.err.printf("is last %b ",
-                    cal.isLast());
-
-            System.err.println();
-        }
-    }
-    */
+   
 
     /**
-     * 
+     * The index
      */
     private int index = 0;
 
     /**
-     * 
+     * Does the index point to the first element
      */
     private boolean first = true;
 
     /**
-     * 
+     * Does the index point to the last element
      */
     private boolean last = false;
 
     /**
-	 * 
+	 * Default ctor
 	 */
     public CircularArrayList() {
     }
 
     /**
+     * Copies the elements into this list.
+     * 
      * @param c
      *            the collection to copy elements from.
      */
@@ -105,6 +72,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     }
 
     /**
+     * Adds the elements into this list.
      * @param array
      *            the array to copy elements from.
      */
@@ -114,13 +82,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
         }
     }
 
-    /**
-     * @param initialCapacity
-     *            initial allocation.
-     */
-    public CircularArrayList(final int initialCapacity) {
-        super(initialCapacity);
-    }
+   
 
     /**
      * You must call previous or next before calling this. Perhaps "wasFirst"
@@ -179,7 +141,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     }
 
     /**
-	 * 
+	 * Updates this.first, this.last based on this.index
 	 */
     private void updateFirstLast() {
         if (this.index - 1 == size() - 1) {
