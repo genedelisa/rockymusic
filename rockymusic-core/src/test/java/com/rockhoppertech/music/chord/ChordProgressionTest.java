@@ -186,7 +186,7 @@ public class ChordProgressionTest {
      */
     @Test
     public void testCreateFromRoman() {
-        String input = "I V7 | ii V7 | I";
+        String input = "I V7 | II V7 | I";
         ChordProgression chordProgression = null;
         Chord chord = null;
         // C Major is the default
