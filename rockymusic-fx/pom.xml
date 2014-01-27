@@ -11,8 +11,9 @@
 	</parent>
 
 	<artifactId>rockymusic-fx</artifactId>
-	<name>rockymusic-fx</name>
+	<name>Rocky Music FX</name>
 	<packaging>jar</packaging>
+	<description>Some JavaFX apps using Rockhopper Music</description>
 
 	<organization>
 		<!-- Used as the 'Vendor' for JNLP generation -->
@@ -72,4 +73,5 @@
 	</build>
 
 
+	
 </project>
