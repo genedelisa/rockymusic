@@ -20,6 +20,8 @@ package com.rockhoppertech.collections;
  * #L%
  */
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 /**
+ * Tests for ArrayFunctions.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
@@ -42,17 +46,33 @@ public class ArrayFunctionsTest extends ArrayFunctions {
 
     @Test
     public void testDumpName() {
+        // set stdout
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        System.setOut(ps);
+
         int[] a = new int[] { 1, 2, 3 };
         ArrayFunctions.dumpName(a);
         // just prints to stdout
+
+        assertThat("string content is correct",
+                baos.toString(), equalTo("[I is an array\n"));
 
     }
 
     @Test
     public void testPrintArrayObject() {
+        // set stdout
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        System.setOut(ps);
+
         int[] a = new int[] { 1, 2, 3 };
         // prints 1 2 3 to stdout
         ArrayFunctions.printArray(a);
+
+        assertThat("string content is correct",
+                baos.toString(), equalTo("1 2 3 \n"));
     }
 
     @Test
@@ -76,10 +96,17 @@ public class ArrayFunctionsTest extends ArrayFunctions {
 
     @Test
     public void testHexprint() {
+        // set stdout
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        System.setOut(ps);
+        
         int[] a = new int[] { 1, 2, 3, 10, 11, 12, 13, 14, 15, 16, 17 };
         ArrayFunctions.hexprint(a);
         // writes to stdout
-        // 1 2 3 A B C D E F 10 11
+
+        assertThat("string content is correct",
+                baos.toString(), equalTo("1 2 3 A B C D E F 10 11 \n"));
     }
 
     @Test
@@ -107,10 +134,18 @@ public class ArrayFunctionsTest extends ArrayFunctions {
 
     @Test
     public void testPrintArrayAsJava() {
+        // set stdout
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        System.setOut(ps);
+        
         int[] a = new int[] { 1, 2, 3 };
         ArrayFunctions.printArrayAsJava(a, "arrayString");
         // prints to stdout
         // int[] arrayString = {1, 2, 3};
+        
+        assertThat("string content is correct",
+                baos.toString(), equalTo("int[] arrayString = {1, 2, 3};\n"));
     }
 
     @Test

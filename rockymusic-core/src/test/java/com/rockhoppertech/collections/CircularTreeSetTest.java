@@ -41,14 +41,15 @@ public class CircularTreeSetTest {
 
     @Test
     public void testCircularTreeSet() {
-        Set<Integer> list = new CircularTreeSet<Integer>();
+        Set<Integer> set = new CircularTreeSet<Integer>();
+        logger.debug("the set:\n{}", set);
         assertThat(
-                "list is not null",
-                list,
+                "set is not null",
+                set,
                 notNullValue());
         assertThat(
-                "list length is correct",
-                list.size(),
+                "set length is correct",
+                set.size(),
                 equalTo(0));
     }
 
@@ -58,60 +59,85 @@ public class CircularTreeSetTest {
         orig.add(1);
         orig.add(2);
         orig.add(3);
-        Set<Integer> list = new CircularTreeSet<Integer>(orig);
-        logger.debug("the list:\n{}", list);
+        CircularTreeSet<Integer> set = new CircularTreeSet<Integer>(orig);
+        logger.debug("the set:\n{}", set);
         assertThat("orig is not null",
                 orig,
                 notNullValue());
-        assertThat("list is not null",
-                list,
+        assertThat("set is not null",
+                set,
                 notNullValue());
-        assertThat("list length is correct",
-                list.size(),
+        assertThat("set length is correct",
+                set.size(),
                 equalTo(orig.size()));
-        assertThat("list contents is correct",
-                list,
+        assertThat("set contents is correct",
+                set,
                 equalTo(orig));
 
     }
 
     @Test
+    public void testCircularTreeSetArrayOfQextendsE() {
+        Integer[] orig = { 1, 2, 3 };
+
+        CircularTreeSet<Integer> set = new CircularTreeSet<Integer>(orig);
+        logger.debug("the set:\n{}", set);
+        assertThat("orig is not null",
+                orig,
+                notNullValue());
+        assertThat("set is not null",
+                set,
+                notNullValue());
+        assertThat("set length is correct",
+                set.size(),
+                equalTo(orig.length));
+        for (Integer i : orig) {
+            assertThat("set contents is correct",
+                    set.next(),
+                    equalTo(i));
+        }
+    }
+    
+    
+
+    @Test
     public void testNext() {
-        Integer[] a = new Integer[] { 1, 2, 3 };
-        CircularTreeSet<Integer> list = new CircularTreeSet<Integer>(a);
+        Integer[] a = new Integer[] { 1, 2, 3, 1, 2, 3 };
+        CircularTreeSet<Integer> set = new CircularTreeSet<Integer>(a);
+        logger.debug("the set:\n{}", set);
 
         int expected = 1;
-        int result = list.next();
+        int result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 2;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 3;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 1;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 2;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 3;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
@@ -120,40 +146,41 @@ public class CircularTreeSetTest {
     @Test
     public void testPrevious() {
         Integer[] a = new Integer[] { 1, 2, 3 };
-        CircularTreeSet<Integer> list = new CircularTreeSet<Integer>(a);
+        CircularTreeSet<Integer> set = new CircularTreeSet<Integer>(a);
+        logger.debug("the set:\n{}", set);
 
         int expected = 3;
-        int result = list.previous();
+        int result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
 
         expected = 2;
-        result = list.previous();
+        result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
 
         expected = 1;
-        result = list.previous();
+        result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
 
         expected = 3;
-        result = list.previous();
+        result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
 
         expected = 2;
-        result = list.previous();
+        result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
 
         expected = 1;
-        result = list.previous();
+        result = set.previous();
         assertThat("previous is correct",
                 result,
                 equalTo(expected));
@@ -162,24 +189,25 @@ public class CircularTreeSetTest {
     @Test
     public void testReset() {
         Integer[] a = new Integer[] { 1, 2, 3 };
-        CircularTreeSet<Integer> list = new CircularTreeSet<Integer>(a);
+        CircularTreeSet<Integer> set = new CircularTreeSet<Integer>(a);
+        logger.debug("the set:\n{}", set);
 
         int expected = 1;
-        int result = list.next();
+        int result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
         expected = 2;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
 
-        list.reset();
+        set.reset();
 
         expected = 1;
-        result = list.next();
+        result = set.next();
         assertThat("next is correct",
                 result,
                 equalTo(expected));
