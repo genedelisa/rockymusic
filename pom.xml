@@ -252,7 +252,16 @@
 							<version>2.6</version>
 							<configuration>
 								<aggregate>true</aggregate>
-							</configuration>
+                                 <check>
+                                    <branchRate>85</branchRate>
+                                    <lineRate>85</lineRate>
+                                    <haltOnFailure>true</haltOnFailure>
+                                    <totalBranchRate>85</totalBranchRate>
+                                    <totalLineRate>85</totalLineRate>
+                                    <packageLineRate>85</packageLineRate>
+                                    <packageBranchRate>85</packageBranchRate>
+                                </check>
+                              </configuration>
 						</plugin>
 
 						<!-- doesn't work with 1.7 yet -->
@@ -264,6 +273,14 @@
 							<minimumTokens>100</minimumTokens> <targetJdk>${java.version}</targetJdk> 
 							</configuration> </plugin> -->
 
+						<!--  code complexity -->
+						<!-- doesn't work with 1.7 yet. fails on diamonds -->
+  						<!-- <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                             <artifactId>javancss-maven-plugin</artifactId>
+                             <version>2.0</version>
+                        </plugin> -->
+                                        
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>findbugs-maven-plugin</artifactId>
@@ -275,6 +292,7 @@
 								<threshold>Low</threshold>
 								<xmlOutput>true</xmlOutput>
 								<xmlOutputDirectory>target/site</xmlOutputDirectory>
+								 <linkXref>true</linkXref>
 							</configuration>
 						</plugin>
 
