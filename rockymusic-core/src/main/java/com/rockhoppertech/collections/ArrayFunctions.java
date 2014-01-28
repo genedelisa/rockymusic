@@ -475,9 +475,9 @@ public class ArrayFunctions {
      * Compares numbers in the two arrays. Useful for Comparators since it
      * returns the same -1 0 1 tap dance they want.
      * 
-     * @param a1
-     * @param a2
-     * @return
+     * @param a1 an int array
+     * @param a2 an int array
+     * @return an int -1 &lt; 0 &lt; 1
      */
     public static int compare(int[] a1, int[] a2) {
         if (a1.length > a2.length) {
@@ -555,10 +555,10 @@ public class ArrayFunctions {
     }
 
     /**
-     * delimiter can be whitespace or ,
+     * delimiter can be whitespace or a comma.
      * 
-     * @param s
-     * @return
+     * @param s a string with numbers
+     * @return an array of Integers
      */
     public static Integer[] stringToIntegerArray(String s) {
         Scanner scanner = new Scanner(s);
@@ -571,6 +571,7 @@ public class ArrayFunctions {
         }
         Integer[] r = new Integer[data.size()];
         r = (Integer[]) data.toArray(r);
+        scanner.close();
         return r;
     }
 
@@ -585,6 +586,7 @@ public class ArrayFunctions {
         }
         Double[] r = new Double[data.size()];
         r = (Double[]) data.toArray(r);
+        scanner.close();
         return r;
     }
 
@@ -597,6 +599,7 @@ public class ArrayFunctions {
         while (scanner.hasNextDouble()) {
             data.add(scanner.nextDouble());
         }
+        scanner.close();
         return data;
     }
 
@@ -619,9 +622,9 @@ public class ArrayFunctions {
     /**
      * Is the value contained in the array?
      * 
-     * @param array
-     * @param i
-     * @return
+     * @param array the tested array
+     * @param i the value you're trying to find
+     * @return whether the value is in the array.
      */
     public static boolean contains(int[] array, int i) {
         for (int j = 0; j < array.length; j++) {
@@ -635,10 +638,10 @@ public class ArrayFunctions {
      * return the sum of all the values in the array delimited by the specified
      * indexes.
      * 
-     * @param array
-     * @param from
-     * @param to
-     * @return
+     * @param array The array to sum
+     * @param from starting index
+     * @param to ending index
+     * @return the sum of the values
      */
     public static int sum(int[] array, int from, int to) {
         int sum = 0;
@@ -656,8 +659,8 @@ public class ArrayFunctions {
     /**
      * A copy of the array is appended to itself.
      * 
-     * @param array
-     * @return
+     * @param array an array of values
+     * @return an array with the array appended
      */
     public static int[] appendCopy(int[] array) {
         int[] copy = new int[array.length * 2];
