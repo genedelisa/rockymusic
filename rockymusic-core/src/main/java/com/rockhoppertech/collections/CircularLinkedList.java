@@ -26,7 +26,7 @@ import java.util.LinkedList;
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
- * @param <E>
+ * @param <E> the type contained in the list.
  */
 public class CircularLinkedList<E> extends LinkedList<E> implements
 		CircularList<E> {

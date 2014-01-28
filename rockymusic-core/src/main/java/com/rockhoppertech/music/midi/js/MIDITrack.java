@@ -181,7 +181,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * provided collection are copied - not cloned.
      * 
      * @param c
-     *            a <code>Collection<MIDINote></code> value
+     *            a {@code Collection<MIDINote>} value
      */
     public MIDITrack(Collection<MIDINote> c) {
         this();
@@ -194,7 +194,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * Parses a note string. It is not sequential by default since the
      * noteString may contain start beats and durations.
      * 
-     * @param noteString
+     * @param noteString a note string
      * @see MIDIStringParser
      */
     public MIDITrack(String noteString) {
@@ -407,6 +407,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @see com.rockhoppertech.music.midi.js.MIDINote
      * @see MIDITrack#append(MIDINote)
+     * @return this to cascade
      */
     public MIDITrack add(MIDINote note) {
         notes.add(note);
@@ -443,6 +444,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @see com.rockhoppertech.music.midi.js.MIDINote
      * @see com.rockhoppertech.music.PitchFactory
+     * @return this to cascade
      */
     public MIDITrack add(String pitch) {
         MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
@@ -492,6 +494,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @see com.rockhoppertech.music.midi.js.MIDINote
      * @see com.rockhoppertech.music.PitchFactory
+     * @return this to cascade
      */
     public MIDITrack add(String pitch, double duration) {
         MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
@@ -525,6 +528,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @see com.rockhoppertech.music.midi.js.MIDINote
      * @see com.rockhoppertech.music.PitchFactory
+     * @return this to cascade
      */
     public MIDITrack add(String pitch, double startBeat, double duration) {
         MIDINote note = new MIDINote(PitchFactory.getPitch(pitch)
@@ -626,6 +630,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @param l
      *            a <code>MIDITrack</code> value
+     * @return this to cascade
      */
     public MIDITrack merge(MIDITrack l) {
         // notes.addAll(l.notes);
@@ -645,8 +650,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * Removes the notes and events from this track, and set's the track
      * reference for each back to the parameter track.
      * 
-     * @param l
-     * @return
+     * @param l another MIDITrack
+     * @return this to cascade
      */
     public MIDITrack unmerge(MIDITrack l) {
         for (MIDINote n : l.notes) {
@@ -740,9 +745,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * this is cumulative.
      * 
-     * @param track
-     * @param n
-     * @return
+     * @param track the track
+     * @param n number of times to append
+     * @return a MIDITrack 
      */
     public MIDITrack appendNTimes(MIDITrack track, int n) {
         MIDITrack r = null;
@@ -758,6 +763,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @param track
      *            the track to append
+     * @return this to cascade
      */
     public MIDITrack append(MIDITrack track) {
         return this.append(track, 0);
@@ -771,7 +777,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param gap
      *            the duration between the end of the track and the appended
      *            track
-     * @return
+     * @return this to cascade
      */
     public MIDITrack append(MIDITrack track, double gap) {
         int fromIndex = 0;
@@ -784,17 +790,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * between them. A negative value for the gap will overlap the tracks. The
      * Notes are cloned.
      * 
-     * <pre>
-     * nl.append(nl2, 0).append(nl3, 0);
-     * </pre>
+     * {@code nl.append(nl2, 0).append(nl3, 0);}
      * 
-     * @param track
+     * @param track the track
      * @param gap
      *            the durational space between the tracks in beats
      * @param fromIndex
      *            low endpoint (inclusive) of the subList.
      * @param toIndex
      *            high endpoint (exclusive) of the subList.
+     * @return this to cascade calls
      */
     public MIDITrack append(MIDITrack track, double gap,
             int fromIndex, int toIndex) {
@@ -856,6 +861,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @param l
      *            a <code>MIDITrack</code> value
+     * @return true on success
      */
     public boolean retain(MIDITrack l) {
         boolean ret = notes.retainAll(l.notes);
@@ -945,7 +951,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * There intervals are in relation to the first MIDINote's MIDI number. Like
      * a Chord.
      * 
-     * @return
+     * @return an array of intervals
      */
     public int[] getPitchIntervalsAbsolute() {
         int len = notes.size();
@@ -960,6 +966,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     /**
      * Reset each note's startBeat. The pad is 0.
+     * @return this
      */
     public MIDITrack sequential() {
         return this.sequential(0);
@@ -971,6 +978,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @param pad
      *            amount added between the notes
+     * @return this to cascade calls
      */
     public MIDITrack sequential(int pad) {
         int size = size();
@@ -1021,16 +1029,13 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * mapcar in LISP (but Java does not have lambdas so you need the
      * NoteModifier interface).
      * 
-     * <blockquote>
      * 
-     * <pre>
+     * {@code
      * MIDITrack track = new MIDITrack();
      * MIDINote note = new MIDINote(Pitch.C5);
      * track.add(note);
      * track.map(new DurationModifier(1d, NoteModifier.Operation.ADD));
-     * </pre>
-     * 
-     * </blockquote>
+     * }
      * 
      * @param mod
      *            a <code>NoteModifier</code> implementation.
@@ -1042,7 +1047,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @see com.rockhoppertech.music.modifiers.InstrumentModifier
      * @see com.rockhoppertech.music.modifiers.PitchModifier
      * @see com.rockhoppertech.music.modifiers.StartBeatModifier
-     * @see com.rockhoppertech.music.midi.js.modifiers.TransposeModifier
+     * @return this to cascade calls
      */
     public MIDITrack map(NoteModifier mod) {
         for (MIDINote n : this) {
@@ -1069,6 +1074,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            start beat.
      * 
      * @see com.rockhoppertech.music.midi.js.MIDITrack#map(NoteModifier)
+     * @return this to cascade calls
      */
     public MIDITrack map(NoteModifier mod, double after) {
         for (MIDINote n : this) {
@@ -1099,6 +1105,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param before
      *            a <code>double</code> value
      * @see com.rockhoppertech.music.midi.js.MIDITrack#map(NoteModifier)
+     * @return this to cascade calls
      */
     public MIDITrack map(NoteModifier mod, double after, double before) {
         for (MIDINote n : this) {
@@ -1120,7 +1127,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return this;
     }
 
-    /**
+    /*
      * Modify MIDINotes only if the specified criteria tests true.
      * 
      * This is the preferred way. MIDITrack has two special criteria for start
@@ -1236,7 +1243,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * Iterate through the track to find the Note with the lowest pitch midi
      * number.
      * 
-     * @return
+     * @return the lowest note
      */
     public MIDINote getLowestPitchedNote() {
         MIDINote n = new MIDINote(Pitch.GS9);
@@ -1295,11 +1302,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <p>
+     * <p>Get the index of the specified note.
      * </p>
      * 
-     * @param note
-     * @return
+     * @param note a note in the track
+     * @return the note's index or -1 if not found
      */
     public int indexOfNote(MIDINote note) {
         return notes.indexOf(note);
@@ -1363,9 +1370,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Notes are not cloned.
      * 
-     * @param after
-     * @param before
-     * @return
+     * @param after a stat beat
+     * @param before an end beat
+     * @return a MIDITrack built from the sublist
      */
     public MIDITrack sublist(double after, double before) {
         return sublist(after, before, false);
@@ -1377,7 +1384,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @param index
      *            The index to begin copying from.
-     * @return a MIDITrack
+     * @return a MIDITrack built from the sublist
      */
     public MIDITrack sublist(int index) {
         List<MIDINote> sl = notes.subList(index, notes.size());
@@ -1434,7 +1441,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * Creates a new List of List<MIDINote> organized by the MIDItrack's note's
+     * Creates a new List of {@code List<MIDINote>}s organized by the MIDItrack's note's
      * channels. The original MIDItrack is unchanged.
      * 
      * @return A List of a List of MIDINotes organized by channel
@@ -1494,11 +1501,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <p>
+     * <p>Change the start beat of note at the specified index.
      * </p>
      * 
-     * @param selectedIndex
-     * @param i
+     * @param selectedIndex the index
+     * @param i the new start beat
      */
     public void changeStartBeatOfNoteAtIndex(int selectedIndex, double i) {
         MIDINote n = get(selectedIndex);
@@ -1526,11 +1533,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * <p>
+     * <p> change the end beat of the note at this index.
      * </p>
      * 
-     * @param selectedIndex
-     * @param d
+     * @param selectedIndex the index.
+     * @param d the end beat
      */
     public void changeEndBeatOfNoteAtIndex(int selectedIndex, double d) {
         MIDINote n = get(selectedIndex);
@@ -1649,7 +1656,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * @param beat
+     * @param beat the beat
      * @return the key signature or null
      */
     public KeySignature getKeySignatureAtBeat(double beat) {
@@ -1758,7 +1765,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Changes the patch on all MIDINotes in this track.
      * 
-     * @param instrument
+     * @param instrument the Instrument
      */
     public void useInstrument(Instrument instrument) {
         this.instrument = instrument;
@@ -1784,8 +1791,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
     // TODO write unit tests for these two
     /**
-     * @param string
+     * @param noteString
      *            a MIDIString
+     * @return this to cascade calls
      */
     public MIDITrack append(String noteString) {
         MIDITrack tmp = new MIDITrack(noteString);
@@ -1800,7 +1808,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * This doesn't change the startBeats.
      * 
-     * @param string
+     * @param noteString
      *            a MIDIString
      */
     public void insertMIDIString(String noteString) {
@@ -1870,8 +1878,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Get the MIDINotes at the specified beat.
      * 
-     * @param beat
-     * @return
+     * @param beat the beat
+     * @return a List of MIDINotes at this beat
      */
     // public List<MIDINote> getNotesAtBeat(final double beat) {
     // List<MIDINote> notes = new ArrayList<MIDINote>();

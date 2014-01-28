@@ -291,9 +291,9 @@ public class ChordVoicing {
     /**
      * pretty much closed position.
      * 
-     * @param chord
-     * @param inversion
-     * @return
+     * @param chord the chord
+     * @param inversion the inversion
+     * @return a String with the inversion
      */
     public String getInversion(Chord chord, int inversion) {
         StringBuilder sb = new StringBuilder();

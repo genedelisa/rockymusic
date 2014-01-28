@@ -120,10 +120,11 @@ public class Scale implements Cloneable {
     }
 
     /**
-     * <p>
+     * <p>Construct a Scale from the name and spelling.
      * </p>
      * 
-     * @param string
+     * @param name the name to set
+     * @param spelling the spelling to use
      */
     public Scale(final String name, final String spelling) {
         setName(name);

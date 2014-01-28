@@ -187,7 +187,7 @@ public final class PitchFactory {
      */
     /**
      * 
-     * @param freq
+     * @param freq the frequence in hz
      * @return a Pitch with midiNumber and cents set
      */
     public static Pitch createFromFrequency(double freq) {

@@ -88,7 +88,7 @@ public class ChordProgression implements Iterable<Chord> {
     /**
      * Append a chord to the progression.
      * 
-     * @param chord
+     * @param chord the Chord to add.
      * @return this to allow cascading
      */
     public ChordProgression add(final Chord chord) {
@@ -107,9 +107,9 @@ public class ChordProgression implements Iterable<Chord> {
     /**
      * Input string can be either roman or std.
      * 
-     * @param input
+     * @param input A string with the chord changes.
      * @return ChordProgression
-     * @throws UnknownChordException
+     * @throws UnknownChordException if the string contains an unregistered chord.
      */
     public static ChordProgression create(final String input)
             throws UnknownChordException {
@@ -193,9 +193,9 @@ public class ChordProgression implements Iterable<Chord> {
     /**
      * Used by the transferhandler.
      * 
-     * @param chordProgression
-     * @param beatsPerMeasure
-     * @return
+     * @param chordProgression the progression
+     * @param beatsPerMeasure how many beats in the measure
+     * @return a string
      */
     public static String asString(final ChordProgression chordProgression,
             final int beatsPerMeasure) {
@@ -234,6 +234,7 @@ public class ChordProgression implements Iterable<Chord> {
      * 
      * @param gap
      *            duration between chords
+     * @return the total
      */
     public double closeTimeline(final double gap) {
         final int size = this.chords.size();
@@ -333,8 +334,8 @@ public class ChordProgression implements Iterable<Chord> {
     /**
      * Removes the chord but leaves the timeline intact.
      * 
-     * @param chord
-     * @return boolean
+     * @param chord the chord to remove
+     * @return boolean is it was removed
      * @see ChordProgression#closeTimeline()
      */
     public boolean remove(final Chord chord) {
@@ -502,8 +503,8 @@ public class ChordProgression implements Iterable<Chord> {
      * Standard chord names but broken into the specified number of measures per
      * row.
      * 
-     * @param measuresPerRow
-     * @return
+     * @param measuresPerRow how many measures per row to print.
+     * @return a string of the progression.
      */
     public String toStdRows(int measuresPerRow) {
         String newline = System.getProperty("line.separator");

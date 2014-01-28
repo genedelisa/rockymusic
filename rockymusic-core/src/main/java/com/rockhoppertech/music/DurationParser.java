@@ -290,7 +290,7 @@ public class DurationParser {
 	}
 
 	/**
-	 * @param args
+	 * @param args cmd line arguments
 	 */
 	public static void main(String[] args) {
 		DurationParser.print();

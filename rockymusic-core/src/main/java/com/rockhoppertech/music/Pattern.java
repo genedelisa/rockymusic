@@ -41,8 +41,8 @@ import com.rockhoppertech.music.scale.Scale;
  * Essentially a holder for the values to create a MIDITrack based on a given
  * set of degrees and a pattern contained in an int array.
  * 
- * The real work is done by {@link MIDITrackFactory#getTrackPattern()}
- * 
+ * The real work is done by 
+ * {@link com.rockhoppertech.music.midi.js.MIDITrackFactory#getTrackPattern(int[], int[], int, int, int, double, boolean, double, boolean)}
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
@@ -51,6 +51,7 @@ public class Pattern {
     private static final Logger logger = LoggerFactory
             .getLogger(Pattern.class);
 
+    
     /**
      * Bloch's pattern and not the GoF pattern.
      * 
@@ -70,6 +71,7 @@ public class Pattern {
      * 
      */
     public static class Builder {
+        
         private int[] degrees;
         private int[] pattern;
         private int startPitch = Pitch.C5;
@@ -82,8 +84,8 @@ public class Pattern {
         /**
          * These are the non optional fields.
          * 
-         * @param degrees
-         * @param pattern
+         * @param degrees the degrees
+         * @param pattern the pattern
          */
         public Builder(int[] degrees, int[] pattern) {
             this.degrees = degrees;
@@ -91,6 +93,7 @@ public class Pattern {
         }
 
         public Builder(List<Integer> d, int[] pattern) {
+
             this.degrees = new int[d.size()];
             for (int i = 0; i < degrees.length; i++) {
                 degrees[i] = d.get(i);
@@ -208,11 +211,12 @@ public class Pattern {
 
     /**
      * Each entry in the pattern is an index into the degrees. So this value
-     * must be < the length of the degree array.
+     * must be &lt; the length of the degree array.
      * 
      * A pattern = new int[] { 0 } is the identity result.
      * 
      * <pre>
+     * {@code
      * int[] degrees = new int[] { 0, 2, 4, 5, 6, 9, 11 };
      * int[] pattern = new int[] { 0, 2 };
      * int numOctaves = 1;
@@ -223,15 +227,16 @@ public class Pattern {
      *         reverse, restBetweenPatterns);
      * nlPattern.setUpAndDown(true);
      * MIDITrack nl = nlPattern.createTrack(1d);
+     * }
      * </pre>
      * 
-     * @param degrees
-     * @param pattern
-     * @param startPitch
-     * @param numOctaves
-     * @param duration
-     * @param reverse
-     * @param restBetweenPatterns
+     * @param degrees the degrees
+     * @param pattern the pattern
+     * @param startPitch start pitch
+     * @param numOctaves how many octaves
+     * @param duration the duration
+     * @param reverse should it be reversed
+     * @param restBetweenPatterns duration between patterns
      */
     public Pattern(final int[] degrees, final int[] pattern,
             final int startPitch, final int numOctaves, final double duration,
@@ -261,6 +266,7 @@ public class Pattern {
 
     /**
      * <pre>
+     * {@code
      * Scale scale = ScaleFactory.getScaleByName(&quot;Major&quot;);
      * int[] pattern = new int[] { 0, 2 };
      * int numOctaves = 1;
@@ -271,15 +277,16 @@ public class Pattern {
      *         reverse, restBetweenPatterns);
      * scalePattern.setUpAndDown(true);
      * MIDITrack nl = scalePattern.createTrack(1d);
+     * }
      * </pre>
      * 
-     * @param scale
-     * @param pattern
-     * @param startPitch
-     * @param numOctaves
-     * @param duration
-     * @param reverse
-     * @param restBetweenPatterns
+     * @param scale the scale
+     * @param pattern  the pattern
+     * @param startPitch the start pitch
+     * @param numOctaves how many octaves
+     * @param duration the duration
+     * @param reverse reverse the pattern
+     * @param restBetweenPatterns duration between patterns
      */
     public Pattern(final Scale scale, final int[] pattern,
             final int startPitch, final int numOctaves, final double duration,
@@ -304,8 +311,6 @@ public class Pattern {
     }
 
     /**
-     * @param gap
-     *            the duration between patterns
      * @return a MIDITrack containing the patterns
      */
     public MIDITrack createTrack() {
@@ -327,9 +332,9 @@ public class Pattern {
      * If the pattern is based on degrees instead of midipitches then spread
      * will project the degress over the number of octaves
      * 
-     * @param gap
-     * @param spread
-     * @return
+     * @param gap the gap between patterns
+     * @param spread number of octaves
+     * @return a {@code MIDITrack}
      */
     public MIDITrack createTrack(final double gap, boolean spread) {
         if (this.degrees == null) {
@@ -483,7 +488,7 @@ public class Pattern {
 
     /**
      * 
-     * @return
+     * @return the display name
      */
     public String getDisplayName() {
         return this.displayName;

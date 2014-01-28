@@ -48,14 +48,16 @@ public class ChordProgressionParser {
 
     /**
      * Create a Chord sequence based on fake book style chord names. Measures
-     * are delimited by the character |. The meter is 4/4. <code>
+     * are delimited by the character |. The meter is 4/4. 
+     * 
+     * {@code
      * List<Chord> progression = 
      * ChordProgressionParser.chordsFromStdNames("F7 | Bb7 | F7 | Cm7 F7 | Bb7 | Bm7 E7 | F7 E7 | Eb7 D7 | Gm7 | C7 Bb7 | Am7 D7 | Gm7 C7");
-     * </code>
+     * }
      * 
-     * @param inputString
-     * @return
-     * @throws UnknownChordException
+     * @param inputString a chord progression
+     * @return a ChordProgression
+     * @throws UnknownChordException if any chord is not registered
      */
     public static ChordProgression chordsFromStdNames(String inputString)
             throws UnknownChordException {
@@ -381,8 +383,8 @@ public class ChordProgressionParser {
      * Checks first chord to determine if the progression uses roman numerals.
      * That means you cannot mix roman and standard input.
      * 
-     * @param input
-     * @return
+     * @param input a string with the progression
+     * @return true if the input is in Roman numerals.
      */
     public static boolean isRoman(String input) {
         Scanner scanner = new Scanner(input);

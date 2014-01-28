@@ -28,7 +28,7 @@ import java.util.Collection;
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
- * @param <E>
+ * @param <E> the type contained in the list.
  */
 public class CircularArrayList<E> extends ArrayList<E> implements
         CircularList<E> {

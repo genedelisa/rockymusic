@@ -156,7 +156,7 @@ public class Duration {
 	 *            the duration
 	 * @param n
 	 *            the number of dots
-	 * @return
+	 * @return the duration dotted
 	 */
 	public static double getDotted(final double val, final int n) {
 		if (n < 1) {
@@ -181,7 +181,7 @@ public class Duration {
 	 * In a music notation program you need to know what the sequence of rests
 	 * are given a rest duration.
 	 * 
-	 * @param d
+	 * @param d the duration.
 	 * @return a comma delimited String with rest values
 	 */
 	public static String getRestString1(double d) {

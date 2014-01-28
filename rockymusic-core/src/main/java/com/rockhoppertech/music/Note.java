@@ -207,8 +207,8 @@ public class Note implements Comparable<Note>, Timed, Serializable {
     /**
      * <code>compareTo</code> checks the startBeat.
      * 
-     * @param o
-     *            an <code>Object</code> value
+     * @param n a note to compare
+     *            
      * @return an <code>int</code> value
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)

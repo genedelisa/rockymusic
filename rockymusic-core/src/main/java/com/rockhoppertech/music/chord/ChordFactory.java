@@ -220,17 +220,17 @@ public class ChordFactory {
     // public static void add(Chord aChord) {
     // registerChord(aChord);
     // }
-    /**
-     * Register a new Chord with the Factory's registry.
-     * 
-     * @param aSymbol
-     * @param aSpelling
-     * @param aDescription
-     */
+   
     // public static void addChord(String aSymbol, String aSpelling,
     // String aDescription) {
     // registerChord(new Chord(aSymbol, aSpelling, aDescription));
     // }
+    
+    /**
+     * Create a new Chord with the specified registered symbol.
+     * @param aSymbol the symbol to use.
+     * @return a Chord based on the registered symbol.
+     */
     public static Chord createFromSymbol(String aSymbol) {
         return ChordFactory.midiChordMap.get(aSymbol);
 
@@ -244,7 +244,7 @@ public class ChordFactory {
     /**
      * Loop through registered chords to find a spelling match.
      * 
-     * @param spelling
+     * @param spelling the speling
      * @return a Chord or null
      */
     public static Chord createFromSpelling(String spelling) {
@@ -310,9 +310,9 @@ public class ChordFactory {
      * 
      * </blockquote>
      * 
-     * @param someIntervals
+     * @param someIntervals the intervals
      * @return a Chord
-     * @throws UnknownChordException
+     * @throws UnknownChordException if the chord is unknown
      * @throws IllegalArgumentException
      *             if the intervals are not in the Factory's registry
      */
@@ -360,12 +360,13 @@ public class ChordFactory {
     }
 
     /**
-     * 
-     * @param rootMidiNum
-     * @param symbol
-     * @param startBeat
-     * @param duration
-     * @return
+     * Create a MIDITrack based on the parameters.
+     *  
+     * @param rootMidiNum the MIDI number of the root
+     * @param symbol the chord symbol
+     * @param startBeat the start beat &gt;= 1.0
+     * @param duration the duration
+     * @return a {@code MIDITrack}
      * 
      * @see ChordFactory#createFromSymbol(String)
      */
@@ -395,8 +396,8 @@ public class ChordFactory {
      * this is called from Chord when you change its instance values. So
      * chord.getNotelist() returns the result.
      * 
-     * @param chord
-     * @return a MIDITrack instance
+     * @param chord the chord instance to use
+     * @return a {@cod MIDITrack} instance
      * 
      * @see Chord#createMIDITrack()
      */
@@ -613,8 +614,8 @@ public class ChordFactory {
      * None of the chars used as an accidental can be used in a symbol. e.g. s
      * is not used for sharp since sus is a symbol.
      * 
-     * @param name
-     * @return
+     * @param name a pitch name
+     * @return if the pitch is an accidental
      */
     public static boolean isAccidental(String name) {
         if (name.length() > 1) {
@@ -648,9 +649,9 @@ public class ChordFactory {
     /**
      * Just the symol; no root. e.g. maj7 GoF prototype design pattern.
      * 
-     * @param symbol
-     * @return
-     * @throws UnknownChordException
+     * @param symbol a chord symbol
+     * @return a {@code Chord} with the specified symbol
+     * @throws UnknownChordException if the symbol is not registered.
      */
     public static Chord getChordBySymbol(String symbol)
             throws UnknownChordException {
@@ -679,7 +680,7 @@ public class ChordFactory {
     /**
      * Return a List of all registered chord symbol names along with aliases.
      * 
-     * @return
+     * @return a {@code Set} of symbol names.
      */
     public static Set<String> getSymbolNames() {
         Set<String> list = new TreeSet<String>();
@@ -711,9 +712,9 @@ public class ChordFactory {
      * 
      * </blockquote>
      * 
-     * @param name
-     * @return
-     * @throws UnknownChordException
+     * @param name the chord symbol
+     * @return a {@code Chord}
+     * @throws UnknownChordException if the symbol is not registered.
      * @see ChordFactory#getChordBySymbol(String)
      */
     public static Chord getChordByFullSymbol(String name)
@@ -782,9 +783,10 @@ public class ChordFactory {
     // }
     /**
      * Called from ChordFactoryXMLHelper parse method.
+     * The key is stored in the midiChordMap.
      * 
-     * @param chord
-     * @param key
+     * @param chord a chord to register
+     * @param key the key of the chord
      */
     public static void registerChord(Chord chord, String key) {
         key = key.trim();
@@ -881,8 +883,8 @@ public class ChordFactory {
     /**
      * Return a new List of registered chords by the number of their intervals.
      * 
-     * @param number
-     * @return
+     * @param number number of intervals.
+     * @return a {@code List} of {@code Chord}s
      */
     public static List<Chord> findByNumberOfIntervals(int number) {
         if (midiChordMap == null) {
@@ -899,7 +901,7 @@ public class ChordFactory {
 
     /**
      * 
-     * @return
+     * @return s a {@code String} that is the file name of the definitions.
      */
     public static String getDefinitionFileName() {
         return definitionFileName;
@@ -959,8 +961,8 @@ public class ChordFactory {
     /**
      * Returns the triads for each degree of the scale.
      * 
-     * @param scale
-     * @return
+     * @param scale the Scale
+     * @return an array of {@code Chord}s
      */
     public static Chord[] getChords(Scale scale) {
         int[] intervals = scale.getIntervals();
@@ -1082,8 +1084,8 @@ public class ChordFactory {
      * Returns the seventh chords for each degree of the scale. The root of the
      * scale is C.
      * 
-     * @param scale
-     * @return
+     * @param scale the Scale.
+     * @return an array of {@code Chord}s
      */
     public static Chord[] getSeventhChords(Scale scale) {
         int[] intervals = scale.getIntervals();

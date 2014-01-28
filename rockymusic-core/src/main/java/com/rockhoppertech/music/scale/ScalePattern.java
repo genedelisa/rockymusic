@@ -37,7 +37,12 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
  * Essentially a holder for the values to create a MIDITrack based on a given
  * Scale and a pattern contained in an int array.
  * 
- * The real work is done by {@link ScaleFactory#getNoteListPattern()}
+ * The real work is done by 
+ * {@link com.rockhoppertech.music.scale.ScaleFactory#getNoteListPattern(Scale, 
+ * int[], int, int, int, double, boolean, double, boolean)}
+ * 
+ * 
+ * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 

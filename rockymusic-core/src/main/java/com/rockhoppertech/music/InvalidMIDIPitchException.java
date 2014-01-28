@@ -24,7 +24,7 @@ package com.rockhoppertech.music;
  */
 
 /**
- * If specify a pitch < Pitch.MIN or > Pitch.MAX.
+ * If specify a pitch &lt; Pitch.MIN or &gt; Pitch.MAX.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
@@ -32,13 +32,13 @@ package com.rockhoppertech.music;
 public class InvalidMIDIPitchException extends RuntimeException {
 
 	/**
-     * 
+     * For serializaiton.
      */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
-	 * @param message
+	 * @param message the message
 	 */
 	public InvalidMIDIPitchException(final String message) {
 		super(message);

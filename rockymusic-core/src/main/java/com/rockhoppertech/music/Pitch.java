@@ -114,9 +114,9 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * Can use a constant.
 	 * <p>
 	 * 
-	 * <code><pre>
+	 * {@code
 	 * new Pitch(Pitch.C5);
-	 * </pre></code>
+	 * }
 	 * 
 	 * @param n
 	 *            the midi number to use. 60 is middle c.
@@ -140,11 +140,11 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * the frequency.
 	 * </p>
 	 * 
-	 * @link com.rockhoppertech.music.PitchFormat
+	 * {@link com.rockhoppertech.music.PitchFormat}
+	 * 
 	 * @param s
 	 *            String the pitch string like c#5
 	 */
-
 	public Pitch(String s) {
 		midiNumber = PitchFormat.stringToMidiNumber(s);
 		frequency = PitchFactory.EQUAL_TEMPERAMENT.get(midiNumber);
@@ -159,6 +159,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 
 	/**
 	 * Sets the midi number and frequency.
+	 * @param n the midi number
 	 */
 	public void setMidiNumber(int n) {
 		midiNumber = n;
@@ -183,14 +184,15 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * This uses the PitchFactory to return the appropriate instance. The object
 	 * that is the receiver of this message is not affected in any way.
 	 * </p>
-	 * <code><pre>
+	 * {@code
 	 * p.transpose(Pitch.TRITONE);
 	 * p.transpose(Pitch.MAJOR_SEVENTH);
-	 * </pre></code>
+	 * }
 	 * 
 	 * @param minorSeconds
 	 *            The value added with the receiver's midinumber. Can be
 	 *            negative to transpose down.
+	 * @return the transposed Pitch
 	 */
 	public Pitch transpose(int minorSeconds) {
 		int n = midiNumber + minorSeconds;
@@ -283,7 +285,6 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * @param oct
 	 *            the octave. 6.0 is middle C's octave
 	 * @return the frequency
-	 * @exception none
 	 */
 	public static double midiFq(double pitch, double oct) {
 		return (REF_PITCH * Math.pow(2d,
@@ -303,8 +304,6 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * @param midiNoteNumber
 	 *            an <code>int</code> value
 	 * @return the frequency
-	 * @exception should
-	 *                throw out of range
 	 */
 	public static double midiFq(int midiNoteNumber) {
 		return (REF_PITCH * Math.pow(2d,
@@ -857,7 +856,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 	 * assertThat(somePitch.getSynonymsForPitchClass(), hasItem("Db"));
 	 * </code>
 	 * 
-	 * @return
+	 * @return a {@code Set} of synonyms
 	 */
 	public Set<String> getSynonymsForPitchClass() {
 		return Pitch.getSynonyms(midiNumber % 12);
@@ -878,25 +877,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
 		return syn;
 	}
 
-	/**
-	 * Matches either exact midi number or pitchclass.
-	 * 
-	 * @param midiNumber
-	 * @param pitchClass
-	 * @return
-	 */
-	// public static List<String> getSynonyms(int midiNumber, int pitchClass) {
-	// List<String> syn = new ArrayList<String>();
-	// for (Map.Entry<String, Integer> entry : nameMap.entrySet()) {
-	// if (entry.getValue() == midiNumber
-	// || entry.getValue() == pitchClass) {
-	// syn.add(entry.getKey());
-	// syn.add(entry.getKey().toLowerCase());
-	// syn.add(entry.getKey().toUpperCase());
-	// }
-	// }
-	// return syn;
-	// }
+
 
 	// this is the fastest and easiest. a pain to set up but now its set up.
 	public static final Map<String, Integer> nameMap = new TreeMap<String, Integer>();

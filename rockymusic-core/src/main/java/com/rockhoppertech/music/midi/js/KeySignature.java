@@ -173,9 +173,9 @@ public class KeySignature implements Serializable {
     /**
      * get(Pitch.C0, KeySignature.MAJOR)
      * 
-     * @param r
-     * @param mm
-     * @return
+     * @param root the root
+     * @param mm major or minor
+     * @return a KeySignature
      */
     public static KeySignature get(String root, int mm) {
 
@@ -558,7 +558,7 @@ public class KeySignature implements Serializable {
     }
 
     /**
-     * number of sharps or flats. flats < 0, Sharps > 0
+     * number of sharps or flats. flats &lt; 0, Sharps &gt; 0
      * 
      * @return the sf
      */

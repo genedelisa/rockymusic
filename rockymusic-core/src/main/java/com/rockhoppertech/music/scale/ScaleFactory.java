@@ -448,8 +448,6 @@ public class ScaleFactory {
      *            registered scale name
      * @param rootMidiNum
      *            the starting pitch as a MIDI key number
-     * @param startBeat
-     * @param duration
      * 
      * @return a MIDITrack
      */

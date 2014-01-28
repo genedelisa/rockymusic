@@ -429,10 +429,10 @@ public class Instrument {
     }
 
     /**
-     * @param patch
-     * @param name
-     * @param minPitch
-     * @param maxPitch
+     * @param patch the patch to use
+     * @param name the name
+     * @param minPitch the min pitch
+     * @param maxPitch the max pitch
      */
     public Instrument(MIDIGMPatch patch, String name, int minPitch, int maxPitch) {
         this.patch = patch;
@@ -449,16 +449,16 @@ public class Instrument {
     }
 
     /**
-     * @param pitch
-     * @return
+     * @param pitch a MIDI number
+     * @return true if it is in range for this instrument
      */
     public boolean isPitchInRange(int pitch) {
         return (pitch >= this.minPitch && pitch <= this.maxPitch);
     }
 
     /**
-     * @param pitch
-     * @return
+     * @param pitch a Pitch instance
+     * @return true if it is in range for this instrument
      */
     public boolean isPitchInRange(Pitch pitch) {
         return (pitch.getMidiNumber() >= this.minPitch && pitch.getMidiNumber() <= this.maxPitch);

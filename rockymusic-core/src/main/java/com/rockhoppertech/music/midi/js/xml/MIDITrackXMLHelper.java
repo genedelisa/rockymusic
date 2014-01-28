@@ -78,7 +78,6 @@ import com.rockhoppertech.music.midi.js.TimeSignature;
  * MIDITracks to and from XML.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @see MIDITrackTransferHandler
  * @see com.rockhoppertech.music.midi.js.MIDITrack
  */
 public class MIDITrackXMLHelper {
@@ -215,10 +214,8 @@ public class MIDITrackXMLHelper {
      * Turn a (@link com.rockhoppertech.music.midi.js.MIDITrack) into an XML
      * string.
      * 
-     * @param notelist
-     * @return
-     * @see com.rockhoppertech.music.dnd.MIDITrackTransferHandler.getTransferData
-     *      ()
+     * @param notelist to turn into a string
+     * @return a string
      */
     public static String MIDITrackToString(final MIDITrack notelist) {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -230,8 +227,7 @@ public class MIDITrackXMLHelper {
     /**
      * Parses the content of the node and stores it in the notelist.
      * 
-     * @param notelist
-     * @param node
+     * @param node the note
      */
     public static MIDITrack parseMIDITrack(final Node node) {
         if (node == null) {

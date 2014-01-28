@@ -103,7 +103,7 @@ public class PitchFormat implements Serializable {
      * The factory method to get the Singleton instance of this class.
      * </p>
      * 
-     * @return
+     * @return the Singleton instance
      */
     public static synchronized PitchFormat getInstance() {
         if (instance == null) {
@@ -121,7 +121,7 @@ public class PitchFormat implements Serializable {
      * If you want to use and alternative map.
      * </p>
      * 
-     * @param m
+     * @param m the flat map
      */
     public static void setFlatPitchMap(Map<Integer, String> m) {
         flatPitchMap = m;
@@ -132,7 +132,7 @@ public class PitchFormat implements Serializable {
      * If you want to use and alternative map.
      * </p>
      * 
-     * @param m
+     * @param m the sharp map
      */
     public static void setSharpPitchMap(Map<Integer, String> m) {
         sharpPitchMap = m;
@@ -605,6 +605,7 @@ public class PitchFormat implements Serializable {
 
     /**
      * just a test.
+     * @param args command line arguments ignored.
      */
     public static void main(String[] args) {
         Pitch[] a = new Pitch[12];

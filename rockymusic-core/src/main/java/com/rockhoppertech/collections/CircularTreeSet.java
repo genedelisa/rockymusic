@@ -22,83 +22,102 @@ package com.rockhoppertech.collections;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.TreeSet;
 
 //TODO the previous does not start at the same place as next.
 
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * A set that wraps its values retrieved via {@code next} and {@code previous}.
+ * Based on a {@link TreeSet}.
  * 
  * @param <E>
+ *            The type of the elements
+ * 
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * @see Collection
+ * @see Set
+ * @see TreeSet
  */
 public class CircularTreeSet<E> extends TreeSet<E> {
 
-	/**
-     * 
+    /**
+     * For Serialization.
      */
-	private static final long serialVersionUID = 2099856485946476464L;
+    private static final long serialVersionUID = 2099856485946476464L;
 
-	/*
-	public static void main(final String[] args) {
-		final CircularTreeSet<Integer> cal = new CircularTreeSet<Integer>();
+    /**
+     * Iterator for next.
+     */
+    private transient Iterator<E> currentIterator = iterator();
 
-		cal.add(2);
-		cal.add(3);
-		cal.add(4);
-		cal.add(3);
-		cal.add(4);
-		cal.add(1);
-		System.err.println(cal);
-		for (int i = 0; i < 10; i++) {
-			System.err.println(cal.next());
-		}
-		System.out.println();
-		for (int i = 0; i < 10; i++) {
-			System.err.println(cal.previous());
-		}
-	}
-	*/
+    /**
+     * Iterator for previous.
+     */
+    private transient Iterator<E> descendingIterator = descendingIterator();
 
-	private transient Iterator<E> currentIterator = iterator();
+    /**
+     * default constructor.
+     */
+    public CircularTreeSet() {
+    }
 
-	private transient Iterator<E> descendingIterator = descendingIterator();
+    /**
+     * Initialize the set with the elements in the provided Collection.
+     * 
+     * @param c
+     *            another Colleciton.
+     */
+    public CircularTreeSet(final Collection<? extends E> c) {
+        super(c);
+    }
 
-	public CircularTreeSet() {
-	}
+    /**
+     * Adds the elements in the array. Does not clone.
+     * 
+     * @param array
+     *            and array of values.
+     */
+    public CircularTreeSet(final E[] array) {
+        for (final E o : array) {
+            add(o);
+        }
+    }
 
-	public CircularTreeSet(final Collection<? extends E> c) {
-		super(c);
-	}
+    /**
+     * Retrieve the next element.
+     * 
+     * @return the next element.
+     */
+    public final E next() {
+        if (this.currentIterator.hasNext()) {
+            return this.currentIterator.next();
+        } else {
+            this.currentIterator = iterator();
+            return this.currentIterator.next();
+        }
+    }
 
-	public CircularTreeSet(final E[] array) {
-		for (final E o : array) {
-			add(o);
-		}
-	}
+    /**
+     * Retrieve the previous element.
+     * 
+     * @return the previous element.
+     */
+    public final E previous() {
+        if (this.descendingIterator.hasNext()) {
+            return this.descendingIterator.next();
+        } else {
+            this.descendingIterator = descendingIterator();
+            return this.descendingIterator.next();
+        }
+    }
 
-	public E next() {
-		if (this.currentIterator.hasNext()) {
-			return this.currentIterator.next();
-		} else {
-			this.currentIterator = iterator();
-			return this.currentIterator.next();
-		}
-	}
-
-	public E previous() {
-		if (this.descendingIterator.hasNext()) {
-			//System.err.println("has next");
-			return this.descendingIterator.next();
-		} else {
-			//System.err.println("new it");
-			this.descendingIterator = descendingIterator();
-			return this.descendingIterator.next();
-		}
-	}
-
-	public void reset() {
-		this.currentIterator = iterator();
-		this.descendingIterator = descendingIterator();
-	}
+    /**
+     * Resets the iterators to the beginning of the Set.
+     */
+    public final void reset() {
+        this.currentIterator = iterator();
+        this.descendingIterator = descendingIterator();
+    }
 
 }

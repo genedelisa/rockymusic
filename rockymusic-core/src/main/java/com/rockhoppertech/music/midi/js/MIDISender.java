@@ -246,7 +246,8 @@ public class MIDISender {
     }
 
     /**
-     * @param inst
+     * @param inst the instrument
+     * @return the instrument
      */
     public Instrument setInstrument(Instrument inst) {
         if (inst == null) {
@@ -278,7 +279,8 @@ public class MIDISender {
     }
 
     /**
-     * @param num
+     * Sends a program change message.
+     * @param num the program number
      */
     public void setProgram(int num) {
         logger.debug("sending pchange {}", num);
@@ -390,9 +392,9 @@ public class MIDISender {
     }
 
     /**
-     * doesn't work
+     * doesn't work.
      * 
-     * @param myReceiver
+     * @param myReceiver a JavaSound Receiver
      */
     // TODO fix this
     public void addReceiver(Receiver myReceiver) {

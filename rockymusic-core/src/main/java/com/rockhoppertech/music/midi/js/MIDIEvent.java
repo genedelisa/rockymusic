@@ -106,7 +106,7 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     /**
      * Copy constructor. clone is evil.
      * 
-     * @param e
+     * @param e the event to copy
      */
     public MIDIEvent(MIDIEvent e) {
         this.tick = e.getTick();
@@ -169,8 +169,8 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     /**
      * Create a MIDIEvent from a JavaSound MidiMessage instance.
      * 
-     * @param mm
-     * @param tick
+     * @param mm a JavaSound message
+     * @param tick the tick this occurs
      */
     public MIDIEvent(MidiMessage mm, long tick) {
         this.tick = tick;
@@ -239,7 +239,7 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
      * <code>toMidiEvent</code> turns this well written :) class into
      * JavaSound's MidiEvent.
      * 
-     * @param division
+     * @param division the resolution
      * @return a <code>MidiEvent</code> value
      */
     public MidiEvent toMidiEvent(int division) {

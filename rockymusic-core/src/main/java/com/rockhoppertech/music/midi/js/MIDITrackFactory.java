@@ -413,11 +413,10 @@ public class MIDITrackFactory {
      * </p>
      * 
      * @param t
-     *            a <code>MIDITrack</code> result
-     * @param events
-     *            a <code>List<MidiEvent></code> to be converted
+     *            a {@code Track} to be converted
      * @param resolution
      *            a <code>int</code> sequence PPQ resolution aka division
+     * @return a MIDITrack
      */
     public static MIDITrack trackToMIDITrack(Track t, int resolution) {
         List<MidiEvent> events = new ArrayList<>();
@@ -826,16 +825,16 @@ public class MIDITrackFactory {
      * 
      * The pattern for the first Hanon exercise would be 0 2 3 4 5 4 3 2
      * 
-     * @param degrees
-     * @param pattern
+     * @param degrees the degrees
+     * @param pattern the pattern
      * @param limit
      *            - max index into degrees
-     * @param startingMIDINumber
-     * @param nOctaves
-     * @param duration
-     * @param reverse
-     * @param restBetweenPatterns
-     * @param upAndDown
+     * @param startingMIDINumber starting MIDI pitch
+     * @param nOctaves number of octaves
+     * @param duration duration
+     * @param reverse should reverse the pattern
+     * @param restBetweenPatterns gap between patterns
+     * @param upAndDown make it go up and down
      * @return a MIDITrack
      */
 
@@ -978,20 +977,21 @@ public class MIDITrackFactory {
      * the pattern is a collection of indices into the notelist. no bounds
      * checking
      * 
-     * <pre>
+     * {@code
      * Integer[] pattern = new Integer[] { 0, 0, 3, 2, 1 };
      * MIDITrack patterned = MIDITrackFactory
      *         .applyPattern(
      *                 notelist,
      *                 pattern);
-     * </pre>
+     * }
      * 
      * A cleaner replacement for getNoteListPattern(blah blah) but doesn't do
      * the hanon like sequencing - which you can do externally
      * 
-     * @param track
-     * @param pattern
-     * @return
+     * @param track a track
+     * @param patternArray a pattern array
+     * @param reverse reverse the pattern
+     * @return a MIDITrack
      */
     public static MIDITrack applyPattern(MIDITrack track,
             final Integer[] patternArray, boolean reverse) {
@@ -1304,7 +1304,7 @@ public class MIDITrackFactory {
     }
 
     /**
-     * <code><pre>
+     * {@code
 	 	MIDITrack ints = MIDITrackFactory.createFromIntervals(1, 2, 3, 4,
 				5);
 		
@@ -1314,14 +1314,12 @@ public class MIDITrackFactory {
 				values, true);
 				
 		// so intervals 1 2 3 4 5 become 2 3 4 5 6
-				 
-		</pre>
-		</code>
+		}
      * 
-     * @param track
-     * @param values
-     * @param absolute
-     * @return
+     * @param track the track
+     * @param values the values added to the intervals
+     * @param absolute is absolute
+     * @return a MIDITrack created from the intervals
      */
     public static MIDITrack modifyPitchIntervals(MIDITrack track,
             CircularList<Integer> values, boolean absolute) {

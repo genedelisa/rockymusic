@@ -153,21 +153,21 @@ public class MIDINote extends Note {
      * This is the constructor that is called by the other constructors which
      * are just conveniences. <blockquote>
      * 
-     * <pre>
+     * {@code
      * MIDINote n1 = new MIDINote(Pitch.C5, 1d, 1d, 1, 64, 1, 0, 0, 0);
-     * </pre>
+     * }
      * 
      * </blockquote>
      * 
-     * @param pitch
-     * @param startbeat
-     * @param duration
-     * @param chan
-     * @param velocity
-     * @param program
-     * @param bend
-     * @param bank
-     * @param voice
+     * @param pitch a MIDI number
+     * @param startbeat the start beat
+     * @param duration the duration
+     * @param channel the MIDI channel
+     * @param velocity the MIDI velocity
+     * @param program the instrument program
+     * @param bend pitch bend 
+     * @param bank the sound bank
+     * @param voice the voice
      * @see MIDINoteBuilder
      */
 
@@ -262,12 +262,12 @@ public class MIDINote extends Note {
     /**
      * useful for percussion tracks
      * 
-     * new MIDINote(HI_WOOD_BLOCK_PERC_PATCH, 1d, 1d, 9);
+     * {@code new MIDINote(HI_WOOD_BLOCK_PERC_PATCH, 1d, 1d, 9);}
      * 
-     * @param patch
-     * @param startBeat
-     * @param duration
-     * @param channel
+     * @param patch the patch
+     * @param startBeat the start beat
+     * @param duration the duration
+     * @param channel the MIDI channel
      */
     public MIDINote(MIDIGMPatch patch, double startBeat, double duration,
             int channel) {
@@ -384,7 +384,7 @@ public class MIDINote extends Note {
 
     /**
      * 
-     * @return
+     * @return the voice
      */
     public int getVoice() {
         return voice;
@@ -504,7 +504,9 @@ public class MIDINote extends Note {
     }
 
     /**
-     * @param pitchString
+     * Sets the MIDI number.
+     * 
+     * @param pitchString the pitch string
      */
     public void setPitchString(String pitchString) {
         logger.debug("new pitch string {}", pitchString);
@@ -514,7 +516,7 @@ public class MIDINote extends Note {
     }
 
     /**
-     * @return
+     * @return the pitch string
      */
     public String getPitchString() {
         logger.debug("getting pitch string");

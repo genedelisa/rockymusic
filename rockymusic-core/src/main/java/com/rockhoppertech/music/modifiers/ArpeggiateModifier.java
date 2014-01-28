@@ -49,9 +49,8 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * Beats are 1 based as defined in MIDINoteList toTrack(sequence, division) If
  * the pattern size is smaller than the notelist size, it will wrap.
  * 
- * <blockquote>
  * 
- * <pre>
+ * {@code
  * MIDINoteList notelist = ...
  * double startBeat = 1d;
  * double duration = 4d;
@@ -63,9 +62,8 @@ import com.rockhoppertech.music.midi.js.MIDINote;
  * series.add(.5d);
  * series.add(1d);
  * notelist.map(new ArpeggiateModifier(startBeat, duration, series, NoteModifier.Operation.SET));
- * </pre>
+ * }
  * 
- * </blockquote>
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @version $Revision$, $Date$

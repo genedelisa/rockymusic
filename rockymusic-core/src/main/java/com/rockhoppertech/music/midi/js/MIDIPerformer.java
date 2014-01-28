@@ -184,7 +184,8 @@ public class MIDIPerformer implements Runnable {
     /**
      * To play multiple Sequences in order. Add them, then start the Performer.
      * 
-     * @param sequence
+     * @param sequence the JavaSound Sequence
+     * @return this to cascade calls
      */
     public MIDIPerformer add(Sequence sequence) {
         this.sequences.add(sequence);
@@ -471,8 +472,8 @@ public class MIDIPerformer implements Runnable {
     }
 
     /**
-     * @param tempo
-     *            the tempo to set
+     * @param bpm
+     *            the tempo to set in beats per minute
      */
     public void setTempo(float bpm) {
         this.tempo = bpm;

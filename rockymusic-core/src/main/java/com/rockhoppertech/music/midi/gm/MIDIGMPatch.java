@@ -236,14 +236,14 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return the program
      */
     public int getProgram() {
         return p;
     }
 
     /**
-     * @return
+     * @return the name
      */
     public String getName() {
         return name;
@@ -331,7 +331,7 @@ public enum MIDIGMPatch {
     ;
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the piano patches
      */
     public static EnumSet<MIDIGMPatch> getPianos() {
         if (pianos == null) {
@@ -342,7 +342,8 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * 
+     * @return an {@code EnumSet} of the percussion patches
      */
     public static EnumSet<MIDIGMPatch> getChromaticPercussion() {
         if (chromaticPercussion == null) {
@@ -353,7 +354,8 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * 
+     * @return an {@code EnumSet} of the organ patches
      */
     public static EnumSet<MIDIGMPatch> getOrgans() {
         if (organ == null) {
@@ -364,7 +366,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the guitar patches
      */
     public static EnumSet<MIDIGMPatch> getGuitars() {
         if (guitar == null) {
@@ -375,7 +377,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the bass patches
      */
     public static EnumSet<MIDIGMPatch> getBasses() {
         if (bass == null) {
@@ -386,7 +388,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the string patches
      */
     public static EnumSet<MIDIGMPatch> getStrings() {
         if (strings == null) {
@@ -399,7 +401,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the ensemble patches
      */
     public static EnumSet<MIDIGMPatch> getEnsemble() {
         if (ensemble == null) {
@@ -410,7 +412,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the brass patches
      */
     public static EnumSet<MIDIGMPatch> getBrass() {
         if (brass == null) {
@@ -421,7 +423,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the redd patches
      */
     public static EnumSet<MIDIGMPatch> getReeds() {
         if (reed == null) {
@@ -432,7 +434,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the pipe patches
      */
     public static EnumSet<MIDIGMPatch> getPipes() {
         if (pipe == null) {
@@ -443,7 +445,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the synth lead patches
      */
     public static EnumSet<MIDIGMPatch> getSynthLeads() {
         if (synthLead == null) {
@@ -454,7 +456,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the synth pads patches
      */
     public static EnumSet<MIDIGMPatch> getSynthPads() {
         if (synthPad == null) {
@@ -465,7 +467,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the synth effects patches
      */
     public static EnumSet<MIDIGMPatch> getSynthEffects() {
         if (synthEffects == null) {
@@ -476,7 +478,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the ethnic patches
      */
     public static EnumSet<MIDIGMPatch> getEthnic() {
         if (ethnic == null) {
@@ -487,7 +489,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the percussive patches
      */
     public static EnumSet<MIDIGMPatch> getPercussive() {
         if (percussive == null) {
@@ -498,7 +500,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the percussion patches
      */
     public static EnumSet<MIDIGMPatch> getPercussion() {
         if (percussion == null) {
@@ -509,7 +511,7 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @return
+     * @return an {@code EnumSet} of the sound effect patches
      */
     public static EnumSet<MIDIGMPatch> getSoundEffects() {
         if (soundEffects == null) {
@@ -531,8 +533,8 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @param name
-     * @return
+     * @param name the patch name
+     * @return a patch
      */
     public static MIDIGMPatch getPatch(String name) {
         MIDIGMPatch match = null;
@@ -546,8 +548,9 @@ public enum MIDIGMPatch {
     }
 
     /**
-     * @param program
-     * @return
+     * Match's the supplied program with the patche's program.
+     * @param program the program
+     * @return the name
      */
     public static String getName(int program) {
         String match = null;

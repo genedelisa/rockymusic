@@ -262,11 +262,10 @@ public final class MIDIUtils {
     }
 
     /**
-     * @param tick
-     * @param metaTextType
-     * @param text
-     * @return
-     * @throws InvalidMidiDataException
+     * @param tick when this occurs
+     * @param metaTextType the MIDI meta text tupe
+     * @param text the text
+     * @return a JavaSound MidiEvent
      */
     public static MidiEvent createMetaTextMessage(long tick, int metaTextType,
             String text) {

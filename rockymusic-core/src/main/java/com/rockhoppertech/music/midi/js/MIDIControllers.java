@@ -477,8 +477,8 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
+     * @param tick the tick
+     * @param chan the MIDI channel
      */
     public static void insertSustainOff(final Track track, final long tick,
             final int chan) {
@@ -491,8 +491,8 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
+      * @param tick the tick
+     * @param chan the MIDI channel
      */
     public static void insertSustainOn(final Track track, final long tick,
             final int chan) {
@@ -505,9 +505,9 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
-     * @param value
+     * @param tick the tick
+     * @param chan the MIDI channel
+     * @param value the value
      */
     public static void insertVolumeChange(final Track track, final long tick,
             final int chan,
@@ -521,9 +521,9 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
-     * @param value
+     * @param tick the tick
+     * @param chan the MIDI channel
+     * @param value the value
      */
     public static void insertPan(final Track track, final long tick,
             final int chan, final int value) {
@@ -536,8 +536,8 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
+     * @param tick the tick
+     * @param chan the MIDI channel
      */
     public static void insertPortamentoOff(final Track track, final long tick,
             final int chan) {
@@ -546,8 +546,8 @@ public final class MIDIControllers {
 
     /**
      * @param track - the JavaSound Track to modify.
-     * @param tick
-     * @param chan
+     * @param tick the tick
+     * @param chan the MIDI channel
      */
     public static void insertPortamentoOn(final Track track, final long tick,
             final int chan) {

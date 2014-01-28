@@ -132,8 +132,8 @@ public class PatternFactory {
      * Checks to determine if there are consecutive values. e.g. 0,0 1,1 2,2,2,2
      * etc.
      * 
-     * @param a
-     * @return
+     * @param a an array
+     * @return if there are repeats
      */
     public static boolean hasRepeats(int[] a) {
         boolean ret = false;

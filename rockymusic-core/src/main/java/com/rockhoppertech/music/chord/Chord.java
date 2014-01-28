@@ -58,11 +58,22 @@ import com.rockhoppertech.music.scale.ScaleFactory;
  * @see MIDITrack
  */
 public class Chord implements Cloneable, Comparable<Chord> {
+    /**
+     * for logging.
+     */
     private static final Logger logger = LoggerFactory
             .getLogger(Chord.class);
     // bound properties
+    /**
+     * JavaBean property.
+     */
     public static final String NOTELIST = "Chord.NOTELIST";
 
+    /**
+     * @param symbol
+     *            a chord symbol.
+     * @return a {@code String} with the default voicing
+     */
     public static String defaultVoicing(final String symbol) {
         String v = null;
         if (symbol.indexOf("13") != -1) {
@@ -88,11 +99,12 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * minor or major third) return 3. Intervals greater than an octave are
      * handled.
      * 
-     * @param in
+     * @param mn
      *            number of half steps
      * @return 1 or 3 or 5 or 7 or 9 or 11 or 13 or -1
      */
-    static int intervalToChordDegree(int in) {
+    static int intervalToChordDegree(final int mn) {
+        int in = mn % 12;
         while (in > 12) {
             in -= 12;
         }
@@ -136,11 +148,15 @@ public class Chord implements Cloneable, Comparable<Chord> {
         case 12:
             Chord.logger.debug(String.format("returning %d for %d", 1, in));
             return 1;
+        default:
+            logger.debug("dont know {}", in);
+            return -1;
         }
-        Chord.logger.debug(String.format("dont know %d", in));
-        return -1;
     }
 
+    /**
+     * Default root is middle C.
+     */
     private int root = Pitch.C5;
     /**
      * The quality of the chord. e.g. m7 or 7b5. Does not contain the root e.g.
@@ -148,32 +164,84 @@ public class Chord implements Cloneable, Comparable<Chord> {
      */
     private String symbol;
 
+    /**
+     * A description of the chord.
+     */
     private String description;
+    /**
+     * The chord's spelling, e.g. "1 3 5".
+     */
     private String spelling;
     /**
      * The intervals are absolute from the root. e.g. Cmaj = 4 7
      */
     private int[] intervals;
+    /**
+     * Alias names for this chord.
+     */
     private final List<String> aliases = new ArrayList<String>();
+    /**
+     * How this chord is voiced.
+     */
     private ChordVoicing chordVoicing;
+    /**
+     * Default start beat is 1.
+     */
     private double startBeat = 1d;
+    /**
+     * Default duration is 4 beats.
+     */
     private double duration = 4d;
+    /**
+     * Default is 0, i.e. no drop.
+     */
     private int drop = 0;
+    /**
+     * Default is 0, i.e. no inversion.
+     */
     private int inversion = 0;
 
+    /**
+     * The bass pitch specified C/G for example.
+     */
     private String bass;
 
-    public Chord(final int root, final int[] intervals, final String description) {
+    /**
+     * Initialize a {@codeChord} without a symbol.
+     * 
+     * @param root
+     *            MIDI number of the root
+     * @param intervals
+     *            the intervals
+     * @param description
+     *            a description
+     */
+    public Chord(final int root, final int[] intervals,
+            final String description) {
         this(root, "unknown", intervals, description);
     }
 
+    /**
+     * Initialize a {@codeChord} with these values.
+     * 
+     * @param root
+     *            MIDI number of the root pitch.
+     * @param symbol
+     *            the symbol
+     * @param intervals
+     *            the intervals in the Chord
+     * @param description
+     *            a description
+     */
     public Chord(final int root, final String symbol, final int[] intervals,
             final String description) {
         this.root = root;
-        if (symbol != null)
+        if (symbol != null) {
             this.symbol = new String(symbol);
-        if (description != null)
+        }
+        if (description != null) {
             this.description = new String(description);
+        }
         if (intervals != null) {
             this.intervals = new int[intervals.length];
             System
@@ -181,18 +249,19 @@ public class Chord implements Cloneable, Comparable<Chord> {
                             this.intervals.length);
         }
 
-        // this.createNotelist();
-        // this.notelist = ChordFactory.createMIDITrack(this);
         this.chordVoicing = new ChordVoicing(this.root / 12, Chord
                 .defaultVoicing(this.symbol));
     }
 
     /**
-     * ChordFactory has static constants for many descriptions
+     * ChordFactory has static constants for many descriptions.
      * 
      * @param symbol
+     *            a chord symbol
      * @param intervals
+     *            the intervals
      * @param description
+     *            a description
      */
     public Chord(final String symbol, final int[] intervals,
             final String description) {
@@ -203,9 +272,12 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * Called from ChordFactoryXMLHelper if the intervals are specified in the
      * XML file.
      * 
-     * @param name
+     * @param symbol
+     *            the Chord symbol
      * @param intervals2
-     * @param description2
+     *            the intervals to use
+     * @param description
+     *            the Chord's description
      */
     public Chord(final String symbol, final Integer[] intervals2,
             final String description) {
@@ -220,12 +292,16 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
-     * e.g. Chord("maj", "1 3 5", "major"); Called from ChordFactoryXMLHelper
-     * only if the intervals are not in the XML file but the spelling is.
+     * e.g. {@code Chord("maj", "1 3 5", "major");}. Called from
+     * ChordFactoryXMLHelper only if the intervals are not in the XML file but
+     * the spelling is.
      * 
      * @param symbol
+     *            a chord symbol
      * @param spelling
+     *            the spelling
      * @param description
+     *            a description
      */
     public Chord(final String symbol, final String spelling,
             final String description) {
@@ -241,16 +317,17 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * Copy constructor. clone() is evil.
      * 
      * @param c
+     *            the {@code Chord} to copy.
      */
     public Chord(final Chord c) {
         this(c.root, c.symbol, c.intervals, c.description);
         this.duration = c.duration;
         this.inversion = c.inversion;
-        //this.aliases
+        // this.aliases
         this.bass = c.bass;
         this.drop = c.drop;
         this.startBeat = c.startBeat;
-        
+
         // this.root = c.root;
         // this.symbol = c.symbol;
         // this.description = c.description;
@@ -272,7 +349,13 @@ public class Chord implements Cloneable, Comparable<Chord> {
         // this.chordVoicing = new ChordVoicing(Chord.defaultVoicing(c.symbol));
     }
 
-    public void addAlias(final String alias) {
+    /**
+     * Add an alias for the chord.
+     * 
+     * @param alias
+     *            an alias.
+     */
+    public final void addAlias(final String alias) {
         this.aliases.add(alias);
     }
 
@@ -302,7 +385,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
             // if (this.notelist != null)
             // result.notelist = new MIDITrack(this.notelist);
         } catch (final CloneNotSupportedException e) {
-
+            logger.error(e.getLocalizedMessage(), e);
         }
         return result;
     }
@@ -377,10 +460,20 @@ public class Chord implements Cloneable, Comparable<Chord> {
     // // this.updateNotelist();
     // }
 
+    /**
+     * Get the aliases for this chord.
+     * 
+     * @return a List of aliases
+     */
     public List<String> getAliases() {
         return this.aliases;
     }
 
+    /**
+     * When a chord was created with a String containing the bass.
+     * 
+     * @return the bass note as a string
+     */
     public String getBass() {
         return this.bass;
     }
@@ -401,7 +494,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
      *            1,3,5,7,9,11, or 13
      * @return a MIDI number or -1 for an invalid degree
      */
-    public int getChordDegree(final int degree) {
+    public final int getChordDegree(final int degree) {
         int cd = -1;
         switch (degree) {
         case 1:
@@ -433,14 +526,27 @@ public class Chord implements Cloneable, Comparable<Chord> {
                 cd = this.getThirteenth();
             }
             break;
+
+        default:
+            cd = -1;
         }
         return cd;
     }
 
+    /**
+     * Get the current voicing as a String.
+     * 
+     * @return the chord voicing
+     */
     public String getChordVoicing() {
         return this.chordVoicing.getDisplayName();
     }
 
+    /**
+     * Get the default voicing. Looks at this {@code Chord}'s symbol.
+     * 
+     * @return the default voicing
+     */
     public String getDefaultVoicingString() {
         return Chord.defaultVoicing(this.symbol);
     }
@@ -516,21 +622,39 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return this.duration;
     }
 
+    /**
+     * Uses the intervals to determine the eleventh. Use this only if you have
+     * an 11th chord.
+     * 
+     * @return the eleventh
+     */
     public int getEleventh() {
         return this.root + this.intervals[4];
     }
 
+    /**
+     * Uses the intervals to determine the fifth.
+     * 
+     * @return the fifth
+     */
     public int getFifth() {
         return this.root + this.intervals[1];
     }
 
     /**
+     * Is not a copy.
+     * 
      * @return the intervals
      */
     public int[] getIntervals() {
         return this.intervals;
     }
 
+    /**
+     * Creates and returns a String representaiton of the Chord's intervals.
+     * 
+     * @return a String representation
+     */
     public String getIntervalstoString() {
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.intervals.length; i++) {
@@ -543,12 +667,19 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Get the current chord inversion.
+     * 
      * @return the inversion
      */
     public int getInversion() {
         return this.inversion;
     }
 
+    /**
+     * Find the maximum interval in the chord.
+     * 
+     * @return the maximum interval
+     */
     public int getMaxInterval() {
         int max = Integer.MIN_VALUE;
         for (final int interval : this.intervals) {
@@ -561,11 +692,18 @@ public class Chord implements Cloneable, Comparable<Chord> {
         // return Collections.max(list);
     }
 
+    /**
+     * Uses the intervals to determine the ninth. Must be at least a 9th chord.
+     * 
+     * @return the ninth
+     */
     public int getNinth() {
         return this.root + this.intervals[3];
     }
 
     /**
+     * Turn this {@code Chord} into a {@code MIDITrack} and return it.
+     * 
      * @return a new MIDITrack
      */
     public MIDITrack createMIDITrack() {
@@ -585,10 +723,20 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return this.intervals.length + 1;
     }
 
+    /**
+     * Get the MIDI number of a pitch an octave about this {@code Chord}'s root.
+     * 
+     * @return a MIDI number
+     */
     public int getOctave() {
         return this.root / 12;
     }
 
+    /**
+     * Get the pitch classes for this {@code Chord}.
+     * 
+     * @return an array of PCs
+     */
     public int[] getPitchClasses() {
         final int root = this.getRoot() % 12;
         final int[] ivls = this.getIntervals();
@@ -601,12 +749,20 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Get the MIDI number of the root pitch.
+     * 
      * @return the root
      */
     public int getRoot() {
         return this.root;
     }
 
+    /**
+     * Find which currently defined {@code Scale}s contain the pitches in this
+     * {@code Chord}.
+     * 
+     * @return a {@code Set} of {@code Scale}s
+     */
     public Set<Scale> getScales() {
         final Set<Scale> set = new HashSet<Scale>();
         for (final Scale scale : ScaleFactory.getAll()) {
@@ -620,12 +776,22 @@ public class Chord implements Cloneable, Comparable<Chord> {
         }
         return set;
     }
-    
+
     // TODO
+    /**
+     * Given a Chord, determine which Scales to use. AKA Jazz improv 101.
+     * 
+     * @return a {@code Set} of {@code Scale}s
+     */
     public Set<Scale> getScalesByChordQuality() {
         return null;
     }
 
+    /**
+     * Return the MIDI number of this chord's 7th. Must be at least a 7th chord.
+     * 
+     * @return the MIDI number of the 7th
+     */
     public int getSeventh() {
         return this.root + this.intervals[2];
     }
@@ -639,6 +805,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return this.intervals.length + 1;
     }
 
+    /**
+     * Retrieve the chord's spelling.
+     * 
+     * @return a String with the spelling
+     */
     public String getSpelling() {
         final StringBuilder sb = new StringBuilder();
         sb.append("1 ");
@@ -667,12 +838,17 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * Well, ok let's just call it a third. It might not be an actual third
      * since we support non-"traditional" chords.
      * 
-     * @return
+     * @return the third of the chord
      */
     public int getThird() {
         return this.root + this.intervals[0];
     }
 
+    /**
+     * Return the MIDI number of the 13th of this chord. Must be a 13th chord.
+     * 
+     * @return the MIDI number of the 13th
+     */
     public int getThirteenth() {
         return this.root + this.intervals[5];
     }
@@ -681,7 +857,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * Creates a new String with pretty much the default voicing.
      * 
      * @param notelist
-     * @return
+     *            a {@code MIDITrack}
+     * @return a voicing string
      */
     public String getVoicingString(final MIDITrack notelist) {
         final StringBuilder sb = new StringBuilder();
@@ -719,6 +896,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return sb.toString().trim();
     }
 
+    /**
+     * Predicate to determine if this is an 11th chord.
+     * 
+     * @return a boolean
+     */
     public boolean hasEleventh() {
         return this.intervals.length >= 5;
     }
@@ -735,20 +917,42 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return result;
     }
 
+    /**
+     * Predicate to determine if this is an 9th chord.
+     * 
+     * @return a boolean
+     */
     public boolean hasNinth() {
         return this.intervals.length >= 4;
     }
 
+    /**
+     * Predicate to determine if this is an 7th chord.
+     * 
+     * @return a boolean
+     */
     public boolean hasSeventh() {
         // uh, er, well...
         return this.intervals.length >= 3;
     }
 
+    /**
+     * Predicate to determine if this is an 13th chord.
+     * 
+     * @return a boolean
+     */
     public boolean hasThirteenth() {
         return this.intervals.length >= 6;
     }
 
     // FIXME
+    /**
+     * Determine if the given intervals are diatonic.
+     * 
+     * @param someIntervals
+     *            an array of intervals
+     * @return a boolean
+     */
     public boolean isDiatonic(final int[] someIntervals) {
         if (this.intervals.length != someIntervals.length) {
             // Chord.logger.debug("No size Match");
@@ -774,6 +978,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return true;
     }
 
+    /**
+     * Predicate to determine if the chord is diminished.
+     * 
+     * @return a boolean
+     */
     public boolean isDiminished() {
         // remember that the intervals are all relative
         // to the root.
@@ -785,6 +994,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return false;
     }
 
+    /**
+     * Predicate to determine if the chord is dominant.
+     * 
+     * @return a boolean
+     */
     public boolean isDominant() {
         if ((this.intervals.length >= 3)
                 && (this.intervals[2] == Interval.MINOR_SEVENTH)
@@ -794,6 +1008,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return false;
     }
 
+    /**
+     * Predicate to determine if the chord is major.
+     * 
+     * @return a boolean
+     */
     public boolean isMajor() {
         if (Chord.logger.isDebugEnabled()) {
             Chord.logger.debug("1 " + this.intervals[1]);
@@ -805,6 +1024,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return false;
     }
 
+    /**
+     * Predicate to determine if the chord is minor.
+     * 
+     * @return a boolean
+     */
     public boolean isMinor() {
         if (this.intervals[0] == Interval.MINOR_THIRD) {
             return true;
@@ -817,12 +1041,12 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * it is not in the chord then the return value is -1. The pitch class is
      * used rather than the actual pitch. (i.e. pc 0 instead of 60)
      * 
-     * @param in
+     * @param mn
      *            a MIDI number.
      * @return 1 or 3 or 5 or 7 or 9 or 11 or 13 or -1
      */
-    int pitchToChordDegree(int in) {
-        in = in % 12;
+    int pitchToChordDegree(final int mn) {
+        int in = mn % 12;
 
         int degree = -1;
         if (this.root % 12 == in) {
@@ -838,7 +1062,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
         if (this.hasNinth() && ((this.root + this.intervals[3]) % 12 == in)) {
             degree = 9;
         }
-        if (this.hasEleventh() && ((this.root + this.intervals[4]) % 12 == in)) {
+        if (this.hasEleventh()
+                && ((this.root + this.intervals[4]) % 12 == in)) {
             degree = 11;
         }
         if (this.hasThirteenth()
@@ -851,14 +1076,18 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return degree;
     }
 
+    /**
+     * Set this chord's voicing to the default.
+     */
     public void resetVoicing() {
         this.setChordVoicing(this.getDefaultVoicingString());
     }
 
     /**
-     * For a chord notated like "Cmaj7/B
+     * For a chord notated like Cmaj7/B where B is in the bass.
      * 
      * @param bass
+     *            the bass pitch
      */
     public void setBassPitch(final String bass) {
         this.bass = bass;
@@ -892,6 +1121,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     // damn propertydescriptor nonsense
+    /**
+     * get the Bass pitch as a String.
+     * 
+     * @return a String
+     */
     public String getBassPitch() {
         return this.bass;
     }
@@ -901,6 +1135,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * and the chord's current octave.
      * 
      * @param chordVoicingString
+     *            a voicing string
      * @see ChordVoicing
      */
     public void setChordVoicing(final String chordVoicingString) {
@@ -952,6 +1187,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s description.
+     * 
      * @param description
      *            the description to set
      */
@@ -963,6 +1200,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * Drop voicing from closed voicing.
      * 
      * @param drop
+     *            the drop voicing.
      */
     public void setDrop(final int drop) {
         if (drop > this.getSize() + 1) {
@@ -981,6 +1219,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s duration.
+     * 
      * @param duration
      *            the duration to set
      */
@@ -991,8 +1231,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s intervals.
+     * 
      * @param intervals
      *            the intervals to set
+     * @return this to cascade calls
      */
     public Chord setIntervals(final int[] intervals) {
         this.intervals = intervals;
@@ -1001,6 +1244,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s inversion.
+     * 
      * @param inversion
      *            the inversion to set
      */
@@ -1021,6 +1266,12 @@ public class Chord implements Cloneable, Comparable<Chord> {
         // return this;
     }
 
+    /**
+     * Set the {@code Chord}'s octave of the root.
+     * 
+     * @param octave
+     *            the octave
+     */
     public void setOctave(final int octave) {
         final int r = octave * 12 + this.root % 12;
         this.setRoot(r);
@@ -1028,6 +1279,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s root.
+     * 
      * @param root
      *            the root to set
      */
@@ -1038,6 +1291,15 @@ public class Chord implements Cloneable, Comparable<Chord> {
         // return this;
     }
 
+    /**
+     * Set the {@code Chord}'s root and duration.
+     * 
+     * @param root
+     *            a MIDI number
+     * @param duration
+     *            the duration
+     * @return this to cascade calls
+     */
     public Chord setRootAndDuration(final int root, final double duration) {
         this.root = root;
         this.duration = duration;
@@ -1046,6 +1308,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
+     * Set the {@code Chord}'s start beat.
+     * 
      * @param startBeat
      *            the startBeat to set
      */
@@ -1105,6 +1369,18 @@ public class Chord implements Cloneable, Comparable<Chord> {
         }
     }
 
+    /**
+     * Uses the {@code RomanChordParser} to get the Roman numeral for this
+     * {@code Chord}'s position in the specified {@code Scale}.
+     * 
+     * @see Scale
+     * @see RomanChordParser
+     * @param scale
+     *            the Scale to use
+     * @param key
+     *            the Scale's key.
+     * @return a String
+     */
     public String toRoman(final Scale scale, final String key) {
         final String s = String.format("%s%s", RomanChordParser
                 .pitchNameToRoman(scale, PitchFormat.getPitchString(this
@@ -1119,8 +1395,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
     public String toString() {
         final StringBuilder sb = new StringBuilder(this.getClass().getName());
         sb.append(" start=").append(this.startBeat);
-        sb.append(" duration=").append(this.duration);        
-        sb.append(" root=").append(this.root);        
+        sb.append(" duration=").append(this.duration);
+        sb.append(" root=").append(this.root);
         sb.append(" symbol=").append(this.symbol);
         for (final String a : this.aliases) {
             sb.append(" alias=").append(a);
@@ -1128,8 +1404,9 @@ public class Chord implements Cloneable, Comparable<Chord> {
         sb.append(" inversion=").append(this.inversion);
         sb.append(" description=").append(this.description);
         sb.append(" voicing=").append(this.chordVoicing);
-        if (this.bass != null)
+        if (this.bass != null) {
             sb.append(" bass=").append(this.bass);
+        }
         sb.append(" intervals=");
         for (final int interval : this.intervals) {
             sb.append(interval);
@@ -1138,6 +1415,11 @@ public class Chord implements Cloneable, Comparable<Chord> {
         return sb.toString().trim();
     }
 
+    /**
+     * Get the end beat, which is start beat + duration.
+     * 
+     * @return when this Chord stops sounding
+     */
     public double getEndBeat() {
         return this.startBeat + this.duration;
     }

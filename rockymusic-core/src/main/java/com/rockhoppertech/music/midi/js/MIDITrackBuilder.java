@@ -233,7 +233,7 @@ public class MIDITrackBuilder {
     }
 
     /**
-     * @return
+     * @return this to cascade calls
      */
     public MIDITrackBuilder chord() {
         chord = true;
@@ -242,8 +242,8 @@ public class MIDITrackBuilder {
     }
 
     /**
-     * @param startBeat
-     * @return
+     * @param startBeat the start beat
+     * @return this to cascade calls
      */
     public MIDITrackBuilder chord(double startBeat) {
         this.startBeat = startBeat;
@@ -251,8 +251,8 @@ public class MIDITrackBuilder {
     }
 
     /**
-     * @param startBeat
-     * @return
+     * @param startBeat the start beat
+     * @return this to cascade calls
      */
     public MIDITrackBuilder startBeat(double startBeat) {
         chord = false;
@@ -266,8 +266,9 @@ public class MIDITrackBuilder {
     // }
 
     /**
-     * @param durations
-     * @return
+     * Will wrap if the pitchs are a different length.
+     * @param durations the durations
+     * @return this to cascade calls
      */
     public MIDITrackBuilder durations(double... durations) {
         durationList = new ArrayList<Double>();
@@ -278,8 +279,8 @@ public class MIDITrackBuilder {
     }
     
     /**
-     * @param startBeats
-     * @return
+     * @param startBeats start beats
+     * @return this to cascade calls
      */
     public MIDITrackBuilder startBeats(double... startBeats) {
         startBeatList = new ArrayList<Double>();
@@ -289,8 +290,8 @@ public class MIDITrackBuilder {
         return this;
     }
     /**
-     * @param velocities
-     * @return
+     * @param velocities MIDI velocities
+     * @return this to cascade calls
      */
     public MIDITrackBuilder velocities(int... velocities) {
         velocityList = new ArrayList<Number>();
@@ -301,8 +302,8 @@ public class MIDITrackBuilder {
     }
 
     /**
-     * @param instrument
-     * @return
+     * @param instrument an instrument
+     * @return this to cascade calls
      */
     public MIDITrackBuilder instrument(Instrument instrument) {
         this.instrument = instrument;
@@ -310,8 +311,8 @@ public class MIDITrackBuilder {
     }
 
     /**
-     * @param notes
-     * @return
+     * @param notes the notes
+     * @return this to cascade calls
      */
     public MIDITrackBuilder notes(MIDINote... notes) {
         noteList = new ArrayList<>();

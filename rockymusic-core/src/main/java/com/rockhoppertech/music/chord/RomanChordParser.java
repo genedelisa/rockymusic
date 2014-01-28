@@ -97,9 +97,9 @@ public class RomanChordParser {
     /**
      * Uses a major scale based on the specified root.
      * 
-     * @param scaleRoot
-     * @param romanString
-     * @return
+     * @param scaleRoot the root
+     * @param romanString a string in Roman numerals
+     * @return a Chord
      */
     public static Chord getChord(Pitch scaleRoot, String romanString) {
         return getChord(scaleRoot.getMidiNumber(), "Major", romanString);
@@ -205,7 +205,7 @@ public class RomanChordParser {
      *            a scale
      * @param romanString
      *            The roman numeral along with the music stuff
-     * @return
+     * @return a Chord
      */
     public static Chord getChord(String key, Scale scale, String romanString) {
         String origRoman = romanString;
@@ -264,7 +264,7 @@ public class RomanChordParser {
      *            a scale name registered with the ScaleFactory
      * @param romanString
      *            The roman numeral along with the music stuff
-     * @return
+     * @return a Chord
      */
     public static Chord getChord(int scaleRoot, String scaleName,
             String romanString) {

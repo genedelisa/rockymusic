@@ -23,16 +23,32 @@ package com.rockhoppertech.collections;
 import java.util.List;
 
 /**
+ * A List that wraps.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  * @param <E>
+ *            the type contained in the list.
  */
 public interface CircularList<E> extends List<E> {
 
-	public abstract E next();
+    /**
+     * Get the next element, wrapping in necessary.
+     * 
+     * @return the next element
+     */
+    E next();
 
-	public abstract E previous();
+    /**
+     * Get the previous element, wrapping in necessary.
+     * 
+     * @return the previous element
+     */
+    E previous();
 
-	public abstract void reset();
+    /**
+     * reset the index to the beginning.
+     */
+    void reset();
 
 }
