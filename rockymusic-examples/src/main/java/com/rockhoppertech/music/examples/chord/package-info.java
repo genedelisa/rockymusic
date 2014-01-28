@@ -1,14 +1,11 @@
 /**
- * Circular collection classes.
- * There are many public open source projects that provide collections for Java. 
- * I could not find a simple Circular List. Therefore I made one.
- * If you know of a simpler better made version, let me know.
+ * Chord examples.
  * 
  *
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @version 1.0
  */
-package com.rockhoppertech.collections;
+package com.rockhoppertech.music.examples.chord;
 
 /*
  * #%L
