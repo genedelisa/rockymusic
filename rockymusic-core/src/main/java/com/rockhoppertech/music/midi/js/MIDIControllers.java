@@ -182,200 +182,200 @@ public final class MIDIControllers {
         // public static final String BANK_SELECT_CONTROLLER = "Bank Select
         // (coarse)";
         CONTROLLER_NAMES.put(HOLD_PEDAL_ON_OFF_CONTROLLER,
-                new Integer(64));
+                Integer.valueOf(64));
         CONTROLLER_NAMES.put(ALL_NOTES_OFF_CONTROLLER,
-                new Integer(123));
+                Integer.valueOf(123));
         CONTROLLER_NAMES.put(SOUND_TIMBRE_CONTROLLER,
-                new Integer(71));
+                Integer.valueOf(71));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_BUTTON_2_ON_OFF_CONTROLLER,
-                new Integer(81));
+                Integer.valueOf(81));
         CONTROLLER_NAMES.put(FOOT_PEDAL_FINE_CONTROLLER,
-                new Integer(36));
+                Integer.valueOf(36));
         CONTROLLER_NAMES.put(BREATH_CONTROLLER_FINE_CONTROLLER,
-                new Integer(34));
+                Integer.valueOf(34));
         CONTROLLER_NAMES.put(BALANCE_FINE_CONTROLLER,
-                new Integer(40));
+                Integer.valueOf(40));
         CONTROLLER_NAMES.put(FOOT_PEDAL_COARSE_CONTROLLER,
-                new Integer(4));
+                Integer.valueOf(4));
         CONTROLLER_NAMES.put(SOUND_CONTROL_7_CONTROLLER,
-                new Integer(76));
+                Integer.valueOf(76));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_BUTTON_1_ON_OFF_CONTROLLER,
-                new Integer(80));
+                Integer.valueOf(80));
         CONTROLLER_NAMES.put(PHASER_LEVEL_CONTROLLER,
-                new Integer(95));
+                Integer.valueOf(95));
         CONTROLLER_NAMES.put(MONO_OPERATION_CONTROLLER,
-                new Integer(126));
+                Integer.valueOf(126));
         CONTROLLER_NAMES.put(EFFECT_CONTROL_2_COARSE_CONTROLLER,
-                new Integer(13));
+                Integer.valueOf(13));
         CONTROLLER_NAMES.put(DATA_ENTRY_FINE_CONTROLLER,
-                new Integer(38));
+                Integer.valueOf(38));
         CONTROLLER_NAMES.put(SOUND_CONTROL_9_CONTROLLER,
-                new Integer(78));
+                Integer.valueOf(78));
         CONTROLLER_NAMES.put(BANK_SELECT_FINE_CONTROLLER,
-                new Integer(32));
+                Integer.valueOf(32));
         CONTROLLER_NAMES.put(EFFECT_CONTROL_2_FINE_CONTROLLER,
-                new Integer(45));
+                Integer.valueOf(45));
         CONTROLLER_NAMES.put(BALANCE_COARSE_CONTROLLER,
-                new Integer(8));
+                Integer.valueOf(8));
         CONTROLLER_NAMES.put(EXPRESSION_COARSE_CONTROLLER,
-                new Integer(11));
+                Integer.valueOf(11));
         CONTROLLER_NAMES.put(LOCAL_KEYBOARD_ON_OFF_CONTROLLER,
-                new Integer(122));
+                Integer.valueOf(122));
         CONTROLLER_NAMES.put(SOUND_ATTACK_TIME_CONTROLLER,
-                new Integer(73));
+                Integer.valueOf(73));
         CONTROLLER_NAMES.put(SUSTENUTO_PEDAL_ON_OFF_CONTROLLER,
-                new Integer(66));
+                Integer.valueOf(66));
         CONTROLLER_NAMES.put(REGISTERED_PARAMETER_COARSE_CONTROLLER,
-                new Integer(101));
+                Integer.valueOf(101));
         CONTROLLER_NAMES.put(DATA_BUTTON_DECREMENT_CONTROLLER,
-                new Integer(97));
+                Integer.valueOf(97));
         CONTROLLER_NAMES.put(SOUND_CONTROL_8_CONTROLLER,
-                new Integer(77));
+                Integer.valueOf(77));
         CONTROLLER_NAMES.put(LEGATO_PEDAL_ON_OFF_CONTROLLER,
-                new Integer(68));
+                Integer.valueOf(68));
         CONTROLLER_NAMES.put(CHORUS_LEVEL_CONTROLLER,
-                new Integer(93));
+                Integer.valueOf(93));
         CONTROLLER_NAMES.put(PAN_POSITION_COARSE_CONTROLLER,
-                new Integer(10));
+                Integer.valueOf(10));
         CONTROLLER_NAMES.put(ALL_CONTROLLERS_OFF_CONTROLLER,
-                new Integer(121));
+                Integer.valueOf(121));
         CONTROLLER_NAMES.put(SOUND_CONTROL_6_CONTROLLER,
-                new Integer(75));
+                Integer.valueOf(75));
         CONTROLLER_NAMES.put(VOLUME_FINE_CONTROLLER,
-                new Integer(39));
+                Integer.valueOf(39));
         CONTROLLER_NAMES.put(OMNI_MODE_ON_CONTROLLER,
-                new Integer(125));
+                Integer.valueOf(125));
         CONTROLLER_NAMES.put(PORTAMENTO_ON_OFF_CONTROLLER,
-                new Integer(65));
+                Integer.valueOf(65));
         CONTROLLER_NAMES.put(SOUND_RELEASE_TIME_CONTROLLER,
-                new Integer(72));
+                Integer.valueOf(72));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_3_CONTROLLER,
-                new Integer(18));
+                Integer.valueOf(18));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_BUTTON_3_ON_OFF_CONTROLLER,
-                new Integer(82));
+                Integer.valueOf(82));
         CONTROLLER_NAMES.put(PORTAMENTO_TIME_FINE_CONTROLLER,
-                new Integer(37));
+                Integer.valueOf(37));
         CONTROLLER_NAMES.put(VOLUME_COARSE_CONTROLLER,
-                new Integer(7));
+                Integer.valueOf(7));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_4_CONTROLLER,
-                new Integer(19));
+                Integer.valueOf(19));
         CONTROLLER_NAMES.put(DATA_BUTTON_INCREMENT_CONTROLLER,
-                new Integer(96));
+                Integer.valueOf(96));
         CONTROLLER_NAMES.put(REGISTERED_PARAMETER_FINE_CONTROLLER,
-                new Integer(100));
+                Integer.valueOf(100));
         CONTROLLER_NAMES.put(PAN_POSITION_FINE_CONTROLLER,
-                new Integer(42));
+                Integer.valueOf(42));
         CONTROLLER_NAMES.put(EFFECTS_LEVEL_CONTROLLER,
-                new Integer(91));
+                Integer.valueOf(91));
         CONTROLLER_NAMES.put(NON_REGISTERED_PARAMETER_COARSE_CONTROLLER,
-                new Integer(99));
+                Integer.valueOf(99));
         CONTROLLER_NAMES.put(TREMULO_LEVEL_CONTROLLER,
-                new Integer(92));
+                Integer.valueOf(92));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_2_CONTROLLER,
-                new Integer(17));
+                Integer.valueOf(17));
         CONTROLLER_NAMES.put(CELESTE_LEVEL_CONTROLLER,
-                new Integer(94));
+                Integer.valueOf(94));
         CONTROLLER_NAMES.put(EFFECT_CONTROL_1_FINE_CONTROLLER,
-                new Integer(44));
+                Integer.valueOf(44));
         CONTROLLER_NAMES.put(EXPRESSION_FINE_CONTROLLER,
-                new Integer(43));
+                Integer.valueOf(43));
         CONTROLLER_NAMES.put(SOUND_BRIGHTNESS_CONTROLLER,
-                new Integer(74));
+                Integer.valueOf(74));
         CONTROLLER_NAMES.put(NON_REGISTERED_PARAMETER_FINE_CONTROLLER,
-                new Integer(98));
+                Integer.valueOf(98));
         CONTROLLER_NAMES.put(SOUND_CONTROL_10_CONTROLLER,
-                new Integer(79));
+                Integer.valueOf(79));
         CONTROLLER_NAMES.put(BREATH_CONTROLLER_COARSE_CONTROLLER,
-                new Integer(2));
+                Integer.valueOf(2));
         CONTROLLER_NAMES.put(PORTAMENTO_TIME_COARSE_CONTROLLER,
-                new Integer(5));
+                Integer.valueOf(5));
         CONTROLLER_NAMES.put(MODULATION_WHEEL_COARSE_CONTROLLER,
-                new Integer(1));
+                Integer.valueOf(1));
         CONTROLLER_NAMES.put(HOLD_2_PEDAL_ON_OFF_CONTROLLER,
-                new Integer(69));
+                Integer.valueOf(69));
         CONTROLLER_NAMES.put(EFFECT_CONTROL_1_COARSE_CONTROLLER,
-                new Integer(12));
+                Integer.valueOf(12));
         CONTROLLER_NAMES.put(BANK_SELECT_COARSE_CONTROLLER,
-                new Integer(0));
+                Integer.valueOf(0));
         CONTROLLER_NAMES.put(POLY_OPERATION_CONTROLLER,
-                new Integer(127));
+                Integer.valueOf(127));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_SLIDER_1_CONTROLLER,
-                new Integer(16));
+                Integer.valueOf(16));
         CONTROLLER_NAMES.put(ALL_SOUND_OFF_CONTROLLER,
-                new Integer(120));
+                Integer.valueOf(120));
         CONTROLLER_NAMES.put(GENERAL_PURPOSE_BUTTON_4_ON_OFF_CONTROLLER,
-                new Integer(83));
+                Integer.valueOf(83));
         CONTROLLER_NAMES.put(MODULATION_WHEEL_FINE_CONTROLLER,
-                new Integer(33));
+                Integer.valueOf(33));
         CONTROLLER_NAMES.put(OMNI_MODE_OFF_CONTROLLER,
-                new Integer(124));
+                Integer.valueOf(124));
         CONTROLLER_NAMES.put(DATA_ENTRY_COARSE_CONTROLLER,
-                new Integer(6));
+                Integer.valueOf(6));
         CONTROLLER_NAMES.put(SOFT_PEDAL_ON_OFF_CONTROLLER,
-                new Integer(67));
+                Integer.valueOf(67));
         CONTROLLER_NAMES.put(SOUND_VARIATION_CONTROLLER,
-                new Integer(70));
+                Integer.valueOf(70));
         /*
-         * CONTROLLER_NAMES.put("Bank Select (coarse)", new Integer(0));
-         * CONTROLLER_NAMES.put("Modulation Wheel (coarse)", new Integer(1));
-         * CONTROLLER_NAMES.put("Breath controller (coarse)", new Integer(2));
-         * CONTROLLER_NAMES.put("Foot Pedal (coarse)", new Integer(4));
-         * CONTROLLER_NAMES.put("Portamento Time (coarse)", new Integer(5));
-         * CONTROLLER_NAMES.put("Data Entry (coarse)", new Integer(6));
-         * CONTROLLER_NAMES.put("Volume (coarse)", new Integer(7));
-         * CONTROLLER_NAMES.put("Balance (coarse)", new Integer(8));
-         * CONTROLLER_NAMES.put("Pan position (coarse)", new Integer(10));
-         * CONTROLLER_NAMES.put("Expression (coarse)", new Integer(11));
-         * CONTROLLER_NAMES.put("Effect Control 1 (coarse)", new Integer(12));
-         * CONTROLLER_NAMES.put("Effect Control 2 (coarse)", new Integer(13));
-         * CONTROLLER_NAMES.put("General Purpose Slider 1", new Integer(16));
-         * CONTROLLER_NAMES.put("General Purpose Slider 2", new Integer(17));
-         * CONTROLLER_NAMES.put("General Purpose Slider 3", new Integer(18));
-         * CONTROLLER_NAMES.put("General Purpose Slider 4", new Integer(19));
-         * CONTROLLER_NAMES.put("Bank Select (fine)", new Integer(32));
-         * CONTROLLER_NAMES.put("Modulation Wheel (fine)", new Integer(33));
-         * CONTROLLER_NAMES.put("Breath controller (fine)", new Integer(34));
-         * CONTROLLER_NAMES.put("Foot Pedal (fine)", new Integer(36));
-         * CONTROLLER_NAMES.put("Portamento Time (fine)", new Integer(37));
-         * CONTROLLER_NAMES.put("Data Entry (fine)", new Integer(38));
-         * CONTROLLER_NAMES.put("Volume (fine)", new Integer(39));
-         * CONTROLLER_NAMES.put("Balance (fine)", new Integer(40));
-         * CONTROLLER_NAMES.put("Pan position (fine)", new Integer(42));
-         * CONTROLLER_NAMES.put("Expression (fine)", new Integer(43));
-         * CONTROLLER_NAMES.put("Effect Control 1 (fine)", new Integer(44));
-         * CONTROLLER_NAMES.put("Effect Control 2 (fine)", new Integer(45));
-         * CONTROLLER_NAMES.put("Hold Pedal (on/off)", new Integer(64));
-         * CONTROLLER_NAMES.put("Portamento (on/off)", new Integer(65));
-         * CONTROLLER_NAMES.put("Sustenuto Pedal (on/off)", new Integer(66));
-         * CONTROLLER_NAMES.put("Soft Pedal (on/off)", new Integer(67));
-         * CONTROLLER_NAMES.put("Legato Pedal (on/off)", new Integer(68));
-         * CONTROLLER_NAMES.put("Hold 2 Pedal (on/off)", new Integer(69));
-         * CONTROLLER_NAMES.put("Sound Variation", new Integer(70));
-         * CONTROLLER_NAMES.put("Sound Timbre", new Integer(71));
-         * CONTROLLER_NAMES.put("Sound Release Time", new Integer(72));
-         * CONTROLLER_NAMES.put("Sound Attack Time", new Integer(73));
-         * CONTROLLER_NAMES.put("Sound Brightness", new Integer(74));
-         * CONTROLLER_NAMES.put("Sound Control 6", new Integer(75));
-         * CONTROLLER_NAMES.put("Sound Control 7", new Integer(76));
-         * CONTROLLER_NAMES.put("Sound Control 8", new Integer(77));
-         * CONTROLLER_NAMES.put("Sound Control 9", new Integer(78));
-         * CONTROLLER_NAMES.put("Sound Control 10", new Integer(79));
+         * CONTROLLER_NAMES.put("Bank Select (coarse)", Integer.valueOf(0));
+         * CONTROLLER_NAMES.put("Modulation Wheel (coarse)", Integer.valueOf(1));
+         * CONTROLLER_NAMES.put("Breath controller (coarse)", Integer.valueOf(2));
+         * CONTROLLER_NAMES.put("Foot Pedal (coarse)", Integer.valueOf(4));
+         * CONTROLLER_NAMES.put("Portamento Time (coarse)", Integer.valueOf(5));
+         * CONTROLLER_NAMES.put("Data Entry (coarse)", Integer.valueOf(6));
+         * CONTROLLER_NAMES.put("Volume (coarse)", Integer.valueOf(7));
+         * CONTROLLER_NAMES.put("Balance (coarse)", Integer.valueOf(8));
+         * CONTROLLER_NAMES.put("Pan position (coarse)", Integer.valueOf(10));
+         * CONTROLLER_NAMES.put("Expression (coarse)", Integer.valueOf(11));
+         * CONTROLLER_NAMES.put("Effect Control 1 (coarse)", Integer.valueOf(12));
+         * CONTROLLER_NAMES.put("Effect Control 2 (coarse)", Integer.valueOf(13));
+         * CONTROLLER_NAMES.put("General Purpose Slider 1", Integer.valueOf(16));
+         * CONTROLLER_NAMES.put("General Purpose Slider 2", Integer.valueOf(17));
+         * CONTROLLER_NAMES.put("General Purpose Slider 3", Integer.valueOf(18));
+         * CONTROLLER_NAMES.put("General Purpose Slider 4", Integer.valueOf(19));
+         * CONTROLLER_NAMES.put("Bank Select (fine)", Integer.valueOf(32));
+         * CONTROLLER_NAMES.put("Modulation Wheel (fine)", Integer.valueOf(33));
+         * CONTROLLER_NAMES.put("Breath controller (fine)", Integer.valueOf(34));
+         * CONTROLLER_NAMES.put("Foot Pedal (fine)", Integer.valueOf(36));
+         * CONTROLLER_NAMES.put("Portamento Time (fine)", Integer.valueOf(37));
+         * CONTROLLER_NAMES.put("Data Entry (fine)", Integer.valueOf(38));
+         * CONTROLLER_NAMES.put("Volume (fine)", Integer.valueOf(39));
+         * CONTROLLER_NAMES.put("Balance (fine)", Integer.valueOf(40));
+         * CONTROLLER_NAMES.put("Pan position (fine)", Integer.valueOf(42));
+         * CONTROLLER_NAMES.put("Expression (fine)", Integer.valueOf(43));
+         * CONTROLLER_NAMES.put("Effect Control 1 (fine)", Integer.valueOf(44));
+         * CONTROLLER_NAMES.put("Effect Control 2 (fine)", Integer.valueOf(45));
+         * CONTROLLER_NAMES.put("Hold Pedal (on/off)", Integer.valueOf(64));
+         * CONTROLLER_NAMES.put("Portamento (on/off)", Integer.valueOf(65));
+         * CONTROLLER_NAMES.put("Sustenuto Pedal (on/off)", Integer.valueOf(66));
+         * CONTROLLER_NAMES.put("Soft Pedal (on/off)", Integer.valueOf(67));
+         * CONTROLLER_NAMES.put("Legato Pedal (on/off)", Integer.valueOf(68));
+         * CONTROLLER_NAMES.put("Hold 2 Pedal (on/off)", Integer.valueOf(69));
+         * CONTROLLER_NAMES.put("Sound Variation", Integer.valueOf(70));
+         * CONTROLLER_NAMES.put("Sound Timbre", Integer.valueOf(71));
+         * CONTROLLER_NAMES.put("Sound Release Time", Integer.valueOf(72));
+         * CONTROLLER_NAMES.put("Sound Attack Time", Integer.valueOf(73));
+         * CONTROLLER_NAMES.put("Sound Brightness", Integer.valueOf(74));
+         * CONTROLLER_NAMES.put("Sound Control 6", Integer.valueOf(75));
+         * CONTROLLER_NAMES.put("Sound Control 7", Integer.valueOf(76));
+         * CONTROLLER_NAMES.put("Sound Control 8", Integer.valueOf(77));
+         * CONTROLLER_NAMES.put("Sound Control 9", Integer.valueOf(78));
+         * CONTROLLER_NAMES.put("Sound Control 10", Integer.valueOf(79));
          * CONTROLLER_NAMES.put("General Purpose Button 1 (on/off)", new
          * Integer( 80)); CONTROLLER_NAMES.put("General Purpose Button 2
-         * (on/off)", new Integer( 81)); CONTROLLER_NAMES.put("General Purpose
-         * Button 3 (on/off)", new Integer( 82)); CONTROLLER_NAMES.put("General
-         * Purpose Button 4 (on/off)", new Integer( 83));
-         * CONTROLLER_NAMES.put("Effects Level", new Integer(91));
-         * CONTROLLER_NAMES.put("Tremulo Level", new Integer(92));
-         * CONTROLLER_NAMES.put("Chorus Level", new Integer(93));
-         * CONTROLLER_NAMES.put("Celeste Level", new Integer(94));
-         * CONTROLLER_NAMES.put("Phaser Level", new Integer(95));
-         * CONTROLLER_NAMES.put("Data Button increment", new Integer(96));
-         * CONTROLLER_NAMES.put("Data Button decrement", new Integer(97));
+         * (on/off)", Integer.valueOf( 81)); CONTROLLER_NAMES.put("General Purpose
+         * Button 3 (on/off)", Integer.valueOf( 82)); CONTROLLER_NAMES.put("General
+         * Purpose Button 4 (on/off)", Integer.valueOf( 83));
+         * CONTROLLER_NAMES.put("Effects Level", Integer.valueOf(91));
+         * CONTROLLER_NAMES.put("Tremulo Level", Integer.valueOf(92));
+         * CONTROLLER_NAMES.put("Chorus Level", Integer.valueOf(93));
+         * CONTROLLER_NAMES.put("Celeste Level", Integer.valueOf(94));
+         * CONTROLLER_NAMES.put("Phaser Level", Integer.valueOf(95));
+         * CONTROLLER_NAMES.put("Data Button increment", Integer.valueOf(96));
+         * CONTROLLER_NAMES.put("Data Button decrement", Integer.valueOf(97));
          * CONTROLLER_NAMES .put("Non-registered Parameter (fine)", new
          * Integer(98)); CONTROLLER_NAMES.put("Non-registered Parameter
-         * (coarse)", new Integer( 99)); CONTROLLER_NAMES.put("Registered
-         * Parameter (fine)", new Integer(100));
+         * (coarse)", Integer.valueOf( 99)); CONTROLLER_NAMES.put("Registered
+         * Parameter (fine)", Integer.valueOf(100));
          * CONTROLLER_NAMES.put("Registered Parameter (coarse)", new
          * Integer(101)); CONTROLLER_NAMES.put("All Sound Off", new
          * Integer(120)); CONTROLLER_NAMES.put("All Controllers Off", new
