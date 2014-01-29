@@ -21,6 +21,8 @@ package com.rockhoppertech.music.examples.chord;
  */
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JOptionPane;
@@ -28,7 +30,6 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pattern;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.chord.Chord;
@@ -36,7 +37,9 @@ import com.rockhoppertech.music.chord.ChordFactory;
 import com.rockhoppertech.music.chord.ChordProgression;
 import com.rockhoppertech.music.midi.js.MIDIPerformer;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+import com.rockhoppertech.music.modifiers.ArpeggiateModifier;
 import com.rockhoppertech.music.modifiers.Modifier;
+import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.PitchModifier;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
@@ -199,6 +202,24 @@ public class ChordExamples {
 
     }
 
+    static void arpeggiate() {
+        Chord chord = ChordFactory.getChordByFullSymbol("Cmaj7");
+        MIDITrack track = chord.createMIDITrack();
+        logger.debug("track:\n{}", track);
+
+        List<Double> series = new ArrayList<Double>();
+        series.add(.25);
+        series.add(.5);
+        series.add(.75);        
+        series.add(1d);
+        double startBeat = 1d;
+        double duration = 4d;
+        track.map(new ArpeggiateModifier(startBeat, duration, series,
+                NoteModifier.Operation.ADD));
+        logger.debug("arp track:\n{}", track);
+
+    }
+
     /**
      * Lots of appends
      */
@@ -246,6 +267,7 @@ public class ChordExamples {
                 "chordVoicing",
                 "majorScaleChords",
                 "Show All",
+                "arpeggiate",
                 "inversion",
                 "progression",
                 "Roman",
@@ -279,8 +301,8 @@ public class ChordExamples {
 
         } else if (choice.equals("Scales")) {
             scales();
-        } else if (choice.equals("")) {
-
+        } else if (choice.equals("arpeggiate")) {
+            arpeggiate();
         } else if (choice.equals("")) {
 
         } else if (choice.equals("")) {
