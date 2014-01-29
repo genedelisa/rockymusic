@@ -151,7 +151,7 @@ public class ChannelModifier extends AbstractMIDINoteModifier {
             if (d < 0 || d > max) {
                 d = note.getChannel();
             }
-            note.setChannel(midiChannel);
+            note.setChannel((int) d);
         }
         logger.debug("after: " + note);
     }

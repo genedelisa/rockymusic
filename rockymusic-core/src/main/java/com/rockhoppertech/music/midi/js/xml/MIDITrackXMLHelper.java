@@ -188,7 +188,7 @@ public class MIDITrackXMLHelper {
                 }
             }
             final String s = sb.toString();
-            if ((s != null) && (s.length() > 0)) {
+            if ( s.length() > 0) {
                 MIDITrackXMLHelper.complain(s);
             }
         } catch (final SAXException sxe) {

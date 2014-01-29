@@ -46,6 +46,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,12 +105,15 @@ public final class MIDIUtils {
     /**
      * General MIDI reset
      */
-    public static final byte gmreset[] = { 0x05, 0x7E, 0x7F, 0x09, 0x01 };
+     static final byte gmreset[] = { 0x05, 0x7E, 0x7F, 0x09, 0x01 };
 
     public static final Charset charset = Charset.forName("ISO_8859-1");
     public static final CharsetEncoder encoder = charset.newEncoder();
     public static final CharsetDecoder decoder = charset.newDecoder();
 
+    public static byte[] getGMReset() {
+        return Arrays.copyOf(gmreset, gmreset.length);
+    }
     /**
      * logging
      */

@@ -20,7 +20,6 @@ package com.rockhoppertech.collections;
  * #L%
  */
 
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +29,8 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.chord.ChordFactory;
-
 /**
- * Class <code>ArrayUtils</code>
+ * Class <code>ArrayFunciton</code> are array utilities.
  * 
  * using a bit of introspection to create a generic array printing method. Can
  * pass any type of array.
@@ -45,48 +42,6 @@ import com.rockhoppertech.music.chord.ChordFactory;
 public class ArrayFunctions {
     private static final Logger logger = LoggerFactory
             .getLogger(ArrayFunctions.class);
-
-    public static void main(String[] args) {
-
-        // ragged initialized
-        int[][] rag = { { 1, 2 }, { 3, 4, 5 }, { 6 } };
-        ArrayFunctions.printArray(rag);
-
-        // dynamically create the rows -- here it is ragged
-        int[][] dynamic = new int[5][];
-        for (int i = 0; i < dynamic.length; i++) {
-            dynamic[i] = new int[i * 2];
-        }
-        ArrayFunctions.printArray(dynamic);
-
-        // arrays of object references
-        ArrayFunctions[] orefs = new ArrayFunctions[5];
-
-        // they are not pointing anywhere
-        System.out.println("printarrays orefs should be null");
-        ArrayFunctions.printArray(orefs);
-
-        // now they are
-        for (int i = 0; i < orefs.length; i++) {
-            orefs[i] = new ArrayFunctions();
-        }
-        System.out.println("printarrays orefs should not be null");
-        ArrayFunctions.printArray(orefs);
-
-        // anonymous arrays of each primitive type
-        ArrayFunctions.printArray(new int[] { 4, 5, 6 });
-        ArrayFunctions.printArray(new short[] { 4, 5, 6 });
-        ArrayFunctions.printArray(new long[] { 4, 5, 6 });
-        ArrayFunctions.printArray(new double[] { 4.0, 5.0, 6.0 });
-        ArrayFunctions.printArray(new float[] { 4.0f, 5.0f, 6.0f });
-        ArrayFunctions.printArray(new byte[] { 4, 5, 6 });
-        ArrayFunctions.printArray(new char[] { '4', '5', '6' });
-        ArrayFunctions.printArray(new boolean[] { true, false, true, true });
-
-        ArrayFunctions.printArray(new int[][] { { 4, 5 }, { 6 }, { 7, 8 } });
-        ArrayFunctions.printArray(new int[][][] { { { 4, 5 }, { 1 } },
-                { { 2 }, { 3, 4 } } });
-    }
 
     public static void dumpName(Object o) {
         Class<?> c = o.getClass();
@@ -454,15 +409,15 @@ public class ArrayFunctions {
         }
     }
 
-//    static double min(double[] a) {
-//        double min = 0;
-//        double max = 0;
-//        for (int i = 0; i < a.length; i++) {
-//            min = Math.min(min, a[i]);
-//            max = Math.max(max, a[i]);
-//        }
-//        return min;
-//    }
+    // static double min(double[] a) {
+    // double min = 0;
+    // double max = 0;
+    // for (int i = 0; i < a.length; i++) {
+    // min = Math.min(min, a[i]);
+    // max = Math.max(max, a[i]);
+    // }
+    // return min;
+    // }
     public static double min(double[] values) {
         double min = Double.MAX_VALUE;
         for (double i : values) {
@@ -476,8 +431,10 @@ public class ArrayFunctions {
      * Compares numbers in the two arrays. Useful for Comparators since it
      * returns the same -1 0 1 tap dance they want.
      * 
-     * @param a1 an int array
-     * @param a2 an int array
+     * @param a1
+     *            an int array
+     * @param a2
+     *            an int array
      * @return an int -1 &lt; 0 &lt; 1
      */
     public static int compare(int[] a1, int[] a2) {
@@ -558,7 +515,8 @@ public class ArrayFunctions {
     /**
      * delimiter can be whitespace or a comma.
      * 
-     * @param s a string with numbers
+     * @param s
+     *            a string with numbers
      * @return an array of Integers
      */
     public static Integer[] stringToIntegerArray(String s) {
@@ -623,8 +581,10 @@ public class ArrayFunctions {
     /**
      * Is the value contained in the array?
      * 
-     * @param array the tested array
-     * @param i the value you're trying to find
+     * @param array
+     *            the tested array
+     * @param i
+     *            the value you're trying to find
      * @return whether the value is in the array.
      */
     public static boolean contains(int[] array, int i) {
@@ -639,9 +599,12 @@ public class ArrayFunctions {
      * return the sum of all the values in the array delimited by the specified
      * indexes.
      * 
-     * @param array The array to sum
-     * @param from starting index
-     * @param to ending index
+     * @param array
+     *            The array to sum
+     * @param from
+     *            starting index
+     * @param to
+     *            ending index
      * @return the sum of the values
      */
     public static int sum(int[] array, int from, int to) {
@@ -660,7 +623,8 @@ public class ArrayFunctions {
     /**
      * A copy of the array is appended to itself.
      * 
-     * @param array an array of values
+     * @param array
+     *            an array of values
      * @return an array with the array appended
      */
     public static int[] appendCopy(int[] array) {
@@ -678,7 +642,7 @@ public class ArrayFunctions {
         }
         return max;
     }
-    
+
     public static double max(double[] values) {
         double max = Double.MIN_VALUE;
         for (double i : values) {

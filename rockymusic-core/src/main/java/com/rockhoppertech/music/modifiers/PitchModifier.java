@@ -80,7 +80,7 @@ public class PitchModifier extends AbstractModifier implements NoteModifier {
 		} else {
 			values.clear();
 		}
-		values.addAll(values);
+		values.addAll(list);
 	}
 
 	public PitchModifier(final Operation op, final double... array) {

@@ -94,14 +94,14 @@ public class ScaleFactory {
         public MIDITrack track() {
             MIDITrack result = null;
             // Scale scale = null;
-
-            result = createMIDITrack(name);
+//            result = createMIDITrack(name);
             // result = createMIDITrack(name, rootMidiNum);
             // result = createMIDITrack(scale);
-            // result = createMIDITrack(scale, rootMidiNum, startBeat,
-            // duration, upAndDown, nOct);
-            // result = createMIDITrack(name);
-
+             //result = createMIDITrack(scale, rootMidiNum, startBeat,
+             //duration, upAndDown, nOct);
+             result = createMIDITrack(intervals, rootMidiNum, startBeat, duration, nOct, upAndDown);
+             result.setName(this.name);
+             
             reset();
             return result;
         }

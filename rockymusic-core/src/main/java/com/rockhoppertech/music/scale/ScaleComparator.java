@@ -35,7 +35,6 @@ package com.rockhoppertech.music.scale;
  */
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -94,20 +93,20 @@ public class ScaleComparator implements Comparator<Scale>, Serializable {
                 return -1;
             }
 
-        } else if (propertyName.equals("degrees")) {
-        } else if (propertyName.equals("degreesAsPitches")) {
-        } else if (propertyName.equals("degreesAsString")) {
-        } else if (propertyName.equals("descendingDifferent")) {
-        } else if (propertyName.equals("descendingIntervals")) {
-        } else if (propertyName.equals("descendingIntervalsAsString")) {
-        } else if (propertyName.equals("description")) {
+//        } else if (propertyName.equals("degrees")) {
+//        } else if (propertyName.equals("degreesAsPitches")) {
+//        } else if (propertyName.equals("degreesAsString")) {
+//        } else if (propertyName.equals("descendingDifferent")) {
+//        } else if (propertyName.equals("descendingIntervals")) {
+//        } else if (propertyName.equals("descendingIntervalsAsString")) {
+//        } else if (propertyName.equals("description")) {
         } else if (propertyName.equals("intervals")) {
             int[] a1 = c1.getIntervals();
             int[] a2 = c2.getIntervals();
             return compareArrays(a1, a2);
-        } else if (propertyName.equals("intervalsAsString")) {
-        } else if (propertyName.equals("octave")) {
-        } else if (propertyName.equals("spelling")) {
+//        } else if (propertyName.equals("intervalsAsString")) {
+//        } else if (propertyName.equals("octave")) {
+//        } else if (propertyName.equals("spelling")) {
         }
 
         // make the compiler happy
