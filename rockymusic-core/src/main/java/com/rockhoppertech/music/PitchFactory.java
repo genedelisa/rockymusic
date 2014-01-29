@@ -184,9 +184,10 @@ public final class PitchFactory {
             for (Map.Entry<Integer, Double> entry : EQUAL_TEMPERAMENT
                     .entrySet()) {
                 if (entry.getValue().equals(freq)) {
+                    int pitch = entry.getKey().intValue();
                     logger.debug("returning pitch {} for fq {}",
-                            entry.getKey().intValue(), freq);
-                    return getPitch(entry.getKey().intValue());
+                            pitch, freq);
+                    return getPitch(pitch);
                 }
             }
         }
