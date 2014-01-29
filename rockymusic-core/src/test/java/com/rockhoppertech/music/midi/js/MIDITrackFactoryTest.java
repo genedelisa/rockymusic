@@ -116,7 +116,7 @@ public class MIDITrackFactoryTest {
 		MIDITrack repeats = MIDITrackFactory.repeat(track,
 				numberOfRepeats);
 		int expectedSize = track.size() * numberOfRepeats;
-		System.err.println(repeats);
+		logger.debug("repeats {}",repeats);
 		assertThat("track is not null", repeats, notNullValue());
 		assertThat("track is not null", repeats.size(),
 				equalTo(expectedSize));
@@ -170,7 +170,7 @@ public class MIDITrackFactoryTest {
 	public void createFromPitches() {
 		MIDITrack track = MIDITrackFactory.createFromPitches(C5, D5,
 				E5);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -181,7 +181,7 @@ public class MIDITrackFactoryTest {
 	@Test
 	public void createFromString() {
 		MIDITrack track = MIDITrackFactory.createFromString("c d e");
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -191,7 +191,7 @@ public class MIDITrackFactoryTest {
 	@Test
 	public void createFromIntervalsIntArray() {
 		MIDITrack track = MIDITrackFactory.createFromIntervals(1, 2);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -202,7 +202,7 @@ public class MIDITrackFactoryTest {
 	public void createFromIntervalsPitchIntArray() {
 		MIDITrack track = MIDITrackFactory.createFromIntervals(
 				PitchFactory.getPitch(C5), 1, 2);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -216,7 +216,7 @@ public class MIDITrackFactoryTest {
 		int baseInt = C5;
 		MIDITrack track = MIDITrackFactory.createFromIntervals(a,
 				baseInt);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -232,7 +232,7 @@ public class MIDITrackFactoryTest {
 		int numOctaves = 1;
 		MIDITrack track = MIDITrackFactory.createFromIntervals(a,
 				baseInt, unit, absolute, numOctaves);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -247,7 +247,7 @@ public class MIDITrackFactoryTest {
 		boolean absolute = false;
 		MIDITrack track = MIDITrackFactory.createFromIntervals(a,
 				baseInt, unit, absolute);
-		System.err.println(track);
+		logger.debug("track:\n{}", track);
 		int expectedSize = 3;
 		assertThat("track is not null", track, notNullValue());
 		assertThat("track size is correct", track.size(),
@@ -261,7 +261,7 @@ public class MIDITrackFactoryTest {
 				.root(Pitch.C5)
 				.track()
 				.sequential();
-		System.err.println(track);
+		logger.debug("track:\n", track);
 		assertThat("track is not null", track, notNullValue());
 		// Staffer.showGrandStaff(track, "original");
 
@@ -291,7 +291,7 @@ public class MIDITrackFactoryTest {
 					+ track.get(patternList.get(i)).getMidiNumber()));
 		}
 
-		System.err.println(patterned);
+		logger.debug("patterned {}",patterned);
 		// Staffer.showGrandStaff(patterned, "patterned updown");
 		//
 		// patterned = MIDITrackFactory.applyPattern(track, pattern,
