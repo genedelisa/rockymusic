@@ -190,13 +190,16 @@ public class MIDISender {
     }
 
     public Instrument[] openDevice() {
-        Instrument[] insts = null;
+        Instrument[] insts =  new Instrument[1];
         if (this.midiDevice == null) {
             logger.debug("midi device is null! Using default synthesizer.");
             try {
                 this.midiDevice = MidiSystem.getSynthesizer();
             } catch (MidiUnavailableException e) {
                 e.printStackTrace();
+                logger.error(e.getLocalizedMessage(), e);
+                // an empty array
+                return insts;
             }
         }
         if (midiDevice.isOpen()) {
@@ -205,7 +208,8 @@ public class MIDISender {
                 insts = synth.getAvailableInstruments();
                 return insts;
             }
-            return null;
+            // an empty array
+            return insts;
         }
 
         try {
@@ -230,13 +234,15 @@ public class MIDISender {
     }
 
     public void closeDevice() {
+        if(this.midiDevice == null) {
+            return;
+        }
         logger.debug("Closing device {}",
                 this.midiDevice.getDeviceInfo().getName());
         if (this.midiDevice.isOpen() == false) {
             return;
         }
-        if (this.midiDevice != null)
-            this.midiDevice.close();
+        this.midiDevice.close();
         if (this.receivers != null) {
             // this.receiver.close();
         }
