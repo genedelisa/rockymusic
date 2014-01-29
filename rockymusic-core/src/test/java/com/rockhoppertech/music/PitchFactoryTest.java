@@ -27,9 +27,10 @@ package com.rockhoppertech.music;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.Assert.*;
-
 import static org.hamcrest.Matchers.*;
 
 /**
@@ -39,6 +40,8 @@ import static org.hamcrest.Matchers.*;
  */
 public class PitchFactoryTest {
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(PitchFactoryTest.class);
     /**
      *
      * @throws java.lang.Exception
@@ -614,13 +617,14 @@ public class PitchFactoryTest {
     @Test
     public void createFromFrequency() {
         for (double fq : PitchFactory.EQUAL_TEMPERAMENT.values()) {
-            System.err.println(fq);
+            logger.debug("et fq {}", fq);
         }
 
         double freq = 261.6255653005986;
         Pitch p = PitchFactory.createFromFrequency(freq);
         Pitch p2 = PitchFactory.createFromFrequency(freq);
-        System.err.println(p.toProlixString());
+        logger.debug(p.toProlixString());
+        
         assertThat("The pitches are the same",
                    p,
                    sameInstance(p2));
