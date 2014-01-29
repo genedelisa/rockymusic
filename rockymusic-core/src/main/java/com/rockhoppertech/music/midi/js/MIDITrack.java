@@ -21,6 +21,9 @@ package com.rockhoppertech.music.midi.js;
  */
 
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -180,7 +183,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * 
      * @param orig
-     *            The MIDITrack that will be "cloned".
+     *            The {@code MIDITrack} that will be "cloned".
      */
     public MIDITrack(final MIDITrack orig) {
         this();
@@ -2304,4 +2307,28 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         return notes;
     }
 
+    /**
+     * Serialization method.
+     * @param out and output stream
+     * @throws IOException if this cannot be serialized
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    /**
+     * Serializaiton method.
+     * 
+     * @param in the input stream
+     * @throws IOException if something went wrong
+     * @throws ClassNotFoundException if the class is not found
+     */
+    private void readObject(ObjectInputStream in) throws IOException,
+            ClassNotFoundException {
+        // our "pseudo-constructor"
+        in.defaultReadObject();
+        // now we are a "live" object again
+        this.changes = new PropertyChangeSupport(this);
+        this.midiStringParser = new MIDIStringParser();
+    }
 }
