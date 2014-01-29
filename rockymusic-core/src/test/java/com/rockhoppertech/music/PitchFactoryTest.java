@@ -91,7 +91,7 @@ public class PitchFactoryTest {
     @Test
     public void getPitchByName() {
         Pitch pitch = PitchFactory.getPitchByName("CS");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -101,7 +101,7 @@ public class PitchFactoryTest {
 
         int oct = 0;
         pitch = PitchFactory.getPitchByName("C");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -111,7 +111,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("CS");
         Pitch reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -120,7 +120,7 @@ public class PitchFactoryTest {
                    equalTo(oct + 1));
 
         pitch = PitchFactory.getPitchByName("Cs");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -132,7 +132,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("C#");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -144,7 +144,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("DF");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -156,7 +156,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("Df");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -168,7 +168,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("Db");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -180,7 +180,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("DB");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -193,7 +193,7 @@ public class PitchFactoryTest {
 
         // ///
         pitch = PitchFactory.getPitchByName("D");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -203,7 +203,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("Ds");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -212,7 +212,7 @@ public class PitchFactoryTest {
                    equalTo(oct + 3));
 
         pitch = PitchFactory.getPitchByName("Ef");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -225,7 +225,7 @@ public class PitchFactoryTest {
 
         //
         pitch = PitchFactory.getPitchByName("E");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -234,7 +234,7 @@ public class PitchFactoryTest {
                    equalTo(oct + 4));
 
         pitch = PitchFactory.getPitchByName("F");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -244,7 +244,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("F#");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -254,7 +254,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("Gf");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -266,7 +266,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("G");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -276,7 +276,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("Gs");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -286,7 +286,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("Af");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -298,7 +298,7 @@ public class PitchFactoryTest {
                    is(reference));
 
         pitch = PitchFactory.getPitchByName("A");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -308,7 +308,7 @@ public class PitchFactoryTest {
 
         pitch = PitchFactory.getPitchByName("Bf");
         reference = pitch;
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -317,7 +317,7 @@ public class PitchFactoryTest {
                    equalTo(oct + 10));
 
         pitch = PitchFactory.getPitchByName("As");
-        System.err.println(pitch);
+        logger.debug("pitch {}",pitch);
         assertThat("pitch is not null",
                    pitch,
                    notNullValue());
@@ -343,7 +343,7 @@ public class PitchFactoryTest {
 
         for (int oct = 0; oct < 10; oct++) {
             pitch = PitchFactory.getPitchByName("C" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             int expectedPitch = (oct * 12) + 0;
             assertThat("pitch is not null",
                        pitch,
@@ -356,7 +356,7 @@ public class PitchFactoryTest {
             expectedPitch = (oct * 12) + 1;
             pitch = PitchFactory.getPitchByName("CS" + oct);
             Pitch reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -366,7 +366,7 @@ public class PitchFactoryTest {
                        equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("Cs" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -379,7 +379,7 @@ public class PitchFactoryTest {
                        is(reference));
 
             pitch = PitchFactory.getPitchByName("C#" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -392,7 +392,7 @@ public class PitchFactoryTest {
                        is(reference));
 
             pitch = PitchFactory.getPitchByName("DF" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -405,7 +405,7 @@ public class PitchFactoryTest {
                        is(reference));
 
             pitch = PitchFactory.getPitchByName("Df" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -418,7 +418,7 @@ public class PitchFactoryTest {
                        is(reference));
 
             pitch = PitchFactory.getPitchByName("Db" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -431,7 +431,7 @@ public class PitchFactoryTest {
                        is(reference));
 
             pitch = PitchFactory.getPitchByName("DB" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -446,7 +446,7 @@ public class PitchFactoryTest {
             // ///
             expectedPitch = (oct * 12) + 2;
             pitch = PitchFactory.getPitchByName("D" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -458,7 +458,7 @@ public class PitchFactoryTest {
             expectedPitch = (oct * 12) + 3;
             pitch = PitchFactory.getPitchByName("Ds" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -468,7 +468,7 @@ public class PitchFactoryTest {
                        equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("Ef" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -483,7 +483,7 @@ public class PitchFactoryTest {
             //
             expectedPitch = (oct * 12) + 4;
             pitch = PitchFactory.getPitchByName("E" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -494,7 +494,7 @@ public class PitchFactoryTest {
 
             expectedPitch = (oct * 12) + 5;
             pitch = PitchFactory.getPitchByName("F" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -506,7 +506,7 @@ public class PitchFactoryTest {
             expectedPitch = (oct * 12) + 6;
             pitch = PitchFactory.getPitchByName("F#" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -517,7 +517,7 @@ public class PitchFactoryTest {
 
             pitch = PitchFactory.getPitchByName("Gf" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -531,7 +531,7 @@ public class PitchFactoryTest {
 
             expectedPitch = (oct * 12) + 7;
             pitch = PitchFactory.getPitchByName("G" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -543,7 +543,7 @@ public class PitchFactoryTest {
             expectedPitch = (oct * 12) + 8;
             pitch = PitchFactory.getPitchByName("Gs" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -554,7 +554,7 @@ public class PitchFactoryTest {
 
             pitch = PitchFactory.getPitchByName("Af" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -568,7 +568,7 @@ public class PitchFactoryTest {
 
             expectedPitch = (oct * 12) + 9;
             pitch = PitchFactory.getPitchByName("A" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -580,7 +580,7 @@ public class PitchFactoryTest {
             expectedPitch = (oct * 12) + 10;
             pitch = PitchFactory.getPitchByName("Bf" + oct);
             reference = pitch;
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -590,7 +590,7 @@ public class PitchFactoryTest {
                        equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("As" + oct);
-            System.err.println(pitch);
+            logger.debug("pitch {}",pitch);
             assertThat("pitch is not null",
                        pitch,
                        notNullValue());
@@ -653,7 +653,7 @@ public class PitchFactoryTest {
         assertThat("The pitches are the same",
                    p,
                    sameInstance(p2));
-        System.err.println(p.toProlixString());
+        logger.debug(p.toProlixString());
         assertThat("The pitch is not null",
                    p,
                    notNullValue());
