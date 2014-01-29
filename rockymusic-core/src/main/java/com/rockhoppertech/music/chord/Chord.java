@@ -412,13 +412,13 @@ public class Chord implements Cloneable, Comparable<Chord> {
                     this.drop, other.drop));
             return false;
         }
-        if (Math.abs(this.startBeat - other.startBeat) < .0000001) {
+        if (Math.abs(this.startBeat - other.startBeat) > .0000001) {
             Chord.logger.debug(String.format("startBeat not the same %f != %f",
                     this.startBeat, other.startBeat));
             return false;
         }
 
-        if (Math.abs(this.duration - other.duration) < .0000001) {
+        if (Math.abs(this.duration - other.duration) > .0000001) {
             Chord.logger.debug(String.format("duration not the same %f != %f",
                     this.duration, other.duration));
             return false;
