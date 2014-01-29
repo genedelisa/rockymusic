@@ -75,13 +75,13 @@ public class ScaleFactory {
      */
     public static class Builder {
         String name;
-        int rootMidiNum = -1;
+        int rootMidiNum = Pitch.C5;
 
         int[] intervals;
-        double startBeat;
-        double duration;
+        double startBeat = 1d;
+        double duration = 4d;
         boolean upAndDown;
-        int nOct;
+        int nOct = 1;
 
         public Scale build() {
             Scale result = null;
@@ -93,15 +93,28 @@ public class ScaleFactory {
 
         public MIDITrack track() {
             MIDITrack result = null;
-            // Scale scale = null;
-//            result = createMIDITrack(name);
+            Scale scale = null;
+            // result = createMIDITrack(name);
             // result = createMIDITrack(name, rootMidiNum);
             // result = createMIDITrack(scale);
-             //result = createMIDITrack(scale, rootMidiNum, startBeat,
-             //duration, upAndDown, nOct);
-             result = createMIDITrack(intervals, rootMidiNum, startBeat, duration, nOct, upAndDown);
-             result.setName(this.name);
-             
+
+            if (name != null) {
+                scale = ScaleFactory.createFromName(name);
+                result = createMIDITrack(scale, rootMidiNum, startBeat,
+                        duration, upAndDown, nOct);
+                reset();
+                return result;
+            }
+
+            result = createMIDITrack(
+                    intervals,
+                    rootMidiNum,
+                    startBeat,
+                    duration,
+                    nOct,
+                    upAndDown);
+            result.setName(this.name);
+
             reset();
             return result;
         }
@@ -143,6 +156,11 @@ public class ScaleFactory {
 
         private void reset() {
             name = null;
+            rootMidiNum = Pitch.C5;
+            startBeat = 1d;
+            duration = 4d;
+            upAndDown = false;
+            nOct = 1;
         }
     }
 
