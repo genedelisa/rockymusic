@@ -34,14 +34,16 @@ package com.rockhoppertech.music.midi.js.xml;
  * #L%
  */
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -112,13 +114,24 @@ public class ChordFactoryXMLHelper {
     public static String toXMLString(ChordProgression chordProgression) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ChordFactoryXMLHelper.writeChordProgressionXML(chordProgression, os);
-        return os.toString();
+        try {
+            return os.toString("ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
+
+        return null;
     }
 
     public static String chordToXMLString(Chord chord) {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         ChordFactoryXMLHelper.writeChordXML(chord, os);
-        return os.toString();
+        try {
+            return os.toString("ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
+        return null;
     }
 
     public static void writeChordProgressionXML(
@@ -133,6 +146,7 @@ public class ChordFactoryXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
+            return;
         }
         Document doc = (Document) db.newDocument();
         String namespaceURI = "http://www.rockhoppertech.com/music/chordprogression";
@@ -203,8 +217,9 @@ public class ChordFactoryXMLHelper {
             // db.setEntityResolver(EntityResolver er);
             // db.setErrorHandler(ErrorHandler eh);
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
+            logger.error(e.getLocalizedMessage(), e);
             e.printStackTrace();
+            return null;
         }
 
         Document doc = null;
@@ -213,21 +228,27 @@ public class ChordFactoryXMLHelper {
             doc = db.parse(is);
             doc.normalize();
         } catch (SAXParseException spe) {
-            logger.error(spe.getLocalizedMessage(),spe);
+            logger.error(spe.getLocalizedMessage(), spe);
             Exception x = spe.getException();
             if (x != null) {
-                logger.error(x.getLocalizedMessage(),x);                
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (SAXException sxe) {
             Exception x = sxe;
             if (sxe.getException() != null) {
                 x = sxe.getException();
-                logger.error(x.getLocalizedMessage(),x);  
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            logger.error(ioe.getLocalizedMessage(), ioe);            
+            return null;
         } catch (Throwable t) {
             t.printStackTrace();
+            logger.error(t.getLocalizedMessage(), t);            
+            return null;
         }
 
         Element e = doc.getDocumentElement();
@@ -263,6 +284,7 @@ public class ChordFactoryXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
+            return;
         }
         Document doc = (Document) db.newDocument();
 
@@ -279,6 +301,8 @@ public class ChordFactoryXMLHelper {
                 mc = ChordFactory.getChordBySymbol(symbol);
             } catch (UnknownChordException e) {
                 e.printStackTrace();
+                logger.error(e.getLocalizedMessage(), e);
+                return;
             }
             Element chord = doc.createElement("chord");
             chords.appendChild(chord);
@@ -347,8 +371,9 @@ public class ChordFactoryXMLHelper {
             // db.setEntityResolver(EntityResolver er);
             // db.setErrorHandler(ErrorHandler eh);
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
+            logger.error(e.getLocalizedMessage(), e);
             e.printStackTrace();
+            return null;
         }
 
         Document doc = null;
@@ -357,21 +382,27 @@ public class ChordFactoryXMLHelper {
             doc = db.parse(is);
             doc.normalize();
         } catch (SAXParseException spe) {
-            logger.error(spe.getLocalizedMessage(),spe);  
+            logger.error(spe.getLocalizedMessage(), spe);
             Exception x = spe.getException();
             if (x != null) {
-                logger.error(x.getLocalizedMessage(),x);  
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (SAXException sxe) {
             Exception x = sxe;
             if (sxe.getException() != null) {
                 x = sxe.getException();
-                logger.error(x.getLocalizedMessage(),x);  
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            logger.error(ioe.getLocalizedMessage(), ioe);
+            return null;
         } catch (Throwable t) {
             t.printStackTrace();
+            logger.error(t.getLocalizedMessage(), t);
+            return null;
         }
 
         Element e = doc.getDocumentElement();
@@ -421,8 +452,9 @@ public class ChordFactoryXMLHelper {
             // db.setEntityResolver(EntityResolver er);
             // db.setErrorHandler(ErrorHandler eh);
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
+            logger.error(e.getLocalizedMessage(),e);
             e.printStackTrace();
+            return null;
         }
 
         Document doc = null;
@@ -431,21 +463,25 @@ public class ChordFactoryXMLHelper {
             doc = db.parse(is);
             doc.normalize();
         } catch (SAXParseException spe) {
-            logger.error(spe.getLocalizedMessage(),spe);  
+            logger.error(spe.getLocalizedMessage(), spe);
             Exception x = spe.getException();
             if (x != null) {
-                logger.error(x.getLocalizedMessage(),x);  
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (SAXException sxe) {
             Exception x = sxe;
             if (sxe.getException() != null) {
                 x = sxe.getException();
-                logger.error(x.getLocalizedMessage(),x);  
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return null;
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            return null;
         } catch (Throwable t) {
             t.printStackTrace();
+            return null;
         }
 
         Element e = doc.getDocumentElement();
@@ -504,8 +540,9 @@ public class ChordFactoryXMLHelper {
             // db.setErrorHandler(ErrorHandler eh);
 
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
+            logger.error(e.getLocalizedMessage(), e);
             e.printStackTrace();
+            return;
         }
 
         Document doc = null;
@@ -535,7 +572,10 @@ public class ChordFactoryXMLHelper {
                     logger.debug("defs " + definitionFileName);
                     logger.debug("uri " + uri);
                 }
-                is = new InputSource(new FileReader(f));
+                // filereader always uses default encoding
+                // is = new InputSource(new FileReader(f));
+                is = new InputSource(new InputStreamReader(new FileInputStream(
+                        f), Charset.forName("ISO-8859-1")));
                 // if not set, then it won't show up in exceptions
                 is.setSystemId(uri);
             }
@@ -548,16 +588,20 @@ public class ChordFactoryXMLHelper {
             if (x != null) {
                 System.err.println(x);
             }
+            return;
         } catch (SAXException sxe) {
             Exception x = sxe;
             if (sxe.getException() != null) {
                 x = sxe.getException();
                 logger.debug(x.getLocalizedMessage());
             }
+            return;
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            return;
         } catch (Throwable t) {
             t.printStackTrace();
+            return;
         }
 
         Element e = doc.getDocumentElement();
@@ -817,6 +861,7 @@ public class ChordFactoryXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
+            return;
         }
         Document doc = (Document) db.newDocument();
         String namespaceURI = "http://www.rockhoppertech.com/music/chords";

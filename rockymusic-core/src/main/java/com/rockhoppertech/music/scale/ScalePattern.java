@@ -25,6 +25,7 @@ package com.rockhoppertech.music.scale;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -94,7 +95,7 @@ public class ScalePattern {
             double restBetweenPatterns) {
         this.scale = scale;
         this.startPitch = startPitch;
-        this.pattern = pattern;
+        this.pattern = Arrays.copyOf(pattern, pattern.length);
         this.numOctaves = numOctaves;
         this.duration = duration;
         this.reverse = reverse;
@@ -147,7 +148,7 @@ public class ScalePattern {
      * @return the pattern
      */
     public int[] getPattern() {
-        return this.pattern;
+        return Arrays.copyOf(this.pattern, this.pattern.length);
     }
 
     public String getPatternAsString() {
@@ -160,7 +161,7 @@ public class ScalePattern {
      *            the pattern to set
      */
     public void setPattern(int[] pattern) {
-        this.pattern = pattern;
+        this.pattern = Arrays.copyOf(pattern, pattern.length);
     }
 
     /**
@@ -259,7 +260,7 @@ public class ScalePattern {
         track.setName(s);
         s = String
                 .format(
-                        "Generated from %s scale.\nThe pattern applied was %s\nthe start pitch is %d\nnumber of octaves %d\nduration %f\nis reverse %b\ngap %f\nup and down %b\n",
+                        "Generated from %s scale.%nThe pattern applied was %s%nthe start pitch is %d%nnumber of octaves %d%nduration %f%nis reverse %b%ngap %f%nup and down %b%n",
                         this.getScale().getName(),
                         ArrayUtils.toString(this.getPattern()),
                         this.getStartPitch(),

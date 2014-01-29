@@ -126,7 +126,7 @@ public class MIDITrackFactory {
         if (mt.getName() != null) {
             MIDIUtils.insertSequenceName(track, 0, mt.getName());
         }
-        
+
         if (mt.getDescription() != null) {
             MIDIUtils.insertText(track, 0, mt.getDescription());
         }
@@ -455,7 +455,7 @@ public class MIDITrackFactory {
                 if (mm.getType() == MIDIUtils.META_TEXT) {
                     logger.debug("meta text");
                     logger.debug(MIDIUtils.bytesToText(mm.getData()));
-                    //logger.debug(new String(mm.getData()));                    
+                    // logger.debug(new String(mm.getData()));
                 }
                 if (mm.getType() == MIDIUtils.META_TIME_SIG) {
                     logger.debug("time sig");
@@ -463,7 +463,7 @@ public class MIDITrackFactory {
                 }
                 if (mm.getType() == MIDIUtils.META_COPYRIGHT) {
                     logger.debug("copyright");
-                    logger.debug(new String(mm.getData()));
+                    logger.debug(MIDIUtils.bytesToText(mm.getData()));
                 }
                 if (mm.getType() == MIDIUtils.META_KEY_SIG) {
                     logger.debug("Key signature");
@@ -479,8 +479,8 @@ public class MIDITrackFactory {
                 // Track 1 will be the instrument name, e.g. Piano
                 if (mm.getType() == MIDIUtils.META_NAME) {
                     logger.debug("name");
-                    logger.debug(new String(mm.getData()));
-                    track.setName(new String(mm.getData()));
+                    logger.debug(MIDIUtils.bytesToText(mm.getData()));                    
+                    track.setName(MIDIUtils.bytesToText(mm.getData()));                    
                 }
             }
 
@@ -503,11 +503,11 @@ public class MIDITrackFactory {
                 }
                 if (command == ShortMessage.CHANNEL_PRESSURE) {
                     logger.debug("channel pressure ", se);
-                    track.add(new MIDIEvent(me,track));
+                    track.add(new MIDIEvent(me, track));
                 }
                 if (command == ShortMessage.POLY_PRESSURE) {
                     logger.debug("poly pressure ", se);
-                    track.add(new MIDIEvent(me,track));
+                    track.add(new MIDIEvent(me, track));
                 }
 
                 if (command == ShortMessage.PROGRAM_CHANGE) {
@@ -517,7 +517,7 @@ public class MIDITrackFactory {
                 }
                 if (command == ShortMessage.PITCH_BEND) {
                     logger.debug("pitch bend: {} d2 {}", d1, d2);
-                    track.add(new MIDIEvent(me,track));
+                    track.add(new MIDIEvent(me, track));
                 }
 
                 if (command == ShortMessage.NOTE_ON && d2 != 0) {
@@ -533,7 +533,7 @@ public class MIDITrackFactory {
                         logger.error("no outstanding:");
                         continue;
                     }
-                    me = outstanding.remove(new Integer(d1));
+                    me = outstanding.remove(Integer.valueOf(d1));
                     ShortMessage out = null;
                     if (me != null) {
                         out = (ShortMessage) me.getMessage();
@@ -825,16 +825,24 @@ public class MIDITrackFactory {
      * 
      * The pattern for the first Hanon exercise would be 0 2 3 4 5 4 3 2
      * 
-     * @param degrees the degrees
-     * @param pattern the pattern
+     * @param degrees
+     *            the degrees
+     * @param pattern
+     *            the pattern
      * @param limit
      *            - max index into degrees
-     * @param startingMIDINumber starting MIDI pitch
-     * @param nOctaves number of octaves
-     * @param duration duration
-     * @param reverse should reverse the pattern
-     * @param restBetweenPatterns gap between patterns
-     * @param upAndDown make it go up and down
+     * @param startingMIDINumber
+     *            starting MIDI pitch
+     * @param nOctaves
+     *            number of octaves
+     * @param duration
+     *            duration
+     * @param reverse
+     *            should reverse the pattern
+     * @param restBetweenPatterns
+     *            gap between patterns
+     * @param upAndDown
+     *            make it go up and down
      * @return a MIDITrack
      */
 
@@ -977,20 +985,18 @@ public class MIDITrackFactory {
      * the pattern is a collection of indices into the notelist. no bounds
      * checking
      * 
-     * {@code
-     * Integer[] pattern = new Integer[] { 0, 0, 3, 2, 1 };
-     * MIDITrack patterned = MIDITrackFactory
-     *         .applyPattern(
-     *                 notelist,
-     *                 pattern);
-     * }
+     * {@code Integer[] pattern = new Integer[] 0, 0, 3, 2, 1 }; MIDITrack
+     * patterned = MIDITrackFactory .applyPattern( notelist, pattern); }
      * 
      * A cleaner replacement for getNoteListPattern(blah blah) but doesn't do
      * the hanon like sequencing - which you can do externally
      * 
-     * @param track a track
-     * @param patternArray a pattern array
-     * @param reverse reverse the pattern
+     * @param track
+     *            a track
+     * @param patternArray
+     *            a pattern array
+     * @param reverse
+     *            reverse the pattern
      * @return a MIDITrack
      */
     public static MIDITrack applyPattern(MIDITrack track,
@@ -1279,7 +1285,8 @@ public class MIDITrackFactory {
         for (int i = 0; i < track.size(); i++) {
             MIDINote n = track.get(i);
             if (lastNote != null) {
-                if (n.getDuration() == lastNote.getDuration()) {
+                if (Math.abs(n.getDuration() - lastNote.getDuration()) < .0000001) {
+                    // if (n.getDuration() == lastNote.getDuration()) {
                     count++;
                     logger.debug(
                             "Incrementing count to {} for {}", count, n
@@ -1305,7 +1312,7 @@ public class MIDITrackFactory {
 
     /**
      * {@code
-	 	MIDITrack ints = MIDITrackFactory.createFromIntervals(1, 2, 3, 4,
+     * Track ints = MIDITrackFactory.createFromIntervals(1, 2, 3, 4,
 				5);
 		
 		CircularList<Integer> values = new CircularArrayList<Integer>();
@@ -1316,9 +1323,12 @@ public class MIDITrackFactory {
 		// so intervals 1 2 3 4 5 become 2 3 4 5 6
 		}
      * 
-     * @param track the track
-     * @param values the values added to the intervals
-     * @param absolute is absolute
+     * @param track
+     *            the track
+     * @param values
+     *            the values added to the intervals
+     * @param absolute
+     *            is absolute
      * @return a MIDITrack created from the intervals
      */
     public static MIDITrack modifyPitchIntervals(MIDITrack track,

@@ -35,10 +35,12 @@ package com.rockhoppertech.music.midi.js.xml;
  */
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +121,8 @@ public class ScaleFactoryXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
+            logger.error(e.getLocalizedMessage(), e);
+            return;
         }
         Document doc = db.newDocument();
 
@@ -228,11 +232,9 @@ public class ScaleFactoryXMLHelper {
             // db.setErrorHandler(ErrorHandler eh);
 
         } catch (ParserConfigurationException e) {
-            System.err.println(e);
-            if (logger.isErrorEnabled()) {
-                logger.error(e.getMessage(), e);
-            }
+            logger.error(e.getLocalizedMessage(), e);
             e.printStackTrace();
+            return;
         }
 
         Document doc = null;
@@ -257,7 +259,11 @@ public class ScaleFactoryXMLHelper {
                 logger.debug("defs ", scaleDefinitionFileName);
                 logger.debug("uri ", uri);
 
-                is = new InputSource(new FileReader(f));
+                // filereader always uses default encoding
+                // is = new InputSource(new FileReader(f));
+                is = new InputSource(new InputStreamReader(new FileInputStream(
+                        f), Charset.forName("ISO-8859-1")));
+
                 // is = new InputSource(ScaleFactoryXMLHelper.class
                 // .getResourceAsStream(uri));
                 // if not set, then it won't show up in exceptions
@@ -267,31 +273,34 @@ public class ScaleFactoryXMLHelper {
             doc = db.parse(is);
             doc.normalize();
         } catch (SAXParseException spe) {
-            logger.error("error parsing", spe);
+            logger.error(spe.getLocalizedMessage(), spe);
             Exception x = spe.getException();
             if (x != null) {
                 logger.error("error parsing", x);
             }
+            return;            
         } catch (SAXException sxe) {
             Exception x = sxe;
             if (sxe.getException() != null) {
                 x = sxe.getException();
-                logger.error(x.getMessage(), x);
+                logger.error(x.getLocalizedMessage(), x);
             }
+            return;
             // } catch (MalformedURLException mue) {
 
         } catch (IOException ioe) {
-            logger.error("io problem", ioe);
+            logger.error(ioe.getLocalizedMessage(), ioe);
             return;
 
         } catch (Throwable t) {
             t.printStackTrace();
+            logger.error(t.getLocalizedMessage(), t);
             return;
         }
 
         Element e = doc.getDocumentElement();
         String name = e.getTagName();
-        logger.debug("parsing scales document element " + name);
+        logger.debug("parsing scales document element {}", name);
 
         NodeList scales = e.getElementsByTagName("scale");
         if (scales != null) {
@@ -302,7 +311,7 @@ public class ScaleFactoryXMLHelper {
                 parseScale(nl);
             }
         } else {
-            System.err.println("no scales!");
+            logger.error("no scales!");            
         }
     }
 
@@ -316,11 +325,11 @@ public class ScaleFactoryXMLHelper {
      */
     private static void parseScale(Node scale) {
         if (scale == null) {
-            System.err.println("parseScale: node is null");
+            logger.error("parseScale: node is null");
             return;
         }
         if (scale.getNodeName().equals("scale") == false) {
-            System.err.println("parseScale: node is not a scale");
+            logger.error("parseScale: node is not a scale");
             return;
         }
         NamedNodeMap pa = scale.getAttributes();
@@ -376,7 +385,11 @@ public class ScaleFactoryXMLHelper {
         if (dintervals != null) {
             mc.setDescendingIntervals(dintervals);
         }
-        ScaleFactory.registerScale(mc);
+        if (mc != null) {
+            ScaleFactory.registerScale(mc);
+        } else {
+            logger.error("Scale was null. Not registered");
+        }
     }
 
     private static Integer[] parseIntervals(Node intervals) {

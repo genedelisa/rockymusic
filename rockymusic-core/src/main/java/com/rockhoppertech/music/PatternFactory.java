@@ -70,7 +70,7 @@ public class PatternFactory {
     private static void printArray(List<int[]> patterns) {
         int num = 0;
         for (int[] a : patterns) {
-            System.out.printf("%d:\t%s\n", num++, ArrayUtils.toString(a));
+            System.out.printf("%d:\t%s%n", num++, ArrayUtils.toString(a));
         }
     }
 

@@ -262,9 +262,12 @@ public final class MIDIUtils {
     }
 
     /**
-     * @param tick when this occurs
-     * @param metaTextType the MIDI meta text tupe
-     * @param text the text
+     * @param tick
+     *            when this occurs
+     * @param metaTextType
+     *            the MIDI meta text tupe
+     * @param text
+     *            the text
      * @return a JavaSound MidiEvent
      */
     public static MidiEvent createMetaTextMessage(long tick, int metaTextType,
@@ -1209,7 +1212,7 @@ public final class MIDIUtils {
             str = "SMPTE, 24 frames per second";
         } else if (fDivisionType == Sequence.SMPTE_25) {
             str = "SMPTE, 25 frames per second";
-        } else if (fDivisionType == Sequence.SMPTE_30DROP) {
+        } else if (Math.abs(fDivisionType - Sequence.SMPTE_30DROP) < .0000001) {
             str = "SMPTE, 29.97 frames per second";
         } else if (fDivisionType == Sequence.SMPTE_30) {
             str = "SMPTE, 30 frames per second";

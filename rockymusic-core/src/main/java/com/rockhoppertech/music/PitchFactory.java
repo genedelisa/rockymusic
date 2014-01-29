@@ -35,6 +35,7 @@ package com.rockhoppertech.music;
  */
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -55,20 +56,7 @@ public final class PitchFactory {
             .getLogger(PitchFactory.class);
 
     private static Map<Integer, Pitch> pitches = new HashMap<Integer, Pitch>();
-    private static PitchFactory instance;
-
-    /**
-     * Singleton pattern. But, since all methods are static, this is not really
-     * needed.
-     * 
-     * @return a PitchFactory instance
-     */
-    public static synchronized PitchFactory getInstance() {
-        if (instance == null) {
-            instance = new PitchFactory();
-        }
-        return instance;
-    }
+   
 
     /**
      * 
@@ -98,7 +86,7 @@ public final class PitchFactory {
 
         logger.trace(new Throwable().getStackTrace()[0].getMethodName());
 
-        Integer i = new Integer(midiNumber);
+        Integer i =  Integer.valueOf(midiNumber);
         Pitch p = null;
         if (pitches.containsKey(i)) {
             p = pitches.get(i);
@@ -122,7 +110,7 @@ public final class PitchFactory {
         name = name.trim();
         Pitch p = nameMap.get(name);
         if (p == null) {
-            Integer i = Pitch.nameMap.get(name.toUpperCase());
+            Integer i = Pitch.nameMap.get(name.toUpperCase(Locale.ENGLISH));
             if (i == null) {
                 throw new IllegalArgumentException(String.format(
                         "That is one bad name dude: '%s'", name));
@@ -146,7 +134,7 @@ public final class PitchFactory {
      * @return the matching Pitch
      */
     public static Pitch getPitch(String pitchString) {
-        Integer i = new Integer(PitchFormat.stringToMidiNumber(pitchString));
+        Integer i = Integer.valueOf(PitchFormat.stringToMidiNumber(pitchString));
         Pitch p = null;
         if (pitches.containsKey(i)) {
             p = pitches.get(i);

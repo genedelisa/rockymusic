@@ -207,8 +207,9 @@ public class Note implements Comparable<Note>, Timed, Serializable {
     /**
      * <code>compareTo</code> checks the startBeat.
      * 
-     * @param n a note to compare
-     *            
+     * @param n
+     *            a note to compare
+     * 
      * @return an <code>int</code> value
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -219,7 +220,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         int r = 0;
         if (startBeat < nt) {
             r = -1;
-        } else if (startBeat == nt) {
+        } else if (Math.abs(startBeat - nt) < .0000001) {
             r = 0;
         } else if (startBeat > nt) {
             r = 1;
@@ -241,15 +242,21 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         if (n.pitch.equals(pitch) == false) {
             return false;
         }
-        if (n.startBeat != startBeat) {
+
+        if (Math.abs(n.startBeat - startBeat) > .0000001) {
             return false;
         }
-        if (n.duration != duration) {
+        if (Math.abs(n.duration - duration) > .0000001) {
             return false;
         }
-        if (n.endBeat != endBeat) {
+        if (Math.abs(n.endBeat - endBeat) > .0000001) {
             return false;
         }
+        /*
+         * if (n.startBeat != startBeat) { return false; } if (n.duration !=
+         * duration) { return false; } if (n.endBeat != endBeat) { return false;
+         * }
+         */
 
         return true;
     }
@@ -394,8 +401,8 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         logger.debug("new duration {} new end beat {}",
                 duration, endBeat);
 
-        changes.firePropertyChange(Note.DURATION, new Double(old),
-                new Double(duration));
+        changes.firePropertyChange(Note.DURATION, Double.valueOf(old),
+                Double.valueOf(duration));
     }
 
     /**
@@ -482,8 +489,8 @@ public class Note implements Comparable<Note>, Timed, Serializable {
 
         logger.debug("new start beat {} new end beat {}",
                 startBeat, endBeat);
-        changes.firePropertyChange(Note.START_BEAT, new Double(old),
-                new Double(startBeat));
+        changes.firePropertyChange(Note.START_BEAT, Double.valueOf(old),
+                Double.valueOf(startBeat));
 
     }
 

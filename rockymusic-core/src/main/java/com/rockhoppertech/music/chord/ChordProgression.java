@@ -440,13 +440,13 @@ public class ChordProgression implements Iterable<Chord> {
         int count = 0;
         sb.append("<html>\n");
         sb.append("<head>\n");
-        sb.append(String.format("<title>%s</title>\n", this.getName()));
+        sb.append(String.format("<title>%s</title>%n", this.getName()));
         sb.append("</head>\n");
         sb.append("<body>\n");
-        sb.append(String.format("<p>%s</p>\n", this.getName()));
-        sb.append(String.format("<p>%s %s</p>\n", this.getKey(), this
+        sb.append(String.format("<p>%s</p>%n", this.getName()));
+        sb.append(String.format("<p>%s %s</p>%n", this.getKey(), this
                 .getScaleName()));
-        sb.append(String.format("<p>%d</p>\n", this.getBeatsPerMeasure()));
+        sb.append(String.format("<p>%d</p>%n", this.getBeatsPerMeasure()));
         sb
                 .append("<table border=\"1\" cellpadding=\"4\" summary=\"Chord Progression\">\n");
         sb.append("<tbody>\n");

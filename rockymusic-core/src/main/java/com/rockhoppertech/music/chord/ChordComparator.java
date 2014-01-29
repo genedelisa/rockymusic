@@ -24,6 +24,7 @@ package com.rockhoppertech.music.chord;
  */
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,7 +38,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
-public class ChordComparator implements Comparator<Chord> {
+public class ChordComparator implements Comparator<Chord>, Serializable {
+    /**
+     * For Serializaiton.
+     */
+    private static final long serialVersionUID = 5491513953123004560L;
     private static final Logger logger = LoggerFactory
             .getLogger(ChordComparator.class);
 
@@ -77,7 +82,7 @@ public class ChordComparator implements Comparator<Chord> {
     }
 
     public static void main(String[] args) {
-        List<Chord> chords = new ArrayList<Chord>();
+        List<Chord> chords = null;
         chords = ChordFactory.getAll();
 
         Collections.sort(chords, new ChordComparator());

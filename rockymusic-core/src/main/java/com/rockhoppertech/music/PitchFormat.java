@@ -21,6 +21,7 @@ package com.rockhoppertech.music;
  */
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -56,10 +57,6 @@ public class PitchFormat implements Serializable {
     static final String[] FLATPITCHES = { "C", "Db", "D", "Eb", "E",
             "F", "Gb", "G", "Ab", "A", "Bb", "B" };
     
-    public static String[] getFlatPitches() {
-        return FLATPITCHES;
-    }
-
     // TODO allow this to be selectable
     // public static final String[] FLATPITCHES = { "C", "Df", "D", "Ef", "E",
     // "F", "Gf", "G", "Af", "A", "Bf", "B" };
@@ -68,6 +65,14 @@ public class PitchFormat implements Serializable {
             "F", "F#", "G", "G#", "A", "A#", "B" };
     private static Map<Integer, String> flatPitchMap;
     private static Map<Integer, String> sharpPitchMap;
+    public static String[] getFlatPitches() {
+        return Arrays.copyOf(FLATPITCHES,FLATPITCHES.length);
+    }
+    
+    public static String[] getSharpPitches() {
+        return Arrays.copyOf(SHARPPITCHES,SHARPPITCHES.length);
+    }
+    
     static {
         flatPitchMap = new HashMap<Integer, String>();
         for (int i = 0; i < FLATPITCHES.length; i++) {
@@ -495,7 +500,7 @@ public class PitchFormat implements Serializable {
 
         String ostr = pitch.substring(octIndex);
         logger.debug("ostr is '{}' from pitch '{}'", ostr, pitch);
-        if (ostr == null || ostr.equals("")) {
+        if (ostr.equals("")) {
             ostr = "5";
         }
 
@@ -516,7 +521,7 @@ public class PitchFormat implements Serializable {
      * @return the pitch class
      */
     public static int stringToPC(final String pitch) {
-        char c = pitch.toLowerCase().trim().charAt(0);
+        char c = pitch.toLowerCase(Locale.ENGLISH).trim().charAt(0);
 
         // the . is a dummy place holder just to yield the correct pitch class
         String s = "c.d.ef.g.a.b";

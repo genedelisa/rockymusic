@@ -24,6 +24,7 @@ package com.rockhoppertech.collections;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -295,7 +296,7 @@ public class ArrayFunctions {
     static void hexprint(int[] a) {
         for (int i = 0; i < a.length; i++) {
             String s = Integer.toHexString(a[i]) + " ";
-            System.out.print(s.toUpperCase());
+            System.out.print(s.toUpperCase(Locale.ENGLISH));
         }
         System.out.println();
     }
@@ -606,7 +607,7 @@ public class ArrayFunctions {
     public static Double[] wrap(double[] d) {
         Double[] a = new Double[d.length];
         for (int i = 0; i < a.length; i++) {
-            a[i] = new Double(d[i]);
+            a[i] = Double.valueOf(d[i]);
         }
         return a;
     }

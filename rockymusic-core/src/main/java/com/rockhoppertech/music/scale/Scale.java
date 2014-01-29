@@ -88,7 +88,7 @@ public class Scale implements Cloneable {
 
     public Scale(final String name, final int[] intervals) {
         setName(name);
-        this.intervals = intervals;
+        this.intervals = Arrays.copyOf(intervals, intervals.length);
         degrees = Interval.intervalsToDegrees(this.intervals);
         spelling = Interval.spellScale(degrees);
     }
@@ -140,18 +140,18 @@ public class Scale implements Cloneable {
             // copy the bitwise primitives
             result = (Scale) super.clone();
             if (spelling != null) {
-                result.spelling = new String(spelling);
+                result.spelling = spelling;
             }
             if (name != null) {
-                result.name = new String(name);
+                result.name = name;
             }
             if (description != null) {
-                result.description = new String(description);
+                result.description = description;
             }
             result.aliases.addAll(aliases);
 
         } catch (final CloneNotSupportedException e) {
-
+            logger.error(e.getLocalizedMessage(),e);
         }
         return result;
     }
@@ -258,7 +258,7 @@ public class Scale implements Cloneable {
      * @return the degrees
      */
     public int[] getDegrees() {
-        return degrees;
+        return Arrays.copyOf(degrees, degrees.length);
     }
 
     /**
@@ -390,7 +390,7 @@ public class Scale implements Cloneable {
      * @return the descendingIntervals
      */
     public int[] getDescendingIntervals() {
-        return descendingIntervals;
+        return Arrays.copyOf(descendingIntervals, descendingIntervals.length);
     }
 
     public String getDescendingIntervalsAsString() {
@@ -583,7 +583,7 @@ public class Scale implements Cloneable {
      *            the degrees to set
      */
     public void setDegrees(final int[] degrees) {
-        this.degrees = degrees;
+        this.degrees = Arrays.copyOf(degrees, degrees.length);
         spelling = Interval.spellScale(this.degrees);
         intervals = Interval.getIntervalsFromSpelling(spelling);
     }
@@ -601,7 +601,7 @@ public class Scale implements Cloneable {
      *            the descendingIntervals to set
      */
     public void setDescendingIntervals(final int[] descendingIntervals) {
-        this.descendingIntervals = descendingIntervals;
+        this.descendingIntervals = Arrays.copyOf(descendingIntervals,descendingIntervals.length);
         // append to this.degrees too? nah
 
         setDescendingDifferent(true);
@@ -634,7 +634,7 @@ public class Scale implements Cloneable {
      *            the intervals to set
      */
     public void setIntervals(final int[] intervals) {
-        this.intervals = intervals;
+        this.intervals = Arrays.copyOf(intervals,intervals.length);
         degrees = Interval.intervalsToDegrees(this.intervals);
         spelling = Interval.spellScale(degrees);
     }

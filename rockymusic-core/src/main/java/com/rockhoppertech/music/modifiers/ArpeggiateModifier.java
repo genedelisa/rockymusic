@@ -1,17 +1,3 @@
-/*
- * $Id$
- *
- * Copyright 1998,1999,2000,2001 by Rockhopper Technologies, Inc.,
- * 75 Trueman Ave., Haddonfield, New Jersey, 08033-2529, U.S.A.
- * All rights reserved.
- *
- * This software is the confidential and proprietary information
- * of Rockhopper Technologies, Inc. ("Confidential Information").  You
- * shall not disclose such Confidential Information and shall use
- * it only in accordance with the terms of the license agreement
- * you entered into with RTI.
- */
-
 package com.rockhoppertech.music.modifiers;
 
 /*
@@ -43,52 +29,82 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
- * Class <code>ArpeggiateModifier</code> Modifies the note's start beat by the
- * amount and operation.
+ * Class <code>ArpeggiateModifier</code> modifies the note's start beat by the
+ * amount and operation. The duration of each note is the given duration minus its 
+ * start beat.
  * <p>
- * Beats are 1 based as defined in MIDINoteList toTrack(sequence, division) If
- * the pattern size is smaller than the notelist size, it will wrap.
+ * Beats are 1 based. If the pattern size is smaller than the track size, it
+ * will wrap.
  * 
  * 
+ * <pre>
  * {@code
- * MIDINoteList notelist = ...
- * double startBeat = 1d;
- * double duration = 4d;
- * double gap = 4.3;
- * notelist.map(new ArpeggiateModifier(startBeat, duration, gap));
- * // or
- * List<Double> series = new ArrayList<Double>();
- * series.add(.25d);
- * series.add(.5d);
- * series.add(1d);
- * notelist.map(new ArpeggiateModifier(startBeat, duration, series, NoteModifier.Operation.SET));
+ *     Chord chord = ChordFactory.getChordByFullSymbol("Cmaj7");
+ *     MIDITrack track = chord.createMIDITrack();
+ *     double startBeat = 1d;
+ *     double duration = 4d;
+ *     double gap = .25;
+ *     ArpeggiateModifier mod = new ArpeggiateModifier(startBeat, duration, gap);
+ *     track.map(mod);
+ * 
+ *     // or
+ *     List<Double> series = new ArrayList<>();
+ *     series.add(.25d);
+ *     series.add(.5d);
+ *     series.add(1d);
+ *     track.map(new ArpeggiateModifier(startBeat, duration, series,
+ *             Modifier.Operation.ADD));
  * }
+ * </pre>
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
- * @see com.rockhoppertech.music.modifiers.NoteModifier
+ * @see com.rockhoppertech.music.modifiers.Modifier
+ * @see com.rockhoppertech.music.modifiers.Modifier.Operation
+ * @see com.rockhoppertech.music.modifiers.MIDINoteModifier
+ * @see com.rockhoppertech.music.midi.js.MIDITrack#map(MIDINoteModifier)
  */
 public class ArpeggiateModifier implements MIDINoteModifier {
 
+    /**
+     * logging.
+     */
     private static final Logger logger = LoggerFactory
             .getLogger(ArpeggiateModifier.class);
 
+    /**
+     * How the values will be appiied.
+     */
     private Operation operation = Operation.ADD;
+    /**
+     * The values uses to modify the notes.
+     */
     private List<Double> values;
+    /**
+     * internal index into the values.
+     */
     private int index;
 
-    /** gap distance between attacks */
-    // private double gap;
-    /** total duration of the chord */
+    /** gap distance between attacks. */
+    
+    /** total duration of the chord. */
     private double duration;
-    private double startBeat;
+    
+    /**
+     * When the chord occurs.
+     */
+    private double startBeat = 1d;
+    
+    /**
+     * A chained modifier.
+     */
     private MIDINoteModifier successor;
 
     /**
      * 
      * @param startBeat
+     *            when the chord starts
      * 
      * @param duration
      *            total duration of the chord
@@ -141,11 +157,11 @@ public class ArpeggiateModifier implements MIDINoteModifier {
      * same time.
      * 
      * @param note
-     *            a <code>Note</code> value
+     *            a <code>MIDINote</code> value
      */
     @Override
     public void modify(MIDINote note) {
-        note.setStartBeat(startBeat);
+        note.setStartBeat(this.startBeat);
         double d = duration - startBeat + 1d;
         if (d <= 0d) {
             throw new IllegalArgumentException("gaps cannot be > duration");
@@ -153,7 +169,7 @@ public class ArpeggiateModifier implements MIDINoteModifier {
         note.setDuration(d); // beats are 1 based and not zero based
 
         if (operation == Operation.ADD) {
-            startBeat += nextValue();
+            this.startBeat += nextValue();
         } else if (operation == Operation.SUBTRACT) {
             // does this make sense?
             startBeat -= nextValue();
@@ -166,6 +182,7 @@ public class ArpeggiateModifier implements MIDINoteModifier {
         } else if (operation == Operation.SET) {
             startBeat = nextValue();
         }
+        logger.debug("start beat is {}", this.startBeat);
 
     }
 
@@ -185,7 +202,7 @@ public class ArpeggiateModifier implements MIDINoteModifier {
     // }
 
     /**
-     * <code>getName</code>
+     * <code>getName</code> returns the name of the modifier.
      * 
      * @return a <code>String</code> value
      */
@@ -195,7 +212,7 @@ public class ArpeggiateModifier implements MIDINoteModifier {
     }
 
     /**
-     * <code>getDescription</code>
+     * <code>getDescription</code> returns the description.
      * 
      * @return a <code>String</code> value
      */
@@ -231,7 +248,6 @@ public class ArpeggiateModifier implements MIDINoteModifier {
     @Override
     public void setSuccessor(MIDINoteModifier successor) {
         this.successor = successor;
-
     }
 
 }

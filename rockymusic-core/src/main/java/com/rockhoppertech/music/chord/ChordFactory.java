@@ -23,7 +23,6 @@ package com.rockhoppertech.music.chord;
  * #L%
  */
 
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -32,6 +31,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -220,15 +220,17 @@ public class ChordFactory {
     // public static void add(Chord aChord) {
     // registerChord(aChord);
     // }
-   
+
     // public static void addChord(String aSymbol, String aSpelling,
     // String aDescription) {
     // registerChord(new Chord(aSymbol, aSpelling, aDescription));
     // }
-    
+
     /**
      * Create a new Chord with the specified registered symbol.
-     * @param aSymbol the symbol to use.
+     * 
+     * @param aSymbol
+     *            the symbol to use.
      * @return a Chord based on the registered symbol.
      */
     public static Chord createFromSymbol(String aSymbol) {
@@ -244,7 +246,8 @@ public class ChordFactory {
     /**
      * Loop through registered chords to find a spelling match.
      * 
-     * @param spelling the speling
+     * @param spelling
+     *            the speling
      * @return a Chord or null
      */
     public static Chord createFromSpelling(String spelling) {
@@ -310,9 +313,11 @@ public class ChordFactory {
      * 
      * </blockquote>
      * 
-     * @param someIntervals the intervals
+     * @param someIntervals
+     *            the intervals
      * @return a Chord
-     * @throws UnknownChordException if the chord is unknown
+     * @throws UnknownChordException
+     *             if the chord is unknown
      * @throws IllegalArgumentException
      *             if the intervals are not in the Factory's registry
      */
@@ -361,11 +366,15 @@ public class ChordFactory {
 
     /**
      * Create a MIDITrack based on the parameters.
-     *  
-     * @param rootMidiNum the MIDI number of the root
-     * @param symbol the chord symbol
-     * @param startBeat the start beat &gt;= 1.0
-     * @param duration the duration
+     * 
+     * @param rootMidiNum
+     *            the MIDI number of the root
+     * @param symbol
+     *            the chord symbol
+     * @param startBeat
+     *            the start beat &gt;= 1.0
+     * @param duration
+     *            the duration
      * @return a {@code MIDITrack}
      * 
      * @see ChordFactory#createFromSymbol(String)
@@ -396,7 +405,8 @@ public class ChordFactory {
      * this is called from Chord when you change its instance values. So
      * chord.getNotelist() returns the result.
      * 
-     * @param chord the chord instance to use
+     * @param chord
+     *            the chord instance to use
      * @return a {@cod MIDITrack} instance
      * 
      * @see Chord#createMIDITrack()
@@ -549,7 +559,7 @@ public class ChordFactory {
 
     public static int getRootFromName(String name) {
         logger.debug(name);
-        int pc = name.toLowerCase().charAt(0);
+        int pc = name.toLowerCase(Locale.ENGLISH).charAt(0);
         switch (pc) {
         case 'c':
             pc = 0;
@@ -603,9 +613,11 @@ public class ChordFactory {
             case 'x':
                 pc += 2;
                 break;
+            default:
+                break;
             }
         }
-        String s = String.format("returning %d for %s\n", pc, name);
+        String s = String.format("returning %d for %s%n", pc, name);
         logger.debug(s);
         return pc;
     }
@@ -614,7 +626,8 @@ public class ChordFactory {
      * None of the chars used as an accidental can be used in a symbol. e.g. s
      * is not used for sharp since sus is a symbol.
      * 
-     * @param name a pitch name
+     * @param name
+     *            a pitch name
      * @return if the pitch is an accidental
      */
     public static boolean isAccidental(String name) {
@@ -649,9 +662,11 @@ public class ChordFactory {
     /**
      * Just the symol; no root. e.g. maj7 GoF prototype design pattern.
      * 
-     * @param symbol a chord symbol
+     * @param symbol
+     *            a chord symbol
      * @return a {@code Chord} with the specified symbol
-     * @throws UnknownChordException if the symbol is not registered.
+     * @throws UnknownChordException
+     *             if the symbol is not registered.
      */
     public static Chord getChordBySymbol(String symbol)
             throws UnknownChordException {
@@ -712,9 +727,11 @@ public class ChordFactory {
      * 
      * </blockquote>
      * 
-     * @param name the chord symbol
+     * @param name
+     *            the chord symbol
      * @return a {@code Chord}
-     * @throws UnknownChordException if the symbol is not registered.
+     * @throws UnknownChordException
+     *             if the symbol is not registered.
      * @see ChordFactory#getChordBySymbol(String)
      */
     public static Chord getChordByFullSymbol(String name)
@@ -782,11 +799,13 @@ public class ChordFactory {
     // midiChordMap.put(chord.getSymbol(), chord);
     // }
     /**
-     * Called from ChordFactoryXMLHelper parse method.
-     * The key is stored in the midiChordMap.
+     * Called from ChordFactoryXMLHelper parse method. The key is stored in the
+     * midiChordMap.
      * 
-     * @param chord a chord to register
-     * @param key the key of the chord
+     * @param chord
+     *            a chord to register
+     * @param key
+     *            the key of the chord
      */
     public static void registerChord(Chord chord, String key) {
         key = key.trim();
@@ -883,7 +902,8 @@ public class ChordFactory {
     /**
      * Return a new List of registered chords by the number of their intervals.
      * 
-     * @param number number of intervals.
+     * @param number
+     *            number of intervals.
      * @return a {@code List} of {@code Chord}s
      */
     public static List<Chord> findByNumberOfIntervals(int number) {
@@ -961,7 +981,8 @@ public class ChordFactory {
     /**
      * Returns the triads for each degree of the scale.
      * 
-     * @param scale the Scale
+     * @param scale
+     *            the Scale
      * @return an array of {@code Chord}s
      */
     public static Chord[] getChords(Scale scale) {
@@ -1084,7 +1105,8 @@ public class ChordFactory {
      * Returns the seventh chords for each degree of the scale. The root of the
      * scale is C.
      * 
-     * @param scale the Scale.
+     * @param scale
+     *            the Scale.
      * @return an array of {@code Chord}s
      */
     public static Chord[] getSeventhChords(Scale scale) {
@@ -1114,6 +1136,7 @@ public class ChordFactory {
             test = ChordFactory.getChordBySymbol("C#maj7+11");
         } catch (UnknownChordException e) {
             e.printStackTrace();
+            return;
         }
         System.out.println(test);
         test.setRoot(Pitch.C5); // now it's Cmaj7+11
@@ -1122,7 +1145,7 @@ public class ChordFactory {
         System.out.println(test.createMIDITrack());
         Chord chord = ChordFactory
                 .createFromDescription(ChordFactory.MAJOR_SEVENTH);
-
+        System.out.println(chord);
         MIDITrack cmaj = ChordFactory.createMIDITrack(Pitch.C5,
                 ChordFactory.MAJOR_SEVENTH, 1d, .5, 0, 0);
         System.out.println(cmaj);
@@ -1130,23 +1153,23 @@ public class ChordFactory {
         // ChordFactory.displayAll();
     }
 
-    public static void oldmain(String[] args) {
-        Chord chord = ChordFactory.createFromSpelling("1 3 5");
-
-        //
-        int drop = 0;
-        chord = ChordFactory.createFromDescription(ChordFactory.MAJOR_SEVENTH);
-        MIDITrack midinotelist = ChordFactory.createMIDITrack(60, chord,
-                1d, 4d, 0, drop);
-
-        drop = 1;
-        int nInversions = chord.getNumberOfInversions();
-        for (int inversion = 0; inversion < nInversions; inversion++) {
-            midinotelist.append(ChordFactory.createMIDITrack(60, chord, 1d,
-                    4d, inversion, drop));
-
-        }
-    }
+    // public static void oldmain(String[] args) {
+    // Chord chord = ChordFactory.createFromSpelling("1 3 5");
+    //
+    // //
+    // int drop = 0;
+    // chord = ChordFactory.createFromDescription(ChordFactory.MAJOR_SEVENTH);
+    // MIDITrack midinotelist = ChordFactory.createMIDITrack(60, chord,
+    // 1d, 4d, 0, drop);
+    //
+    // drop = 1;
+    // int nInversions = chord.getNumberOfInversions();
+    // for (int inversion = 0; inversion < nInversions; inversion++) {
+    // midinotelist.append(ChordFactory.createMIDITrack(60, chord, 1d,
+    // 4d, inversion, drop));
+    //
+    // }
+    // }
 
     /**
      * Not used anymore in favor of the XML definitions.
@@ -1545,7 +1568,7 @@ public class ChordFactory {
      * ChordFactory.THIRTEENTH_SUSPENDED)); }
      */
     // not used. There are the names band in a box uses.
-    public static final String[] biabTypeNames = { "", /* 1 */
+    static final String[] biabTypeNames = { "", /* 1 */
             "Maj", /* 2 */
             "b5", /* 3 */
             "aug", /* 4 */
@@ -1674,53 +1697,53 @@ public class ChordFactory {
             "?", /* 127 */
             "7sus", /* 128 */
             "13sus", /* 129 */
-           // "7susb13", /* 130 */
-           // "7sus#11", /* 131 */
-           // "13sus#11", /* 132 */
-           // "7sus#11b13", /* 133 */
-           // "9sus", /* 134 */
+            // "7susb13", /* 130 */
+            // "7sus#11", /* 131 */
+            // "13sus#11", /* 132 */
+            // "7sus#11b13", /* 133 */
+            // "9sus", /* 134 */
             "?", /* 135 */
-           // "9susb13", /* 136 */
-            //"9sus#11", /* 137 */
-            //"13sus#11", /* 138 */
-            //"9sus#11b13", /* 139 */
-            //"7susb9", /* 140 */
-            //"13susb9", /* 141 */
-            //"7susb913", /* 142 */
-            //"7susb9#11", /* 143 */
-            //"13susb9#11", /* 144 */
-            //"7susb9#11b13", /* 145 */
-            //"7sus#9", /* 146 */
-            //"13sus#9", /* 147 */
-            //"7sus#9b13", /* 148 */
-            //"9sus#11", /* 149 */
-            //"13sus#9#11", /* 150 */
-            //"7sus#9#11b13", /* 151 */
-            //"7susb5", /* 152 */
-            //"13susb5", /* 153 */
-            //"7susb5b13", /* 154 */
-            //"9susb5", /* 155 */
-            //"9susb5b13", /* 156 */
-            //"7susb5b9", /* 157 */
-            //"13susb5b9", /* 158 */
-            //"7susb5b9b13", /* 159 */
-            //"7susb5#9", /* 160 */
-            //"13susb5#9", /* 161 */
-            //"7susb5#9b13", /* 162 */
-            //"7sus#5", /* 163 */
-            //"13sus#5", /* 164 */
-            //"7sus#5#11", /* 165 */
-            //"13sus#5#11", /* 166 */
-            //"9sus#5", /* 167 */
-            //"9sus#5#11", /* 168 */
-            //"7sus#5b9", /* 169 */
-            //"13sus#5b9", /* 170 */
-            //"7sus#5b9#11", /* 171 */
-            //"13sus#5b9#11", /* 172 */
-            //"7sus#5#9", /* 173 */
-            //"13sus#5#9#11", /* 174 */
-            //"7sus#5#9#11", /* 175 */
-            //"13sus#5#9#11", /* 176 */
+            // "9susb13", /* 136 */
+            // "9sus#11", /* 137 */
+            // "13sus#11", /* 138 */
+            // "9sus#11b13", /* 139 */
+            // "7susb9", /* 140 */
+            // "13susb9", /* 141 */
+            // "7susb913", /* 142 */
+            // "7susb9#11", /* 143 */
+            // "13susb9#11", /* 144 */
+            // "7susb9#11b13", /* 145 */
+            // "7sus#9", /* 146 */
+            // "13sus#9", /* 147 */
+            // "7sus#9b13", /* 148 */
+            // "9sus#11", /* 149 */
+            // "13sus#9#11", /* 150 */
+            // "7sus#9#11b13", /* 151 */
+            // "7susb5", /* 152 */
+            // "13susb5", /* 153 */
+            // "7susb5b13", /* 154 */
+            // "9susb5", /* 155 */
+            // "9susb5b13", /* 156 */
+            // "7susb5b9", /* 157 */
+            // "13susb5b9", /* 158 */
+            // "7susb5b9b13", /* 159 */
+            // "7susb5#9", /* 160 */
+            // "13susb5#9", /* 161 */
+            // "7susb5#9b13", /* 162 */
+            // "7sus#5", /* 163 */
+            // "13sus#5", /* 164 */
+            // "7sus#5#11", /* 165 */
+            // "13sus#5#11", /* 166 */
+            // "9sus#5", /* 167 */
+            // "9sus#5#11", /* 168 */
+            // "7sus#5b9", /* 169 */
+            // "13sus#5b9", /* 170 */
+            // "7sus#5b9#11", /* 171 */
+            // "13sus#5b9#11", /* 172 */
+            // "7sus#5#9", /* 173 */
+            // "13sus#5#9#11", /* 174 */
+            // "7sus#5#9#11", /* 175 */
+            // "13sus#5#9#11", /* 176 */
             "4", /* 177 */
             "?", /* 178 */
             "?", /* 179 */
@@ -1728,7 +1751,7 @@ public class ChordFactory {
             "?", /* 181 */
             "?", /* 182 */
             "?", /* 183 */
-            //"sus", /* 184 */
+            // "sus", /* 184 */
             /* no chord names above 185 */
     };
 }

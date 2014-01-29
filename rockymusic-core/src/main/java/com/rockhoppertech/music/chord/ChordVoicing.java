@@ -47,11 +47,11 @@ public class ChordVoicing {
 
     public ChordVoicing(int octave, String s) {
         this.octave = octave;
-        this.voicing = new String(s);
+        this.voicing = s;
     }
 
     public ChordVoicing(String s) {
-        this.voicing = new String(s);
+        this.voicing = s;
     }
 
     public MIDITrack getNoteList(int octave, Chord c) {
@@ -128,7 +128,7 @@ public class ChordVoicing {
         boolean repeatedEleventh = false;
         boolean repeatedThirteenth = false;
 
-        MIDITrack notelist = new MIDITrack();
+        MIDITrack track = new MIDITrack();
         Scanner scanner = new Scanner(s.trim());
         while (scanner.hasNext()) {
             octaveOffset = 0;
@@ -154,7 +154,7 @@ public class ChordVoicing {
                     octaveOffset++;
                     repeatedRoot = false;
                 }
-                addMIDINote(octaveOffset, notelist, n, c);
+                addMIDINote(octaveOffset, track, n, c);
                 repeatedRoot = true;
                 break;
             case 3:
@@ -167,71 +167,75 @@ public class ChordVoicing {
                 // if (repeatedThird) {
                 // octaveOffset++;
                 // }
-                addMIDINote(octaveOffset, notelist, n, c);
+                addMIDINote(octaveOffset, track, n, c);
                 repeatedThird = true;
                 break;
             case 5:
                 n = c.getFifth();
-                addMIDINote(octaveOffset, notelist, n, c);
+                addMIDINote(octaveOffset, track, n, c);
                 repeatedFifth = true;
                 break;
             case 7:
                 if (c.hasSeventh()) {
                     n = c.getSeventh();
-                    addMIDINote(octaveOffset, notelist, n, c);
+                    addMIDINote(octaveOffset, track, n, c);
                     repeatedSeventh = true;
                 } else {
-                    System.err.printf("%s does not have a %d\n", c
+                    System.err.printf("%s does not have a %d%n", c
                             .getDisplayName(), i);
-                    logger.error(String.format("%s does not have a %d\n", c
+                    logger.error(String.format("%s does not have a %d%n", c
                             .getDisplayName(), i));
                 }
                 break;
             case 9:
                 if (c.hasNinth()) {
                     n = c.getNinth();
-                    addMIDINote(octaveOffset, notelist, n, c);
+                    addMIDINote(octaveOffset, track, n, c);
                     repeatedNinth = true;
                 } else {
-                    System.err.printf("%s does not have a %d\n", c
+                    System.err.printf("%s does not have a %d%n", c
                             .getDisplayName(), i);
-                    logger.error(String.format("%s does not have a %d\n", c
+                    logger.error(String.format("%s does not have a %d%n", c
                             .getDisplayName(), i));
                 }
                 break;
             case 11:
                 if (c.hasEleventh()) {
                     n = c.getEleventh();
-                    addMIDINote(octaveOffset, notelist, n, c);
+                    addMIDINote(octaveOffset, track, n, c);
                     repeatedEleventh = true;
                 } else {
-                    System.err.printf("%s does not have a %d\n", c
+                    System.err.printf("%s does not have a %d%n", c
                             .getDisplayName(), i);
-                    logger.error(String.format("%s does not have a %d\n", c
+                    logger.error(String.format("%s does not have a %d%n", c
                             .getDisplayName(), i));
                 }
                 break;
             case 13:
                 if (c.hasThirteenth()) {
                     n = c.getThirteenth();
-                    addMIDINote(octaveOffset, notelist, n, c);
+                    addMIDINote(octaveOffset, track, n, c);
                     repeatedThirteenth = true;
                 } else {
-                    System.err.printf("%s does not have a %d\n", c
+                    System.err.printf("%s does not have a %d%n", c
                             .getDisplayName(), i);
-                    logger.error(String.format("%s does not have a %d\n", c
+                    logger.error(String.format("%s does not have a %d%n", c
                             .getDisplayName(), i));
                 }
                 break;
+                default :
+                    logger.debug("Don't know {}", i);
+                    break;
             }
         }
+        scanner.close();
 
-        return notelist;
+        return track;
     }
 
     private static void addMIDINote(int octaveOffset, MIDITrack notelist,
             int n, Chord chord) {
-        logger.debug(String.format("adding note %d with offset %d\n", n,
+        logger.debug(String.format("adding note %d with offset %d%n", n,
                 octaveOffset));
         if (octaveOffset > 0) {
             while (octaveOffset-- > 0) {
@@ -301,7 +305,7 @@ public class ChordVoicing {
         // String[] sa = this.voicing.split("\\s");
         String[] dest = new String[sa.length];
 
-        int croot = chord.getRoot();
+       // int croot = chord.getRoot();
         // int coct = croot / 12;
         // logger.debug(String.format("croot %d coct is %d", croot, coct));
 
@@ -370,6 +374,7 @@ public class ChordVoicing {
             c = ChordFactory.getChordByFullSymbol("Cmaj9");
         } catch (UnknownChordException e) {
             e.printStackTrace();
+            return;
         }
         c.setRoot(Pitch.C3);
         String cv = c.getChordVoicing();
@@ -383,6 +388,7 @@ public class ChordVoicing {
             c = ChordFactory.getChordByFullSymbol("Dm9");
         } catch (UnknownChordException e) {
             e.printStackTrace();
+            return;
         }
         System.out.println(c.getIntervalstoString());
         // so you get 3 7. relative to the root.
@@ -496,7 +502,7 @@ public class ChordVoicing {
     }
 
     public String getDisplayName() {
-        return new String(this.voicing).trim();
+        return this.voicing.trim();
     }
 
     @Override

@@ -36,6 +36,7 @@ package com.rockhoppertech.music.midi.js;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Locale;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
@@ -106,7 +107,8 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     /**
      * Copy constructor. clone is evil.
      * 
-     * @param e the event to copy
+     * @param e
+     *            the event to copy
      */
     public MIDIEvent(MIDIEvent e) {
         this.tick = e.getTick();
@@ -169,8 +171,10 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     /**
      * Create a MIDIEvent from a JavaSound MidiMessage instance.
      * 
-     * @param mm a JavaSound message
-     * @param tick the tick this occurs
+     * @param mm
+     *            a JavaSound message
+     * @param tick
+     *            the tick this occurs
      */
     public MIDIEvent(MidiMessage mm, long tick) {
         this.tick = tick;
@@ -239,7 +243,8 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
      * <code>toMidiEvent</code> turns this well written :) class into
      * JavaSound's MidiEvent.
      * 
-     * @param division the resolution
+     * @param division
+     *            the resolution
      * @return a <code>MidiEvent</code> value
      */
     public MidiEvent toMidiEvent(int division) {
@@ -313,7 +318,7 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             data.append("0x").append(
-                    Integer.toHexString(bytes[i]).toUpperCase());
+                    Integer.toHexString(bytes[i]).toUpperCase(Locale.ENGLISH));
             if (i != bytes.length - 1) {
                 data.append(',');
             }
@@ -381,6 +386,9 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
                     .append(bytes[1]);
             sb.append(" val=").append(s14bit);
             break;
+        default:
+            sb.append(" Unhandled=").append(status & 0xF0);
+            break;
         }
         sb.append(" Channel=").append(status & 0x0F);
         sb.append(" status=").append(Integer.toHexString(status));
@@ -413,7 +421,7 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
         StringBuilder data = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {
             data.append("0x").append(
-                    Integer.toHexString(bytes[i]).toUpperCase());
+                    Integer.toHexString(bytes[i]).toUpperCase(Locale.ENGLISH));
             if (i != bytes.length - 1) {
                 data.append(',');
             }
@@ -461,7 +469,9 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
      */
     public void setTrack(MIDITrack track) {
         this.track = track;
-        this.division = track.getResolution();
+        if (this.track != null) {
+            this.division = track.getResolution();
+        }
         this.startBeat = (double) (this.tick) / (double) (this.division);
     }
 
@@ -482,11 +492,11 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
     }
 
     public byte[] getBytes() {
-        return bytes;
+        return Arrays.copyOf(bytes, bytes.length);
     }
 
     public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
+        this.bytes = Arrays.copyOf(bytes, bytes.length);
     }
 
     public int getStatus() {
@@ -569,7 +579,8 @@ public class MIDIEvent implements Serializable, Comparable<MIDIEvent> {
         int r = 0;
         if (this.startBeat < nt) {
             r = -1;
-        } else if (this.startBeat == nt) {
+            // } else if (this.startBeat == nt) {
+        } else if (Math.abs(this.startBeat - nt) < .0000001) {
             r = 0;
         } else if (this.startBeat > nt) {
             r = 1;

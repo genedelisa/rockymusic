@@ -37,10 +37,13 @@ package com.rockhoppertech.music.midi.js.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.util.NavigableMap;
 import java.util.Properties;
@@ -126,7 +129,11 @@ public class MIDITrackXMLHelper {
         try {
             final File f = new File(filename);
             final String uri = f.toURI().toString();
-            final InputSource is = new InputSource(new FileReader(f));
+            //final InputSource is = new InputSource(new FileReader(f));
+            // filereader always uses default encoding
+            // is = new InputSource(new FileReader(f));
+            final InputSource is = new InputSource(new InputStreamReader(new FileInputStream(
+                    f), Charset.forName("ISO-8859-1")));
             // if not set, then it won't show up in exceptions
             is.setSystemId(uri);
             doc = db.parse(is);
@@ -152,6 +159,9 @@ public class MIDITrackXMLHelper {
             t.printStackTrace();
             MIDITrackXMLHelper.complain(t.getMessage());
         }
+        if(doc == null) {
+            return null;
+        }
         return doc.getDocumentElement();
     }
 
@@ -169,7 +179,7 @@ public class MIDITrackXMLHelper {
             }
             logger.error(spe.getMessage(),
                          spe);
-            final Exception x = spe.getException();
+            Exception x = spe.getException();
             if (x != null) {
                 logger.error(x.getMessage(),
                              x);
@@ -184,9 +194,8 @@ public class MIDITrackXMLHelper {
         } catch (final SAXException sxe) {
             final StringBuilder sb = new StringBuilder();
             sb.append(sxe.getMessage()).append('\n');
-            Exception x = sxe;
             if (sxe.getException() != null) {
-                x = sxe.getException();
+                Exception x = sxe.getException();
                 logger.debug(x.getLocalizedMessage());
                 sb.append(x.getMessage()).append('\n');
             }
@@ -199,6 +208,9 @@ public class MIDITrackXMLHelper {
             MIDITrackXMLHelper.complain(t.getMessage());
         }
 
+        if(doc == null) {
+            return null;
+        }
         final Element e = doc.getDocumentElement();
         return e;
     }
@@ -221,7 +233,13 @@ public class MIDITrackXMLHelper {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         MIDITrackXMLHelper.writeXML(notelist,
                                        os);
-        return os.toString();
+        try {
+            return os.toString("ISO-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
+
+        return null;
     }
 
     /**
@@ -343,10 +361,10 @@ public class MIDITrackXMLHelper {
                     }
 
                     // optional
-                    ni = pa.getNamedItem("midiNumber");
-                    if (ni != null) {
-                        midinumber = Integer.parseInt(ni.getNodeValue());
-                    }
+//                    ni = pa.getNamedItem("midiNumber");
+//                    if (ni != null) {
+//                        midinumber = Integer.parseInt(ni.getNodeValue());
+//                    }
 
                     // optional
                     ni = pa.getNamedItem("pitchBend");
@@ -355,10 +373,10 @@ public class MIDITrackXMLHelper {
                     }
 
                     // optional
-                    ni = pa.getNamedItem("endBeat");
-                    if (ni != null) {
-                        endBeat = Double.parseDouble(ni.getNodeValue());
-                    }
+//                    ni = pa.getNamedItem("endBeat");
+//                    if (ni != null) {
+//                        endBeat = Double.parseDouble(ni.getNodeValue());
+//                    }
 
                     final MIDINote note = new MIDINote(pitch, startBeat,
                             duration, channel, velocity, program, bend);
@@ -447,7 +465,7 @@ public class MIDITrackXMLHelper {
             transformer.transform(domSource,
                                   streamResult);
         } catch (final TransformerException e) {
-            System.err.println(e);
+            logger.error(e.getLocalizedMessage(),e);
         }
         return doc;
     }
@@ -462,7 +480,9 @@ public class MIDITrackXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (final ParserConfigurationException e) {
             e.printStackTrace();
-            System.exit(1);
+            logger.error(e.getLocalizedMessage(),e);
+            return null;
+            
         }
         final Document doc = db.newDocument();
         final Element root = doc

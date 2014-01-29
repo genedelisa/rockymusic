@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -75,6 +76,7 @@ public class ScaleFactory {
     public static class Builder {
         String name;
         int rootMidiNum = -1;
+
         int[] intervals;
         double startBeat;
         double duration;
@@ -111,6 +113,31 @@ public class ScaleFactory {
 
         public Builder root(int n) {
             rootMidiNum = n;
+            return this;
+        }
+
+        public Builder nOct(int n) {
+            this.nOct = n;
+            return this;
+        }
+
+        public Builder intervals(int[] n) {
+            this.intervals = Arrays.copyOf(n, n.length);
+            return this;
+        }
+
+        public Builder startBeat(double n) {
+            this.startBeat = n;
+            return this;
+        }
+
+        public Builder duration(double n) {
+            this.duration = n;
+            return this;
+        }
+
+        public Builder upAndDown(boolean b) {
+            this.upAndDown = b;
             return this;
         }
 
@@ -186,7 +213,7 @@ public class ScaleFactory {
         }
         for (final String name : scaleMap.keySet()) {
             final Scale scale = scaleMap.get(name);
-            if (scale.getIntervals().equals(someIntervals)) {
+            if (Arrays.equals(scale.getIntervals(), someIntervals)) {
                 return (Scale) scale.clone();
             }
         }

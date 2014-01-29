@@ -237,10 +237,10 @@ public class Chord implements Cloneable, Comparable<Chord> {
             final String description) {
         this.root = root;
         if (symbol != null) {
-            this.symbol = new String(symbol);
+            this.symbol = symbol;
         }
         if (description != null) {
-            this.description = new String(description);
+            this.description = description;
         }
         if (intervals != null) {
             this.intervals = new int[intervals.length];
@@ -370,10 +370,10 @@ public class Chord implements Cloneable, Comparable<Chord> {
         try {
             // copy the bitwise primitives
             result = (Chord) super.clone();
-            result.symbol = new String(this.symbol);
-            result.description = new String(this.description);
+            result.symbol = this.symbol;
+            result.description = this.description;
             if (this.spelling != null) {
-                result.spelling = new String(this.spelling);
+                result.spelling = this.spelling;
                 // what about intervals?
             }
 
@@ -412,12 +412,13 @@ public class Chord implements Cloneable, Comparable<Chord> {
                     this.drop, other.drop));
             return false;
         }
-        if (this.startBeat != other.startBeat) {
+        if (Math.abs(this.startBeat - other.startBeat) < .0000001) {
             Chord.logger.debug(String.format("startBeat not the same %f != %f",
                     this.startBeat, other.startBeat));
             return false;
         }
-        if (this.duration != other.duration) {
+
+        if (Math.abs(this.duration - other.duration) < .0000001) {
             Chord.logger.debug(String.format("duration not the same %f != %f",
                     this.duration, other.duration));
             return false;
@@ -647,7 +648,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * @return the intervals
      */
     public int[] getIntervals() {
-        return this.intervals;
+        return Arrays.copyOf(this.intervals, this.intervals.length);
     }
 
     /**
@@ -1238,7 +1239,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
      * @return this to cascade calls
      */
     public Chord setIntervals(final int[] intervals) {
-        this.intervals = intervals;
+        this.intervals = Arrays.copyOf(intervals, intervals.length);
         // this.notelist = ChordFactory.createMIDITrack(this);
         return this;
     }
@@ -1343,7 +1344,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
             this.intervals = new int[c.getIntervals().length];
             System.arraycopy(c.getIntervals(), 0, this.intervals, 0,
                     this.intervals.length);
-            this.description = new String(c.getDescription());
+            this.description = c.getDescription();
             // this.notelist = ChordFactory.createMIDITrack(this);
             // this.chordVoicing = new ChordVoicing(defaultVoicing(symbol));
             // this.chordVoicing = new ChordVoicing(this.root / 12, c
@@ -1353,7 +1354,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
             if (sp == null) {
                 sp = this.getSpelling();
             }
-            this.spelling = new String(sp);
+            this.spelling = sp;
             for (final String alias : c.aliases) {
                 this.addAlias(alias);
             }
@@ -1363,9 +1364,8 @@ public class Chord implements Cloneable, Comparable<Chord> {
             // this.inversion = c.inversion;
             // this.root = c.root;
         } else {
-            if (Chord.logger.isDebugEnabled()) {
-                Chord.logger.debug("I don't know that symbol " + symbol);
-            }
+            logger.debug("I don't know that symbol {}", symbol);
+
         }
     }
 

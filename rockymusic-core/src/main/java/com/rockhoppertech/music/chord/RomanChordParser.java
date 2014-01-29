@@ -23,6 +23,7 @@ package com.rockhoppertech.music.chord;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,8 +87,8 @@ public class RomanChordParser {
     // this will match all roman numerals. Music doesn't need all of them.
     // private String romanRegexp =
     // "^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
-    //private static String musicRomanRegexp = "(#|b|B)?(IV|V?I{0,3})";
-    private static String musicRomanRegexp = "(#|b)?(IV|V?I{0,3})";    
+    // private static String musicRomanRegexp = "(#|b|B)?(IV|V?I{0,3})";
+    private static String musicRomanRegexp = "(#|b)?(IV|V?I{0,3})";
     private static Pattern romanPattern = Pattern.compile(musicRomanRegexp);
 
     public static Chord getChord(String key, String romanString) {
@@ -97,8 +98,10 @@ public class RomanChordParser {
     /**
      * Uses a major scale based on the specified root.
      * 
-     * @param scaleRoot the root
-     * @param romanString a string in Roman numerals
+     * @param scaleRoot
+     *            the root
+     * @param romanString
+     *            a string in Roman numerals
      * @return a Chord
      */
     public static Chord getChord(Pitch scaleRoot, String romanString) {
@@ -112,7 +115,7 @@ public class RomanChordParser {
     }
 
     public static boolean isRoman(String input) {
-       // input = input.toUpperCase();
+        // input = input.toUpperCase();
         Matcher matcher = romanPattern.matcher(input);
         logger.debug("checking {}", input);
         matcher.reset();
@@ -126,7 +129,7 @@ public class RomanChordParser {
                     matcher.start(), length, rs
                     );
             logger.debug("matched roman value: {}", val);
-            
+
         } else {
             logger.debug("no match for {}", input);
         }
@@ -135,7 +138,7 @@ public class RomanChordParser {
 
     public static Pitch romanToPitch(Scale scale, String key, String romanString) {
         romanString = romanString.trim();
-        romanString = romanString.toUpperCase();
+        romanString = romanString.toUpperCase(Locale.ENGLISH);
         Matcher matcher = romanPattern.matcher(romanString);
         int degree = 0;
         int accidental = 0;
@@ -148,6 +151,9 @@ public class RomanChordParser {
             break;
         case 'B':
             accidental = -1;
+            break;
+        default:
+            accidental = 0;
             break;
         }
         if (matcher.find()) {
@@ -209,7 +215,7 @@ public class RomanChordParser {
      */
     public static Chord getChord(String key, Scale scale, String romanString) {
         String origRoman = romanString;
-        //romanString = romanString.toUpperCase().trim();
+        // romanString = romanString.toUpperCase().trim();
         Pitch p = romanToPitch(scale, key, romanString);
         String chordSymbol = null;
         Matcher matcher = romanPattern.matcher(romanString);
@@ -271,7 +277,7 @@ public class RomanChordParser {
         Chord chord = null;
         romanString = romanString.trim();
         String origString = romanString;
-        romanString = romanString.toUpperCase();
+        romanString = romanString.toUpperCase(Locale.ENGLISH);
         Matcher matcher = romanPattern.matcher(romanString);
         int degree = 0;
         String chordSymbol = null;
@@ -285,6 +291,9 @@ public class RomanChordParser {
             break;
         case 'B':
             accidental = -1;
+            break;
+        default:
+            accidental = 0;
             break;
         }
         if (matcher.find()) {
@@ -317,7 +326,7 @@ public class RomanChordParser {
             p = p.transpose(accidental);
         }
         String name = PitchFormat.getPitchString(p);
-        if (chordSymbol != null && chordSymbol.equals("") == false) {
+        if (chordSymbol.equals("") == false) {
             name += chordSymbol;
         } else {
             Scale scale = ScaleFactory.createFromName(scaleName);
@@ -491,7 +500,7 @@ public class RomanChordParser {
     public static int romanToArabic(String roman) {
         int arabic = 0;
         int max = 0;
-        char[] charArray = roman.toUpperCase().toCharArray();
+        char[] charArray = roman.toUpperCase(Locale.ENGLISH).toCharArray();
         // loop from the end
         for (int index = charArray.length - 1; index >= 0; index--) {
             for (String c : romanSymbolMap.keySet()) {

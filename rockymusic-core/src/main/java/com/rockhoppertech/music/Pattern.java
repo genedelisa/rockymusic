@@ -25,6 +25,7 @@ package com.rockhoppertech.music;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -88,8 +89,8 @@ public class Pattern {
          * @param pattern the pattern
          */
         public Builder(int[] degrees, int[] pattern) {
-            this.degrees = degrees;
-            this.pattern = pattern;
+            this.degrees = Arrays.copyOf(degrees,degrees.length);            
+            this.pattern = Arrays.copyOf(pattern,pattern.length);                        
         }
 
         public Builder(List<Integer> d, int[] pattern) {
@@ -98,7 +99,7 @@ public class Pattern {
             for (int i = 0; i < degrees.length; i++) {
                 degrees[i] = d.get(i);
             }
-            this.pattern = pattern;
+            this.pattern = Arrays.copyOf(pattern,pattern.length);
         }
 
         public Pattern build() {
@@ -127,12 +128,12 @@ public class Pattern {
         }
 
         public Builder degrees(int[] degrees) {
-            this.degrees = degrees;
+            this.degrees = Arrays.copyOf(degrees,degrees.length);          
             return this;
         }
 
         public Builder pattern(int[] pattern) {
-            this.pattern = pattern;
+            this.pattern = Arrays.copyOf(pattern,pattern.length);          
             return this;
         }
 
@@ -242,9 +243,9 @@ public class Pattern {
             final int startPitch, final int numOctaves, final double duration,
             final boolean reverse, final double restBetweenPatterns) {
 
-        this.degrees = degrees;
+        this.degrees = Arrays.copyOf(degrees, degrees.length);
         this.startPitch = startPitch;
-        this.pattern = pattern;
+        this.pattern = Arrays.copyOf(pattern, pattern.length);
         this.numOctaves = numOctaves;
         this.duration = duration;
         this.reverse = reverse;
@@ -383,7 +384,7 @@ public class Pattern {
         notelist.setName(s);
         s = String
                 .format(
-                        "Generated from %s degrees.\nThe pattern applied was %s\nthe start pitch is %d\nnumber of octaves %d\nduration %f\nis reverse %b\ngap %f\nup and down %b\n",
+                        "Generated from %s degrees.%nThe pattern applied was %s%nthe start pitch is %d%nnumber of octaves %d%nduration %f%nis reverse %b%ngap %f%nup and down %b%n",
                         ArrayUtils.toString(this.degrees),
                         ArrayUtils
                                 .toString(this.getPattern()),
@@ -446,7 +447,7 @@ public class Pattern {
         notelist.setName(s);
         s = String
                 .format(
-                        "Generated from %s degrees.\nThe pattern applied was %s\nthe start pitch is %d\nnumber of octaves %d\nduration %f\nis reverse %b\ngap %f\nup and down %b\n",
+                        "Generated from %s degrees.%nThe pattern applied was %s%nthe start pitch is %d%nnumber of octaves %d%nduration %f%nis reverse %b%ngap %f%nup and down %b%n",
                         ArrayUtils.toString(this.degrees),
                         ArrayUtils
                                 .toString(this.getPattern()),
@@ -483,7 +484,7 @@ public class Pattern {
      * @return the degrees
      */
     public int[] getDegrees() {
-        return this.degrees;
+        return Arrays.copyOf(this.degrees, this.degrees.length);
     }
 
     /**
@@ -512,7 +513,7 @@ public class Pattern {
      * @return the pattern
      */
     public int[] getPattern() {
-        return this.pattern;
+        return Arrays.copyOf(this.pattern, this.pattern.length);
     }
 
     public String getPatternAsString() {
@@ -549,7 +550,7 @@ public class Pattern {
      *            the degrees to set
      */
     public void setDegrees(final int[] degrees) {
-        this.degrees = degrees;
+        this.degrees = Arrays.copyOf(degrees, degrees.length);
     }
 
     /**
@@ -581,7 +582,7 @@ public class Pattern {
      *            the pattern to set
      */
     public void setPattern(final int[] pattern) {
-        this.pattern = pattern;
+        this.pattern = Arrays.copyOf(pattern,pattern.length);
     }
 
     /**

@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -48,16 +49,18 @@ public class ChordProgressionParser {
 
     /**
      * Create a Chord sequence based on fake book style chord names. Measures
-     * are delimited by the character |. The meter is 4/4. 
+     * are delimited by the character |. The meter is 4/4.
      * 
      * {@code
      * List<Chord> progression = 
      * ChordProgressionParser.chordsFromStdNames("F7 | Bb7 | F7 | Cm7 F7 | Bb7 | Bm7 E7 | F7 E7 | Eb7 D7 | Gm7 | C7 Bb7 | Am7 D7 | Gm7 C7");
      * }
      * 
-     * @param inputString a chord progression
+     * @param inputString
+     *            a chord progression
      * @return a ChordProgression
-     * @throws UnknownChordException if any chord is not registered
+     * @throws UnknownChordException
+     *             if any chord is not registered
      */
     public static ChordProgression chordsFromStdNames(String inputString)
             throws UnknownChordException {
@@ -102,10 +105,10 @@ public class ChordProgressionParser {
                     previousChord = chord;
                 }
 
-                String msg = String.format("m%d '%s'\n", mnum, chord
+                String msg = String.format("m%d '%s'%n", mnum, chord
                         .getDisplayName());
                 logger.debug(msg);
-                msg = String.format("symbol '%s'\n", symbol);
+                msg = String.format("symbol '%s'%n", symbol);
                 logger.debug(msg);
             }
             double duration = (double) beatsPerMeasure
@@ -114,7 +117,7 @@ public class ChordProgressionParser {
                 if (hasSlashes == false)
                     ch.setDuration(duration);
                 chordProgression.add(ch);
-                String msg = String.format("add m%d '%s'\n", mnum, ch
+                String msg = String.format("add m%d '%s'%n", mnum, ch
                         .getDisplayName());
                 logger.debug(msg);
             }
@@ -212,7 +215,7 @@ public class ChordProgressionParser {
                     previousChord = chord;
                 }
 
-                String msg = String.format("roman '%s'\n", romanString);
+                String msg = String.format("roman '%s'%n", romanString);
                 logger.debug(msg);
                 // msg = String.format("chord identity %d\n", System
                 // .identityHashCode(chord));
@@ -224,7 +227,7 @@ public class ChordProgressionParser {
                 if (hasSlashes == false)
                     ch.setDuration(duration);
                 chordProgression.add(ch);
-                String msg = String.format("add m%d '%s'\n", mnum, ch
+                String msg = String.format("add m%d '%s'%n", mnum, ch
                         .getDisplayName());
                 logger.debug(msg);
             }
@@ -305,7 +308,8 @@ public class ChordProgressionParser {
             }
         }
 
-        return new BufferedReader(new InputStreamReader(is));
+        return new BufferedReader(new InputStreamReader(is,
+                Charset.forName("ISO-8859-1")));
     }
 
     public static ChordProgression createFromFile(File file)
@@ -383,7 +387,8 @@ public class ChordProgressionParser {
      * Checks first chord to determine if the progression uses roman numerals.
      * That means you cannot mix roman and standard input.
      * 
-     * @param input a string with the progression
+     * @param input
+     *            a string with the progression
      * @return true if the input is in Roman numerals.
      */
     public static boolean isRoman(String input) {
