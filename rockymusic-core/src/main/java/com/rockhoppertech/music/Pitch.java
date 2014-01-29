@@ -313,7 +313,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
      */
     public static double midiFq(int midiNoteNumber) {
         return (REF_PITCH * Math.pow(2d,
-                ((midiNoteNumber / 12d) - 5d)) * Math
+                ((midiNoteNumber / 12) - 5d)) * Math
                     .pow(2d,
                             ((midiNoteNumber % 12) / 12d)));
     }
