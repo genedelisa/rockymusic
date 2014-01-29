@@ -20,7 +20,6 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
-
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
@@ -60,7 +59,7 @@ public class ConsoleReceiver implements Receiver {
 
         byte[] ba = mm.getMessage();
         // skip active sensing
-        if (ba[0] == ShortMessage.ACTIVE_SENSING)
+        if ((ba[0] & 0xFF) == ShortMessage.ACTIVE_SENSING)
             return;
         StringBuilder sb = new StringBuilder();
         sb.append("\ttimestamp: ");
