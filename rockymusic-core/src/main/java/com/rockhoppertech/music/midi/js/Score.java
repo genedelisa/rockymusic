@@ -20,6 +20,7 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,7 +41,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://rockhoppertech.com/">Gene De Lisa</a>
  * 
  */
-public class Score implements Iterable<MIDITrack> {
+public class Score implements Iterable<MIDITrack>, Serializable {
+    /**
+     * For Serializaiton.
+     */
+    private static final long serialVersionUID = -4003934288960105262L;
     /**
      * for logging.
      */

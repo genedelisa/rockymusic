@@ -20,6 +20,8 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
+import java.io.Serializable;
+
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 
@@ -29,7 +31,12 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
-public class Instrument {
+public class Instrument implements Serializable {
+
+    /**
+     * For Serialization.
+     */
+    private static final long serialVersionUID = 3727585180676573574L;
 
     /**
      * 
