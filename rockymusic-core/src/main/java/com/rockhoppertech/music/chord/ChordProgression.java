@@ -377,7 +377,7 @@ public class ChordProgression implements Iterable<Chord> {
         final Comparator<Chord> c = new Comparator<Chord>() {
             @Override
             public int compare(final Chord o1, final Chord o2) {
-                if (o1.getStartBeat() == o2.getStartBeat()) {
+                if(Math.abs(o1.getStartBeat() - o2.getStartBeat()) < .0000001) {
                     return 0;
                 }
                 if (o1.getStartBeat() < o2.getStartBeat()) {
