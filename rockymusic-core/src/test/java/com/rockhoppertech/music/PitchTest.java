@@ -257,7 +257,7 @@ public class PitchTest {
         Pitch p = PitchFactory.getPitch("Db");
         assertNotNull(p);
         for (String s : p.getSynonymsForPitchClass()) {
-            System.err.println(s);
+            logger.debug(s);
         }
         Set<String> syns = p.getSynonymsForPitchClass();
 
@@ -280,7 +280,7 @@ public class PitchTest {
                    p,
                    notNullValue());
         for (String s : p.getSynonyms()) {
-            System.err.println(s);
+            logger.debug(s);
         }
         Set<String> syns = p.getSynonyms();
         int expectedSize = 11;
@@ -370,7 +370,7 @@ public class PitchTest {
                    hasItem("df5"));
 
         for (String name : syns) {
-            System.err.println(name);
+            logger.debug(name);
         }
 
         expectedSize = 2;
@@ -388,7 +388,7 @@ public class PitchTest {
                    syns,
                    hasItem("c5"));
         for (String name : syns) {
-            System.err.println(name);
+            logger.debug(name);
         }
 
     }
@@ -398,7 +398,7 @@ public class PitchTest {
 
         for (int i = Pitch.C0; i < Pitch.C1; i += Interval.MINOR_SECOND) {
             Pitch p = PitchFactory.getPitch(i);
-            System.err.println(p);
+            logger.debug("Pitch {}",p);
         }
     }
 }

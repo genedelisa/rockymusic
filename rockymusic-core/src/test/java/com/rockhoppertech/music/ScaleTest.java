@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
@@ -44,6 +46,9 @@ import static org.junit.Assert.*;
  */
 public class ScaleTest {
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(ScaleTest.class);
+    
 	/**
 	 * Test method for {@link com.rockhoppertech.music.Scale#Scale()}.
 	 */
@@ -167,9 +172,8 @@ public class ScaleTest {
 		assertThat(pits.get(6).getPitchClass(), equalTo(PitchFactory.getPitch(
 				"B").getPitchClass()));
 		for (Pitch p : pits) {
-			System.err.printf("%s ", p);
+			logger.debug("{} ", p);
 		}
-		System.err.println();
 
 		pits = scale.getDegreesAsPitches("Eb");
 		assertNotNull(pits);
@@ -188,9 +192,9 @@ public class ScaleTest {
 		assertThat(pits.get(6).getPitchClass(), equalTo(PitchFactory.getPitch(
 				"D").getPitchClass()));
 		for (Pitch p : pits) {
-			System.err.printf("%s ", p);
+			logger.debug("{} ", p);
 		}
-		System.err.println();
+		
 
 		scale = ScaleFactory.createFromName("Harmonic Minor");
 		pits = scale.getDegreesAsPitches("C");
@@ -210,9 +214,9 @@ public class ScaleTest {
 		assertThat(pits.get(6).getPitchClass(), equalTo(PitchFactory.getPitch(
 				"B").getPitchClass()));
 		for (Pitch p : pits) {
-			System.err.printf("%s ", p);
+			logger.debug("{} ", p);
 		}
-		System.err.println();
+	
 
 	}
 
@@ -222,12 +226,12 @@ public class ScaleTest {
 		String[] pcs = { "A", "B", "C", "D", "E", "F", "G" };
 		for (String p : pcs) {
 			int d = scale.pitchToDegree("C", p);
-			System.err.printf("d=%d for %s\n", d, p);
+			logger.debug("d={} for '{}'\n", d, p);
 		}
 		pcs = new String[] { "A", "B", "C", "D", "E", "F#", "G" };
 		for (String p : pcs) {
 			int d = scale.pitchToDegree("C", p);
-			System.err.printf("d=%d for %s\n", d, p);
+			logger.debug("d={} for '{}'\n", d, p);
 		}
 
 	}

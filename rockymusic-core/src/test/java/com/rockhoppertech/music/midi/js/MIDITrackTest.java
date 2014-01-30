@@ -128,8 +128,8 @@ public class MIDITrackTest {
     // MIDITrack nl = new MIDITrack("c d e f c d e f");
     // nl.sequential();
     // MIDITrack ct = nl.createClickTrack();
-    // System.err.println(nl);
-    // System.err.println(ct);
+    // logger.debug(nl);
+    // logger.debug(ct);
     // assertNotNull(ct);
     // assertThat("track is non null",
     // ct,
@@ -164,7 +164,7 @@ public class MIDITrackTest {
                 equalTo(1d));
 
         nl = new MIDITrack("c,2,.5 d,3,1.5 e,4 f,5.5 c4,6 d,7 e,8 f,9");
-        System.err.println(nl);
+        logger.debug("track \n{}",nl);
         assertThat("nl is non null",
                 nl,
                 notNullValue());
@@ -300,7 +300,7 @@ public class MIDITrackTest {
     // track.size());
     // for (int i = 0; i < track.size(); i++) {
     // MidiEvent me = track.get(i);
-    // System.err.println(MIDIUtils.toString(me));
+    // logger.debug(MIDIUtils.toString(me));
     // }
     //
     // MIDITrack list2 = MIDITrack.createFromTrack(480,
@@ -692,7 +692,8 @@ public class MIDITrackTest {
         assertTrue(testTrack.contains(PitchFactory.getPitch(Pitch.A5)));
         assertFalse(nl.contains(PitchFactory.getPitch(Pitch.A5)));
 
-        System.err.println(nl);
+        
+        logger.debug("track \n{}",nl);
     }
 
     @Test
@@ -1136,7 +1137,7 @@ public class MIDITrackTest {
         assertEquals(2,
                 testTrack.size());
 
-        System.err.println(testTrack);
+        logger.debug("track \n{}",testTrack);
     }
 
     /**
@@ -1218,7 +1219,7 @@ public class MIDITrackTest {
     // @Test
     public void testGetDuration() {
         double d = testTrack.getDuration();
-        System.err.println("duration is " + d);
+        logger.debug("duration is " + d);
         fail("Not yet implemented");
     }
 
@@ -1318,7 +1319,7 @@ public class MIDITrackTest {
     @Test
     public void getPitchesAsString() {
         String s = MIDITrack.getPitchesAsString(testTrack);
-        System.err.println(s);
+        logger.debug(s);
         assertThat("The string is not null.", s, notNullValue());
         assertThat("the string's contents are correct", s.trim(),
                 equalToIgnoringCase("C5  D5  E5  F5  G5  A5  B5"));
@@ -1333,7 +1334,7 @@ public class MIDITrackTest {
     @Test
     public void getDurationsAsString() {
         String s = MIDITrack.getDurationsAsString(testTrack);
-        System.err.println(s);
+        logger.debug(s);
 
         assertThat("The string is not null.", s, notNullValue());
         assertThat("the string's contents are correct", s.trim(),
@@ -1644,9 +1645,9 @@ public class MIDITrackTest {
     // @Test
     // public void testSetDuration() {
     // testTrack.sequential();
-    // System.err.println(testTrack);
+    // logger.debug(testTrack);
     // testTrack.setDuration(16);
-    // System.err.println(testTrack);
+    // logger.debug(testTrack);
     // // TODO boy does this need work
     // fail("Not yet implemented");
     // }

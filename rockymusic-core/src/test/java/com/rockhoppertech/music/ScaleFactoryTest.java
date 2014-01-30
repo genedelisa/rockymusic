@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -42,7 +44,8 @@ import static org.junit.Assert.*;
  * 
  */
 public class ScaleFactoryTest {
-
+    private static final Logger logger = LoggerFactory
+            .getLogger(ScaleFactoryTest.class);
     /**
      * Test method for
      * {@link com.rockhoppertech.music.ScaleFactory#createFromSpelling(java.lang.String)}
@@ -86,7 +89,7 @@ public class ScaleFactoryTest {
         List<Scale> scales = null;
         scales = ScaleFactory.findBySize(7);
         assertNotNull(scales);
-        System.err.println(scales);
+        logger.debug("scales \n{}",scales);
 
         Scale scale = null;
         scale = ScaleFactory.createFromName("Major");

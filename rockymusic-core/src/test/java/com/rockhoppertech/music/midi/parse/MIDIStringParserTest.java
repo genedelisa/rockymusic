@@ -75,7 +75,7 @@ public class MIDIStringParserTest {
 	public static void main(String[] args) {
 		MIDIStringParser parser = new MIDIStringParser();
 		parser.parsePitch("C4");
-		System.err.println();
+		
 		parser.parsePitch("C#3");
 
 		parser.parsePitch("Cs3");
@@ -97,13 +97,13 @@ public class MIDIStringParserTest {
 		while (scanner.hasNext()) {
 			if (scanner.hasNext(fullPitchPattern)) {
 				p = scanner.next();
-				System.err.println("full pitch " + p);
+				logger.debug("full pitch " + p);
 			} else if (scanner.hasNext(shortPitchPattern)) {
 				p = scanner.next();
-				System.err.println("short pitch " + p);
+				logger.debug("short pitch " + p);
 			} else {
 				p = scanner.next();
-				System.err.println("junk " + p);
+				logger.debug("junk " + p);
 			}
 
 			double start = 1d;
@@ -118,7 +118,7 @@ public class MIDIStringParserTest {
 
 			n = new MIDINote(p, start, duration);
 			int oct = n.getPitch().getMidiNumber() / 12;
-			System.err.println(oct);
+			logger.debug("oct{}",oct);
 		}
 		scanner.close();
 
@@ -1233,13 +1233,13 @@ public class MIDIStringParserTest {
 				start,
 				duration,
 				velocity);
-		System.err.println(s);
+		logger.debug(s);
 		list = parser.parseString(s);
 
 		assertThat("list is not null",
 				list,
 				notNullValue());
-		System.err.println(list);
+		logger.debug("track \n{}",list);
 		n = list.get(0);
 		assertThat("pitch",
 				n.getPitch(),
@@ -1280,12 +1280,12 @@ public class MIDIStringParserTest {
 				bank,
 				program,
 				pitchBend);
-		System.err.println(s);
+		logger.debug(s);
 		list = parser.parseString(s);
 		assertThat("list is not null",
 				list,
 				notNullValue());
-		System.err.println(list);
+		logger.debug("track \n{}",list);
 
 		n = list.get(0);
 		assertThat("start",
@@ -1324,7 +1324,7 @@ public class MIDIStringParserTest {
 		sb.append("C5 D").append('\n');
 		sb.append("// a b c").append('\n');
 		sb.append("E G").append('\n');
-		System.err.println("input " + sb.toString());
+		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
@@ -1341,7 +1341,7 @@ public class MIDIStringParserTest {
 		sb.append("C5 D").append('\n');
 		sb.append("/* a b c */").append('\n');
 		sb.append("E G").append('\n');
-		System.err.println("input " + sb.toString());
+		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
@@ -1351,7 +1351,7 @@ public class MIDIStringParserTest {
 		sb = new StringBuilder();
 		sb.append("C5 D").append('\n');
 		sb.append("/* a b c */ E G").append('\n');
-		System.err.println("input " + sb.toString());
+		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
 		System.out.println(track);
 		assertThat("The track is not null.", track, notNullValue());
@@ -1369,7 +1369,7 @@ public class MIDIStringParserTest {
 		s = String.format("I\"%s\" R2.5 C,1 I\"%s\" D,2",
 				MIDIGMPatch.PIANO.getName(),
 				MIDIGMPatch.BRASS.getName());
-		System.err.println(s);
+		logger.debug(s);
 
 		list = parser.parseString(s);
 
@@ -1476,7 +1476,7 @@ public class MIDIStringParserTest {
 		s = "S+ Re C D E";
 
 		track = parser.parseString(s);
-		System.err.println(track);
+		logger.debug("track \n{}",track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(3));
@@ -1588,7 +1588,7 @@ public class MIDIStringParserTest {
 		// should become C C C D E
 
 		track = parser.parseString(s);
-		System.err.println(track);
+		logger.debug("track \n{}",track);
 		assertThat("The list is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(5));
@@ -1639,7 +1639,7 @@ public class MIDIStringParserTest {
 		s = "S+ C D E";
 
 		list = parser.parseString(s);
-		System.err.println(list);
+		logger.debug("track \n{}",list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
 				equalTo(3));
@@ -1688,7 +1688,7 @@ public class MIDIStringParserTest {
 		s = "S= C D E";
 
 		list = parser.parseString(s);
-		System.err.println(list);
+		logger.debug("track \n{}",list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
 				equalTo(3));
@@ -1729,7 +1729,7 @@ public class MIDIStringParserTest {
 
 		s = "S=4.5 C D E";
 		list = parser.parseString(s);
-		System.err.println(list);
+		logger.debug("track \n{}",list);
 		assertThat("The list is not null.", list, notNullValue());
 		assertThat("the track size is correct", list.size(),
 				equalTo(3));

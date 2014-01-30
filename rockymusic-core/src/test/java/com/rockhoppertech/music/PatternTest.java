@@ -28,6 +28,8 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
@@ -48,6 +50,8 @@ import static org.junit.Assert.*;
  *
  */
 public class PatternTest {
+    private static final Logger logger = LoggerFactory
+            .getLogger(PatternTest.class);
 
     /**
      * @throws java.lang.Exception
@@ -97,8 +101,8 @@ public class PatternTest {
         assertThat("notelist is not null",
                    nl,
                    notNullValue());
-        System.err.println(nlPattern);
-        System.err.println(nl);
+        logger.debug("pattern {}", nlPattern);
+        logger.debug("track \n{}",nl);
 
         // assertThat("the length is correct", nl.get, equalTo(8));
 
@@ -165,7 +169,7 @@ public class PatternTest {
     @Test
     public void patternScaleIntArrayIntIntDoubleBooleanDouble() {
         Scale scale = ScaleFactory.getScaleByName("Major");
-        System.err.println(scale);
+        logger.debug("scale \n{}",scale);
         int[] pattern = new int[] { 0, 1, 2 };
         int numOctaves = 1;
         double duration = Duration.Q;
@@ -189,7 +193,7 @@ public class PatternTest {
     public void patternChordIntArrayIntIntDoubleBooleanDouble()
             throws UnknownChordException {
         Chord chord = ChordFactory.getChordByFullSymbol("Cmaj7+11");
-        System.err.println(ArrayUtils.toString(chord.getPitchClasses()));
+        logger.debug(ArrayUtils.toString(chord.getPitchClasses()));
         int[] someInts = new int[] { 0, 1, 2 };
         int numOctaves = 3;
         double duration = Duration.Q;
