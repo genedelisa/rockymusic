@@ -135,7 +135,7 @@ public class ChordTest {
         // assertThat(c.getSeventh(), equalTo(Pitch.B0));
         assertThat(c.getSymbol(), equalTo("maj"));
         String expected = "1 3 5";
-        System.out.printf("'%s' and '%s'\n", cv, expected);
+        logger.debug("'{}' and '{}'", cv, expected);
         assertThat(cv.trim(), equalTo(expected));
 
     }
@@ -524,7 +524,7 @@ public class ChordTest {
         MIDITrack list = null;
         c.setInversion(0);
         String expected = "1 3 5";
-        System.out.printf("'%s' and '%s'\n", cv, expected);
+        logger.debug("'{}' and '{}'", cv, expected);
         assertThat(cv.trim(), equalTo(expected));
         list = c.createMIDITrack();
         assertThat("track is not null",
@@ -1542,7 +1542,7 @@ public class ChordTest {
         assertThat("scales is not null",
                 scales, is(notNullValue()));
         for (Scale scale : scales) {
-            System.out.printf("%s %s\n", scale.getKey(), scale.getName());
+           logger.debug("key {} name {}", scale.getKey(), scale.getName());
         }
         Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
         assertThat(scales, hasItem(scale));
