@@ -263,7 +263,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
                 REGEX_FLAGS);
         Matcher match = pattern.matcher(pitchName);
         if (match.matches()) {
-            System.err.println(pitchName + " matches");
+            logger.debug("{} matches", pitchName);
             return true;
         }
         return false;
@@ -275,7 +275,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
                 REGEX_FLAGS);
         Matcher match = pattern.matcher(pitchName);
         if (match.matches()) {
-            System.err.println(pitchName + " matches");
+            logger.debug("{} matches", pitchName);
             return true;
         }
         return false;
@@ -303,8 +303,13 @@ public class Pitch implements Serializable, Comparable<Pitch> {
      * contains a cached table of Equal Temp. pitches. so use that instead of
      * this method.
      * 
+     * Called by {@code PitchFactory} when calculating {@code EQUAL_TEMPERAMENT}
+     * .
+     * 
      * <pre>
-	 * &lt;code&gt;frequency = PitchFactory.EQUAL_TEMPERAMENT.get(this.midiNumber);&lt;/code&gt;
+     * {@code
+	 * frequency = PitchFactory.EQUAL_TEMPERAMENT.get(this.midiNumber);
+	 * }
 	 * </pre>
      * 
      * @param midiNoteNumber
@@ -312,10 +317,13 @@ public class Pitch implements Serializable, Comparable<Pitch> {
      * @return the frequency
      */
     public static double midiFq(int midiNoteNumber) {
+        int pitch = midiNoteNumber / 12;
+        int oct = midiNoteNumber % 12;
+        double dp = pitch - 5d;
+        double doct = oct / 12d;
         return (REF_PITCH * Math.pow(2d,
-                ((midiNoteNumber / 12) - 5d)) * Math
-                    .pow(2d,
-                            ((midiNoteNumber % 12) / 12d)));
+                dp) * Math.pow(2d,
+                doct));
     }
 
     /*
