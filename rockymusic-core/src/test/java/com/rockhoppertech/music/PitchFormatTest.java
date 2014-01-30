@@ -24,17 +24,16 @@ package com.rockhoppertech.music;
  */
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+//import static org.hamcrest.MatcherAssert.*;
+//import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.chord.ChordProgressionTest;
+
 
 /**
  * 
@@ -53,10 +52,18 @@ public class PitchFormatTest {
     public void testMidiNumberToStringInt() {
         for (int p = Pitch.MIN; p < Pitch.MAX; p++) {
             Pitch pitch = PitchFactory.getPitch(p);
-            assertNotNull(pitch);
-            assertEquals(p, pitch.getMidiNumber());
+            assertThat("pitch is not null",
+                    pitch,
+                    is(notNullValue()));
+
+            assertThat("the MIDI number is correct",
+                    pitch.getMidiNumber(),
+                    equalTo(p));
+            
             String ps = PitchFormat.midiNumberToString(p);
-            assertNotNull(p);
+            assertThat("ps is not null",
+                    ps,
+                    is(notNullValue()));
         }
     }
 
@@ -79,29 +86,25 @@ public class PitchFormatTest {
      */
     @Test
     public void testStringToMidiNumber() {
-        int mn = PitchFormat.stringToMidiNumber("C0");
-
+        // int mn = PitchFormat.stringToMidiNumber("C0");
+        int mn = -1;
 
         for (int p = Pitch.MIN; p < Pitch.MAX; p++) {
             logger.debug("testing {}", p);
             Pitch pitch = PitchFactory.getPitch(p);
             String ps = PitchFormat.getInstance().format(pitch);
             logger.debug("pitchstring '{}' for p {}", ps, p);
-            assertThat(
-                    "ps is not null",
+            assertThat("ps is not null",
                     ps,
                     notNullValue());
             mn = PitchFormat.stringToMidiNumber(ps);
             logger.debug("stringToMidiNumber result {}", mn);
-            assertThat(
-                    "p = pitch midi number",
+            assertThat("p = pitch midi number",
                     p,
                     equalTo(pitch.getMidiNumber()));
             assertThat("p = nm", p, equalTo(mn));
-
         }
         // int i = PitchFormat.stringToMidiNumber("Cb0");
-
     }
 
     /**
