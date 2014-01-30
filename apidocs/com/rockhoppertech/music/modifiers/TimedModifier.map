@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../Timed.html" title="com.rockhoppertech.music.Timed" alt="" coords="26,310,155,365"/>
+<area shape="rect" id="node1" href="../Timed.html" title="&lt;TABLE&gt;" alt="" coords="15,305,166,370"/>
+<area shape="rect" id="node2_1" href="./TimedModifier.html" title="com.rockhoppertech.music.modifiers.TimedModifier" alt="" coords="42,113,138,154"/>
+<area shape="rect" id="node2" href="./TimedModifier.html" title="&lt;TABLE&gt;" alt="" coords="32,107,149,159"/>
+<area shape="rect" id="node3_2" href="./StartBeatModifier.html" title="com.rockhoppertech.music.modifiers.StartBeatModifier" alt="" coords="34,219,146,245"/>
+<area shape="rect" id="node3" href="./StartBeatModifier.html" title="&lt;TABLE&gt;" alt="" coords="24,208,157,256"/>
+<area shape="rect" id="node5_3" href="./DurationModifier.html" title="com.rockhoppertech.music.modifiers.DurationModifier" alt="" coords="192,219,300,245"/>
+<area shape="rect" id="node5" href="./DurationModifier.html" title="&lt;TABLE&gt;" alt="" coords="182,208,311,256"/>
+<area shape="rect" id="node4_4" href="./Modifier.html" title="com.rockhoppertech.music.modifiers.Modifier" alt="" coords="51,11,130,53"/>
+<area shape="rect" id="node4" href="./Modifier.html" title="&lt;TABLE&gt;" alt="" coords="40,6,140,58"/>
+</map>
