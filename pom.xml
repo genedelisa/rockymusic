@@ -44,10 +44,16 @@
 	</developers>
 
 	<scm>
-		<connection>scm:git:git@github.com:genedelisa/rocky-music.git</connection>
-		<url>scm:git:git@github.com:genedelisa/rocky-music.git</url>
+		<url>https://github.com/genedelisa/rocky-music</url>
+		<connection>scm:git:git://github.com/genedelisa/rocky-music.git</connection>
 		<developerConnection>scm:git:git@github.com:genedelisa/rocky-music.git</developerConnection>
-	</scm>
+    </scm>
+	
+	<issueManagement>
+		<url>https://github.com/genedelisa/rocky-music/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	
 
 	<!-- common properties used throughout the modules -->
 	<properties>
