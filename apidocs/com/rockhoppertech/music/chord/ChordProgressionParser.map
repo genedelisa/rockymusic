@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ChordProgressionParser.html" title="com.rockhoppertech.music.chord.ChordProgressionParser" alt="" coords="119,17,271,42"/>
-<area shape="rect" id="node1" href="./ChordProgressionParser.html" title="&lt;TABLE&gt;" alt="" coords="108,5,281,53"/>
-<area shape="rect" id="node2_1" href="../midi/js/MIDITrack.html" title="com.rockhoppertech.music.midi.js.MIDITrack" alt="" coords="15,107,174,146"/>
-<area shape="rect" id="node2" href="../midi/js/MIDITrack.html" title="&lt;TABLE&gt;" alt="" coords="5,102,185,151"/>
-<area shape="rect" id="node3_2" href="../scale/Scale.html" title="com.rockhoppertech.music.scale.Scale" alt="" coords="219,107,373,146"/>
-<area shape="rect" id="node3" href="../scale/Scale.html" title="&lt;TABLE&gt;" alt="" coords="209,102,383,151"/>
-</map>

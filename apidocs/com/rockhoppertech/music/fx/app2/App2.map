@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1_0" href="../../midi/js/MIDITrack.html" title="com.rockhoppertech.music.midi.js.MIDITrack" alt="" coords="15,107,174,146"/>
-<area shape="rect" id="node1" href="../../midi/js/MIDITrack.html" title="&lt;TABLE&gt;" alt="" coords="5,102,185,151"/>
-<area shape="rect" id="node2_1" href="./Controller.html" title="com.rockhoppertech.music.fx.app2.Controller" alt="" coords="220,114,292,139"/>
-<area shape="rect" id="node2" href="./Controller.html" title="&lt;TABLE&gt;" alt="" coords="209,103,303,151"/>
-<area shape="rect" id="node3_2" href="./App2.html" title="com.rockhoppertech.music.fx.app2.App2" alt="" coords="151,17,199,42"/>
-<area shape="rect" id="node3" href="./App2.html" title="&lt;TABLE&gt;" alt="" coords="139,5,211,53"/>
-</map>

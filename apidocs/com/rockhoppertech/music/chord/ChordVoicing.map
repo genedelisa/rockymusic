@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ChordVoicing.html" title="com.rockhoppertech.music.chord.ChordVoicing" alt="" coords="15,113,107,138"/>
-<area shape="rect" id="node1" href="./ChordVoicing.html" title="&lt;TABLE&gt;" alt="" coords="5,101,118,149"/>
-<area shape="rect" id="node3_1" href="../midi/js/MIDITrack.html" title="com.rockhoppertech.music.midi.js.MIDITrack" alt="" coords="29,203,187,242"/>
-<area shape="rect" id="node3" href="../midi/js/MIDITrack.html" title="&lt;TABLE&gt;" alt="" coords="18,198,198,247"/>
-<area shape="rect" id="node2_2" href="./Chord.html" title="com.rockhoppertech.music.chord.Chord" alt="" coords="82,17,134,42"/>
-<area shape="rect" id="node2" href="./Chord.html" title="&lt;TABLE&gt;" alt="" coords="71,5,145,53"/>
-</map>

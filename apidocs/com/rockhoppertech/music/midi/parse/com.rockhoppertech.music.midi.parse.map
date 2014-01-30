@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1_0" href="./MIDIStringParser.html" title="com.rockhoppertech.music.midi.parse.MIDIStringParser" alt="" coords="16,17,128,42"/>
-<area shape="rect" id="node1" href="./MIDIStringParser.html" title="&lt;TABLE&gt;" alt="" coords="5,5,139,53"/>
-<area shape="rect" id="node2_1" href="./MIDIStringParser.StartMode.html" title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" alt="" coords="22,107,122,149"/>
-<area shape="rect" id="node2" href="./MIDIStringParser.StartMode.html" title="&lt;TABLE&gt;" alt="" coords="11,102,133,154"/>
-<area shape="rect" id="node3_2" href="./MIDIParserException.html" title="com.rockhoppertech.music.midi.parse.MIDIParserException" alt="" coords="173,17,307,42"/>
-<area shape="rect" id="node3" href="./MIDIParserException.html" title="&lt;TABLE&gt;" alt="" coords="163,5,317,53"/>
-</map>
