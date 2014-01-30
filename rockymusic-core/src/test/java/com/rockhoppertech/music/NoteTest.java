@@ -23,23 +23,20 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class NoteTest {
     private static final Logger logger = LoggerFactory
             .getLogger(NoteTest.class);
-
-    //  private Logger logger = LoggerFactory.getLogger(NoteTest.class);
 
     @Test
     public void defaultCtor() {
@@ -51,19 +48,32 @@ public class NoteTest {
 
     @Test
     public void overlapping() {
+        logger.debug("testing overlap");
         Pitch pitch = PitchFactory.getPitch(Pitch.C5);
         Note n1 = new Note(pitch, 1.0, 2.0);
         Note n2 = new Note(pitch, 1.0, 2.0);
-        assertNotNull(n1);
-        assertNotNull(n2);
-       // assertTrue(n1.isOverlapping(n2));
+
+        assertThat("note 1 is not null",
+                n1,
+                notNullValue());
+        assertThat("note 2 is not null",
+                n2,
+                notNullValue());
+
+        assertThat("n1 overlaps n2",
+                n1.isOverlapping(n2),
+                equalTo(true));
 
         n2 = new Note(pitch, 2.0, 1.0);
-       // assertTrue(n1.isOverlapping(n2));
+        assertThat("n1 overlaps n2",
+                n1.isOverlapping(n2),
+                equalTo(true));
 
         // the ranges are inclusive
         n2 = new Note(pitch, 3.0001, 1.0);
-      //  assertFalse(n1.isOverlapping(n2));
+        assertThat("n1 does not overlap n2",
+                n1.isOverlapping(n2),
+                equalTo(false));
 
     }
 

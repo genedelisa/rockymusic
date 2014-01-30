@@ -40,6 +40,7 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.Comparator;
 
+import org.apache.commons.lang3.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,14 +69,19 @@ public class Note implements Comparable<Note>, Timed, Serializable {
      * @since 1.0
      * @see Comparator
      */
-    static class BeatComparator implements Comparator<Note> {
+    static class BeatComparator implements Comparator<Note>, Serializable {
+        /**
+         * Serializaiton.
+         */
+        private static final long serialVersionUID = 1701446492454684836L;
+
         @Override
         public int compare(final Note o, final Note o2) {
             final double t1 = o.getStartBeat();
             final double t2 = o2.getStartBeat();
             if (t1 < t2) {
                 return -1;
-            } else if ( Math.abs(t1 - t2) < .0000001 ) {                
+            } else if (Math.abs(t1 - t2) < .0000001) {
                 return 0;
             } else if (t1 > t2) {
                 return 1;
@@ -340,6 +346,24 @@ public class Note implements Comparable<Note>, Timed, Serializable {
      *            - the guy to compare to
      * @return
      */
+    public boolean isOverlapping(final Note note) {
+        final double fudge = .0000001;
+        Range<Double> range = Range.between(
+                this.getStartBeat(),
+                this.getEndBeat());
+        Range<Double> range2 = Range.between(
+                note.getStartBeat() + fudge,
+                note.getEndBeat());
+        return range.isOverlappedBy(range2);
+
+        // NumberRange range = new NumberRange(this.getStartBeat(), this
+        // .getEndBeat());
+        // NumberRange range2 = new NumberRange(note.getStartBeat() +
+        // Double.MIN_VALUE, note
+        // .getEndBeat());
+        // return range.overlapsRange(range2);
+    }
+
     // public boolean isOverlapping(final Note note) {
     // final double fudge = .0000001;
     // Range r;
