@@ -264,7 +264,7 @@ public class ChordProgressionParser {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine().trim();
             logger.debug("file line '{}'", line);
-            if (line != null && line.equals("") == false) {
+            if (line.equals("") == false) {
                 if (line.charAt(0) == '!') {
                     logger.debug("Skipping comment " + line);
                     continue;
