@@ -48,10 +48,10 @@ public class DurationParser {
     private static Map<String, Double> durKeyMap;
 
     // not dotted
-    static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
+ //   static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
     // it is dotted
     static Pattern dpattern = Pattern.compile("[dwhqestxo]+\\.+");
-    static Pattern tripletPattern = Pattern.compile("[dwhqestxo]+t+");
+   // static Pattern tripletPattern = Pattern.compile("[dwhqestxo]+t+");
 
     static {
         durKeyMap = new LinkedHashMap<String, Double>();
