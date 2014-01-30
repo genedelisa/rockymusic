@@ -1,9 +1,4 @@
-com.rockhoppertech.collections
-com.rockhoppertech.music
-com.rockhoppertech.music.chord
-com.rockhoppertech.music.midi.gm
-com.rockhoppertech.music.midi.js
-com.rockhoppertech.music.midi.js.xml
-com.rockhoppertech.music.midi.parse
-com.rockhoppertech.music.modifiers
-com.rockhoppertech.music.scale
+com.rockhoppertech.music.fx
+com.rockhoppertech.music.fx.app2
+com.rockhoppertech.music.fx.components
+com.rockhoppertech.music.midi.js.fx

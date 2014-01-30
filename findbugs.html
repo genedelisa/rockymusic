@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="Date-Revision-yyyymmdd" content="20140130" />
     <meta http-equiv="Content-Language" content="en" />
-    <title>Rockhopper Music - FindBugs Bug Detector Report</title>
+    <title>Rocky Music FX - FindBugs Bug Detector Report</title>
     <link rel="stylesheet" href="./css/apache-maven-fluido-1.3.1.min.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <link rel="stylesheet" href="./css/print.css" media="print" />
@@ -39,7 +39,7 @@
           <div id="banner">
         <div class="pull-left">
                                     <a href="http://www.rockhoppertech.com/blog/" id="bannerLeft">
-                                                                                                <img src="images/rocky-scream-25.jpg"  alt="Rockhopper"/>
+                                                                                        <img src="http://www.rockhoppertech.com/wp-content/uploads/2013/rocky-scream-25.jpg"  alt="Rockhopper"/>
                 </a>
                       </div>
         <div class="pull-right">              <div id="bannerRight">
@@ -85,15 +85,7 @@
                 
                     
                 <ul class="nav nav-list">
-                    <li class="nav-header">Parent Project</li>
-                              
-      <li>
-  
-                          <a href="../index.html" title="Rocky Music">
-          <i class="none"></i>
-        Rocky Music</a>
-            </li>
-            </ul>
+  </ul>
                 
                     
                 
@@ -104,14 +96,14 @@
     <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 
     
-    <div class="g-plusone" data-href="http://rockhoppertech.com/music/rockymusic-core" data-size="tall" ></div>
+    <div class="g-plusone" data-href="http://rockhoppertech.com/music/rockymusic-fx" data-size="tall" ></div>
 
                    <div class="clear"></div>
                    
         
         
         
-    <iframe src="http://www.facebook.com/plugins/like.php?href=http://rockhoppertech.com/music/rockymusic-core&send=false&layout=box_count&show-faces=false&action=like&colorscheme=light"
+    <iframe src="http://www.facebook.com/plugins/like.php?href=http://rockhoppertech.com/music/rockymusic-fx&send=false&layout=box_count&show-faces=false&action=like&colorscheme=light"
         scrolling="no" frameborder="0"
         style="border:none; width:48px; height:63px; margin-top: 10px;" ></iframe>
                <div class="clear"></div>
@@ -151,8 +143,8 @@
 <th>Errors</th>
 <th>Missing Classes</th></tr>
 <tr class="b">
-<td>91</td>
-<td>2</td>
+<td>28</td>
+<td>14</td>
 <td>0</td>
 <td>0</td></tr></table></div>
 <div class="section">
@@ -162,13 +154,37 @@
 <th>Class</th>
 <th>Bugs</th></tr>
 <tr class="b">
-<td><a href="#com.rockhoppertech.music.chord.ChordProgression$1">com.rockhoppertech.music.chord.ChordProgression$1</a></td>
+<td><a href="#com.rockhoppertech.music.fx.FXMLController">com.rockhoppertech.music.fx.FXMLController</a></td>
 <td>1</td></tr>
 <tr class="a">
-<td><a href="#com.rockhoppertech.music.chord.RomanChordParser">com.rockhoppertech.music.chord.RomanChordParser</a></td>
-<td>1</td></tr></table></div><a name="com.rockhoppertech.music.chord.ChordProgression1"></a>
+<td><a href="#com.rockhoppertech.music.fx.FXMLController$2">com.rockhoppertech.music.fx.FXMLController$2</a></td>
+<td>1</td></tr>
+<tr class="b">
+<td><a href="#com.rockhoppertech.music.fx.MainApp">com.rockhoppertech.music.fx.MainApp</a></td>
+<td>1</td></tr>
+<tr class="a">
+<td><a href="#com.rockhoppertech.music.fx.app2.App2">com.rockhoppertech.music.fx.app2.App2</a></td>
+<td>4</td></tr>
+<tr class="b">
+<td><a href="#com.rockhoppertech.music.fx.app2.App2$1">com.rockhoppertech.music.fx.app2.App2$1</a></td>
+<td>1</td></tr>
+<tr class="a">
+<td><a href="#com.rockhoppertech.music.fx.app2.App2$2">com.rockhoppertech.music.fx.app2.App2$2</a></td>
+<td>1</td></tr>
+<tr class="b">
+<td><a href="#com.rockhoppertech.music.fx.app2.App2$3">com.rockhoppertech.music.fx.app2.App2$3</a></td>
+<td>1</td></tr>
+<tr class="a">
+<td><a href="#com.rockhoppertech.music.fx.app2.App2$8">com.rockhoppertech.music.fx.app2.App2$8</a></td>
+<td>1</td></tr>
+<tr class="b">
+<td><a href="#com.rockhoppertech.music.fx.app2.Controller">com.rockhoppertech.music.fx.app2.Controller</a></td>
+<td>2</td></tr>
+<tr class="a">
+<td><a href="#com.rockhoppertech.music.fx.components.RTIDialog">com.rockhoppertech.music.fx.components.RTIDialog</a></td>
+<td>1</td></tr></table></div><a name="com.rockhoppertech.music.fx.FXMLController"></a>
 <div class="section">
-<h3>com.rockhoppertech.music.chord.ChordProgression$1<a name="com.rockhoppertech.music.chord.ChordProgression1"></a></h3>
+<h3>com.rockhoppertech.music.fx.FXMLController<a name="com.rockhoppertech.music.fx.FXMLController"></a></h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Bug</th>
@@ -177,13 +193,28 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="a">
-<td>The class com.rockhoppertech.music.chord.ChordProgression$1 could be refactored into a named _static_ inner class</td>
+<td>com.rockhoppertech.music.fx.FXMLController.fileMenuQuitAction(ActionEvent) invokes System.exit(...), which shuts down the entire virtual machine</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#DM_EXIT">DM_EXIT</a></td>
+<td>177</td>
+<td>Medium</td></tr></table></div><a name="com.rockhoppertech.music.fx.FXMLController2"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.FXMLController$2<a name="com.rockhoppertech.music.fx.FXMLController2"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>The class com.rockhoppertech.music.fx.FXMLController$2 could be refactored into a named _static_ inner class</td>
 <td>PERFORMANCE</td>
 <td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON</a></td>
 <td>1</td>
-<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.chord.RomanChordParser"></a>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.MainApp"></a>
 <div class="section">
-<h3>com.rockhoppertech.music.chord.RomanChordParser<a name="com.rockhoppertech.music.chord.RomanChordParser"></a></h3>
+<h3>com.rockhoppertech.music.fx.MainApp<a name="com.rockhoppertech.music.fx.MainApp"></a></h3>
 <table border="0" class="table table-striped">
 <tr class="b">
 <th>Bug</th>
@@ -192,11 +223,140 @@
 <th>Line</th>
 <th>Priority</th></tr>
 <tr class="a">
-<td>com.rockhoppertech.music.chord.RomanChordParser.pitchNameToRoman(Scale, String, String) concatenates strings using + in a loop</td>
+<td>Usage of GetResource in com.rockhoppertech.music.fx.MainApp.start(Stage) may be unsafe if class is extended</td>
+<td>BAD_PRACTICE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#UI_INHERITANCE_UNSAFE_GETRESOURCE">UI_INHERITANCE_UNSAFE_GETRESOURCE</a></td>
+<td>61</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.App2"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.App2<a name="com.rockhoppertech.music.fx.app2.App2"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>Unchecked/unconfirmed cast from javafx.scene.layout.RegionBuilder to javafx.scene.layout.BorderPaneBuilder of return value in com.rockhoppertech.music.fx.app2.App2.configureScene()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_UNCONFIRMED_CAST_OF_RETURN_VALUE">BC_UNCONFIRMED_CAST_OF_RETURN_VALUE</a></td>
+<td>155</td>
+<td>Low</td></tr>
+<tr class="b">
+<td>Unchecked/unconfirmed cast from javafx.scene.layout.RegionBuilder to javafx.scene.layout.VBoxBuilder of return value in com.rockhoppertech.music.fx.app2.App2.foo()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_UNCONFIRMED_CAST_OF_RETURN_VALUE">BC_UNCONFIRMED_CAST_OF_RETURN_VALUE</a></td>
+<td>590</td>
+<td>Low</td></tr>
+<tr class="a">
+<td>Write to static field com.rockhoppertech.music.fx.app2.App2.midiPatchList from instance method com.rockhoppertech.music.fx.app2.App2.configureCombo()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD</a></td>
+<td>184</td>
+<td>Low</td></tr>
+<tr class="b">
+<td>Write to static field com.rockhoppertech.music.fx.app2.App2.programList from instance method com.rockhoppertech.music.fx.app2.App2.configureCombo()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD</a></td>
+<td>179</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.App21"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.App2$1<a name="com.rockhoppertech.music.fx.app2.App21"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>The class com.rockhoppertech.music.fx.app2.App2$1 could be refactored into a named _static_ inner class</td>
 <td>PERFORMANCE</td>
-<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SBSC_USE_STRINGBUFFER_CONCATENATION">SBSC_USE_STRINGBUFFER_CONCATENATION</a></td>
-<td>466</td>
-<td>Medium</td></tr></table></div>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON</a></td>
+<td>1</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.App22"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.App2$2<a name="com.rockhoppertech.music.fx.app2.App22"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>The class com.rockhoppertech.music.fx.app2.App2$2 could be refactored into a named _static_ inner class</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON</a></td>
+<td>1</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.App23"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.App2$3<a name="com.rockhoppertech.music.fx.app2.App23"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>The class com.rockhoppertech.music.fx.app2.App2$3 could be refactored into a named _static_ inner class</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON</a></td>
+<td>1</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.App28"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.App2$8<a name="com.rockhoppertech.music.fx.app2.App28"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>The class com.rockhoppertech.music.fx.app2.App2$8 could be refactored into a named _static_ inner class</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#SIC_INNER_SHOULD_BE_STATIC_ANON">SIC_INNER_SHOULD_BE_STATIC_ANON</a></td>
+<td>1</td>
+<td>Low</td></tr></table></div><a name="com.rockhoppertech.music.fx.app2.Controller"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.app2.Controller<a name="com.rockhoppertech.music.fx.app2.Controller"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="b">
+<td>Unread field: com.rockhoppertech.music.fx.app2.Controller.button</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
+<td>45</td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>Unread field: com.rockhoppertech.music.fx.app2.Controller.stage</td>
+<td>PERFORMANCE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#URF_UNREAD_FIELD">URF_UNREAD_FIELD</a></td>
+<td>60</td>
+<td>Medium</td></tr></table></div><a name="com.rockhoppertech.music.fx.components.RTIDialog"></a>
+<div class="section">
+<h3>com.rockhoppertech.music.fx.components.RTIDialog<a name="com.rockhoppertech.music.fx.components.RTIDialog"></a></h3>
+<table border="0" class="table table-striped">
+<tr class="b">
+<th>Bug</th>
+<th>Category</th>
+<th>Details</th>
+<th>Line</th>
+<th>Priority</th></tr>
+<tr class="a">
+<td>Unchecked/unconfirmed cast from javafx.scene.layout.PaneBuilder to javafx.scene.layout.HBoxBuilder of return value in com.rockhoppertech.music.fx.components.RTIDialog.configureMessageDialog()</td>
+<td>STYLE</td>
+<td><a class="externalLink" href="http://findbugs.sourceforge.net/bugDescriptions.html#BC_UNCONFIRMED_CAST_OF_RETURN_VALUE">BC_UNCONFIRMED_CAST_OF_RETURN_VALUE</a></td>
+<td>103</td>
+<td>Low</td></tr></table></div>
                   </div>
             </div>
           </div>
