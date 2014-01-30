@@ -23,32 +23,7 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
-import static com.rockhoppertech.music.Pitch.C5;
-import static com.rockhoppertech.music.Pitch.D5;
-import static com.rockhoppertech.music.Pitch.E5;
-import static com.rockhoppertech.music.Pitch.F5;
-import static com.rockhoppertech.music.Pitch.G3;
-import static com.rockhoppertech.music.Pitch.G5;
-//import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.equalToIgnoringCase;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
-import static org.hamcrest.Matchers.both;
-//import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -66,6 +41,14 @@ import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.PitchModifier;
 
+import static com.rockhoppertech.music.Pitch.*;
+
+//import static org.hamcrest.MatcherAssert.*;
+//import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.*;
+//import static org.hamcrest.number.OrderingComparison.greaterThanOrEqualTo;
+import static org.junit.Assert.*;
+
 // removed Scale references
 
 /**
@@ -74,6 +57,24 @@ import com.rockhoppertech.music.modifiers.PitchModifier;
  * 
  */
 public class MIDITrackTest {
+    private static final class MIDINumberComparator implements
+            Comparator<MIDINote>, Serializable {
+        /**
+         * Serialization.
+         */
+        private static final long serialVersionUID = 1672757121311327144L;
+
+        @Override
+        public int compare(MIDINote o1, MIDINote o2) {
+            if (o1.getMidiNumber() > o2.getMidiNumber()) {
+                return 1;
+            } else if (o1.getMidiNumber() < o2.getMidiNumber()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     private static final Logger logger = LoggerFactory
             .getLogger(MIDITrackTest.class);
 
@@ -164,7 +165,7 @@ public class MIDITrackTest {
                 equalTo(1d));
 
         nl = new MIDITrack("c,2,.5 d,3,1.5 e,4 f,5.5 c4,6 d,7 e,8 f,9");
-        logger.debug("track \n{}",nl);
+        logger.debug("track \n{}", nl);
         assertThat("nl is non null",
                 nl,
                 notNullValue());
@@ -602,7 +603,7 @@ public class MIDITrackTest {
     }
 
     /**
-     * these should be in modifier tests
+     * these should be in modifier tests.
      */
     // @Test
     public void testMapNoteModifierDouble() {
@@ -692,8 +693,7 @@ public class MIDITrackTest {
         assertTrue(testTrack.contains(PitchFactory.getPitch(Pitch.A5)));
         assertFalse(nl.contains(PitchFactory.getPitch(Pitch.A5)));
 
-        
-        logger.debug("track \n{}",nl);
+        logger.debug("track \n{}", nl);
     }
 
     @Test
@@ -907,17 +907,7 @@ public class MIDITrackTest {
      */
     @Test
     public void sort() {
-        Comparator<MIDINote> comp = new Comparator<MIDINote>() {
-            @Override
-            public int compare(MIDINote o1, MIDINote o2) {
-                if (o1.getMidiNumber() > o2.getMidiNumber()) {
-                    return 1;
-                } else if (o1.getMidiNumber() < o2.getMidiNumber()) {
-                    return -1;
-                }
-                return 0;
-            }
-        };
+        Comparator<MIDINote> comp = new MIDINumberComparator();
         testTrack.sort(comp);
     }
 
@@ -1137,7 +1127,7 @@ public class MIDITrackTest {
         assertEquals(2,
                 testTrack.size());
 
-        logger.debug("track \n{}",testTrack);
+        logger.debug("track \n{}", testTrack);
     }
 
     /**
@@ -1455,11 +1445,13 @@ public class MIDITrackTest {
                 equalTo(1d));
 
         note = track.get(noteIndex++);
-        assertThat("The note is not null.", note, notNullValue());
+        assertThat("the index is correct", noteIndex,
+                is(equalTo(2)));
+        assertThat("The note is not null.", note, is(notNullValue()));
         assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
-                equalTo(Pitch.D5));
+                is(equalTo(Pitch.D5)));
         assertThat("the start beat is correct", note.getStartBeat(),
-                equalTo(2d));
+                is(equalTo(2d)));
     }
 
     @Test
@@ -1826,8 +1818,11 @@ public class MIDITrackTest {
         assertThat("the start beat is correct", note.getStartBeat(),
                 greaterThanOrEqualTo(startBeat));
 
-        assertThat("the start beat is correct", note.getStartBeat(),
-                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+        assertThat(
+                "the start beat is correct",
+                note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(
+                        lessThan(startBeat + 1d)));
 
         startBeat = 2d;
         list = track.getNotesAtBeat(startBeat);
@@ -1840,22 +1835,31 @@ public class MIDITrackTest {
         assertThat("The note is not null.", note, notNullValue());
         assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
                 equalTo(Pitch.D5));
-        assertThat("the start beat is correct", note.getStartBeat(),
-                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+        assertThat(
+                "the start beat is correct",
+                note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(
+                        lessThan(startBeat + 1d)));
 
         note = list.get(1);
         assertThat("The note is not null.", note, notNullValue());
         assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
                 equalTo(Pitch.E5));
-        assertThat("the start beat is correct", note.getStartBeat(),
-                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+        assertThat(
+                "the start beat is correct",
+                note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(
+                        lessThan(startBeat + 1d)));
 
         note = list.get(2);
         assertThat("The note is not null.", note, notNullValue());
         assertThat("the pitch is correct", note.getPitch().getMidiNumber(),
                 equalTo(Pitch.F5));
-        assertThat("the start beat is correct", note.getStartBeat(),
-                both(greaterThanOrEqualTo(startBeat)).and(lessThan(startBeat + 1d)));
+        assertThat(
+                "the start beat is correct",
+                note.getStartBeat(),
+                both(greaterThanOrEqualTo(startBeat)).and(
+                        lessThan(startBeat + 1d)));
 
     }
 }
