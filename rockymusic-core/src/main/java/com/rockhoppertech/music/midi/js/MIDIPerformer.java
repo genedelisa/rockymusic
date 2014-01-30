@@ -416,23 +416,23 @@ public class MIDIPerformer implements Runnable {
     }
 
     // get this to work?
-    void exec() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        for (int i = 0; i < 5; i++) {
-            Runnable worker = new MIDIPerformer();
-            executor.execute(worker);
-        }
-        // This will make the executor accept no new threads
-        // and finish all existing threads in the queue
-        executor.shutdown();
-
-        // Wait until all threads are finished
-        try {
-            executor.awaitTermination(0, null);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    void exec() {
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        for (int i = 0; i < 5; i++) {
+//            Runnable worker = new MIDIPerformer();
+//            executor.execute(worker);
+//        }
+//        // This will make the executor accept no new threads
+//        // and finish all existing threads in the queue
+//        executor.shutdown();
+//
+//        // Wait until all threads are finished
+//        try {
+//            executor.awaitTermination(0, null);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * @return the maxIterations
