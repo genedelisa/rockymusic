@@ -23,7 +23,6 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -47,7 +46,7 @@ import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class PatternTest {
     private static final Logger logger = LoggerFactory
@@ -68,7 +67,8 @@ public class PatternTest {
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(int[], int[])}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(int[], int[])}.
      */
     @Test
     public void patternIntArrayIntArray() {
@@ -78,13 +78,15 @@ public class PatternTest {
         nlPattern.setUpAndDown(true);
         MIDITrack nl = nlPattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
+                nl,
+                notNullValue());
 
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(int[], int[], int, int, double, boolean, double)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(int[], int[], int, int, double, boolean, double)}
+     * .
      */
     @Test
     public void patternIntArrayIntArrayIntIntDoubleBooleanDouble() {
@@ -97,44 +99,72 @@ public class PatternTest {
         Pattern nlPattern = new Pattern(degrees, pattern, C5, numOctaves,
                 duration, reverse, restBetweenPatterns);
         nlPattern.setUpAndDown(false);
-        MIDITrack nl = nlPattern.createTrack(1d,true);
+        MIDITrack nl = nlPattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
+                nl,
+                notNullValue());
         logger.debug("pattern {}", nlPattern);
-        logger.debug("track \n{}",nl);
+        logger.debug("track \n{}", nl);
 
         // assertThat("the length is correct", nl.get, equalTo(8));
 
     }
 
     /*
-     
-    MIDINote[startBeat: 001.00 pitch: C5  dur: 001.00 endBeat: 002.00 midinum: 60 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 002.00 pitch: E5  dur: 001.00 endBeat: 003.00 midinum: 64 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 004.00 pitch: E5  dur: 001.00 endBeat: 005.00 midinum: 64 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 005.00 pitch: C5  dur: 001.00 endBeat: 006.00 midinum: 60 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 007.00 pitch: D5  dur: 001.00 endBeat: 008.00 midinum: 62 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 008.00 pitch: F5  dur: 001.00 endBeat: 009.00 midinum: 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 010.00 pitch: F5  dur: 001.00 endBeat: 011.00 midinum: 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 011.00 pitch: D5  dur: 001.00 endBeat: 012.00 midinum: 62 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 013.00 pitch: E5  dur: 001.00 endBeat: 014.00 midinum: 64 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 014.00 pitch: G5  dur: 001.00 endBeat: 015.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 016.00 pitch: G5  dur: 001.00 endBeat: 017.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 017.00 pitch: E5  dur: 001.00 endBeat: 018.00 midinum: 64 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 019.00 pitch: F5  dur: 001.00 endBeat: 020.00 midinum: 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 020.00 pitch: A5  dur: 001.00 endBeat: 021.00 midinum: 69 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 022.00 pitch: A5  dur: 001.00 endBeat: 023.00 midinum: 69 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 023.00 pitch: F5  dur: 001.00 endBeat: 024.00 midinum: 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 025.00 pitch: G5  dur: 001.00 endBeat: 026.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 026.00 pitch: B5  dur: 001.00 endBeat: 027.00 midinum: 71 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 028.00 pitch: B5  dur: 001.00 endBeat: 029.00 midinum: 71 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-    MIDINote[startBeat: 029.00 pitch: G5  dur: 001.00 endBeat: 030.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
-
+     * 
+     * MIDINote[startBeat: 001.00 pitch: C5 dur: 001.00 endBeat: 002.00 midinum:
+     * 60 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 002.00 pitch: E5 dur: 001.00
+     * endBeat: 003.00 midinum: 64 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 004.00
+     * pitch: E5 dur: 001.00 endBeat: 005.00 midinum: 64 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 005.00 pitch: C5 dur: 001.00 endBeat: 006.00 midinum:
+     * 60 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 007.00 pitch: D5 dur: 001.00
+     * endBeat: 008.00 midinum: 62 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 008.00
+     * pitch: F5 dur: 001.00 endBeat: 009.00 midinum: 65 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 010.00 pitch: F5 dur: 001.00 endBeat: 011.00 midinum:
+     * 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 011.00 pitch: D5 dur: 001.00
+     * endBeat: 012.00 midinum: 62 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 013.00
+     * pitch: E5 dur: 001.00 endBeat: 014.00 midinum: 64 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 014.00 pitch: G5 dur: 001.00 endBeat: 015.00 midinum:
+     * 67 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 016.00 pitch: G5 dur: 001.00
+     * endBeat: 017.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 017.00
+     * pitch: E5 dur: 001.00 endBeat: 018.00 midinum: 64 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 019.00 pitch: F5 dur: 001.00 endBeat: 020.00 midinum:
+     * 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 020.00 pitch: A5 dur: 001.00
+     * endBeat: 021.00 midinum: 69 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 022.00
+     * pitch: A5 dur: 001.00 endBeat: 023.00 midinum: 69 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 023.00 pitch: F5 dur: 001.00 endBeat: 024.00 midinum:
+     * 65 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 025.00 pitch: G5 dur: 001.00
+     * endBeat: 026.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ] MIDINote[startBeat: 026.00
+     * pitch: B5 dur: 001.00 endBeat: 027.00 midinum: 71 rest: false] chan: 0
+     * velocity: 64 bank: 0 program: 0 (Piano) pitchbend: 0 voice: 0 ]
+     * MIDINote[startBeat: 028.00 pitch: B5 dur: 001.00 endBeat: 029.00 midinum:
+     * 71 rest: false] chan: 0 velocity: 64 bank: 0 program: 0 (Piano)
+     * pitchbend: 0 voice: 0 ] MIDINote[startBeat: 029.00 pitch: G5 dur: 001.00
+     * endBeat: 030.00 midinum: 67 rest: false] chan: 0 velocity: 64 bank: 0
+     * program: 0 (Piano) pitchbend: 0 voice: 0 ]
      */
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[])}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[])}
+     * .
      */
     @Test
     public void patternScaleIntArray() {
@@ -144,12 +174,14 @@ public class PatternTest {
         scalePattern.setUpAndDown(true);
         MIDITrack nl = scalePattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
+                nl,
+                notNullValue());
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[], int)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[], int)}
+     * .
      */
     @Test
     public void patternScaleIntArrayInt() {
@@ -159,17 +191,19 @@ public class PatternTest {
         scalePattern.setUpAndDown(true);
         MIDITrack nl = scalePattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
+                nl,
+                notNullValue());
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[], int, int, double, boolean, double)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Scale, int[], int, int, double, boolean, double)}
+     * .
      */
     @Test
     public void patternScaleIntArrayIntIntDoubleBooleanDouble() {
         Scale scale = ScaleFactory.getScaleByName("Major");
-        logger.debug("scale \n{}",scale);
+        logger.debug("scale \n{}", scale);
         int[] pattern = new int[] { 0, 1, 2 };
         int numOctaves = 1;
         double duration = Duration.Q;
@@ -180,14 +214,17 @@ public class PatternTest {
         scalePattern.setUpAndDown(false);
         MIDITrack nl = scalePattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
+                nl,
+                notNullValue());
 
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Chord, int[], int, int, double, boolean, double)}.
-     * @throws UnknownChordException 
+     * Test method for
+     * {@link com.rockhoppertech.music.Pattern#Pattern(com.rockhoppertech.music.Chord, int[], int, int, double, boolean, double)}
+     * .
+     * 
+     * @throws UnknownChordException
      */
     @Test
     public void patternChordIntArrayIntIntDoubleBooleanDouble()
@@ -204,9 +241,9 @@ public class PatternTest {
         pattern.setUpAndDown(false);
         MIDITrack nl = pattern.createTrack(1d, true);
         assertThat("notelist is not null",
-                   nl,
-                   notNullValue());
-       
+                nl,
+                notNullValue());
+
     }
 
     @Test
@@ -220,15 +257,20 @@ public class PatternTest {
                 .startPitch(C5).numOctaves(3).duration(Q).reverse(false)
                 .restBetweenPatterns(0).upAndDown(false).build();
 
+        MIDITrack nl = pattern.createTrack(1d, true);
+        assertThat("track is not null",
+                nl,
+                is(notNullValue()));
+
         // or even shorter using defaults
         pattern = new Pattern.Builder(chord.getPitchClasses(), someInts)
                 .numOctaves(3).build();
 
-        MIDITrack nl = pattern.createTrack(1d, true);
-        assertThat("notelist is not null",
-                   nl,
-                   is(notNullValue()));
-//        Staffer.showTrebleStaff(nl,
-//                                "Pattern");
+        nl = pattern.createTrack(1d, true);
+        assertThat("track is not null",
+                nl,
+                is(notNullValue()));
+        // Staffer.showTrebleStaff(nl,
+        // "Pattern");
     }
 }
