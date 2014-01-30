@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./ChordVoicing.html" title="com.rockhoppertech.music.chord.ChordVoicing" alt="" coords="15,309,107,334"/>
+<area shape="rect" id="node1" href="./ChordVoicing.html" title="&lt;TABLE&gt;" alt="" coords="5,297,118,345"/>
+<area shape="rect" id="node4_1" href="../midi/js/MIDITrack.html" title="com.rockhoppertech.music.midi.js.MIDITrack" alt="" coords="77,401,235,439"/>
+<area shape="rect" id="node4" href="../midi/js/MIDITrack.html" title="&lt;TABLE&gt;" alt="" coords="66,395,246,445"/>
+<area shape="rect" id="node2_2" href="./ChordProgression.html" title="com.rockhoppertech.music.chord.ChordProgression" alt="" coords="223,115,339,141"/>
+<area shape="rect" id="node2" href="./ChordProgression.html" title="&lt;TABLE&gt;" alt="" coords="213,104,350,152"/>
+<area shape="rect" id="node3_3" href="./Chord.html" title="com.rockhoppertech.music.chord.Chord" alt="" coords="149,211,201,237"/>
+<area shape="rect" id="node3" href="./Chord.html" title="&lt;TABLE&gt;" alt="" coords="138,200,211,248"/>
+<area shape="rect" id="node6_4" href="../scale/Scale.html" title="com.rockhoppertech.music.scale.Scale" alt="" coords="205,302,358,341"/>
+<area shape="rect" id="node6" href="../scale/Scale.html" title="&lt;TABLE&gt;" alt="" coords="194,297,369,346"/>
+<area shape="rect" id="node5_5" href="../midi/js/xml/ChordFactoryXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" alt="" coords="140,11,316,50"/>
+<area shape="rect" id="node5" href="../midi/js/xml/ChordFactoryXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="129,6,327,55"/>
+</map>

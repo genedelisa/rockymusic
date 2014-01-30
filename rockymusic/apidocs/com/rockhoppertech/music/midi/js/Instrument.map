@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../../Pitch.html" title="com.rockhoppertech.music.Pitch" alt="" coords="15,211,145,250"/>
+<area shape="rect" id="node1" href="../../Pitch.html" title="&lt;TABLE&gt;" alt="" coords="5,206,155,255"/>
+<area shape="rect" id="node2_1" href="../gm/MIDIGMPatch.html" title="com.rockhoppertech.music.midi.gm.MIDIGMPatch" alt="" coords="190,203,354,258"/>
+<area shape="rect" id="node2" href="../gm/MIDIGMPatch.html" title="&lt;TABLE&gt;" alt="" coords="179,198,365,263"/>
+<area shape="rect" id="node3_2" href="./MIDITrackBuilder.html" title="com.rockhoppertech.music.midi.js.MIDITrackBuilder" alt="" coords="209,17,321,42"/>
+<area shape="rect" id="node3" href="./MIDITrackBuilder.html" title="&lt;TABLE&gt;" alt="" coords="199,5,332,53"/>
+<area shape="rect" id="node5_3" href="./Instrument.html" title="com.rockhoppertech.music.midi.js.Instrument" alt="" coords="227,113,303,138"/>
+<area shape="rect" id="node5" href="./Instrument.html" title="&lt;TABLE&gt;" alt="" coords="217,101,314,149"/>
+<area shape="rect" id="node4_4" href="./MIDITrack.html" title="com.rockhoppertech.music.midi.js.MIDITrack" alt="" coords="83,17,157,42"/>
+<area shape="rect" id="node4" href="./MIDITrack.html" title="&lt;TABLE&gt;" alt="" coords="72,5,168,53"/>
+</map>

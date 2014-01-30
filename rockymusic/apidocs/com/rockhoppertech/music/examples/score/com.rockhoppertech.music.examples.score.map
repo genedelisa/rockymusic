@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./StringQuartet.html" title="com.rockhoppertech.music.examples.score.StringQuartet" alt="" coords="16,17,107,42"/>
+<area shape="rect" id="node1" href="./StringQuartet.html" title="&lt;TABLE&gt;" alt="" coords="5,5,117,53"/>
+<area shape="rect" id="node2_1" href="./ScoreMain.html" title="com.rockhoppertech.music.examples.score.ScoreMain" alt="" coords="152,17,229,42"/>
+<area shape="rect" id="node2" href="./ScoreMain.html" title="&lt;TABLE&gt;" alt="" coords="141,5,240,53"/>
+<area shape="rect" id="node3_2" href="./ReadWriteMIDIFile.html" title="com.rockhoppertech.music.examples.score.ReadWriteMIDIFile" alt="" coords="275,17,397,42"/>
+<area shape="rect" id="node3" href="./ReadWriteMIDIFile.html" title="&lt;TABLE&gt;" alt="" coords="265,5,407,53"/>
+<area shape="rect" id="node4_3" href="./ReadMIDIFIle.html" title="com.rockhoppertech.music.examples.score.ReadMIDIFIle" alt="" coords="443,17,536,42"/>
+<area shape="rect" id="node4" href="./ReadMIDIFIle.html" title="&lt;TABLE&gt;" alt="" coords="432,5,547,53"/>
+<area shape="rect" id="node5_4" href="./PlayMIDIFile.html" title="com.rockhoppertech.music.examples.score.PlayMIDIFile" alt="" coords="581,17,669,42"/>
+<area shape="rect" id="node5" href="./PlayMIDIFile.html" title="&lt;TABLE&gt;" alt="" coords="571,5,680,53"/>
+<area shape="rect" id="node6_5" href="./FromIntervals.html" title="com.rockhoppertech.music.examples.score.FromIntervals" alt="" coords="715,17,808,42"/>
+<area shape="rect" id="node6" href="./FromIntervals.html" title="&lt;TABLE&gt;" alt="" coords="704,5,819,53"/>
+</map>

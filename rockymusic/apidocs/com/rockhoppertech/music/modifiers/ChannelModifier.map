@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../midi/js/MIDINote.html" title="com.rockhoppertech.music.midi.js.MIDINote" alt="" coords="15,203,174,242"/>
+<area shape="rect" id="node1" href="../midi/js/MIDINote.html" title="&lt;TABLE&gt;" alt="" coords="5,198,185,247"/>
+<area shape="rect" id="node2_1" href="./ChannelModifier.html" title="com.rockhoppertech.music.modifiers.ChannelModifier" alt="" coords="41,113,148,138"/>
+<area shape="rect" id="node2" href="./ChannelModifier.html" title="&lt;TABLE&gt;" alt="" coords="31,101,159,149"/>
+<area shape="rect" id="node3_2" href="./AbstractMIDINoteModifier.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" alt="" coords="16,17,173,42"/>
+<area shape="rect" id="node3" href="./AbstractMIDINoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,5,184,53"/>
+</map>
