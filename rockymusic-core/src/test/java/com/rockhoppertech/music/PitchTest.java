@@ -23,10 +23,8 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
 import java.util.List;
 import java.util.Set;
-
 
 import org.junit.Test;
 
@@ -41,17 +39,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.hamcrest.Matchers.*;
-//import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import static com.rockhoppertech.music.Pitch.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class PitchTest {
     private static final Logger logger = LoggerFactory
             .getLogger(PitchTest.class);
+
     // private Logger logger = LoggerFactory.getLogger(PitchTest.class);
 
     /**
@@ -62,74 +60,74 @@ public class PitchTest {
         Pitch p = new Pitch();
         assertNotNull(p);
         assertEquals(p.getMidiNumber(),
-                     0);
+                0);
     }
-    
+
     @Test
     public void isSharp() {
         boolean b = Pitch.isSharp("Cs");
         assertThat("should be sharp",
-                   b,
-                   equalTo(true));
+                b,
+                equalTo(true));
         b = Pitch.isSharp("C#");
         assertThat("should be sharp",
-                   b,
-                   equalTo(true));
+                b,
+                equalTo(true));
         b = Pitch.isSharp("Cx");
         assertThat("should be sharp",
-                   b,
-                   equalTo(true));
-        
+                b,
+                equalTo(true));
+
         b = Pitch.isSharp("C");
         assertThat("should not be sharp",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isSharp("C1");
         assertThat("should not be sharp",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isSharp("Cf");
         assertThat("should not be sharp",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isSharp("Cb");
         assertThat("should not be sharp",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
     }
-    
+
     @Test
     public void isFlat() {
         boolean b = Pitch.isFlat("C-");
         assertThat("should be flat",
-                   b,
-                   equalTo(true));
-        
+                b,
+                equalTo(true));
+
         b = Pitch.isFlat("Cb");
         assertThat("should be flat",
-                   b,
-                   equalTo(true));
+                b,
+                equalTo(true));
         b = Pitch.isFlat("Cf");
         assertThat("should be flat",
-                   b,
-                   equalTo(true));
-        
+                b,
+                equalTo(true));
+
         b = Pitch.isFlat("C");
         assertThat("should not be flat",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isFlat("C1");
         assertThat("should not be flat",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isFlat("Cs");
         assertThat("should not be flat",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
         b = Pitch.isFlat("C#");
         assertThat("should not be flat",
-                   b,
-                   equalTo(false));
+                b,
+                equalTo(false));
     }
 
     /**
@@ -140,18 +138,19 @@ public class PitchTest {
         Pitch p = new Pitch(60);
         assertNotNull(p);
         assertEquals(p.getMidiNumber(),
-                     60);
+                60);
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pitch#Pitch(java.lang.String)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pitch#Pitch(java.lang.String)}.
      */
     @Test
     public void testPitchString() {
         Pitch p = new Pitch("C5");
         assertNotNull(p);
         assertEquals(p.getMidiNumber(),
-                     60);
+                60);
     }
 
     /**
@@ -159,13 +158,13 @@ public class PitchTest {
      */
     @Test
     public void testGetFrequency() {
-        Pitch p = new Pitch(69);
+        Pitch p = new Pitch(Pitch.A5);
 
         // logger.debug("fq is {}",p.getFrequency());
-        assertNotNull(p);
-        assertEquals(p.getFrequency(),
-                     440d,
-                     0d);
+        assertThat("The pitch is not null.", p, notNullValue());
+        assertThat("the frequency is correct",
+                p.getFrequency(),
+                equalTo(440d));
     }
 
     /**
@@ -176,18 +175,19 @@ public class PitchTest {
         Pitch p = new Pitch(60);
         assertNotNull(p);
         assertEquals(60,
-                     p.getMidiNumber());
+                p.getMidiNumber());
         p = p.transpose(1);
         assertEquals(61,
-                     p.getMidiNumber());
+                p.getMidiNumber());
         p = p.transpose(Pitch.MAJOR_SEVENTH);
         assertEquals(72,
-                     p.getMidiNumber());
+                p.getMidiNumber());
 
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pitch#equals(java.lang.Object)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pitch#equals(java.lang.Object)}.
      */
     @Test
     public void testEqualsObject() {
@@ -196,7 +196,7 @@ public class PitchTest {
         Pitch p2 = new Pitch(60);
         assertNotNull(p2);
         assertEquals(p,
-                     p2);
+                p2);
     }
 
     /**
@@ -214,16 +214,17 @@ public class PitchTest {
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pitch#midiFq(double, double)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pitch#midiFq(double, double)}.
      */
     @Test
     public void testMidiFqDoubleDouble() {
         double fq = Pitch.midiFq(9d,
-                                 5);
+                5);
         // logger.debug("fq is {}",fq);
         assertEquals(fq,
-                     440d,
-                     0d);
+                440d,
+                0d);
     }
 
     /**
@@ -235,12 +236,13 @@ public class PitchTest {
         double fq = Pitch.midiFq(midiNumber);
         // logger.debug("fq is {}",fq);
         assertEquals(fq,
-                     261.625,
-                     .01);
+                261.625,
+                .01);
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Pitch#compareTo(java.lang.Object)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.Pitch#compareTo(java.lang.Object)}.
      */
     @Test
     public void testCompareTo() {
@@ -264,65 +266,65 @@ public class PitchTest {
         // assertThat(syns, anyOf(hasItem("color"), hasItem("colour")));
 
         assertThat(syns,
-                   hasItem("Db"));
+                hasItem("Db"));
         assertThat(syns,
-                   hasItem("Df"));
+                hasItem("Df"));
         assertThat(syns,
-                   hasItem("Cs"));
+                hasItem("Cs"));
         assertThat(syns,
-                   hasItem("C#"));
+                hasItem("C#"));
     }
 
     @Test
     public void getSynonyms() {
         Pitch p = PitchFactory.getPitch("Db");
         assertThat("pitch is not null",
-                   p,
-                   notNullValue());
+                p,
+                notNullValue());
         for (String s : p.getSynonyms()) {
             logger.debug(s);
         }
         Set<String> syns = p.getSynonyms();
         int expectedSize = 11;
         assertThat("syns are not null",
-                   syns,
-                   notNullValue());
+                syns,
+                notNullValue());
         assertThat("syns are the right size",
-                   syns.size(),
-                   equalTo(expectedSize));
+                syns.size(),
+                equalTo(expectedSize));
         assertThat("C#5 is a possible name",
-                   syns,
-                   hasItem("C#5"));
+                syns,
+                hasItem("C#5"));
         assertThat("CS5 is a possible name",
-                   syns,
-                   hasItem("CS5"));
+                syns,
+                hasItem("CS5"));
         assertThat("CS5 is a possible name",
-                   syns,
-                   hasItem("Cs5"));
+                syns,
+                hasItem("Cs5"));
         assertThat("DB5 is a possible name",
-                   syns,
-                   hasItem("DB5"));
+                syns,
+                hasItem("DB5"));
         assertThat("DF5 is a possible name",
-                   syns,
-                   hasItem("DF5"));
+                syns,
+                hasItem("DF5"));
         assertThat("Db5 is a possible name",
-                   syns,
-                   hasItem("Db5"));
+                syns,
+                hasItem("Db5"));
         assertThat("Df5 is a possible name",
-                   syns,
-                   hasItem("Df5"));
+                syns,
+                hasItem("Df5"));
         assertThat("c#5 is a possible name",
-                   syns,
-                   hasItem("c#5"));
+                syns,
+                hasItem("c#5"));
         assertThat("cs5 is a possible name",
-                   syns,
-                   hasItem("cs5"));
+                syns,
+                hasItem("cs5"));
         assertThat("db5 is a possible name",
-                   syns,
-                   hasItem("db5"));
+                syns,
+                hasItem("db5"));
         assertThat("df5 is a possible name",
-                   syns,
-                   hasItem("df5"));
+                syns,
+                hasItem("df5"));
     }
 
     @Test
@@ -330,44 +332,44 @@ public class PitchTest {
         Set<String> syns = Pitch.getSynonyms(CS5);
         int expectedSize = 11;
         assertThat("syns are not null",
-                   syns,
-                   notNullValue());
+                syns,
+                notNullValue());
         assertThat("syns are the right size",
-                   syns.size(),
-                   equalTo(expectedSize));
+                syns.size(),
+                equalTo(expectedSize));
         assertThat("C#5 is a possible name",
-                   syns,
-                   hasItem("C#5"));
+                syns,
+                hasItem("C#5"));
         assertThat("CS5 is a possible name",
-                   syns,
-                   hasItem("CS5"));
+                syns,
+                hasItem("CS5"));
         assertThat("CS5 is a possible name",
-                   syns,
-                   hasItem("Cs5"));
+                syns,
+                hasItem("Cs5"));
         assertThat("DB5 is a possible name",
-                   syns,
-                   hasItem("DB5"));
+                syns,
+                hasItem("DB5"));
         assertThat("DF5 is a possible name",
-                   syns,
-                   hasItem("DF5"));
+                syns,
+                hasItem("DF5"));
         assertThat("Db5 is a possible name",
-                   syns,
-                   hasItem("Db5"));
+                syns,
+                hasItem("Db5"));
         assertThat("Df5 is a possible name",
-                   syns,
-                   hasItem("Df5"));
+                syns,
+                hasItem("Df5"));
         assertThat("c#5 is a possible name",
-                   syns,
-                   hasItem("c#5"));
+                syns,
+                hasItem("c#5"));
         assertThat("cs5 is a possible name",
-                   syns,
-                   hasItem("cs5"));
+                syns,
+                hasItem("cs5"));
         assertThat("db5 is a possible name",
-                   syns,
-                   hasItem("db5"));
+                syns,
+                hasItem("db5"));
         assertThat("df5 is a possible name",
-                   syns,
-                   hasItem("df5"));
+                syns,
+                hasItem("df5"));
 
         for (String name : syns) {
             logger.debug(name);
@@ -376,17 +378,17 @@ public class PitchTest {
         expectedSize = 2;
         syns = Pitch.getSynonyms(C5);
         assertThat("syns are not null",
-                   syns,
-                   notNullValue());
+                syns,
+                notNullValue());
         assertThat("syns are the right size",
-                   syns.size(),
-                   equalTo(expectedSize));
+                syns.size(),
+                equalTo(expectedSize));
         assertThat("C5 is a possible name",
-                   syns,
-                   hasItem("C5"));
+                syns,
+                hasItem("C5"));
         assertThat("C5 is a possible name",
-                   syns,
-                   hasItem("c5"));
+                syns,
+                hasItem("c5"));
         for (String name : syns) {
             logger.debug(name);
         }
@@ -398,7 +400,7 @@ public class PitchTest {
 
         for (int i = Pitch.C0; i < Pitch.C1; i += Interval.MINOR_SECOND) {
             Pitch p = PitchFactory.getPitch(i);
-            logger.debug("Pitch {}",p);
+            logger.debug("Pitch {}", p);
         }
     }
 }
