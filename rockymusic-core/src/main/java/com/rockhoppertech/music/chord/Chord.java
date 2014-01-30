@@ -1117,7 +1117,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
             this.setInversion(6);
             break;
         default:
-            System.err.println("WTF? degree=" + degree);
+            logger.error("WTF? degree=" + degree);
         }
     }
 

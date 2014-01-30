@@ -76,6 +76,24 @@ import com.rockhoppertech.music.modifiers.VelocityModifier;
 
 public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
+    private static final class AscendingPitchComparator implements
+            Comparator<MIDINote>, Serializable {
+        /**
+         * Serialization.
+         */
+        private static final long serialVersionUID = 171644120355550199L;
+
+        @Override
+        public int compare(MIDINote o1, MIDINote o2) {
+            if (o1.getMidiNumber() > o2.getMidiNumber()) {
+                return 1;
+            } else if (o1.getMidiNumber() < o2.getMidiNumber()) {
+                return -1;
+            }
+            return 0;
+        }
+    }
+
     /**
      * For serializaiton.
      */
@@ -883,17 +901,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * is useful for chord production.
      */
     public void sortByAscendingPitches() {
-        Comparator<MIDINote> comp = new Comparator<MIDINote>() {
-            @Override
-            public int compare(MIDINote o1, MIDINote o2) {
-                if (o1.getMidiNumber() > o2.getMidiNumber()) {
-                    return 1;
-                } else if (o1.getMidiNumber() < o2.getMidiNumber()) {
-                    return -1;
-                }
-                return 0;
-            }
-        };
+        Comparator<MIDINote> comp = new AscendingPitchComparator();
         Collections.sort(notes, comp);
     }
 
