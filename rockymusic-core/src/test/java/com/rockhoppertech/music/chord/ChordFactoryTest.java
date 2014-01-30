@@ -453,14 +453,14 @@ public class ChordFactoryTest {
 		String[] symbols = null;
 		Scale scale = null;
 
-		System.err.println("Major");
+		logger.debug("Major");
 		scale = ScaleFactory.createFromName("Major");
 		assertNotNull(scale);
-		System.err.println(scale);
+		logger.debug("scale \n{}",scale);
 		symbols = ChordFactory.getChordSymbols(scale);
 		assertNotNull(symbols);
 		for (String s : symbols) {
-			System.err.println(s);
+			logger.debug(s);
 		}
 		assertThat(symbols.length, equalTo(scale.getIntervals().length));
 		assertThat(symbols[0], equalTo("maj"));
@@ -471,14 +471,14 @@ public class ChordFactoryTest {
 		assertThat(symbols[5], equalTo("m"));
 		assertThat(symbols[6], equalTo("dim"));
 
-		System.err.println("Harmonic Minor");
+		logger.debug("Harmonic Minor");
 		scale = ScaleFactory.createFromName("Harmonic Minor");
 		assertNotNull(scale);
-		System.err.println(scale);
+		logger.debug("scale \n{}",scale);
 		symbols = ChordFactory.getChordSymbols(scale);
 		assertNotNull(symbols);
 		for (String s : symbols) {
-			System.err.println(s);
+			logger.debug(s);
 		}
 		assertThat(symbols.length, equalTo(7));
 		assertThat(symbols[0], equalTo("m"));
@@ -489,14 +489,14 @@ public class ChordFactoryTest {
 		assertThat(symbols[5], equalTo("maj"));
 		assertThat(symbols[6], equalTo("dim"));
 
-		System.err.println("Melodic Minor");
+		logger.debug("Melodic Minor");
 		scale = ScaleFactory.createFromName("Melodic Minor");
 		assertNotNull(scale);
-		System.err.println(scale);
+		logger.debug("scale \n{}",scale);
 		symbols = ChordFactory.getChordSymbols(scale);
 		assertNotNull(symbols);
 		for (String s : symbols) {
-			System.err.println(s);
+			logger.debug(s);
 		}
 		assertThat(symbols.length, equalTo(7));
 		assertThat(symbols[0], equalTo("m"));
@@ -509,11 +509,11 @@ public class ChordFactoryTest {
 
 		scale = ScaleFactory.createFromName("Algerian");
 		assertNotNull(scale);
-		System.err.println(scale);
+		logger.debug("scale \n{}",scale);
 		symbols = ChordFactory.getChordSymbols(scale);
 		assertNotNull(symbols);
 		for (String s : symbols) {
-			System.err.println(s);
+			logger.debug(s);
 		}
 		assertThat(symbols.length, equalTo(scale.getIntervals().length));
 		assertThat(symbols[0], equalTo("m"));
@@ -539,7 +539,7 @@ public class ChordFactoryTest {
 		chords = ChordFactory.getSeventhChords(scale);
 		assertNotNull(chords);
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmaj7"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm7"));
@@ -555,7 +555,7 @@ public class ChordFactoryTest {
 		chords = ChordFactory.getSeventhChords(scale);
 		assertNotNull(chords);
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmin/maj7"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm7-5"));
@@ -673,7 +673,7 @@ public class ChordFactoryTest {
 		Chord[] chords = ChordFactory.getChords(scale, true, true, true, true);
 		assertThat("Chords are not null", chords, notNullValue());
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmaj13"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm13"));
@@ -699,7 +699,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		
 		assertThat("the root is correct", root, equalTo(0));
@@ -730,7 +730,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(2));
 		assertThat("the third is correct", third, equalTo(5));
@@ -763,7 +763,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(4));
 		assertThat("the third is correct", third, equalTo(7));
@@ -796,7 +796,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(5));
 		assertThat("the third is correct", third, equalTo(9));
@@ -829,7 +829,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(7));
 		assertThat("the third is correct", third, equalTo(11));
@@ -862,7 +862,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(9));
 		assertThat("the third is correct", third, equalTo(12));
@@ -895,7 +895,7 @@ public class ChordFactoryTest {
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
 		thirteenth = chord.getThirteenth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(11));
 		assertThat("the third is correct", third, equalTo(14));
@@ -927,7 +927,7 @@ public class ChordFactoryTest {
 		Chord[] chords = ChordFactory.getChords(scale, true, true, true, false);
 		assertThat("Chords are not null", chords, notNullValue());
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmaj11"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm11"));
@@ -952,7 +952,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		
 		assertThat("the root is correct", root, equalTo(0));
@@ -980,7 +980,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(2));
 		assertThat("the third is correct", third, equalTo(5));
@@ -1009,7 +1009,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(4));
 		assertThat("the third is correct", third, equalTo(7));
@@ -1038,7 +1038,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(5));
 		assertThat("the third is correct", third, equalTo(9));
@@ -1067,7 +1067,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(7));
 		assertThat("the third is correct", third, equalTo(11));
@@ -1096,7 +1096,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(9));
 		assertThat("the third is correct", third, equalTo(12));
@@ -1125,7 +1125,7 @@ public class ChordFactoryTest {
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
 		eleventh = chord.getEleventh();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(11));
 		assertThat("the third is correct", third, equalTo(14));
@@ -1155,7 +1155,7 @@ public class ChordFactoryTest {
 		Chord[] chords = ChordFactory.getChords(scale, true, true, false, false);
 		assertThat("Chords are not null", chords, notNullValue());
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmaj9"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm9"));
@@ -1179,7 +1179,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		
 		assertThat("the root is correct", root, equalTo(0));
@@ -1204,7 +1204,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(2));
 		assertThat("the third is correct", third, equalTo(5));
@@ -1229,7 +1229,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(4));
 		assertThat("the third is correct", third, equalTo(7));
@@ -1254,7 +1254,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(5));
 		assertThat("the third is correct", third, equalTo(9));
@@ -1279,7 +1279,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(7));
 		assertThat("the third is correct", third, equalTo(11));
@@ -1304,7 +1304,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(9));
 		assertThat("the third is correct", third, equalTo(12));
@@ -1329,7 +1329,7 @@ public class ChordFactoryTest {
 		fifth = chord.getFifth();
 		seventh = chord.getSeventh();
 		ninth = chord.getNinth();
-		System.err.println(String.format("%d %d %d %d %d %d %d", root, third,
+		logger.debug(String.format("%d %d %d %d %d %d %d", root, third,
 				fifth, seventh, ninth, eleventh, thirteenth));
 		assertThat("the root is correct", root, equalTo(11));
 		assertThat("the third is correct", third, equalTo(14));
@@ -1356,7 +1356,7 @@ public class ChordFactoryTest {
 		Chord[] chords = ChordFactory.getChords(scale, true, false, false, false);
 		assertThat("Chords are not null", chords, notNullValue());
 		for (Chord c : chords) {
-			System.err.println(c.getDisplayName());
+			logger.debug(c.getDisplayName());
 		}
 		assertThat(chords[0].getDisplayName(), equalTo("Cmaj7"));
 		assertThat(chords[1].getDisplayName(), equalTo("Dm7"));

@@ -352,7 +352,7 @@ public class ChordProgressionTest {
         assertThat(chord.getRoot(), equalTo(Pitch.D5));
         assertThat(chord.getSymbol(), equalTo("m"));
 
-        // System.err.println(chordProgression.getMIDINoteList());
+        // logger.debug(chordProgression.getMIDINoteList());
 
     }
 
@@ -404,7 +404,7 @@ public class ChordProgressionTest {
         assertThat(chord.getDuration(), equalTo(2d));
 
         double total = chordProgression.closeTimeline();
-        System.err.println(total);
+        logger.debug("closetimeline total {}",total);
         chord = chordProgression.get(1);
         assertThat(
                 "chord is not null",

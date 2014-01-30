@@ -30,9 +30,12 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Interval;
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.PitchFactoryTest;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
@@ -45,6 +48,8 @@ import static org.junit.Assert.*;
  * 
  */
 public class ChordTest {
+    private static final Logger logger = LoggerFactory
+            .getLogger(ChordTest.class);
 
 	// ignoring constructor tests so far
 
@@ -464,9 +469,9 @@ public class ChordTest {
 			e.printStackTrace();
 		}
 		assertNotNull(c2);
-		System.err.println(System.identityHashCode(c));
-		System.err.println(System.identityHashCode(c2));
-		System.err.println(c == c2);
+		logger.debug("identity hash {}", System.identityHashCode(c));
+		logger.debug("identity hash {}", System.identityHashCode(c2));
+		logger.debug("c == c2", c == c2);
 		assertThat(c.getInversion(), equalTo(c2.getInversion()));
 
 		assertThat(c.getInversion(), equalTo(0));
@@ -604,10 +609,10 @@ public class ChordTest {
 		list = c.createMIDITrack();
 		assertNotNull(list);
 		// assertThat(c.getInversion(), not(equalTo(c2.getInversion())));
-		System.err.println("Voiced notelist");
-		System.err.println(c);
-		System.err.println(c.getChordVoicing());
-		System.err.println(list);
+		logger.debug("Voiced notelist");
+		logger.debug("chord {}",c);
+		logger.debug(c.getChordVoicing());
+		logger.debug("list {}", list);
 		assertThat(list.size(), equalTo(3));
 		assertThat(list.get(0).getMidiNumber(), equalTo(Pitch.C0));
 		assertThat(list.get(1).getMidiNumber(), equalTo(Pitch.E0));
