@@ -80,10 +80,10 @@ digraph G {
 	c10520:p -> c10522:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
 	c10519:p -> c10478:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Note
-	c10520:p -> c10487:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Timed
 	c10520:p -> c10478:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Note
+	c10520:p -> c10487:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.NoteModifier DEPEND com.rockhoppertech.music.Note
 	c10522:p -> c10487:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }

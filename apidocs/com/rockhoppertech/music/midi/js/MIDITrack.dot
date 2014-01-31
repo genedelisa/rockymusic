@@ -205,22 +205,22 @@ digraph G {
 	c6552:p -> c6576:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.Pattern DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c6560:p -> c6576:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.modifiers.NoteModifier
-	c6576:p -> c6597:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.Pitch
 	c6576:p -> c6556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.modifiers.MIDINoteModifier
 	c6576:p -> c6601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.modifiers.NoteModifier
+	c6576:p -> c6597:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.KeySignature DEPEND com.rockhoppertech.music.Pitch
 	c6584:p -> c6556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.Instrument DEPEND com.rockhoppertech.music.Pitch
 	c6585:p -> c6556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c6588:p -> c6576:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c6590:p -> c6580:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.Pitch
 	c6590:p -> c6556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
+	c6590:p -> c6580:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.MIDINoteModifier DEPEND com.rockhoppertech.music.midi.js.MIDINote
 	c6601:p -> c6580:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.scale.ScalePattern DEPEND com.rockhoppertech.music.midi.js.MIDITrack

@@ -15,12 +15,12 @@ digraph G {
 <tr><td align="center" balign="center"> ScaleFactoryXMLHelper </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScaleFactoryXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper DEPEND org.w3c.dom.Node
-	c9726:p -> c9777:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper DEPEND org.w3c.dom.Document
+	c9726:p -> c9777:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper DEPEND org.w3c.dom.Node
 	c9726:p -> c9778:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// org.w3c.dom.Document
-	c9778 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
+	c9777 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Document </td></tr>
@@ -28,7 +28,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// org.w3c.dom.Node
-	c9777 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
+	c9778 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Node </td></tr>

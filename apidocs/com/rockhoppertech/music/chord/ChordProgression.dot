@@ -44,10 +44,10 @@ digraph G {
 		</table>>, URL="../scale/Scale.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgression NAVASSOC com.rockhoppertech.music.chord.Chord
 	c3217:p -> c3220:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.midi.js.MIDITrack
-	c3217:p -> c3244:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.scale.Scale
 	c3217:p -> c3281:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.midi.js.MIDITrack
+	c3217:p -> c3244:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c3220:p -> c3244:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.scale.Scale

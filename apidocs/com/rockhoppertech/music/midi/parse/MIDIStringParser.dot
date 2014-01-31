@@ -53,9 +53,9 @@ digraph G {
 	c6394:p -> c6395:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.Pitch
 	c6380:p -> c6360:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c6394:p -> c6384:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.Pitch
 	c6394:p -> c6360:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
+	c6394:p -> c6384:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 
