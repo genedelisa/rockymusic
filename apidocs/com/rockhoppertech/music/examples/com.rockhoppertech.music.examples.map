@@ -1,0 +1,16 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./TrackCreation.html" title="com.rockhoppertech.music.examples.TrackCreation" alt="" coords="15,17,110,42"/>
+<area shape="rect" id="node1" href="./TrackCreation.html" title="&lt;TABLE&gt;" alt="" coords="5,5,121,53"/>
+<area shape="rect" id="node2_1" href="./TrackAdditions.html" title="com.rockhoppertech.music.examples.TrackAdditions" alt="" coords="156,17,255,42"/>
+<area shape="rect" id="node2" href="./TrackAdditions.html" title="&lt;TABLE&gt;" alt="" coords="145,5,265,53"/>
+<area shape="rect" id="node3_2" href="./Send.html" title="com.rockhoppertech.music.examples.Send" alt="" coords="301,17,349,42"/>
+<area shape="rect" id="node3" href="./Send.html" title="&lt;TABLE&gt;" alt="" coords="289,5,361,53"/>
+<area shape="rect" id="node4_3" href="./PatternFactoryExample.html" title="com.rockhoppertech.music.examples.PatternFactoryExample" alt="" coords="397,17,542,42"/>
+<area shape="rect" id="node4" href="./PatternFactoryExample.html" title="&lt;TABLE&gt;" alt="" coords="386,5,553,53"/>
+<area shape="rect" id="node5_4" href="./MIDIUtilRuns.html" title="com.rockhoppertech.music.examples.MIDIUtilRuns" alt="" coords="588,17,679,42"/>
+<area shape="rect" id="node5" href="./MIDIUtilRuns.html" title="&lt;TABLE&gt;" alt="" coords="577,5,689,53"/>
+<area shape="rect" id="node6_5" href="./IntervalExample.html" title="com.rockhoppertech.music.examples.IntervalExample" alt="" coords="725,17,830,42"/>
+<area shape="rect" id="node6" href="./IntervalExample.html" title="&lt;TABLE&gt;" alt="" coords="714,5,841,53"/>
+<area shape="rect" id="node7_6" href="./Chords.html" title="com.rockhoppertech.music.examples.Chords" alt="" coords="876,17,935,42"/>
+<area shape="rect" id="node7" href="./Chords.html" title="&lt;TABLE&gt;" alt="" coords="865,5,945,53"/>
+</map>

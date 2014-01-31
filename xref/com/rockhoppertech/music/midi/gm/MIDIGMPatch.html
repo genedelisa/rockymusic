@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>MIDIGMPatch xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/com/rockhoppertech/music/midi/gm/MIDIGMPatch.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> com.rockhoppertech.music.midi.gm;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * #%L</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> * Rocky Music Core</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * %%</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * Copyright (C) 1996 - 2013 Rockhopper Technologies</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_comment"> * %%</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_comment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_comment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_comment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_comment"> * </em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_comment"> *      <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_comment"> * </em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_comment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_comment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_comment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_comment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_comment"> * #L%</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_comment"> */</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <strong class="jxr_keyword">import</strong> java.util.EnumSet;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment"> * An update to MIDIUtils' and MIDIInstrument's hashmap chacha.</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * Compare</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> * &lt;pre&gt;</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> * int program = MIDIInstrument.getPatchNumber(MIDIInstrument.BARISAX_PATCH);</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * to</em>
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * import static com.rockhoppertech.music.midi.gm.MIDIGMPatch.*;</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * int program = BARISAX.getProgram();</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * or even</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * new MIDINote(BARISAX, etc.</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * &lt;/pre&gt;</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:gene@rockhoppertech.com" target="alexandria_uri">mailto:gene@rockhoppertech.com</a>"&gt;Gene De Lisa&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * @see &lt;a href="<a href="http://www.midi.org/about-midi/gm/gm1sound.shtml" target="alexandria_uri">http://www.midi.org/about-midi/gm/gm1sound.shtml</a>"&gt;The GM</em>
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> *      spec.&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">public</strong> enum <a href="../../../../../com/rockhoppertech/music/midi/gm/MIDIGMPatch.html">MIDIGMPatch</a> {
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      PIANO(<span class="jxr_string">"Piano"</span>, 0),
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      BRITEPIANO(<span class="jxr_string">"BritePiano"</span>, 1),
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>      HAMMERPIANO(<span class="jxr_string">"HammerPiano"</span>, 2),
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>      HONKEYTONK(<span class="jxr_string">"HonkeyTonk"</span>, 3),
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      NEWTINES(<span class="jxr_string">"NewTines"</span>, 4),
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      DIGIPIANO(<span class="jxr_string">"DigiPiano"</span>, 5),
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>      HARPSICORD(<span class="jxr_string">"Harpsicord"</span>, 6),
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>      CLAV(<span class="jxr_string">"Clav"</span>, 7),
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>      CELESTA(<span class="jxr_string">"Celesta"</span>, 8),
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>      GLOCKEN(<span class="jxr_string">"Glocken"</span>, 9),
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>      MUSICBOX(<span class="jxr_string">"MusicBox"</span>, 10),
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      VIBES(<span class="jxr_string">"Vibes"</span>, 11),
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      MARIMBA(<span class="jxr_string">"Marimba"</span>, 12),
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      XYLOPHON(<span class="jxr_string">"Xylophon"</span>, 13),
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      TUBULAR(<span class="jxr_string">"Tubular"</span>, 14),
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      DULCIMER(<span class="jxr_string">"Dulcimer"</span>, 15),
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      FULLORGAN(<span class="jxr_string">"FullOrgan"</span>, 16),
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>      PERCORGAN(<span class="jxr_string">"PercOrgan"</span>, 17),
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      BX3ORGAN(<span class="jxr_string">"BX3Organ"</span>, 18),
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      CHURCHPIPE(<span class="jxr_string">"ChurchPipe"</span>, 19),
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>      POSITIVE(<span class="jxr_string">"Positive"</span>, 20),
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>      MUSETTE(<span class="jxr_string">"Musette"</span>, 21),
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      HARMONICA(<span class="jxr_string">"Harmonica"</span>, 22),
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      TANGO(<span class="jxr_string">"Tango"</span>, 23),
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      CLASSICGTR(<span class="jxr_string">"ClassicGtr"</span>, 24),
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      ACOUSTICGUITAR(<span class="jxr_string">"AcousticGuitar"</span>, 25),
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      JAZZGUITAR(<span class="jxr_string">"JazzGuitar"</span>, 26),
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      CLEANGTR(<span class="jxr_string">"CleanGtr"</span>, 27),
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      MUTEGUITAR(<span class="jxr_string">"MuteGuitar"</span>, 28),
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      OVERDRIVE(<span class="jxr_string">"OverDrive"</span>, 29),
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      DISTGUITAR(<span class="jxr_string">"DistGuitar"</span>, 30),
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      ROCKMONICS(<span class="jxr_string">"RockMonics"</span>, 31),
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      JAZZBASS(<span class="jxr_string">"JazzBass"</span>, 32),
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>      DEEPBASS(<span class="jxr_string">"DeepBass"</span>, 33),
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>      PICKBASS(<span class="jxr_string">"PickBass"</span>, 34),
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      FRETLESS(<span class="jxr_string">"FretLess"</span>, 35),
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      SLAPBASS1(<span class="jxr_string">"SlapBass1"</span>, 36),
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      SLAPBASS2(<span class="jxr_string">"SlapBass2"</span>, 37),
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>      SYNTHBASS1(<span class="jxr_string">"SynthBass1"</span>, 38),
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>      SYNTHBASS2(<span class="jxr_string">"SynthBass2"</span>, 39),
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>      VIOLIN(<span class="jxr_string">"Violin"</span>, 40),
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>      VIOLA(<span class="jxr_string">"Viola"</span>, 41),
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      CELLO(<span class="jxr_string">"Cello"</span>, 42),
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      CONTRABASS(<span class="jxr_string">"ContraBass"</span>, 43),
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>      TREMOLOSTR(<span class="jxr_string">"TremoloStr"</span>, 44),
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      PIZZICATO(<span class="jxr_string">"Pizzicato"</span>, 45),
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      HARP(<span class="jxr_string">"Harp"</span>, 46),
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>      TIMPANI(<span class="jxr_string">"Timpani"</span>, 47),
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      StringEnsemble1(<span class="jxr_string">"String Ensemble 1"</span>, 48),
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      StringEnsemble2(<span class="jxr_string">"String Ensemble 2"</span>, 49),
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>      SynthStrings1(<span class="jxr_string">"SynthStrings 1"</span>, 50),
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>      SynthStrings2(<span class="jxr_string">"SynthStrings 2"</span>, 51),
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      CHOIR(<span class="jxr_string">"Choir"</span>, 52),
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>     DOOVOICE(<span class="jxr_string">"DooVoice"</span>, 53),
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     VOICES(<span class="jxr_string">"Voices"</span>, 54),
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>     ORCHHIT(<span class="jxr_string">"OrchHit"</span>, 55),
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>     TRUMPET(<span class="jxr_string">"Trumpet"</span>, 56),
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>     TROMBONE(<span class="jxr_string">"Trombone"</span>, 57),
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     TUBA(<span class="jxr_string">"Tuba"</span>, 58),
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     MUTEDTRUMPET(<span class="jxr_string">"MutedTrumpet"</span>, 59),
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>     FRENCHHORN(<span class="jxr_string">"FrenchHorn"</span>, 60),
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     BRASS(<span class="jxr_string">"Brass"</span>, 61),
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     SYNBRASS1(<span class="jxr_string">"SynBrass1"</span>, 62),
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     SYNBRASS2(<span class="jxr_string">"SynBrass2"</span>, 63),
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     SOPRANOSAX(<span class="jxr_string">"SopranoSax"</span>, 64),
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>     ALTOSAX(<span class="jxr_string">"AltoSax"</span>, 65),
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>     TENORSAX(<span class="jxr_string">"TenorSax"</span>, 66),
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>     BARISAX(<span class="jxr_string">"BariSax"</span>, 67),
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>     OBOE(<span class="jxr_string">"Oboe"</span>, 68),
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>     ENGLISHHORN(<span class="jxr_string">"EnglishHorn"</span>, 69),
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     BASSOON(<span class="jxr_string">"Bassoon"</span>, 70),
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>     CLARINET(<span class="jxr_string">"Clarinet"</span>, 71),
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     PICCOLO(<span class="jxr_string">"Piccolo"</span>, 72),
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     FLUTE(<span class="jxr_string">"Flute"</span>, 73),
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>     RECORDER(<span class="jxr_string">"Recorder"</span>, 74),
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>     PANFLUTE(<span class="jxr_string">"PanFlute"</span>, 75),
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>     BOTTLE(<span class="jxr_string">"Bottle"</span>, 76),
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>     SHAKUHACHI(<span class="jxr_string">"Shakuhachi"</span>, 77),
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>     WHISTLE(<span class="jxr_string">"Whistle"</span>, 78),
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     OCARINA(<span class="jxr_string">"Ocarina"</span>, 79),
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>     SQUAREWAVE(<span class="jxr_string">"SquareWave"</span>, 80),
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     SAWWAVE(<span class="jxr_string">"SawWave"</span>, 81),
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     CALLIOPE(<span class="jxr_string">"Calliope"</span>, 82),
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>     SYNCHIFF(<span class="jxr_string">"SynChiff"</span>, 83),
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>     CHARANG(<span class="jxr_string">"Charang"</span>, 84),
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>     AIRCHORUS(<span class="jxr_string">"AirChorus"</span>, 85),
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>     FIFTHS(<span class="jxr_string">"fifths"</span>, 86),
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>     BASSLEAD(<span class="jxr_string">"BassLead"</span>, 87),
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     NewAgePad(<span class="jxr_string">"New Age"</span>, 88),
+<a class="jxr_linenumber" name="L136" href="#L136">136</a>     WARMPAD(<span class="jxr_string">"WarmPad"</span>, 89),
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>     POLYPAD(<span class="jxr_string">"PolyPad"</span>, 90),
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>     GHOSTPAD(<span class="jxr_string">"GhostPad"</span>, 91),
+<a class="jxr_linenumber" name="L139" href="#L139">139</a>     BOWEDGLAS(<span class="jxr_string">"BowedGlas"</span>, 92),
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>     METALPAD(<span class="jxr_string">"MetalPad"</span>, 93),
+<a class="jxr_linenumber" name="L141" href="#L141">141</a>     HALOPAD(<span class="jxr_string">"HaloPad"</span>, 94),
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>     SWEEP(<span class="jxr_string">"Sweep"</span>, 95),
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>     ICERAIN(<span class="jxr_string">"IceRain"</span>, 96),
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>     SOUNDTRACK(<span class="jxr_string">"SoundTrack"</span>, 97),
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>     CRYSTAL(<span class="jxr_string">"Crystal"</span>, 98),
+<a class="jxr_linenumber" name="L146" href="#L146">146</a>     ATMOSPHERE(<span class="jxr_string">"Atmosphere"</span>, 99),
+<a class="jxr_linenumber" name="L147" href="#L147">147</a>     BRIGHTNESS(<span class="jxr_string">"Brightness"</span>, 100),
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>     GOBLIN(<span class="jxr_string">"Goblin"</span>, 101),
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>     ECHODROP(<span class="jxr_string">"EchoDrop"</span>, 102),
+<a class="jxr_linenumber" name="L150" href="#L150">150</a>     SCIFI(<span class="jxr_string">"SciFi effect"</span>, 103),
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>     SITAR(<span class="jxr_string">"Sitar"</span>, 104),
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>     BANJO(<span class="jxr_string">"Banjo"</span>, 105),
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>     SHAMISEN(<span class="jxr_string">"Shamisen"</span>, 106),
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>     KOTO(<span class="jxr_string">"Koto"</span>, 107),
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>     KALIMBA(<span class="jxr_string">"Kalimba"</span>, 108),
+<a class="jxr_linenumber" name="L156" href="#L156">156</a>     SCOTLAND(<span class="jxr_string">"Scotland"</span>, 109),
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>     FIDDLE(<span class="jxr_string">"Fiddle"</span>, 110),
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>     SHANAI(<span class="jxr_string">"Shanai"</span>, 111),
+<a class="jxr_linenumber" name="L159" href="#L159">159</a>     METALBELL(<span class="jxr_string">"MetalBell"</span>, 112),
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>     AGOGO(<span class="jxr_string">"Agogo"</span>, 113),
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     STEELDRUMS(<span class="jxr_string">"SteelDrums"</span>, 114),
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>     WOODBLOCK(<span class="jxr_string">"Woodblock"</span>, 115),
+<a class="jxr_linenumber" name="L163" href="#L163">163</a>     TAIKO(<span class="jxr_string">"Taiko"</span>, 116),
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>     TOM(<span class="jxr_string">"Tom"</span>, 117),
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     SYNTHTOM(<span class="jxr_string">"SynthTom"</span>, 118),
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>     REVCYMBAL(<span class="jxr_string">"RevCymbal"</span>, 119),
+<a class="jxr_linenumber" name="L167" href="#L167">167</a>     FRETNOISE(<span class="jxr_string">"FretNoise"</span>, 120),
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>     NOISECHIFF(<span class="jxr_string">"NoiseChiff"</span>, 121),
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>     SEASHORE(<span class="jxr_string">"Seashore"</span>, 122),
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>     BIRDS(<span class="jxr_string">"Birds"</span>, 123),
+<a class="jxr_linenumber" name="L171" href="#L171">171</a>     TELEPHONE(<span class="jxr_string">"Telephone"</span>, 124),
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>     HELICOPTER(<span class="jxr_string">"Helicopter"</span>, 125),
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     STADIUM(<span class="jxr_string">"Stadium"</span>, 126),
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>     GUNSHOT(<span class="jxr_string">"GunShot"</span>, 127),
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>     <em class="jxr_comment">// 35-81</em>
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>     OPEN_TRIANGLE_PERC(<span class="jxr_string">"OPEN TRIANGLE"</span>, 81),
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>     COWBELL_PERC(<span class="jxr_string">"COWBELL"</span>, 56),
+<a class="jxr_linenumber" name="L179" href="#L179">179</a>     HI_BONGO_PERC(<span class="jxr_string">"HI_BONGO"</span>, 60),
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>     LOW_FLOOR_TOM_PERC(<span class="jxr_string">"LOW_FLOOR_TOM"</span>, 41),
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     CABASA_PERC(<span class="jxr_string">"CABASA"</span>, 69),
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     LOW_WOOD_BLOCK_PERC(<span class="jxr_string">"LOW_WOOD_BLOCK"</span>, 77),
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>     RIDE_BELL_PERC(<span class="jxr_string">"RIDE_BELL"</span>, 53),
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>     ELECTRIC_SNARE_PERC(<span class="jxr_string">"ELECTRIC_SNARE"</span>, 40),
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     LONG_GUIRO_PERC(<span class="jxr_string">"LONG_GUIRO"</span>, 74),
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>     CRASH_CYMBAL_1_PERC(<span class="jxr_string">"CRASH_CYMBAL_1"</span>, 49),
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>     MUTE_CUICA_PERC(<span class="jxr_string">"MUTE_CUICA"</span>, 78),
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>     HAND_CLAP_PERC(<span class="jxr_string">"HAND_CLAP"</span>, 39),
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>     HIGH_FLOOR_TOM_PERC(<span class="jxr_string">"HIGH_FLOOR_TOM"</span>, 43),
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>     ACOUSTIC_BASS_DRUM_PERC(<span class="jxr_string">"ACOUSTIC_BASS_DRUM"</span>, 35),
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     LOW_TOM_PERC(<span class="jxr_string">"LOW_TOM"</span>, 45),
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>     SHORT_GUIRO_PERC(<span class="jxr_string">"SHORT_GUIRO"</span>, 73),
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     HI_WOOD_BLOCK_PERC(<span class="jxr_string">"HI_WOOD_BLOCK"</span>, 76),
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>     LOW_TIMBALE_PERC(<span class="jxr_string">"LOW_TIMBALE"</span>, 66),
+<a class="jxr_linenumber" name="L195" href="#L195">195</a>     LOW_AGOGO_PERC(<span class="jxr_string">"LOW_AGOGO"</span>, 68),
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>     MUTE_TRIANGLE_PERC(<span class="jxr_string">"MUTE_TRIANGLE"</span>, 80),
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>     OPEN_HI_CONGA_PERC(<span class="jxr_string">"OPEN_HI_CONGA"</span>, 63),
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>     MUTE_HI_CONGA_PERC(<span class="jxr_string">"MUTE_HI_CONGA"</span>, 62),
+<a class="jxr_linenumber" name="L199" href="#L199">199</a>     TAMBOURINE_PERC(<span class="jxr_string">"TAMBOURINE"</span>, 54),
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>     PEDAL_HI_HAT_PERC(<span class="jxr_string">"PEDAL_HI_HAT"</span>, 44),
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>     HIGH_TOM_PERC(<span class="jxr_string">"HIGH_TOM"</span>, 50),
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>     SPLASH_CYMBAL_PERC(<span class="jxr_string">"SPLASH_CYMBAL"</span>, 55),
+<a class="jxr_linenumber" name="L203" href="#L203">203</a>     BASS_DRUM_1_PERC(<span class="jxr_string">"BASS_DRUM_1"</span>, 36),
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>     SHORT_WHISTLE_PERC(<span class="jxr_string">"SHORT_WHISTLE"</span>, 71),
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     MARACAS_PERC(<span class="jxr_string">"MARACAS"</span>, 70),
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>     OPEN_CUICA_PERC(<span class="jxr_string">"OPEN_CUICA"</span>, 79),
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>     RIDE_CYMBAL_1_PERC(<span class="jxr_string">"RIDE_CYMBAL_1"</span>, 51),
+<a class="jxr_linenumber" name="L208" href="#L208">208</a>     HI_MID_TOM_PERC(<span class="jxr_string">"HI_MID_TOM"</span>, 48),
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>     LOW_MID_TOM_PERC(<span class="jxr_string">"LOW_MID_TOM"</span>, 47),
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>     CLOSED_HI_HAT_PERC(<span class="jxr_string">"CLOSED_HI_HAT"</span>, 42),
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>     HIGH_TIMBALE_PERC(<span class="jxr_string">"HIGH_TIMBALE"</span>, 65),
+<a class="jxr_linenumber" name="L212" href="#L212">212</a>     CRASH_CYMBAL_2_PERC(<span class="jxr_string">"CRASH_CYMBAL_2"</span>, 57),
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>     VIBRASLAP_PERC(<span class="jxr_string">"VIBRASLAP"</span>, 58),
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     LONG_WHISTLE_PERC(<span class="jxr_string">"LONG_WHISTLE"</span>, 72),
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>     RIDE_CYMBAL_2_PERC(<span class="jxr_string">"RIDE_CYMBAL_2"</span>, 59),
+<a class="jxr_linenumber" name="L216" href="#L216">216</a>     LOW_BONGO_PERC(<span class="jxr_string">"LOW_BONGO"</span>, 61),
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>     CHINESE_CYMBAL_PERC(<span class="jxr_string">"CHINESE_CYMBAL"</span>, 52),
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     HIGH_AGOGO_PERC(<span class="jxr_string">"HIGH_AGOGO"</span>, 67),
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>     SIDE_STICK_PERC(<span class="jxr_string">"SIDE_STICK"</span>, 37),
+<a class="jxr_linenumber" name="L220" href="#L220">220</a>     CLAVES_PERC(<span class="jxr_string">"CLAVES"</span>, 75),
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>     OPEN_HI_HAT_PERC(<span class="jxr_string">"OPEN_HI_HAT"</span>, 46),
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     ACOUSTIC_SNARE_PERC(<span class="jxr_string">"ACOUSTIC_SNARE"</span>, 38),
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>     LOW_CONGA_PERC(<span class="jxr_string">"LOW_CONGA"</span>, 64);
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> 
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>     <strong class="jxr_keyword">int</strong> p;
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     String name;
+<a class="jxr_linenumber" name="L227" href="#L227">227</a> 
+<a class="jxr_linenumber" name="L228" href="#L228">228</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L229" href="#L229">229</a> <em class="jxr_javadoccomment">     * @param name</em>
+<a class="jxr_linenumber" name="L230" href="#L230">230</a> <em class="jxr_javadoccomment">     * @param p</em>
+<a class="jxr_linenumber" name="L231" href="#L231">231</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L232" href="#L232">232</a>     <a href="../../../../../com/rockhoppertech/music/midi/gm/MIDIGMPatch.html">MIDIGMPatch</a>(String name, <strong class="jxr_keyword">int</strong> p) {
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>         <strong class="jxr_keyword">this</strong>.p = p;
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>         <strong class="jxr_keyword">this</strong>.name = name;
+<a class="jxr_linenumber" name="L235" href="#L235">235</a> 
+<a class="jxr_linenumber" name="L236" href="#L236">236</a>     }
+<a class="jxr_linenumber" name="L237" href="#L237">237</a> 
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L239" href="#L239">239</a> <em class="jxr_javadoccomment">     * @return the program</em>
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getProgram() {
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>         <strong class="jxr_keyword">return</strong> p;
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>     }
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L246" href="#L246">246</a> <em class="jxr_javadoccomment">     * @return the name</em>
+<a class="jxr_linenumber" name="L247" href="#L247">247</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L248" href="#L248">248</a>     <strong class="jxr_keyword">public</strong> String getName() {
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>         <strong class="jxr_keyword">return</strong> name;
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>     }
+<a class="jxr_linenumber" name="L251" href="#L251">251</a> 
+<a class="jxr_linenumber" name="L252" href="#L252">252</a>     <em class="jxr_comment">// static EnumMap&lt;MIDIGMPatch, String&gt; map = new EnumMap&lt;MIDIGMPatch,</em>
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>     <em class="jxr_comment">// String&gt;(</em>
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>     <em class="jxr_comment">// MIDIGMPatch.class);</em>
+<a class="jxr_linenumber" name="L255" href="#L255">255</a> 
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>     <em class="jxr_comment">// families</em>
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L258" href="#L258">258</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L259" href="#L259">259</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; pianos;
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L262" href="#L262">262</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L263" href="#L263">263</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L264" href="#L264">264</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; chromaticPercussion;
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; organ;
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L270" href="#L270">270</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; guitar;
+<a class="jxr_linenumber" name="L273" href="#L273">273</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; bass;
+<a class="jxr_linenumber" name="L277" href="#L277">277</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; strings;
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L282" href="#L282">282</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; ensemble;
+<a class="jxr_linenumber" name="L285" href="#L285">285</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L286" href="#L286">286</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; brass;
+<a class="jxr_linenumber" name="L289" href="#L289">289</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L292" href="#L292">292</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; reed;
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L294" href="#L294">294</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L295" href="#L295">295</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; pipe;
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L299" href="#L299">299</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; synthLead;
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L302" href="#L302">302</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; synthPad;
+<a class="jxr_linenumber" name="L305" href="#L305">305</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; synthEffects;
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; ethnic;
+<a class="jxr_linenumber" name="L313" href="#L313">313</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; percussive;
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L318" href="#L318">318</a> <em class="jxr_javadoccomment">	 * </em>
+<a class="jxr_linenumber" name="L319" href="#L319">319</a> <em class="jxr_javadoccomment">	 */</em>
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; soundEffects;
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L322" href="#L322">322</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L323" href="#L323">323</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; percussion;
+<a class="jxr_linenumber" name="L325" href="#L325">325</a> 
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L328" href="#L328">328</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L329" href="#L329">329</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">volatile</strong> EnumSet&lt;MIDIGMPatch&gt; allPitched;
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> 
+<a class="jxr_linenumber" name="L331" href="#L331">331</a>     ;
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> 
+<a class="jxr_linenumber" name="L333" href="#L333">333</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the piano patches</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getPianos() {
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>         <strong class="jxr_keyword">if</strong> (pianos == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>             pianos = EnumSet.range(MIDIGMPatch.PIANO,
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>                     MIDIGMPatch.CLAV);
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>         }
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>         <strong class="jxr_keyword">return</strong> pianos;
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>     }
+<a class="jxr_linenumber" name="L343" href="#L343">343</a> 
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L345" href="#L345">345</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L346" href="#L346">346</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the percussion patches</em>
+<a class="jxr_linenumber" name="L347" href="#L347">347</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getChromaticPercussion() {
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>         <strong class="jxr_keyword">if</strong> (chromaticPercussion == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>             chromaticPercussion = EnumSet.range(MIDIGMPatch.CELESTA,
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>                     MIDIGMPatch.DULCIMER);
+<a class="jxr_linenumber" name="L352" href="#L352">352</a>         }
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>         <strong class="jxr_keyword">return</strong> chromaticPercussion;
+<a class="jxr_linenumber" name="L354" href="#L354">354</a>     }
+<a class="jxr_linenumber" name="L355" href="#L355">355</a> 
+<a class="jxr_linenumber" name="L356" href="#L356">356</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     * </em>
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the organ patches</em>
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getOrgans() {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>         <strong class="jxr_keyword">if</strong> (organ == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>             organ = EnumSet.range(MIDIGMPatch.FULLORGAN,
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>                     MIDIGMPatch.TANGO);
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>         }
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>         <strong class="jxr_keyword">return</strong> organ;
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>     }
+<a class="jxr_linenumber" name="L367" href="#L367">367</a> 
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L369" href="#L369">369</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the guitar patches</em>
+<a class="jxr_linenumber" name="L370" href="#L370">370</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getGuitars() {
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>         <strong class="jxr_keyword">if</strong> (guitar == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>             guitar = EnumSet.range(MIDIGMPatch.CLASSICGTR,
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>                     MIDIGMPatch.ROCKMONICS);
+<a class="jxr_linenumber" name="L375" href="#L375">375</a>         }
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>         <strong class="jxr_keyword">return</strong> guitar;
+<a class="jxr_linenumber" name="L377" href="#L377">377</a>     }
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> 
+<a class="jxr_linenumber" name="L379" href="#L379">379</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the bass patches</em>
+<a class="jxr_linenumber" name="L381" href="#L381">381</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getBasses() {
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>         <strong class="jxr_keyword">if</strong> (bass == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>             bass = EnumSet.range(MIDIGMPatch.JAZZBASS,
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>                     MIDIGMPatch.SYNTHBASS2);
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>         }
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>         <strong class="jxr_keyword">return</strong> bass;
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>     }
+<a class="jxr_linenumber" name="L389" href="#L389">389</a> 
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L391" href="#L391">391</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the string patches</em>
+<a class="jxr_linenumber" name="L392" href="#L392">392</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getStrings() {
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>         <strong class="jxr_keyword">if</strong> (strings == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L395" href="#L395">395</a>             strings = EnumSet.range(MIDIGMPatch.VIOLIN,
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>                     MIDIGMPatch.TIMPANI);
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>             <em class="jxr_comment">// yeah. I know. Timpani. on what planet is that a stringed</em>
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>             <em class="jxr_comment">// instrument?</em>
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>         }
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>         <strong class="jxr_keyword">return</strong> strings;
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     }
+<a class="jxr_linenumber" name="L402" href="#L402">402</a> 
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the ensemble patches</em>
+<a class="jxr_linenumber" name="L405" href="#L405">405</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L406" href="#L406">406</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getEnsemble() {
+<a class="jxr_linenumber" name="L407" href="#L407">407</a>         <strong class="jxr_keyword">if</strong> (ensemble == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L408" href="#L408">408</a>             ensemble = EnumSet.range(MIDIGMPatch.StringEnsemble1,
+<a class="jxr_linenumber" name="L409" href="#L409">409</a>                     MIDIGMPatch.ORCHHIT);
+<a class="jxr_linenumber" name="L410" href="#L410">410</a>         }
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>         <strong class="jxr_keyword">return</strong> ensemble;
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>     }
+<a class="jxr_linenumber" name="L413" href="#L413">413</a> 
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L415" href="#L415">415</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the brass patches</em>
+<a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getBrass() {
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">if</strong> (brass == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>             brass = EnumSet.range(MIDIGMPatch.TRUMPET,
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>                     MIDIGMPatch.SYNBRASS2);
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>         }
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>         <strong class="jxr_keyword">return</strong> brass;
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>     }
+<a class="jxr_linenumber" name="L424" href="#L424">424</a> 
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L426" href="#L426">426</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the redd patches</em>
+<a class="jxr_linenumber" name="L427" href="#L427">427</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getReeds() {
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>         <strong class="jxr_keyword">if</strong> (reed == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>             reed = EnumSet.range(MIDIGMPatch.SOPRANOSAX,
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>                     MIDIGMPatch.CLARINET);
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>         }
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>         <strong class="jxr_keyword">return</strong> reed;
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>     }
+<a class="jxr_linenumber" name="L435" href="#L435">435</a> 
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L437" href="#L437">437</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the pipe patches</em>
+<a class="jxr_linenumber" name="L438" href="#L438">438</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getPipes() {
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>         <strong class="jxr_keyword">if</strong> (pipe == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>             pipe = EnumSet.range(MIDIGMPatch.PICCOLO,
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>                     MIDIGMPatch.OCARINA);
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>         }
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>         <strong class="jxr_keyword">return</strong> pipe;
+<a class="jxr_linenumber" name="L445" href="#L445">445</a>     }
+<a class="jxr_linenumber" name="L446" href="#L446">446</a> 
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L448" href="#L448">448</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the synth lead patches</em>
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getSynthLeads() {
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <strong class="jxr_keyword">if</strong> (synthLead == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>             synthLead = EnumSet.range(MIDIGMPatch.SQUAREWAVE,
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>                     MIDIGMPatch.BASSLEAD);
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         }
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>         <strong class="jxr_keyword">return</strong> synthLead;
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>     }
+<a class="jxr_linenumber" name="L457" href="#L457">457</a> 
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L459" href="#L459">459</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the synth pads patches</em>
+<a class="jxr_linenumber" name="L460" href="#L460">460</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getSynthPads() {
+<a class="jxr_linenumber" name="L462" href="#L462">462</a>         <strong class="jxr_keyword">if</strong> (synthPad == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>             synthPad = EnumSet.range(MIDIGMPatch.NewAgePad,
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>                     MIDIGMPatch.SWEEP);
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>         }
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>         <strong class="jxr_keyword">return</strong> synthPad;
+<a class="jxr_linenumber" name="L467" href="#L467">467</a>     }
+<a class="jxr_linenumber" name="L468" href="#L468">468</a> 
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L470" href="#L470">470</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the synth effects patches</em>
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getSynthEffects() {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <strong class="jxr_keyword">if</strong> (synthEffects == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>             synthEffects = EnumSet.range(MIDIGMPatch.ICERAIN,
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>                     MIDIGMPatch.SCIFI);
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>         }
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>         <strong class="jxr_keyword">return</strong> synthEffects;
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>     }
+<a class="jxr_linenumber" name="L479" href="#L479">479</a> 
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L481" href="#L481">481</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the ethnic patches</em>
+<a class="jxr_linenumber" name="L482" href="#L482">482</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getEthnic() {
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>         <strong class="jxr_keyword">if</strong> (ethnic == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>             ethnic = EnumSet.range(MIDIGMPatch.SITAR,
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>                     MIDIGMPatch.SHANAI);
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>         }
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>         <strong class="jxr_keyword">return</strong> ethnic;
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>     }
+<a class="jxr_linenumber" name="L490" href="#L490">490</a> 
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L492" href="#L492">492</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the percussive patches</em>
+<a class="jxr_linenumber" name="L493" href="#L493">493</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L494" href="#L494">494</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getPercussive() {
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>         <strong class="jxr_keyword">if</strong> (percussive == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L496" href="#L496">496</a>             percussive = EnumSet.range(MIDIGMPatch.METALBELL,
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>                     MIDIGMPatch.REVCYMBAL);
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>         }
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>         <strong class="jxr_keyword">return</strong> percussive;
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>     }
+<a class="jxr_linenumber" name="L501" href="#L501">501</a> 
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L503" href="#L503">503</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the percussion patches</em>
+<a class="jxr_linenumber" name="L504" href="#L504">504</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getPercussion() {
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         <strong class="jxr_keyword">if</strong> (percussion == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>             percussion = EnumSet.range(MIDIGMPatch.OPEN_TRIANGLE_PERC,
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>                     MIDIGMPatch.LOW_CONGA_PERC);
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>         }
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>         <strong class="jxr_keyword">return</strong> percussion;
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>     }
+<a class="jxr_linenumber" name="L512" href="#L512">512</a> 
+<a class="jxr_linenumber" name="L513" href="#L513">513</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L514" href="#L514">514</a> <em class="jxr_javadoccomment">     * @return an {@code EnumSet} of the sound effect patches</em>
+<a class="jxr_linenumber" name="L515" href="#L515">515</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L516" href="#L516">516</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getSoundEffects() {
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>         <strong class="jxr_keyword">if</strong> (soundEffects == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>             soundEffects = EnumSet.range(MIDIGMPatch.FRETNOISE,
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>                     MIDIGMPatch.GUNSHOT);
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>         }
+<a class="jxr_linenumber" name="L521" href="#L521">521</a>         <strong class="jxr_keyword">return</strong> soundEffects;
+<a class="jxr_linenumber" name="L522" href="#L522">522</a>     }
+<a class="jxr_linenumber" name="L523" href="#L523">523</a> 
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L525" href="#L525">525</a> <em class="jxr_javadoccomment">     * @return a set of MIDIGMPatches for non percussion insts</em>
+<a class="jxr_linenumber" name="L526" href="#L526">526</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> EnumSet&lt;MIDIGMPatch&gt; getAllPitched() {
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>         <strong class="jxr_keyword">if</strong> (allPitched == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>             allPitched = EnumSet.range(MIDIGMPatch.PIANO,
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>                     MIDIGMPatch.GUNSHOT);
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>         }
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <strong class="jxr_keyword">return</strong> allPitched;
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>     }
+<a class="jxr_linenumber" name="L534" href="#L534">534</a> 
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L536" href="#L536">536</a> <em class="jxr_javadoccomment">     * @param name the patch name</em>
+<a class="jxr_linenumber" name="L537" href="#L537">537</a> <em class="jxr_javadoccomment">     * @return a patch</em>
+<a class="jxr_linenumber" name="L538" href="#L538">538</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../com/rockhoppertech/music/midi/gm/MIDIGMPatch.html">MIDIGMPatch</a> getPatch(String name) {
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>         <a href="../../../../../com/rockhoppertech/music/midi/gm/MIDIGMPatch.html">MIDIGMPatch</a> match = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L541" href="#L541">541</a>         <strong class="jxr_keyword">for</strong> (MIDIGMPatch patch : MIDIGMPatch.values()) {
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>             <strong class="jxr_keyword">if</strong> (patch.getName().equals(name)) {
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>                 match = patch;
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>             }
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>         }
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>         <strong class="jxr_keyword">return</strong> match;
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>     }
+<a class="jxr_linenumber" name="L549" href="#L549">549</a> 
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L551" href="#L551">551</a> <em class="jxr_javadoccomment">     * Match's the supplied program with the patche's program.</em>
+<a class="jxr_linenumber" name="L552" href="#L552">552</a> <em class="jxr_javadoccomment">     * @param program the program</em>
+<a class="jxr_linenumber" name="L553" href="#L553">553</a> <em class="jxr_javadoccomment">     * @return the name</em>
+<a class="jxr_linenumber" name="L554" href="#L554">554</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String getName(<strong class="jxr_keyword">int</strong> program) {
+<a class="jxr_linenumber" name="L556" href="#L556">556</a>         String match = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>         <strong class="jxr_keyword">for</strong> (MIDIGMPatch patch : MIDIGMPatch.values()) {
+<a class="jxr_linenumber" name="L558" href="#L558">558</a>             <strong class="jxr_keyword">if</strong> (patch.getProgram() == program) {
+<a class="jxr_linenumber" name="L559" href="#L559">559</a>                 match = patch.getName();
+<a class="jxr_linenumber" name="L560" href="#L560">560</a>                 <strong class="jxr_keyword">break</strong>;
+<a class="jxr_linenumber" name="L561" href="#L561">561</a>             }
+<a class="jxr_linenumber" name="L562" href="#L562">562</a>         }
+<a class="jxr_linenumber" name="L563" href="#L563">563</a>         <strong class="jxr_keyword">return</strong> match;
+<a class="jxr_linenumber" name="L564" href="#L564">564</a>     }
+<a class="jxr_linenumber" name="L565" href="#L565">565</a>     <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L566" href="#L566">566</a> <em class="jxr_comment">     * <a href="http://www.midi.org/about-midi/gm/gm1sound.shtm" target="alexandria_uri">http://www.midi.org/about-midi/gm/gm1sound.shtm</a>l</em>
+<a class="jxr_linenumber" name="L567" href="#L567">567</a> <em class="jxr_comment">     */</em>
+<a class="jxr_linenumber" name="L568" href="#L568">568</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 1996&#x2013;2014 Rockhopper Technologies. All rights reserved.</div>
+</body>
+</html>
