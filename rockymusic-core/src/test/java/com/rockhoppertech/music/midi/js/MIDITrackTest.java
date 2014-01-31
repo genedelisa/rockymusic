@@ -313,7 +313,8 @@ public class MIDITrackTest {
 
     /**
      * Test method for
-     * {@link com.rockhoppertech.music.midi.js.MIDITrackFactory#createFromIntervals(int[], int)}
+     * {@see
+     *  com.rockhoppertech.music.midi.js.MIDITrackFactory#createFromIntervals(int[], int)}
      * .
      */
     @Test
@@ -446,9 +447,9 @@ public class MIDITrackTest {
                 notelist.size());
         MIDINote n = new MIDINote(60);
         MIDINote n2 = notelist.get(0);
-        System.out.println(n);
-        System.out.println(n2);
-        assertEquals(n,
+        logger.debug("note {}",n);
+        logger.debug("note 2 {}",n2);        
+                assertEquals(n,
                 n2);
     }
 
@@ -948,14 +949,14 @@ public class MIDITrackTest {
         notelist.sequential();
         assertEquals(2,
                 notelist.size());
-        System.out.println(notelist);
+        logger.debug("track {}",notelist);
 
         MIDITrack notelist2 = new MIDITrack();
         MIDINote nn = new MIDINote(72);
         notelist2.add(nn);
         assertEquals(1,
                 notelist2.size());
-        System.out.println(notelist2);
+        logger.debug("track2 {}",notelist2);
 
         MIDITrack merged = notelist.insertListAtIndex(notelist2,
                 1);
@@ -964,7 +965,7 @@ public class MIDITrackTest {
                 merged.size());
         assertEquals(nn,
                 merged.get(1));
-        System.out.println(merged);
+        logger.debug("merged {}",merged);
 
         merged = notelist.insertListAtIndex(notelist2,
                 0);
@@ -973,7 +974,7 @@ public class MIDITrackTest {
                 merged.size());
         assertEquals(nn,
                 merged.get(0));
-        System.out.println(merged);
+        logger.debug("merged {}",merged);
 
         merged = notelist.insertListAtIndex(notelist2,
                 2);
@@ -982,7 +983,7 @@ public class MIDITrackTest {
                 merged.size());
         assertEquals(nn,
                 merged.get(2));
-        System.out.println(merged);
+        logger.debug("merged {}",merged);
     }
 
     /**
@@ -1253,7 +1254,7 @@ public class MIDITrackTest {
     public void shoudCreateBriefMIDIString() {
         String s = testTrack.toBriefMIDIString();
         assertThat("The string is not null.", s, notNullValue());
-        System.out.println(s);
+        logger.debug("string {}",s);
         assertThat(
                 "the string's contents are correct",
                 s.trim(),
@@ -1273,7 +1274,7 @@ public class MIDITrackTest {
         sb.append("B5,1.000,1.000,64,64,0,0,0,0");
 
         // logger.debug("MIDI String: {}", s);
-        System.out.println(s);
+        logger.debug("string {}",s);
 
         assertThat("The string is not null.", s, notNullValue());
         assertThat(

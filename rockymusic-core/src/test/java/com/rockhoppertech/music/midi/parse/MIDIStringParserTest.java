@@ -1326,7 +1326,7 @@ public class MIDIStringParserTest {
 		sb.append("E G").append('\n');
 		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
-		System.out.println(track);
+		logger.debug("track {}", track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(4));
@@ -1343,7 +1343,7 @@ public class MIDIStringParserTest {
 		sb.append("E G").append('\n');
 		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
-		System.out.println(track);
+		logger.debug("track {}",track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(4));
@@ -1353,7 +1353,7 @@ public class MIDIStringParserTest {
 		sb.append("/* a b c */ E G").append('\n');
 		logger.debug("input " + sb.toString());
 		track = parser.parseString(sb.toString());
-		System.out.println(track);
+		logger.debug("track {}", track);
 		assertThat("The track is not null.", track, notNullValue());
 		assertThat("the track size is correct", track.size(),
 				equalTo(4));
