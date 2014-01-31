@@ -1334,7 +1334,7 @@
 <a class="jxr_linenumber" name="L1326" href="#L1326">1326</a> 		sb.append(<span class="jxr_string">"E G"</span>).append('\n');
 <a class="jxr_linenumber" name="L1327" href="#L1327">1327</a> 		logger.debug(<span class="jxr_string">"input "</span> + sb.toString());
 <a class="jxr_linenumber" name="L1328" href="#L1328">1328</a> 		track = parser.parseString(sb.toString());
-<a class="jxr_linenumber" name="L1329" href="#L1329">1329</a> 		System.out.println(track);
+<a class="jxr_linenumber" name="L1329" href="#L1329">1329</a> 		logger.debug(<span class="jxr_string">"track {}"</span>, track);
 <a class="jxr_linenumber" name="L1330" href="#L1330">1330</a> 		assertThat(<span class="jxr_string">"The track is not null."</span>, track, notNullValue());
 <a class="jxr_linenumber" name="L1331" href="#L1331">1331</a> 		assertThat(<span class="jxr_string">"the track size is correct"</span>, track.size(),
 <a class="jxr_linenumber" name="L1332" href="#L1332">1332</a> 				equalTo(4));
@@ -1351,7 +1351,7 @@
 <a class="jxr_linenumber" name="L1343" href="#L1343">1343</a> 		sb.append(<span class="jxr_string">"E G"</span>).append('\n');
 <a class="jxr_linenumber" name="L1344" href="#L1344">1344</a> 		logger.debug(<span class="jxr_string">"input "</span> + sb.toString());
 <a class="jxr_linenumber" name="L1345" href="#L1345">1345</a> 		track = parser.parseString(sb.toString());
-<a class="jxr_linenumber" name="L1346" href="#L1346">1346</a> 		System.out.println(track);
+<a class="jxr_linenumber" name="L1346" href="#L1346">1346</a> 		logger.debug(<span class="jxr_string">"track {}"</span>,track);
 <a class="jxr_linenumber" name="L1347" href="#L1347">1347</a> 		assertThat(<span class="jxr_string">"The track is not null."</span>, track, notNullValue());
 <a class="jxr_linenumber" name="L1348" href="#L1348">1348</a> 		assertThat(<span class="jxr_string">"the track size is correct"</span>, track.size(),
 <a class="jxr_linenumber" name="L1349" href="#L1349">1349</a> 				equalTo(4));
@@ -1361,7 +1361,7 @@
 <a class="jxr_linenumber" name="L1353" href="#L1353">1353</a> 		sb.append(<span class="jxr_string">"/* a b c */ E G"</span>).append('\n');
 <a class="jxr_linenumber" name="L1354" href="#L1354">1354</a> 		logger.debug(<span class="jxr_string">"input "</span> + sb.toString());
 <a class="jxr_linenumber" name="L1355" href="#L1355">1355</a> 		track = parser.parseString(sb.toString());
-<a class="jxr_linenumber" name="L1356" href="#L1356">1356</a> 		System.out.println(track);
+<a class="jxr_linenumber" name="L1356" href="#L1356">1356</a> 		logger.debug(<span class="jxr_string">"track {}"</span>, track);
 <a class="jxr_linenumber" name="L1357" href="#L1357">1357</a> 		assertThat(<span class="jxr_string">"The track is not null."</span>, track, notNullValue());
 <a class="jxr_linenumber" name="L1358" href="#L1358">1358</a> 		assertThat(<span class="jxr_string">"the track size is correct"</span>, track.size(),
 <a class="jxr_linenumber" name="L1359" href="#L1359">1359</a> 				equalTo(4));
