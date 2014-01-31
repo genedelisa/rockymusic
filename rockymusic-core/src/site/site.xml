@@ -33,7 +33,7 @@
 			<gitHub>
 				<projectId>genedelisa/rocky-music</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
-				<ribbonColor>darkblue</ribbonColor>
+				<ribbonColor>orange</ribbonColor>
 			</gitHub>
 			<!--  red/green/black/darkblue/orange/gray  (red by default). -->
 			
@@ -43,7 +43,7 @@
 
 	<bannerLeft>
 		<name>Rockhopper</name>
-		<src>images/rocky-scream-25.jpg</src>
+		<src>/rockymusic/images/rocky-scream-25.jpg</src>
 		<href>http://www.rockhoppertech.com/blog//</href>
 	</bannerLeft>
 
@@ -57,6 +57,18 @@
 			<item name="Rockhopper blog" href="http://rockhoppertech.com/blog" />
 		</links>
 
+		<menu name="Project dox">
+			<item name="Overview" href="/overview.html" />
+			<item name="FAQ" href="faq.html" />
+		</menu>
+		
+		<menu ref="reports" inherit = "top"/>
+				
 		<menu ref="parent" />
+		
+
+
+		
+		
 	</body>
 </project>

@@ -43,7 +43,7 @@
 
 	<bannerLeft>
 		<name>Rockhopper</name>
-		<src>images/rocky-scream-25.jpg</src>
+		<src>/images/rocky-scream-25.jpg</src>
 		<href>http://www.rockhoppertech.com/blog//</href>
 	</bannerLeft>
 
@@ -57,12 +57,14 @@
 			<item name="Rockhopper blog" href="http://rockhoppertech.com/blog" />
 		</links>
 
-		<menu ref="reports" />
+		
 
 		<menu name="Project dox">
 			<item name="Overview" href="overview.html" />
 			<item name="FAQ" href="faq.html" />
 		</menu>
+		
+		<menu ref="reports" />
 
 	</body>
 </project>
