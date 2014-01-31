@@ -31,9 +31,9 @@
 				<showFollowers>true</showFollowers>
 			</twitter>
 			<gitHub>
-				<projectId>genedelisa/rocky-music</projectId>
+				<projectId>genedelisa/rockymusic</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
-				<ribbonColor>darkblue</ribbonColor>
+				<ribbonColor>gray</ribbonColor>
 			</gitHub>
 			<!--  red/green/black/darkblue/orange/gray  (red by default). -->
 			
