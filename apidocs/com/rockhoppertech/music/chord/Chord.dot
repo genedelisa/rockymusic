@@ -62,9 +62,9 @@ digraph G {
 	c2728:p -> c2752:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.scale.Scale
 	c2728:p -> c2789:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
-	c2765:p -> c2728:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.ChordProgression
 	c2765:p -> c2725:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
+	c2765:p -> c2728:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 
