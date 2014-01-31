@@ -1075,13 +1075,13 @@ public class MIDITrackFactory {
             // Collections.sort(pattern, Collections.reverseOrder());
             patternud.addAll(pattern);
             pattern = patternud;
-            System.out.println(pattern);
+            logger.debug("pattern {}",pattern);
         }
 
         for (int oct = 0; oct < nOctaves; oct++) {
             int trans = startingMIDINumber - track.get(0).getMidiNumber();
             for (int index : pattern) {
-                System.err.println(index);
+                logger.debug("index {}",index);
                 MIDINote note = (MIDINote) track.get(index).duplicate();
                 note.transpose(trans);
                 result.add(note);
@@ -1121,13 +1121,13 @@ public class MIDITrackFactory {
             // Collections.sort(pattern, Collections.reverseOrder());
             patternud.addAll(pattern);
             pattern = patternud;
-            System.out.println(pattern);
+            logger.debug("pattern {}",pattern);
         }
 
         for (int oct = 0; oct < nOctaves; oct++) {
             int trans = startingMIDINumber - midiNumbers.get(0);
             for (int index : pattern) {
-                System.err.println(index);
+                logger.debug("index {}",index);
                 int pit = midiNumbers.get(index) + trans;
                 result.add(new MIDINote(pit));
             }

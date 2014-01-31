@@ -953,7 +953,8 @@ public class ChordFactory {
                 c.setRoot(root);
                 symbols[root] = c.getSymbol();
             } catch (UnknownChordException e) {
-               
+               // wasn't found, create and register a chord.
+                
                 logger.error(String.format("exception: %s", e.getMessage()), e);
                 if (logger.isDebugEnabled()) {
                     logger.debug(String.format("root %d intervals %s", root,
@@ -1111,20 +1112,23 @@ public class ChordFactory {
      */
     public static Chord[] getSeventhChords(Scale scale) {
         int[] intervals = scale.getIntervals();
-        Chord[] chords = new Chord[intervals.length];
+        Chord[] chords = new Chord[intervals.length+1];
         int[] intervalsX2 = ArrayFunctions.appendCopy(intervals);
+        logger.debug("chords:length {}", chords.length);
+        logger.debug("scale:length {}", scale.getLength());        
         for (int root = 0; root < scale.getLength(); root++) {
             int third = ArrayFunctions.sum(intervalsX2, root, root + 1);
             int fifth = ArrayFunctions.sum(intervalsX2, root, root + 3);
             int seventh = ArrayFunctions.sum(intervalsX2, root, root + 5);
             int[] someIntervals = { third, fifth, seventh };
-            try {
+           // try {
                 Chord c = createFromIntervals(someIntervals);
+                logger.debug("created chord {} at root {}", c, root);
                 c.setRoot(scale.getDegree(root));
                 chords[root] = c;
-            } catch (Exception e) {
-                logger.error(e.getLocalizedMessage(),e);
-            }
+//            } catch (Exception e) {
+//                logger.error(e.getLocalizedMessage(),e);
+//            }
         }
         return chords;
     }
