@@ -58,7 +58,10 @@
 	<logger name="com.rockhoppertech" level="DEBUG" />
 	<logger name="org.springframework" level="DEBUG" />
 
-	<root level="WARN">
+	<!-- http://logback.qos.ch/manual/configuration.html#defaultValuesForVariables -->
+	<!-- in Eclipse, edit the run configuration to define env variable log.level -->
+	<!-- so, for stand alone cobertura or site for example, you can turn off logging -->
+	<root level="${log.level:-debug}">
 		<appender-ref ref="STDOUT" />
 <!-- 		<appender-ref ref="RollingFile" /> -->
 	</root>
