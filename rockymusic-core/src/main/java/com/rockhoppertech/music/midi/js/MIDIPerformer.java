@@ -278,7 +278,7 @@ public class MIDIPerformer implements Runnable {
      * Otherwise it returns the system sequencer. And end of track listener is
      * set. If this.receiver is not null, it is set.
      * 
-     * @see http://java.sun.com/docs/books/tutorial/sound/MIDI-messages.html
+     * {@link http://docs.oracle.com/javase/tutorial/sound/MIDI-messages.html}
      */
     private void setupSequencer() {
         if (this.sequencerName != null) {
