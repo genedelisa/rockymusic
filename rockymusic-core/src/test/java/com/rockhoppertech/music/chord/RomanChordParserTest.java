@@ -172,7 +172,7 @@ public class RomanChordParserTest {
 
         String s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         assertThat(c.isMajor(), equalTo(true));
         assertThat(c.hasSeventh(), equalTo(true));
@@ -192,7 +192,7 @@ public class RomanChordParserTest {
         assertNotNull(c);
         String s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
         assertNotNull(c);
         assertThat(c.isDiminished(), equalTo(true));
         assertThat(c.isMajor(), equalTo(false));
@@ -213,28 +213,28 @@ public class RomanChordParserTest {
         assertNotNull(c);
         String s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "#IIdim7";
         c = RomanChordParser.getChord(roman);
         assertNotNull(c);
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "IIIm7";
         c = RomanChordParser.getChord(roman);
         assertNotNull(c);
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "VI7";
         c = RomanChordParser.getChord(roman);
         assertNotNull(c);
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         // assertEquals(7, intervals[1]);
         // assertThat(new int[] { 4, 7 }, equalTo(intervals));
@@ -254,13 +254,13 @@ public class RomanChordParserTest {
         assertThat(c.isMajor(), equalTo(true));
         String s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "II";
         c = RomanChordParser.getChord("C", roman);
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "I";
         c = RomanChordParser.getChord("D", roman);
@@ -268,7 +268,7 @@ public class RomanChordParserTest {
         assertThat(c.isMajor(), equalTo(true));
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "V";
         c = RomanChordParser.getChord("D", roman);
@@ -276,7 +276,7 @@ public class RomanChordParserTest {
         assertThat(c.isMajor(), equalTo(true));
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
         roman = "I";
         c = RomanChordParser.getChord("Bb", roman);
@@ -285,7 +285,7 @@ public class RomanChordParserTest {
 
         s = String.format("Roman='%s' dn='%s' verbose='%s'", roman, c
                 .getDisplayName(), c);
-        System.out.println(s);
+        logger.debug(s);
 
     }
 

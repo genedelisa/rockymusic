@@ -407,7 +407,7 @@ public class ChordFactory {
      * 
      * @param chord
      *            the chord instance to use
-     * @return a {@cod MIDITrack} instance
+     * @return a {@code MIDITrack} instance
      * 
      * @see Chord#createMIDITrack()
      */
@@ -491,7 +491,7 @@ public class ChordFactory {
                 n.setPitch(n.getPitch().transpose(-12));
                 logger.debug("Dropped " + n);
             } else {
-                System.err.println("Too low to drop " + n);
+                logger.error("Too low to drop {}", n);
             }
         }
         return notelist;
@@ -953,7 +953,7 @@ public class ChordFactory {
                 c.setRoot(root);
                 symbols[root] = c.getSymbol();
             } catch (UnknownChordException e) {
-                System.err.println(e);
+               
                 logger.error(String.format("exception: %s", e.getMessage()), e);
                 if (logger.isDebugEnabled()) {
                     logger.debug(String.format("root %d intervals %s", root,
@@ -967,7 +967,7 @@ public class ChordFactory {
                 ChordFactory.registerChord(c, c.getSymbol());
                 symbols[root] = c.getSymbol();
             } catch (Exception e) {
-                System.err.println(e);
+              
                 logger.error(String.format("exception: %s", e.getMessage()), e);
                 if (logger.isDebugEnabled()) {
                     logger.debug(String.format("root %d intervals %s", root,
@@ -1001,7 +1001,7 @@ public class ChordFactory {
                 c.setRoot(scale.getDegree(root));
                 chords[root] = c;
             } catch (Exception e) {
-                System.err.println(e);
+                logger.error(e.getLocalizedMessage(),e);
             }
         }
         return chords;
@@ -1024,16 +1024,16 @@ public class ChordFactory {
             int fifth = ArrayFunctions.sum(intervalsX2, degree, degree + 3);
             intervalList.add(third);
             intervalList.add(fifth);
-            System.err.println(String.format(
+            logger.debug(String.format(
                     "chordroot:%d root:%d third:%d fifth:%d", chordroot,
                     degree, third, fifth));
 
-            System.err.println("degree:" + degree);
-            System.err.println("chordroot:" + PitchFactory.getPitch(chordroot));
+            logger.debug("degree:" + degree);
+            logger.debug("chordroot:" + PitchFactory.getPitch(chordroot));
 
-            System.err.println("third:"
+            logger.debug("third:"
                     + PitchFactory.getPitch(chordroot + third));
-            System.err.println("fifth:"
+            logger.debug("fifth:"
                     + PitchFactory.getPitch(chordroot + fifth));
 
             if (seven) {
@@ -1042,13 +1042,13 @@ public class ChordFactory {
                         degree,
                         degree + 5);
                 intervalList.add(seventh);
-                System.err.println("seventh:"
+                logger.debug("seventh:"
                         + PitchFactory.getPitch(chordroot + seventh));
             }
             if (nine) {
                 int ninth = ArrayFunctions.sum(intervalsX2, degree, degree + 7);
                 intervalList.add(ninth);
-                System.err.println("ninth:"
+                logger.debug("ninth:"
                         + PitchFactory.getPitch(chordroot + ninth));
             }
             if (eleven) {
@@ -1057,33 +1057,33 @@ public class ChordFactory {
                         degree,
                         degree + 9);
                 intervalList.add(eleventh);
-                System.err.println("eleventh:"
+                logger.debug("eleventh:"
                         + PitchFactory.getPitch(chordroot + eleventh));
             }
             if (thirteen) {
                 int thirteenth = ArrayFunctions.sum(intervalsX2, degree,
                         degree + 11);
                 intervalList.add(thirteenth);
-                System.err.println("thirteenth:"
+                logger.debug("thirteenth:"
                         + PitchFactory.getPitch(chordroot + thirteenth));
             }
 
             Integer[] ints = new Integer[intervalList.size()];
             ints = intervalList.toArray(ints);
             int[] someIntervals = ArrayUtils.toPrimitive(ints);
-            System.err.println(ArrayUtils.toString(someIntervals));
+            logger.debug(ArrayUtils.toString(someIntervals));
             intervalList.clear();
             try {
                 Chord c = createFromIntervals(someIntervals);
                 c.setRoot(chordroot);
                 chords[degree] = c;
             } catch (UnknownChordException e) {
-                System.err.println(e);
-                System.err.println(String.format("%s-%d", scale.getName(),
+               
+                logger.debug(String.format("%s-%d", scale.getName(),
                         chordroot));
 
                 for (int i : someIntervals) {
-                    System.err.println(PitchFactory.getPitch(chordroot + i));
+                    logger.debug("interval {}",PitchFactory.getPitch(chordroot + i));
                 }
 
                 Chord mc = new Chord(
@@ -1095,7 +1095,7 @@ public class ChordFactory {
                 chords[degree] = mc;
 
             } catch (Exception e) {
-                System.err.println(e);
+                logger.error(e.getLocalizedMessage(),e);
             }
         }
         return chords;
@@ -1123,7 +1123,7 @@ public class ChordFactory {
                 c.setRoot(scale.getDegree(root));
                 chords[root] = c;
             } catch (Exception e) {
-                System.err.println(e);
+                logger.error(e.getLocalizedMessage(),e);
             }
         }
         return chords;
@@ -1138,17 +1138,17 @@ public class ChordFactory {
             e.printStackTrace();
             return;
         }
-        System.out.println(test);
+        logger.debug("test chord {}", test);
         test.setRoot(Pitch.C5); // now it's Cmaj7+11
         test.setDuration(2d);
-        System.out.println(test);
-        System.out.println(test.createMIDITrack());
+        logger.debug("test chord {}", test);
+        logger.debug("track {}",test.createMIDITrack());
         Chord chord = ChordFactory
                 .createFromDescription(ChordFactory.MAJOR_SEVENTH);
-        System.out.println(chord);
+        logger.debug("chord {}", chord);
         MIDITrack cmaj = ChordFactory.createMIDITrack(Pitch.C5,
                 ChordFactory.MAJOR_SEVENTH, 1d, .5, 0, 0);
-        System.out.println(cmaj);
+        logger.debug("cmaj chord {}", cmaj);
 
         // ChordFactory.displayAll();
     }

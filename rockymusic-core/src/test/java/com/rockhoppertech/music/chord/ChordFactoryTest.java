@@ -261,8 +261,8 @@ public class ChordFactoryTest {
 		assertThat(Pitch.E5, equalTo(list.get(1).getMidiNumber()));
 		assertThat(Pitch.G5, equalTo(list.get(2).getMidiNumber()));
 
-		System.out.println(chord);
-		System.out.println(list);
+		logger.debug("chord {}",chord);
+		logger.debug("list {}",list);
 
 	}
 
@@ -535,7 +535,9 @@ public class ChordFactoryTest {
 		Chord[] chords = null;
 		scale = ScaleFactory.createFromName("Major");
 		assertNotNull(scale);
-		System.out.println(scale);
+	
+		logger.debug("scale {}",scale);
+        
 		chords = ChordFactory.getSeventhChords(scale);
 		assertNotNull(chords);
 		for (Chord c : chords) {
@@ -551,7 +553,7 @@ public class ChordFactoryTest {
 
 		scale = ScaleFactory.createFromName("Harmonic Minor");
 		assertNotNull(scale);
-		System.out.println(scale);
+		logger.debug("scale {}",scale);
 		chords = ChordFactory.getSeventhChords(scale);
 		assertNotNull(chords);
 		for (Chord c : chords) {
@@ -647,7 +649,7 @@ public class ChordFactoryTest {
 
 	private void print(Set<Chord> list) {
 		for (Chord chord : list) {
-			System.out.println(chord.getDisplayNameWithAliases());
+			logger.debug(chord.getDisplayNameWithAliases());
 		}
 	}
 

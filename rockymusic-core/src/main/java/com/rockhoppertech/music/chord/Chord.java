@@ -207,7 +207,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
     private String bass;
 
     /**
-     * Initialize a {@codeChord} without a symbol.
+     * Initialize a {@code Chord} without a symbol.
      * 
      * @param root
      *            MIDI number of the root
@@ -222,7 +222,7 @@ public class Chord implements Cloneable, Comparable<Chord> {
     }
 
     /**
-     * Initialize a {@codeChord} with these values.
+     * Initialize a {@code Chord} with these values.
      * 
      * @param root
      *            MIDI number of the root pitch.
