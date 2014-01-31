@@ -20,6 +20,8 @@ package com.rockhoppertech.music.examples;
  * #L%
  */
 
+import java.util.Arrays;
+
 import javax.swing.JOptionPane;
 
 import com.rockhoppertech.music.Interval;
@@ -40,32 +42,32 @@ public class IntervalExample {
         if (v.equals(s[0])) {
             v = JOptionPane.showInputDialog("Enter a scale spelling");
             final int[] a = Interval.getIntervalsFromScaleSpelling(v);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         } else if (v.equals(s[1])) {
             v = JOptionPane
                     .showInputDialog("Enter a chord spelling in degrees");
             final int[] a = Interval.degreesToIntervals(v);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         } else if (v.equals(s[2])) {
             v = JOptionPane
                     .showInputDialog("Enter a chord spelling in degrees");
             final int[] a = Interval.getIntervalsFromDegreeString(v);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         } else if (v.equals(s[3])) {
             v = JOptionPane.showInputDialog("Enter pitches");
             final int[] a = Interval.getIntervalsFromPitchString(v);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         } else if (v.equals(s[4])) {
             v = JOptionPane.showInputDialog("Enter a series of ints");
             final int[] a = Interval.getIntervalsFromString(v);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         } else if (v.equals(s[5])) {
             v = JOptionPane.showInputDialog("Enter a series of ints");
 
             final int[] a = Interval.intervalsToDegrees(
                     Interval.getIntervalsFromString(v),
                     1);
-            JOptionPane.showMessageDialog(null, Interval.arrayToString(a));
+            JOptionPane.showMessageDialog(null, Arrays.toString(a));
         }
 
     }
