@@ -47,9 +47,11 @@ import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 import com.rockhoppertech.music.modifiers.ChannelModifier;
+import com.rockhoppertech.music.modifiers.DurationModifier;
 import com.rockhoppertech.music.modifiers.InstrumentModifier;
 import com.rockhoppertech.music.modifiers.MIDINoteModifier;
 import com.rockhoppertech.music.modifiers.Modifier;
+import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
 import com.rockhoppertech.music.modifiers.VelocityModifier;
@@ -2313,6 +2315,29 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             }
         }
         return notes;
+    }
+    
+    /**
+     * Change the duration of the entire track. Changes each {@code MIDINote}'s duration and start beat.
+     * @param duration the new duration
+     */
+    public void setDuration(double duration) {
+        double now = this.getStartBeat();
+        logger.debug("new duration {}", duration);
+        double d = this.getDuration();
+        logger.debug("current duration {}", d);
+        double factor = duration / d;
+        logger.debug("factor {}", factor);
+        this
+                .map(new StartBeatModifier(Operation.MULTIPLY,
+                        factor));
+        this.map(new DurationModifier(Operation.MULTIPLY, factor));
+        logger.debug("final duration {}", this.getDuration());
+
+        this.setStartBeat(now);
+
+        this.changes.firePropertyChange(MODIFIED, null,
+                duration);
     }
 
     /**
