@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>Rocky Music Examples - Checkstyle report</title>
+    <link>http://genedelisa.github.com/rockymusic/rockymusic-examples</link>
+    <description>Rocky Music Examples - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;1996 - 2014 Rockhopper Technologies</copyright>
+    <item>
+      <title>File: 25,
+             Errors: 0,
+             Warnings: 179,
+             Infos: 0
+      </title>
+            <link>http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.Send.java">com/rockhoppertech/music/examples/Send.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.StringQuartet.java">com/rockhoppertech/music/examples/score/StringQuartet.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.track.package-info.java">com/rockhoppertech/music/examples/track/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.IntervalExample.java">com/rockhoppertech/music/examples/IntervalExample.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.track.TrackExamples.java">com/rockhoppertech/music/examples/track/TrackExamples.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  28
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.ScoreMain.java">com/rockhoppertech/music/examples/score/ScoreMain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.package-info.java">com/rockhoppertech/music/examples/score/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.TrackCreation.java">com/rockhoppertech/music/examples/TrackCreation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.ReadMIDIFIle.java">com/rockhoppertech/music/examples/score/ReadMIDIFIle.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.chord.package-info.java">com/rockhoppertech/music/examples/chord/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.scale.Scales.java">com/rockhoppertech/music/examples/scale/Scales.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.package-info.java">com/rockhoppertech/music/examples/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.scale.package-info.java">com/rockhoppertech/music/examples/scale/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.Chords.java">com/rockhoppertech/music/examples/Chords.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.scale.ScaleMain.java">com/rockhoppertech/music/examples/scale/ScaleMain.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.PlayMIDIFile.java">com/rockhoppertech/music/examples/score/PlayMIDIFile.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.cmd.CommandLine.java">com/rockhoppertech/music/cmd/CommandLine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.ReadWriteMIDIFile.java">com/rockhoppertech/music/examples/score/ReadWriteMIDIFile.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.score.FromIntervals.java">com/rockhoppertech/music/examples/score/FromIntervals.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.collecitons.ArrayFunctionsExamples.java">com/rockhoppertech/music/examples/collecitons/ArrayFunctionsExamples.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.TrackAdditions.java">com/rockhoppertech/music/examples/TrackAdditions.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.MIDIUtilRuns.java">com/rockhoppertech/music/examples/MIDIUtilRuns.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.PatternFactoryExample.java">com/rockhoppertech/music/examples/PatternFactoryExample.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.cmd.package-info.java">com/rockhoppertech/music/cmd/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/rockymusic-examples/checkstyle.html#com.rockhoppertech.music.examples.chord.ChordExamples.java">com/rockhoppertech/music/examples/chord/ChordExamples.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
