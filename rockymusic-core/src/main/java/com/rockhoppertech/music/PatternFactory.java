@@ -20,17 +20,11 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static javax.swing.JOptionPane.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -39,40 +33,6 @@ import static javax.swing.JOptionPane.*;
 public class PatternFactory {
     private static final Logger logger = LoggerFactory
             .getLogger(PatternFactory.class);
-
-    public static void main(String[] args) {
-
-        String s = (String) JOptionPane.showInputDialog(null, "Limit",
-                "Chooser", QUESTION_MESSAGE);
-        int limit = 7;
-        if (s != null) {
-            limit = Integer.parseInt(s);
-        }
-
-        Integer[] nums = new Integer[limit - 1];
-        for (int i = 2; i < nums.length + 2; i++) {
-            nums[i - 2] = i;
-        }
-        Integer size = (Integer) showInputDialog(null, "Pattern size",
-                "Chooser", QUESTION_MESSAGE, null, nums, nums[0]);
-
-        int w = JOptionPane.showConfirmDialog(null,
-                "Weed Repeats?", "choose one", JOptionPane.YES_NO_OPTION);
-
-        List<int[]> list = null;
-        list = PatternFactory.getPatterns(limit, size, w == YES_OPTION);
-        printArray(list);
-    }
-
-    /**
-     * @param patterns
-     */
-    private static void printArray(List<int[]> patterns) {
-        int num = 0;
-        for (int[] a : patterns) {
-            System.out.printf("%d:\t%s%n", num++, ArrayUtils.toString(a));
-        }
-    }
 
     /**
      * Calculate all the patterns of a given size up to a limit.
@@ -132,7 +92,8 @@ public class PatternFactory {
      * Checks to determine if there are consecutive values. e.g. 0,0 1,1 2,2,2,2
      * etc.
      * 
-     * @param a an array
+     * @param a
+     *            an array
      * @return if there are repeats
      */
     public static boolean hasRepeats(int[] a) {
