@@ -23,17 +23,12 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-import static org.hamcrest.CoreMatchers.*;
-//import static org.hamcrest.MatcherAssert.*;
-//import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 /**
  * 
@@ -59,7 +54,7 @@ public class PitchFormatTest {
             assertThat("the MIDI number is correct",
                     pitch.getMidiNumber(),
                     equalTo(p));
-            
+
             String ps = PitchFormat.midiNumberToString(p);
             assertThat("ps is not null",
                     ps,
@@ -73,10 +68,42 @@ public class PitchFormatTest {
      * .
      */
     @Test
-    @Ignore
     public void testMidiNumberToStringIntBooleanIntInt() {
-        fail("Not yet implemented"); // TODO
+        String actual = PitchFormat.midiNumberToString(
+                60,
+                true,
+                PitchFormat.RIGHT_JUSTIFY,
+                8);
+        logger.debug("actual: {}", actual);
+        String expected = "      C5";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
 
+        actual = PitchFormat.midiNumberToString(
+                60,
+                true,
+                PitchFormat.LEFT_JUSTIFY,
+                8);
+        logger.debug("actual: {}", actual);
+        expected = "C5      ";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.midiNumberToString(
+                60,
+                true,
+                PitchFormat.CENTER_JUSTIFY,
+                8);
+        logger.debug("actual: {}", actual);
+        expected = "   C5   ";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -237,9 +264,54 @@ public class PitchFormatTest {
      * {@link com.rockhoppertech.music.PitchFormat#isAccidental(int)}.
      */
     @Test
-    @Ignore
     public void testIsAccidental() {
-        fail("Not yet implemented"); // TODO
+        boolean actual = PitchFormat.isAccidental(0);
+        logger.debug("actual: {}", actual);
+        boolean expected = false;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.isAccidental(1);
+        logger.debug("actual: {}", actual);
+        expected = true;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.isAccidental(2);
+        logger.debug("actual: {}", actual);
+        expected = false;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.isAccidental(3);
+        logger.debug("actual: {}", actual);
+        expected = true;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.isAccidental(4);
+        logger.debug("actual: {}", actual);
+        expected = false;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = PitchFormat.isAccidental(5);
+        logger.debug("actual: {}", actual);
+        expected = false;
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -248,9 +320,14 @@ public class PitchFormatTest {
      * .
      */
     @Test
-    @Ignore
     public void testFormat() {
-        fail("Not yet implemented"); // TODO
+        String actual = PitchFormat.getInstance().format(Pitch.C5);
+        logger.debug("actual: {}", actual);
+        String expected = "C5 ";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -259,9 +336,15 @@ public class PitchFormatTest {
      * .
      */
     @Test
-    @Ignore
     public void testGetPitchStringPitch() {
-        fail("Not yet implemented"); // TODO
+        Pitch p = PitchFactory.getPitch(Pitch.C5);
+        String actual = PitchFormat.getPitchString(p);
+        logger.debug("actual: {}", actual);
+        String expected = "C";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -269,9 +352,14 @@ public class PitchFormatTest {
      * {@link com.rockhoppertech.music.PitchFormat#getPitchString(int)}.
      */
     @Test
-    @Ignore
     public void testGetPitchStringInt() {
-        fail("Not yet implemented"); // TODO
+        String actual = PitchFormat.getPitchString(60);
+        logger.debug("actual: {}", actual);
+        String expected = "C";
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
 }
