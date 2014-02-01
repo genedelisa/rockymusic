@@ -188,22 +188,6 @@ public class Interval {
         return names.get(i);
     }
 
-    /**
-     * Turn an array into a String.
-     * 
-     * @param a an array
-     * @return a {@code String} with the array contents
-     */
-    public static String arrayToString(final int[] a) {
-        final StringBuilder sb = new StringBuilder();
-        for (int j = 0; j < a.length; j++) {
-            sb.append(a[j]);
-            if (j < a.length - 1) {
-                sb.append(',');
-            }
-        }
-        return sb.toString();
-    }
 
     /**
      * 
@@ -250,7 +234,7 @@ public class Interval {
         final List<Integer> pitches = new ArrayList<Integer>();
         while (scanner.hasNext()) {
             final String string = scanner.next().trim();
-            Interval.logger.debug("degreestring: " + string);
+            logger.debug("degreestring: " + string);
 
             int pc = Interval.getScaleSpelling(string);
             pc++;
@@ -260,7 +244,7 @@ public class Interval {
         final int[] array = new int[size - 1];
         for (int i = 1; i < size; i++) {
             final int val = pitches.get(i) - pitches.get(i - 1);
-            Interval.logger.debug("val {}", val);
+            logger.debug("val {}", val);
             array[i - 1] = val;
         }
         scanner.close();
@@ -269,6 +253,7 @@ public class Interval {
 
     /**
      * Obtain the intervals from a string containing pitches.
+     * Can be space or comma delimited.
      * 
      * @param s
      *            a pitch string
@@ -301,7 +286,7 @@ public class Interval {
     }
 
     /**
-     * 
+     *  Can be space or comma delimited.
      * @param s
      *            a scale spelling
      * @return an array of intervals
@@ -330,7 +315,7 @@ public class Interval {
 
     /**
      * Degrees to intervals. e.g. Input 1 3 5 will give you 4,3
-     * 
+     *  Can be space or comma delimited.
      * 
      * @param s
      *            a chord spelling
@@ -365,6 +350,8 @@ public class Interval {
      * 
      * Wraps integers in a string into an array Non specific. the input integers
      * could be midinumbers, durations etc.
+     * 
+     *  Can be space or comma delimited.
      * 
      * @param s
      *            a string containing integers
@@ -401,7 +388,8 @@ public class Interval {
     /**
      * Return intervals in relation to first int. Can be comma delimted or not.
      * Non specific: can be ints, midinumbers etc.
-     * 
+     * <p>
+     *  Can be space or comma delimited.
      * @param s
      *            a string that can be parsed into an int
      * @return an int[] array of absolute intervals
@@ -455,7 +443,7 @@ public class Interval {
      * @return the number of half steps in the spelling
      */
     public static int getScaleSpelling(final String s) {
-        Interval.logger.debug(s);
+        logger.debug(s);
         return Interval.scaleSpellings.get(s);
     }
 
@@ -483,7 +471,7 @@ public class Interval {
      * @return the number of half steps
      */
     public static int getSpelling(final String s) {
-        Interval.logger.debug(s);
+        logger.debug(s);
         return Interval.spellings.get(s);
     }
 
