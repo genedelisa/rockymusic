@@ -23,23 +23,31 @@
   xsi:schemaLocation="http://maven.apache.org/FML/1.0 http://maven.apache.org/xsd/fml-1.0.xsd"
   id="General FAQ">
   <part id="General">
-    <faq id="where">
-      <question>Where did Maven come from?</question>
+    <faq id="what">
+      <question>What is this?</question>
       <answer>
         <p>
-          Maven was created by a group of software developers who were tired
-          of wasting their time fiddling around with builds and wanted to get
-          down to brass tacks and actually develop software!
+		JavaSound's MIDI API is intentionally low level. Its concepts are not
+		what musicians are used to. They think Notes and beats, not events
+		and ticks. This helps, I hope.          
         </p>
       </answer>
     </faq>
     <faq id="why">
-      <question>Why is Maven so wildly popular?</question>
+      <question>Why did you write another Java Music library?</question>
       <answer>
         <p>
-          Maven saves you so much time in your software development efforts that
-          you will have time to learn a second language, relax ten hours a
-          day, and train for that marathon you've always wanted to run!
+          Another? There was no other Java Music Library when I started this.
+        </p>
+      </answer>
+    </faq>
+    <faq id="needscore">
+      <question>Do I need a Score? I want to create just a track.</question>
+      <answer>
+        <p>
+          Knock yourself out. You can create a MIDITrack directly and play it.
+          You just can't write it to a standard MIDI file. To do that, you do
+          need a Score. That's not especially hard to do.
         </p>
       </answer>
     </faq>
