@@ -23,6 +23,7 @@ package com.rockhoppertech.music.midi.js;
 import static com.rockhoppertech.music.Pitch.C5;
 import static com.rockhoppertech.music.Pitch.D5;
 import static com.rockhoppertech.music.Pitch.E5;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -42,7 +43,7 @@ import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.scale.ScaleFactory;
+import com.rockhoppertech.music.scale.ScaleBuilder;
 
 /**
  * 
@@ -256,7 +257,7 @@ public class MIDITrackFactoryTest {
 
 	@Test
 	public void applyPatternListDefaults() {
-		MIDITrack track = new ScaleFactory.Builder()
+		MIDITrack track = new ScaleBuilder()
 				.name("Major")
 				.root(Pitch.C5)
 				.track()
