@@ -43,7 +43,7 @@ import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.scale.ScaleBuilder;
+import com.rockhoppertech.music.scale.ScaleTrackBuilder;
 
 /**
  * 
@@ -257,7 +257,7 @@ public class MIDITrackFactoryTest {
 
     @Test
     public void applyPatternListDefaults() {
-        MIDITrack track = ScaleBuilder.create()
+        MIDITrack track = ScaleTrackBuilder.create()
                 .name("Major")
                 .root(Pitch.C5)
                 .track()

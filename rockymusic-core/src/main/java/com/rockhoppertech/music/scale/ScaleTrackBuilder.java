@@ -7,6 +7,9 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
  * Create a {@code MIDITrack} from a {@code Scale}.
+ * <p>
+ * Maybe this should just be rolled into the track builder. But, the track you
+ * get is a scale, so the names fits. It's a scale and not a {@code Scale}.
  * 
  * <pre>
  * {@code
@@ -19,10 +22,10 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
           }
   </pre>
  * 
- * @author gene
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
-public class ScaleBuilder {
+public class ScaleTrackBuilder {
     private String name;
     private int rootMidiNum = Pitch.C5;
     private int[] intervals;
@@ -36,8 +39,8 @@ public class ScaleBuilder {
      * 
      * @return the builder
      */
-    public static ScaleBuilder create() {
-        return new ScaleBuilder();
+    public static ScaleTrackBuilder create() {
+        return new ScaleTrackBuilder();
     }
 
     /**
@@ -93,37 +96,37 @@ public class ScaleBuilder {
         return result;
     }
 
-    public ScaleBuilder name(String s) {
+    public ScaleTrackBuilder name(String s) {
         name = s;
         return this;
     }
 
-    public ScaleBuilder root(int n) {
+    public ScaleTrackBuilder root(int n) {
         rootMidiNum = n;
         return this;
     }
 
-    public ScaleBuilder numberOfOctaves(int n) {
+    public ScaleTrackBuilder numberOfOctaves(int n) {
         this.nOct = n;
         return this;
     }
 
-    public ScaleBuilder intervals(int[] n) {
+    public ScaleTrackBuilder intervals(int[] n) {
         this.intervals = Arrays.copyOf(n, n.length);
         return this;
     }
 
-    public ScaleBuilder startBeat(double n) {
+    public ScaleTrackBuilder startBeat(double n) {
         this.startBeat = n;
         return this;
     }
 
-    public ScaleBuilder duration(double n) {
+    public ScaleTrackBuilder duration(double n) {
         this.duration = n;
         return this;
     }
 
-    public ScaleBuilder upAndDown(boolean b) {
+    public ScaleTrackBuilder upAndDown(boolean b) {
         this.upAndDown = b;
         return this;
     }
