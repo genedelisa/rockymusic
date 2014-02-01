@@ -3,7 +3,8 @@
 
 A set of classes for producing music with JavaSound.
 
-This project is explained in my [Blog post](http://rockhoppertech.com/blog/rockymusic).
+The maven generated site for this project is on github pages.
+[http://genedelisa.github.io/rockymusic/](http://genedelisa.github.io/rockymusic/)
 
 ## History
 
@@ -17,13 +18,15 @@ middle c at beat 3 played softly.
 So I needed a way to turn the MIDI stream of events into Notes and back again to a MIDI stream to 
 save to a midifile or play in real time.
 
-I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point. So, I'm still in the process of refactoring. It's an on-going project of sifting through older classes and adapting them.
+I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point - but you will still see variable names like "notelist" which I'll update real soon now. So, I'm still in the process of refactoring. It's an on-going project of sifting through older classes and adapting them. If you look at the code, you will see chunks that are commented out. I'm adding the missing parts in stages.
 
-### Another music library for Java?
+## Another music library for Java?
 
 Why would I write yet another library for music in Java? There are several others out there.
 
-Yeah, I know; the nerve of those guys! Seriously though, they didn't exist when this started. And even now after looking at them, I don't really like the assumptions they make. Maybe they don't like the assumptions I make. No problem.
+Yeah, I know; the nerve of those guys! 
+
+Seriously though, they didn't exist when this started. And even now after looking at them, I don't really like the assumptions they make. Maybe they don't like the assumptions I make. No problem. There's room for everyone.
 
 
 ## Where to go now
