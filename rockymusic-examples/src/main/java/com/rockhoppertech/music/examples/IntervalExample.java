@@ -26,13 +26,21 @@ import javax.swing.JOptionPane;
 
 import com.rockhoppertech.music.Interval;
 
+/**
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * 
+ */
 public class IntervalExample {
 
     public static void main(final String[] args) {
         final String[] s = { "getIntervalsFromScaleSpelling",
                 "degreesToIntervals",
-                "getIntervalsFromDegreeString", "getIntervalsFromPitchString",
-                "getIntervalsFromString", "intervalsToDegrees" };
+                "getIntervalsFromDegreeString",
+                "getIntervalsFromPitchString",
+                "getIntervalsFromString",
+                "intervalsToDegrees"
+        };
+
         String v = null;
 
         v = (String) JOptionPane.showInputDialog(null, "Choose an operation",
@@ -71,46 +79,4 @@ public class IntervalExample {
         }
 
     }
-
-    /**
-     * <p>
-     * given a string like 1, 2, 3, 4, b5, b6, b7 return the intervals like
-     * 2,2,1,1,2,2
-     * </p>
-     * 
-     * @param args
-     */
-    public static void oldmain(final String[] args) {
-        final String s = JOptionPane.showInputDialog("Enter pitches");
-        final int[] array = Interval.getIntervalsFromSpelling(s);
-        // logger.debug("array {}", array);
-
-        final StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            sb.append(array[i]);
-            if (i < array.length - 1) {
-                sb.append(',');
-            }
-            // logger.debug("array i {}", array[i]);
-        }
-        /*
-         * 
-         * = new Scanner(s); scanner.useDelimiter(","); List<Integer> intervals
-         * = new ArrayList<Integer>(); while (scanner.hasNext()) { String
-         * interval = scanner.next().trim(); logger.debug("interval " +
-         * interval); logger.debug("spelling " + getSpelling(interval));
-         * intervals.add(getSpelling(interval)); } int size = intervals.size();
-         * for (int i = 1; i < size; i++) { int val = intervals.get(i) -
-         * intervals.get(i - 1); sb.append(val); if (i < size - 1)
-         * sb.append(','); logger.debug(val); }
-         */
-        JOptionPane.showMessageDialog(null, sb.toString());
-        // logger.debug(sb.toString());
-
-        /*
-         * sb = new StringBuilder(); for (Integer i : intervals) {
-         * sb.append(i).append(' '); } logger.debug(sb.toString());
-         */
-    }
-
 }
