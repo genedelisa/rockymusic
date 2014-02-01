@@ -31,7 +31,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.scale.ScaleFactory;
+import com.rockhoppertech.music.scale.Scale;
 
 /**
  * Utilities to convert between scale or chord spellings, intervals, degrees.
@@ -161,6 +161,7 @@ public class Interval {
         Interval.names.add("'Fourteenth'");
         Interval.names.add("2 Octaves");
 
+        // TODO use these
         Interval.roman.add("I");
         Interval.roman.add("ii");
         Interval.roman.add("II");
@@ -178,7 +179,9 @@ public class Interval {
 
     /**
      * Get the name of an interval.
-     * @param i an interval
+     * 
+     * @param i
+     *            an interval
      * @return the interval name or "Unknown"
      */
     public static String getName(final int i) {
@@ -188,8 +191,15 @@ public class Interval {
         return names.get(i);
     }
 
-
     /**
+     * Intervals in relation to root.
+     * 
+     * <pre>
+     * {@code
+     *  actual = Interval.degreesToIntervals("1 2 3 4 5 6 7");
+        expected = new int[] { 2, 4, 5, 7, 9, 11 };
+     * }
+     * </pre>
      * 
      * @param spelling
      *            is a chord spelling
@@ -217,7 +227,16 @@ public class Interval {
     }
 
     /**
-     * input can be comma or whitespace delimited.
+     * Calculate the intervals between the specified degrees.
+     * 
+     * <pre>
+     * {@code
+        actual = Interval.getIntervalsFromDegreeString("1 2 3 4 5 6 7");
+        expected = new int[] { 2, 2, 1, 2, 2, 2 };
+       }
+        </pre>
+     * 
+     * Input can be comma or whitespace delimited.
      * 
      * @param s
      *            a scale spelling
@@ -252,8 +271,8 @@ public class Interval {
     }
 
     /**
-     * Obtain the intervals from a string containing pitches.
-     * Can be space or comma delimited.
+     * Obtain the intervals from a string containing pitches. Can be space or
+     * comma delimited.
      * 
      * @param s
      *            a pitch string
@@ -286,7 +305,19 @@ public class Interval {
     }
 
     /**
-     *  Can be space or comma delimited.
+     * Given a scale spelling, calculate the intervals between each degree.
+     * 
+     * <pre>
+      {@code 
+        Scale scale = ScaleFactory.getScaleByName("Chromatic");
+        String spelling = scale.getSpelling();
+        // 1 b2 2 b3 3 4 #4 5 #5 6 #6 7 8
+        actual = Interval.getIntervalsFromScaleSpelling(spelling);
+        expected = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        
+      }
+     * Can be space or comma delimited.
+     * 
      * @param s
      *            a scale spelling
      * @return an array of intervals
@@ -314,8 +345,19 @@ public class Interval {
     }
 
     /**
-     * Degrees to intervals. e.g. Input 1 3 5 will give you 4,3
-     *  Can be space or comma delimited.
+     * Degrees to intervals. e.g. Input 1 3 5 will give you 4,3. The degree can
+     * be raised or lowered with a prefixed b or #.
+     * 
+     * <pre>
+      {@code
+      int[] actual = Interval.getIntervalsFromSpelling("1 2 3 4 5 6 7");
+      int[] expected = new int[] { 2, 2, 1, 2, 2, 2 };
+      actual = Interval.getIntervalsFromSpelling("1 b2 3 #4 5 6 7");
+      expected = new int[] { 1, 3, 2, 1, 2, 2 };
+       }        
+        </pre>
+     * 
+     * Can be space or comma delimited.
      * 
      * @param s
      *            a chord spelling
@@ -346,16 +388,23 @@ public class Interval {
     }
 
     /**
-     * Relative intervals.
+     * Calculate relative intervals.
      * 
-     * Wraps integers in a string into an array Non specific. the input integers
-     * could be midinumbers, durations etc.
+     * Wraps integers in a string into an array. Non specific. The input
+     * integers could be midinumbers, durations etc.
+     * <p>
+     * Can be space or comma delimited.
      * 
-     *  Can be space or comma delimited.
+     * <pre>
+     * {@code 
+       int[] actual = Interval.getIntervalsFromString("2 2 1 2");
+       int[] expected = { 0, -1, 1 };
+       }
+     * </pre>
      * 
      * @param s
-     *            a string containing integers
-     * @return an array of the same integers
+     *            a String containing integers
+     * @return an int array of the same integers
      */
     public static int[] getIntervalsFromString(final String s) {
 
@@ -386,12 +435,15 @@ public class Interval {
     }
 
     /**
-     * Return intervals in relation to first int. Can be comma delimted or not.
-     * Non specific: can be ints, midinumbers etc.
+     * Return intervals in relation to first int.
+     * 
      * <p>
-     *  Can be space or comma delimited.
+     * Non domain specific: input is just a string of ints.
+     * <p>
+     * Can be space or comma delimited.
+     * 
      * @param s
-     *            a string that can be parsed into an int
+     *            a String that can be parsed into ints
      * @return an int[] array of absolute intervals
      */
     public static int[] getAbsoluteIntervalsFromString(final String s) {
@@ -423,7 +475,7 @@ public class Interval {
      * 
      * @param interval
      *            an interval
-     * @return the spelling
+     * @return the spelling or null.
      */
     public static String getScaleSpelling(final int interval) {
         // TODO not really.
@@ -437,6 +489,15 @@ public class Interval {
     }
 
     /**
+     * Get the number of half steps in a degree from root. Input is a scale
+     * degree spelling.
+     * 
+     * <pre>
+     * {@code 
+      actual = Interval.getScaleSpelling("#4");
+      expected = 6;
+     * }
+     * </pre>
      * 
      * @param s
      *            a scale spelling
@@ -448,6 +509,14 @@ public class Interval {
     }
 
     /**
+     * Return the spelling for an interval.
+     * 
+     * <pre>
+     * {@code 
+      String actual = Interval.getSpelling(5);
+      String expected = "4";
+      }
+     * </pre>
      * 
      * @param interval
      *            an interval in half steps
@@ -463,8 +532,16 @@ public class Interval {
     }
 
     /**
-     * <code>getSpelling("13")</code> would yield the number of half steps in a
-     * thirteenth.
+     * Get the number of half steps in a degree from root. Input is an interval
+     * degree spelling. <code>getSpelling("13")</code> would yield the number of
+     * half steps in a thirteenth.
+     * 
+     * <pre>
+     {@code 
+      actual = Interval.getSpelling("5");
+      expected = 7;
+     }
+     * </pre>
      * 
      * @param s
      *            A chord spelling
@@ -497,8 +574,8 @@ public class Interval {
      * Can turn the intervals in a scale into their scale degrees. You can
      * generate patterns.
      * 
-     * @see com.rockhoppertech.music.scale.ScaleFactory#getNoteListPattern(Scale, int[], int, int, int, double,
-     *      boolean, double, boolean)
+     * @see com.rockhoppertech.music.scale.ScaleFactory#getNoteListPattern(Scale,
+     *      int[], int, int, int, double, boolean, double, boolean)
      * @param intervals
      *            an array of intervals
      * @param nOctaves
@@ -551,6 +628,7 @@ public class Interval {
     }
 
     /**
+     * Spell a scale.
      * 
      * @param intervals
      *            an array of intervals
