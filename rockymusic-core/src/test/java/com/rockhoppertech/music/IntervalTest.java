@@ -24,6 +24,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.scale.Scale;
+import com.rockhoppertech.music.scale.ScaleFactory;
+
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -134,16 +137,80 @@ public class IntervalTest {
 
     @Test
     public void testGetIntervalsFromScaleSpelling() {
-        int[] actual = Interval.getIntervalsFromScaleSpelling("2 2 1 2");
-        int[] expected = { 0, -2, 2 };
+        int[] actual;
+        int[] expected;
+
+        Scale scale = ScaleFactory.getScaleByName("Chromatic");
+        String spelling = scale.getSpelling();
+        // 1 b2 2 b3 3 4 #4 5 #5 6 #6 7 8
+        actual = Interval.getIntervalsFromScaleSpelling(spelling);
+        logger.debug("chromatic spelling {}", spelling);
+        logger.debug("actual {}", actual);
+        expected = new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        scale = ScaleFactory.getScaleByName("Octatonic");
+        spelling = scale.getSpelling();
+        // 1 2 b3 4 b5 b6 7 8
+        actual = Interval.getIntervalsFromScaleSpelling(spelling);
+        logger.debug("Octatonic spelling {}", spelling);
+        logger.debug("actual {}", actual);
+        expected = new int[] { 2, 1, 2, 1, 2, 3, 1 };
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        // octatonic
+        actual = Interval.getIntervalsFromScaleSpelling("1,2,b3,4,b5,b6,7,8");
+        logger.debug("actual {}", actual);
+        expected = new int[] { 2, 1, 2, 1, 2, 3, 1 };
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+        // no commas
+        actual = Interval.getIntervalsFromScaleSpelling("1 2 b3 4 b5 b6 7 8");
+        logger.debug("actual {}", actual);
+        expected = new int[] { 2, 1, 2, 1, 2, 3, 1 };
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+    }
+
+    @Test
+    public void testGetIntervalsFromSpelling() {
+        int[] actual = Interval
+                .getIntervalsFromSpelling("1, 2, 3, 4, b5, b6, b7");
+        int[] expected = new int[] { 2, 2, 1, 1, 2, 2 };
         logger.debug("actual {}", actual);
         assertThat("is not null",
                 actual, is(notNullValue()));
         assertThat("the value is correct",
                 actual, is(equalTo(expected)));
 
-        actual = Interval.getIntervalsFromScaleSpelling("2, 2, 1, 2");
-        expected = new int[] { 0, -2, 2 };
+        actual = Interval.getIntervalsFromSpelling("1 2 3 4 b5 b6 b7");
+        expected = new int[] { 2, 2, 1, 1, 2, 2 };
+        logger.debug("actual {}", actual);
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getIntervalsFromSpelling("1 2 3 4 5 6 7");
+        expected = new int[] { 2, 2, 1, 2, 2, 2 };
+        logger.debug("actual {}", actual);
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getIntervalsFromSpelling("1 b2 3 #4 5 6 7");
+        expected = new int[] { 1, 3, 2, 1, 2, 2 };
         logger.debug("actual {}", actual);
         assertThat("is not null",
                 actual, is(notNullValue()));
@@ -153,17 +220,50 @@ public class IntervalTest {
     }
 
     @Test
-    public void testGetIntervalsFromSpelling() {
-        int[] actual = Interval.getIntervalsFromSpelling("2 2 1 2");
-        int[] expected = { 0, -2, 2 };
+    public void testScaleSpelling() {
+        int actual;
+        int expected;
+        actual = Interval.getScaleSpelling("3");
+        expected = 4;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getScaleSpelling("4");
+        expected = 5;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getScaleSpelling("#4");
+        expected = 6;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getScaleSpelling("b2");
+        expected = 1;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+    }
+
+    @Test
+    public void deg() {
+        int[] actual;
+        int[] expected;
+
+        // the names might be confusing. Here is the difference.
+
+        // the intervals from root
+        actual = Interval.degreesToIntervals("1 2 3 4 5 6 7");
+        expected = new int[] { 2, 4, 5, 7, 9, 11 };
         logger.debug("actual {}", actual);
         assertThat("is not null",
                 actual, is(notNullValue()));
         assertThat("the value is correct",
                 actual, is(equalTo(expected)));
 
-        actual = Interval.getIntervalsFromSpelling("2, 2, 1, 2");
-        expected = new int[] { 0, -2, 2 };
+        // the intervals between the degrees
+        actual = Interval.getIntervalsFromDegreeString("1 2 3 4 5 6 7");
+        expected = new int[] { 2, 2, 1, 2, 2, 2 };
         logger.debug("actual {}", actual);
         assertThat("is not null",
                 actual, is(notNullValue()));
@@ -256,6 +356,14 @@ public class IntervalTest {
     public void testGetSpellingString() {
         int actual = Interval.getSpelling("5");
         int expected = 7;
+        logger.debug("actual {}", actual);
+        assertThat("is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        actual = Interval.getSpelling("b2");
+        expected = 1;
         logger.debug("actual {}", actual);
         assertThat("is not null",
                 actual, is(notNullValue()));

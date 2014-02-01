@@ -253,7 +253,7 @@ public class PatternTest {
         Chord chord = ChordFactory.getChordByFullSymbol("Cmaj7+11");
         int[] someInts = new int[] { 0, 1, 2 };
 
-        Pattern pattern = new Pattern.Builder(chord.getPitchClasses(), someInts)
+        Pattern pattern = new PatternBuilder(chord.getPitchClasses(), someInts)
                 .startPitch(C5).numOctaves(3).duration(Q).reverse(false)
                 .restBetweenPatterns(0).upAndDown(false).build();
 
@@ -263,7 +263,7 @@ public class PatternTest {
                 is(notNullValue()));
 
         // or even shorter using defaults
-        pattern = new Pattern.Builder(chord.getPitchClasses(), someInts)
+        pattern = new PatternBuilder(chord.getPitchClasses(), someInts)
                 .numOctaves(3).build();
 
         nl = pattern.createTrack(1d, true);
