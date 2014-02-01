@@ -48,12 +48,17 @@ public class DurationParser {
     private static Map<String, Double> durKeyMap;
 
     // not dotted
- //   static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
+    // static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
     // it is dotted
     static Pattern dpattern = Pattern.compile("[dwhqestxo]+\\.+");
-   // static Pattern tripletPattern = Pattern.compile("[dwhqestxo]+t+");
+    // static Pattern tripletPattern = Pattern.compile("[dwhqestxo]+t+");
 
     static {
+        useDefaultDurationMap();
+
+    }
+
+    public static void useDefaultDurationMap() {
         durKeyMap = new LinkedHashMap<String, Double>();
         durKeyMap.put("dt", Duration.DOUBLE_WHOLE_TRIPLET_NOTE);
         durKeyMap.put("d", Duration.DOUBLE_WHOLE_NOTE);
@@ -73,7 +78,28 @@ public class DurationParser {
         durKeyMap.put("x", Duration.SIXTY_FOURTH_NOTE);
         durKeyMap.put("ot", Duration.ONE_TWENTY_EIGHTH_TRIPLET_NOTE);
         durKeyMap.put("o", Duration.ONE_TWENTY_EIGHTH_NOTE);
+    }
 
+    public static void multiplyDurationMapByFactor(double factor) {
+        durKeyMap = new LinkedHashMap<String, Double>();
+        durKeyMap.put("dt", Duration.DOUBLE_WHOLE_TRIPLET_NOTE * factor);
+        durKeyMap.put("d", Duration.DOUBLE_WHOLE_NOTE * factor);
+        durKeyMap.put("wt", Duration.WHOLE_TRIPLET_NOTE * factor);
+        durKeyMap.put("w", Duration.WHOLE_NOTE * factor);
+        durKeyMap.put("ht", Duration.HALF_TRIPLET_NOTE * factor);
+        durKeyMap.put("h", Duration.HALF_NOTE * factor);
+        durKeyMap.put("qt", Duration.QUARTER_TRIPLET_NOTE * factor);
+        durKeyMap.put("q", Duration.QUARTER_NOTE * factor);
+        durKeyMap.put("et", Duration.EIGHTH_TRIPLET_NOTE * factor);
+        durKeyMap.put("e", Duration.EIGHTH_NOTE * factor);
+        durKeyMap.put("st", Duration.SIXTEENTH_TRIPLET_NOTE * factor);
+        durKeyMap.put("s", Duration.SIXTEENTH_NOTE * factor);
+        durKeyMap.put("tt", Duration.THIRTY_SECOND_TRIPLET_NOTE * factor);
+        durKeyMap.put("t", Duration.THIRTY_SECOND_NOTE * factor);
+        durKeyMap.put("xt", Duration.SIXTY_FOURTH_TRIPLET_NOTE * factor);
+        durKeyMap.put("x", Duration.SIXTY_FOURTH_NOTE * factor);
+        durKeyMap.put("ot", Duration.ONE_TWENTY_EIGHTH_TRIPLET_NOTE * factor);
+        durKeyMap.put("o", Duration.ONE_TWENTY_EIGHTH_NOTE * factor);
     }
 
     public static final Pattern allPattern = Pattern
@@ -111,8 +137,10 @@ public class DurationParser {
 
     /**
      * <pre>
-	 * String both = &quot;1 2 3 q q. e .5 a q.. q...&quot;;
+     * {@code
+	 * String both = "1 2 3 q q. e .5 a q.. q...";
 	 * TimeSeries ts = DurationParser.getDurationAsTimeSeries(both);
+	 * }
 	 * </pre>
      * 
      * @param s
@@ -184,8 +212,8 @@ public class DurationParser {
 
     private static String getKeyString(double duration) {
         for (Entry<String, Double> e : durKeyMap.entrySet()) {
-            if (Math.abs(duration - e.getValue()) < .0000001) {            
-            //if (e.getValue() == duration) {
+            if (Math.abs(duration - e.getValue()) < .0000001) {
+                // if (e.getValue() == duration) {
                 return e.getKey();
             }
         }
