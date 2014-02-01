@@ -61,6 +61,7 @@
 
 		<menu name="Project dox">
 			<item name="Overview" href="overview.html" />
+			<item name="Quick Start" href="quickstart.html" />
 			<item name="FAQ" href="faq.html" />
 		</menu>
 		
