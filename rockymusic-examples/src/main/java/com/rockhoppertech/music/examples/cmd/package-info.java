@@ -5,7 +5,7 @@
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @version 1.0
  */
-package com.rockhoppertech.music.cmd;
+package com.rockhoppertech.music.examples.cmd;
 
 /*
  * #%L

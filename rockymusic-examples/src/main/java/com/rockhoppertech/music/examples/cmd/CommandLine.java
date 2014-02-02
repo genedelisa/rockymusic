@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rockhoppertech.music.cmd;
+package com.rockhoppertech.music.examples.cmd;
 
 /*
  * #%L
