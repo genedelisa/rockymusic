@@ -49,6 +49,8 @@ public abstract class AbstractMIDINoteModifier implements MIDINoteModifier {
 
     public AbstractMIDINoteModifier(final Operation operation,
             final Number... numbers) {
+        
+        logger.debug("setting values to {}", numbers);
         this.values = new CircularArrayList<Number>();
         this.operation = operation;
         this.setValues(numbers);
@@ -149,14 +151,18 @@ public abstract class AbstractMIDINoteModifier implements MIDINoteModifier {
      *            the values to set
      */
     public void setValues(List<Number> values) {
+        logger.debug("adding values {}", values);        
         this.values.clear();
         for (Number n : values) {
+            logger.debug("adding value {}", n);
             this.values.add(n);
         }
     }
     private void setValues(Number[] numbers) {
+        //logger.debug("setting {}", numbers);
         this.values.clear();
-        for (Number n : values) {
+        for (Number n : numbers) {
+            logger.debug("adding value {}", n);
             this.values.add(n);
         }
     }
