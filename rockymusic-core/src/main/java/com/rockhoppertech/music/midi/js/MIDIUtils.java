@@ -93,19 +93,19 @@ import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 public final class MIDIUtils {
 
     /**
-     * Default division (resolution) for Sequences generated
+     * Default division (resolution) for Sequences generated.
      */
     private static int division = 256;
 
     /**
-     * End of track message
+     * End of track message.
      */
     public static final byte ENDOFTRACK = 0x2F;
 
     /**
-     * General MIDI reset
+     * General MIDI reset message.
      */
-     static final byte gmreset[] = { 0x05, 0x7E, 0x7F, 0x09, 0x01 };
+    static final byte gmreset[] = { 0x05, 0x7E, 0x7F, 0x09, 0x01 };
 
     public static final Charset charset = Charset.forName("ISO_8859-1");
     public static final CharsetEncoder encoder = charset.newEncoder();
@@ -114,37 +114,79 @@ public final class MIDIUtils {
     public static byte[] getGMReset() {
         return Arrays.copyOf(gmreset, gmreset.length);
     }
+
     /**
-     * logging
+     * logging.
      */
     private static final Logger logger = LoggerFactory
             .getLogger(MIDIUtils.class);
 
+    /**
+     * Meta text copyright.
+     */
     public static final int META_COPYRIGHT = 2;
+    /**
+     * Meta text cue point.
+     */
     public static final int META_CUE_POINT = 7;
     // FF 08 len text PROGRAM NAME
+    /**
+     * Meta text device name.
+     */
     public static final int META_DEVICE_NAME = 9;
     // FF 09 len text DEVICE NAME
+    /**
+     * Meta text instrument.
+     */
     public static final int META_INSTRUMENT = 4;
+    /**
+     * Meta text key signature.
+     */
     public static final int META_KEY_SIG = 0x59;
+    /**
+     * 
+     */
     public static final int META_LYRIC = 5;
+    /**
+     * 
+     */
     public static final int META_MARKER = 6;
+    /**
+     * 
+     */
     public static final int META_NAME = 3; // sequence or track
     /**
-     * see http://www.midi.org/about-midi/smf/rp019.shtml
+     * @see <a href="http://www.midi.org/techspecs/rp19.php">SMF Device Name and
+     *      Program Name Meta Events</a>
      */
     public static final int META_PROGRAM_NAME = 8;
+    /**
+     * SMPTE offset.
+     */
     public static final int META_SMPTE_OFFSET = 0x54;
+    /**
+     * Tempo message.
+     */
     public static final int META_TEMPO = 0x51;
+    /**
+     * Text message.
+     */
     public static final int META_TEXT = 1;
+    /**
+     * Time signature message.
+     */
     public static final int META_TIME_SIG = 0x58;
 
+    /**
+     * The sequencer. Returned by getSequencer().
+     */
     private static volatile Sequencer sequencer;
 
     /**
-     * every track must end with: FF 2F 00
+     * Every track must end with: FF 2F 00.
      * 
      * @param track
+     *            a JavaSound track
      */
     public static void addEndOfTrack(Track track) {
         try {
@@ -159,10 +201,16 @@ public final class MIDIUtils {
     }
 
     /**
+     * Append a Control Change message to the track.
+     * 
      * @param track
+     *            a JavaSound track
      * @param chan
+     *            the MIDI channel
      * @param d1
+     *            data 1
      * @param d2
+     *            data 2
      */
     public static void appendControlChange(Track track, int chan, int d1, int d2) {
         try {
@@ -181,7 +229,9 @@ public final class MIDIUtils {
      * adds the note to the end of the track.
      * 
      * @param track
+     *            a JavaSound track
      * @param chan
+     *            the MIDI channel
      * @param num
      * @param vel
      * @param duration
@@ -211,7 +261,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a JavaSound track
      * @param chan
+     *            the MIDI channel
      * @param num
      */
     public static void appendProgramChange(Track track, int chan, int num) {
@@ -228,10 +280,12 @@ public final class MIDIUtils {
     }
 
     /**
-     * Uses the encoding specified by the encoder. 8859-1
+     * Turn a {@code String} into an array ob bytes.
+     * <p>
+     * Uses the encoding specified by the encoder. Uses ISO 8859-1.
      * 
      * @param text
-     * @return
+     * @return the encoded text as a byte array
      */
     public static byte[] textToBytes(String text) {
         byte[] b = null;
@@ -248,10 +302,13 @@ public final class MIDIUtils {
     }
 
     /**
-     * Uses the encoding specified by the decoder. 8859-1
+     * Turn an array of bytes into a String.
+     * <p>
+     * Uses the encoding specified by the decoder. 8859-1.
      * 
      * @param b
-     * @return
+     *            a byte array
+     * @return a decoded String
      */
     public static String bytesToText(byte[] b) {
         String result = null;
@@ -266,6 +323,9 @@ public final class MIDIUtils {
     }
 
     /**
+     * Create a meta text message, wrap it in a JavaSound {@code MidiEvent} and
+     * return the event.
+     * 
      * @param tick
      *            when this occurs
      * @param metaTextType
@@ -290,9 +350,13 @@ public final class MIDIUtils {
     }
 
     /**
+     * Generic ShortMessage factory method.
+     * 
      * @param origstatus
+     *            the MIDI status
      * @param bytes
-     * @return
+     *            the data
+     * @return a {@code ShortMessage}
      */
     public static ShortMessage createShortMessage(int origstatus, byte[] bytes) {
         int status = origstatus & 0xF0;
@@ -324,6 +388,17 @@ public final class MIDIUtils {
     }
 
     // perhaps filter the whole sequence. js .99 really made this awkward
+    /**
+     * Create a JavaSound Track and add the events that pass the filter's test.
+     * 
+     * @param sequence
+     *            a JavaSound Sequence
+     * @param t
+     *            a JavaSound Track
+     * @param filter
+     *            an event filter
+     * @return a filtered JavaSound Track
+     */
     public static Track filter(Sequence sequence, Track t,
             MIDIEventFilter filter) {
         Track track = sequence.createTrack();
@@ -341,8 +416,12 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get the string representation of a MIDI command. e.g. given 0x80, return
+     * "Note Off".
+     * 
      * @param command
-     * @return
+     *            a MIDI command
+     * @return a {@code String} representation
      */
     public static String getCommandName(int command) {
         StringBuilder sb = new StringBuilder();
@@ -390,8 +469,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Create a {@code String} from a MetaMessage key signature.
+     * 
      * @param event
-     * @return
+     *            a meta message containing a key signature
+     * @return the key signature as a {@code String}
      */
     private static String getKeySignature(MetaMessage event) {
         byte[] message = event.getData();
@@ -439,8 +521,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get all the meta text events in the given {@code Track}.
+     * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return a {@code List} of all the meta text events
      */
     public static List<MetaMessage> getMetaTextEvents(Track t) {
         List<MetaMessage> list = new ArrayList<>();
@@ -459,8 +544,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Return all the meta events on the specified {@code Track}.
+     * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return a {@code List} of all the meta events
      */
     public static List<MidiEvent> getMetaMessages(Track t) {
         List<MidiEvent> list = new ArrayList<>();
@@ -476,8 +564,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Return all the key signatures on the specified {@code Track}.
+     * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return a {@code List} of all the key signatures
      */
     public static List<MidiEvent> getKeySignatures(Track t) {
         List<MidiEvent> list = new ArrayList<>();
@@ -498,8 +589,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Return all the time signature events on the specified {@code Track}.
+     * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return a {@code List} of all the time signature events
      */
     public static List<MidiEvent> getTimeSignatures(Track t) {
         List<MidiEvent> list = new ArrayList<>();
@@ -518,8 +612,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Return all the tempo events on the specified {@code Track}.
+     * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return a {@code List} of all the tempo events
      */
     public static List<MidiEvent> getTempi(Track t) {
         List<MidiEvent> list = new ArrayList<>();
@@ -538,7 +635,9 @@ public final class MIDIUtils {
     }
 
     /**
-     * @return
+     * Lazily create a Sequencer.
+     * 
+     * @return a Sequencer
      */
     public static Sequencer getSequencer() {
         if (MIDIUtils.sequencer == null) {
@@ -552,8 +651,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get a Sequencer based on the device info.
+     * 
      * @param info
-     * @return
+     *            the device info
+     * @return a Sequencer
      */
     public static Sequencer getSequencer(MidiDevice.Info info) {
         try {
@@ -569,8 +671,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get a Sequencer from the given {@code Synthesizer}.
+     * 
      * @param synth
-     * @return
+     *            a synthesizer
+     * @return a Sequence.
      */
     public static Sequencer getSequencer(Synthesizer synth) {
         Sequencer seq = null;
@@ -584,8 +689,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get the Sequence or Track name. Returns null if it doesn't exist.
+     * 
      * @param mm
-     * @return
+     *            a meta message
+     * @return the name as a String
      */
     public static String getSequenceTrackName(MetaMessage mm) {
         if (isName(mm)) {
@@ -597,10 +705,12 @@ public final class MIDIUtils {
     }
 
     /**
-     * should be only one. this gets the first one.
+     * Get the sequence or track name for a given track. Should be only one.
+     * This gets the first one.
      * 
      * @param t
-     * @return
+     *            a {@code Track}
+     * @return the sequence or track name
      */
     public static String getSequenceTrackName(Track t) {
         int ts = t.size();
@@ -618,7 +728,9 @@ public final class MIDIUtils {
     }
 
     /**
-     * @return
+     * Get a Map of synthesizers.
+     * 
+     * @return a Map of synthesizers
      */
     static Map<String, MidiDevice.Info> getSynthList() {
         MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
@@ -639,8 +751,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Get a string representation of a time signature message.
+     * 
      * @param event
-     * @return
+     *            a meta message
+     * @return a string
      */
     static String getTimeSignature(MetaMessage event) {
         StringBuilder sb = new StringBuilder();
@@ -654,11 +769,18 @@ public final class MIDIUtils {
     }
 
     /**
+     * Insert a MIDI control change event into the Track at the given tick.
+     * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param chan
+     *            the MIDI channel
      * @param d1
+     *            first data byte
      * @param d2
+     *            second data byte
      */
     public static void insertControlChange(Track track, long tick, int chan,
             int d1, int d2) {
@@ -674,10 +796,13 @@ public final class MIDIUtils {
     }
 
     /**
+     * 
      * must be first event on first track
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param copy
      */
     public static void insertCopyright(Track track, long tick, String copy) {
@@ -686,7 +811,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param name
      */
     public static void insertDeviceName(Track track, long tick, String name) {
@@ -700,11 +827,13 @@ public final class MIDIUtils {
      * mi = 0: major key mi = 1: minor key
      * 
      * @param track
+     *            a {@code Track}
+     * @param tick
+     *            when to insert the event
      * @param sf
      *            number of sharps or flats -7 to +7
      * @param mi
      *            major or minor 0 = major 1 = minor
-     * @param tick
      */
     public static void insertKeySignature(Track track, long tick, int sf, int mi) {
         try {
@@ -725,7 +854,9 @@ public final class MIDIUtils {
      * lyric event which begins at the event's time.
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param lyric
      */
     public static void insertLyric(Track track, long tick, String lyric) {
@@ -738,7 +869,9 @@ public final class MIDIUtils {
      * name
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param marker
      */
     public static void insertMarker(Track track, long tick, String marker) {
@@ -750,7 +883,9 @@ public final class MIDIUtils {
      * instrumentation for a track.
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param instrument
      */
     public static void insertMetaInstrument(Track track, long tick,
@@ -762,7 +897,9 @@ public final class MIDIUtils {
      * inserts the text at the absolute tick.
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param text
      */
     public static void insertMetaText(Track track, long tick, int metaTextType,
@@ -779,6 +916,11 @@ public final class MIDIUtils {
 
     /**
      * inserts the note at the absolute tick.
+     * 
+     * @param track
+     *            a {@code Track}
+     * @param tick
+     *            when to insert the event
      */
     public static void insertNote(Track track, long tick, int chan, int num,
             int vel, double duration) {
@@ -803,7 +945,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param chan
      * @param num
      */
@@ -822,7 +966,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param name
      */
     public static void insertProgramName(Track track, long tick, String name) {
@@ -837,7 +983,9 @@ public final class MIDIUtils {
      * Otherwise, the name of the track.
      * 
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param name
      */
     public static void insertSequenceName(Track track, long tick, String name) {
@@ -846,7 +994,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param tempo
      */
     public static void insertTempo(Track track, long tick, int tempo) {
@@ -872,7 +1022,9 @@ public final class MIDIUtils {
 
     /**
      * @param track
+     *            a {@code Track}
      * @param tick
+     *            when to insert the event
      * @param text
      */
     public static void insertText(Track track, long tick, String text) {
@@ -880,6 +1032,12 @@ public final class MIDIUtils {
     }
 
     /**
+     * @param track
+     *            a {@code Track}
+     * @param tick
+     *            when to insert the event
+     * @param numerator
+     *            the time signature numerator
      * @param denominator
      *            needs to be a power that 2 is raised to
      */
@@ -914,7 +1072,8 @@ public final class MIDIUtils {
 
     /**
      * @param b
-     * @return
+     *            a MIDI command
+     * @return if the command is a channel message
      */
     public static boolean isChannelMessage(int b) {
         if ((b < 0xF0) && (b >= 0x80)) {
@@ -926,7 +1085,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a copyright meta message
      */
     public static boolean isCopyright(MetaMessage mm) {
         int type = mm.getType();
@@ -938,8 +1098,10 @@ public final class MIDIUtils {
     }
 
     /**
+     * 
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a cue point meta message
      */
     public static boolean isCuePoint(MetaMessage mm) {
         int type = mm.getType();
@@ -952,7 +1114,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is an instrument meta message
      */
     public static boolean isInstrument(MetaMessage mm) {
         int type = mm.getType();
@@ -965,7 +1128,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a lyric meta message
      */
     public static boolean isLyric(MetaMessage mm) {
         int type = mm.getType();
@@ -978,7 +1142,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a marker meta message
      */
     public static boolean isMarker(MetaMessage mm) {
         int type = mm.getType();
@@ -991,7 +1156,8 @@ public final class MIDIUtils {
 
     /**
      * @param aByte
-     * @return
+     *            a MIDI status byte
+     * @return if the status is a meta message
      */
     public static boolean isMetaMessage(int aByte) {
         if (0xFF == aByte) {
@@ -1003,7 +1169,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a name meta message
      */
     public static boolean isName(MetaMessage mm) {
         int type = mm.getType();
@@ -1016,7 +1183,8 @@ public final class MIDIUtils {
 
     /**
      * @param aByte
-     * @return
+     *            a MIDI status byte
+     * @return true if the status is a system exclusive message
      */
     public static boolean isSysexMessage(int aByte) {
         if (0xF0 == aByte) {
@@ -1028,7 +1196,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a meta message
+     * @return if the message is a text meta message
      */
     public static boolean isText(MetaMessage mm) {
         int type = mm.getType();
@@ -1041,6 +1210,7 @@ public final class MIDIUtils {
 
     /**
      * @param se
+     *            a {@code ShortMessage}
      */
     public static void log(ShortMessage se) {
         logger.debug(toString(se));
@@ -1048,6 +1218,7 @@ public final class MIDIUtils {
 
     /**
      * @param se
+     *            a {@code ShortMessage}
      */
     public static void logDebug(ShortMessage se) {
         logger.debug(toString(se));
@@ -1055,6 +1226,7 @@ public final class MIDIUtils {
 
     /**
      * @param se
+     *            a {@code ShortMessage}
      */
     public static void logError(ShortMessage se) {
         logger.error(toString(se));
@@ -1062,6 +1234,7 @@ public final class MIDIUtils {
 
     /**
      * @param se
+     *            a {@code ShortMessage}
      */
     public static void logInfo(ShortMessage se) {
         logger.info(toString(se));
@@ -1069,6 +1242,7 @@ public final class MIDIUtils {
 
     /**
      * @param args
+     *            command line arguments
      */
     public static void main(String[] args) {
         MIDIUtils.systemInfo();
@@ -1190,6 +1364,7 @@ public final class MIDIUtils {
 
     /**
      * @param form
+     *            the midi file format
      */
     public static void print(MidiFileFormat form) {
         logger.debug("form: " + form);
@@ -1202,6 +1377,7 @@ public final class MIDIUtils {
 
     /**
      * @param sequence
+     *            a JavaSound {@code Sequence}
      */
     public static void print(Sequence sequence) {
         logger.debug("Sequence length: " + sequence.getTickLength() + " ticks");
@@ -1585,16 +1761,22 @@ public final class MIDIUtils {
     }
 
     /**
+     * Create a {@code Sequence} from a {@code File}.
+     * 
      * @param f
-     * @return
+     *            a {@code File}
+     * @return a {@code Sequence}
      */
     public static Sequence read(File f) {
         return read(f.getAbsolutePath());
     }
 
     /**
+     * Create a {@code Sequence} from a file.
+     * 
      * @param filename
-     * @return
+     *            a file name
+     * @return a {@code Sequence}
      */
     public static Sequence read(String filename) {
         Sequence sequence = null;
@@ -1613,8 +1795,8 @@ public final class MIDIUtils {
     }
 
     /**
-	 * 
-	 */
+     * Print the MIDI system info to the logger.
+     */
     static void systemInfo() {
         MidiDevice.Info[] info = MidiSystem.getMidiDeviceInfo();
         logger.debug("system info " + info.length);
@@ -1648,8 +1830,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Turn a meta message into a String.
+     * 
      * @param event
-     * @return
+     *            a meta event
+     * @return a formatted String
      */
     public static String toString(MetaMessage event) {
         StringBuilder sb = new StringBuilder();
@@ -1725,8 +1910,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Turn a {@code MidiEvent} into a {@code String}.
+     * 
      * @param me
-     * @return
+     *            a {@code MidiEvent}
+     * @return a {@code String}
      */
     public static String toString(MidiEvent me) {
         StringBuilder sb = new StringBuilder();
@@ -1738,8 +1926,11 @@ public final class MIDIUtils {
     }
 
     /**
+     * Turn a {@code MidiMessage} into a {@code String}.
+     * 
      * @param mm
-     * @return
+     *            a {@code MidiMessage}
+     * @return a {@code String}
      */
     public static String toString(MidiMessage mm) {
         String s = null;
@@ -1778,7 +1969,8 @@ public final class MIDIUtils {
 
     /**
      * @param me
-     * @return
+     *            a {@code MidiEvent}
+     * @return a formatted {@code String}
      */
     public static String toStringFull(MidiEvent me) {
         StringBuilder sb = new StringBuilder();
@@ -1791,7 +1983,8 @@ public final class MIDIUtils {
 
     /**
      * @param mm
-     * @return
+     *            a {@code MidiMessage}
+     * @return a formatted {@code String}
      */
     public static String toStringFull(MidiMessage mm) {
         String s = null;
@@ -1812,7 +2005,9 @@ public final class MIDIUtils {
 
     /**
      * @param sequence
+     *            a {@code Sequence}
      * @param os
+     *            the stream to write to
      */
     public static void write(Sequence sequence, OutputStream os) {
         try {
@@ -1834,8 +2029,12 @@ public final class MIDIUtils {
     }
 
     /**
+     * Write a {@code Sequence} to a file.
+     * 
      * @param sequence
+     *            a {@code Sequence}
      * @param filename
+     *            a file name
      */
     public static void write(Sequence sequence, String filename) {
         /*
@@ -1872,9 +2071,14 @@ public final class MIDIUtils {
     }
 
     /**
+     * Write a {@code Sequence} to a file with MIDI file type.
+     * 
      * @param sequence
+     *            {@code Sequence}
      * @param filename
+     *            a file name
      * @param type
+     *            the MIDI file type
      */
     public static void write(Sequence sequence, String filename, int type) {
         try {
@@ -1903,7 +2107,7 @@ public final class MIDIUtils {
     }
 
     /**
-     * No instantiation
+     * No instantiation.
      */
     private MIDIUtils() {
     }
