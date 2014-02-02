@@ -35,7 +35,7 @@ import com.rockhoppertech.music.chord.ChordFactory;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
@@ -65,6 +65,9 @@ public class ScaleTest {
     @Ignore
     public void testScaleStringString() {
         fail("Not yet implemented");
+        String name = "Major";
+        String spelling = "";
+        Scale actual = new Scale(name, spelling);
     }
 
     /**
@@ -75,6 +78,9 @@ public class ScaleTest {
     @Ignore
     public void testScaleStringIntArray() {
         fail("Not yet implemented");
+        int[] intervals = new int[] { 1 };
+        String name = "Major";
+        Scale actual = new Scale(name, intervals);
     }
 
     /**
@@ -97,8 +103,7 @@ public class ScaleTest {
         fail("Not yet implemented");
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
     }
 
     /**
@@ -106,13 +111,18 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#getIntervalsAsString()}.
      */
     @Test
-    @Ignore
     public void testGetIntervalsAsString() {
-        fail("Not yet implemented");
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
+        String actual = scale.getIntervalsAsString();
+        logger.debug("actual {}", actual);
+        String expected = "2 2 1 2 2 2 1";
+        assertThat("intervals string is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
     }
 
     /**
@@ -120,13 +130,29 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#getDescendingIntervalsAsString()}.
      */
     @Test
-    @Ignore
     public void testGetDescendingIntervalsAsString() {
-        fail("Not yet implemented");
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
+        String actual = scale.getDescendingIntervalsAsString();
+        logger.debug("actual {}", actual);
+        String expected = ""; // no descendng for Major
+        assertThat("intervals string is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        // this scale does have descending intervals
+        scale = ScaleFactory.createFromName("Melodic Minor");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        actual = scale.getDescendingIntervalsAsString();
+        logger.debug("actual {}", actual);
+        expected = "2 1 2 2 1 2 2";
+        assertThat("intervals string is not null",
+                actual, is(notNullValue()));
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -134,13 +160,17 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#getDegreesAsString()}.
      */
     @Test
-    @Ignore
     public void testGetDegreesAsString() {
-        fail("Not yet implemented");
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
+        String actual = null;
+        String expected = null;
+        actual = scale.getDegreesAsString();
+        logger.debug("actual {}", actual);
+        expected = "0 2 4 5 7 9 11 12";
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -148,16 +178,18 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#getDegreesAsPitchString()}.
      */
     @Test
-    @Ignore
     public void testGetDegreesAsPitches() {
-        fail("Not yet implemented");
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
-        String pits = scale.getDegreesAsPitchString();
-        assertNotNull(pits);
-        assertThat(pits, not(equalTo(null)));
+                scale, is(notNullValue()));
+        String actual = scale.getDegreesAsPitchString();
+        logger.debug("actual {}", actual);
+        assertThat("actual is not null",
+                actual, is(notNullValue()));
+        String expected = "C D E F G A B C";
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
     }
 
     /**
@@ -169,8 +201,7 @@ public class ScaleTest {
     public void testGetDegreesAsPitchesString() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
         List<Pitch> pits = scale.getDegreesAsPitches("C");
         assertNotNull(pits);
         assertThat(pits.get(0).getPitchClass(), equalTo(PitchFactory.getPitch(
@@ -238,8 +269,7 @@ public class ScaleTest {
     public void pitchToDegree() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
         String[] pcs = { "A", "B", "C", "D", "E", "F", "G" };
         for (String p : pcs) {
             int d = scale.pitchToDegree("C", p);
@@ -260,10 +290,9 @@ public class ScaleTest {
     public void testGetDegree() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
         int degree = scale.getDegree(0);
-        assertThat(degree, equalTo(Pitch.C0));
+        assertThat("the value is correct", degree, is(equalTo(Pitch.C0)));
     }
 
     /**
@@ -273,12 +302,18 @@ public class ScaleTest {
     public void testGetIntervals() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
-        int[] i = scale.getIntervals();
-        assertNotNull(i);
-        assertThat(i, notNullValue());
-        assertThat(i.length > 0, is(true));
+                scale, is(notNullValue()));
+        int[] actual = scale.getIntervals();
+        int[] expected = new int[] { 2, 2, 1, 2, 2, 2, 1 };
+
+        logger.debug("actual {}", actual);
+        assertThat("actual is not null",
+                actual, is(notNullValue()));
+        assertThat("actual length", actual.length > 0, is(true));
+
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
     }
 
     /**
@@ -289,10 +324,8 @@ public class ScaleTest {
     @Ignore
     public void testSetIntervals() {
         Scale scale = ScaleFactory.createFromName("Major");
-
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
     }
 
     /**
@@ -302,15 +335,12 @@ public class ScaleTest {
     public void testGetName() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
         String name = scale.getName();
         assertThat("name is not null",
-                name,
-                is(notNullValue()));
+                name, is(notNullValue()));
         assertThat("the scale name correct",
-                name,
-                equalTo("Major"));
+                name, equalTo("Major"));
     }
 
     /**
@@ -318,9 +348,22 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#setName(java.lang.String)}.
      */
     @Test
-    @Ignore
     public void testSetName() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        String name = scale.getName();
+        assertThat("name is not null",
+                name, is(notNullValue()));
+        assertThat("the scale name correct",
+                name, equalTo("Major"));
+        scale.setName("flobble");
+        name = scale.getName();
+        assertThat("name is not null",
+                name, is(notNullValue()));
+        assertThat("the scale name correct",
+                name, equalTo("flobble"));
+
     }
 
     /**
@@ -330,12 +373,10 @@ public class ScaleTest {
     public void testGetSpelling() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
-        String sp = scale.getSpelling();
+                scale, is(notNullValue()));
+        String actual = scale.getSpelling();
         assertThat("scale spelling is not null",
-                sp,
-                is(notNullValue()));
+                actual, is(notNullValue()));
     }
 
     /**
@@ -352,9 +393,24 @@ public class ScaleTest {
      * Test method for {@link com.rockhoppertech.music.Scale#getDescription()}.
      */
     @Test
-    @Ignore
     public void testGetDescription() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Melodic Minor");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        String actual = scale.getDescription();
+        String expected = "different up and down";
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale name correct",
+                actual, equalTo(expected));
+
+        // major has no description. see scaledefs.xml
+        scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        actual = scale.getDescription();
+        assertThat("description is null",
+                actual, is(nullValue()));
     }
 
     /**
@@ -362,18 +418,36 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#setDescription(java.lang.String)}.
      */
     @Test
-    @Ignore
     public void testSetDescription() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        scale.setDescription("aka ionian");
+
+        String actual = scale.getDescription();
+        String expected = "aka ionian";
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale description correct",
+                actual, equalTo(expected));
     }
 
     /**
      * Test method for {@link com.rockhoppertech.music.Scale#getDegrees()}.
      */
     @Test
-    @Ignore
     public void testGetDegrees() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int[] actual = scale.getDegrees();
+        int[] expected = new int[] { 0, 2, 4, 5, 7, 9, 11, 12 };
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -391,7 +465,17 @@ public class ScaleTest {
     @Test
     @Ignore
     public void testGetLength() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int actual = scale.getLength();
+        int expected = 8;
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale length is correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -400,25 +484,32 @@ public class ScaleTest {
     @Test
     @Ignore
     public void testSetLength() {
-        fail("Not yet implemented");
+
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.Scale#setOctave(int)}.
+     * Test method for {@link com.rockhoppertech.music.Scale#getOctave()} and
+     * {@link com.rockhoppertech.music.Scale#setOctave(int)}.
      */
     @Test
-    @Ignore
-    public void testSetOctave() {
-        fail("Not yet implemented");
-    }
-
-    /**
-     * Test method for {@link com.rockhoppertech.music.Scale#getOctave()}.
-     */
-    @Test
-    @Ignore
     public void testGetOctave() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int actual = scale.getOctave();
+        int expected = 0;
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale octave is correct",
+                actual, equalTo(expected));
+
+        scale.setOctave(5);
+        actual = scale.getOctave();
+        expected = 5;
+        assertThat("the scale octave is correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -426,9 +517,18 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#getDescendingIntervals()}.
      */
     @Test
-    @Ignore
     public void testGetDescendingIntervals() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Melodic Minor");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int[] actual = scale.getDescendingIntervals();
+        int[] expected = new int[] { 2, 1, 2, 2, 1, 2, 2 };
+        logger.debug("actual {}", actual);
+        assertThat("descending intervals are not null",
+                actual, is(notNullValue()));
+        assertThat("the scale descending intervals are correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -438,7 +538,7 @@ public class ScaleTest {
     @Test
     @Ignore
     public void testSetDescendingIntervalsIntArray() {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -449,7 +549,7 @@ public class ScaleTest {
     @Test
     @Ignore
     public void testSetDescendingIntervalsIntegerArray() {
-        fail("Not yet implemented");
+
     }
 
     /**
@@ -457,9 +557,30 @@ public class ScaleTest {
      * {@link com.rockhoppertech.music.Scale#isDescendingDifferent()}.
      */
     @Test
-    @Ignore
     public void testIsDescendingDifferent() {
-        fail("Not yet implemented");
+        Scale scale = ScaleFactory.createFromName("Melodic Minor");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        boolean actual = scale.isDescendingDifferent();
+        boolean expected = true;
+        logger.debug("actual {}", actual);
+        assertThat("descending intervals are not null",
+                actual, is(notNullValue()));
+        assertThat("the scale descending intervals are correct",
+                actual, equalTo(expected));
+
+        scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        actual = scale.isDescendingDifferent();
+        expected = false;
+        logger.debug("actual {}", actual);
+        assertThat("descending intervals are not null",
+                actual, is(notNullValue()));
+        assertThat("the scale descending intervals are correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -469,29 +590,25 @@ public class ScaleTest {
     @Test
     @Ignore
     public void testSetDescendingDifferent() {
-        fail("Not yet implemented");
+
     }
 
     @Test
     public void contains() {
         Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
         assertThat("scale is not null",
-                scale,
-                is(notNullValue()));
+                scale, is(notNullValue()));
         String name = scale.getName();
         assertThat("scale name is not null",
-                name,
-                is(notNullValue()));
+                name, is(notNullValue()));
 
         assertThat("the scale name is correct",
-                name,
-                is(equalTo("Major")));
+                name, is(equalTo("Major")));
 
         Chord chord = null;
         chord = ChordFactory.getChordBySymbol("maj");
         assertThat("chord is not null",
-                chord,
-                is(notNullValue()));
+                chord, is(notNullValue()));
 
         assertThat(scale.contains("c", chord), equalTo(true));
         assertThat(scale.contains("c#", chord), equalTo(false));
@@ -506,5 +623,27 @@ public class ScaleTest {
         assertThat(scale.contains("bf", chord), equalTo(false));
         assertThat(scale.contains("b", chord), equalTo(false));
 
+    }
+
+    @Test
+    public void equals() {
+        Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
+        Scale scale2 = ScaleFactory.getScaleByKeyAndName("C", "Major");
+        boolean actual = scale.equals(scale2);
+        boolean expected = true;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+
+        scale2 = ScaleFactory.getScaleByKeyAndName("G", "Major");
+        actual = scale.equals(scale2);
+        expected = false;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+        
+        scale2 = ScaleFactory.getScaleByKeyAndName("C", "Melodic Minor");
+        actual = scale.equals(scale2);
+        expected = false;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
     }
 }
