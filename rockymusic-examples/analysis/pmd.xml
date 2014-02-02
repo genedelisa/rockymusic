@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom ruleset" xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        Base ruleset
+    </description>
+    
+    <!--  Basic  -->
+	<!--  http://pmd.sourceforge.net/pmd-5.0.5/rules/java/basic.html   -->
+    <rule ref="rulesets/java/basic.xml/JumbledIncrementer"/>
+    <rule ref="rulesets/java/basic.xml/UnnecessaryConversionTemporary"/>
+    <rule ref="rulesets/java/basic.xml/OverrideBothEqualsAndHashcode"/>
+    <rule ref="rulesets/java/basic.xml/ReturnFromFinallyBlock"/>
+    <rule ref="rulesets/java/basic.xml/UnnecessaryReturn"/>
+    <rule ref="rulesets/java/basic.xml/UnconditionalIfStatement"/>
+    <rule ref="rulesets/java/basic.xml/BooleanInstantiation"/>
+    <rule ref="rulesets/java/basic.xml/CollapsibleIfStatements"/>
+    <rule ref="rulesets/java/basic.xml/UselessOverridingMethod"/>
+    <rule ref="rulesets/java/basic.xml/ClassCastExceptionWithToArray"/>
+    <rule ref="rulesets/java/basic.xml/AvoidDecimalLiteralsInBigDecimalConstructor"/>
+    <rule ref="rulesets/java/basic.xml/UselessOperationOnImmutable"/>
+    <rule ref="rulesets/java/basic.xml/MisplacedNullCheck"/>
+    <rule ref="rulesets/java/basic.xml/UnusedNullCheckInEquals"/>
+    <rule ref="rulesets/java/basic.xml/BrokenNullCheck"/>
+    <rule ref="rulesets/java/basic.xml/AvoidUsingHardCodedIP"/>
+    <rule ref="rulesets/java/basic.xml/AvoidMultipleUnaryOperators"/>
+    
+    <!-- http://pmd.sourceforge.net/pmd-5.0.5/rules/java/design.html -->
+    <rule ref="rulesets/java/design.xml/ConstructorCallsOverridableMethod"/>
+    <rule ref="rulesets/java/design.xml/AccessorClassGeneration"/>
+    <rule ref="rulesets/java/design.xml/CloseResource"/>
+    <rule ref="rulesets/java/design.xml/NonStaticInitializer"/>
+    <rule ref="rulesets/java/design.xml/DefaultLabelNotLastInSwitchStmt"/>
+    <rule ref="rulesets/java/design.xml/NonCaseLabelInSwitchStatement"/>
+    <rule ref="rulesets/java/design.xml/BadComparison"/>
+    <rule ref="rulesets/java/design.xml/EqualsNull"/>
+    <rule ref="rulesets/java/design.xml/InstantiationToGetClass"/>
+    <rule ref="rulesets/java/design.xml/IdempotentOperations"/>
+    <rule ref="rulesets/java/design.xml/SimpleDateFormatNeedsLocale"/>
+    <rule ref="rulesets/java/design.xml/ImmutableField"/>
+    <rule ref="rulesets/java/design.xml/AvoidProtectedFieldInFinalClass"/>
+    <rule ref="rulesets/java/design.xml/AssignmentToNonFinalStatic"/>
+    <!--<rule ref="rulesets/java/design.xml/MissingStaticMethodInNonInstantiatableClass"/>-->
+    <rule ref="rulesets/java/design.xml/AvoidSynchronizedAtMethodLevel"/>
+    <rule ref="rulesets/java/design.xml/UseNotifyAllInsteadOfNotify"/>
+    <rule ref="rulesets/java/design.xml/AvoidInstanceofChecksInCatchClause"/>
+    <rule ref="rulesets/java/design.xml/AbstractClassWithoutAbstractMethod"/>
+    <rule ref="rulesets/java/design.xml/CompareObjectsWithEquals"/>
+    <rule ref="rulesets/java/design.xml/UnsynchronizedStaticDateFormatter"/>
+    <rule ref="rulesets/java/design.xml/PreserveStackTrace"/>
+    <rule ref="rulesets/java/design.xml/UseCollectionIsEmpty"/>
+    <rule ref="rulesets/java/design.xml/SingularField"/>
+    <rule ref="rulesets/java/design.xml/AbstractClassWithoutAnyMethod"/>
+    <rule ref="rulesets/java/design.xml/TooFewBranchesForASwitchStatement"/>
+    
+    <!-- <rule ref="rulesets/logging-java.xml/SystemPrintln"/>
+    <rule ref="rulesets/logging-java.xml/AvoidPrintStackTrace"/> -->
+    
+    <!-- http://pmd.sourceforge.net/pmd-5.0.5/rules/java/migrating.html -->
+    <rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseBeforeAnnotation"/>
+    <rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseAfterAnnotation"/>
+    <rule ref="rulesets/java/migrating.xml/JUnit4TestShouldUseTestAnnotation"/>
+    
+    <!-- http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strictexception.html -->
+    <rule ref="rulesets/java/strictexception.xml/ExceptionAsFlowControl"/>
+    <rule ref="rulesets/java/strictexception.xml/AvoidCatchingNPE"/>
+    <rule ref="rulesets/java/strictexception.xml/AvoidThrowingNullPointerException"/>
+    <rule ref="rulesets/java/strictexception.xml/AvoidRethrowingException"/>
+    <rule ref="rulesets/java/strictexception.xml/DoNotExtendJavaLangError"/>
+    <rule ref="rulesets/java/strictexception.xml/DoNotThrowExceptionInFinally"/>
+    <rule ref="rulesets/java/strictexception.xml/AvoidThrowingNewInstanceOfSameException"/>
+    
+    <!-- http://pmd.sourceforge.net/pmd-5.0.5/rules/java/strings.html -->
+    <rule ref="rulesets/java/strings.xml/UnnecessaryCaseChange"/>
+    <rule ref="rulesets/java/strings.xml/UseStringBufferLength"/>
+    <rule ref="rulesets/java/strings.xml/InefficientEmptyStringCheck"/>
+    <rule ref="rulesets/java/strings.xml/UselessStringValueOf"/>
+    <rule ref="rulesets/java/strings.xml/AvoidStringBufferField"/>
+    
+    <!-- http://pmd.sourceforge.net/pmd-5.0.5/rules/java/sunsecure.html -->
+    <rule ref="rulesets/java/sunsecure.xml/MethodReturnsInternalArray"/>
+    <rule ref="rulesets/java/sunsecure.xml/ArrayIsStoredDirectly"/>
+</ruleset>
