@@ -23,22 +23,28 @@ package com.rockhoppertech.collections;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier;
+
 /**
  * An implementation of CircularList backed by an ArrayList.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
- * @param <E> the type contained in the list.
+ * @param <E>
+ *            the type contained in the list.
  */
 public class CircularArrayList<E> extends ArrayList<E> implements
         CircularList<E> {
+    private static final Logger logger = LoggerFactory
+            .getLogger(CircularArrayList.class);
 
     /**
      * 
      */
     private static final long serialVersionUID = 2099856485946476464L;
-
-   
 
     /**
      * The index
@@ -56,8 +62,8 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     private boolean last = false;
 
     /**
-	 * Default ctor
-	 */
+     * Default ctor
+     */
     public CircularArrayList() {
     }
 
@@ -73,6 +79,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
 
     /**
      * Adds the elements into this list.
+     * 
      * @param array
      *            the array to copy elements from.
      */
@@ -81,8 +88,6 @@ public class CircularArrayList<E> extends ArrayList<E> implements
             this.add(o);
         }
     }
-
-   
 
     /**
      * You must call previous or next before calling this. Perhaps "wasFirst"
@@ -110,6 +115,7 @@ public class CircularArrayList<E> extends ArrayList<E> implements
         if (this.index == size()) {
             this.index = 0;
         }
+        logger.debug("getting next index {}", this.index);
 
         E result = get(this.index++);
         this.updateFirstLast();
@@ -141,8 +147,8 @@ public class CircularArrayList<E> extends ArrayList<E> implements
     }
 
     /**
-	 * Updates this.first, this.last based on this.index
-	 */
+     * Updates this.first, this.last based on this.index
+     */
     private void updateFirstLast() {
         if (this.index - 1 == size() - 1) {
             this.last = true;
