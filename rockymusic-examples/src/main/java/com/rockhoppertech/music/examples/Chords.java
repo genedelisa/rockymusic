@@ -38,7 +38,7 @@ public class Chords {
             .getLogger(Chords.class);
 
     public static void main(String[] args) {
-        createScore();
+        createScore(); 
     }
 
     static void createScore() {
