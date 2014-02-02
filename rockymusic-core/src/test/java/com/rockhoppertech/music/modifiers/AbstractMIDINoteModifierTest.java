@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.midi.js.MIDINote;
@@ -31,14 +33,16 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.modifiers.Modifier.Operation;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 public class AbstractMIDINoteModifierTest {
+    private static final Logger logger = LoggerFactory
+            .getLogger(AbstractMIDINoteModifierTest.class);
 
     @Test
     public void testAbstractMIDINoteModifier() {
@@ -49,8 +53,7 @@ public class AbstractMIDINoteModifierTest {
             }
         };
         assertThat("mod is not null",
-                mod,
-                notNullValue());
+                mod, notNullValue());
 
     }
 
@@ -64,8 +67,7 @@ public class AbstractMIDINoteModifierTest {
             }
         };
         assertThat("mod is not null",
-                mod,
-                notNullValue());
+                mod, notNullValue());
 
         Number[] na = { 1, 2, 3 };
         mod = new AbstractMIDINoteModifier(
@@ -75,8 +77,7 @@ public class AbstractMIDINoteModifierTest {
             }
         };
         assertThat("mod is not null",
-                mod,
-                notNullValue());
+                mod, notNullValue());
     }
 
     @Test
@@ -88,17 +89,55 @@ public class AbstractMIDINoteModifierTest {
             }
         };
         assertThat("mod is not null",
-                mod,
-                notNullValue());
-        Number[] na = { 1, 2, 3 };
+                mod, notNullValue());
+        Number[] na = { 1 };
         mod = new AbstractMIDINoteModifier(na) {
             @Override
             public void modify(MIDINote n) {
+                Number value = values.next();
+                n.setMidiNumber(n.getMidiNumber() + value.intValue());
             }
         };
         assertThat("mod is not null",
-                mod,
-                notNullValue());
+                mod, notNullValue());
+        MIDITrack track = MIDITrackBuilder.create()
+                .noteString("C D E F")
+                .build();
+        logger.debug("track {}", track);
+        track.map(mod);
+        logger.debug("modified track {}", track);
+        MIDINote note = track.get(0);
+        assertThat("note is not null",
+                note, notNullValue());
+        int actual = note.getMidiNumber();
+        int expected = Pitch.CS5;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(1);
+        assertThat("note is not null",
+                note, notNullValue());
+        actual = note.getMidiNumber();
+        expected = Pitch.DS5;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(2);
+        assertThat("note is not null",
+                note, notNullValue());
+        actual = note.getMidiNumber();
+        expected = Pitch.F5;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(3);
+        assertThat("note is not null",
+                note, notNullValue());
+        actual = note.getMidiNumber();
+        expected = Pitch.FS5;
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
     }
 
     @Test
@@ -277,8 +316,12 @@ public class AbstractMIDINoteModifierTest {
         result = AbstractMIDINoteModifier.quantize(.25, .5);
         expected = .5;
         assertThat("= .25",
-                result,
-                equalTo(expected));
+                result, equalTo(expected));
+
+        result = AbstractMIDINoteModifier.quantize(1d, 1d);
+        expected = 1d;
+        assertThat("= 1",
+                result, equalTo(expected));
 
         // TODO more values
     }
