@@ -20,16 +20,15 @@ package com.rockhoppertech.music.examples.scale;
  * #L%
  */
 
-
-import static com.rockhoppertech.music.Pitch.C5;
-
 import javax.swing.JOptionPane;
 
 import com.rockhoppertech.music.Duration;
+import com.rockhoppertech.music.Pattern;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
-import com.rockhoppertech.music.scale.ScalePattern;
+
+import static com.rockhoppertech.music.Pitch.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -78,12 +77,20 @@ public class ScaleMain {
         final double duration = Duration.Q;
         final double restBetweenPatterns = Duration.Q;
         final boolean reverse = false;
-        final ScalePattern scalePattern = new ScalePattern(scale, pattern, C5,
+
+        // final ScalePattern scalePattern = new ScalePattern(scale, pattern,
+        // C5,
+        // numOctaves, duration, reverse, restBetweenPatterns);
+        // scalePattern.setUpAndDown(true);
+        // MIDITrack track = scalePattern.createMIDITrack(1d);
+
+        final Pattern pattern1 = new Pattern(scale.getDegrees(), pattern, C5,
                 numOctaves, duration, reverse, restBetweenPatterns);
-        scalePattern.setUpAndDown(true);
-        MIDITrack track = scalePattern.createMIDITrack(1d);
+        pattern1.setUpAndDown(true);
+        MIDITrack track = pattern1.createTrack(1d, false);
+
         System.err.println("Pattern 0, 2");
-        System.err.println(scalePattern);
+        System.err.println(pattern1);
         System.err.println(track);
         track.sequential();
         track.play();
