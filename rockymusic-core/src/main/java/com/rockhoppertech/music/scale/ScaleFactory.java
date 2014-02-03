@@ -184,7 +184,7 @@ public class ScaleFactory {
 
     public static MIDITrack createMIDITrack(final int[] intervals,
             int rootMidiNum, double startBeat, final double duration,
-            final int nOctaves, final boolean down) {
+            final boolean down, final int nOctaves) {
 
         logger.debug("root " + rootMidiNum);
 
@@ -341,7 +341,7 @@ public class ScaleFactory {
             if (scale.isDescendingDifferent()) {
                 final MIDITrack reverse = ScaleFactory.createMIDITrack(
                         scale.getDescendingIntervals(), rootMidiNum + 12, 1d,
-                        duration, nOct, true);
+                        duration, true, nOct);
                 notelist.append(reverse);
                 notelist.sequential();
             } else {
@@ -503,7 +503,7 @@ public class ScaleFactory {
     // return notelist;
     // }
 
-    public static MIDITrack getNoteListPattern(final Scale scale,
+    public static MIDITrack getTracktPattern(final Scale scale,
             final int[] pattern, final int limit, final int startingMIDINumber,
             final int nOctaves, final double duration, final boolean reverse,
             final double restBetweenPatterns, final boolean upAndDown) {

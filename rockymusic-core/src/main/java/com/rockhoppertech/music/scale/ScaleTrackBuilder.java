@@ -108,8 +108,8 @@ public class ScaleTrackBuilder {
                 rootMidiNum,
                 startBeat,
                 duration,
-                nOct,
-                upAndDown);
+                upAndDown,
+                nOct);
         result.setName(this.name);
 
         reset();
