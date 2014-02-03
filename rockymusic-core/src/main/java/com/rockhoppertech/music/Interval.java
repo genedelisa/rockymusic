@@ -574,7 +574,7 @@ public class Interval {
      * Can turn the intervals in a scale into their scale degrees. You can
      * generate patterns.
      * 
-     * @see com.rockhoppertech.music.scale.ScaleFactory#getNoteListPattern(Scale,
+     * @see com.rockhoppertech.music.scale.ScaleFactory#getTracktPattern(Scale,
      *      int[], int, int, int, double, boolean, double, boolean)
      * @param intervals
      *            an array of intervals
