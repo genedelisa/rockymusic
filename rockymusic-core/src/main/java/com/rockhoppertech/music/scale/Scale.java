@@ -32,16 +32,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
 import com.rockhoppertech.music.Interval;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.RomanChordParser;
-//import com.rockhoppertech.music.chord.Chord;
-//import com.rockhoppertech.music.chord.RomanChordParser;
 import com.rockhoppertech.music.midi.js.KeySignature;
-import com.rockhoppertech.music.midi.js.MIDITrack;
 
 //TODO add the Chord stuff back in
 
@@ -120,11 +118,14 @@ public class Scale implements Cloneable {
     }
 
     /**
-     * <p>Construct a Scale from the name and spelling.
+     * <p>
+     * Construct a Scale from the name and spelling.
      * </p>
      * 
-     * @param name the name to set
-     * @param spelling the spelling to use
+     * @param name
+     *            the name to set
+     * @param spelling
+     *            the spelling to use
      */
     public Scale(final String name, final String spelling) {
         setName(name);
@@ -151,31 +152,36 @@ public class Scale implements Cloneable {
             result.aliases.addAll(aliases);
 
         } catch (final CloneNotSupportedException e) {
-            logger.error(e.getLocalizedMessage(),e);
+            logger.error(e.getLocalizedMessage(), e);
         }
         return result;
     }
 
-    /*
-     * public boolean contains(final Chord chord) { return
-     * this.contains(this.key, chord); }
+    /**
+     * Clone is evil.
      * 
-     * public boolean contains(final String key, final Chord chord) { boolean
-     * result = true; final int[] chordPits = chord.getPitchClasses(); final
-     * List<Integer> pits = this.getDegreesAsPitchClasses(key); if
-     * (Scale.logger.isInfoEnabled()) {
-     * Scale.logger.info(String.format("key: '%s'", key));
-     * Scale.logger.info(String.format("chord pits: '%s'",
-     * ArrayUtils.toString(chordPits)));
-     * Scale.logger.info(String.format("scale: '%s'", pits)); } for (final int
-     * cp : chordPits) { if (pits.contains(cp) == false) { result = false; if
-     * (Scale.logger.isInfoEnabled()) { Scale.logger.info(String
-     * .format("does not contain chord pit %d", cp)); } break; } } if
-     * (Scale.logger.isInfoEnabled()) {
-     * Scale.logger.info(String.format("returning %b", result)); }
-     * 
-     * return result; }
+     * @return a duplicate
      */
+    public Scale duplicate() {
+        Scale dupe = new Scale();
+        dupe.name = this.name;
+        dupe.spelling = this.spelling;
+        dupe.description = this.description;
+        dupe.aliases = Lists.newArrayList(this.aliases);
+        dupe.degrees = Arrays.copyOf(this.degrees, this.degrees.length);
+        dupe.descendingDifferent = this.descendingDifferent;
+        if (this.descendingIntervals != null) {
+            dupe.descendingIntervals = Arrays.copyOf(
+                    this.descendingIntervals,
+                    this.descendingIntervals.length);
+        }
+        dupe.intervals = Arrays.copyOf(this.intervals, this.intervals.length);
+        dupe.key = this.key;
+        dupe.keySignature = this.keySignature;
+        dupe.octave = this.octave;
+        return dupe;
+    }
+
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -248,9 +254,6 @@ public class Scale implements Cloneable {
     }
 
     public int getDegree(int index) {
-        if (index > degrees.length) {
-            index -= degrees.length;
-        }
         return degrees[index];
     }
 
@@ -265,7 +268,7 @@ public class Scale implements Cloneable {
      * Omit the last interval. So, for major return c d e f g a b and not c d e
      * f b a b c6
      * 
-     * @return
+     * @return the degrees without the root at the end
      */
     public int[] getDegreesWithinOctave() {
         int[] r = new int[degrees.length - 1];
@@ -450,7 +453,7 @@ public class Scale implements Cloneable {
      * The number of degrees
      * </p>
      * 
-     * @return
+     * @return the number of degrees
      */
     public int getLength() {
         return degrees.length;
@@ -601,7 +604,9 @@ public class Scale implements Cloneable {
      *            the descendingIntervals to set
      */
     public void setDescendingIntervals(final int[] descendingIntervals) {
-        this.descendingIntervals = Arrays.copyOf(descendingIntervals,descendingIntervals.length);
+        this.descendingIntervals = Arrays.copyOf(
+                descendingIntervals,
+                descendingIntervals.length);
         // append to this.degrees too? nah
 
         setDescendingDifferent(true);
@@ -634,7 +639,7 @@ public class Scale implements Cloneable {
      *            the intervals to set
      */
     public void setIntervals(final int[] intervals) {
-        this.intervals = Arrays.copyOf(intervals,intervals.length);
+        this.intervals = Arrays.copyOf(intervals, intervals.length);
         degrees = Interval.intervalsToDegrees(this.intervals);
         spelling = Interval.spellScale(degrees);
     }
@@ -658,10 +663,22 @@ public class Scale implements Cloneable {
 
     private KeySignature keySignature;
 
+    /**
+     * Works only if the Scale's name is "Major" or "Minor". Throws an
+     * IllegalArgumentException if not.
+     * <p>
+     * Also sets this.key.
+     * 
+     * @param keySignature
+     *            the key signature
+     */
     public void setKeySignature(KeySignature keySignature) {
         if (getName().equals("Major")
                 || getName().equals("Harmonic Minor")) {
             this.keySignature = keySignature;
+            this.key = PitchFormat.getInstance().format(
+                    this.keySignature.getRoot()).trim();
+            logger.debug("this key={}", this.key);
         } else {
             throw new IllegalArgumentException();
         }
@@ -706,9 +723,11 @@ public class Scale implements Cloneable {
 
     /**
      * <p>
-     * </p>
+     * Set the octave.
+     * 
      * 
      * @param octave
+     *            an octave
      */
     public void setOctave(final int octave) {
         this.octave = octave;
@@ -750,130 +769,6 @@ public class Scale implements Cloneable {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        Scale scale = ScaleFactory.getScaleByName("Major");
-        System.err.println(scale);
-        int[] major = scale.getDegrees();
-        System.err.println(org.apache.commons.lang3.ArrayUtils.toString(major));
-
-        MIDITrack nl = ScaleFactory.createMIDITrackOverEntireRange(scale);
-        System.err.println(nl);
-    }
-
-    /*
-     * moved to scalefactory static void dump() { for (String name :
-     * scales.keySet()) { System.out.println(scales.get(name)); } } static { }
-     * 
-     * static void addScales() { Scale s = new Scale("Hungarian Gypsy",
-     * "1, 2, b3, #4, 5, b6, b7"); scales.put(s.getName(), s); s = new
-     * Scale("Pelog", Scale.PELOG); scales.put(s.getName(), s); s = new
-     * Scale("Algerian", "1, 2, b3, #4, 5, b6, 7"); scales.put(s.getName(), s);
-     * s = new Scale("Arabian", "1, 2, 3, 4, b5, b6, b7");
-     * scales.put(s.getName(), s); s = new Scale("Byzantine",
-     * "1, b2, 3, 4, 5, b6, 7"); scales.put(s.getName(), s); s = new
-     * Scale("Ethiopian", "1, 2, b3, 4, 5, b6, b7"); scales.put(s.getName(), s);
-     * s = new Scale("Gypsy", "1, b2, 3, 4, 5, b6, 7"); scales.put(s.getName(),
-     * s); s = new Scale("Hawaiian", "1, 2, b3, 4, 5, 6, 7");
-     * scales.put(s.getName(), s); s = new Scale("Persian",
-     * "1, b2, 3, 4, b5, b6, 7"); scales.put(s.getName(), s); s = new
-     * Scale("Oriental", "1, b2, 3, 4, b5, 6, b7"); scales.put(s.getName(), s);
-     * s = new Scale("Mohammedan", "1, 2, b3, 4, 5, b6, 7");
-     * scales.put(s.getName(), s); s = new Scale("Jewish",
-     * "1, b2, 3, 4, 5, b6, b7"); scales.put(s.getName(), s); s = new
-     * Scale("Javanese", "1, b2, b3, 4, 5, 6, b7"); scales.put(s.getName(), s);
-     * s = new Scale("Hungarian minor", "1, 2, b3, #4, 5, b6, 7");
-     * scales.put(s.getName(), s); s = new Scale("Hungarian Major",
-     * "1, #2, 3, #4, 5, 6, b7"); scales.put(s.getName(), s); s = new
-     * Scale("Hungarian Gypsy", "1, 2, b3, #4, 5, b6, b7");
-     * scales.put(s.getName(), s); s = new Scale("Hindu",
-     * "1, 2, 3, 4, 5, b6, b7"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("diminished minor", "1, 2, b3, 4, b5, b6, bb7, b8");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Bebop half-diminished", "1, b2, b3, 4, b5, 5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Bebop minor", "1, 2, b3, 3, 4, 5, 6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Bebop Dominant", "1, 2, 3, 4, 5, 6, b7, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Eight-tone Spanish", "1, b2, #2, 3, 4, b5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Spanish", "1, b2, 3, 4, 5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * //Symetric Scales s = new Scale("Augmented", "1, #2, 3, 5, #5, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Whole-Tone b5", "1, 2, 3, b5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Whole-Tone", "1, 2, 3, #4, #5, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("diminished dominant", "1, b2, #2, 3, #4, 5, 6, b7");
-     * scales.put(s.getName(), s); //
-     * 
-     * // pentatonic s = new Scale("Pelog", "1, b2, b3, 5, b6");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Pelog2", "1, b2, b3, 5, b7"); scales.put(s.getName(), s);
-     * s = new Scale("Mongolian", "1, 2, 3, 5, 6"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Kumoi", "1, b2, 4, 5, b6"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Japanese", "1, b2, 4, 5, b6"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Iwato", "1, b2, 4, b5, b7"); scales.put(s.getName(), s); s
-     * = new Scale("Hirajoshi", "1, 2, b3, 5, b6"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Egyptian", "1, 2, 4, 5, b7"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Chinese", "1, 3, #4, 5, 7"); scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Balinese", "1, b2, b3, 5, b6"); scales.put(s.getName(),
-     * s); //
-     * 
-     * s = new Scale("Major Phrygian", "1, b2, 3, 4, 5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Major Locrian", "1, 2, 3, 4, b5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Lydian minor", "1, 2, 3, #4, 5, b6, b7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Leading Whole Tone", "1, 2, 3, #4, #5, #6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Harmonic Minor", "1, 2, b3, 4, 5, b6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Harmonic Major", "1, 2, 3, 4, 5, b6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Enigmatic", "1, b2, 3, #4, #5, #6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Double Harmonic", "1, b2, 3, 4, 5, b6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Neapolitan minor", "1, b2, b3, 4, 5, b6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Neapolitan Major", "1, b2, b3, 4, 5, 6, 7");
-     * scales.put(s.getName(), s);
-     * 
-     * s = new Scale("Overtone", "1, 2, 3, #4, 5, 6, b7");
-     * scales.put(s.getName(), s); dump();
-     * 
-     * }
-     */
-
     public boolean contains(final Chord chord) {
         return this.contains(this.key,
                 chord);
@@ -883,14 +778,14 @@ public class Scale implements Cloneable {
         boolean result = true;
         final int[] chordPits = chord.getPitchClasses();
         final List<Integer> pits = this.getDegreesAsPitchClasses(key);
-        if (Scale.logger.isInfoEnabled()) {
-            Scale.logger.info(String.format("key: '%s'",
-                    key));
-            Scale.logger.info(String.format("chord pits: '%s'",
-                    ArrayUtils.toString(chordPits)));
-            Scale.logger.info(String.format("scale: '%s'",
-                    pits));
-        }
+
+        logger.info(String.format("key: '%s'",
+                key));
+        logger.info(String.format("chord pits: '%s'",
+                ArrayUtils.toString(chordPits)));
+        logger.info(String.format("scale: '%s'",
+                pits));
+
         for (final int cp : chordPits) {
             if (pits.contains(cp) == false) {
                 result = false;
@@ -902,10 +797,9 @@ public class Scale implements Cloneable {
                 break;
             }
         }
-        if (Scale.logger.isInfoEnabled()) {
-            Scale.logger.info(String.format("returning %b",
-                    result));
-        }
+
+        logger.info(String.format("returning %b",
+                result));
 
         return result;
     }
@@ -936,7 +830,7 @@ public class Scale implements Cloneable {
      * @param key
      * @param chord
      * @param omitSymbol
-     * @return
+     * @return the Roman representation
      */
     public String getRoman(final String key, final Chord chord,
             final boolean omitSymbol) {
@@ -951,6 +845,21 @@ public class Scale implements Cloneable {
                                         key),
                         omitSymbol ? "" : sym);
         return s;
+    }
+
+    /**
+     * @return the aliases
+     */
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    /**
+     * @param aliases
+     *            the aliases to set
+     */
+    public void setAliases(List<String> aliases) {
+        this.aliases = aliases;
     }
 
 }
