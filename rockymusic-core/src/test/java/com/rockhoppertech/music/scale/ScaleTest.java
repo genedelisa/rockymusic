@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rockhoppertech.music;
+package com.rockhoppertech.music.scale;
 
 /*
  * #%L
@@ -30,6 +30,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
+import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
 import com.rockhoppertech.music.scale.Scale;
@@ -39,7 +42,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
- * @author edelisa
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 public class ScaleTest {
@@ -291,8 +294,103 @@ public class ScaleTest {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
                 scale, is(notNullValue()));
-        int degree = scale.getDegree(0);
+        int index = 0;
+        int degree = scale.getDegree(index);
         assertThat("the value is correct", degree, is(equalTo(Pitch.C0)));
+
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getDegreesWithinOctave(int)}.
+     */
+    @Test
+    public void testGetDegreeWithinOctave() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int[] actual = scale.getDegreesWithinOctave();
+        int[] expected = new int[] { 0, 2, 4, 5, 7, 9, 11 };
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getDegreesAsMIDINumbers()}.
+     */
+    @Test
+    public void getDegreesAsMIDINumbers() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        List<Integer> actual = scale.getDegreesAsMIDINumbers();
+        List<Integer> expected = Lists.newArrayList(0, 2, 4, 5, 7, 9, 11, 12);
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getDegreesAsMIDINumbers(String)}.
+     */
+    @Test
+    public void getDegreesAsMIDINumbersString() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        List<Integer> actual = scale.getDegreesAsMIDINumbers("c5");
+        List<Integer> expected = Lists.newArrayList(0, 2, 4, 5, 7, 9, 11, 12);
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
+
+        actual = scale.getDegreesAsMIDINumbers("D5");
+        expected = Lists.newArrayList(2, 4, 6, 7, 9, 11, 13, 14);
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getDegreesAsPitches()}.
+     */
+    @Test
+    public void getDegreesAsPitches() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        List<Pitch> actual = scale.getDegreesAsPitches();
+        List<Pitch> expected = Lists.newArrayList(
+                PitchFactory.getPitch(Pitch.C5),
+                PitchFactory.getPitch(Pitch.D5),
+                PitchFactory.getPitch(Pitch.E5),
+                PitchFactory.getPitch(Pitch.F5),
+                PitchFactory.getPitch(Pitch.G5),
+                PitchFactory.getPitch(Pitch.A5),
+                PitchFactory.getPitch(Pitch.B5),
+                PitchFactory.getPitch(Pitch.C6)
+                );
+        logger.debug("actual {}", actual);
+        assertThat("description is not null",
+                actual, is(notNullValue()));
+        assertThat("the scale degrees are correct",
+                actual, equalTo(expected));
     }
 
     /**
@@ -634,12 +732,21 @@ public class ScaleTest {
         assertThat("the scales are equal",
                 actual, equalTo(expected));
 
+        actual = scale.equals(scale);
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+
+        actual = scale.equals(null);
+        expected = false;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+
         scale2 = ScaleFactory.getScaleByKeyAndName("G", "Major");
         actual = scale.equals(scale2);
         expected = false;
         assertThat("the scales are equal",
                 actual, equalTo(expected));
-        
+
         scale2 = ScaleFactory.getScaleByKeyAndName("C", "Melodic Minor");
         actual = scale.equals(scale2);
         expected = false;
