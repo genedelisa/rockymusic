@@ -35,8 +35,7 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.chord.Chord;
 import com.rockhoppertech.music.chord.ChordFactory;
-import com.rockhoppertech.music.scale.Scale;
-import com.rockhoppertech.music.scale.ScaleFactory;
+import com.rockhoppertech.music.midi.js.KeySignature;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -197,6 +196,25 @@ public class ScaleTest {
 
     /**
      * Test method for
+     * {@link com.rockhoppertech.music.Scale#getDegreesAsPitchClasses()} .
+     */
+    @Test
+    public void getDegreesAsPitchClasses() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        List<Integer> actual = scale.getDegreesAsPitchClasses();
+        assertThat("actual is not null",
+                actual, is(notNullValue()));
+        logger.debug("actual {}", actual);
+        List<Integer> expected = Lists.newArrayList(
+                0, 2, 4, 5, 7, 9, 11, 0);
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+    }
+
+    /**
+     * Test method for
      * {@link com.rockhoppertech.music.Scale#getDegreesAsPitches(java.lang.String)}
      * .
      */
@@ -269,7 +287,7 @@ public class ScaleTest {
     }
 
     @Test
-    public void pitchToDegree() {
+    public void pitchToDegreeString() {
         Scale scale = ScaleFactory.createFromName("Major");
         assertThat("scale is not null",
                 scale, is(notNullValue()));
@@ -283,6 +301,82 @@ public class ScaleTest {
             int d = scale.pitchToDegree("C", p);
             logger.debug("d={} for '{}'\n", d, p);
         }
+
+    }
+
+    @Test
+    public void pitchToDegree() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        String p = "C";
+        int degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(1));
+
+        p = "D";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(2));
+        p = "E";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(3));
+        p = "F";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(4));
+        p = "G";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(5));
+        p = "A";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(6));
+        p = "B";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(7));
+
+        List<Pitch> list = scale.getDegreesAsPitches();
+        logger.debug("list {}", list);
+        //[C5 , D5 , E5 , F5 , G5 , A5 , B5 , C6
+        scale.setKeySignature(KeySignature.DMAJOR);
+        list = scale.getDegreesAsPitches();
+        logger.debug("list {}", list);
+        //D  , E  , F# , G  , A  , B  , C# , D
+
+        p = "D";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(1));
+
+        p = "E";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(2));
+        p = "F#";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(3));
+        p = "G";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(4));
+        p = "A";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(5));
+        p = "B";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(6));
+        p = "C#";
+        degree = scale.pitchToDegree(p);
+        logger.debug("d={} for '{}'\n", degree, p);
+        assertThat("degree is correct", degree, equalTo(0));
 
     }
 
@@ -394,6 +488,97 @@ public class ScaleTest {
     }
 
     /**
+     * Test method for {@link com.rockhoppertech.music.Scale#getRoman(Chord)}.
+     */
+    @Test
+    public void getRoman() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        Chord chord = ChordFactory.getChordBySymbol("Maj");
+        String actual = scale.getRoman(chord);
+        String expected = "Imaj";
+        assertThat("roman is not null",
+                actual, is(notNullValue()));
+        assertThat("the roman degrees are correct",
+                actual, equalTo(expected));
+
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getRoman(String,Chord)}.
+     */
+    @Test
+    public void getRomanKeyChord() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        Chord chord = ChordFactory.getChordByFullSymbol("G7");
+        String actual = scale.getRoman("C", chord);
+        String expected = "V7";
+        assertThat("roman is not null",
+                actual, is(notNullValue()));
+        assertThat("the roman degrees are correct",
+                actual, equalTo(expected));
+
+        actual = scale.getRoman("G", chord);
+        expected = "I7";
+        assertThat("roman is not null",
+                actual, is(notNullValue()));
+        assertThat("the roman degrees are correct",
+                actual, equalTo(expected));
+
+    }
+
+    /**
+     * Test method for
+     * {@link com.rockhoppertech.music.Scale#getRoman(String,Chord,boolean)}.
+     */
+    @Test
+    public void getRomanKeyChordOmit() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+        Chord chord = ChordFactory.getChordByFullSymbol("G7");
+        String actual = scale.getRoman("C", chord, true);
+        String expected = "V";
+        assertThat("roman is not null",
+                actual, is(notNullValue()));
+        assertThat("the roman degrees are correct",
+                actual, equalTo(expected));
+
+        actual = scale.getRoman("G", chord, true);
+        expected = "I";
+        assertThat("roman is not null",
+                actual, is(notNullValue()));
+        assertThat("the roman degrees are correct",
+                actual, equalTo(expected));
+
+    }
+
+    /**
+     * Test method for {@link com.rockhoppertech.music.Scale#isDiatonic()}.
+     */
+    @Test
+    public void isDiatonic() {
+        Scale scale = ScaleFactory.createFromName("Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        boolean actual = scale.isDiatonic(Pitch.C5);
+        boolean expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+
+        actual = scale.isDiatonic(Pitch.CS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+
+    }
+
+    /**
      * Test method for {@link com.rockhoppertech.music.Scale#getIntervals()}.
      */
     @Test
@@ -461,6 +646,18 @@ public class ScaleTest {
                 name, is(notNullValue()));
         assertThat("the scale name correct",
                 name, equalTo("flobble"));
+
+        scale.setName("foo,bar");
+        name = scale.getName();
+        assertThat("name is not null",
+                name, is(notNullValue()));
+        assertThat("the scale name correct",
+                name, equalTo("foo"));
+        List<String> aliases = scale.getAliases();
+        assertThat("the aliases are correct",
+                aliases.contains("bar"), is(equalTo(true)));
+        assertThat("the aliases are correct",
+                aliases.contains("flobble"), is(equalTo(false)));
 
     }
 
@@ -752,5 +949,121 @@ public class ScaleTest {
         expected = false;
         assertThat("the scales are equal",
                 actual, equalTo(expected));
+    }
+
+    /**
+     * Test method for {@link com.rockhoppertech.music.Scale(String,String)} .
+     */
+    @Test
+    public void scaleNameSpelling() {
+        String name = "foo";
+        String spelling = "1,2,3";
+        Scale scale = new Scale(name, spelling);
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int[] actual = scale.getDegrees();
+        assertThat("actual is not null",
+                actual, is(notNullValue()));
+        logger.debug("actual {}", actual);
+        int[] expected = new int[] { 0, 2, 4 };
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        assertThat("the name is correct",
+                scale.getName(), is(equalTo(name)));
+    }
+
+    /**
+     * Test method for {@link com.rockhoppertech.music.Scale(String,int[])} .
+     */
+    @Test
+    public void scaleNameIntervals() {
+        String name = "foo";
+        int[] intervals = new int[] { 1, 2, 3 };
+        Scale scale = new Scale(name, intervals);
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        int[] actual = scale.getDegrees();
+        assertThat("actual is not null",
+                actual, is(notNullValue()));
+        logger.debug("actual {}", actual);
+        int[] expected = new int[] { 0, 1, 3, 6 };
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        assertThat("the name is correct",
+                scale.getName(), is(equalTo(name)));
+    }
+
+    /**
+     * Test method for {@link com.rockhoppertech.music.Scale()} .
+     */
+    @Test
+    public void scale() {
+        String name = "Unset";
+        Scale scale = new Scale();
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+        assertThat("the name is correct",
+                scale.getName(), is(equalTo(name)));
+    }
+
+    @Test
+    public void shouldClone() {
+        Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
+        Scale scale2 = (Scale) scale.clone();
+        boolean actual = scale.equals(scale2);
+        boolean expected = true;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+
+        actual = scale.equals(scale);
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+    }
+
+    @Test
+    public void shouldDuplicate() {
+        Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
+        Scale scale2 = scale.duplicate();
+        boolean actual = scale.equals(scale2);
+        boolean expected = true;
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+
+        actual = scale.equals(scale);
+        assertThat("the scales are equal",
+                actual, equalTo(expected));
+    }
+
+    @Test
+    public void setKeySignature() {
+        Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
+
+        String actual = null;
+        String expected = null;
+
+        actual = scale.getDegreesAsPitchString();
+        logger.debug("actual {}", actual);
+        expected = "C D E F G A B C";
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        // doesn't change degrees
+        KeySignature keySignature = KeySignature.DMAJOR;
+        scale.setKeySignature(keySignature);
+        actual = scale.getDegreesAsPitchString();
+        logger.debug("actual {}", actual);
+        expected = "C D E F G A B C";
+        assertThat("the value is correct",
+                actual, is(equalTo(expected)));
+
+        // but
+        assertThat("the key is correct",
+                scale.getKey(), is(equalTo("D")));
+
     }
 }

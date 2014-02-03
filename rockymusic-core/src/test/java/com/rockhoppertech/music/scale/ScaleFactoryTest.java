@@ -23,11 +23,6 @@ package com.rockhoppertech.music.scale;
  * #L%
  */
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
 
 import org.junit.Ignore;
@@ -40,6 +35,9 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -80,9 +78,31 @@ public class ScaleFactoryTest {
      */
     @Test
     public void testCreateFromIntervals() {
-        int[] someIntervals = new int[] { 2, 2, 1, 2 };
-        Scale scale = ScaleFactory.createFromIntervals(someIntervals);
+        int[] someIntervals = null;
+        Scale scale = null;
+
+        // no scale is defined with these intervals in scaledefs.xml
+        // int[] someIntervals = new int[] { 2, 2, 1, 2 };
+        // Scale scale = ScaleFactory.createFromIntervals(someIntervals);
+        // assertThat("scale is  null", scale, is(nullValue()));
+
+        someIntervals = new int[] { 2, 2, 1, 2, 2, 2, 1 };
+        scale = ScaleFactory.createFromIntervals(someIntervals);
         assertThat("scale is not null", scale, notNullValue());
+        assertThat("intervals are the same as the scale",
+                scale.getIntervals(), is(equalTo(someIntervals)));
+
+    }
+
+    @Test(expected = UnknownScaleException.class)
+    public void unknownScale() {
+        int[] someIntervals = null;
+        Scale scale = null;
+
+        // no scale is defined with these intervals in scaledefs.xml
+        someIntervals = new int[] { 2, 2, 1, 2 };
+        scale = ScaleFactory.createFromIntervals(someIntervals);
+        assertThat("scale is  null", scale, is(nullValue()));
     }
 
     /**
@@ -457,7 +477,8 @@ public class ScaleFactoryTest {
     public void testGetNoteListPatternScaleIntArrayIntIntIntDoubleBooleanDoubleBoolean() {
         Scale scale = ScaleFactory.getScaleByName("Major");
         assertThat("scale is not null", scale, notNullValue());
-        int[] pattern = { 1, 2, -1 };
+        // indexes
+        int[] pattern = { 0, 1, 2, 0 };
         int limit = 2;
         int startingMIDINumber = Pitch.C5;
         int nOctaves = 1;
@@ -477,6 +498,7 @@ public class ScaleFactoryTest {
                 upAndDown);
         assertThat("scale is not null", scale, notNullValue());
         assertThat("track is not null", track, notNullValue());
+        logger.debug("track {}", track);
     }
 
     /**
