@@ -35,6 +35,3 @@ Seriously though, they didn't exist when this started. And even now after lookin
 
 Read the Quick Start at the project site. I'm also I'm creating an AsciiDoc book right now. I'll post that soon.
 
-
-
-
