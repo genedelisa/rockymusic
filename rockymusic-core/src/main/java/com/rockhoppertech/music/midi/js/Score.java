@@ -78,8 +78,11 @@ public class Score implements Iterable<MIDITrack>, Serializable {
 
     /**
      * Initializes the Score instance and adds the meta track.
+     * 
+     * @param scoreName
+     *            the name of the score
      */
-    public Score(String scoreName) {
+    public Score(final String scoreName) {
         tracks = new ArrayList<>();
         metaTrack = new MIDITrack();
         metaTrack.setName(scoreName);
@@ -114,6 +117,25 @@ public class Score implements Iterable<MIDITrack>, Serializable {
         track.setScore(this);
         logger.debug("added track. ntracks is now {}", tracks.size());
         return this;
+    }
+
+    /**
+     * Find a track with the specified name.
+     * 
+     * @param trackName
+     *            name of the track
+     * @return a {@code MIDITrack} or null
+     */
+    public MIDITrack getTrackWithName(final String trackName) {
+        MIDITrack track = null;
+        for (MIDITrack t : this) {
+            logger.debug("comparing '{}' with '{}'", t.getName(), trackName);
+            if (t.getName().equals(trackName)) {
+                track = t;
+                break;
+            }
+        }
+        return track;
     }
 
     /**
@@ -152,14 +174,15 @@ public class Score implements Iterable<MIDITrack>, Serializable {
     /**
      * @return the Score's name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
     /**
      * @param name
+     *            the score name
      */
-    public void setName(final String name) {
+    public final void setName(final String name) {
         this.name = name;
         metaTrack.setName(this.name);
     }
@@ -167,7 +190,7 @@ public class Score implements Iterable<MIDITrack>, Serializable {
     /**
      * @return the tracks. Not a copy.
      */
-    public List<MIDITrack> getTracks() {
+    public final List<MIDITrack> getTracks() {
         return tracks;
     }
 
@@ -175,6 +198,7 @@ public class Score implements Iterable<MIDITrack>, Serializable {
      * Creates a copy of the tracks.
      * 
      * @param tracks
+     *            the tracks
      */
     public void setTracks(final List<MIDITrack> tracks) {
         this.tracks.clear();
@@ -187,12 +211,12 @@ public class Score implements Iterable<MIDITrack>, Serializable {
      * @see java.lang.Iterable#iterator()
      */
     @Override
-    public Iterator<MIDITrack> iterator() {
+    public final Iterator<MIDITrack> iterator() {
         return tracks.iterator();
     }
 
     /**
-     * @return
+     * @return the resolution
      */
     public int getResolution() {
         return resolution;
@@ -202,7 +226,7 @@ public class Score implements Iterable<MIDITrack>, Serializable {
      * @param resolution
      *            the MIDI file's resolution
      */
-    public void setResolution(int resolution) {
+    public final void setResolution(int resolution) {
         this.resolution = resolution;
     }
 
@@ -223,33 +247,47 @@ public class Score implements Iterable<MIDITrack>, Serializable {
     }
 
     /**
+     * Add tempo to the meta track.
+     * 
      * @param beat
+     *            the beat
      * @param bpm
+     *            beats per minute
      * @return this instance
      */
-    public Score setTempoAtBeat(double beat, int bpm) {
+    public Score setTempoAtBeat(final double beat, final int bpm) {
         this.metaTrack.addTempoAtBeat(beat, bpm);
         return this;
     }
 
     /**
+     * Add a key signature to the meta track.
+     * 
      * @param beat
+     *            the beat
      * @param key
+     *            the key
      * @return this instance
      */
-    public Score setKeySignatureAtBeat(double beat, KeySignature key) {
+    public Score setKeySignatureAtBeat(final double beat,
+            final KeySignature key) {
         this.metaTrack.addKeySignatureAtBeat(beat, key);
         return this;
     }
 
     /**
+     * Add a time signature to the meta track.
+     * 
      * @param beat
+     *            the beat
      * @param numerator
+     *            the time signature numerator
      * @param denominator
+     *            the time signature denominator
      * @return this instance
      */
-    public Score setTimeSignatureAtBeat(double beat, int numerator,
-            int denominator) {
+    public Score setTimeSignatureAtBeat(final double beat, final int numerator,
+            final int denominator) {
         this.metaTrack.addTimeSignatureAtBeat(beat, new TimeSignature(
                 numerator, denominator));
         return this;
