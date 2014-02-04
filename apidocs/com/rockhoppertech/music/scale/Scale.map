@@ -1,8 +1,8 @@
 <map id="G" name="G">
 <area shape="rect" id="node1_0" href="../chord/RomanChordParser.html" title="com.rockhoppertech.music.chord.RomanChordParser" alt="" coords="16,110,171,149"/>
 <area shape="rect" id="node1" href="../chord/RomanChordParser.html" title="&lt;TABLE&gt;" alt="" coords="5,105,181,154"/>
-<area shape="rect" id="node8_1" href="./Scale.html" title="com.rockhoppertech.music.scale.Scale" alt="" coords="531,214,581,239"/>
-<area shape="rect" id="node8" href="./Scale.html" title="&lt;TABLE&gt;" alt="" coords="520,203,592,251"/>
+<area shape="rect" id="node7_1" href="./Scale.html" title="com.rockhoppertech.music.scale.Scale" alt="" coords="469,214,518,239"/>
+<area shape="rect" id="node7" href="./Scale.html" title="&lt;TABLE&gt;" alt="" coords="457,203,529,251"/>
 <area shape="rect" id="node2_2" href="../chord/ChordProgressionParser.html" title="com.rockhoppertech.music.chord.ChordProgressionParser" alt="" coords="216,110,371,149"/>
 <area shape="rect" id="node2" href="../chord/ChordProgressionParser.html" title="&lt;TABLE&gt;" alt="" coords="205,105,381,154"/>
 <area shape="rect" id="node3_3" href="../chord/ChordProgression.html" title="com.rockhoppertech.music.chord.ChordProgression" alt="" coords="479,11,633,50"/>
@@ -11,8 +11,6 @@
 <area shape="rect" id="node5" href="../chord/Chord.html" title="&lt;TABLE&gt;" alt="" coords="405,105,581,154"/>
 <area shape="rect" id="node4_5" href="../chord/ChordFactory.html" title="com.rockhoppertech.music.chord.ChordFactory" alt="" coords="667,110,821,149"/>
 <area shape="rect" id="node4" href="../chord/ChordFactory.html" title="&lt;TABLE&gt;" alt="" coords="656,105,832,154"/>
-<area shape="rect" id="node6_6" href="../midi/js/KeySignature.html" title="com.rockhoppertech.music.midi.js.KeySignature" alt="" coords="477,305,635,343"/>
-<area shape="rect" id="node6" href="../midi/js/KeySignature.html" title="&lt;TABLE&gt;" alt="" coords="466,299,646,349"/>
-<area shape="rect" id="node7_7" href="./ScalePattern.html" title="com.rockhoppertech.music.scale.ScalePattern" alt="" coords="867,117,955,142"/>
-<area shape="rect" id="node7" href="./ScalePattern.html" title="&lt;TABLE&gt;" alt="" coords="856,105,965,153"/>
+<area shape="rect" id="node6_6" href="../midi/js/KeySignature.html" title="com.rockhoppertech.music.midi.js.KeySignature" alt="" coords="414,305,573,343"/>
+<area shape="rect" id="node6" href="../midi/js/KeySignature.html" title="&lt;TABLE&gt;" alt="" coords="403,299,583,349"/>
 </map>

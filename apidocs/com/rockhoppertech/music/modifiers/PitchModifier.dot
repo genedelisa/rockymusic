@@ -9,59 +9,41 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.rockhoppertech.collections.CircularArrayList<E>
-	c8702 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../collections/CircularArrayList.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.collections </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../../collections/CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Note
-	c8721 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Note.html">
+	c5039 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Note.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Note </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../Note.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.PitchModifier
-	c8755 [label=<<table title="com.rockhoppertech.music.modifiers.PitchModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PitchModifier.html">
+	c5074 [label=<<table title="com.rockhoppertech.music.modifiers.PitchModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PitchModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.NoteModifier
-	c8756 [label=<<table title="com.rockhoppertech.music.modifiers.NoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteModifier.html">
+	c5075 [label=<<table title="com.rockhoppertech.music.modifiers.NoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> NoteModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.modifiers.Modifier.Operation
-	c8759 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier.Operation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Modifier.Operation.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> Operation </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Modifier.Operation.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractModifier
-	c8765 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractModifier.html">
+	c5084 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractModifier </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.modifiers.PitchModifier extends com.rockhoppertech.music.modifiers.AbstractModifier
-	c8765:p -> c8755:p [dir=back,arrowtail=empty];
+	c5084:p -> c5074:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.modifiers.PitchModifier implements com.rockhoppertech.music.modifiers.NoteModifier
-	c8756:p -> c8755:p [dir=back,arrowtail=empty,style=dashed];
-	// com.rockhoppertech.music.modifiers.PitchModifier NAVASSOC com.rockhoppertech.music.modifiers.Modifier.Operation
-	c8755:p -> c8759:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.PitchModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c8755:p -> c8702:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.PitchModifier NAVASSOC com.rockhoppertech.music.modifiers.NoteModifier
-	c8755:p -> c8756:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5075:p -> c5074:p [dir=back,arrowtail=empty,style=dashed];
+	// com.rockhoppertech.music.modifiers.AbstractModifier NAVASSOC com.rockhoppertech.music.modifiers.NoteModifier
+	c5084:p -> c5075:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.PitchModifier DEPEND com.rockhoppertech.music.Note
-	c8755:p -> c8721:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c5074:p -> c5039:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.NoteModifier DEPEND com.rockhoppertech.music.Note
-	c8756:p -> c8721:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c5075:p -> c5039:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

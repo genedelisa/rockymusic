@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;1996 - 2014 Rockhopper Technologies</copyright>
     <item>
-      <title>File: 137,
+      <title>File: 152,
              Errors: 0,
-             Warnings: 4799,
+             Warnings: 4696,
              Infos: 0
       </title>
             <link>http://genedelisa.github.com/rockymusic/checkstyle.html</link>
@@ -200,6 +200,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.modifiers.VelocityModifierTest.java">com/rockhoppertech/music/modifiers/VelocityModifierTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.chord.Chord.java">com/rockhoppertech/music/chord/Chord.java</a>
                 </td>
                 <td>
@@ -235,20 +249,6 @@ under the License.
                 </td>
                 <td>
                   231
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.cmd.package-info.java">com/rockhoppertech/music/cmd/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
                 <td>
                   0
@@ -298,6 +298,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.scale.ScaleComparatorTest.java">com/rockhoppertech/music/scale/ScaleComparatorTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.MIDISender.java">com/rockhoppertech/music/midi/js/MIDISender.java</a>
                 </td>
                 <td>
@@ -318,7 +332,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  16
+                  14
                 </td>
                 <td>
                   0
@@ -382,6 +396,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.DurationTest.java">com/rockhoppertech/music/DurationTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.fx.package-info.java">com/rockhoppertech/music/midi/js/fx/package-info.java</a>
                 </td>
                 <td>
@@ -403,6 +431,20 @@ under the License.
                 </td>
                 <td>
                   10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.scale.ScaleTrackBuilder.java">com/rockhoppertech/music/scale/ScaleTrackBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
                 </td>
                 <td>
                   0
@@ -452,13 +494,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.Pitch.java">com/rockhoppertech/music/Pitch.java</a>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.DurationExample.java">com/rockhoppertech/music/examples/DurationExample.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  441
+                  7
                 </td>
                 <td>
                   0
@@ -466,13 +508,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.cmd.CommandLine.java">com/rockhoppertech/music/cmd/CommandLine.java</a>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.Pitch.java">com/rockhoppertech/music/Pitch.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  6
+                  441
                 </td>
                 <td>
                   0
@@ -500,7 +542,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  141
+                  143
                 </td>
                 <td>
                   0
@@ -556,7 +598,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  3
+                  24
                 </td>
                 <td>
                   0
@@ -570,7 +612,21 @@ under the License.
                   0
                 </td>
                 <td>
-                  18
+                  16
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.StartBeatComparator.java">com/rockhoppertech/music/StartBeatComparator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -585,6 +641,20 @@ under the License.
                 </td>
                 <td>
                   10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.scale.ScaleTest.java">com/rockhoppertech/music/scale/ScaleTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
                 </td>
                 <td>
                   0
@@ -612,7 +682,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  48
+                  47
                 </td>
                 <td>
                   0
@@ -669,6 +739,20 @@ under the License.
                 </td>
                 <td>
                   204
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.cmd.CommandLine.java">com/rockhoppertech/music/examples/cmd/CommandLine.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
                 </td>
                 <td>
                   0
@@ -766,7 +850,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   0
@@ -795,20 +879,6 @@ under the License.
                 </td>
                 <td>
                   42
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.scale.ScalePattern.java">com/rockhoppertech/music/scale/ScalePattern.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  76
                 </td>
                 <td>
                   0
@@ -872,6 +942,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.DurationParserTest.java">com/rockhoppertech/music/DurationParserTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.score.ScoreMain.java">com/rockhoppertech/music/examples/score/ScoreMain.java</a>
                 </td>
                 <td>
@@ -892,7 +976,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  24
+                  23
                 </td>
                 <td>
                   0
@@ -942,6 +1026,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.modifiers.ChannelModifierTest.java">com/rockhoppertech/music/modifiers/ChannelModifierTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.collections.CircularTreeSetTest.java">com/rockhoppertech/collections/CircularTreeSetTest.java</a>
                 </td>
                 <td>
@@ -962,7 +1060,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  36
+                  39
                 </td>
                 <td>
                   0
@@ -970,13 +1068,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.ScaleFactoryTest.java">com/rockhoppertech/music/ScaleFactoryTest.java</a>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.modifiers.StartBeatModifierTest.java">com/rockhoppertech/music/modifiers/StartBeatModifierTest.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  25
+                  22
                 </td>
                 <td>
                   0
@@ -991,6 +1089,20 @@ under the License.
                 </td>
                 <td>
                   47
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelperTest.java">com/rockhoppertech/music/midi/js/xml/ChordFactoryXMLHelperTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  18
                 </td>
                 <td>
                   0
@@ -1032,7 +1144,35 @@ under the License.
                   0
                 </td>
                 <td>
-                  353
+                  210
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelperTest.java">com/rockhoppertech/music/midi/js/xml/MIDITrackXMLHelperTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  24
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.modifiers.DurationModifierTest.java">com/rockhoppertech/music/modifiers/DurationModifierTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
                 </td>
                 <td>
                   0
@@ -1046,7 +1186,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  2
                 </td>
                 <td>
                   0
@@ -1074,7 +1214,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  85
+                  81
                 </td>
                 <td>
                   0
@@ -1088,7 +1228,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  20
+                  15
                 </td>
                 <td>
                   0
@@ -1097,6 +1237,20 @@ under the License.
                           <tr>
                 <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.score.package-info.java">com/rockhoppertech/music/examples/score/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.cmd.package-info.java">com/rockhoppertech/music/examples/cmd/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -1236,6 +1390,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.PatternBuilder.java">com/rockhoppertech/music/PatternBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  40
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#messages.properties">messages.properties</a>
                 </td>
                 <td>
@@ -1340,7 +1508,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  108
+                  75
                 </td>
                 <td>
                   0
@@ -1376,6 +1544,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.StartBeatComparatorTest.java">com/rockhoppertech/music/StartBeatComparatorTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.ScoreFactory.java">com/rockhoppertech/music/midi/js/ScoreFactory.java</a>
                 </td>
                 <td>
@@ -1396,7 +1578,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  23
+                  20
                 </td>
                 <td>
                   0
@@ -1410,7 +1592,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  37
+                  39
                 </td>
                 <td>
                   0
@@ -1425,20 +1607,6 @@ under the License.
                 </td>
                 <td>
                   211
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.ScaleTest.java">com/rockhoppertech/music/ScaleTest.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  10
                 </td>
                 <td>
                   0
@@ -1509,6 +1677,34 @@ under the License.
                 </td>
                 <td>
                   2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.examples.PitchFormatExample.java">com/rockhoppertech/music/examples/PitchFormatExample.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.IntervalTest.java">com/rockhoppertech/music/IntervalTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
                 </td>
                 <td>
                   0
@@ -1592,7 +1788,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  95
+                  85
                 </td>
                 <td>
                   0
@@ -1628,13 +1824,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper.java">com/rockhoppertech/music/midi/js/xml/MIDITrackXMLHelper.java</a>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.ScoreTest.java">com/rockhoppertech/music/midi/js/ScoreTest.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  30
+                  7
                 </td>
                 <td>
                   0
@@ -1642,13 +1838,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.ScoreTest.java">com/rockhoppertech/music/midi/js/ScoreTest.java</a>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper.java">com/rockhoppertech/music/midi/js/xml/MIDITrackXMLHelper.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  23
                 </td>
                 <td>
                   0
@@ -1662,7 +1858,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  121
+                  73
                 </td>
                 <td>
                   0
@@ -1676,7 +1872,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  7
+                  6
                 </td>
                 <td>
                   0
@@ -1718,7 +1914,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  7
                 </td>
                 <td>
                   0
@@ -1880,6 +2076,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.scale.ScaleTrackBuilderTest.java">com/rockhoppertech/music/scale/ScaleTrackBuilderTest.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://genedelisa.github.com/rockymusic/checkstyle.html#com.rockhoppertech.music.midi.js.MIDINote.java">com/rockhoppertech/music/midi/js/MIDINote.java</a>
                 </td>
                 <td>
@@ -1928,7 +2138,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
+                  8
                 </td>
                 <td>
                   0
@@ -1956,7 +2166,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  26
+                  7
                 </td>
                 <td>
                   0

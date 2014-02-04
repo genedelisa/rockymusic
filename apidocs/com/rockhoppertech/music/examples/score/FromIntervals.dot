@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.examples.score.FromIntervals
-	c4774 [label=<<table title="com.rockhoppertech.music.examples.score.FromIntervals" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FromIntervals.html">
+	c5070 [label=<<table title="com.rockhoppertech.music.examples.score.FromIntervals" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./FromIntervals.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FromIntervals </td></tr>
 		</table></td></tr>

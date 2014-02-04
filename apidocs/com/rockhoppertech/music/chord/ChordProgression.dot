@@ -10,51 +10,51 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.chord.ChordProgression
-	c3217 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordProgression.html">
+	c1471 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordProgression.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordProgression </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordProgression.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.Chord
-	c3220 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
+	c1474 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Chord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Chord.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c3244 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
+	c1499 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper
-	c3257 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/xml/ChordFactoryXMLHelper.html">
+	c1512 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/xml/ChordFactoryXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordFactoryXMLHelper </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.xml </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/xml/ChordFactoryXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.scale.Scale
-	c3281 [label=<<table title="com.rockhoppertech.music.scale.Scale" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scale/Scale.html">
+	c1535 [label=<<table title="com.rockhoppertech.music.scale.Scale" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../scale/Scale.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Scale </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.scale </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../scale/Scale.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgression NAVASSOC com.rockhoppertech.music.chord.Chord
-	c3217:p -> c3220:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1471:p -> c1474:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.midi.js.MIDITrack
-	c3217:p -> c3244:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1471:p -> c1499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.scale.Scale
-	c3217:p -> c3281:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1471:p -> c1535:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.midi.js.MIDITrack
-	c3220:p -> c3244:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1474:p -> c1499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.scale.Scale
-	c3220:p -> c3281:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
-	c3257:p -> c3220:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1474:p -> c1535:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.ChordProgression
-	c3257:p -> c3217:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1512:p -> c1471:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
+	c1512:p -> c1474:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

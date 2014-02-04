@@ -1,4 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ScaleFactoryTest.html" title="com.rockhoppertech.music.scale.ScaleFactoryTest" alt="" coords="15,17,129,42"/>
-<area shape="rect" id="node1" href="./ScaleFactoryTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,139,53"/>
+<area shape="rect" id="node1_0" href="./ScaleTrackBuilderTest.html" title="com.rockhoppertech.music.scale.ScaleTrackBuilderTest" alt="" coords="15,17,155,42"/>
+<area shape="rect" id="node1" href="./ScaleTrackBuilderTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,166,53"/>
+<area shape="rect" id="node2_1" href="./ScaleTest.html" title="com.rockhoppertech.music.scale.ScaleTest" alt="" coords="201,17,274,42"/>
+<area shape="rect" id="node2" href="./ScaleTest.html" title="&lt;TABLE&gt;" alt="" coords="190,5,285,53"/>
+<area shape="rect" id="node3_2" href="./ScaleFactoryTest.html" title="com.rockhoppertech.music.scale.ScaleFactoryTest" alt="" coords="319,17,433,42"/>
+<area shape="rect" id="node3" href="./ScaleFactoryTest.html" title="&lt;TABLE&gt;" alt="" coords="309,5,443,53"/>
+<area shape="rect" id="node4_3" href="./ScaleComparatorTest.html" title="com.rockhoppertech.music.scale.ScaleComparatorTest" alt="" coords="479,17,615,42"/>
+<area shape="rect" id="node4" href="./ScaleComparatorTest.html" title="&lt;TABLE&gt;" alt="" coords="468,5,625,53"/>
 </map>

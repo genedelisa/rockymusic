@@ -261,7 +261,7 @@
 <a class="jxr_linenumber" name="L253" href="#L253">253</a>         Chord chord = ChordFactory.getChordByFullSymbol(<span class="jxr_string">"Cmaj7+11"</span>);
 <a class="jxr_linenumber" name="L254" href="#L254">254</a>         <strong class="jxr_keyword">int</strong>[] someInts = <strong class="jxr_keyword">new</strong> <strong class="jxr_keyword">int</strong>[] { 0, 1, 2 };
 <a class="jxr_linenumber" name="L255" href="#L255">255</a> 
-<a class="jxr_linenumber" name="L256" href="#L256">256</a>         Pattern pattern = <strong class="jxr_keyword">new</strong> Pattern.Builder(chord.getPitchClasses(), someInts)
+<a class="jxr_linenumber" name="L256" href="#L256">256</a>         Pattern pattern = <strong class="jxr_keyword">new</strong> PatternBuilder(chord.getPitchClasses(), someInts)
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>                 .startPitch(C5).numOctaves(3).duration(Q).reverse(false)
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>                 .restBetweenPatterns(0).upAndDown(false).build();
 <a class="jxr_linenumber" name="L259" href="#L259">259</a> 
@@ -271,7 +271,7 @@
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>                 is(notNullValue()));
 <a class="jxr_linenumber" name="L264" href="#L264">264</a> 
 <a class="jxr_linenumber" name="L265" href="#L265">265</a>         <em class="jxr_comment">// or even shorter using defaults</em>
-<a class="jxr_linenumber" name="L266" href="#L266">266</a>         pattern = <strong class="jxr_keyword">new</strong> Pattern.Builder(chord.getPitchClasses(), someInts)
+<a class="jxr_linenumber" name="L266" href="#L266">266</a>         pattern = <strong class="jxr_keyword">new</strong> PatternBuilder(chord.getPitchClasses(), someInts)
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>                 .numOctaves(3).build();
 <a class="jxr_linenumber" name="L268" href="#L268">268</a> 
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>         nl = pattern.createTrack(1d, <strong class="jxr_keyword">true</strong>);

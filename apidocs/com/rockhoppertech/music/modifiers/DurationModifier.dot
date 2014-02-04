@@ -9,15 +9,8 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.rockhoppertech.collections.CircularArrayList<E>
-	c4387 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../collections/CircularArrayList.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.collections </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../../collections/CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Timed
-	c4397 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Timed.html">
+	c2215 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
@@ -25,66 +18,55 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Note
-	c4406 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Note.html">
+	c2224 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Note.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Note </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../Note.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.TimedModifier
-	c4438 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimedModifier.html">
+	c2257 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimedModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TimedModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimedModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.NoteModifier
-	c4441 [label=<<table title="com.rockhoppertech.music.modifiers.NoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteModifier.html">
+	c2260 [label=<<table title="com.rockhoppertech.music.modifiers.NoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> NoteModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.modifiers.Modifier.Operation
-	c4444 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier.Operation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Modifier.Operation.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> Operation </td></tr>
-		</table></td></tr>
-		</table>>, URL="./Modifier.Operation.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.DurationModifier
-	c4447 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DurationModifier.html">
+	c2266 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DurationModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DurationModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractModifier
-	c4450 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractModifier.html">
+	c2269 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractModifier </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.Note implements com.rockhoppertech.music.Timed
-	c4397:p -> c4406:p [dir=back,arrowtail=empty,style=dashed];
+	c2215:p -> c2224:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.DurationModifier extends com.rockhoppertech.music.modifiers.AbstractModifier
-	c4450:p -> c4447:p [dir=back,arrowtail=empty];
+	c2269:p -> c2266:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.modifiers.DurationModifier implements com.rockhoppertech.music.modifiers.TimedModifier
-	c4438:p -> c4447:p [dir=back,arrowtail=empty,style=dashed];
+	c2257:p -> c2266:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.DurationModifier implements com.rockhoppertech.music.modifiers.NoteModifier
-	c4441:p -> c4447:p [dir=back,arrowtail=empty,style=dashed];
-	// com.rockhoppertech.music.modifiers.DurationModifier NAVASSOC com.rockhoppertech.music.modifiers.Modifier.Operation
-	c4447:p -> c4444:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.DurationModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c4447:p -> c4387:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.DurationModifier NAVASSOC com.rockhoppertech.music.modifiers.NoteModifier
-	c4447:p -> c4441:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2260:p -> c2266:p [dir=back,arrowtail=empty,style=dashed];
+	// com.rockhoppertech.music.modifiers.AbstractModifier NAVASSOC com.rockhoppertech.music.modifiers.NoteModifier
+	c2269:p -> c2260:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
-	c4438:p -> c4397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2257:p -> c2215:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.NoteModifier DEPEND com.rockhoppertech.music.Note
-	c4441:p -> c4406:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Note
-	c4447:p -> c4406:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2260:p -> c2224:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Timed
-	c4447:p -> c4397:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2266:p -> c2215:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Note
+	c2266:p -> c2224:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

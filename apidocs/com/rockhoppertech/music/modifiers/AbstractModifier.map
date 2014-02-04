@@ -1,12 +1,18 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./StartBeatModifier.html" title="com.rockhoppertech.music.modifiers.StartBeatModifier" alt="" coords="16,214,128,239"/>
-<area shape="rect" id="node1" href="./StartBeatModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,203,139,251"/>
-<area shape="rect" id="node2_1" href="./PitchModifier.html" title="com.rockhoppertech.music.modifiers.PitchModifier" alt="" coords="174,214,263,239"/>
-<area shape="rect" id="node2" href="./PitchModifier.html" title="&lt;TABLE&gt;" alt="" coords="163,203,274,251"/>
-<area shape="rect" id="node3_2" href="./Modifier.html" title="com.rockhoppertech.music.modifiers.Modifier" alt="" coords="179,11,258,53"/>
-<area shape="rect" id="node3" href="./Modifier.html" title="&lt;TABLE&gt;" alt="" coords="169,6,269,58"/>
-<area shape="rect" id="node5_3" href="./AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="165,118,272,143"/>
-<area shape="rect" id="node5" href="./AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="155,107,283,155"/>
-<area shape="rect" id="node4_4" href="./DurationModifier.html" title="com.rockhoppertech.music.modifiers.DurationModifier" alt="" coords="309,214,417,239"/>
-<area shape="rect" id="node4" href="./DurationModifier.html" title="&lt;TABLE&gt;" alt="" coords="298,203,427,251"/>
+<area shape="rect" id="node1_0" href="../../collections/CircularArrayList.html" title="com.rockhoppertech.collections.CircularArrayList" alt="" coords="351,210,499,249"/>
+<area shape="rect" id="node1" href="../../collections/CircularArrayList.html" title="&lt;TABLE&gt;" alt="" coords="341,205,510,254"/>
+<area shape="rect" id="node2_1" href="./StartBeatModifier.html" title="com.rockhoppertech.music.modifiers.StartBeatModifier" alt="" coords="283,315,395,341"/>
+<area shape="rect" id="node2" href="./StartBeatModifier.html" title="&lt;TABLE&gt;" alt="" coords="272,304,405,352"/>
+<area shape="rect" id="node3_2" href="./PitchModifier.html" title="com.rockhoppertech.music.modifiers.PitchModifier" alt="" coords="497,315,586,341"/>
+<area shape="rect" id="node3" href="./PitchModifier.html" title="&lt;TABLE&gt;" alt="" coords="486,304,597,352"/>
+<area shape="rect" id="node4_3" href="./NoteModifier.html" title="com.rockhoppertech.music.modifiers.NoteModifier" alt="" coords="72,209,160,250"/>
+<area shape="rect" id="node4" href="./NoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="61,203,171,255"/>
+<area shape="rect" id="node7_4" href="./DurationModifier.html" title="com.rockhoppertech.music.modifiers.DurationModifier" alt="" coords="15,315,123,341"/>
+<area shape="rect" id="node7" href="./DurationModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,304,134,352"/>
+<area shape="rect" id="node5_5" href="./Modifier.html" title="com.rockhoppertech.music.modifiers.Modifier" alt="" coords="165,11,243,53"/>
+<area shape="rect" id="node5" href="./Modifier.html" title="&lt;TABLE&gt;" alt="" coords="154,6,254,58"/>
+<area shape="rect" id="node8_6" href="./AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="203,118,309,143"/>
+<area shape="rect" id="node8" href="./AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="192,107,320,155"/>
+<area shape="rect" id="node6_7" href="./Modifier.Operation.html" title="com.rockhoppertech.music.modifiers.Modifier.Operation" alt="" coords="206,209,306,250"/>
+<area shape="rect" id="node6" href="./Modifier.Operation.html" title="&lt;TABLE&gt;" alt="" coords="195,203,317,255"/>
 </map>

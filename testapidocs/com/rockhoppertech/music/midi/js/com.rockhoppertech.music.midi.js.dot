@@ -10,45 +10,45 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.ScoreTest
-	c64 [label=<<table title="com.rockhoppertech.music.midi.js.ScoreTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScoreTest.html">
+	c134 [label=<<table title="com.rockhoppertech.music.midi.js.ScoreTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScoreTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScoreTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScoreTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackTest
-	c65 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackTest.html">
+	c135 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactoryTest
-	c66 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackFactoryTest.html">
+	c136 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackFactoryTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackFactoryTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackFactoryTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackBuilderTest
-	c67 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackBuilderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackBuilderTest.html">
+	c137 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackBuilderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackBuilderTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackBuilderTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackBuilderTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINoteTest
-	c68 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteTest.html">
+	c138 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINoteTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINoteBuilderTest
-	c69 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteBuilderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteBuilderTest.html">
+	c139 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteBuilderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteBuilderTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINoteBuilderTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteBuilderTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackTest NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c65:p -> c82:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c135:p -> c153:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c82 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c153 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 		</table></td></tr>

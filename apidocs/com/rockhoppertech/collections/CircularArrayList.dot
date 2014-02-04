@@ -10,55 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.CircularList<E>
-	c3601 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularList.html">
+	c1685 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CircularList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.CircularArrayList<E>
-	c3603 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularArrayList.html">
+	c1687 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularArrayList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.modifiers.StartBeatModifier
-	c3655 [label=<<table title="com.rockhoppertech.music.modifiers.StartBeatModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/StartBeatModifier.html">
+	// com.rockhoppertech.music.modifiers.AbstractModifier
+	c1751 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> StartBeatModifier </td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractModifier </font></td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="../music/modifiers/StartBeatModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.modifiers.PitchModifier
-	c3656 [label=<<table title="com.rockhoppertech.music.modifiers.PitchModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/PitchModifier.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PitchModifier </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../music/modifiers/PitchModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.modifiers.DurationModifier
-	c3663 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/DurationModifier.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DurationModifier </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
-		</table></td></tr>
-		</table>>, URL="../music/modifiers/DurationModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, URL="../music/modifiers/AbstractModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier
-	c3667 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractMIDINoteModifier.html">
+	c1752 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractMIDINoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINoteModifier </font></td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/modifiers/AbstractMIDINoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.collections.CircularArrayList<E> implements com.rockhoppertech.collections.CircularList<E>
-	c3601:p -> c3603:p [dir=back,arrowtail=empty,style=dashed];
-	// com.rockhoppertech.music.modifiers.StartBeatModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c3655:p -> c3603:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.PitchModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c3656:p -> c3603:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.modifiers.DurationModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c3663:p -> c3603:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1685:p -> c1687:p [dir=back,arrowtail=empty,style=dashed];
+	// com.rockhoppertech.music.modifiers.AbstractModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
+	c1751:p -> c1687:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c3667:p -> c3603:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1752:p -> c1687:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

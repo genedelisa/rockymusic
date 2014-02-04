@@ -10,76 +10,76 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c5988 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
+	c3201 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c5992 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDINote.html">
+	c3205 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.Modifier
-	c6011 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Modifier.html">
+	c3224 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Modifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Modifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Modifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6013 [label=<<table title="com.rockhoppertech.music.modifiers.MIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINoteModifier.html">
+	c3226 [label=<<table title="com.rockhoppertech.music.modifiers.MIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> MIDINoteModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.InstrumentModifier
-	c6014 [label=<<table title="com.rockhoppertech.music.modifiers.InstrumentModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstrumentModifier.html">
+	c3227 [label=<<table title="com.rockhoppertech.music.modifiers.InstrumentModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InstrumentModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InstrumentModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InstrumentModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.ArpeggiateModifier
-	c6017 [label=<<table title="com.rockhoppertech.music.modifiers.ArpeggiateModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ArpeggiateModifier.html">
+	c3230 [label=<<table title="com.rockhoppertech.music.modifiers.ArpeggiateModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ArpeggiateModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ArpeggiateModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ArpeggiateModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier
-	c6019 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifier.html">
+	c3232 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINoteModifier </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMIDINoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.modifiers.MIDINoteModifier implements com.rockhoppertech.music.modifiers.Modifier
-	c6011:p -> c6013:p [dir=back,arrowtail=empty,style=dashed];
+	c3224:p -> c3226:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.InstrumentModifier implements com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6013:p -> c6014:p [dir=back,arrowtail=empty,style=dashed];
+	c3226:p -> c3227:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.ArpeggiateModifier implements com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6013:p -> c6017:p [dir=back,arrowtail=empty,style=dashed];
+	c3226:p -> c3230:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier implements com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6013:p -> c6019:p [dir=back,arrowtail=empty,style=dashed];
+	c3226:p -> c3232:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.MIDINote
-	c5988:p -> c5992:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3201:p -> c3205:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDINote NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c5992:p -> c5988:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3205:p -> c3201:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.InstrumentModifier NAVASSOC com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6014:p -> c6013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3227:p -> c3226:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.ArpeggiateModifier NAVASSOC com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6017:p -> c6013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3230:p -> c3226:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier NAVASSOC com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c6019:p -> c6013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3232:p -> c3226:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.modifiers.MIDINoteModifier
-	c5988:p -> c6013:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3201:p -> c3226:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.MIDINoteModifier DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c6013:p -> c5992:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3226:p -> c3205:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.InstrumentModifier DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c6014:p -> c5992:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3227:p -> c3205:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.ArpeggiateModifier DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c6017:p -> c5992:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3230:p -> c3205:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

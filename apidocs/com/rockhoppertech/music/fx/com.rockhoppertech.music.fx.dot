@@ -10,13 +10,13 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.fx.MainApp
-	c1155 [label=<<table title="com.rockhoppertech.music.fx.MainApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MainApp.html">
+	c839 [label=<<table title="com.rockhoppertech.music.fx.MainApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MainApp.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MainApp </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MainApp.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.fx.FXMLController
-	c1156 [label=<<table title="com.rockhoppertech.music.fx.FXMLController" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FXMLController.html">
+	c840 [label=<<table title="com.rockhoppertech.music.fx.FXMLController" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FXMLController.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FXMLController </td></tr>
 		</table></td></tr>

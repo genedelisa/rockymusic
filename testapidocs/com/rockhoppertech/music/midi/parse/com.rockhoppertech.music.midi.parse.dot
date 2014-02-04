@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.parse.MIDIStringParserTest
-	c98 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParserTest.html">
+	c219 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParserTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIStringParserTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParserTest NAVASSOC com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c98:p -> c110:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c219:p -> c230:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c110 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c230 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIStringParser </td></tr>
 		</table></td></tr>

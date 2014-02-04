@@ -5,12 +5,16 @@
 <area shape="rect" id="node2" href="./TrackAdditions.html" title="&lt;TABLE&gt;" alt="" coords="145,5,265,53"/>
 <area shape="rect" id="node3_2" href="./Send.html" title="com.rockhoppertech.music.examples.Send" alt="" coords="301,17,349,42"/>
 <area shape="rect" id="node3" href="./Send.html" title="&lt;TABLE&gt;" alt="" coords="289,5,361,53"/>
-<area shape="rect" id="node4_3" href="./PatternFactoryExample.html" title="com.rockhoppertech.music.examples.PatternFactoryExample" alt="" coords="397,17,542,42"/>
-<area shape="rect" id="node4" href="./PatternFactoryExample.html" title="&lt;TABLE&gt;" alt="" coords="386,5,553,53"/>
-<area shape="rect" id="node5_4" href="./MIDIUtilRuns.html" title="com.rockhoppertech.music.examples.MIDIUtilRuns" alt="" coords="588,17,679,42"/>
-<area shape="rect" id="node5" href="./MIDIUtilRuns.html" title="&lt;TABLE&gt;" alt="" coords="577,5,689,53"/>
-<area shape="rect" id="node6_5" href="./IntervalExample.html" title="com.rockhoppertech.music.examples.IntervalExample" alt="" coords="725,17,830,42"/>
-<area shape="rect" id="node6" href="./IntervalExample.html" title="&lt;TABLE&gt;" alt="" coords="714,5,841,53"/>
-<area shape="rect" id="node7_6" href="./Chords.html" title="com.rockhoppertech.music.examples.Chords" alt="" coords="876,17,935,42"/>
-<area shape="rect" id="node7" href="./Chords.html" title="&lt;TABLE&gt;" alt="" coords="865,5,945,53"/>
+<area shape="rect" id="node4_3" href="./PitchFormatExample.html" title="com.rockhoppertech.music.examples.PitchFormatExample" alt="" coords="396,17,527,42"/>
+<area shape="rect" id="node4" href="./PitchFormatExample.html" title="&lt;TABLE&gt;" alt="" coords="385,5,537,53"/>
+<area shape="rect" id="node5_4" href="./PatternFactoryExample.html" title="com.rockhoppertech.music.examples.PatternFactoryExample" alt="" coords="573,17,718,42"/>
+<area shape="rect" id="node5" href="./PatternFactoryExample.html" title="&lt;TABLE&gt;" alt="" coords="562,5,729,53"/>
+<area shape="rect" id="node6_5" href="./MIDIUtilRuns.html" title="com.rockhoppertech.music.examples.MIDIUtilRuns" alt="" coords="764,17,855,42"/>
+<area shape="rect" id="node6" href="./MIDIUtilRuns.html" title="&lt;TABLE&gt;" alt="" coords="753,5,865,53"/>
+<area shape="rect" id="node7_6" href="./IntervalExample.html" title="com.rockhoppertech.music.examples.IntervalExample" alt="" coords="901,17,1006,42"/>
+<area shape="rect" id="node7" href="./IntervalExample.html" title="&lt;TABLE&gt;" alt="" coords="890,5,1017,53"/>
+<area shape="rect" id="node8_7" href="./DurationExample.html" title="com.rockhoppertech.music.examples.DurationExample" alt="" coords="1052,17,1164,42"/>
+<area shape="rect" id="node8" href="./DurationExample.html" title="&lt;TABLE&gt;" alt="" coords="1041,5,1175,53"/>
+<area shape="rect" id="node9_8" href="./Chords.html" title="com.rockhoppertech.music.examples.Chords" alt="" coords="1209,17,1268,42"/>
+<area shape="rect" id="node9" href="./Chords.html" title="&lt;TABLE&gt;" alt="" coords="1199,5,1279,53"/>
 </map>

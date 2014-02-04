@@ -1,6 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ArpeggiateModifierTest.html" title="com.rockhoppertech.music.modifiers.ArpeggiateModifierTest" alt="" coords="16,17,160,42"/>
-<area shape="rect" id="node1" href="./ArpeggiateModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,171,53"/>
-<area shape="rect" id="node2_1" href="./AbstractMIDINoteModifierTest.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifierTest" alt="" coords="206,17,386,42"/>
-<area shape="rect" id="node2" href="./AbstractMIDINoteModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="195,5,397,53"/>
+<area shape="rect" id="node1_0" href="./VelocityModifierTest.html" title="com.rockhoppertech.music.modifiers.VelocityModifierTest" alt="" coords="16,17,144,42"/>
+<area shape="rect" id="node1" href="./VelocityModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,155,53"/>
+<area shape="rect" id="node2_1" href="./StartBeatModifierTest.html" title="com.rockhoppertech.music.modifiers.StartBeatModifierTest" alt="" coords="189,17,325,42"/>
+<area shape="rect" id="node2" href="./StartBeatModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="179,5,336,53"/>
+<area shape="rect" id="node3_2" href="./DurationModifierTest.html" title="com.rockhoppertech.music.modifiers.DurationModifierTest" alt="" coords="371,17,501,42"/>
+<area shape="rect" id="node3" href="./DurationModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="360,5,512,53"/>
+<area shape="rect" id="node4_3" href="./ChannelModifierTest.html" title="com.rockhoppertech.music.modifiers.ChannelModifierTest" alt="" coords="547,17,677,42"/>
+<area shape="rect" id="node4" href="./ChannelModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="536,5,688,53"/>
+<area shape="rect" id="node5_4" href="./ArpeggiateModifierTest.html" title="com.rockhoppertech.music.modifiers.ArpeggiateModifierTest" alt="" coords="723,17,867,42"/>
+<area shape="rect" id="node5" href="./ArpeggiateModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="712,5,877,53"/>
+<area shape="rect" id="node6_5" href="./AbstractMIDINoteModifierTest.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifierTest" alt="" coords="913,17,1093,42"/>
+<area shape="rect" id="node6" href="./AbstractMIDINoteModifierTest.html" title="&lt;TABLE&gt;" alt="" coords="902,5,1103,53"/>
 </map>

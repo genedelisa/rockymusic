@@ -63,8 +63,8 @@
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>      <em class="jxr_comment">// private double duration = Duration.Q;</em>
 <a class="jxr_linenumber" name="L56" href="#L56">56</a>      <strong class="jxr_keyword">private</strong> String startPitch = <span class="jxr_string">"C"</span>;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>      <strong class="jxr_keyword">private</strong> String scaleName;
-<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">private</strong> List&lt;Double&gt; startBeatList;
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> List&lt;Double&gt; durationList;    
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      <strong class="jxr_keyword">private</strong> List&lt;Number&gt; startBeatList;
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <strong class="jxr_keyword">private</strong> List&lt;Number&gt; durationList;    
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>      <strong class="jxr_keyword">private</strong> List&lt;Number&gt; velocityList;
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">private</strong> List&lt;MIDINote&gt; noteList;
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> sequential;
@@ -279,7 +279,7 @@
 <a class="jxr_linenumber" name="L271" href="#L271">271</a> <em class="jxr_javadoccomment">     * @return this to cascade calls</em>
 <a class="jxr_linenumber" name="L272" href="#L272">272</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../com/rockhoppertech/music/midi/js/MIDITrackBuilder.html">MIDITrackBuilder</a> durations(<strong class="jxr_keyword">double</strong>... durations) {
-<a class="jxr_linenumber" name="L274" href="#L274">274</a>         durationList = <strong class="jxr_keyword">new</strong> ArrayList&lt;Double&gt;();
+<a class="jxr_linenumber" name="L274" href="#L274">274</a>         durationList = <strong class="jxr_keyword">new</strong> ArrayList&lt;Number&gt;();
 <a class="jxr_linenumber" name="L275" href="#L275">275</a>         <strong class="jxr_keyword">for</strong> (Double d : durations) {
 <a class="jxr_linenumber" name="L276" href="#L276">276</a>             durationList.add(d);
 <a class="jxr_linenumber" name="L277" href="#L277">277</a>         }
@@ -291,7 +291,7 @@
 <a class="jxr_linenumber" name="L283" href="#L283">283</a> <em class="jxr_javadoccomment">     * @return this to cascade calls</em>
 <a class="jxr_linenumber" name="L284" href="#L284">284</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L285" href="#L285">285</a>     <strong class="jxr_keyword">public</strong> <a href="../../../../../com/rockhoppertech/music/midi/js/MIDITrackBuilder.html">MIDITrackBuilder</a> startBeats(<strong class="jxr_keyword">double</strong>... startBeats) {
-<a class="jxr_linenumber" name="L286" href="#L286">286</a>         startBeatList = <strong class="jxr_keyword">new</strong> ArrayList&lt;Double&gt;();
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>         startBeatList = <strong class="jxr_keyword">new</strong> ArrayList&lt;Number&gt;();
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>         <strong class="jxr_keyword">for</strong> (Double d : startBeats) {
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>             startBeatList.add(d);
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>         }
