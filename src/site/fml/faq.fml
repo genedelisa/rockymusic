@@ -41,6 +41,15 @@
         </p>
       </answer>
     </faq>
+    <faq id="rocky">
+      <question>So, what's a Rockhopper?</question>
+      <answer>
+        <p>
+          Rockhopper penguins are the coolest birds on the planet.
+          So, I like penguins. Got a problem with that?
+        </p>
+      </answer>
+    </faq>
     <faq id="needscore">
       <question>Do I need a Score? I want to create just a track.</question>
       <answer>
