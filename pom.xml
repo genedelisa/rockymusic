@@ -306,6 +306,8 @@
 								<quiet>true</quiet>
 								<breakiterator>true</breakiterator>
 								<failOnError>false</failOnError>
+								<excludePackageNames>com.rockhoppertech.music.examples.*:com.rockhoppertech.music.fx.*:com.rockhoppertech.music.midi.js.fx.*</excludePackageNames>
+
 								<links>
 									<link>http://docs.oracle.com/javase/7/docs/api/</link>
 									<link>http://docs.spring.io/spring/docs/current/javadoc-api//</link>
