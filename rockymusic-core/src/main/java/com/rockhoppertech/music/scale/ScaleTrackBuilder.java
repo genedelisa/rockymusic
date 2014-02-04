@@ -63,18 +63,6 @@ public class ScaleTrackBuilder {
         return new ScaleTrackBuilder();
     }
 
-    /**
-     * Usually the final method. But this builder will create either a
-     * {@code Scale} or a {@code MIDITrack}. This is actually no easier than
-     * using the {@code ScaleFactory}.
-     * 
-     * @return a {@code Scale}
-     */
-    public Scale build() {
-        Scale result = ScaleFactory.createFromName(name);
-        reset();
-        return result;
-    }
 
     /**
      * Final call in the chain to build the track. You set either the scale
@@ -83,7 +71,7 @@ public class ScaleTrackBuilder {
      * 
      * @return a new {@code MIDITrack}
      */
-    public MIDITrack track() {
+    public MIDITrack build() {
         MIDITrack result = null;
         Scale scale = null;
         // result = createMIDITrack(name);
