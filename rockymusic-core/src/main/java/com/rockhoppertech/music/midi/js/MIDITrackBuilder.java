@@ -55,8 +55,8 @@ public class MIDITrackBuilder {
     // private double duration = Duration.Q;
     private String startPitch = "C";
     private String scaleName;
-    private List<Double> startBeatList;
-    private List<Double> durationList;    
+    private List<Number> startBeatList;
+    private List<Number> durationList;    
     private List<Number> velocityList;
     private List<MIDINote> noteList;
     private boolean sequential;
@@ -271,7 +271,7 @@ public class MIDITrackBuilder {
      * @return this to cascade calls
      */
     public MIDITrackBuilder durations(double... durations) {
-        durationList = new ArrayList<Double>();
+        durationList = new ArrayList<Number>();
         for (Double d : durations) {
             durationList.add(d);
         }
@@ -283,7 +283,7 @@ public class MIDITrackBuilder {
      * @return this to cascade calls
      */
     public MIDITrackBuilder startBeats(double... startBeats) {
-        startBeatList = new ArrayList<Double>();
+        startBeatList = new ArrayList<Number>();
         for (Double d : startBeats) {
             startBeatList.add(d);
         }
