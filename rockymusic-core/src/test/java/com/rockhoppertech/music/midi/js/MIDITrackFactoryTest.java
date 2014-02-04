@@ -260,7 +260,7 @@ public class MIDITrackFactoryTest {
         MIDITrack track = ScaleTrackBuilder.create()
                 .name("Major")
                 .root(Pitch.C5)
-                .track()
+                .build()
                 .sequential();
         logger.debug("track:\n", track);
         assertThat("track is not null", track, notNullValue());
