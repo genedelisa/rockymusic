@@ -39,7 +39,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.music.Note;
 import com.rockhoppertech.music.Timed;
 
@@ -49,9 +48,10 @@ import com.rockhoppertech.music.Timed;
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
  * @see NoteModifier
+ * @see TimedModifier
+ * @see AbstractModifier
  */
 public class DurationModifier extends AbstractModifier implements
         TimedModifier, NoteModifier {
@@ -59,54 +59,50 @@ public class DurationModifier extends AbstractModifier implements
     private static final Logger logger = LoggerFactory
             .getLogger(DurationModifier.class);
 
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Double> values;
-    private NoteModifier successor;
-
+    /**
+     * 
+     */
     public DurationModifier() {
-        values = new CircularArrayList<Double>();
-        values.add(1d);
     }
 
-    public DurationModifier(final double n) {
-        values = new CircularArrayList<Double>();
-        values.add(n);
+    /**
+     * @param list
+     */
+    public DurationModifier(List<Number> list) {
+        super(list);
     }
 
-    public DurationModifier(final double... array) {
-        values = new CircularArrayList<Double>();
-        this.setValues(array);
+    /**
+     * @param numbers
+     */
+    public DurationModifier(Number... numbers) {
+        super(numbers);
     }
 
-    public DurationModifier(final List<Double> values2) {
-        values = new CircularArrayList<Double>();
-        values.addAll(values2);
+    /**
+     * @param op
+     * @param list
+     */
+    public DurationModifier(Operation op, List<Number> list) {
+        super(op, list);
     }
 
-    public DurationModifier(final Operation op, final double n) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        values.add(n);
-    }
-
-    public DurationModifier(final Operation op, final double... array) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        this.setValues(array);
-    }
-
-    public DurationModifier(final Operation op, final List<Double> values2) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        values.addAll(values2);
+    /**
+     * @param operation
+     * @param numbers
+     */
+    public DurationModifier(Operation operation, Number... numbers) {
+        super(operation, numbers);
     }
 
     /**
      * @param timed
+     *            a {@code Timed} object
      */
     private void doit(final Timed timed) {
         double d = 0d;
-        final double value = values.next();
+        final double value = values.next().doubleValue();
+
         switch (operation) {
         case ADD:
             d = timed.getDuration() + value;
@@ -166,7 +162,7 @@ public class DurationModifier extends AbstractModifier implements
     }
 
     /**
-     * <code>getDescription</code>
+     * 
      * 
      * @return a <code>String</code> value
      */
@@ -176,20 +172,13 @@ public class DurationModifier extends AbstractModifier implements
     }
 
     /**
-     * <code>getName</code>
+     * 
      * 
      * @return a <code>String</code> value
      */
     @Override
     public String getName() {
         return "Duration";
-    }
-
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return operation;
     }
 
     @Override
@@ -205,46 +194,4 @@ public class DurationModifier extends AbstractModifier implements
         doit(timed);
     }
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    @Override
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
-
-    @Override
-    public void setSuccessor(final NoteModifier successor) {
-        this.successor = successor;
-    }
-
-    @Override
-    public void setValues(final double[] array) {
-        if (values == null) {
-            values = new CircularArrayList<Double>();
-        } else {
-            values.clear();
-        }
-
-        for (final double element : array) {
-            values.add(element);
-        }
-    }
-
-    public void setValues(final List<Double> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Double>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
 }
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
- */

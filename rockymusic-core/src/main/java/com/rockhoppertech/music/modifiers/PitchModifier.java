@@ -50,7 +50,6 @@ import com.rockhoppertech.music.PitchFactory;
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version $Revision$, $Date$
  * @since 1.0
  * @see NoteModifier
  * @see AbstractModifier
@@ -60,45 +59,45 @@ public class PitchModifier extends AbstractModifier implements NoteModifier {
     private static final Logger logger = LoggerFactory
             .getLogger(PitchModifier.class);
 
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Number> values;
-    private NoteModifier successor;
-
-    public PitchModifier() {
-        values = new CircularArrayList<Number>();
-        values.add(Pitch.C5);
-    }
-
-    public PitchModifier(final int n) {
-        values = new CircularArrayList<Number>();
-        values.add(n);
-    }
-
-    public PitchModifier(final List<Double> list) {
-        values = new CircularArrayList<Number>();
-        values.addAll(list);
-    }
-
-    public PitchModifier(final Operation op, final double... array) {
-        operation = op;
-        values = new CircularArrayList<Number>();
-        this.setValues(array);
-    }
-
-    public PitchModifier(final Operation op, final int n) {
-        operation = op;
-        values = new CircularArrayList<Number>();
-        values.add(n);
-    }
-
-    public PitchModifier(final Operation op, final List<Integer> values2) {
-        operation = op;
-        values = new CircularArrayList<Number>();
-        values.addAll(values2);
+    /**
+     * @param list
+     */
+    public PitchModifier(List<Number> list) {
+        super(list);
     }
 
     /**
-     * <code>getDescription</code>
+     * @param numbers
+     */
+    public PitchModifier(Number... numbers) {
+        super(numbers);
+    }
+
+    /**
+     * @param op
+     * @param list
+     */
+    public PitchModifier(Operation op, List<Number> list) {
+        super(op, list);
+    }
+
+    /**
+     * @param operation
+     * @param numbers
+     */
+    public PitchModifier(Operation operation, Number... numbers) {
+        super(operation, numbers);
+    }
+
+    /**
+     * Default pitch is middle c.
+     */
+    public PitchModifier() {
+        super(Pitch.C5);
+    }
+
+    /**
+     * 
      * 
      * @return a <code>String</code> value
      */
@@ -108,20 +107,13 @@ public class PitchModifier extends AbstractModifier implements NoteModifier {
     }
 
     /**
-     * <code>getName</code>
+     * 
      * 
      * @return a <code>String</code> value
      */
     @Override
     public String getName() {
         return "Pitch Modifier";
-    }
-
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return operation;
     }
 
     @Override
@@ -191,48 +183,4 @@ public class PitchModifier extends AbstractModifier implements NoteModifier {
             successor.modify(note);
         }
     }
-
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    @Override
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
-
-    @Override
-    public void setSuccessor(final NoteModifier successor) {
-        this.successor = successor;
-    }
-
-    @Override
-    public void setValues(final double[] array) {
-        if (values == null) {
-            values = new CircularArrayList<Number>();
-        } else {
-            values.clear();
-        }
-
-        for (final Double element : array) {
-            values.add(element.intValue());
-        }
-    }
-
-    public void setValues(final List<Number> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Number>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
-
 }
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
- */

@@ -61,49 +61,47 @@ public class StartBeatModifier extends AbstractModifier implements
     private static final Logger logger = LoggerFactory
             .getLogger(StartBeatModifier.class);
 
-    private Operation operation = Operation.SET;
-    private CircularArrayList<Double> values;
-    private NoteModifier successor;
+   
 
+    /**
+     * 
+     */
     public StartBeatModifier() {
-        values = new CircularArrayList<Double>();
-        values.add(1d);
     }
 
-    public StartBeatModifier(final double n) {
-        values = new CircularArrayList<Double>();
-        values.add(n);
+    /**
+     * @param list
+     */
+    public StartBeatModifier(List<Number> list) {
+        super(list);
     }
 
-    public StartBeatModifier(final Operation op, final double n) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        values.add(n);
+    /**
+     * @param numbers
+     */
+    public StartBeatModifier(Number... numbers) {
+        super(numbers);
     }
 
-    public StartBeatModifier(final Operation op, final double... array) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        this.setValues(array);
-    }
-    
-    public StartBeatModifier(final double... array) {
-        this(Operation.SET, array);
+    /**
+     * @param op
+     * @param list
+     */
+    public StartBeatModifier(Operation op, List<Number> list) {
+        super(op, list);
     }
 
-    public StartBeatModifier(final Operation op, final List<Double> startBeatList) {
-        operation = op;
-        values = new CircularArrayList<Double>();
-        values.addAll(startBeatList);
-    }
-
-    public StartBeatModifier(List<Double> startBeatList) {
-        this(Operation.SET, startBeatList);
+    /**
+     * @param operation
+     * @param numbers
+     */
+    public StartBeatModifier(Operation operation, Number... numbers) {
+        super(operation, numbers);
     }
 
     private void doit(final Timed timed) {
         double d = 0d;
-        final double value = values.next();
+        final double value = values.next().doubleValue();
         switch (operation) {
         case ADD:
             d = timed.getStartBeat() + value;
@@ -196,12 +194,7 @@ public class StartBeatModifier extends AbstractModifier implements
         return "Start Beat";
     }
 
-    /**
-     * @return the operation
-     */
-    public Operation getOperation() {
-        return operation;
-    }
+  
 
     @Override
     public void modify(final Note note) {
@@ -216,39 +209,4 @@ public class StartBeatModifier extends AbstractModifier implements
         doit(timed);
     }
 
-    /**
-     * @param operation
-     *            the operation to set
-     */
-    @Override
-    public void setOperation(final Operation operation) {
-        this.operation = operation;
-    }
-
-    @Override
-    public void setSuccessor(final NoteModifier successor) {
-        this.successor = successor;
-    }
-
-    @Override
-    public void setValues(final double[] array) {
-        if (values == null) {
-            values = new CircularArrayList<Double>();
-        } else {
-            values.clear();
-        }
-
-        for (final double element : array) {
-            values.add(element);
-        }
-    }
-
-    public void setValues(final List<Double> values) {
-        if (this.values == null) {
-            this.values = new CircularArrayList<Double>();
-        } else {
-            this.values.clear();
-        }
-        this.values.addAll(values);
-    }
 }
