@@ -34,7 +34,6 @@ package com.rockhoppertech.music.midi.js.xml;
  * #L%
  */
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,7 +94,7 @@ public class MIDITrackXMLHelper {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JOptionPane.showMessageDialog(null,
-                                              string);
+                        string);
             }
         });
     }
@@ -129,11 +128,12 @@ public class MIDITrackXMLHelper {
         try {
             final File f = new File(filename);
             final String uri = f.toURI().toString();
-            //final InputSource is = new InputSource(new FileReader(f));
+            // final InputSource is = new InputSource(new FileReader(f));
             // filereader always uses default encoding
             // is = new InputSource(new FileReader(f));
-            final InputSource is = new InputSource(new InputStreamReader(new FileInputStream(
-                    f), Charset.forName("ISO-8859-1")));
+            final InputSource is = new InputSource(new InputStreamReader(
+                    new FileInputStream(
+                            f), Charset.forName("ISO-8859-1")));
             // if not set, then it won't show up in exceptions
             is.setSystemId(uri);
             doc = db.parse(is);
@@ -159,7 +159,7 @@ public class MIDITrackXMLHelper {
             t.printStackTrace();
             MIDITrackXMLHelper.complain(t.getMessage());
         }
-        if(doc == null) {
+        if (doc == null) {
             return null;
         }
         return doc.getDocumentElement();
@@ -178,17 +178,17 @@ public class MIDITrackXMLHelper {
                 sb.append(spe.getMessage()).append('\n');
             }
             logger.error(spe.getMessage(),
-                         spe);
+                    spe);
             Exception x = spe.getException();
             if (x != null) {
                 logger.error(x.getMessage(),
-                             x);
+                        x);
                 if (x.getMessage() != null) {
                     sb.append(x.getMessage()).append('\n');
                 }
             }
             final String s = sb.toString();
-            if ( s.length() > 0) {
+            if (s.length() > 0) {
                 MIDITrackXMLHelper.complain(s);
             }
         } catch (final SAXException sxe) {
@@ -208,7 +208,7 @@ public class MIDITrackXMLHelper {
             MIDITrackXMLHelper.complain(t.getMessage());
         }
 
-        if(doc == null) {
+        if (doc == null) {
             return null;
         }
         final Element e = doc.getDocumentElement();
@@ -226,13 +226,14 @@ public class MIDITrackXMLHelper {
      * Turn a (@link com.rockhoppertech.music.midi.js.MIDITrack) into an XML
      * string.
      * 
-     * @param notelist to turn into a string
+     * @param notelist
+     *            to turn into a string
      * @return a string
      */
     public static String MIDITrackToString(final MIDITrack notelist) {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
         MIDITrackXMLHelper.writeXML(notelist,
-                                       os);
+                os);
         try {
             return os.toString("ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
@@ -245,7 +246,8 @@ public class MIDITrackXMLHelper {
     /**
      * Parses the content of the node and stores it in the notelist.
      * 
-     * @param node the note
+     * @param node
+     *            the note
      */
     public static MIDITrack parseMIDITrack(final Node node) {
         if (node == null) {
@@ -263,21 +265,21 @@ public class MIDITrackXMLHelper {
         final String name = attributes.getNamedItem("name").getNodeValue();
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("name attribute is %s",
-                                       name));
+                    name));
         }
         notelist.setName(name);
 
-        final int pc = 0;
+        // final int pc = 0;
         int bend = 0;
         double startBeat = 0;
         String pitch = "";
-        int midinumber = 0;
+        // int midinumber = 0;
         double duration = 0;
-        double endBeat = 0;
+        // double endBeat = 0;
         int channel = 0;
         int velocity = 0;
         int program = 0;
-        final int pitchbend = 0;
+        // final int pitchbend = 0;
 
         if (node.hasChildNodes()) {
             final NodeList sc = node.getChildNodes();
@@ -289,7 +291,7 @@ public class MIDITrackXMLHelper {
                     notelist.setDescription(desc);
                     if (logger.isDebugEnabled()) {
                         logger.debug(String.format("description is '%s'",
-                                                   desc));
+                                desc));
                     }
                 } else if (nn.getNodeName().equalsIgnoreCase("keysignature")) {
                     final NamedNodeMap pa = nn.getAttributes();
@@ -298,10 +300,10 @@ public class MIDITrackXMLHelper {
                     final String key = nn.getTextContent();
                     if (logger.isDebugEnabled()) {
                         logger.debug(String.format("key is '%s'",
-                                                   key));
+                                key));
                     }
                     notelist.addKeySignatureAtBeat(beat,
-                                                   KeySignature.getByName(key));
+                            KeySignature.getByName(key));
                 } else if (nn.getNodeName().equalsIgnoreCase("timesignature")) {
                     final NamedNodeMap pa = nn.getAttributes();
                     final Node ni = pa.getNamedItem("beat");
@@ -309,10 +311,10 @@ public class MIDITrackXMLHelper {
                     final String ts = nn.getTextContent();
                     if (logger.isDebugEnabled()) {
                         logger.debug(String.format("ts is '%s'",
-                                                   ts));
+                                ts));
                     }
                     notelist.addTimeSignatureAtBeat(beat,
-                                                    new TimeSignature(ts));
+                            new TimeSignature(ts));
                 } else if (nn.getNodeName().equalsIgnoreCase("MIDINote")) {
                     final NamedNodeMap pa = nn.getAttributes();
 
@@ -361,10 +363,10 @@ public class MIDITrackXMLHelper {
                     }
 
                     // optional
-//                    ni = pa.getNamedItem("midiNumber");
-//                    if (ni != null) {
-//                        midinumber = Integer.parseInt(ni.getNodeValue());
-//                    }
+                    // ni = pa.getNamedItem("midiNumber");
+                    // if (ni != null) {
+                    // midinumber = Integer.parseInt(ni.getNodeValue());
+                    // }
 
                     // optional
                     ni = pa.getNamedItem("pitchBend");
@@ -373,10 +375,10 @@ public class MIDITrackXMLHelper {
                     }
 
                     // optional
-//                    ni = pa.getNamedItem("endBeat");
-//                    if (ni != null) {
-//                        endBeat = Double.parseDouble(ni.getNodeValue());
-//                    }
+                    // ni = pa.getNamedItem("endBeat");
+                    // if (ni != null) {
+                    // endBeat = Double.parseDouble(ni.getNodeValue());
+                    // }
 
                     final MIDINote note = new MIDINote(pitch, startBeat,
                             duration, channel, velocity, program, bend);
@@ -430,7 +432,7 @@ public class MIDITrackXMLHelper {
 
     public static Document writeXML(final MIDITrack list) {
         return MIDITrackXMLHelper.writeXML(list,
-                                       System.out);
+                System.out);
     }
 
     /**
@@ -450,11 +452,11 @@ public class MIDITrackXMLHelper {
             final Transformer transformer = tf.newTransformer();
             final Properties oprops = new Properties();
             oprops.put(OutputKeys.INDENT,
-                       "yes");
+                    "yes");
             oprops.put(OutputKeys.METHOD,
-                       "xml");
+                    "xml");
             oprops.put(OutputKeys.OMIT_XML_DECLARATION,
-                       "no");
+                    "no");
             // oprops.put(OutputKeys.STANDALONE, "no");
 
             // oprops.put(OutputKeys.DOCTYPE_PUBLIC,
@@ -463,13 +465,13 @@ public class MIDITrackXMLHelper {
             // "http://www.rockhoppertech.com/xml/midinotelist.dtd");
             transformer.setOutputProperties(oprops);
             transformer.transform(domSource,
-                                  streamResult);
+                    streamResult);
         } catch (final TransformerException e) {
-            logger.error(e.getLocalizedMessage(),e);
+            logger.error(e.getLocalizedMessage(), e);
         }
         return doc;
     }
-    
+
     public static Document createDocument(final MIDITrack list) {
         DocumentBuilderFactory dbf = null;
         DocumentBuilder db = null;
@@ -480,17 +482,18 @@ public class MIDITrackXMLHelper {
             db = dbf.newDocumentBuilder();
         } catch (final ParserConfigurationException e) {
             e.printStackTrace();
-            logger.error(e.getLocalizedMessage(),e);
+            logger.error(e.getLocalizedMessage(), e);
             return null;
-            
+
         }
         final Document doc = db.newDocument();
         final Element root = doc
-                .createElementNS("http://www.rockhoppertech.com/music/MIDITrack",
-                                 "MIDITrack");
+                .createElementNS(
+                        "http://www.rockhoppertech.com/music/MIDITrack",
+                        "MIDITrack");
         doc.appendChild(root);
         root.setAttribute("name",
-                          list.getName());
+                list.getName());
 
         final String d = list.getDescription();
         if (d != null) {
@@ -504,7 +507,7 @@ public class MIDITrackXMLHelper {
             final KeySignature k = ks.get(t);
             final Element e = doc.createElement("keysignature");
             e.setAttribute("beat",
-                           "" + t);
+                    "" + t);
             e.appendChild(doc.createTextNode(k.getDisplayName()));
             root.appendChild(e);
         }
@@ -512,7 +515,7 @@ public class MIDITrackXMLHelper {
         for (final Double t : ts.keySet()) {
             final Element e = doc.createElement("timesignature");
             e.setAttribute("beat",
-                           "" + t);
+                    "" + t);
             e.appendChild(doc.createTextNode(ts.get(t).getDisplayName()));
             root.appendChild(e);
         }
@@ -523,28 +526,31 @@ public class MIDITrackXMLHelper {
         for (final MIDINote note : list) {
             event = doc.createElement("MIDINote");
             event.setAttribute("startBeat",
-                               "" + fmt.format(note.getStartBeat()));
+                    "" + fmt.format(note.getStartBeat()));
             event.setAttribute("pitch",
-                               PitchFormat.getInstance()
-                                       .format(note.getPitch()));
-            event.setAttribute("midiNumber",
-                               "" + note.getMidiNumber());
+                    PitchFormat.getInstance()
+                            .format(note.getPitch()));
             event.setAttribute("duration",
-                               "" + fmt.format(note.getDuration()));
-            event.setAttribute("endBeat",
-                               "" + fmt.format(note.getEndBeat()));
-            event.setAttribute("channel",
-                               "" + note.getChannel());
-            event.setAttribute("velocity",
-                               "" + note.getVelocity());
-            event.setAttribute("bank",
-                               "" + note.getBank());
-            event.setAttribute("program",
-                               "" + note.getProgram());
-            event.setAttribute("pitchBend",
-                               "" + note.getPitchBend());
-            event.setAttribute("pan",
-                               "" + note.getPan());
+                    "" + fmt.format(note.getDuration()));
+
+            if (!onlyRequired) {
+                event.setAttribute("midiNumber",
+                        "" + note.getMidiNumber());
+                event.setAttribute("endBeat",
+                        "" + fmt.format(note.getEndBeat()));
+                event.setAttribute("channel",
+                        "" + note.getChannel());
+                event.setAttribute("velocity",
+                        "" + note.getVelocity());
+                event.setAttribute("bank",
+                        "" + note.getBank());
+                event.setAttribute("program",
+                        "" + note.getProgram());
+                event.setAttribute("pitchBend",
+                        "" + note.getPitchBend());
+                event.setAttribute("pan",
+                        "" + note.getPan());
+            }
             root.appendChild(event);
         }
 
