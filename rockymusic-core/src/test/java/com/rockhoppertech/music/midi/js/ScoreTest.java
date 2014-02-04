@@ -20,16 +20,16 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-//import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
+
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
+
+//import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -66,6 +66,64 @@ public class ScoreTest {
                 "there are 2 notes on the track",
                 track.getNotes().size(),
                 equalTo(2));
+    }
+
+    @Test
+    public void shouldHaveToString() {
+
+        Score score = new Score();
+        String actual = score.toString();
+        assertThat("The score is not null.", score, is(notNullValue()));
+        assertThat("The string is not null.", actual, is(notNullValue()));
+        logger.debug("to string is '{}'", actual);
+        String expected = "Score Name:null\nResolution:256\nTrack Name:meta\nInstrument:Instrument [patch=PIANO, name=Piano, minPitch=21, maxPitch=96]\nno notes\nno events\n";
+        assertThat("string is correct", actual, is(equalTo(expected)));
+    }
+
+    @Test
+    public void shouldRemoveTrack() {
+        Score score = new Score();
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("track 1")
+                .build();
+        MIDITrack track2 = MIDITrackBuilder.create()
+                .name("track 2")
+                .build();
+        score.add(track);
+        score.add(track2);
+        logger.debug("score {}", score);
+
+        score.remove(track2);
+        logger.debug("score {}", score);
+    }
+
+    @Test
+    public void shouldRemoveTrackAtIndex() {
+        Score score = new Score();
+        assertThat("The score is not null.", score, is(notNullValue()));
+        MIDITrack track = MIDITrackBuilder.create()
+                .name("track 1")
+                .build();
+        MIDITrack track2 = MIDITrackBuilder.create()
+                .name("track 2")
+                .build();
+        score.add(track);
+        score.add(track2);
+        logger.debug("score {}", score);
+        MIDITrack t = score.getTrackWithName("track 1");
+        assertThat(
+                "The track with name track 1 is not null.",
+                t,
+                is(notNullValue()));
+        // removes track 1
+        // track 0 is the meta track
+        score.remove(1);
+        logger.debug("score {}", score);
+        t = score.getTrackWithName("track 1");
+        assertThat(
+                "The track with name track 1 is  null.",
+                t,
+                is(nullValue()));
     }
 
 }
