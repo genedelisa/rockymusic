@@ -23,13 +23,13 @@
 	</skin>
 	<custom>
 		<fluidoSkin>
-			<facebookLike />
 			<googlePlusOne />
 			<twitter>
 				<user>genedelisa</user>
 				<showUser>true</showUser>
 				<showFollowers>true</showFollowers>
 			</twitter>
+			<facebookLike />
 			<gitHub>
 				<projectId>genedelisa/rockymusic</projectId>
 				<ribbonOrientation>right</ribbonOrientation>
