@@ -1,11 +1,24 @@
 /**
- * MIDITrack manipulation
+ * MIDITrack manipulation classes.
+ * <p>
+ * These are essentially GoF Visitor patterns. 
+ * <p>
+ * Each NoteModifier has a  modify(Note n); method.
+ * <p>
+ * Each MIDINoteModifier has a modify(MIDINote n); method.
+ * <p>
+ * The MIDITrack class has map methods that will use a Modifier to change
+ * some parameter on each MIDINote in the track.
+ * <p>
+ * The Abstract classes provide default implementations, including
+ * managing a Circular list of values.
  * 
  *
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @version 1.0
  */
 package com.rockhoppertech.music.modifiers;
+
 
 /*
  * #%L
