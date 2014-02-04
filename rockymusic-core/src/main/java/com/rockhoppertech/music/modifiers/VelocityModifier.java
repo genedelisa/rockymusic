@@ -56,7 +56,7 @@ public class VelocityModifier extends AbstractMIDINoteModifier
 
     private static final Logger logger = LoggerFactory
             .getLogger(VelocityModifier.class);
-    
+
     public VelocityModifier() {
         super();
     }
@@ -80,60 +80,62 @@ public class VelocityModifier extends AbstractMIDINoteModifier
     private void doit(final MIDINote midiNote) {
         int d = 0;
         final int value = values.next().intValue();
+        logger.debug("next value {}", value);
         switch (operation) {
         case ADD:
             d = midiNote.getVelocity() + value;
-            if (d < 1d) {
-                logger.debug("value {} is < 1, setting to 1",
+            if (d < 0d) {
+                logger.debug("value {} is < 0, setting to 0",
                         d);
-                d = 1;
+                d = 0;
             }
+            logger.debug("setting velocity to {}", d);            
             midiNote.setVelocity(d);
 
             break;
 
         case SUBTRACT:
             d = midiNote.getVelocity() - value;
-            if (d < 1d) {
-                logger.debug("value {} is < 1, setting to 1",
+            if (d < 0d) {
+                logger.debug("value {} is < 0, setting to 0",
                         d);
-                d = 1;
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
 
         case DIVIDE:
             d = midiNote.getVelocity() / value;
-            if (d < 1d) {
-                logger.debug("Rounding to 1: ", d);
-                d = 1;
+            if (d < 0d) {
+                logger.debug("Rounding to 0: ", d);
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
 
         case MULTIPLY:
             d = midiNote.getVelocity() * value;
-            if (d < 1d) {
-                logger.debug("Rounding to 1: ", d);
-                d = 1;
+            if (d < 0d) {
+                logger.debug("Rounding to 0: ", d);
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
 
         case SET:
             d = value;
-            if (d < 1d) {
-                logger.debug("Rounding to 1: ", d);
-                d = 1;
+            if (d < 0d) {
+                logger.debug("Rounding to 0: ", d);
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
 
         case MOD:
             d = midiNote.getVelocity() % value;
-            if (d < 1d) {
-                logger.debug("Rounding to 1: ", d);
-                d = 1;
+            if (d < 0d) {
+                logger.debug("Rounding to 0: ", d);
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
@@ -141,9 +143,9 @@ public class VelocityModifier extends AbstractMIDINoteModifier
         case QUANTIZE:
             d = (int) AbstractModifier.quantize(midiNote.getVelocity(),
                     value);
-            if (d < 1) {
-                logger.debug("Rounding to 1: ", d);
-                d = 1;
+            if (d < 0) {
+                logger.debug("Rounding to 0: ", d);
+                d = 0;
             }
             midiNote.setVelocity(d);
             break;
