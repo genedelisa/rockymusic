@@ -62,6 +62,9 @@
 		<menu name="Project dox">
 			<item name="Overview" href="overview.html" />
 			<item name="Quick Start" href="quickstart.html" />
+			<item name="MIDI Tracks" href="midiTracks.html" />			
+			<item name="Chords" href="chords.html" />			
+			<item name="Scales" href="scales.html" />						
 			<item name="FAQ" href="faq.html" />
 		</menu>
 		
