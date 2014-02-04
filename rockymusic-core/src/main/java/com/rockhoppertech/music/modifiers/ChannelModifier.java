@@ -108,6 +108,7 @@ public class ChannelModifier extends AbstractMIDINoteModifier {
         switch (operation) {
         case ADD:
             midiChannel = (int) (note.getChannel() + value);
+            logger.debug("new channel {}", midiChannel);
             if (midiChannel < 0 || midiChannel > max) {
                 midiChannel = note.getChannel();
             }
