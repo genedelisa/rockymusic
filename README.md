@@ -1,10 +1,12 @@
-# Rocky (Rockhopper) Music
+# Rockhopper (rocky) Music
 
 
 A set of classes for producing music with JavaSound.
 
 The maven generated site for this project is on github pages.
 [http://genedelisa.github.io/rockymusic/](http://genedelisa.github.io/rockymusic/)
+
+Besides the usual developer informtion, there are a few pages on how to use the main classes at that site. More is coming.
 
 ## History
 
@@ -31,7 +33,7 @@ Seriously though, they didn't exist when this started. And even now after lookin
 
 ## Where to go now
 
-Read the Quick Start. I'm creating an AsciiDoc book right now.
+Read the Quick Start at the project site. I'm also I'm creating an AsciiDoc book right now. I'll post that soon.
 
 
 

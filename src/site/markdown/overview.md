@@ -1,9 +1,8 @@
-# Rocky (Rockhopper) Music
+# Rockhopper (rocky) Music
 
 
 Rockhopper Music is a set of classes for producing music with JavaSound.
 
-This project is explained in my [Blog post](http://rockhoppertech.com/blog/rockymusic).
 
 ## History
 
