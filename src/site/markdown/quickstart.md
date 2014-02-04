@@ -1,4 +1,4 @@
-# Rocky (Rockhopper) Music Quick start
+# Rockhopper (rocky) Music Quick start
 
 ## Main classes
 
