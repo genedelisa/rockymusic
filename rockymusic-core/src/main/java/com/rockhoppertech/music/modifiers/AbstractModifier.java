@@ -30,8 +30,11 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.collections.CircularArrayList;
 
 /**
+ * Default implementation of the {@code Modifier} interface. Backed by a
+ * circular List of values.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public abstract class AbstractModifier implements Modifier {
     private static final Logger logger = LoggerFactory
@@ -41,6 +44,9 @@ public abstract class AbstractModifier implements Modifier {
     protected Operation operation = Operation.SET;
     protected NoteModifier successor;
 
+    /**
+     * Default constructor simply creates the List and adds the value 1 to it.
+     */
     public AbstractModifier() {
         this.values = new CircularArrayList<Number>();
         this.values.add(1);
