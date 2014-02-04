@@ -221,9 +221,10 @@ public class MIDITrackXMLHelperTest {
         PrintStream out = System.out;
         System.setOut(ps);
         MIDITrackXMLHelper.writeXML(track);
+        System.setOut(out);        
         assertThat("string content is correct",
                 baos.toString(), equalTo(exampleXML));
-        System.setOut(out);
+        
         logger.debug("'{}'", baos.toString());
 
     }
