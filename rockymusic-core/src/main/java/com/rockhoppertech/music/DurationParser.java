@@ -24,17 +24,23 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.ImmutableMap;
+import com.rockhoppertech.music.series.time.TimeSeries;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
  */
 public class DurationParser {
+
+    static Logger logger = LoggerFactory.getLogger(DurationParser.class);
 
     // or using google collections
     public static final ImmutableMap<String, Double> DMAP = new ImmutableMap.Builder<String, Double>()
@@ -48,7 +54,7 @@ public class DurationParser {
     private static Map<String, Double> durKeyMap;
 
     // not dotted
-    // static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
+    static Pattern pattern = Pattern.compile("[dwhqestxo]+[^\\.]*");
     // it is dotted
     static Pattern dpattern = Pattern.compile("[dwhqestxo]+\\.+");
     // static Pattern tripletPattern = Pattern.compile("[dwhqestxo]+t+");
@@ -136,6 +142,7 @@ public class DurationParser {
     }
 
     /**
+     * Parse a duration string into a  {@code TimeSeries}.
      * <pre>
      * {@code
 	 * String both = "1 2 3 q q. e .5 a q.. q...";
@@ -143,64 +150,65 @@ public class DurationParser {
 	 * }
 	 * </pre>
      * 
-     * @param s
-     * @return
+     * @param s a duration string
+     * @return  a new {@code TimeSeries}
      */
-    // public static TimeSeries getDurationAsTimeSeries(String s) {
-    // TimeSeries ts = new TimeSeries();
-    // return getDurationAsTimeSeries(ts, s);
-    // }
+    public static TimeSeries getDurationAsTimeSeries(String s) {
+        TimeSeries ts = new TimeSeries();
+        return getDurationAsTimeSeries(ts, s);
+    }
 
     /**
-     * Copies new events into the TimeSeries parameter - which is also returned
+     * Copies new events into the TimeSeries parameter - which is also returned.
      * 
      * @param ts
+     *            a {@code TimeSeries} that will be added to
      * @param s
-     * @return
+     *            a duration string
+     * @return a {@code TimeSeries}
      */
-    // public static TimeSeries getDurationAsTimeSeries(TimeSeries ts, String s)
-    // {
-    // String token = null;
-    // Scanner scanner = new Scanner(s);
-    //
-    // if (s.indexOf(',') != -1) {
-    // scanner.useDelimiter(",");
-    // }
-    //
-    // while (scanner.hasNext()) {
-    // if (scanner.hasNext(dpattern)) {
-    // token = scanner.next(dpattern);
-    // double d = getDottedValue(token);
-    // ts.add(d);
-    // System.out.println(String.format("'%s' is dotted value is %f",
-    // token, d));
-    //
-    // } else if (scanner.hasNext(pattern)) {
-    // token = scanner.next(pattern);
-    // double d = durKeyMap.get(token);
-    // ts.add(d);
-    // System.out.println(String.format(
-    // "'%s' is not dotted value is %f", token, d));
-    // // } else if (scanner.hasNext(tripletPattern)) {
-    // // token = scanner.next(tripletPattern);
-    // // double d = durKeyMap.get(token);
-    // // ts.add(d);
-    // // System.out.println(String
-    // // .format("'%s' is not dotted value is %f",
-    // // token,
-    // // d));
-    // } else if (scanner.hasNextDouble()) {
-    // double d = scanner.nextDouble();
-    // ts.add(d);
-    // System.out.println(String.format("%f is a double", d));
-    // } else {
-    // // just ignore it. or throw exception?
-    // String skipped = scanner.next();
-    // System.err.println(String.format("skipped '%s'", skipped));
-    // }
-    // }
-    // return ts;
-    // }
+    public static TimeSeries getDurationAsTimeSeries(TimeSeries ts, String s) {
+        String token = null;
+        Scanner scanner = new Scanner(s);
+
+        if (s.indexOf(',') != -1) {
+            scanner.useDelimiter(",");
+        }
+
+        while (scanner.hasNext()) {
+            if (scanner.hasNext(dpattern)) {
+                token = scanner.next(dpattern);
+                double d = getDottedValue(token);
+                ts.add(d);
+                logger.debug("'{}' is dotted value is {}",
+                        token, d);
+
+            } else if (scanner.hasNext(pattern)) {
+                token = scanner.next(pattern);
+                double d = durKeyMap.get(token);
+                ts.add(d);
+                logger.debug("'{}' is not dotted value is {}", token, d);
+                // } else if (scanner.hasNext(tripletPattern)) {
+                // token = scanner.next(tripletPattern);
+                // double d = durKeyMap.get(token);
+                // ts.add(d);
+                // System.out.println(String
+                // .format("'%s' is not dotted value is %f",
+                // token,
+                // d));
+            } else if (scanner.hasNextDouble()) {
+                double d = scanner.nextDouble();
+                ts.add(d);
+                logger.debug("{} is a double", d);
+            } else {
+                // just ignore it. or throw exception?
+                String skipped = scanner.next();
+                logger.debug("skipped '{}'", skipped);
+            }
+        }
+        scanner.close();
+        return ts;
+    }
 
     private static double getDottedValue(String token) {
         String s = token.substring(0, token.indexOf('.'));
