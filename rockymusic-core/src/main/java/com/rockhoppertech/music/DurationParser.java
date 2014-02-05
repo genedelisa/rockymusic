@@ -165,7 +165,7 @@ public class DurationParser {
      *            a {@code TimeSeries} that will be added to
      * @param s
      *            a duration string
-     * @return a {@code TimeSeries}
+     * @return the same{@code TimeSeries} that you passed in
      */
     public static TimeSeries getDurationAsTimeSeries(TimeSeries ts, String s) {
         String token = null;
