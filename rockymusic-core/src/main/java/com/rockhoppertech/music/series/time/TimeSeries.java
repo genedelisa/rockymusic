@@ -1,5 +1,26 @@
 package com.rockhoppertech.music.series.time;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -60,18 +81,9 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     public static final String MODIFIED = "TimeSeries.MODIFIED";
 
 
-    public static void main(final String[] a) {
-        final TimeSeries ts = new TimeSeries();
-        for (int i = 0; i < 10; i++) {
-            ts.add(new Sound(i + 1, .5));
-        }
-        /*
-         * for(int i=0; i<10; i++) ts.add( new Silence(i, 2.1) );
-         */
-        ts.removeSilences();
-    }
+  
 
-    private RangeSet<Double> rangeSet = TreeRangeSet.create();
+    private transient RangeSet<Double> rangeSet = TreeRangeSet.create();
     private CircularArrayList<TimeEvent> list = new CircularArrayList<TimeEvent>();
     private List<Range<Double>> ranges;
     private List<Range<Double>> exactRanges;
@@ -98,6 +110,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         this.exactRanges = new ArrayList<Range<Double>>();
         this.listenerList = new EventListenerList();
         this.timeComparator = new TimeComparator();
+        this.rangeSet = TreeRangeSet.create();
     }
 
     public TimeSeries() {
@@ -1253,7 +1266,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         for (final Timed te : this.list) {
             sw.append(te).append('\n');
         }
-        for (final Range r : this.ranges) {
+        for (final Range<Double> r : this.ranges) {
             sw.append(r).append('\n');
         }
 
@@ -1345,6 +1358,54 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((list == null) ? 0 : list.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        TimeSeries other = (TimeSeries) obj;
+        if (list == null) {
+            if (other.list != null) {
+                return false;
+            }
+            
+        } else if (!list.equals(other.list)) {
+            logger.debug("lists dont match ");
+            logger.debug("this {}", list);
+            logger.debug("other {}", other.list);
+            return false;
+        }
+//        if (name == null) {
+//            if (other.name != null) {
+//                return false;
+//            }
+//        } else if (!name.equals(other.name)) {
+//            return false;
+//        }
+        return true;
+    }
+
 }
 
 /*
@@ -1352,12 +1413,4 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
  * silences?
  * 
  * expand/contract current silence series if non overlapping notes, it's easy
- */
-
-/*
- * History:
- * 
- * $Log$
- * 
- * This version: $Revision$ Last modified: $Date$ Last modified by: $Author$
  */
