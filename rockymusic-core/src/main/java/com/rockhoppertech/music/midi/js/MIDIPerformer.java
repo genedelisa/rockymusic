@@ -158,6 +158,13 @@ public class MIDIPerformer implements Runnable {
         play();
     }
 
+    /**
+     * Searches the Score for a click track. If found, it is cleared and filled
+     * with new values. If not found, a new one is added.
+     * 
+     * @param score
+     *            a Score
+     */
     public void addCLickTrack(Score score) {
         MIDITrack track = score.getTrackWithName("click track");
         if (track == null) {
@@ -168,8 +175,11 @@ public class MIDIPerformer implements Runnable {
         track.clear();
 
         double end = score.getEndBeat();
+        // track 10 is the percussion track
         int channel = 9;
         final int hi = MIDIGMPatch.HI_WOOD_BLOCK_PERC.getProgram();
+        //or Instrument.ACOUSTIC_BASS_DRUM_PERC.getPatch().getProgram();
+        //final int hi = MIDIGMPatch.HI_BONGO_PERC.getProgram();
         final int low = MIDIGMPatch.LOW_WOOD_BLOCK_PERC.getProgram();
         for (double i = 1d; i < end; i++) {
             MIDINote nn = null;
@@ -181,9 +191,9 @@ public class MIDIPerformer implements Runnable {
             track.add(nn);
         }
         logger.debug("click track {}", track);
-        //ConsoleReceiver receiver = new ConsoleReceiver();
-        //this.receiver(receiver);
-                
+        // ConsoleReceiver receiver = new ConsoleReceiver();
+        // this.receiver(receiver);
+
     }
 
     public MIDIPerformer score(Score score) {
@@ -207,8 +217,10 @@ public class MIDIPerformer implements Runnable {
     /**
      * Creates a score, adds a click track to it, and performs the Score.
      * 
-     * @param track the track to play
-     * @param addClickTrack whether to add a click track
+     * @param track
+     *            the track to play
+     * @param addClickTrack
+     *            whether to add a click track
      */
     public void play(MIDITrack track, boolean addClickTrack) {
         Score score = new Score();
