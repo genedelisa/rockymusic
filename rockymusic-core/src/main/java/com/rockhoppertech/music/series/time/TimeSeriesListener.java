@@ -15,16 +15,10 @@
 package com.rockhoppertech.music.series.time;
 import java.util.EventListener;
 
+/**
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ *
+ */
 public interface TimeSeriesListener extends EventListener {
     public void seriesChanged(TimeSeriesEvent e);
 }
-
-/*
- * History:
- *
- * $Log$
- *
- * This version: $Revision$
- * Last modified: $Date$
- * Last modified by: $Author$
- */
