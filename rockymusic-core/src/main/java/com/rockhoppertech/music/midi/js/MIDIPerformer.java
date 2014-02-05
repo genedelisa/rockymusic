@@ -44,6 +44,7 @@ import javax.sound.midi.Transmitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
 
@@ -84,20 +85,20 @@ public class MIDIPerformer implements Runnable {
     }
 
     private boolean continuousLoop = false;
-    //private boolean playing;
+    // private boolean playing;
     private boolean midiEnd;
     private int loopCount = 1;
     private List<MidiDevice> openedMidiDeviceList;
-    //private Object playLock = new Object();
+    // private Object playLock = new Object();
     private Receiver receiver;
     private Sequence sequence;
     private Sequencer sequencer;
     private String sequencerName;
     private float tempo = 120f;
     private float tempoFactor = 1f;
-    private int resolution = 480;    
+    private int resolution = 480;
     private List<Sequence> sequences;
-    private ListIterator<Sequence> listIterator;    
+    private ListIterator<Sequence> listIterator;
     private long silenceBetween = 0;
     private Thread thread;
     private int maxIterations = 2;
@@ -148,12 +149,49 @@ public class MIDIPerformer implements Runnable {
         play();
     }
 
+    public void play(Score score, boolean addClickTrack) {
+        if (addClickTrack) {
+            addCLickTrack(score);
+        }
+        this.sequence = ScoreFactory.scoreToSequence(score);
+        this.resolution = score.getResolution();
+        play();
+    }
+
+    public void addCLickTrack(Score score) {
+        MIDITrack track = score.getTrackWithName("click track");
+        if (track == null) {
+            track = new MIDITrack();
+            track.setName("click track");
+            score.add(track);
+        }
+        track.clear();
+
+        double end = score.getEndBeat();
+        int channel = 9;
+        final int hi = MIDIGMPatch.HI_WOOD_BLOCK_PERC.getProgram();
+        final int low = MIDIGMPatch.LOW_WOOD_BLOCK_PERC.getProgram();
+        for (double i = 1d; i < end; i++) {
+            MIDINote nn = null;
+            if (i % 4 == 1) {
+                nn = new MIDINote(hi, i, 1d, channel);
+            } else {
+                nn = new MIDINote(low, i, 1d, channel);
+            }
+            track.add(nn);
+        }
+        logger.debug("click track {}", track);
+        //ConsoleReceiver receiver = new ConsoleReceiver();
+        //this.receiver(receiver);
+                
+    }
+
     public MIDIPerformer score(Score score) {
         this.sequence = ScoreFactory.scoreToSequence(score);
         this.resolution = score.getResolution();
         return this;
     }
-    
+
     public MIDIPerformer sequence(Sequence s) {
         this.sequence = s;
         this.resolution = s.getResolution();
@@ -164,6 +202,23 @@ public class MIDIPerformer implements Runnable {
         this.sequence = MIDITrackFactory
                 .trackToSequence(track, this.resolution);
         this.play();
+    }
+
+    /**
+     * Creates a score, adds a click track to it, and performs the Score.
+     * 
+     * @param track the track to play
+     * @param addClickTrack whether to add a click track
+     */
+    public void play(MIDITrack track, boolean addClickTrack) {
+        Score score = new Score();
+        score.add(track);
+        if (addClickTrack) {
+            addCLickTrack(score);
+        }
+        this.sequence = ScoreFactory.scoreToSequence(score);
+        this.resolution = score.getResolution();
+        play();
     }
 
     public MIDIPerformer track(MIDITrack track) {
@@ -184,7 +239,8 @@ public class MIDIPerformer implements Runnable {
     /**
      * To play multiple Sequences in order. Add them, then start the Performer.
      * 
-     * @param sequence the JavaSound Sequence
+     * @param sequence
+     *            the JavaSound Sequence
      * @return this to cascade calls
      */
     public MIDIPerformer add(Sequence sequence) {
@@ -314,7 +370,7 @@ public class MIDIPerformer implements Runnable {
                         && loopCount != Sequencer.LOOP_CONTINUOUSLY) {
                     logger.debug("end of MIDI. stopping sequencer");
                     stopPlaying();
-                   // playing = false;
+                    // playing = false;
                     midiEnd = true;
                 }
             }
@@ -416,23 +472,23 @@ public class MIDIPerformer implements Runnable {
     }
 
     // get this to work?
-//    void exec() {
-//        ExecutorService executor = Executors.newSingleThreadExecutor();
-//        for (int i = 0; i < 5; i++) {
-//            Runnable worker = new MIDIPerformer();
-//            executor.execute(worker);
-//        }
-//        // This will make the executor accept no new threads
-//        // and finish all existing threads in the queue
-//        executor.shutdown();
-//
-//        // Wait until all threads are finished
-//        try {
-//            executor.awaitTermination(0, null);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    // void exec() {
+    // ExecutorService executor = Executors.newSingleThreadExecutor();
+    // for (int i = 0; i < 5; i++) {
+    // Runnable worker = new MIDIPerformer();
+    // executor.execute(worker);
+    // }
+    // // This will make the executor accept no new threads
+    // // and finish all existing threads in the queue
+    // executor.shutdown();
+    //
+    // // Wait until all threads are finished
+    // try {
+    // executor.awaitTermination(0, null);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // }
 
     /**
      * @return the maxIterations
