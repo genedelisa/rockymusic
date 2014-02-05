@@ -1,6 +1,30 @@
 package com.rockhoppertech.music.series.time;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
@@ -17,9 +41,10 @@ import com.rockhoppertech.music.Timed;
 public class TimeSeriesFactory {
 
     private static double defaultDuration = 1d;
+    static Logger logger = LoggerFactory.getLogger(TimeSeriesFactory.class);
 
     /**
-     * Create n events.
+     * Create n events with default duraiton of 1, and start increment of 1.
      * 
      * @param n
      *            number of events to create.
@@ -30,7 +55,7 @@ public class TimeSeriesFactory {
     }
 
     /**
-     * Create n events, each with specified duration.
+     * Create n events, each with specified duration, and start increment of 1.
      * 
      * @param n
      *            number of events to create.
@@ -44,7 +69,7 @@ public class TimeSeriesFactory {
 
     /**
      * Create n events, each with duration, and with the start time incremented
-     * by startTimeIncrement
+     * by startTimeIncrement.
      * 
      * @param n
      *            number of events to create.
@@ -76,20 +101,21 @@ public class TimeSeriesFactory {
         return timeSeries;
     }
 
-    public static TimeSeries create(int n, CircularList<Double> durations) {
-        TimeSeries timeSeries = new TimeSeries();
-        double startTime = 1d;
-        double dur = 0d;
-        for (int i = 0; i < n; i++) {
-            dur = durations.next();
-            timeSeries.add(new TimeEvent(startTime, dur));
-            startTime += dur;
-        }
-        return timeSeries;
-    }
+    // nah. there is a varargs version below
+//    public static TimeSeries create(int n, CircularList<Double> durations) {
+//        TimeSeries timeSeries = new TimeSeries();
+//        double startTime = 1d;
+//        double dur = 0d;
+//        for (int i = 0; i < n; i++) {
+//            dur = durations.next();
+//            timeSeries.add(new TimeEvent(startTime, dur));
+//            startTime += dur;
+//        }
+//        return timeSeries;
+//    }
 
     /**
-     * create an event for each duration. The start times will be sequential.
+     * Create an event for each duration. The start times will be sequential.
      * The durations wrap.
      * 
      * @param durations
@@ -151,7 +177,7 @@ public class TimeSeriesFactory {
     }
 
     /**
-     * Create n events sequentially. the durations will wrap
+     * Create n events sequentially. The durations will wrap.
      * 
      * @param n
      * @param durations
@@ -195,6 +221,7 @@ public class TimeSeriesFactory {
         int maskValue = 0;
         for (final Timed t : original) {
             maskValue = mask.next();
+            logger.debug("mask value {}", maskValue);
             for (int i = 0; i < maskValue; i++) {
                 // the start beat will be changed below
                 TimeEvent clone = new TimeEvent(t.getStartBeat(), t
@@ -237,11 +264,11 @@ public class TimeSeriesFactory {
                 .stringToIntegerCircularList(repeats);
 
         if (startTimes == null || startTimes.equals("")) {
-            System.err.println("no start times");
+            logger.debug("no start times");
             return createFromRepeatMask(durs, mask);
         }
 
-        System.err.println("using start times");
+        logger.debug("using start times");
         CircularList<Double> starts = ListUtils
                 .stringToDoubleCircularList(startTimes);
         return createFromRepeatMask(starts, durs, mask);
@@ -269,7 +296,7 @@ public class TimeSeriesFactory {
     /**
      * Create a {@code TimeSeries} from a duration string. dwhqestxo and dots.
      * 
-     * @param durations
+     * @param durations duration string
      * @return a {@code TimeSeries}
      * @see DurationParser
      */
@@ -309,51 +336,4 @@ public class TimeSeriesFactory {
             te2.setStartBeat(te1.getStartBeat() + ci.next());
         }
     }
-
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        TimeSeries timeSeries = TimeSeriesFactory.create(10);
-        for (Timed e : timeSeries) {
-            System.err.println(e);
-        }
-
-        System.err.println();
-        timeSeries = TimeSeriesFactory.create(10, .5);
-        for (Timed e : timeSeries) {
-            System.err.println(e);
-        }
-
-        System.err.println();
-        timeSeries = TimeSeriesFactory.create(10, .5, 5d);
-        for (Timed e : timeSeries) {
-            System.err.println(e);
-        }
-
-        CircularList<Double> durations = new CircularArrayList<Double>(
-                new Double[] { .5, .25 });
-        System.err.println();
-        timeSeries = TimeSeriesFactory.create(10, durations);
-        for (Timed e : timeSeries) {
-            System.err.println(e);
-        }
-
-        System.err.println();
-        timeSeries = TimeSeriesFactory.create(10, durations, 10d);
-        for (Timed e : timeSeries) {
-            System.err.println(e);
-        }
-
-        /**
-         * dwhqestxo and dots
-         */
-        timeSeries = TimeSeriesFactory.createFromDurationString("q q q q");
-        System.err.println(timeSeries);
-
-        timeSeries = TimeSeriesFactory
-                .createFromDurationString("e s s e s s e s s e s s");
-        System.err.println(timeSeries);
-    }
-
 }

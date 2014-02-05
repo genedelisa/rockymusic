@@ -20,8 +20,6 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
-import static com.rockhoppertech.music.Pitch.C5;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,6 +43,10 @@ import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
+
+import static com.rockhoppertech.music.Pitch.*;
+
+import static com.rockhoppertech.music.midi.gm.MIDIGMPatch.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -1350,5 +1352,58 @@ public class MIDITrackFactory {
 
         // Interval.
         return result;
+    }
+    
+    /**
+     * Create a click track. Uses the length and time signatures of the provided track.
+     * 
+     * @param track a {@code MIDITrack}
+     * @return a new {@code MIDITrack}
+     */
+    public MIDITrack createClickTrack(MIDITrack track) {
+        MIDITrack clickTrack = new MIDITrack();
+        clickTrack.setName("click track");
+        int channel = 9;
+        // int hi = HI_WOOD_BLOCK_PERC.getProgram();
+        // int low = MIDIGMPatch.LOW_WOOD_BLOCK_PERC.getProgram();
+        NavigableMap<Double, TimeSignature> ts = track.getTimeSignatures();
+        double endBeat = track.getEndBeat();
+        int num = 4;
+        MIDINote nn = null;
+
+        int beatInMeasure = 1;
+        for (double beat = 1d; beat < endBeat; beat++) {
+            if (ts.containsKey(beat)) {
+                TimeSignature sig = ts.get(beat);
+                num = sig.getNumerator();
+                if (logger.isDebugEnabled()) {
+                    logger.debug(String.format("new numerator %d at beat %f",
+                            num, beat));
+                }
+                beatInMeasure = 0;
+            }
+
+            if (beatInMeasure == 0) {
+                nn = new MIDINote(HI_WOOD_BLOCK_PERC, beat, 1d, channel);
+            } else {
+                nn = new MIDINote(LOW_WOOD_BLOCK_PERC, beat, 1d, channel);
+            }
+
+            // if (beat % num == 1) {
+            // nn = new MIDINote(HI_WOOD_BLOCK_PERC, beat, 1d, channel);
+            // } else {
+            // nn = new MIDINote(LOW_WOOD_BLOCK_PERC, beat, 1d, channel);
+            // }
+
+            clickTrack.add(nn);
+            if (logger.isDebugEnabled()) {
+                logger.debug(String.format("beat %f num %d bim %d", beat, num,
+                        beatInMeasure));
+            }
+
+            beatInMeasure++;
+            beatInMeasure %= num;
+        }
+        return clickTrack;
     }
 }

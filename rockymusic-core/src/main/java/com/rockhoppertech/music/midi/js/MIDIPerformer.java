@@ -22,6 +22,8 @@ package com.rockhoppertech.music.midi.js;
 
 import static com.rockhoppertech.music.Pitch.C5;
 
+import static com.rockhoppertech.music.midi.gm.MIDIGMPatch.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -177,16 +179,19 @@ public class MIDIPerformer implements Runnable {
         double end = score.getEndBeat();
         // track 10 is the percussion track
         int channel = 9;
-        final int hi = MIDIGMPatch.HI_WOOD_BLOCK_PERC.getProgram();
+        //final int hi = MIDIGMPatch.HI_WOOD_BLOCK_PERC.getProgram();
+        //final int hi = MIDIGMPatch.HI_WOOD_BLOCK_PERC;
         //or Instrument.ACOUSTIC_BASS_DRUM_PERC.getPatch().getProgram();
         //final int hi = MIDIGMPatch.HI_BONGO_PERC.getProgram();
-        final int low = MIDIGMPatch.LOW_WOOD_BLOCK_PERC.getProgram();
+       // final int low = MIDIGMPatch.LOW_WOOD_BLOCK_PERC.getProgram();
         for (double i = 1d; i < end; i++) {
             MIDINote nn = null;
             if (i % 4 == 1) {
-                nn = new MIDINote(hi, i, 1d, channel);
+                //nn = new MIDINote(hi, i, 1d, channel);
+                nn = new MIDINote(HI_WOOD_BLOCK_PERC, i, 1d, channel);
             } else {
-                nn = new MIDINote(low, i, 1d, channel);
+                //nn = new MIDINote(low, i, 1d, channel);
+                nn = new MIDINote(LOW_WOOD_BLOCK_PERC, i, 1d, channel);
             }
             track.add(nn);
         }

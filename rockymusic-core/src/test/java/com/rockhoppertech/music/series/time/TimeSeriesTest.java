@@ -3,8 +3,35 @@
  */
 package com.rockhoppertech.music.series.time;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -756,9 +783,9 @@ public class TimeSeriesTest {
 
     @Test
     public void testTimeSeriesMIDITrack() {
-        MIDITrack notelist = new MIDITrack();
-        notelist.add(new MIDINote(Pitch.C5, 1.5, .5));
-        TimeSeries ts = new TimeSeries(notelist);
+        MIDITrack track = new MIDITrack();
+        track.add(new MIDINote(Pitch.C5, 1.5, .5));
+        TimeSeries ts = new TimeSeries(track);
         Timed e = ts.get(0);
         assertThat(e.getStartBeat(),
                 equalTo(1.5));
@@ -1007,7 +1034,7 @@ public class TimeSeriesTest {
 
         // modifies starts to be prev start + prev duration
         ts.sequential();
-        logger.debug("tse\n{}", ts);        
+        logger.debug("tse\n{}", ts);
         assertThat(ts.getEndBeat(),
                 equalTo(3.0));
 
@@ -2057,6 +2084,47 @@ public class TimeSeriesTest {
                 equalTo(note.getStartBeat()));
         assertThat(e.getDuration(),
                 equalTo(note.getDuration()));
+
+    }
+
+    @Test
+    public void serialize() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        File f = null;
+        ObjectOutputStream out = null;
+        ObjectInputStream in = null;
+        TimeSeries ts2 = null;
+        try {
+            f = File.createTempFile("tempTimeSeries", "ser");
+            out = new ObjectOutputStream(new FileOutputStream(f));
+            out.writeObject(ts);
+            out.close();
+            in = new ObjectInputStream(new FileInputStream(f));
+            ts2 = (TimeSeries) in.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        } finally {
+            try {
+                if (in != null)
+                    in.close();
+                if (out != null)
+                    out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        logger.debug("ts \n{}", ts);
+        logger.debug("ts2 \n{}", ts2);        
+        assertThat("the serialization worked",
+                ts,
+                equalTo(ts2));
 
     }
 
