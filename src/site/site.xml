@@ -10,11 +10,14 @@
 	#L% -->
 
 
-<project name="Rockhopper Music" xmlns="http://maven.apache.org/DECORATION/1.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0
-           http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+<project xmlns="http://maven.apache.org/DECORATION/1.4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/DECORATION/1.4.0 http://maven.apache.org/xsd/decoration-1.4.0.xsd"
+  name="Rockhopper Music">
 
+	<!-- http://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html -->
+	
+	<googleAnalyticsAccountId>UA-2282147-1</googleAnalyticsAccountId>
+	
 	<!-- http://maven.apache.org/skins/maven-fluido-skin/ -->
 	<skin>
 		<groupId>org.apache.maven.skins</groupId>
@@ -51,6 +54,8 @@
 		<src>http://maven.apache.org/images/maven-small.gif</src>
 	</bannerRight>
 
+  
+
 	<body>
 		<links>
 			<item name="Rockhopper Technologies" href="http://rockhoppertech.com/" />
@@ -59,7 +64,7 @@
 
 		
 
-		<menu name="Project dox">
+		<menu name="Project dox"  inherit="top" >
 			<item name="Overview" href="overview.html" />
 			<item name="Quick Start" href="quickstart.html" />
 			<item name="MIDI Tracks" href="midiTracks.html" />			
@@ -68,7 +73,7 @@
 			<item name="FAQ" href="faq.html" />
 		</menu>
 		
-		<menu ref="reports" />
+		<menu ref="reports" inherit="bottom" />
 
 	</body>
 </project>

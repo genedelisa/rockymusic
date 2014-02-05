@@ -282,6 +282,17 @@
 						<version>${plugin.wagon-ssh.version}</version>
 					</dependency>
 				</dependencies>
+				
+				<!-- use parent's site.xml for submodules -->
+				<executions>
+					<execution>
+						<id>attach-descriptor</id>
+						<goals>
+							<goal>attach-descriptor</goal>
+						</goals>
+					</execution>
+				</executions>
+
 				<configuration>
 					<!-- <attach>true</attach> -->
 
@@ -349,6 +360,8 @@
 									MS' -nodefonttagname'Trebuchet MS' </additionalparam> -->
 
 							</configuration>
+
+
 						</plugin>
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
