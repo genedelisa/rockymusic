@@ -130,7 +130,7 @@ public class Score implements Iterable<MIDITrack>, Serializable {
         MIDITrack track = null;
         for (MIDITrack t : this) {
             logger.debug("comparing '{}' with '{}'", t.getName(), trackName);
-            if (t.getName().equals(trackName)) {
+            if (t.getName() != null &&t.getName().equals(trackName)) {
                 track = t;
                 break;
             }
@@ -238,6 +238,11 @@ public class Score implements Iterable<MIDITrack>, Serializable {
         MIDIPerformer perf = new MIDIPerformer();
         perf.play(this);
     }
+    public final void playWithClickTrack() {
+        // Sequence sequence = ScoreFactory.scoreToSequence(this);
+        MIDIPerformer perf = new MIDIPerformer();
+        perf.play(this, true);
+    }
 
     /**
      * @return the meta track
@@ -291,6 +296,21 @@ public class Score implements Iterable<MIDITrack>, Serializable {
         this.metaTrack.addTimeSignatureAtBeat(beat, new TimeSignature(
                 numerator, denominator));
         return this;
+    }
+
+    /**
+     * Get the last end beat of all the tracks.
+     * @return the end beat
+     */
+    public double getEndBeat() {
+        double end = 0d;
+        for(MIDITrack track : this) {
+            double e = track.getEndBeat();
+            if(e > end) {
+                end = e;
+            }
+        }
+        return end;
     }
 
 }
