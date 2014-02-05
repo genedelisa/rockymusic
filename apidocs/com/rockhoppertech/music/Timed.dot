@@ -52,13 +52,13 @@ digraph G {
 	c5888:p -> c5897:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
 	c5888:p -> c5846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Timed
-	c5889:p -> c5846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Note
 	c5889:p -> c5855:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Timed
-	c5897:p -> c5846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Timed
+	c5889:p -> c5846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Note
 	c5897:p -> c5855:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Timed
+	c5897:p -> c5846:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 
