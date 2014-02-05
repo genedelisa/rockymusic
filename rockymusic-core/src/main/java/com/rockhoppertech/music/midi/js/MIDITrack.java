@@ -20,6 +20,7 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,6 +46,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 import com.rockhoppertech.music.modifiers.ChannelModifier;
 import com.rockhoppertech.music.modifiers.DurationModifier;
@@ -55,6 +57,7 @@ import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.NoteModifier;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
 import com.rockhoppertech.music.modifiers.VelocityModifier;
+import com.rockhoppertech.music.series.time.TimeSeries;
 
 /**
  * 
@@ -2316,10 +2319,13 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         }
         return notes;
     }
-    
+
     /**
-     * Change the duration of the entire track. Changes each {@code MIDINote}'s duration and start beat.
-     * @param duration the new duration
+     * Change the duration of the entire track. Changes each {@code MIDINote}'s
+     * duration and start beat.
+     * 
+     * @param duration
+     *            the new duration
      */
     public void setDuration(double duration) {
         double now = this.getStartBeat();
@@ -2341,9 +2347,32 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
+     * Set the {@code MIDINote}s in this track to use the start beats and
+     * durations in the provided {@code TimeSeries}.
+     * 
+     * @param timeSeries
+     *            a {@code TimeSeries}
+     */
+    public void apply(final TimeSeries timeSeries) {
+        final double nsize = this.size();
+        final double tsize = timeSeries.getSize();
+        final int n = (int) Math.round(nsize / tsize + .5);
+        final TimeSeries ts = timeSeries.nCopies(n);
+        ts.sequential();
+        for (final MIDINote note : this) {
+            final Timed te = ts.nextTimeEvent();
+            note.setStartBeat(te.getStartBeat());
+            note.setDuration(te.getDuration());
+        }
+    }
+
+    /**
      * Serialization method.
-     * @param out and output stream
-     * @throws IOException if this cannot be serialized
+     * 
+     * @param out
+     *            and output stream
+     * @throws IOException
+     *             if this cannot be serialized
      */
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
@@ -2352,9 +2381,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * Serializaiton method.
      * 
-     * @param in the input stream
-     * @throws IOException if something went wrong
-     * @throws ClassNotFoundException if the class is not found
+     * @param in
+     *            the input stream
+     * @throws IOException
+     *             if something went wrong
+     * @throws ClassNotFoundException
+     *             if the class is not found
      */
     private void readObject(ObjectInputStream in) throws IOException,
             ClassNotFoundException {
@@ -2363,5 +2395,36 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         // now we are a "live" object again
         this.changes = new PropertyChangeSupport(this);
         this.midiStringParser = new MIDIStringParser();
+    }
+    
+    // JavaBeans event methods.
+
+    public void addPropertyChangeListener(final PropertyChangeListener listener) {
+        this.changes.addPropertyChangeListener(listener);
+    }
+
+    public void addPropertyChangeListener(final String propertyName,
+            final PropertyChangeListener listener) {
+        this.changes.addPropertyChangeListener(propertyName,
+                listener);
+    }
+
+    public void removePropertyChangeListener(
+            final PropertyChangeListener listener) {
+        this.changes.removePropertyChangeListener(listener);
+    }
+
+    /**
+     * Removes the property change listener.
+     * 
+     * @param propertyName
+     *            the property name
+     * @param listener
+     *            the listener
+     */
+    public void removePropertyChangeListener(final String propertyName,
+            final PropertyChangeListener listener) {
+        this.changes.removePropertyChangeListener(propertyName,
+                listener);
     }
 }
