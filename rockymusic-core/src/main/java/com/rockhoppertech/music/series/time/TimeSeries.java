@@ -34,8 +34,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-import javax.swing.event.EventListenerList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,11 +42,14 @@ import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeSet;
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
+import com.rockhoppertech.collections.ListUtils;
+import com.rockhoppertech.music.DurationParser;
 import com.rockhoppertech.music.Note;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.js.MIDINote;
+import com.rockhoppertech.music.midi.js.MIDIPerformer;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
 import com.rockhoppertech.music.modifiers.DurationModifier;
@@ -60,16 +61,15 @@ import com.rockhoppertech.music.modifiers.TimedModifier;
 //import com.rockhoppertech.series.time.modifiers.criteria.TimeModifierCriteria;
 
 /**
- * Class <code>TimeSeries</code>
+ * Class <code>TimeSeries</code> is a series of {@code TimeEvents}.
  * 
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @version 1.0
  * @since 1.0
  */
 public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     /**
-     * 
+     * Serialization.
      */
     private static final long serialVersionUID = 3559349459462266457L;
     static Logger logger = LoggerFactory.getLogger(TimeSeries.class);
@@ -83,49 +83,47 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     private CircularArrayList<TimeEvent> list = new CircularArrayList<TimeEvent>();
     private List<Range<Double>> ranges;
     private List<Range<Double>> exactRanges;
-    private transient EventListenerList listenerList;
-    private transient TimeSeriesEvent timeSeriesEvent;
     private String name = "Untitled";
     private String description;
     // private int index;
     private transient PropertyChangeSupport changes;
 
+    /**
+     * Series are sorted when a time event is added.
+     */
     private transient Comparator<? super TimeEvent> timeComparator = new TimeComparator();
 
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        out.defaultWriteObject();
-    }
-
-    private void readObject(ObjectInputStream in) throws IOException,
-            ClassNotFoundException {
-        // our "pseudo-constructor"
-        in.defaultReadObject();
-        // now we are a "live" object again
-        this.changes = new PropertyChangeSupport(this);
-        this.ranges = new ArrayList<Range<Double>>();
-        this.exactRanges = new ArrayList<Range<Double>>();
-        this.listenerList = new EventListenerList();
-        this.timeComparator = new TimeComparator();
-        this.rangeSet = TreeRangeSet.create();
-    }
-
+    /**
+     * Initialize a new empty series.
+     */
     public TimeSeries() {
         // this.list = Collections.synchronizedList( new LinkedList() );
         // this.list = new ArrayList<TimeEvent>(); // we do lots of gets/sets
         this.ranges = new ArrayList<Range<Double>>();
         this.exactRanges = new ArrayList<Range<Double>>();
-        this.listenerList = new EventListenerList();
         this.changes = new PropertyChangeSupport(this);
     }
 
-    public TimeSeries(final MIDITrack notelist) {
+    /**
+     * Extract time events from a track to initialize this series.
+     * 
+     * @param track
+     *            a {@code MIDITrack}
+     */
+    public TimeSeries(final MIDITrack track) {
         this();
         // this.list = new ArrayList<TimeEvent>();
-        for (final Note n : notelist) {
+        for (final Note n : track) {
             this.add(new TimeEvent(n.getStartBeat(), n.getDuration()));
         }
     }
 
+    /**
+     * Copy Constructor. Clone is evil.
+     * 
+     * @param timeSeries
+     *            a {@code TimeSeries} to copy
+     */
     public TimeSeries(final TimeSeries timeSeries) {
         this();
         for (final TimeEvent te : timeSeries.list) {
@@ -134,16 +132,46 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         this.sort();
     }
 
+    /**
+     * Initialize a series from a duration string.
+     * 
+     * @param durationString
+     *            a duration string
+     * @see DurationParser
+     */
     public TimeSeries(String durationString) {
         this();
         TimeSeriesFactory.createFromDurationString(this, durationString);
     }
 
+   
+
+    /**
+     * Creates a new {@code TimeEvent} with the specified duration, and adds it
+     * to the series.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param duration
+     * @return this to cascade calls
+     */
     public TimeSeries add(final double duration) {
         final double start = this.getEndBeat();
         return this.add(new TimeEvent(start, duration));
     }
 
+    /**
+     * Creates a new {@code TimeEvent} with the specified start andduration, and
+     * adds it to the series.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param start a start time
+     * @param duration a duration
+     * @return this to cascade calls
+     */
     public TimeSeries add(final double start, final double duration) {
         logger.debug(
                 "adding a new time event, start {} durtion {}",
@@ -154,6 +182,9 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
 
     /**
      * Adds the TimeEvent at its given time. (i.e. the series is resorted)
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param t
      */
@@ -164,25 +195,35 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 this.timeComparator);
         this.addRange(t.getOpenRange());
         // this.addExactRange(t.getClosedRange());
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
         return this;
     }
 
     /**
-     * Neither series are modified. A new instance is returned.
+     * Append a {@code TimeSeries} to another. Neither series are modified. A
+     * new instance is returned.
      * 
      * @param ts1
+     *            the first {@code TimeSeries}
      * @param ts2
-     * @return
+     *            the second {@code TimeSeries}
+     * @return a new {@code TimeSeries}
      */
     public static TimeSeries append(final TimeSeries ts1, final TimeSeries ts2) {
         final TimeSeries ts = new TimeSeries(ts1);
         return ts.append(ts2);
     }
 
-    public static TimeSeries extract(final MIDITrack notelist) {
+    /**
+     * Create a series from a track.
+     * 
+     * @param track
+     *            the source {@code MIDITrack}
+     * @return a new {@code TimeSeries}
+     */
+    public static TimeSeries extract(final MIDITrack track) {
         final TimeSeries ts = new TimeSeries();
-        for (final MIDINote note : notelist) {
+        for (final MIDINote note : track) {
             final TimeEvent te = new TimeEvent(note.getStartBeat(), note
                     .getDuration());
             ts.add(te);
@@ -200,6 +241,14 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 listener);
     }
 
+    /**
+     * Adds a range. No TimeEvents are created here. This is called internally
+     * when an event is added.
+     * 
+     * @param r
+     *            a {@code Range}
+     * @return this to cascade calls
+     */
     private TimeSeries addRange(final Range<Double> r) {
         this.ranges.add(r);
         rangeSet.add(r);
@@ -268,73 +317,88 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     // }
 
     /**
-     * Apply the TimeEvents to the track. The list of TimeEvents will wrap if
-     * they are fewer in number than the notes in the notelist. The notelist is
-     * not sorted. that is up to the caller: call notelist.sequential();
+     * Creates a DurationModifier to add a value to each duration.
+      * <p>
+     * Uses the {@link #modifyDurations(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
-     * @param notelist
+     * Same as doing this:
+     * 
+     * <pre> 
+     *  <code>
+        DurationModifier dm = new DurationModifier(Operation.ADD, d);
+        ts.map(dm);
+        </code>
+        </pre>
+     * 
+     * @param d
+     *            an amount to add
+     * @see DurationModifier
      */
-    // public void apply(final MIDITrack notelist) {
-    // // this.index = 0;
-    // this.list.reset();
-    // double start = 1d;
-    // double end = this.getEndBeat();
-    // for (final MIDINote note : notelist) {
-    // final Timed te = this.nextTimeEvent();
-    // if (this.list.isFirst()) {
-    // start = te.getStartBeat();
-    // start += end;
-    // } else {
-    // start = te.getStartBeat();
-    // }
-    // note.setStartBeat(te.getStartBeat());
-    // note.setDuration(te.getDuration());
-    // }
-    // }
+    public void addToDuration(final double d) {
+        logger.debug("addToDuration {}", d);
+        modifyDurations(Operation.ADD, d);
 
-    public void addTimeSeriesListener(final TimeSeriesListener l) {
-        this.listenerList.add(TimeSeriesListener.class,
-                l);
+        // final DurationModifier dm = new DurationModifier(Operation.ADD, d);
+        // this.map(dm);
+        // this.computeRanges();
+        // this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
-     * @param d
-     *            do this instead: <code>
-        DurationModifier dm = new DurationModifier(dv, Operation.ADD);
-        ts.map(dm);
-        </code>
+     * Creates a {@code DurationModifier} to perform the specified operation
+     * with the specified values.
+     
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
-     *            or hell, why don't i just wrap it?
+     * @param operation
+     *            a modifier operation
+     * @param values
+     *            the values to use
+     * @see com.rockhoppertech.music.modifiers.Modifier.Operation
+     * @see DurationModifier
      */
-    // @Deprecated
-    public void addToDuration(final double d) {
-        logger.debug("addToDuration " + d);
-        // for (final Timed te : this.list) {
-        // final double t = te.getDuration();
-        // te.setDuration(t + d);
-        // }
-
-        final DurationModifier dm = new DurationModifier(Operation.ADD, d);
-        this.map(dm);
-
-        this.computeRanges();
-        this.fireSeriesChanged();
-    }
-
     public void modifyDurations(Operation operation, Double... values) {
         final DurationModifier dm = new DurationModifier(operation, values);
         this.map(dm);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Createa a {@code StartBeatModifier} to perform the specified operation
+     * with the specified values.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param operation
+     *            modifier operation
+     * @param values
+     *            values to use
+     * @see StartBeatModifier
+     */
     public void modifyStarts(Operation operation, Double... values) {
         final StartBeatModifier dm = new StartBeatModifier(operation, values);
         this.map(dm);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param d
+     *            an amount to add
+     * @return this to cascade calls
+     */
     public TimeSeries addToSilences(final double d) {
         logger.debug("addToSilences Before" + d);
         logger.debug("list {}", this.list);
@@ -364,18 +428,22 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         logger.debug("addToSilences After");
         logger.debug("list {}", this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
         return this;
     }
 
     /**
      * A deep copy of the series is appended to this.
      * 
-     * ts.append(ts2).append(ts3);
+     * {@code ts.append(ts2).append(ts3);}
+     * 
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param ts1
      *            not modified at all
-     * @return this
+     * @return this to cascade calls
      */
     public TimeSeries append(final TimeSeries ts1) {
         // don't change the one passed in
@@ -389,28 +457,28 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             this.list.add(new TimeEvent(te.getStartBeat(), te.getDuration()));
         }
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
         return this;
     }
 
     /**
-     * apply this time series to the notelist. The notelist's notes have their
-     * start and durations changed.
+     * Apply this time series to the track. The track's events have their start
+     * and durations changed.
      * 
-     * @param notelist
+     * @param track
      *            is modified according to the timeseries
      */
-    public void apply(final MIDITrack notelist) {
-        final double nsize = notelist.size();
+    public void apply(final MIDITrack track) {
+        final double nsize = track.size();
         final double tsize = this.getSize();
         final int n = (int) Math.round(nsize / tsize + .5);
-        System.err.printf("nsize %f tsize %f n %d\n",
+        logger.debug("nsize {} tsize {} n {}\n",
                 nsize,
                 tsize,
                 n);
         final TimeSeries ts = this.nCopies(n);
         // ts.sequential();
-        for (final MIDINote note : notelist) {
+        for (final MIDINote note : track) {
             final Timed te = ts.nextTimeEvent();
             note.setStartBeat(te.getStartBeat());
             note.setDuration(te.getDuration());
@@ -418,16 +486,16 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
-     * @param notelist
+     * @param track
      *            is NOT modified.
      * @param mask
      *            number of repeats for each pitch in the notelist
-     * @return a new notelist
+     * @return a new {@code MIDITrack}
      */
-    public MIDITrack apply(final MIDITrack notelist,
+    public MIDITrack apply(final MIDITrack track,
             final CircularList<Integer> mask) {
 
-        final MIDITrack applied = new MIDITrack(notelist);
+        final MIDITrack applied = new MIDITrack(track);
         TimeSeries masked = TimeSeriesFactory.createRepeated(this, mask);
         masked.apply(applied);
         return applied;
@@ -435,17 +503,19 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
-     * create from Mask for both the notelist and the timeseries.
+     * Create from repeat Mask for both the track and the timeseries.
      * 
-     * @param notelist
+     * @param track
+     *            a track to repeat
      * @param mask
-     * @return
+     *            a repeat mask
+     * @return a new {@code MIDITrack}
      */
-    public MIDITrack applyToBoth(final MIDITrack notelist,
+    public MIDITrack applyToBoth(final MIDITrack track,
             final CircularList<Integer> mask) {
 
         final MIDITrack applied = MIDITrackFactory
-                .createRepeated(notelist,
+                .createRepeated(track,
                         mask);
 
         TimeSeries masked = TimeSeriesFactory.createRepeated(this, mask);
@@ -454,14 +524,23 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
 
     }
 
+    /**
+     * Removes all events and ranges.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     */
     public void clear() {
         this.list.clear();
         this.ranges.clear();
         this.exactRanges.clear();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
-    public void computeRanges() {
+    /**
+     * Used internally
+     */
+    private void computeRanges() {
         if (this.ranges == null) {
             this.ranges = new LinkedList<Range<Double>>();
         }
@@ -477,77 +556,27 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
-     * The start time remains intact but the duractions are altered.
+     * Creates a {@code DurationModifier} to divide each duration by the
+     * divisor. The start time remains intact but the durations are altered.
+     *   <p>
+     * Uses the {@link #modifyDurations(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
      * 
      * @param d
      *            the divisor. e.g. 2 will halve the durations.
-     * @deprecated use a DurationModifier
      */
-    @Deprecated
     public void divideDuration(final double d) {
         logger.debug("divideDuration " + d);
-        for (final Timed te : this.list) {
-            final double t = te.getDuration();
-            te.setDuration(t / d);
-        }
-        this.computeRanges();
-        this.fireSeriesChanged();
+        this.modifyDurations(Operation.DIVIDE, d);
     }
 
-    /*
-     * public TimeSeries findSilences() { logger.debug(this.list);
-     * logger.debug(this.ranges);
+    /**
+     * Get the a {@code TimeEvent} at the specified index.
      * 
-     * TimeSeries ts = new TimeSeries(); double lastTime = 1d;
-     * 
-     * for (final Range r1 : this.ranges) { logger.debug("start " +
-     * r1.getMin()); final double before = r1.getMin() - lastTime;
-     * logger.debug("before " + before); logger.debug("lasttime " + lastTime);
-     * if (before >= 0d) { logger.debug("silence " + before + " at time " +
-     * lastTime); if(before > 0d) ts.add(new TimeEvent(lastTime, before)); }
-     * lastTime = r1.getMax(); logger.debug("new lt " + lastTime); } return ts;
-     * }
+     * @param index
+     *            an index
+     * @return a {@code TimeEvent}
      */
-    // Notify all listeners that have registered interest for
-    // notification on this event type. The event instance
-    // is lazily created using the parameters passed into
-    // the fire method.
-    protected void fireSeriesChanged() {
-        // Guaranteed to return a non-null array
-        final Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        // the listenerList stores pairs since it can handle all types:
-        // the interface is on even indexes and the listener
-        // on odd indexes
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == TimeSeriesListener.class) {
-                // Lazily create the event:
-                if (this.timeSeriesEvent == null) {
-                    this.timeSeriesEvent = new TimeSeriesEvent(this);
-                }
-                ((TimeSeriesListener) listeners[i + 1])
-                        .seriesChanged(this.timeSeriesEvent);
-            }
-        }
-    }
-
-    protected void fireSeriesChanged(final TimeSeriesEvent timeSeriesEvent) {
-        // Guaranteed to return a non-null array
-        final Object[] listeners = this.listenerList.getListenerList();
-        // Process the listeners last to first, notifying
-        // those that are interested in this event
-        // the listenerList stores pairs since it can handle all types:
-        // the interface is on even indexes and the listener
-        // on odd indexes
-        for (int i = listeners.length - 2; i >= 0; i -= 2) {
-            if (listeners[i] == TimeSeriesListener.class) {
-                ((TimeSeriesListener) listeners[i + 1])
-                        .seriesChanged(timeSeriesEvent);
-            }
-        }
-    }
-
     public TimeEvent get(final int index) {
         if (this.list.isEmpty()) {
             return null;
@@ -556,12 +585,19 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
+     * Get the description or null if not set.
+     * 
      * @return the description
      */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Get the durations as a List.
+     * 
+     * @return a List of Doubles
+     */
     public List<Double> getDurations() {
         final List<Double> starts = new ArrayList<Double>();
         for (final Timed e : this) {
@@ -574,6 +610,11 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     // return this.list.iterator();
     // }
 
+    /**
+     * Finds the greatest end time of any time event in the series.
+     * 
+     * @return the end time
+     */
     public double getEndBeat() {
         double lastTime = 1d;
         for (final Timed te : this.list) {
@@ -586,6 +627,8 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
+     * Get the series' name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -625,10 +668,35 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         return ts;
     }
 
+    /*
+     * public TimeSeries findSilences() { logger.debug(this.list);
+     * logger.debug(this.ranges);
+     * 
+     * TimeSeries ts = new TimeSeries(); double lastTime = 1d;
+     * 
+     * for (final Range r1 : this.ranges) { logger.debug("start " +
+     * r1.getMin()); final double before = r1.getMin() - lastTime;
+     * logger.debug("before " + before); logger.debug("lasttime " + lastTime);
+     * if (before >= 0d) { logger.debug("silence " + before + " at time " +
+     * lastTime); if(before > 0d) ts.add(new TimeEvent(lastTime, before)); }
+     * lastTime = r1.getMax(); logger.debug("new lt " + lastTime); } return ts;
+     * }
+     */
+
+    /**
+     * Get the number of time events in this series.
+     * 
+     * @return the number of events
+     */
     public int getSize() {
         return this.list.size();
     }
 
+    /**
+     * Get the earliest start time of any time event in this series.
+     * 
+     * @return the start beat
+     */
     public double getStartBeat() {
         double start = 1d;
         for (final Timed te : this.list) {
@@ -640,6 +708,11 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         return start;
     }
 
+    /**
+     * Get all the start times.
+     * 
+     * @return a List<Double> of start times
+     */
     public List<Double> getStartTimes() {
         final List<Double> starts = new ArrayList<Double>();
         for (final Timed e : this) {
@@ -648,19 +721,41 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         return starts;
     }
 
+    /**
+     * Insert another {@code TimeSeries} at the specified index to this series.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param index
+     *            the index in this series
+     * @param timeSeries
+     *            the {@code TimeSeries} to insert
+     */
     public void insertAtIndex(final int index, final TimeSeries timeSeries) {
         final Timed e = this.list.get(index);
         final TimedModifier stm = new StartBeatModifier(e.getStartBeat());
         stm.setOperation(Operation.ADD);
-        timeSeries.map(stm);
+        TimeSeries dupe = new TimeSeries(timeSeries);
+        dupe.map(stm);
+        // this.list.addAll(index,
+        // timeSeries.list);
         this.list.addAll(index,
-                timeSeries.list);
+                ListUtils.newCircularArrayList(dupe.list));
         this.sort();
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
-    // ignores current rests and inserts the constant before each start time
+    /**
+     * Ignores current rests and inserts the value before each start time.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param silence
+     *            an amount to insert
+     */
     public void insertSilence(final double silence) {
         logger.debug("insertSilenceBefore " + silence);
         logger.debug("list {}", this.list);
@@ -686,7 +781,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         // logger.debug("After");
         // logger.debug(this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     public Iterator<TimeEvent> iterator() {
@@ -703,16 +798,20 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
      * mapcar in LISP (but Java does not have lambdas so you need the
      * TimeEventModifier interface).
      * 
-     * <blockquote>
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
      * 
      * <pre>
+     * {@code
      * TimeSeries series = new TimeSeries();
      * TimeEvent e = new TimeEvent(1,2);
      * series.add(e);
      * series.map(new DurationModifier(1d, TimeEventModifier.Operation.ADD));
+     * }
      * </pre>
      * 
-     * </blockquote>
      * 
      * @param mod
      *            a <code>TimeEventModifier</code> implementation.
@@ -720,25 +819,20 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
      * 
      * @see com.rockhoppertech.music.modifiers.StartBeatModifier
      */
-    // public void map(final TimeEventModifier mod) {
-    // for (final Timed n : this) {
-    // mod.modify(n);
-    // }
-    // this.computeRanges();
-    // this.fireSeriesChanged();
-    // }
-
     public void map(final TimedModifier mod) {
         for (final Timed n : this) {
             mod.modify(n);
         }
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
      * <code>map</code> calls map(TimeEventModifier) only if the note's start
      * beat is after the specified value.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param mod
      *            a <code>TimeEventModifier</code> implementation.
@@ -746,7 +840,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
      *            a <code>double</code> value. Modify notes only after this
      *            start beat.
      * 
-     * @see com.rockhoppertech.series.TimeSeries#map(TimeEventModifier)
+     * 
      */
     public void map(final TimedModifier mod, final double after) {
         for (final Timed n : this) {
@@ -755,12 +849,15 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             }
         }
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
      * <code>map</code> affects only events after <b>after</b> and before
-     * <b>before</b>
+     * <b>before</b>.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param mod
      *            a <code>TimeEventModifier</code> value
@@ -778,7 +875,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             }
         }
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
@@ -821,9 +918,19 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     // }
     // }
     // this.computeRanges();
-    // this.fireSeriesChanged();
+    // this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     // }
 
+    /**
+     * Copy the durations from the List and apply them to the events in this
+     * series.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param durations
+     *            a List<Double> of durations
+     */
     public void mapDurations(final List<TimeEvent> durations) {
         logger.debug("mapDurations ");
         if (durations.size() < this.list.size()) {
@@ -839,9 +946,19 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             te.setDuration(newd.getDuration());
         }
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Copy the durations from the provided series and apply them to the events
+     * in this series.
+     * 
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param durations
+     */
     public void mapDurations(final TimeSeries durations) {
         logger.debug("mapDurations ");
         if (durations.getSize() < this.list.size()) {
@@ -857,25 +974,36 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             te.setDuration(newd.getDuration());
         }
         this.computeRanges();
-        this.fireSeriesChanged();
-    }
-
-    public void multiplyDuration(final double d) {
-        logger.debug("multiplyDuration " + d);
-        for (final Timed te : this.list) {
-            final double t = te.getDuration();
-            te.setDuration(t * d);
-        }
-        this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
+     * Each duration is multiplied by this value.
+      * <p>
+     * Uses the {@link #modifyDurations(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param d
+     *            multiplier
+     * @see DurationModifier
+     */
+    public void multiplyDuration(final double d) {
+        logger.debug("multiplyDuration " + d);
+        modifyDurations(Operation.MULTIPLY, d);
+    }
+
+    /**
+     * Create the specified number of copies of this series.
+     * <p>
      * The receiver is not modified at all. You get a brand new TimeSeries. it
      * is sequential.
      * 
      * @param n
-     * @return
+     *            number of copies
+     * @return a new {@code TimeSeries}
      */
     public TimeSeries nCopies(final int n) {
         final TimeSeries ts = new TimeSeries(this);
@@ -886,24 +1014,37 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
-     * does t2 occur after t1's start plus duration?
+     * Does t2 occur after t1's start plus duration?
      * 
      * @param t1
+     *            a time event
      * @param t2
-     * @return
+     *            a time event
+     * @return whether t2 occurs after t1
      */
     public static boolean isAfter(Timed t1, Timed t2) {
         return t2.getStartBeat() >= t1.getStartBeat() + t1.getDuration();
     }
 
+    /**
+     * Does t2 occur before t1's start plus duration?
+     * 
+     * @param t1
+     *            a {@code Timed} object
+     * @param t2
+     *            a {@code Timed} object
+     * @return whether t2 occurs before t1
+     */
     public static boolean isBefore(Timed t1, Timed t2) {
         return t2.getStartBeat() <= t1.getStartBeat() + t1.getDuration();
     }
 
     /**
-     * This will wrap when the end of the list of events is reached
+     * Get the next event.
+     * <p>
+     * This will wrap when the end of the list of events is reached.
      * 
-     * @return
+     * @return the next {@code TimeEvent}
      */
     public Timed nextTimeEvent() {
         return this.list.next();
@@ -940,9 +1081,14 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     // logger.debug("permute new end: " + this.getEndBeat());
     // logger.debug("permute new size: " + this.getSize());
     // this.computeRanges();
-    // this.fireSeriesChanged();
+    // this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     // }
 
+    /**
+     * Turn the series into a track.
+     * 
+     * @return a new {@code MIDITrack}
+     */
     public MIDITrack toMIDITrack() {
         final MIDITrack notelist = new MIDITrack();
         int channel = 0;
@@ -955,7 +1101,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     public void play() {
-        final MIDITrack notelist = toMIDITrack();
+        final MIDITrack track = toMIDITrack();
 
         // click track
         int channel = 9;
@@ -969,43 +1115,76 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             } else {
                 nn = new MIDINote(low, i, 1d, channel);
             }
-            notelist.add(nn);
+            track.add(nn);
         }
-        notelist.play();
+        track.play();
     }
 
     public void play(boolean withClickTrack) {
-        final MIDITrack notelist = toMIDITrack();
-        notelist.play();
-        // TODO port the click track to midi performer
-        // notelist.play(withClickTrack);
+        final MIDITrack track = toMIDITrack();
+        MIDIPerformer mp = new MIDIPerformer();
+        mp.play(track, withClickTrack);
     }
 
+    /**
+     * Quantize durations.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param q
+     *            quantization value
+     * @see DurationModifier
+     * @see com.rockhoppertech.music.modifiers.Modifier.Operation
+     */
     public void quantizeDurations(final double q) {
         logger.debug("quantizeDurations " + q);
 
         DurationModifier mod = new DurationModifier(Operation.QUANTIZE, q);
         this.map(mod);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Quantize start times.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param q
+     *            quantization value
+     * @see StartBeatModifier
+     * @see com.rockhoppertech.music.modifiers.Modifier.Operation
+     */
     public void quantizeStartBeats(final double q) {
         logger.debug("quantizeStartBeats " + q);
 
         StartBeatModifier mod = new StartBeatModifier(Operation.QUANTIZE, q);
         this.map(mod);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Remove the time event at the specified index.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param index
+     *            the index of the Timed event to remove
+     */
     public void remove(final int index) {
         final Timed t = this.get(index);
         this.remove(t);
     }
 
     /**
-     * removes this exact Timed instance.
+     * Removes this exact Timed instance.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param t
      */
@@ -1014,27 +1193,38 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         Collections.sort(this.list,
                 new TimeComparator());
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Subtracts the values from each duration.
+     * <p>
+     * Uses the {@link #modifyDurations(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param d
+     *            amount to remove
+     * 
+     * @see DurationModifier
+     * @see com.rockhoppertech.music.modifiers.Modifier.Operation
+     */
     public void removeFromDuration(final double d) {
         logger.debug("removeFromDuration " + d);
-        // for (final Timed te : this.list) {
-        // final double t = te.getDuration();
-        // if (t - d <= 0) {
-        // logger.debug("removeFromDuration: invalid dur" + d);
-        // continue;
-        // }
-        // te.setDuration(t - d);
-        // }
-
-        DurationModifier mod = new DurationModifier(Operation.SUBTRACT, d);
-        this.map(mod);
-
-        this.computeRanges();
-        this.fireSeriesChanged();
+        modifyDurations(Operation.SUBTRACT, d);
     }
 
+    /**
+     * Remove the specified amount from each silence.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param d
+     *            amount to remove
+     */
     public void removeFromSilences(final double d) {
         logger.debug("removeFromSilences Before");
         logger.debug("list {}", this.list);
@@ -1060,9 +1250,15 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         logger.debug("removeFromSilences after");
         logger.debug("list {}", this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Modifies the start times of each time event to remove overlaps.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     */
     public void removeOverlaps() {
         logger.debug("removeOverlaps Before");
         logger.debug("list {}", this.list);
@@ -1090,9 +1286,15 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         logger.debug("removeOverlaps after");
         logger.debug("list {}", this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Removes the property change listener.
+     * 
+     * @param listener
+     *            the listner to remove
+     */
     public void removePropertyChangeListener(
             final PropertyChangeListener listener) {
         this.changes.removePropertyChangeListener(listener);
@@ -1112,6 +1314,12 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 listener);
     }
 
+    /**
+     * Changes start times to remove silences.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     */
     public void removeSilences() {
         // TimeSeries silences = this.getSilences();
         // int index = 0;
@@ -1147,23 +1355,31 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         logger.debug("After");
         logger.debug("list {}", this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
-    public void removeTimeSeriesListener(final TimeSeriesListener l) {
-        this.listenerList.remove(TimeSeriesListener.class,
-                l);
-    }
-
+    /**
+     * Replace the time event at the specified index with the specified time
+     * event.
+     * 
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     * 
+     * @param e a {@code TimeEvent}
+     * @param index the index
+     */
     public void set(final TimeEvent e, final int index) {
         logger.debug("Timeseries set " + e);
         this.list.set(index,
                 e);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     /**
+     * Set an optional description of the series.
+     * 
      * @param description
      *            the description to set
      */
@@ -1172,24 +1388,22 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
+     * Sets each time event's duration to the specified value.
+     *  <p>
+     * Uses the {@link #modifyDurations(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
      * @param d
-     * @deprecated
+     *            new duration
      * 
-     *             DurationModifier dm = new DurationModifier(dv,
-     *             Operation.SET); ts.map(dm);
      */
-    @Deprecated
     public void setDuration(final double d) {
         logger.debug("setDuration " + d);
-        for (final Timed te : this.list) {
-            // final double t = te.getDuration();
-            te.setDuration(d);
-        }
-        this.computeRanges();
-        this.fireSeriesChanged();
+        modifyDurations(Operation.SET, d);
     }
 
     /**
+     * Set the series' optional name.
+     * 
      * @param name
      *            the name to set
      */
@@ -1198,7 +1412,11 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     }
 
     /**
-     * change all silences to this value
+     * Change all silences to this value. Modifies the start times of the time
+     * events.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
      * 
      * @param d
      */
@@ -1235,23 +1453,40 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         logger.debug("addToSilences After");
         logger.debug("list {}", this.list);
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
+    /**
+     * Change the start beat of each time event by getting the difference
+     * between the specified start and the first event's start.
+      * <p>
+     * Uses the {@link #modifyStarts(com.rockhoppertech.music.modifiers.Modifier.Operation, Double[]) modifyDurations}
+     * method.
+     * 
+     * @param start
+     *            new start time
+     */
     public void setStart(final double start) {
         final Timed e = this.get(0);
         final double delta = start - e.getStartBeat();
-        final Operation op = Operation.ADD;
-        final TimedModifier stm = new StartBeatModifier(delta);
-        stm.setOperation(op);
-        this.map(stm);
+        // final Operation op = Operation.ADD;
+        // final TimedModifier stm = new StartBeatModifier(delta);
+        // stm.setOperation(op);
+        // this.map(stm);
+        modifyStarts(Operation.ADD, delta);
     }
 
+    /**
+     * Sorts by start time.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event, with this as
+     * the new value and no old value.
+     */
     public void sort() {
         Collections.sort(this.list,
                 new TimeComparator());
         this.computeRanges();
-        this.fireSeriesChanged();
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
     }
 
     @Override
@@ -1267,6 +1502,16 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         return sw.toString();
     }
 
+    /**
+     * Change the start beat of the event at the specified index.
+     * <p>
+     * Fires a {@code TimeSeries.START_BEAT_CHANGE} property change event.
+     * 
+     * @param selectedIndex
+     *            index of the event to change
+     * @param startBeat
+     *            the new start
+     */
     public void changeStartBeat(int selectedIndex, double startBeat) {
         TimeEvent n = this.get(selectedIndex);
         n.setStartBeat(startBeat);
@@ -1275,16 +1520,35 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 n);
     }
 
+    /**
+     * Change the start beat of the first event, then make the series
+     * sequential.
+     * <p>
+     * Fires a {@code TimeSeries.START_BEAT_CHANGE} property change event.
+     * 
+     * @param startBeat
+     *            the new start beat
+     */
     public void changeStartBeat(double startBeat) {
         TimeEvent n = this.get(0);
         n.setStartBeat(startBeat);
         this.sequential();
-        
+
         this.changes.firePropertyChange(TimeSeries.START_BEAT_CHANGE,
                 null,
                 n);
     }
 
+    /**
+     * Change the duration of the event at the specified index.
+     * <p>
+     * Fires a {@code TimeSeries.DURATION_CHANGE} property change event.
+     * 
+     * @param selectedIndex
+     *            index of the event to change
+     * @param duration
+     *            the new duration
+     */
     public void changeDuration(int selectedIndex, double duration) {
         TimeEvent n = this.get(selectedIndex);
         n.setDuration(duration);
@@ -1293,13 +1557,22 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 n);
     }
 
+    /**
+     * Make the events sequenial with a 0 pad between events.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event.
+     * 
+     * @return this {@code TimeSeries}
+     */
     public TimeSeries sequential() {
         return this.sequential(0);
     }
 
     /**
-     * Reset each note's startbeat in the notelist to be sequential based on the
+     * Reset each note's startbeat in the series to be sequential based on the
      * duration. The first event is unaffected.
+     * <p>
+     * Fires a {@code TimeSeries.MODIFIED} property change event.
      * 
      * @param pad
      *            amount added between the notes
@@ -1322,18 +1595,19 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             d = nn.getDuration();
 
         }
-        this.changes.firePropertyChange(TimeSeries.MODIFIED,
-                null,
-                this);
+        this.changes.firePropertyChange(TimeSeries.MODIFIED, null, this);
         return this;
     }
 
     /**
+     * Change the endBeat of the event at the specified index.
      * <p>
-     * </p>
+     * Fires a {@code TimeSeries.END_BEAT_CHANGE} property change event.
      * 
      * @param selectedIndex
+     *            index of the event to change
      * @param endBeat
+     *            the new endBeat
      */
     public void changeEndBeat(int selectedIndex, double endBeat) {
         TimeEvent n = this.get(selectedIndex);
@@ -1343,16 +1617,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
                 n);
     }
 
-    public void setStartBeat(double beat) {
-        // TODO
-        // final StartBeatModifier m = new StartBeatModifier(this.getEndBeat()
-        // - ts.getStartBeat());
-        // m.setOperation(Operation.ADD);
-        // this.map(m);
-
-    }
-
-    /*
+   /*
      * (non-Javadoc)
      * 
      * @see java.lang.Object#hashCode()
@@ -1402,6 +1667,35 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         // return false;
         // }
         return true;
+    }
+
+    /**
+     * For serialization.
+     * 
+     * @param out
+     * @throws IOException
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+    }
+
+    /**
+     * For Serialization.
+     * 
+     * @param in
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private void readObject(ObjectInputStream in) throws IOException,
+            ClassNotFoundException {
+        // our "pseudo-constructor"
+        in.defaultReadObject();
+        // now we are a "live" object again
+        this.changes = new PropertyChangeSupport(this);
+        this.ranges = new ArrayList<Range<Double>>();
+        this.exactRanges = new ArrayList<Range<Double>>();
+        this.timeComparator = new TimeComparator();
+        this.rangeSet = TreeRangeSet.create();
     }
 
 }
