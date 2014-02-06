@@ -85,10 +85,11 @@ import com.rockhoppertech.music.midi.js.TimeSignature;
 public class MIDITrackXMLHelper {
     private static final Logger logger = LoggerFactory
             .getLogger(MIDITrackXMLHelper.class);
+
     /**
      * Emit only the required elements.
      */
-    static boolean onlyRequired = true;
+    // static boolean onlyRequired = true;
 
     private static void complain(final String string) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -218,22 +219,23 @@ public class MIDITrackXMLHelper {
     /**
      * @return the onlyRequired
      */
-    public static boolean isOnlyRequired() {
-        return onlyRequired;
-    }
+    // public static boolean isOnlyRequired() {
+    // return onlyRequired;
+    // }
 
     /**
      * Turn a (@link com.rockhoppertech.music.midi.js.MIDITrack) into an XML
      * string.
      * 
-     * @param notelist
+     * @param track
      *            to turn into a string
      * @return a string
      */
-    public static String MIDITrackToString(final MIDITrack notelist) {
+    public static String MIDITrackToString(final MIDITrack track,
+            boolean onlyRequired) {
         final ByteArrayOutputStream os = new ByteArrayOutputStream();
-        MIDITrackXMLHelper.writeXML(notelist,
-                os);
+        MIDITrackXMLHelper.writeXML(track,
+                os, onlyRequired);
         try {
             return os.toString("ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
@@ -426,13 +428,13 @@ public class MIDITrackXMLHelper {
      * @param onlyRequired
      *            the onlyRequired to set
      */
-    public static void setOnlyRequired(final boolean onlyRequired) {
-        MIDITrackXMLHelper.onlyRequired = onlyRequired;
-    }
+    // public static void setOnlyRequired(final boolean onlyRequired) {
+    // MIDITrackXMLHelper.onlyRequired = onlyRequired;
+    // }
 
     public static Document writeXML(final MIDITrack list) {
         return MIDITrackXMLHelper.writeXML(list,
-                System.out);
+                System.out, false);
     }
 
     /**
@@ -441,9 +443,10 @@ public class MIDITrackXMLHelper {
      * @param list
      * @param os
      */
-    public static Document writeXML(final MIDITrack list, final OutputStream os) {
+    public static Document writeXML(final MIDITrack list,
+            final OutputStream os, boolean onlyRequired) {
 
-        final Document doc = createDocument(list);
+        final Document doc = createDocument(list, onlyRequired);
 
         try {
             final DOMSource domSource = new DOMSource(doc);
@@ -472,7 +475,8 @@ public class MIDITrackXMLHelper {
         return doc;
     }
 
-    public static Document createDocument(final MIDITrack list) {
+    public static Document createDocument(final MIDITrack list,
+            boolean onlyRequired) {
         DocumentBuilderFactory dbf = null;
         DocumentBuilder db = null;
         try {
