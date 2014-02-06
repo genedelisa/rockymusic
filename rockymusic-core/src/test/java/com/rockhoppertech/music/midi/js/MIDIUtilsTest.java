@@ -3,6 +3,26 @@
  */
 package com.rockhoppertech.music.midi.js;
 
+/*
+ * #%L
+ * Rocky Music Core
+ * %%
+ * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiEvent;
@@ -14,6 +34,8 @@ import javax.sound.midi.Track;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.Pitch;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -92,7 +114,7 @@ public class MIDIUtilsTest {
                 status, is(equalTo(ShortMessage.CONTROL_CHANGE)));
 
         int db1 = message.getMessage()[1];
-        assertThat("the status is correct",
+        assertThat("the data byte is correct",
                 db1, is(equalTo(MIDIControllers.CC_PAN_COARSE)));
 
     }
@@ -104,6 +126,64 @@ public class MIDIUtilsTest {
      */
     @Test
     public final void testAppendNote() {
+        Track track = createTrack();
+        assertThat("Not null",
+                track, notNullValue());
+        int channel = 4;
+        int num = Pitch.C5;
+        int vel = 64;
+        long duration = 480;
+        MIDIUtils.appendNote(
+                track,
+                channel,
+                num,
+                vel,
+                duration);
+        // the insert we just did plus the eot message.
+        // insert note inserts two note ons, the second one has a velocity of 0
+        assertThat("the track size is correct",
+                track.size(), is(equalTo(3)));
+
+        MidiEvent event = track.get(0);
+        assertThat("event is not null",
+                event, is(notNullValue()));
+        MidiMessage message = event.getMessage();
+        // mask off the channel
+        int status = message.getStatus() & 0xF0;
+        if (status == ShortMessage.NOTE_ON) {
+            logger.debug("got note on");
+        }
+        assertThat("the status is correct",
+                status, is(equalTo(ShortMessage.NOTE_ON)));
+
+        int db1 = message.getMessage()[1];
+        assertThat("the data byte is correct",
+                db1, is(equalTo(num)));
+
+        db1 = message.getMessage()[2];
+        assertThat("the data byte is correct",
+                db1, is(equalTo(vel)));
+
+        // next note message
+        event = track.get(1);
+        assertThat("event is not null",
+                event, is(notNullValue()));
+        message = event.getMessage();
+        // mask off the channel
+        status = message.getStatus() & 0xF0;
+        if (status == ShortMessage.NOTE_ON) {
+            logger.debug("got note on");
+        }
+        assertThat("the status is correct",
+                status, is(equalTo(ShortMessage.NOTE_ON)));
+
+        db1 = message.getMessage()[1];
+        assertThat("the data byte is correct",
+                db1, is(equalTo(num)));
+
+        db1 = message.getMessage()[2];
+        assertThat("the data byte is correct",
+                db1, is(equalTo(0)));
 
     }
 
@@ -153,6 +233,12 @@ public class MIDIUtilsTest {
      */
     @Test
     public final void testCreateShortMessage() {
+        byte[] bytes = new byte[] { 40, 40 };
+        ShortMessage sm = MIDIUtils.createShortMessage(
+                ShortMessage.NOTE_ON,
+                bytes);
+        assertThat("message is not null",
+                sm, notNullValue());
 
     }
 
@@ -945,7 +1031,6 @@ public class MIDIUtilsTest {
 
     }
 
-
     /**
      * Test method for
      * {@link com.rockhoppertech.music.midi.js.MIDIUtils#print(javax.sound.midi.MetaMessage)}
@@ -1213,7 +1298,6 @@ public class MIDIUtilsTest {
     public final void testWriteSequenceStringInt() {
 
     }
-
 
     /**
      * Test method for
