@@ -42,19 +42,26 @@ public class TimeSeriesExamples {
     }
 
     static void removeSilences() {
-
         final TimeSeries ts = new TimeSeries();
         for (int i = 0; i < 10; i++) {
             ts.add(new Sound(i + 1, .5));
         }
+        logger.debug("ts {}", ts);
         /*
          * for(int i=0; i<10; i++) ts.add( new Silence(i, 2.1) );
          */
         ts.removeSilences();
+        logger.debug("ts {}", ts);
 
     }
 
     static void play() {
+        TimeSeries ts = new TimeSeries(
+                "e e e e e e e e e e e e e e e e e s s s s s s s s s s s");
+        ts.play(true);
+    }
+
+    static void play2() {
         TimeSeries ts = new TimeSeries(
                 "e e e e e e e e e e e e e e e e e s s s s s s s s s s s");
         MIDITrack track = ts.toMIDITrack();
@@ -67,8 +74,8 @@ public class TimeSeriesExamples {
 
     static void select() {
         final String[] choices = new String[] { "play",
-                "chordVoicing",
-                "Scales"
+                "play2",
+                "removeSilences"
         };
         final String choice = (String) JOptionPane
                 .showInputDialog(null,
@@ -80,10 +87,15 @@ public class TimeSeriesExamples {
                         choices[0]);
         if (choice.equals("play")) {
             play();
-
-        } else if (choice.equals("")) {
+        } else if (choice.equals("play2")) {
+            play2();
+        } else if (choice.equals("removeSilences")) {
+            removeSilences();
+        } else if (choice.equals("")) {            
 
         }
+        
+        
     }
 
 }
