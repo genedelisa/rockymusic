@@ -794,10 +794,11 @@ public final class MIDIUtils {
             ex.printStackTrace();
         }
     }
+   
 
     /**
      * 
-     * must be first event on first track
+     * Must be first event on first track.
      * 
      * @param track
      *            a {@code Track}
@@ -807,6 +808,17 @@ public final class MIDIUtils {
      */
     public static void insertCopyright(Track track, long tick, String copy) {
         insertMetaText(track, tick, META_COPYRIGHT, copy);
+    }
+    
+    /**
+     * Insert a cue point.
+     * 
+     * @param track  a {@code Track}
+     * @param tick  when to insert the event
+     * @param cuepoint
+     */
+    public static void insertCuePoint(Track track, long tick, String cuepoint) {
+        insertMetaText(track, tick, META_CUE_POINT, cuepoint);
     }
 
     /**
