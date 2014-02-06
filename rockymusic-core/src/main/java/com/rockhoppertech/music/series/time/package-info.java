@@ -1,7 +1,8 @@
 /**
- * Time Series.
- */
-/**
+ * Time Series classes. Start times and durations can be manipulated
+ * independently from MIDITracks. You can apply a time series to
+ * a MIDITrack, or extract a TimeSeries from a MIDITrack.
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  *
  */
