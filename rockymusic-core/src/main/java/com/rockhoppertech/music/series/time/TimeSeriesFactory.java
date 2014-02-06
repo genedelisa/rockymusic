@@ -20,7 +20,6 @@ package com.rockhoppertech.music.series.time;
  * #L%
  */
 
-
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -102,17 +101,17 @@ public class TimeSeriesFactory {
     }
 
     // nah. there is a varargs version below
-//    public static TimeSeries create(int n, CircularList<Double> durations) {
-//        TimeSeries timeSeries = new TimeSeries();
-//        double startTime = 1d;
-//        double dur = 0d;
-//        for (int i = 0; i < n; i++) {
-//            dur = durations.next();
-//            timeSeries.add(new TimeEvent(startTime, dur));
-//            startTime += dur;
-//        }
-//        return timeSeries;
-//    }
+    // public static TimeSeries create(int n, CircularList<Double> durations) {
+    // TimeSeries timeSeries = new TimeSeries();
+    // double startTime = 1d;
+    // double dur = 0d;
+    // for (int i = 0; i < n; i++) {
+    // dur = durations.next();
+    // timeSeries.add(new TimeEvent(startTime, dur));
+    // startTime += dur;
+    // }
+    // return timeSeries;
+    // }
 
     /**
      * Create an event for each duration. The start times will be sequential.
@@ -296,7 +295,8 @@ public class TimeSeriesFactory {
     /**
      * Create a {@code TimeSeries} from a duration string. dwhqestxo and dots.
      * 
-     * @param durations duration string
+     * @param durations
+     *            duration string
      * @return a {@code TimeSeries}
      * @see DurationParser
      */
@@ -335,5 +335,27 @@ public class TimeSeriesFactory {
             Timed te2 = (Timed) timeSeries.get(i + 1);
             te2.setStartBeat(te1.getStartBeat() + ci.next());
         }
+    }
+
+    /**
+     * Create a new series from the start times and durations.
+     * <p>
+     * The durations are a duration string.
+     * @param startTimes doubles in a string. comma delimited or not
+     * @param durations duration string
+     * @return a new {@code TimeSeries}
+     * @see DurationParser
+     */
+    public static TimeSeries create(String startTimes, String durations) {
+        CircularList<Double> starts = ListUtils
+                .stringToDoubleCircularList(startTimes);
+
+        List<Double> list = DurationParser.getDurationsAsList(durations);
+        CircularList<Double> durs = new CircularArrayList<Double>(list);
+
+        logger.debug("starts {}", starts);
+        logger.debug("durs {}", durs);
+
+        return TimeSeriesFactory.create(starts, durs);
     }
 }
