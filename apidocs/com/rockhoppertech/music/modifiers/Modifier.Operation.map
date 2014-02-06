@@ -1,12 +1,14 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Modifier.Operation.html" title="com.rockhoppertech.music.modifiers.Modifier.Operation" alt="" coords="269,107,369,149"/>
-<area shape="rect" id="node1" href="./Modifier.Operation.html" title="&lt;TABLE&gt;" alt="" coords="258,102,379,154"/>
-<area shape="rect" id="node2_1" href="./InstrumentModifier.html" title="com.rockhoppertech.music.modifiers.InstrumentModifier" alt="" coords="15,17,134,42"/>
-<area shape="rect" id="node2" href="./InstrumentModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,5,145,53"/>
-<area shape="rect" id="node3_2" href="./ArpeggiateModifier.html" title="com.rockhoppertech.music.modifiers.ArpeggiateModifier" alt="" coords="180,17,300,42"/>
-<area shape="rect" id="node3" href="./ArpeggiateModifier.html" title="&lt;TABLE&gt;" alt="" coords="169,5,311,53"/>
-<area shape="rect" id="node4_3" href="./AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="345,17,452,42"/>
-<area shape="rect" id="node4" href="./AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="335,5,463,53"/>
-<area shape="rect" id="node5_4" href="./AbstractMIDINoteModifier.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" alt="" coords="497,17,655,42"/>
-<area shape="rect" id="node5" href="./AbstractMIDINoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="487,5,665,53"/>
+<area shape="rect" id="node1_0" href="./Modifier.Operation.html" title="com.rockhoppertech.music.modifiers.Modifier.Operation" alt="" coords="349,110,449,151"/>
+<area shape="rect" id="node1" href="./Modifier.Operation.html" title="&lt;TABLE&gt;" alt="" coords="338,105,459,157"/>
+<area shape="rect" id="node2_1" href="./InstrumentModifier.html" title="com.rockhoppertech.music.modifiers.InstrumentModifier" alt="" coords="15,18,134,43"/>
+<area shape="rect" id="node2" href="./InstrumentModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,7,145,55"/>
+<area shape="rect" id="node3_2" href="./ArpeggiateModifier.html" title="com.rockhoppertech.music.modifiers.ArpeggiateModifier" alt="" coords="180,18,300,43"/>
+<area shape="rect" id="node3" href="./ArpeggiateModifier.html" title="&lt;TABLE&gt;" alt="" coords="169,7,311,55"/>
+<area shape="rect" id="node4_3" href="./AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="345,18,452,43"/>
+<area shape="rect" id="node4" href="./AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="335,7,463,55"/>
+<area shape="rect" id="node5_4" href="./AbstractMIDINoteModifier.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" alt="" coords="497,18,655,43"/>
+<area shape="rect" id="node5" href="./AbstractMIDINoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="487,7,665,55"/>
+<area shape="rect" id="node6_5" href="../series/time/TimeSeries.html" title="com.rockhoppertech.music.series.time.TimeSeries" alt="" coords="701,11,878,50"/>
+<area shape="rect" id="node6" href="../series/time/TimeSeries.html" title="&lt;TABLE&gt;" alt="" coords="690,6,889,55"/>
 </map>

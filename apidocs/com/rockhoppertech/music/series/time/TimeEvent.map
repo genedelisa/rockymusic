@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../../Timed.html" title="com.rockhoppertech.music.Timed" alt="" coords="178,11,307,66"/>
+<area shape="rect" id="node1" href="../../Timed.html" title="&lt;TABLE&gt;" alt="" coords="167,6,318,71"/>
+<area shape="rect" id="node2_1" href="./TimeEvent.html" title="com.rockhoppertech.music.series.time.TimeEvent" alt="" coords="204,131,281,157"/>
+<area shape="rect" id="node2" href="./TimeEvent.html" title="&lt;TABLE&gt;" alt="" coords="193,120,292,168"/>
+<area shape="rect" id="node3_2" href="./Sound.html" title="com.rockhoppertech.music.series.time.Sound" alt="" coords="15,229,70,254"/>
+<area shape="rect" id="node3" href="./Sound.html" title="&lt;TABLE&gt;" alt="" coords="5,217,81,265"/>
+<area shape="rect" id="node4_3" href="./Silence.html" title="com.rockhoppertech.music.series.time.Silence" alt="" coords="116,229,175,254"/>
+<area shape="rect" id="node4" href="./Silence.html" title="&lt;TABLE&gt;" alt="" coords="105,217,185,265"/>
+<area shape="rect" id="node5" href="null" title="&lt;TABLE&gt;" alt="" coords="209,217,473,266"/>
+</map>

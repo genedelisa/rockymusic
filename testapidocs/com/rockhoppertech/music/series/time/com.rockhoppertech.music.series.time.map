@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./TimeSeriesTest.html" title="com.rockhoppertech.music.series.time.TimeSeriesTest" alt="" coords="16,17,120,42"/>
+<area shape="rect" id="node1" href="./TimeSeriesTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,131,53"/>
+<area shape="rect" id="node2_1" href="./TimeSeriesFactoryTest.html" title="com.rockhoppertech.music.series.time.TimeSeriesFactoryTest" alt="" coords="165,17,309,42"/>
+<area shape="rect" id="node2" href="./TimeSeriesFactoryTest.html" title="&lt;TABLE&gt;" alt="" coords="155,5,320,53"/>
+<area shape="rect" id="node3_2" href="./TimeEventTest.html" title="com.rockhoppertech.music.series.time.TimeEventTest" alt="" coords="355,17,455,42"/>
+<area shape="rect" id="node3" href="./TimeEventTest.html" title="&lt;TABLE&gt;" alt="" coords="345,5,466,53"/>
+</map>

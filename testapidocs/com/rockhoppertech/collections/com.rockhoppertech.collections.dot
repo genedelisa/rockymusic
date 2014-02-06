@@ -34,9 +34,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./ArrayFunctionsTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.collections.ArrayFunctionsTest extends com.rockhoppertech.collections.ArrayFunctions
-	c38:p -> c3:p [dir=back,arrowtail=empty];
+	c42:p -> c3:p [dir=back,arrowtail=empty];
 	// com.rockhoppertech.collections.ArrayFunctions
-	c38 [label=<<table title="com.rockhoppertech.collections.ArrayFunctions" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+	c42 [label=<<table title="com.rockhoppertech.collections.ArrayFunctions" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ArrayFunctions </td></tr>
 		</table></td></tr>

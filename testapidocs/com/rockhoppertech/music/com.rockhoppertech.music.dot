@@ -10,61 +10,61 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.StartBeatComparatorTest
-	c86 [label=<<table title="com.rockhoppertech.music.StartBeatComparatorTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartBeatComparatorTest.html">
+	c94 [label=<<table title="com.rockhoppertech.music.StartBeatComparatorTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartBeatComparatorTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartBeatComparatorTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StartBeatComparatorTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PitchTest
-	c87 [label=<<table title="com.rockhoppertech.music.PitchTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchTest.html">
+	c95 [label=<<table title="com.rockhoppertech.music.PitchTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PitchFormatTest
-	c88 [label=<<table title="com.rockhoppertech.music.PitchFormatTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFormatTest.html">
+	c96 [label=<<table title="com.rockhoppertech.music.PitchFormatTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFormatTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFormatTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFormatTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PitchFactoryTest
-	c89 [label=<<table title="com.rockhoppertech.music.PitchFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFactoryTest.html">
+	c97 [label=<<table title="com.rockhoppertech.music.PitchFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFactoryTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFactoryTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFactoryTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PatternTest
-	c90 [label=<<table title="com.rockhoppertech.music.PatternTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternTest.html">
+	c98 [label=<<table title="com.rockhoppertech.music.PatternTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PatternTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PatternTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PatternFactoryTest
-	c91 [label=<<table title="com.rockhoppertech.music.PatternFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternFactoryTest.html">
+	c99 [label=<<table title="com.rockhoppertech.music.PatternFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternFactoryTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PatternFactoryTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PatternFactoryTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.NoteTest
-	c92 [label=<<table title="com.rockhoppertech.music.NoteTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteTest.html">
+	c100 [label=<<table title="com.rockhoppertech.music.NoteTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NoteTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> NoteTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./NoteTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.IntervalTest
-	c93 [label=<<table title="com.rockhoppertech.music.IntervalTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IntervalTest.html">
+	c101 [label=<<table title="com.rockhoppertech.music.IntervalTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IntervalTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IntervalTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./IntervalTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.DurationTest
-	c94 [label=<<table title="com.rockhoppertech.music.DurationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationTest.html">
+	c102 [label=<<table title="com.rockhoppertech.music.DurationTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DurationTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.DurationParserTest
-	c95 [label=<<table title="com.rockhoppertech.music.DurationParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationParserTest.html">
+	c103 [label=<<table title="com.rockhoppertech.music.DurationParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationParserTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationParserTest </td></tr>
 		</table></td></tr>

@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./TimeSeriesFactory.html" title="com.rockhoppertech.music.series.time.TimeSeriesFactory" alt="" coords="16,17,136,42"/>
+<area shape="rect" id="node1" href="./TimeSeriesFactory.html" title="&lt;TABLE&gt;" alt="" coords="5,5,147,53"/>
+<area shape="rect" id="node2_1" href="./TimeSeries.html" title="com.rockhoppertech.music.series.time.TimeSeries" alt="" coords="181,17,261,42"/>
+<area shape="rect" id="node2" href="./TimeSeries.html" title="&lt;TABLE&gt;" alt="" coords="171,5,272,53"/>
+<area shape="rect" id="node3_2" href="./TimeEvent.html" title="com.rockhoppertech.music.series.time.TimeEvent" alt="" coords="307,17,384,42"/>
+<area shape="rect" id="node3" href="./TimeEvent.html" title="&lt;TABLE&gt;" alt="" coords="296,5,395,53"/>
+<area shape="rect" id="node5_3" href="./Sound.html" title="com.rockhoppertech.music.series.time.Sound" alt="" coords="266,113,321,138"/>
+<area shape="rect" id="node5" href="./Sound.html" title="&lt;TABLE&gt;" alt="" coords="255,101,331,149"/>
+<area shape="rect" id="node6_4" href="./Silence.html" title="com.rockhoppertech.music.series.time.Silence" alt="" coords="367,113,425,138"/>
+<area shape="rect" id="node6" href="./Silence.html" title="&lt;TABLE&gt;" alt="" coords="356,101,436,149"/>
+<area shape="rect" id="node4_5" href="./TimeComparator.html" title="com.rockhoppertech.music.series.time.TimeComparator" alt="" coords="429,17,539,42"/>
+<area shape="rect" id="node4" href="./TimeComparator.html" title="&lt;TABLE&gt;" alt="" coords="419,5,549,53"/>
+</map>

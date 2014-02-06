@@ -10,56 +10,56 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.chord.UnknownChordException
-	c79 [label=<<table title="com.rockhoppertech.music.chord.UnknownChordException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UnknownChordException.html">
+	c87 [label=<<table title="com.rockhoppertech.music.chord.UnknownChordException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UnknownChordException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UnknownChordException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UnknownChordException.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.RomanChordParser
-	c80 [label=<<table title="com.rockhoppertech.music.chord.RomanChordParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RomanChordParser.html">
+	c88 [label=<<table title="com.rockhoppertech.music.chord.RomanChordParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RomanChordParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RomanChordParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./RomanChordParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordVoicing
-	c81 [label=<<table title="com.rockhoppertech.music.chord.ChordVoicing" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordVoicing.html">
+	c89 [label=<<table title="com.rockhoppertech.music.chord.ChordVoicing" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordVoicing.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordVoicing </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordVoicing.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgressionParser
-	c82 [label=<<table title="com.rockhoppertech.music.chord.ChordProgressionParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordProgressionParser.html">
+	c90 [label=<<table title="com.rockhoppertech.music.chord.ChordProgressionParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordProgressionParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordProgressionParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordProgressionParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgression
-	c83 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordProgression.html">
+	c91 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordProgression.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordProgression </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordProgression.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordFactory
-	c84 [label=<<table title="com.rockhoppertech.music.chord.ChordFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordFactory.html">
+	c92 [label=<<table title="com.rockhoppertech.music.chord.ChordFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordComparator
-	c85 [label=<<table title="com.rockhoppertech.music.chord.ChordComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordComparator.html">
+	c93 [label=<<table title="com.rockhoppertech.music.chord.ChordComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordComparator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordComparator </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordComparator.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.Chord
-	c86 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
+	c94 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Chord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Chord.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgression NAVASSOC com.rockhoppertech.music.chord.Chord
-	c83:p -> c86:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c91:p -> c94:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.chord.Chord NAVASSOC com.rockhoppertech.music.chord.ChordVoicing
-	c86:p -> c81:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c94:p -> c89:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

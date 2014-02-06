@@ -10,37 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.modifiers.VelocityModifierTest
-	c259 [label=<<table title="com.rockhoppertech.music.modifiers.VelocityModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VelocityModifierTest.html">
+	c284 [label=<<table title="com.rockhoppertech.music.modifiers.VelocityModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VelocityModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VelocityModifierTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VelocityModifierTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.StartBeatModifierTest
-	c260 [label=<<table title="com.rockhoppertech.music.modifiers.StartBeatModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartBeatModifierTest.html">
+	c285 [label=<<table title="com.rockhoppertech.music.modifiers.StartBeatModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartBeatModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartBeatModifierTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StartBeatModifierTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.DurationModifierTest
-	c261 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationModifierTest.html">
+	c286 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationModifierTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DurationModifierTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.ChannelModifierTest
-	c262 [label=<<table title="com.rockhoppertech.music.modifiers.ChannelModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelModifierTest.html">
+	c287 [label=<<table title="com.rockhoppertech.music.modifiers.ChannelModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChannelModifierTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChannelModifierTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.ArpeggiateModifierTest
-	c263 [label=<<table title="com.rockhoppertech.music.modifiers.ArpeggiateModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ArpeggiateModifierTest.html">
+	c288 [label=<<table title="com.rockhoppertech.music.modifiers.ArpeggiateModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ArpeggiateModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ArpeggiateModifierTest </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ArpeggiateModifierTest.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifierTest
-	c264 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifierTest.html">
+	c289 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifierTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifierTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> AbstractMIDINoteModifierTest </td></tr>
 		</table></td></tr>
