@@ -176,7 +176,25 @@ public class TimeSeriesFactoryTest {
      */
     @Test
     public final void testCreateCircularListOfDoubleListOfDouble() {
+        CircularList<Double> startTimes = new CircularArrayList<Double>();
+        startTimes.add(2d);
+        startTimes.add(3d);
+        List<Double> durations = Lists.newArrayList(.5, .25, 1.25, .25);
+        TimeSeries ts = TimeSeriesFactory.create(startTimes, durations);
 
+        assertThat("time series is not null",
+                ts, is(notNullValue()));
+        logger.debug("time series \n{}", ts);
+
+        List<Double> actual = ts.getDurations();
+        List<Double> expectedDurations = Lists.newArrayList(.5, 1.25, .25, .25);
+        assertThat("the durations are correct",
+                actual, is(equalTo(expectedDurations)));
+
+        actual = ts.getStartTimes();
+        List<Double> expectedStartTimes = Lists.newArrayList(2d, 2d, 3d, 3d);
+        assertThat("the durations are correct",
+                actual, is(equalTo(expectedStartTimes)));
     }
 
     /**

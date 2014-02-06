@@ -40,6 +40,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Range;
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
@@ -48,6 +49,7 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
 import com.rockhoppertech.music.modifiers.Modifier.Operation;
 import com.rockhoppertech.music.modifiers.StartBeatModifier;
@@ -84,6 +86,25 @@ public class TimeSeriesTest {
      */
     @Test
     public void testExtract() {
+        MIDITrack track = MIDITrackBuilder.create()
+                .noteString("C D E")
+                .durations(.5, .25, .25)
+                .build();
+        TimeSeries ts = TimeSeries.extract(track);
+        assertThat("ts is not null",
+                ts, is(notNullValue()));
+        List<Double> durs = ts.getDurations();
+        List<Double> starts = ts.getStartTimes();
+        List<Double> expected = Lists.newArrayList(.5, .25, .25);
+        assertThat("durs are equal", durs, is(equalTo(expected)));
+        expected = Lists.newArrayList(1d, 1d, 1d);
+        assertThat("starts are equal", starts, is(equalTo(expected)));
+
+        track.sequential();
+        ts = TimeSeries.extract(track);
+        starts = ts.getStartTimes();
+        expected = Lists.newArrayList(1d, 1.5, 1.75);
+        assertThat("starts are equal", starts, is(equalTo(expected)));
 
     }
 
@@ -143,7 +164,18 @@ public class TimeSeriesTest {
      */
     @Test
     public void testAddPropertyChangeListenerPropertyChangeListener() {
-
+        fired = false;
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                logger.debug("event fired {}", evt);
+                fired = true;
+            }
+        });
+        ts.changeStartBeat(0, 10.5);
+        assertThat("fired", fired, is(equalTo(true)));
+        fired = false;
     }
 
     /**
@@ -153,7 +185,23 @@ public class TimeSeriesTest {
      */
     @Test
     public void testAddPropertyChangeListenerStringPropertyChangeListener() {
-
+        fired = false;
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.addPropertyChangeListener(
+                TimeSeries.START_BEAT_CHANGE,
+                new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt) {
+                        logger.debug("event fired {}", evt);
+                        if (evt.getPropertyName().equals(
+                                TimeSeries.START_BEAT_CHANGE)) {
+                            fired = true;
+                        }
+                    }
+                });
+        ts.changeStartBeat(0, 10.5);
+        assertThat("fired", fired, is(equalTo(true)));
+        fired = false;
     }
 
     /**
@@ -183,7 +231,8 @@ public class TimeSeriesTest {
      */
     @Test
     public void testAddToSilences() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.addToSilences(5d);
     }
 
     /**
@@ -193,6 +242,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testAppendTimeSeries() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
 
     }
 
@@ -203,6 +253,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testApplyMIDITrack() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
 
     }
 
@@ -213,6 +264,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testApplyMIDITrackCircularListOfInteger() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
 
     }
 
@@ -223,6 +275,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testApplyToBoth() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
 
     }
 
@@ -232,7 +285,8 @@ public class TimeSeriesTest {
      */
     @Test
     public void testClear() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.clear();
     }
 
     /**
@@ -241,6 +295,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testComputeRanges() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
 
     }
 
@@ -566,7 +621,12 @@ public class TimeSeriesTest {
      */
     @Test
     public void testSetDescription() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.setDescription("foo");
+        assertThat(
+                "description is set",
+                ts.getDescription(),
+                is(equalTo("foo")));
     }
 
     /**
@@ -576,7 +636,9 @@ public class TimeSeriesTest {
      */
     @Test
     public void testSetName() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.setName("foo");
+        assertThat("name is set", ts.getName(), is(equalTo("foo")));
     }
 
     /**
@@ -613,6 +675,8 @@ public class TimeSeriesTest {
      */
     @Test
     public void testChangeStartBeatIntDouble() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.changeStartBeat(1, 5.5);
 
     }
 
@@ -623,7 +687,11 @@ public class TimeSeriesTest {
      */
     @Test
     public void testChangeStartBeatDouble() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.changeStartBeat(5.5);
+        logger.debug("track\n{}", ts);
+        TimeEvent e = ts.get(0);
+        assertThat("start beat", e.getStartBeat(), is(equalTo(5.5)));
     }
 
     /**
@@ -633,7 +701,11 @@ public class TimeSeriesTest {
      */
     @Test
     public void testChangeDuration() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.changeDuration(0, 5.5);
+        logger.debug("track\n{}", ts);
+        TimeEvent e = ts.get(0); 
+        assertThat("duration", e.getDuration(), is(equalTo(5.5)));
     }
 
     /**
@@ -642,6 +714,20 @@ public class TimeSeriesTest {
      */
     @Test
     public void testSequential() {
+        
+        CircularList<Double> startTimes = new CircularArrayList<Double>();
+        startTimes.add(2d);
+        startTimes.add(3d);
+        List<Double> durations = Lists.newArrayList(.5, .25, 1.25, .25);
+        TimeSeries ts = TimeSeriesFactory.create(startTimes, durations);
+        logger.debug("time series \n{}", ts);
+
+        ts.sequential();
+        logger.debug("time series \n{}", ts);
+        
+        List<Double> actual = ts.getStartTimes();
+        List<Double> expected = Lists.newArrayList(2d, 2.5, 3.75, 4d);
+        assertThat("start beats", actual, is(equalTo(expected)));        
 
     }
 
@@ -661,7 +747,11 @@ public class TimeSeriesTest {
      */
     @Test
     public void testChangeEndBeat() {
-
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
+        ts.changeEndBeat(0, 5.5);
+        logger.debug("track\n{}", ts);
+        TimeEvent e = ts.get(0); 
+        assertThat("duration", e.getEndBeat(), is(equalTo(5.5)));
     }
 
     /**
@@ -825,7 +915,7 @@ public class TimeSeriesTest {
     public void setStart() {
         TimeSeries ts = TimeSeriesFactory.create(4,
                 .5);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         Timed e = null;
         e = ts.get(0);
         assertThat(e.getStartBeat(),
@@ -896,25 +986,30 @@ public class TimeSeriesTest {
 
     }
 
-    // TODO how to really test this?
+    private boolean fired = false;
+
     @Test
     public void testAddTimeSeriesListener() {
         TimeSeries ts = new TimeSeries();
+        fired = false;
         TimeSeriesListener listener = new TimeSeriesListener() {
             @Override
             public void seriesChanged(TimeSeriesEvent e) {
-                System.err.println(e);
+                logger.debug("event {}", e);
+                fired = true;
             }
         };
         ts.addTimeSeriesListener(listener);
         ts.add(new TimeEvent(1d, .5));
+        assertThat("event was fired", fired, is(equalTo(true)));
+        fired = false;
     }
 
     @Test
     public void testAddToDuration() {
         TimeSeries ts = TimeSeriesFactory.create(4,
                 .5);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         Timed e = ts.get(0);
         assertThat(e.getStartBeat(),
                 equalTo(1d));
@@ -922,7 +1017,7 @@ public class TimeSeriesTest {
                 equalTo(.5));
 
         ts.addToDuration(1.25);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
         e = ts.get(0);
         assertThat(e.getStartBeat(),
@@ -954,14 +1049,12 @@ public class TimeSeriesTest {
     public void addToSilences() {
         TimeSeries ts = TimeSeriesFactory.create(4,
                 .5);
-        System.err.println(ts);
-        System.err.println("Silences");
-        System.err.println(ts.getSilences());
+        logger.debug("time series\n{}", ts);
+        logger.debug("Silences\n{}", ts.getSilences());
 
         ts.addToSilences(2.5);
-        System.err.println(ts);
-        System.err.println("New Silences");
-        System.err.println(ts.getSilences());
+        logger.debug("time series\n{}", ts);
+        logger.debug("new Silences\n{}", ts.getSilences());
 
         Timed e;
 
@@ -1001,7 +1094,7 @@ public class TimeSeriesTest {
         TimeSeries ts = TimeSeriesFactory.create(4,
                 .5);
         ts.divideDuration(2);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         Timed e = ts.get(0);
         assertThat(e.getStartBeat(),
                 equalTo(1d));
@@ -1117,7 +1210,7 @@ public class TimeSeriesTest {
         // ts.add(new TimeEvent(4d, .5));
         ts.setStart(2d);
         s = ts.getSilences();
-        System.err.println(s);
+        logger.debug("silences {}", s);
         e = s.get(0);
         assertThat(e.getStartBeat(),
                 equalTo(1d));
@@ -1147,7 +1240,7 @@ public class TimeSeriesTest {
     // stm.setOperation(Operation.SET);
     // ts.map(stm,
     // criteria);
-    // System.err.println(ts);
+    // logger.debug("time series\n{}", ts);
     // }
 
     @Test
@@ -1164,7 +1257,7 @@ public class TimeSeriesTest {
                 new Double[] { 2d, 3d, 4d });
 
         ts.map(stm);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
     }
 
     @Test
@@ -1215,7 +1308,7 @@ public class TimeSeriesTest {
         durations.add(new TimeEvent(1, 4));
         durations.add(new TimeEvent(1, 4));
         ts.mapDurations(durations);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         for (Timed t : ts) {
             assertThat("durations are correct",
                     t.getDuration(),
@@ -1234,7 +1327,7 @@ public class TimeSeriesTest {
         durations.add(WHOLE_NOTE);
         durations.add(WHOLE_NOTE);
         ts.mapDurations(durations);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         for (Timed t : ts) {
             assertThat("durations are correct",
                     t.getDuration(),
@@ -1248,7 +1341,7 @@ public class TimeSeriesTest {
         TimeSeries ts = new TimeSeries();
         ts.add(EIGHTH_NOTE).add(SIXTEENTH_NOTE).add(HALF_NOTE).add(EIGHTH_NOTE);
         ts.multiplyDuration(2d);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
     }
 
     @Test
@@ -1263,9 +1356,9 @@ public class TimeSeriesTest {
         double crap = .03;
         ts.add(EIGHTH_NOTE).add(SIXTEENTH_NOTE + crap).add(HALF_NOTE + crap)
                 .add(EIGHTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         ts.quantizeDurations(SIXTEENTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
         TimeEvent te = ts.get(0);
         assertThat("duration is correct",
@@ -1292,9 +1385,9 @@ public class TimeSeriesTest {
     public void testRemoveInt() {
         TimeSeries ts = new TimeSeries();
         ts.add(EIGHTH_NOTE).add(SIXTEENTH_NOTE).add(HALF_NOTE).add(EIGHTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         ts.remove(2);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
         TimeEvent te = ts.get(2);
         assertThat("start is correct",
@@ -1311,9 +1404,9 @@ public class TimeSeriesTest {
         ts.add(EIGHTH_NOTE).add(EIGHTH_NOTE).add(EIGHTH_NOTE).add(EIGHTH_NOTE);
         TimeEvent te = new TimeEvent(10, SIXTEENTH_NOTE);
         ts.add(te);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         ts.remove(te);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
     }
 
     @Test
@@ -1342,13 +1435,13 @@ public class TimeSeriesTest {
                 EIGHTH_NOTE);
         ts.add(start++,
                 EIGHTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         TimeSeries silences = ts.getSilences();
         assertThat("there are 3 silences",
                 silences.getSize(),
                 equalTo(3));
         ts.removeFromSilences(SIXTEENTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
         start = 1d;
         for (TimeEvent te : ts) {
@@ -1376,9 +1469,9 @@ public class TimeSeriesTest {
                 HALF_NOTE);
         ts.add(start++,
                 HALF_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         ts.removeOverlaps();
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
         start = 1d;
         for (TimeEvent te : ts) {
@@ -1405,20 +1498,19 @@ public class TimeSeriesTest {
                 EIGHTH_NOTE);
         ts.add(start++,
                 EIGHTH_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         TimeSeries silences = ts.getSilences();
         assertThat("there are 3 silences",
                 silences.getSize(),
                 equalTo(3));
 
-        System.err.println("silences");
-        System.err.println(silences);
-        System.err.println("removed");
+        logger.debug("silences {}", silences);
+
+        logger.debug("removed");
         ts.removeSilences();
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         silences = ts.getSilences();
-        System.err.println("silences");
-        System.err.println(silences);
+        logger.debug("silences {}", silences);
         assertThat("there are no silences",
                 silences.getSize(),
                 equalTo(0));
@@ -1475,7 +1567,7 @@ public class TimeSeriesTest {
         assertThat("duration is correct",
                 te2.getDuration(),
                 equalTo(SIXTEENTH_NOTE));
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
     }
 
@@ -1505,7 +1597,7 @@ public class TimeSeriesTest {
         assertThat("duration is correct",
                 te2.getDuration(),
                 equalTo(SIXTEENTH_NOTE));
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
 
     }
 
@@ -1515,7 +1607,7 @@ public class TimeSeriesTest {
         ts.add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE)
                 .add(SIXTEENTH_NOTE);
         ts.setDuration(HALF_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         for (TimeEvent te : ts) {
             assertThat("duration is correct",
                     te.getDuration(),
@@ -1533,12 +1625,13 @@ public class TimeSeriesTest {
         assertThat("no silences",
                 silences.getSize(),
                 equalTo(0));
-        System.err.println(ts);
-        System.err.println(silences);
+        logger.debug("time series\n{}", ts);
+        logger.debug("silences \n{}", silences);
+
         ts.setSilences(HALF_NOTE);
-        System.err.println(ts);
+        logger.debug("time series\n{}", ts);
         silences = ts.getSilences();
-        System.err.println(silences);
+        logger.debug("silences \n{}", silences);
         assertThat("no silences",
                 silences.getSize(),
                 equalTo(3));
@@ -1576,9 +1669,9 @@ public class TimeSeriesTest {
         // series' durations
         MIDITrack applied = ts.apply(notelist,
                 mask);
-        System.err.println(applied);
-        // System.err.println();
-        // System.err.println(applied.sequential());
+        logger.debug("applied {}", applied);
+        // logger.debug();
+        // logger.debug(applied.sequential());
 
     }
 
@@ -1597,18 +1690,18 @@ public class TimeSeriesTest {
         CircularList<Integer> mask = new CircularArrayList<Integer>();
         mask.add(1);
         mask.add(3);
-        // System.err.println("masked:");
+        // logger.debug("masked:");
         // TimeSeries masked = TimeSeriesFactory.createRepeated(ts, mask);
-        // System.err.println(masked);
+        // logger.debug(masked);
 
-        // System.err.println("copies:");
+        // logger.debug("copies:");
         // TimeSeries copies = masked.nCopies(3);
-        // System.err.println(copies);
+        // logger.debug(copies);
 
-        System.err.println("result:");
+        logger.debug("result:");
         MIDITrack applied = ts.applyToBoth(notelist,
                 mask);
-        System.err.println(applied);
+        logger.debug("applied {}", applied);
 
     }
 
@@ -1618,19 +1711,18 @@ public class TimeSeriesTest {
         ts.add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE)
                 .add(SIXTEENTH_NOTE);
         ts.add(EIGHTH_NOTE).add(EIGHTH_NOTE);
-        System.err.println(ts);
-        System.err.println(ts.getEndBeat());
-        System.err.println(ts.getSize());
-        System.err.println();
+        logger.debug("time series\n{}", ts);
+        logger.debug("end beat {}", ts.getEndBeat());
+        logger.debug("size {}", ts.getSize());
 
         TimeSeries appended = ts.nCopies(5);
         assertThat("Not null",
                 appended,
                 notNullValue());
-        System.err.println(appended);
-        System.err.println(appended.getEndBeat());
-        System.err.println(appended.getSize());
-        System.err.println();
+        logger.debug("appended\n{}", appended);
+        logger.debug("appended end {}", appended.getEndBeat());
+        logger.debug("appended size {}", appended.getSize());
+
         // 6 notes * 5
         assertThat(appended.getSize(),
                 equalTo(30));
@@ -1854,7 +1946,7 @@ public class TimeSeriesTest {
         assertThat("Not null",
                 appended,
                 notNullValue());
-        System.err.println(appended);
+        logger.debug("appended\n{}", appended);
 
         Timed e = appended.get(0);
         assertThat(e.getStartBeat(),
@@ -1907,7 +1999,7 @@ public class TimeSeriesTest {
         assertThat("Not null",
                 appended,
                 notNullValue());
-        System.err.println(appended);
+        logger.debug("track \n{}", appended);
 
         Timed e = appended.get(0);
         assertThat(e.getStartBeat(),
@@ -1962,7 +2054,8 @@ public class TimeSeriesTest {
         TimeSeries ts = new TimeSeries();
         ts.add(EIGHTH_NOTE).add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE);
         ts.apply(notelist);
-        System.out.println(notelist);
+
+        logger.debug("track \n{}", notelist);
 
         notelist.clear();
         notelist.add(C5,
@@ -1974,7 +2067,7 @@ public class TimeSeriesTest {
                 E5,
                 F5);
         ts.apply(notelist);
-        System.out.println(notelist);
+        logger.debug("track \n{}", notelist);
 
     }
 
@@ -1999,15 +2092,15 @@ public class TimeSeriesTest {
                 .add(SIXTEENTH_NOTE);
         ts.add(EIGHTH_NOTE).add(EIGHTH_NOTE);
 
-        System.out.println(notelist);
+        logger.debug("track \n{}", notelist);
         MIDITrack applied = ts.apply(notelist,
                 mask);
         assertThat("Not null",
                 applied,
                 notNullValue());
-        System.out.println();
-        System.out.println(ts);
-        System.out.println(applied);
+
+        logger.debug("{}", ts);
+        logger.debug("{}", applied);
 
     }
 
@@ -2062,7 +2155,7 @@ public class TimeSeriesTest {
         ts.add(new TimeEvent(2d, 2.5));
         ts.add(new TimeEvent(3d, .5));
         ts.apply(notelist);
-        System.out.println(notelist);
+        logger.debug("track\n{}", notelist);
 
         e = ts.get(0);
         note = notelist.get(0);
@@ -2121,7 +2214,7 @@ public class TimeSeriesTest {
             }
         }
         logger.debug("ts \n{}", ts);
-        logger.debug("ts2 \n{}", ts2);        
+        logger.debug("ts2 \n{}", ts2);
         assertThat("the serialization worked",
                 ts,
                 equalTo(ts2));
