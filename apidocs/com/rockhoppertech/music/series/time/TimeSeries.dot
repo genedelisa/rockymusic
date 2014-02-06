@@ -84,20 +84,20 @@ digraph G {
 	c6830:p -> c6868:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
 	c6848:p -> c6806:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c6868:p -> c6874:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c6868:p -> c6874:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
+	c6868:p -> c6794:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
 	c6868:p -> c6806:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.Modifier.Operation
-	c6868:p -> c6854:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
 	c6868:p -> c6848:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
+	c6868:p -> c6874:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
 	c6868:p -> c6794:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c6868:p -> c6794:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
+	c6868:p -> c6874:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.Modifier.Operation
+	c6868:p -> c6854:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
 	c6868:p -> c6874:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.google.common.collect.RangeSet<C extends java.lang.Comparable>

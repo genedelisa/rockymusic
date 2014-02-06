@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 167,
              Errors: 0,
-             Warnings: 5180,
+             Warnings: 5190,
              Infos: 0
       </title>
             <link>http://genedelisa.github.com/rockymusic/checkstyle.html</link>
@@ -1256,7 +1256,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  27
+                  33
                 </td>
                 <td>
                   0
@@ -2040,7 +2040,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  23
+                  27
                 </td>
                 <td>
                   0
