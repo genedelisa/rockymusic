@@ -20,8 +20,10 @@ package com.rockhoppertech.music;
  * #L%
  */
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
@@ -142,7 +144,8 @@ public class DurationParser {
     }
 
     /**
-     * Parse a duration string into a  {@code TimeSeries}.
+     * Parse a duration string into a {@code TimeSeries}.
+     * 
      * <pre>
      * {@code
 	 * String both = "1 2 3 q q. e .5 a q.. q...";
@@ -150,8 +153,9 @@ public class DurationParser {
 	 * }
 	 * </pre>
      * 
-     * @param s a duration string
-     * @return  a new {@code TimeSeries}
+     * @param s
+     *            a duration string
+     * @return a new {@code TimeSeries}
      */
     public static TimeSeries getDurationAsTimeSeries(String s) {
         TimeSeries ts = new TimeSeries();
@@ -391,6 +395,50 @@ public class DurationParser {
      */
     public static void setDurKeyMap(Map<String, Double> durKeyMap) {
         DurationParser.durKeyMap = durKeyMap;
+    }
+
+    public static List<Double> getDurationsAsList(String durations) {
+        String token = null;
+        List<Double> list = new ArrayList<Double>();
+        Scanner scanner = new Scanner(durations);
+
+        if (durations.indexOf(',') != -1) {
+            scanner.useDelimiter(",");
+        }
+
+        while (scanner.hasNext()) {
+            if (scanner.hasNext(dpattern)) {
+                token = scanner.next(dpattern);
+                double d = getDottedValue(token);
+                list.add(d);
+                logger.debug("'{}' is dotted value is {}",
+                        token, d);
+
+            } else if (scanner.hasNext(pattern)) {
+                token = scanner.next(pattern);
+                double d = durKeyMap.get(token);
+                list.add(d);
+                logger.debug("'{}' is not dotted value is {}", token, d);
+                // } else if (scanner.hasNext(tripletPattern)) {
+                // token = scanner.next(tripletPattern);
+                // double d = durKeyMap.get(token);
+                // ts.add(d);
+                // System.out.println(String
+                // .format("'%s' is not dotted value is %f",
+                // token,
+                // d));
+            } else if (scanner.hasNextDouble()) {
+                double d = scanner.nextDouble();
+                list.add(d);
+                logger.debug("{} is a double", d);
+            } else {
+                // just ignore it. or throw exception?
+                String skipped = scanner.next();
+                logger.debug("skipped '{}'", skipped);
+            }
+        }
+        scanner.close();
+        return list;
     }
 
 }
