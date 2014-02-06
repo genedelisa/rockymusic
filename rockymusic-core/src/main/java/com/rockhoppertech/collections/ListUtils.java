@@ -44,7 +44,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * Some {@code List} utilitie that seem to be missing from all the big guy's
+ * Some {@code List} utilities that seem to be missing from all the big guy's
  * list implementations.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -167,5 +167,13 @@ public class ListUtils {
         List<String> items = Arrays.asList(commaDelimited.split("\\s*,\\s*"));
         return items;
     }
+    
+    public static <T> CircularList <T> newCircularArrayList() {
+        return new CircularArrayList<T>();
+    }
+    public static <T> CircularList <T> newCircularArrayList(CircularList<T> list) {
+        return new CircularArrayList<T>(list);
+    }
+
 
 }
