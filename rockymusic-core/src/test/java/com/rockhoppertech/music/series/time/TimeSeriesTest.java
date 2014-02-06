@@ -427,6 +427,20 @@ public class TimeSeriesTest {
      */
     @Test
     public void testInsertAtIndex() {
+        TimeSeries ts = TimeSeriesFactory
+                .createFromDurationString("e e q e e q e e");
+        TimeSeries ts2 = TimeSeriesFactory.createFromDurationString("s s s s");
+        int expectedLength = ts.getSize() + ts2.getSize();
+        logger.debug("orig ts \n{}", ts);
+        logger.debug("orig ts2 \n{}", ts2);
+        ts.insertAtIndex(1, ts2);
+        logger.debug("ts \n{}", ts);
+        logger.debug("ts2 \n{}", ts2);
+
+        assertThat(
+                "the size is correct",
+                ts.getSize(),
+                is(equalTo(expectedLength)));
 
     }
 
@@ -543,7 +557,45 @@ public class TimeSeriesTest {
      */
     @Test
     public void testToMIDITrack() {
+        TimeSeries ts = TimeSeriesFactory
+                .createFromDurationString("e e q e e q e e");
+        MIDITrack track = ts.toMIDITrack();
+        assertThat("track is ot null",
+                track, is(notNullValue()));
 
+        MIDINote note = track.get(0);
+        double actual = note.getStartBeat();
+        double expected = 1d;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
+        actual = note.getDuration();
+        expected = Duration.E;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(1);
+        actual = note.getDuration();
+        expected = Duration.E;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(2);
+        actual = note.getDuration();
+        expected = Duration.Q;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(3);
+        actual = note.getDuration();
+        expected = Duration.E;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
+
+        note = track.get(4);
+        actual = note.getDuration();
+        expected = Duration.E;
+        assertThat("beat is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -571,7 +623,14 @@ public class TimeSeriesTest {
      */
     @Test
     public void testQuantizeStartBeats() {
-
+        TimeSeries ts = TimeSeriesFactory
+                .createFromDurationString("e e q e e q e e");
+        List<Double> expected = Lists.newArrayList(
+                1.0, 1.5, 2.0, 3.0, 3.5, 4.0, 5.0, 5.5);
+        assertThat("start beats", ts.getStartTimes(), equalTo(expected));
+        ts.quantizeStartBeats(1d);
+        expected = Lists.newArrayList(1.0, 1.0, 2.0, 3.0, 3.0, 4.0, 5.0, 5.0);
+        assertThat("start beats", ts.getStartTimes(), equalTo(expected));
     }
 
     /**
@@ -601,16 +660,6 @@ public class TimeSeriesTest {
      */
     @Test
     public void testRemovePropertyChangeListenerStringPropertyChangeListener() {
-
-    }
-
-    /**
-     * Test method for
-     * {@link com.rockhoppertech.music.series.time.TimeSeries#removeTimeSeriesListener(com.rockhoppertech.music.series.time.TimeSeriesListener)}
-     * .
-     */
-    @Test
-    public void testRemoveTimeSeriesListener() {
 
     }
 
@@ -704,7 +753,7 @@ public class TimeSeriesTest {
         TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
         ts.changeDuration(0, 5.5);
         logger.debug("track\n{}", ts);
-        TimeEvent e = ts.get(0); 
+        TimeEvent e = ts.get(0);
         assertThat("duration", e.getDuration(), is(equalTo(5.5)));
     }
 
@@ -714,7 +763,7 @@ public class TimeSeriesTest {
      */
     @Test
     public void testSequential() {
-        
+
         CircularList<Double> startTimes = new CircularArrayList<Double>();
         startTimes.add(2d);
         startTimes.add(3d);
@@ -724,10 +773,10 @@ public class TimeSeriesTest {
 
         ts.sequential();
         logger.debug("time series \n{}", ts);
-        
+
         List<Double> actual = ts.getStartTimes();
         List<Double> expected = Lists.newArrayList(2d, 2.5, 3.75, 4d);
-        assertThat("start beats", actual, is(equalTo(expected)));        
+        assertThat("start beats", actual, is(equalTo(expected)));
 
     }
 
@@ -750,7 +799,7 @@ public class TimeSeriesTest {
         TimeSeries ts = TimeSeriesFactory.createFromDurationString(".5 1");
         ts.changeEndBeat(0, 5.5);
         logger.debug("track\n{}", ts);
-        TimeEvent e = ts.get(0); 
+        TimeEvent e = ts.get(0);
         assertThat("duration", e.getEndBeat(), is(equalTo(5.5)));
     }
 
@@ -988,22 +1037,22 @@ public class TimeSeriesTest {
 
     private boolean fired = false;
 
-    @Test
-    public void testAddTimeSeriesListener() {
-        TimeSeries ts = new TimeSeries();
-        fired = false;
-        TimeSeriesListener listener = new TimeSeriesListener() {
-            @Override
-            public void seriesChanged(TimeSeriesEvent e) {
-                logger.debug("event {}", e);
-                fired = true;
-            }
-        };
-        ts.addTimeSeriesListener(listener);
-        ts.add(new TimeEvent(1d, .5));
-        assertThat("event was fired", fired, is(equalTo(true)));
-        fired = false;
-    }
+    // @Test
+    // public void testAddTimeSeriesListener() {
+    // TimeSeries ts = new TimeSeries();
+    // fired = false;
+    // TimeSeriesListener listener = new TimeSeriesListener() {
+    // @Override
+    // public void seriesChanged(TimeSeriesEvent e) {
+    // logger.debug("event {}", e);
+    // fired = true;
+    // }
+    // };
+    // ts.addTimeSeriesListener(listener);
+    // ts.add(new TimeEvent(1d, .5));
+    // assertThat("event was fired", fired, is(equalTo(true)));
+    // fired = false;
+    // }
 
     @Test
     public void testAddToDuration() {
@@ -1245,19 +1294,59 @@ public class TimeSeriesTest {
 
     @Test
     public void map() {
-        TimeSeries ts = new TimeSeries();
-        ts.add(new TimeEvent(1d, .5));
-        ts.add(new TimeEvent(2d, 1.5));
-        ts.add(new TimeEvent(3d, .5));
-        ts.add(new TimeEvent(4d, .5));
-        ts.add(new TimeEvent(5d, .5));
-        ts.add(new TimeEvent(6d, .5));
+        // TimeSeries ts = new TimeSeries();
+        // ts.add(new TimeEvent(1d, .5));
+        // ts.add(new TimeEvent(2d, 1.5));
+        // ts.add(new TimeEvent(3d, .5));
+        // ts.add(new TimeEvent(4d, .5));
+        // ts.add(new TimeEvent(5d, .5));
+        // ts.add(new TimeEvent(6d, .5));
+
+        TimeSeries ts = TimeSeriesFactory.create("1 2 3 4 5 6", "e q. e e e e");
+        logger.debug("original time series\n{}", ts);
 
         final TimedModifier stm = new StartBeatModifier(Operation.SET,
                 new Double[] { 2d, 3d, 4d });
 
         ts.map(stm);
         logger.debug("time series\n{}", ts);
+
+        TimeEvent e = ts.get(0);
+        double actual = e.getStartBeat();
+        double expected = 2d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
+
+        e = ts.get(1);
+        actual = e.getStartBeat();
+        expected = 3d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
+
+        e = ts.get(2);
+        actual = e.getStartBeat();
+        expected = 4d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
+
+        // it wrapped
+        e = ts.get(3);
+        actual = e.getStartBeat();
+        expected = 2d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
+
+        e = ts.get(4);
+        actual = e.getStartBeat();
+        expected = 3d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
+
+        e = ts.get(5);
+        actual = e.getStartBeat();
+        expected = 4d;
+        assertThat("start is correct",
+                actual, is(equalTo(expected)));
     }
 
     @Test
@@ -1347,7 +1436,7 @@ public class TimeSeriesTest {
     @Test
     @Ignore
     public void testPermute() {
-        fail("Not yet implemented");
+
     }
 
     @Test
@@ -1548,6 +1637,7 @@ public class TimeSeriesTest {
         ts.add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE).add(SIXTEENTH_NOTE)
                 .add(SIXTEENTH_NOTE);
 
+        fired = false;
         ts.addPropertyChangeListener(new PropertyChangeListener() {
             @SuppressWarnings("unchecked")
             @Override
@@ -1555,6 +1645,9 @@ public class TimeSeriesTest {
                 assertThat(evt.getPropertyName(),
                         anyOf(equalTo(TimeSeries.MODIFIED),
                                 equalTo(TimeSeries.START_BEAT_CHANGE)));
+                if (evt.getPropertyName().equals(TimeSeries.MODIFIED)) {
+                    fired = true;
+                }
             }
         });
 
@@ -1567,6 +1660,11 @@ public class TimeSeriesTest {
         assertThat("duration is correct",
                 te2.getDuration(),
                 equalTo(SIXTEENTH_NOTE));
+
+        assertThat("property change event was fired",
+                fired,
+                equalTo(true));
+
         logger.debug("time series\n{}", ts);
 
     }
@@ -2221,4 +2319,28 @@ public class TimeSeriesTest {
 
     }
 
+    @Test
+    public void equals() {
+        TimeSeries ts = TimeSeriesFactory.createFromDurationString("e e e e");
+        TimeSeries ts2 = TimeSeriesFactory.createFromDurationString("e e e e");
+        boolean actual = ts.equals(ts2);
+        boolean expected = true;
+        assertThat("equals worked",
+                actual, is(equalTo(expected)));
+
+        actual = ts.equals(ts);
+        expected = true;
+        assertThat("equals worked",
+                actual, is(equalTo(expected)));
+
+        actual = ts.equals(null);
+        expected = false;
+        assertThat("equals worked",
+                actual, is(equalTo(expected)));
+
+        actual = ts.equals("this is not a time series");
+        expected = false;
+        assertThat("equals worked",
+                actual, is(equalTo(expected)));
+    }
 }
