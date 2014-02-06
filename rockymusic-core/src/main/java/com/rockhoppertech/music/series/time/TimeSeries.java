@@ -20,7 +20,6 @@ package com.rockhoppertech.music.series.time;
  * #L%
  */
 
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
@@ -79,9 +78,6 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     public static final String DURATION_CHANGE = "TimeSeries.DURATION_CHANGE";
     public static final String START_BEAT_CHANGE = "TimeSeries.START_BEAT_CHANGE";
     public static final String MODIFIED = "TimeSeries.MODIFIED";
-
-
-  
 
     private transient RangeSet<Double> rangeSet = TreeRangeSet.create();
     private CircularArrayList<TimeEvent> list = new CircularArrayList<TimeEvent>();
@@ -167,7 +163,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         Collections.sort(this.list,
                 this.timeComparator);
         this.addRange(t.getOpenRange());
-        //this.addExactRange(t.getClosedRange());
+        // this.addExactRange(t.getClosedRange());
         this.fireSeriesChanged();
         return this;
     }
@@ -193,7 +189,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         }
         return ts;
     }
-    
+
     public void addPropertyChangeListener(final PropertyChangeListener listener) {
         this.changes.addPropertyChangeListener(listener);
     }
@@ -203,8 +199,6 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         this.changes.addPropertyChangeListener(propertyName,
                 listener);
     }
-
-    
 
     private TimeSeries addRange(final Range<Double> r) {
         this.ranges.add(r);
@@ -617,7 +611,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     public TimeSeries getSilences() {
         final TimeSeries ts = new TimeSeries();
         double lastTime = 1d;
-        logger.debug("number of ranges {}",this.ranges.size());        
+        logger.debug("number of ranges {}", this.ranges.size());
         for (final Range<Double> r1 : this.ranges) {
             logger.debug("range {}", r1);
             final double before = r1.lowerEndpoint() - lastTime;
@@ -924,7 +918,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
     // public void permute() {
     // final long np = Permutations.getNumberOfPermutations(this.list.size(),
     // this.list.size());
-    // System.out.println("Number of permutations: " + np);
+    // logger.debug("Number of permutations: " + np);
     // final List<int[]> list = Permutations.getPermutations(this.list.size());
     // if (logger.isDebugEnabled()) {
     // logger.debug(String.format("permutation list %d",
@@ -1028,7 +1022,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         // for (final Timed te : this.list) {
         // final double t = te.getDuration();
         // if (t - d <= 0) {
-        // System.err.println("removeFromDuration: invalid dur" + d);
+        // logger.debug("removeFromDuration: invalid dur" + d);
         // continue;
         // }
         // te.setDuration(t - d);
@@ -1285,6 +1279,7 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         TimeEvent n = this.get(0);
         n.setStartBeat(startBeat);
         this.sequential();
+        
         this.changes.firePropertyChange(TimeSeries.START_BEAT_CHANGE,
                 null,
                 n);
@@ -1314,10 +1309,9 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         Timed n = this.list.get(0);
         double s = n.getStartBeat();
         double d = n.getDuration();
-        if (logger.isDebugEnabled()) {
-            logger.debug("startbeat0:" + s);
-            logger.debug("dur0:" + d);
-        }
+
+        logger.debug("startbeat0:" + s);
+        logger.debug("dur0:" + d);
 
         for (int i = 1; i < size; i++) {
             Timed nn = this.list.get(i);
@@ -1358,7 +1352,9 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -1370,7 +1366,9 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -1389,20 +1387,20 @@ public class TimeSeries implements Iterable<TimeEvent>, Serializable {
             if (other.list != null) {
                 return false;
             }
-            
+
         } else if (!list.equals(other.list)) {
             logger.debug("lists dont match ");
             logger.debug("this {}", list);
             logger.debug("other {}", other.list);
             return false;
         }
-//        if (name == null) {
-//            if (other.name != null) {
-//                return false;
-//            }
-//        } else if (!name.equals(other.name)) {
-//            return false;
-//        }
+        // if (name == null) {
+        // if (other.name != null) {
+        // return false;
+        // }
+        // } else if (!name.equals(other.name)) {
+        // return false;
+        // }
         return true;
     }
 
