@@ -116,6 +116,43 @@ public class TimeEventTest {
                 event.getSimpleString(), is(equalTo("2.500000,2.000000")));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void badStart() {
+        new TimeEvent(0d, 2d);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void badDuration() {
+        new TimeEvent(1d, 0d);
+    }
+
+    @Test
+    public void duplicate() {
+        TimeEvent event = new TimeEvent(2.5, 2d);
+        assertThat("event is not null",
+                event, is(notNullValue()));
+        double actual = event.getStartBeat();
+        double expected = 2.5;
+        assertThat("the start beat is correct",
+                actual, is(equalTo(expected)));
+        actual = event.getDuration();
+        expected = 2d;
+        assertThat("the duration is correct",
+                actual, is(equalTo(expected)));
+
+        TimeEvent dupe = event.duplicate();
+        assertThat("dupe is not null",
+                dupe, is(notNullValue()));
+        actual = dupe.getStartBeat();
+        expected = event.getStartBeat();
+        assertThat("the start beat is correct",
+                actual, is(equalTo(expected)));
+        actual = dupe.getDuration();
+        expected = event.getDuration();
+        assertThat("the duration is correct",
+                actual, is(equalTo(expected)));
+    }
+
     /**
      * Test method for
      * {@link com.rockhoppertech.music.series.time.TimeEvent#getStartBeat()}.
@@ -320,6 +357,17 @@ public class TimeEventTest {
         expected = true;
         assertThat("the overlap is correct",
                 actual, is(equalTo(expected)));
+        
+        event = new TimeEvent(2d, 1d);
+        event2 = new TimeEvent(1.5d, 1d);
+        assertThat("event is not null",
+                event2, is(notNullValue()));
+        logger.debug("event 1 {}", event);
+        logger.debug("event 2 {}", event2);
+        actual = event.overlaps(event2);
+        expected = true;
+        assertThat("the overlap is correct",
+                actual, is(equalTo(expected)));
     }
 
     /**
@@ -430,6 +478,28 @@ public class TimeEventTest {
                 event.getSimpleString(), is(notNullValue()));
         assertThat("the simple string is correct",
                 event.getSimpleString(), is(equalTo("1.000000,1.000000")));
+    }
+
+    @Test
+    public void equals() {
+        TimeEvent event = new TimeEvent();
+        TimeEvent event2 = new TimeEvent(2.5d, 1d);
+        assertThat("event is not null",
+                event, is(notNullValue()));
+
+        boolean actual = event.equals(event2);
+        assertThat("the comparison is correct",
+                actual,
+                is(equalTo(false)));
+        actual = event.equals(null);
+        assertThat("the comparison is correct",
+                actual,
+                is(equalTo(false)));
+
+        actual = event.equals("can't compare to a string");
+        assertThat("the comparison is correct",
+                actual,
+                is(equalTo(false)));
     }
 
 }
