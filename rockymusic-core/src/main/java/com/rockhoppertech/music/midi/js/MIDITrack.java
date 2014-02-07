@@ -43,6 +43,8 @@ import org.apache.commons.lang3.Range;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
@@ -269,6 +271,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public MIDITrack(final String noteString) {
         this();
         midiStringParser.parseString(this, noteString);
+    }
+
+    /**
+     * Initialize a track from a Guava Iterable of MIDINote.
+     * 
+     * @param iterable
+     *            a Guava Iterable
+     */
+    public MIDITrack(Iterable<MIDINote> iterable) {
+        this(Lists.newArrayList(iterable));
     }
 
     /**
@@ -2396,7 +2408,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         this.changes = new PropertyChangeSupport(this);
         this.midiStringParser = new MIDIStringParser();
     }
-    
+
     // JavaBeans event methods.
 
     public void addPropertyChangeListener(final PropertyChangeListener listener) {

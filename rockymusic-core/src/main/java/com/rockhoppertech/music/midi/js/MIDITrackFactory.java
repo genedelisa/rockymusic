@@ -39,6 +39,10 @@ import javax.sound.midi.Track;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
@@ -481,8 +485,8 @@ public class MIDITrackFactory {
                 // Track 1 will be the instrument name, e.g. Piano
                 if (mm.getType() == MIDIUtils.META_NAME) {
                     logger.debug("name");
-                    logger.debug(MIDIUtils.bytesToText(mm.getData()));                    
-                    track.setName(MIDIUtils.bytesToText(mm.getData()));                    
+                    logger.debug(MIDIUtils.bytesToText(mm.getData()));
+                    track.setName(MIDIUtils.bytesToText(mm.getData()));
                 }
             }
 
@@ -1077,13 +1081,13 @@ public class MIDITrackFactory {
             // Collections.sort(pattern, Collections.reverseOrder());
             patternud.addAll(pattern);
             pattern = patternud;
-            logger.debug("pattern {}",pattern);
+            logger.debug("pattern {}", pattern);
         }
 
         for (int oct = 0; oct < nOctaves; oct++) {
             int trans = startingMIDINumber - track.get(0).getMidiNumber();
             for (int index : pattern) {
-                logger.debug("index {}",index);
+                logger.debug("index {}", index);
                 MIDINote note = (MIDINote) track.get(index).duplicate();
                 note.transpose(trans);
                 result.add(note);
@@ -1123,13 +1127,13 @@ public class MIDITrackFactory {
             // Collections.sort(pattern, Collections.reverseOrder());
             patternud.addAll(pattern);
             pattern = patternud;
-            logger.debug("pattern {}",pattern);
+            logger.debug("pattern {}", pattern);
         }
 
         for (int oct = 0; oct < nOctaves; oct++) {
             int trans = startingMIDINumber - midiNumbers.get(0);
             for (int index : pattern) {
-                logger.debug("index {}",index);
+                logger.debug("index {}", index);
                 int pit = midiNumbers.get(index) + trans;
                 result.add(new MIDINote(pit));
             }
@@ -1353,14 +1357,47 @@ public class MIDITrackFactory {
         // Interval.
         return result;
     }
-    
+
     /**
-     * Create a click track. Uses the length and time signatures of the provided track.
+     * Filter the source track by the Guava predicate.
      * 
-     * @param track a {@code MIDITrack}
+     * @param track
+     *            the source track
+     * @param p
+     *            a Guava predicate
      * @return a new {@code MIDITrack}
      */
-    public MIDITrack createClickTrack(MIDITrack track) {
+    public static MIDITrack createTrackFromPredicate(MIDITrack track,
+            Predicate<MIDINote> p) {
+        MIDITrack newTrack = new MIDITrack(Iterables.filter(track, p));
+        return newTrack;
+    }
+
+    /**
+     * Create a new track by applying the function to the supplied track.
+     * 
+     * @param track
+     *            a {@code MIDITrack}
+     * @param function
+     *            a Guava Function
+     * @return a new {@code MIDITrack}
+     */
+    public static MIDITrack create(MIDITrack track,
+            Function<MIDINote, MIDINote> function) {
+        List<MIDINote> newnotes = Lists.transform(track.getNotes(), function);
+        MIDITrack newTrack = new MIDITrack(newnotes);
+        return newTrack;
+    }
+
+    /**
+     * Create a click track. Uses the length and time signatures of the provided
+     * track.
+     * 
+     * @param track
+     *            a {@code MIDITrack}
+     * @return a new {@code MIDITrack}
+     */
+    public static MIDITrack createClickTrack(MIDITrack track) {
         MIDITrack clickTrack = new MIDITrack();
         clickTrack.setName("click track");
         int channel = 9;
