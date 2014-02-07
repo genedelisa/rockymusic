@@ -20,16 +20,48 @@ package com.rockhoppertech.music;
  * #L%
  */
 
+/**
+ * A class with a start time and a duration.
+ * 
+ * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * @see Note
+ * @see MIDINote
+ * @see TimeEvent
+ */
 public interface Timed {
 
-	public abstract double getStartBeat();
+    /**
+     * @return the start beat
+     */
+    double getStartBeat();
 
-	public abstract void setStartBeat(double d);
+    /**
+     * @param d
+     *            a start beat
+     */
+    void setStartBeat(double d);
 
-	public abstract double getDuration();
+    /**
+     * @return the duration
+     */
+    double getDuration();
 
-	public abstract double getEndBeat();
+    /**
+     * @return the end best
+     */
+    double getEndBeat();
 
-	public abstract void setDuration(double d);
+    /**
+     * @param d
+     *            the new duration
+     */
+    void setDuration(double d);
+
+    /**
+     * Clone is evil.
+     * 
+     * @return a new {@code Timed} instance
+     */
+    Timed duplicate();
 
 }
