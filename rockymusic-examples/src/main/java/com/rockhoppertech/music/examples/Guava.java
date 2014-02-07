@@ -20,14 +20,17 @@ package com.rockhoppertech.music.examples;
  * #L%
  */
 
+import java.util.Collection;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
+import com.google.common.base.Functions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -35,23 +38,128 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Range;
 import com.google.common.collect.RangeSet;
 import com.google.common.collect.TreeRangeSet;
+import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
+import com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction.Operation;
+import com.rockhoppertech.music.midi.js.modifiers.google.DurationFunction;
+import com.rockhoppertech.music.midi.js.modifiers.google.PitchFunction;
 import com.rockhoppertech.music.midi.js.modifiers.google.PitchGreaterThanPredicate;
 import com.rockhoppertech.music.midi.js.modifiers.google.PitchLessThanPredicate;
+import com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction;
 
 /**
  * Guava playground.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class Guava {
     static Logger logger = LoggerFactory.getLogger(Guava.class);
 
     public static void main(String[] args) {
+        composed();
+        // permute();
+    }
+
+    public static void composed() {
+        MIDITrack track = MIDITrackBuilder.create()
+                .noteString("C D E F G")
+                .sequential()
+                .build();
+
+        AddFunction function = new AddFunction(1);
+        Predicate<MIDINote> p = Predicates.compose(
+                Predicates.alwaysTrue(), function
+                );
+        ImmutableList<MIDINote> notes = FluentIterable
+                .from(track)
+                .filter(p)
+                .toList();
+        for (MIDINote note : notes) {
+            System.err.println(note);
+        }
+
+        track = MIDITrackBuilder.create()
+                .noteString("C D E F G")
+                .sequential()
+                .build();
+        p = new PitchGreaterThanPredicate(Pitch.E5);
+        notes = FluentIterable
+                .from(track)
+                .filter(p)
+                .toList();
+        System.err.println("gt");
+        for (MIDINote note : notes) {
+            System.err.println(note);
+        }
+
+        track = MIDITrackBuilder.create()
+                .noteString("C D E F G")
+                .sequential()
+                .build();
+        PitchFunction pf = new PitchFunction(Operation.ADD, 1);
+        p = Predicates.compose(
+                new PitchGreaterThanPredicate(Pitch.E5),
+                pf);
+        notes = FluentIterable
+                .from(track)
+                .filter(p)
+                .toList();
+        System.err.println("gt add");
+        for (MIDINote note : notes) {
+            System.err.println(note);
+        }
+
+        Function<Timed, Timed> startAndDur = Functions.compose(
+                new DurationFunction(Operation.SET, Duration.S),
+                new StartTimeFunction(Operation.ADD, 1d));
+        track = MIDITrackBuilder.create()
+                .noteString("C D E F G")
+                .sequential()
+                .build();
+        // they are actually MIDINotes
+        ImmutableList<Timed> times = FluentIterable
+                .from(track)
+                .transform(startAndDur)
+                .toList();
+        System.err.println("start and dur");
+        for (Timed note : times) {
+            System.err.println(note);
+        }
+
+    }
+
+    public static void permute() {
+        List<Integer> numz = Lists.newArrayList(1, 2, 3);
+        Collection<List<Integer>> perms = Collections2.permutations(numz);
+        for (List<Integer> p : perms) {
+            System.out.println(p);
+        }
+
+        // Collections2.orderedPermutations(elements, comparator)
+    }
+
+    static void and() {
+        MIDITrack track = MIDITrackBuilder.create()
+                .noteString("C D E G F4")
+                .sequential()
+                .build();
+
+        Predicate<MIDINote> and = Predicates.and(new PitchGreaterThanPredicate(
+                Pitch.C5), new PitchLessThanPredicate(Pitch.F5));
+
+        ImmutableList<MIDINote> bandpass = ImmutableList.copyOf(Iterables
+                .filter(track, and));
+        for (MIDINote in : bandpass) {
+            System.out.println(in);
+        }
+    }
+
+    public static void goofaround() {
         MIDITrack track = MIDITrackBuilder.create()
                 .noteString("C D E")
                 .sequential()
@@ -71,20 +179,19 @@ public class Guava {
 
         RangeSet<Double> rangeSet = TreeRangeSet.create();
         rangeSet.add(Range.closed(1d, 10d));
-        rangeSet.add(Range.closed(11d, 20d));        
+        rangeSet.add(Range.closed(11d, 20d));
         for (Range<Double> r : rangeSet.asRanges()) {
             logger.debug("{}", r);
         }
         logger.debug("span {}", rangeSet.span());
-        logger.debug("contains {}", rangeSet.contains(20d));        
-        logger.debug("contains {}", rangeSet.contains(20.1));        
-        
+        logger.debug("contains {}", rangeSet.contains(20d));
+        logger.debug("contains {}", rangeSet.contains(20.1));
 
     }
 
     /**
      * Adds the value to each MIDINote's pitch.
-     *
+     * 
      */
     static class AddFunction implements Function<MIDINote, MIDINote> {
         private int value = 1;
@@ -99,7 +206,7 @@ public class Guava {
             return note;
         }
     }
-    
+
     public static void funpred() {
         MIDITrack track = MIDITrackBuilder.create()
                 .noteString("C5 CS F FS E F4")
@@ -153,15 +260,6 @@ public class Guava {
         // Iterable i = Iterables.transform(Iterables.filter(Iterables.filter(
         // list, MIDINote.class), high), nameForNumber);
 
-        Predicate<MIDINote> and = Predicates.and(new PitchGreaterThanPredicate(
-                Pitch.C5), new PitchLessThanPredicate(Pitch.F5));
-        ImmutableList<MIDINote> bandpass = ImmutableList.copyOf(Iterables
-                .filter(track, and));
-        for (MIDINote in : bandpass) {
-            System.out.println(in);
-        }
-
-        
         Predicate<MIDINote> compose = Predicates.compose(
                 new PitchGreaterThanPredicate(
                         Pitch.C5),
