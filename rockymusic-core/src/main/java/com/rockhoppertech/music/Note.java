@@ -65,7 +65,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
      * For Serialization.
      */
     private static final long serialVersionUID = -6744900968063285081L;
-    
+
     private static final Logger logger = LoggerFactory.getLogger(Note.class);
     private Pitch pitch;
     private double startBeat;
@@ -156,6 +156,20 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         setStartBeat(startBeat);
         endBeat = startBeat + duration;
         this.duration = duration;
+    }
+
+    /**
+     * Copy constructor. Clone is evil.
+     * 
+     * @param note
+     *            another {@code Note}
+     */
+    public Note(Note note) {
+        this.duration = note.duration;
+        this.startBeat = note.startBeat;
+        this.pitch = note.pitch;
+        this.rest = note.rest;
+        this.endBeat = note.endBeat;
     }
 
     /*
@@ -485,7 +499,6 @@ public class Note implements Comparable<Note>, Timed, Serializable {
                 startBeat, endBeat);
         changes.firePropertyChange(Note.START_BEAT, Double.valueOf(old),
                 Double.valueOf(startBeat));
-
     }
 
     /**
@@ -538,6 +551,16 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         return String.format("%s,%s,%s", pf.format(pitch).trim(),
                 nf.format(startBeat),
                 DurationParser.getDurationString(duration));
+    }
+
+    /*
+     * Clone is evil.
+     * 
+     * @see com.rockhoppertech.music.Timed#duplicate()
+     */
+    @Override
+    public Timed duplicate() {
+        return new Note(this);
     }
 
 }
