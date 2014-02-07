@@ -12,6 +12,9 @@ Besides the usual developer informtion, there are a few pages on how to use the 
 
 
 I started writing music code way back in the early 1980s on a PDP-11/34 running Music-11 under Unix.
+
+In 1989 I wrote  a book entited [Computer Music in C](http://www.amazon.com/gp/product/1574411160/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1574411160&linkCode=as2&tag=httpwwwrockhc-20) with Phil Winsor that dealt with algorithmic composition. It was published by McGraw Hill's Windcrest label, then reprinted by the University of North Texas Press. Not surprisingly, it was written in C. I gave a talk on algorithmic composition a the 1986 International Computer Music Conference too. I've been at this for a while.
+
 I moved to C++ and Objective-C for my dissertation, since I had a NeXT to play my noises. I moved many of these 
 classes to Java in early 1996, and when JavaSound was released, I added many classes to deal with it. The main problem
 with the JavaSound classes was that they were (intentionally) low level. 
@@ -33,5 +36,7 @@ Seriously though, they didn't exist when this started. And even now after lookin
 
 ## Where to go now
 
-Read the Quick Start at the project site. I'm also I'm creating an AsciiDoc book right now. I'll post that soon.
+Read the Quick Start at the project site. [http://genedelisa.github.io/rockymusic/quickstart.html](http://genedelisa.github.io/rockymusic/quickstart.html/) 
+
+I'm also I'm creating an AsciiDoc book right now. I'll post that soon.
 
