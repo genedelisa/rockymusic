@@ -1,4 +1,4 @@
-# Rockhopper (rocky) Music
+# Rockhopper Music
 
 
 A set of classes for producing music with JavaSound.
@@ -7,6 +7,8 @@ The maven generated site for this project is on github pages.
 [http://genedelisa.github.io/rockymusic/](http://genedelisa.github.io/rockymusic/)
 
 Besides the usual developer informtion, there are a few pages on how to use the main classes at that site. More is coming.
+
+Yeah, the name isn't thrilling. But at least it's not a coffee pun, nor does it start with J. Besides, how could you not like [these guys](http://upload.wikimedia.org/wikipedia/commons/e/ee/Gorfou_sauteur_-_Rockhopper_Penguin.jpg)?
 
 ## History
 
