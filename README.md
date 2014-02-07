@@ -23,7 +23,7 @@ middle c at beat 3 played softly.
 So I needed a way to turn the MIDI stream of events into Notes and back again to a MIDI stream to 
 save to a midifile or play in real time.
 
-I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point - but you will still see variable names like "notelist" which I'll update real soon now. So, I'm still in the process of refactoring. It's an on-going project of sifting through older classes and adapting them. If you look at the code, you will see chunks that are commented out. I'm adding the missing parts in stages.
+I'm in the process of extracting "core" clases from my library that anyone can use. The problem is, since my classes were written for my use in whatever piece I was cranking out, I mixed in "personal" classes that would probably be of no use to anyone else. There was also a naming problem for some classes. My original classes were for CSound, a NED Synclavier, or simply MIDI. It's safe to assume that the Synclavier code is of limited use at this point - but you will still see variable names like "notelist" which I'll update real soon now. So, I'm still in the process of refactoring. It's an on-going project of sifting through older classes and adapting them. If you look at the code, you will see chunks that are commented out. I'm adding the missing parts in stages. I have a pile of Swing GUIs. I may add those, but I may just port them to JavaFX. There are a few JavaFX examples. Also, I have a simple notation library for examining output. It was written in Java2D and uses a music font. I don't know about distributing fonts. I've just found out there is a public domain music font and I'll check that out. It would be nice is JavaFX had better font capabilities.
 
 ## Another music library for Java?
 
@@ -36,7 +36,7 @@ Seriously though, they didn't exist when this started. And even now after lookin
 
 ## Where to go now
 
-Read the Quick Start at the project site. [http://genedelisa.github.io/rockymusic/quickstart.html](http://genedelisa.github.io/rockymusic/quickstart.html/) 
+Read the Quick Start at the project site. [http://genedelisa.github.io/rockymusic/quickstart.html](http://genedelisa.github.io/rockymusic/quickstart.html) 
 
 I'm also I'm creating an AsciiDoc book right now. I'll post that soon.
 
