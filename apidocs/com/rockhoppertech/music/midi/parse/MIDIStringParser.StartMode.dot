@@ -10,19 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c4084 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.html">
+	c5761 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIStringParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c4085 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDIStringParser.StartMode.html">
+	c5762 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDIStringParser.StartMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> StartMode </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.StartMode.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser NAVASSOC com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c4084:p -> c4085:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5761:p -> c5762:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

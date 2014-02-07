@@ -2,6 +2,7 @@ com.rockhoppertech.collections
 com.rockhoppertech.music
 com.rockhoppertech.music.chord
 com.rockhoppertech.music.midi.js
+com.rockhoppertech.music.midi.js.modifiers.google
 com.rockhoppertech.music.midi.js.xml
 com.rockhoppertech.music.midi.parse
 com.rockhoppertech.music.modifiers

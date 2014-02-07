@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./VelocityFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.VelocityFunction" alt="" coords="15,233,123,258"/>
+<area shape="rect" id="node1" href="./VelocityFunction.html" title="&lt;TABLE&gt;" alt="" coords="5,221,134,269"/>
+<area shape="rect" id="node2_1" href="./PitchFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.PitchFunction" alt="" coords="169,233,261,258"/>
+<area shape="rect" id="node2" href="./PitchFunction.html" title="&lt;TABLE&gt;" alt="" coords="158,221,271,269"/>
+<area shape="rect" id="node3_2" href="./MIDINoteFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.MIDINoteFunction" alt="" coords="157,126,273,167"/>
+<area shape="rect" id="node3" href="./MIDINoteFunction.html" title="&lt;TABLE&gt;" alt="" coords="146,121,283,173"/>
+<area shape="rect" id="node4_3" href="./ChannelFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.ChannelFunction" alt="" coords="306,233,417,258"/>
+<area shape="rect" id="node4" href="./ChannelFunction.html" title="&lt;TABLE&gt;" alt="" coords="295,221,427,269"/>
+<area shape="rect" id="node5" href="null" title="&lt;TABLE&gt;" alt="" coords="141,6,289,71"/>
+</map>

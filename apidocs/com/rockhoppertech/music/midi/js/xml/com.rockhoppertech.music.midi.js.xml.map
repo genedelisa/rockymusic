@@ -1,8 +1,10 @@
 <map id="G" name="G">
 <area shape="rect" id="node1_0" href="./ScaleFactoryXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper" alt="" coords="16,17,165,42"/>
 <area shape="rect" id="node1" href="./ScaleFactoryXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="5,5,176,53"/>
-<area shape="rect" id="node2_1" href="./MIDITrackXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper" alt="" coords="211,17,346,42"/>
-<area shape="rect" id="node2" href="./MIDITrackXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="201,5,357,53"/>
-<area shape="rect" id="node3_2" href="./ChordFactoryXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" alt="" coords="392,17,544,42"/>
-<area shape="rect" id="node3" href="./ChordFactoryXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="381,5,555,53"/>
+<area shape="rect" id="node2_1" href="./ModeFactoryXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.ModeFactoryXMLHelper" alt="" coords="211,17,360,42"/>
+<area shape="rect" id="node2" href="./ModeFactoryXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="200,5,371,53"/>
+<area shape="rect" id="node3_2" href="./MIDITrackXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper" alt="" coords="406,17,541,42"/>
+<area shape="rect" id="node3" href="./MIDITrackXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="395,5,551,53"/>
+<area shape="rect" id="node4_3" href="./ChordFactoryXMLHelper.html" title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" alt="" coords="587,17,739,42"/>
+<area shape="rect" id="node4" href="./ChordFactoryXMLHelper.html" title="&lt;TABLE&gt;" alt="" coords="576,5,749,53"/>
 </map>

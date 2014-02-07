@@ -10,27 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c7403 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDINote.html">
+	c10499 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.VelocityModifier
-	c7416 [label=<<table title="com.rockhoppertech.music.modifiers.VelocityModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VelocityModifier.html">
+	c10528 [label=<<table title="com.rockhoppertech.music.modifiers.VelocityModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./VelocityModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VelocityModifier </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VelocityModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier
-	c7430 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifier.html">
+	c10542 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINoteModifier </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMIDINoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.modifiers.VelocityModifier extends com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier
-	c7430:p -> c7416:p [dir=back,arrowtail=empty];
+	c10542:p -> c10528:p [dir=back,arrowtail=empty];
 	// com.rockhoppertech.music.modifiers.VelocityModifier DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c7416:p -> c7403:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10528:p -> c10499:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

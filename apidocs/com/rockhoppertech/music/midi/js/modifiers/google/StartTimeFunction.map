@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../../../../Timed.html" title="com.rockhoppertech.music.Timed" alt="" coords="83,209,213,263"/>
+<area shape="rect" id="node1" href="../../../../Timed.html" title="&lt;TABLE&gt;" alt="" coords="73,203,223,269"/>
+<area shape="rect" id="node2_1" href="./TimedFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.TimedFunction" alt="" coords="16,11,115,53"/>
+<area shape="rect" id="node2" href="./TimedFunction.html" title="&lt;TABLE&gt;" alt="" coords="5,6,125,58"/>
+<area shape="rect" id="node3_2" href="./StartTimeFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction" alt="" coords="89,118,207,143"/>
+<area shape="rect" id="node3" href="./StartTimeFunction.html" title="&lt;TABLE&gt;" alt="" coords="79,107,217,155"/>
+<area shape="rect" id="node4_3" href="./AbstractMusicFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction" alt="" coords="160,19,301,45"/>
+<area shape="rect" id="node4" href="./AbstractMusicFunction.html" title="&lt;TABLE&gt;" alt="" coords="149,8,312,56"/>
+</map>

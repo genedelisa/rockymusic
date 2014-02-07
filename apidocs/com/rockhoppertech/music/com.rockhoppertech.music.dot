@@ -10,101 +10,101 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Timed
-	c176 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Timed.html">
+	c208 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PitchFormat
-	c177 [label=<<table title="com.rockhoppertech.music.PitchFormat" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFormat.html">
+	c209 [label=<<table title="com.rockhoppertech.music.PitchFormat" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFormat.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFormat </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFormat.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PitchFactory
-	c178 [label=<<table title="com.rockhoppertech.music.PitchFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFactory.html">
+	c210 [label=<<table title="com.rockhoppertech.music.PitchFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Pitch
-	c179 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.html">
+	c211 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pitch </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Pitch.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Pitch.P
-	c180 [label=<<table title="com.rockhoppertech.music.Pitch.P" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.P.html">
+	c212 [label=<<table title="com.rockhoppertech.music.Pitch.P" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.P.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> P </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Pitch.P.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Pitch.PitchClassComparator
-	c181 [label=<<table title="com.rockhoppertech.music.Pitch.PitchClassComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.PitchClassComparator.html">
+	c213 [label=<<table title="com.rockhoppertech.music.Pitch.PitchClassComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pitch.PitchClassComparator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchClassComparator </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Pitch.PitchClassComparator.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PatternFactory
-	c182 [label=<<table title="com.rockhoppertech.music.PatternFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternFactory.html">
+	c214 [label=<<table title="com.rockhoppertech.music.PatternFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PatternFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PatternFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.PatternBuilder
-	c183 [label=<<table title="com.rockhoppertech.music.PatternBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternBuilder.html">
+	c215 [label=<<table title="com.rockhoppertech.music.PatternBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PatternBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PatternBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PatternBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Pattern
-	c184 [label=<<table title="com.rockhoppertech.music.Pattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pattern.html">
+	c216 [label=<<table title="com.rockhoppertech.music.Pattern" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Pattern.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pattern </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Pattern.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Note
-	c185 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Note.html">
+	c217 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Note.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Note </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Note.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.InvalidMIDIPitchException
-	c186 [label=<<table title="com.rockhoppertech.music.InvalidMIDIPitchException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InvalidMIDIPitchException.html">
+	c218 [label=<<table title="com.rockhoppertech.music.InvalidMIDIPitchException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InvalidMIDIPitchException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InvalidMIDIPitchException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./InvalidMIDIPitchException.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Interval
-	c187 [label=<<table title="com.rockhoppertech.music.Interval" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Interval.html">
+	c219 [label=<<table title="com.rockhoppertech.music.Interval" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Interval.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Interval </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Interval.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.DurationParser
-	c188 [label=<<table title="com.rockhoppertech.music.DurationParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationParser.html">
+	c220 [label=<<table title="com.rockhoppertech.music.DurationParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DurationParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Duration
-	c189 [label=<<table title="com.rockhoppertech.music.Duration" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Duration.html">
+	c221 [label=<<table title="com.rockhoppertech.music.Duration" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Duration.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Duration </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Duration.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Duration.Dur
-	c190 [label=<<table title="com.rockhoppertech.music.Duration.Dur" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Duration.Dur.html">
+	c222 [label=<<table title="com.rockhoppertech.music.Duration.Dur" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Duration.Dur.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Dur </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Duration.Dur.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.Note implements com.rockhoppertech.music.Timed
-	c176:p -> c185:p [dir=back,arrowtail=empty,style=dashed];
+	c208:p -> c217:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.Note NAVASSOC com.rockhoppertech.music.Pitch
-	c185:p -> c179:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c217:p -> c211:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

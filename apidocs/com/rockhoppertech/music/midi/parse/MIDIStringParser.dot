@@ -10,52 +10,52 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Pitch
-	c3968 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Pitch.html">
+	c5613 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Pitch.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pitch </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../Pitch.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c3989 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../js/MIDITrack.html">
+	c5634 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../js/MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../js/MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c3993 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../js/MIDINote.html">
+	c5638 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../js/MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../js/MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c4003 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDIStringParser.html">
+	c5664 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDIStringParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIStringParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c4004 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.StartMode.html">
+	c5665 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.StartMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> StartMode </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.StartMode.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.MIDINote
-	c3989:p -> c3993:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5634:p -> c5638:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c3989:p -> c4003:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5634:p -> c5664:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDINote NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c3993:p -> c3989:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5638:p -> c5634:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser NAVASSOC com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c4003:p -> c4004:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5664:p -> c5665:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.Pitch
-	c3989:p -> c3968:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c4003:p -> c3993:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c5634:p -> c5613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.Pitch
-	c4003:p -> c3968:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c5664:p -> c5613:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.parse.MIDIStringParser DEPEND com.rockhoppertech.music.midi.js.MIDINote
+	c5664:p -> c5638:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.CircularList<E>
-	c4277 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularList.html">
+	c5986 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CircularList&lt;E&gt; </td></tr>
@@ -18,23 +18,47 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../collections/CircularList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Pitch
-	c4292 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Pitch.html">
+	c6001 [label=<<table title="com.rockhoppertech.music.Pitch" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Pitch.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Pitch </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../Pitch.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory
-	c4311 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDITrackFactory.html">
+	c6020 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDITrackFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Predicate<T>
+	c6020:p -> c6081:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
+	c6020:p -> c5986:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
+	c6020:p -> c6082:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.music.Pitch
-	c4311:p -> c4292:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c6020:p -> c6001:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
+	c6020:p -> c6082:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Predicate<T>
+	c6020:p -> c6081:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c4311:p -> c4277:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c4311:p -> c4277:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c6020:p -> c5986:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.google.common.base.Predicate<T>
+	c6081 [label=<<table title="com.google.common.base.Predicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Predicate&lt;T&gt; </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.google.common.base </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.google.common.base.Function<F, T>
+	c6082 [label=<<table title="com.google.common.base.Function" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Function&lt;F, T&gt; </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.google.common.base </font></td></tr>
+		</table></td></tr>
+		</table>>, URL="null", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 }
 

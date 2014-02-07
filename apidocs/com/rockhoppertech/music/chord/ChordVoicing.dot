@@ -10,29 +10,29 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.chord.ChordVoicing
-	c1849 [label=<<table title="com.rockhoppertech.music.chord.ChordVoicing" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordVoicing.html">
+	c2789 [label=<<table title="com.rockhoppertech.music.chord.ChordVoicing" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordVoicing.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordVoicing </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordVoicing.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.Chord
-	c1854 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
+	c2794 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Chord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Chord </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Chord.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c1879 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
+	c2819 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../midi/js/MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../midi/js/MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.Chord NAVASSOC com.rockhoppertech.music.chord.ChordVoicing
-	c1854:p -> c1849:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2794:p -> c2789:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.chord.ChordVoicing DEPEND com.rockhoppertech.music.midi.js.MIDITrack
-	c1849:p -> c1879:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2789:p -> c2819:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.midi.js.MIDITrack
-	c1854:p -> c1879:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2794:p -> c2819:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

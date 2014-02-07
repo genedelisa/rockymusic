@@ -1,12 +1,16 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./CircularList.html" title="com.rockhoppertech.collections.CircularList" alt="" coords="445,110,547,151"/>
-<area shape="rect" id="node1" href="./CircularList.html" title="&lt;TABLE&gt;" alt="" coords="435,105,557,157"/>
-<area shape="rect" id="node2_1" href="./CircularArrayList.html" title="com.rockhoppertech.collections.CircularArrayList" alt="" coords="340,217,471,242"/>
-<area shape="rect" id="node2" href="./CircularArrayList.html" title="&lt;TABLE&gt;" alt="" coords="329,205,481,253"/>
-<area shape="rect" id="node3_2" href="../music/modifiers/AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="15,111,185,150"/>
-<area shape="rect" id="node3" href="../music/modifiers/AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="5,106,195,155"/>
-<area shape="rect" id="node4_3" href="../music/modifiers/AbstractMIDINoteModifier.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" alt="" coords="230,111,399,150"/>
-<area shape="rect" id="node4" href="../music/modifiers/AbstractMIDINoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="219,106,410,155"/>
-<area shape="rect" id="node5_4" href="../music/series/time/TimeSeries.html" title="com.rockhoppertech.music.series.time.TimeSeries" alt="" coords="407,11,585,50"/>
-<area shape="rect" id="node5" href="../music/series/time/TimeSeries.html" title="&lt;TABLE&gt;" alt="" coords="397,6,595,55"/>
+<area shape="rect" id="node1_0" href="./CircularList.html" title="com.rockhoppertech.collections.CircularList" alt="" coords="996,110,1097,151"/>
+<area shape="rect" id="node1" href="./CircularList.html" title="&lt;TABLE&gt;" alt="" coords="985,105,1108,157"/>
+<area shape="rect" id="node2_1" href="./CircularArrayList.html" title="com.rockhoppertech.collections.CircularArrayList" alt="" coords="692,217,823,242"/>
+<area shape="rect" id="node2" href="./CircularArrayList.html" title="&lt;TABLE&gt;" alt="" coords="681,205,833,253"/>
+<area shape="rect" id="node3_2" href="../music/midi/js/modifiers/google/AbstractMusicFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction" alt="" coords="16,111,245,150"/>
+<area shape="rect" id="node3" href="../music/midi/js/modifiers/google/AbstractMusicFunction.html" title="&lt;TABLE&gt;" alt="" coords="5,106,256,155"/>
+<area shape="rect" id="node4_3" href="../music/midi/js/modifiers/google/AbstractMIDINoteFunction.html" title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMIDINoteFunction" alt="" coords="291,111,520,150"/>
+<area shape="rect" id="node4" href="../music/midi/js/modifiers/google/AbstractMIDINoteFunction.html" title="&lt;TABLE&gt;" alt="" coords="280,106,531,155"/>
+<area shape="rect" id="node5_4" href="../music/modifiers/AbstractModifier.html" title="com.rockhoppertech.music.modifiers.AbstractModifier" alt="" coords="566,111,735,150"/>
+<area shape="rect" id="node5" href="../music/modifiers/AbstractModifier.html" title="&lt;TABLE&gt;" alt="" coords="555,106,746,155"/>
+<area shape="rect" id="node6_5" href="../music/modifiers/AbstractMIDINoteModifier.html" title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" alt="" coords="781,111,950,150"/>
+<area shape="rect" id="node6" href="../music/modifiers/AbstractMIDINoteModifier.html" title="&lt;TABLE&gt;" alt="" coords="770,106,961,155"/>
+<area shape="rect" id="node7_6" href="../music/series/time/TimeSeries.html" title="com.rockhoppertech.music.series.time.TimeSeries" alt="" coords="958,11,1135,50"/>
+<area shape="rect" id="node7" href="../music/series/time/TimeSeries.html" title="&lt;TABLE&gt;" alt="" coords="947,6,1146,55"/>
 </map>

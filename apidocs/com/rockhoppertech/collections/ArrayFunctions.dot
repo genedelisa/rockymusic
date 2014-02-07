@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.ArrayFunctions
-	c1194 [label=<<table title="com.rockhoppertech.collections.ArrayFunctions" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ArrayFunctions.html">
+	c1909 [label=<<table title="com.rockhoppertech.collections.ArrayFunctions" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ArrayFunctions.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ArrayFunctions </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ArrayFunctions.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.ArrayFunctions DEPEND org.slf4j.Logger
-	c1194:p -> c1271:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c1909:p -> c2002:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// org.slf4j.Logger
-	c1271 [label=<<table title="org.slf4j.Logger" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://slf4j.org/api/org/slf4j/Logger.html">
+	c2002 [label=<<table title="org.slf4j.Logger" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://slf4j.org/api/org/slf4j/Logger.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Logger </td></tr>

@@ -10,18 +10,18 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.series.time.TimeEvent
-	c6463 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimeEvent.html">
+	c9091 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimeEvent.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeEvent </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimeEvent.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.Silence
-	c6466 [label=<<table title="com.rockhoppertech.music.series.time.Silence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Silence.html">
+	c9094 [label=<<table title="com.rockhoppertech.music.series.time.Silence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Silence.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Silence </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Silence.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.series.time.Silence extends com.rockhoppertech.music.series.time.TimeEvent
-	c6463:p -> c6466:p [dir=back,arrowtail=empty];
+	c9091:p -> c9094:p [dir=back,arrowtail=empty];
 }
 

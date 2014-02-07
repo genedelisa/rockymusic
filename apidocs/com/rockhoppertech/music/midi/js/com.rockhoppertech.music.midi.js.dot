@@ -10,143 +10,143 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.WTFException
-	c354 [label=<<table title="com.rockhoppertech.music.midi.js.WTFException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WTFException.html">
+	c418 [label=<<table title="com.rockhoppertech.music.midi.js.WTFException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./WTFException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> WTFException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./WTFException.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.TimeSignature
-	c355 [label=<<table title="com.rockhoppertech.music.midi.js.TimeSignature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimeSignature.html">
+	c419 [label=<<table title="com.rockhoppertech.music.midi.js.TimeSignature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimeSignature.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSignature </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimeSignature.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.ScoreFactory
-	c356 [label=<<table title="com.rockhoppertech.music.midi.js.ScoreFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScoreFactory.html">
+	c420 [label=<<table title="com.rockhoppertech.music.midi.js.ScoreFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScoreFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScoreFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScoreFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.Score
-	c357 [label=<<table title="com.rockhoppertech.music.midi.js.Score" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Score.html">
+	c421 [label=<<table title="com.rockhoppertech.music.midi.js.Score" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Score.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Score </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Score.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDIUtils
-	c358 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIUtils.html">
+	c422 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIUtils.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIUtils </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIUtils.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackUtils
-	c359 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackUtils.html">
+	c423 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackUtils" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackUtils.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackUtils </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackUtils.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory
-	c360 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackFactory.html">
+	c424 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackBuilder
-	c361 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackBuilder.html">
+	c425 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c362 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrack.html">
+	c426 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDISender
-	c363 [label=<<table title="com.rockhoppertech.music.midi.js.MIDISender" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDISender.html">
+	c427 [label=<<table title="com.rockhoppertech.music.midi.js.MIDISender" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDISender.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDISender </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDISender.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDIPerformer
-	c364 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIPerformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIPerformer.html">
+	c428 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIPerformer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIPerformer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIPerformer </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIPerformer.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINoteBuilder
-	c365 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteBuilder.html">
+	c429 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINoteBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINoteBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c366 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINote.html">
+	c430 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDIEventFilter
-	c367 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIEventFilter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIEventFilter.html">
+	c431 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIEventFilter" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIEventFilter.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> MIDIEventFilter </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIEventFilter.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDIEvent
-	c368 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIEvent.html">
+	c432 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIEvent.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIEvent </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIEvent.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDIControllers
-	c369 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIControllers" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIControllers.html">
+	c433 [label=<<table title="com.rockhoppertech.music.midi.js.MIDIControllers" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIControllers.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIControllers </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIControllers.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.KeySignature
-	c370 [label=<<table title="com.rockhoppertech.music.midi.js.KeySignature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KeySignature.html">
+	c434 [label=<<table title="com.rockhoppertech.music.midi.js.KeySignature" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./KeySignature.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> KeySignature </td></tr>
 		</table></td></tr>
 		</table>>, URL="./KeySignature.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.Instrument
-	c371 [label=<<table title="com.rockhoppertech.music.midi.js.Instrument" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Instrument.html">
+	c435 [label=<<table title="com.rockhoppertech.music.midi.js.Instrument" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Instrument.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Instrument </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Instrument.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.ConsoleReceiver
-	c372 [label=<<table title="com.rockhoppertech.music.midi.js.ConsoleReceiver" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleReceiver.html">
+	c436 [label=<<table title="com.rockhoppertech.music.midi.js.ConsoleReceiver" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleReceiver.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConsoleReceiver </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ConsoleReceiver.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.Score NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c357:p -> c362:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c421:p -> c426:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.Score NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c357:p -> c362:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c421:p -> c426:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrackBuilder NAVASSOC com.rockhoppertech.music.midi.js.MIDINote
-	c361:p -> c366:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c425:p -> c430:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrackBuilder NAVASSOC com.rockhoppertech.music.midi.js.Instrument
-	c361:p -> c371:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c425:p -> c435:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.MIDIEvent
-	c362:p -> c368:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c432:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.MIDINote
-	c362:p -> c366:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c430:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.Instrument
-	c362:p -> c371:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c435:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.Score
-	c362:p -> c357:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c421:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.TimeSignature
-	c362:p -> c355:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c419:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrack NAVASSOC com.rockhoppertech.music.midi.js.KeySignature
-	c362:p -> c370:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c426:p -> c434:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDINote NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c366:p -> c362:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c430:p -> c426:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDIEvent NAVASSOC com.rockhoppertech.music.midi.js.MIDITrack
-	c368:p -> c362:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c432:p -> c426:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
