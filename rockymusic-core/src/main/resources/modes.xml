@@ -1,0 +1,2990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+  <mode>
+    <name>Honchoshi: Japan</name>
+    <interval>5</interval>
+    <interval>7</interval>
+  </mode>
+  <mode>
+    <name>Niagari: Japan</name>
+    <interval>7</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Warao ditonic: South America</name>
+    <interval>10</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Peruvian tritonic 2</name>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Ute tritonic</name>
+    <interval>3</interval>
+    <interval>7</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Malasri, Peruvian tritonic 1</name>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Sarvasri, Warao tritonic: South America</name>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Sansagari: Japan</name>
+    <interval>5</interval>
+    <interval>5</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Ongkari</name>
+    <interval>6</interval>
+    <interval>1</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 5</name>
+    <interval>1</interval>
+    <interval>5</interval>
+    <interval>1</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 5 inverse</name>
+    <interval>5</interval>
+    <interval>1</interval>
+    <interval>5</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 6</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 6 inverse</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Lavangi</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Warao tetratonic: South America</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>7</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Eskimo tetratonic (Alaska: Bethel)</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhavani</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Genus primum</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Sumukam</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>5</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Mahathi</name>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Han-kumoi: Japan, Raga Shobhavari</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Hira-joshi: Japan</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Hon-kumoi-joshi, Sakura: Japan, Raga Salanganata, Saveri, Gunakri (Gunakali), Olympos Enharmonic</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Kokin-joshi, Miyakobushi: Japan, Raga Vibhavari (Revati), Bairagi</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Iwato: Japan</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Ritusen, Ritsu (Gagaku): Japan, Zhi: China, Raga Devakriya, Durga, Suddha Saveri, Arabhi, Scottish Pentatonic, Ujo: Korea, Major complement</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Major Pentatonic, Ryosen, Gong, Raga Bhopali (Bhup), Mohana, Deskar, Bilahari, Kokila, Peruvian Pentatonic 1, Ghana pent.2</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Yo: Japan, Suspended Pentatonic, Raga Madhyamavati, Madhmat Sarang, Egyptian</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Chaio tiao: China</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Kung tiao: China</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Altered Pentatonic, Raga Manaranjani II</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Abhogi</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Amritavarsini, Malashri</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Audav Tukhari</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhinna Shadja, Kaushikdhvani, Hindolita</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Balinese Pelog, Raga Bhupalam, Bhupala Todi, Bibhas</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhupeshwari, Janasammodini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Chandrakauns (modern), Marga Hindola, Rajeshwari</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Chandrakauns (kafi), Surya</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Chandrakauns (kiravani)</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Chhaya Todi</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Desh</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Deshgaur</name>
+    <interval>1</interval>
+    <interval>6</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Devaranji</name>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Devranjani (?)</name>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Minor Pentatonic, Raga Dhani (Suddha Dhanyasi), Abheri, Udhayaravi Chandrika, Yu: China, Pyongjo-kyemyonjo: Korea, Minyo: Japan, Peruvian Pentatonic 2, Blues Pentatonic</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Dhavalashri</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Gambhiranata, Ryukyu: Japan</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Gauri</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Girija</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Gorakh Kalyan (pentat.?)</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Hamsadhvani</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Harikauns, Chin tiao: China</name>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Jayakauns</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Khamaji Durga</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Kokil Pancham</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Kshanika</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Kumurdaki (Kumudki)</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>5</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Kuntvarali</name>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Malkauns (Malakosh), Hindola, Jiao: China</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Mamata, Valaje</name>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Manaranjani I</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Matha Kokila (Matkokil)</name>
+    <interval>2</interval>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Megharanjani, Syrian pentatonic</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Megharanji</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>6</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Mohanangi</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Multani</name>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Nabhomani</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Nagasvaravali, Raga Mand</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Nata, Udayaravicandrika, Madhuranjani</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Neroshta</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Hindol (Sunada Vinodini), Sanjh ka Hindol</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Priyadharshini</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Purnalalita, Chad Gadyo: Jewish, Ghana Pentatonic 1</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Puruhutika, Purvaholika</name>
+    <interval>5</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Rasika Ranjani, Bibhas (marva), Scriabin</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Rasranjani</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Reva, Ramkali, Bibhas (bhairava)</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Samudhra Priya, Madhukauns (pentatonic)</name>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Saugandhini, Yashranjani</name>
+    <interval>1</interval>
+    <interval>5</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Sivaranjini (Shivranjani), Akebono I: Japan, Dorian Pentatonic</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Shailaja</name>
+    <interval>3</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Shri Kalyan</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Vaijayanti</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Valaji</name>
+    <interval>4</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Zilaf</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Dominant Pentatonic, Shang tiao: China</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mixolydian Pentatonic, Raga Savethri</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Minor added sixth Pentatonic, Kyemyonjo: Korea</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Whole-tone, Messiaen's mode 1, Raga Gopriya, Anhemitonic Hexatonic</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Pyongjo: Korea, Yosen: Japan, Raga Darbar, Narayani, Suposhini, Mixolydian Hexatonic</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Prometheus, Raga Barbara</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Prometheus Neapolitan</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Blues scale I</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Ritsu: Japan, Raga Suddha Todi</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Arezzo Major Diatonic Hexachord, Raga Kambhoji, Devarangini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Minor Hexatonic, Raga Palasi, Manirangu, Nayaki, Yo: Japan, Eskimo Hexatonic 1 (Alaska: King Island)</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Eskimo Hexatonic 2 (Alaska: Point Hope)</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Hawaiian</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Pyramid Hexatonic</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Double-Phrygian Hexatonic</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Bagesri, Sriranjani, Kapijingla</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Bauli</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhanumanjari</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhavani</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhinna Pancama</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Caturangini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Chandrajyoti</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Dhavalangam</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Dipak</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>5</interval>
+  </mode>
+  <mode>
+    <name>Raga Gandharavam</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Gaula</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Ghantana</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Gopikavasantam, Desya Todi, Phrygian Hexatonic</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Gurjari Todi</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Hamsanandi, Raga Marva, Raga Pancama</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Hamsa Vinodini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Hari Nata, Genus secundum</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Hejjajji</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Jaganmohanam</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Jivantika</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Jivantini, Gaurikriya</name>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Jyoti</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Kaikavasi</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Kalagada</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Kalakanthi</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Kalavati, Ragamalini</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Kamalamanohari</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Khamas, Baduhari</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Kumud, Sankara (Shankara), Lydian Hexatonic</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Lalita, Sohini (Hamsanandi), Lalit Bhairav</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Latika</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Madhukauns (hexatonic)</name>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Malarani (Hamsanada)</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Malayamarutam</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Manavi</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Mandari, Gamakakriya</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Manohari</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Mruganandana</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Nagagandhari</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Nalinakanti, Kedaram</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Navamanohari</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Padi</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Paraju, Simhavahini, Ramamanohari</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Phenadyuti, Insen, Honchoshi, Niagari: Japan</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Honchoshi plagal form: Japan</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Purna Pancama, Malahari, Geyahejjajji</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Rageshri (Rageshwari), Nattaikurinji</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Ranjani, Rangini</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Rasamanjari</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Rasavali</name>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Rudra Pancama</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Salagavarali</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Sarang, Megh</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Sarasanana</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Sarasvati</name>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Saravati (Sharavati)</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Simharava (Sinharavam)</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Sindhura Kafi</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Siva Kambhoji, Vivardhini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Suddha Bangala, Gauri Velavali</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Suddha Mukhari</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Suddha Simantini</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Syamalam</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Raga Takka</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Tilang, Savitri, Brindavani-Tilang</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Trimurti</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Vasanta, Chayavati</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Vasantabhairavi</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Vijayanagari</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Raga Vijayasri</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Vijayavasanta</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Vutari</name>
+    <interval>4</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Yamuna Kalyani, Kalyani Keseri, Ancient Chinese</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 5</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 5 inverse</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 3</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 3 inverse, Major Augmented, Genus tertium</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 2</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's truncated mode 2 again</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>G.Mixolydian, G.Hyperdorian, M.Hypophrygian, M.Locrian</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>G.Lydian, M.Ionian, M.Hypolydian, Bilaval That, Mela Shankarabharanam, Major, Ghana Heptatonic, Peruvian major, 4th plagal Byzantine</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>G.Phrygian, M.Dorian, M.Hypomixolydian, Kafi That, Mela Kharaharapriya, Raga Sriraga, Mischung 5, Eskimo Heptatonic</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>G.Dorian, M.Phrygian, G.M.Hypoaeolian, Bhairavi That, Mela Hanumatodi, Raga Asaveri, In: Japan, Major inverse</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>G.Hypolydian, M.Lydian, Kalyan That (Yaman), Mela Mecakalyani, Ping: China</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>G.Hypophrygian, G.Ionian (Iastian), M.Mixolydian, G.M.Hypoionian, Khamaj That, Mela Harikambhoji, Mischung 3, Ching: China</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>G.M.Hypodorian, G.M.Aeolian, G.Hyperphrygian, Asavari That, Mela Natabhairavi, Raga Jaunpuri, Natural Minor, Se: China, Peruvian minor</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Mixolydian</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Lydian, Raga Lalit</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Phrygian</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Dorian, Mela Kanakangi, Raga Kanakambari</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Hypolydian, Purvi That, Mela Kamavardhani, Raga Shri, Pantuvarali, Kasiramakriya, Basant</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Hypophrygian</name>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Hypodorian, Raga Dvigandharabushini</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Mixolydian inverse</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Phrygian inverse</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Hypophrygian inverse</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Chromatic Hypodorian inverse</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Melodic Minor ascending, Jazz Minor, Mela Gaurimanohari, Raga Velavali, Mischung 1, Hawaiian</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Harmonic Minor, Spanish gipsy, Pilu That, Mela Kiravani, Raga Kiranavali, Mischung 4, Maqam Bayat-e-Esfahan</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Harmonic Minor inverse, Mela Cakravaka, Raga Ahir Bhairav, Bindumalini, Maqam Hicaz</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Harmonic Major, Mela Sarasangi, Mischung 2, Ethiopian</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Phrygian flat 4, Maqam Huzzam</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Lydian Augmented, Lydian sharp 5</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Major Locrian</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Minor Locrian, Half Diminished, Locrian sharp 2, Minor flat 5</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Super Locrian, Altered, Diminished Whole-tone, Locrian flat 4</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Locrian no.2</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Ultra Locrian</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Maqam Karcigar</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Ratnangi, Raga Phenadyuti</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Ganamurti, Raga Ganasamavarali</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Vanaspati, Raga Bhanumati</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Manavati, Raga Manoranjani</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Tanarupi, Raga Tanukirti</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Senavati, Raga Senagrani, Malini</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Neapolitan Minor, Mela Dhenuka, Raga Dhunibinnashadjam, Maqam Shahnaz Kurdi</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Neapolitan Major, Mela Kokilapriya, Raga Kokilaravam</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Natakapriya, Jazz Minor inverse, Phrygian sharp 6, Raga Natabharanam</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Rupavati</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Lalita, Chromatic Hypolydian inverse, Raga Suddha Pancama</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Gayakapriya, Raga Kalakanti, Gipsy Hexatonic</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Vakulabharanam, Alhijaz: Arabic, Harmonic Major inverse, Raga Vativasantabhairavi, Ahavoh Rabboh: Jewish, Maqam Humayun</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Major Gipsy, Persian, Double Harmonic, Bhairav That, Mela Mayamalavagaula, Raga Paraj, Second Byzantine mode, Maqam Zengule</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Suryakanta, Bhairubahar That</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Hatakambari, Raga Jeyasuddhamalavi</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Modified Blues</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Jhankaradhvani, Raga Jhankara Bhramavi</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Varunapriya</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Mararanjani, Raga Keseri</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Carukesi, Raga Tarangini, Mischung 6, Mixolydian flat 6</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Naganandini, Raga Nagabharanam, Samanta, Viravasantham</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Yagapriya, Raga Kalahamsa</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Ragavardhani, Raga Cudamani</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Gangeyabhusani, Raga Gangatarangini</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Vagadhisvari, Raga Bhogachayanata, Nandkauns, Bluesy R&amp;R</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Sulini, Raga Sailadesakshi, Trishuli</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Calanata, Raga None, Chromatic Dorian inverse</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Salaga</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Jalarnava</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Jhalavarali, Raga Varali</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Navanitam, Raga Nabomani</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Pavani, Raga Kumbhini</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Raghupriya, Raga Ravikriya, Ghandarva</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Gavambodhi, Raga Girvani</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Bhavapriya, Raga Bhavani, Kalamurti</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Todi That, Mela Shubhapantuvarali, Raga Multani, Chromatic Lydian inverse</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Sadvidhamargini, Raga Sthavarajam</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Suvarnangi, Raga Sauviram</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Divyamani</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Dhavalambari, Foulds' Mantra of Will scale</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Namanarayani, Raga Narmada, Pratapa</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Ramapriya, Raga Ramamanohari, Petrushka chord</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Marva That, Mela Gamanasrama, Raga Partiravam, Puriya</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Visvambhari, Raga Vamsavathi</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Verdi's Enigmatic ascending</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Verdi's Enigmatic descending</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Syamalangi, Raga Shyamalam</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Sanmukhapriya, Raga Camara</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Minor Gipsy, Mela Simhendramadhyama, Raga Madhava Manohari, Maqam Suzdil, Nawa Athar, Double Harmonic Minor</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Hemavati, Raga Desisimharavam, Maqam Nakriz, Hedjaz: Jewish, Tunisian</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Dharmavati, Raga Arunajualita, Dumyaraga, Madhuvanti, Ambika, Lydian diminished</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Nitimati, Raga Nisada</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Kantamani, Raga Kuntala, Srutiranjani</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Lydian Minor, Mela Risabhapriya, Raga Ratipriya</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Latangi, Raga Gitapriya</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Lydian Dominant, Mela Vacaspati, Raga Bhusavati, Overtone, Mixolydian sharp 4</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Citrambari, Raga Chaturangini</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Ragesri</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Sorati</name>
+    <interval>2</interval>
+    <interval>3</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Sucaritra, Raga Santanamanjari</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Mela Jyotisvarupini, Raga Jotismatti</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Dhatuvardhani, Raga Dhauta Pancama, Devarashtra</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Hungarian Major, Mela Nasikabhusani, Raga Nasamani, Lydian sharp 2</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Mela Kosalam, Raga Kusumakaram</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Mela Rasikapriya, Raga Rasamanjari</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Madhuri</name>
+    <interval>4</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Oriental, Raga Ahira-Lalita</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Leading Whole-tone</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Bhatiyar</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Cintamani</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Mian Ki Malhar</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Mukhari, Gregorian</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Raga Ramkali</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Saurastra</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Minor Bebop, Raga Zilla</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Genus diatonicum, Dominant Bebop, Raga Khamaj, Desh Malhar, Maqam Shawq Awir, Chinese Eight-Tone</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Major Bebop, Altered Mixolydian</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Blues scale II</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Algerian</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Spanish Phrygian</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Espla's scale, Eight-tone Spanish</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Diminished, Messiaen's mode 2 inverse, Whole-Half step scale</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Ishikotsucho: Japan, Raga Yaman Kalyan, Chaya Nat, Bihag, Hamir Kalyani, Kedar, Genus diatonicum veterum correctum</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Verdi's Scala enigmatica</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Zirafkend: Arabic</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Adonai Malakh: Jewish</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Magen Abot: Jewish</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Maqam Nahawand, Raga Suha (Suha Kanada)</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Maqam Hijaz</name>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Maqam Shadd'araban</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Octatonic, Messiaen's mode 2, Dominant Diminished, Half-Whole step scale</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 4</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 4 inverse</name>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>3</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 6</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 6 inverse</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 3, Tsjerepnin</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 3 inverse</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Pilu</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Ramdasi Malhar</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Blues Nonatonic</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Taishikicho: Japan, Ryo: Japan</name>
+    <interval>2</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Genus chromaticum</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Moorish Phrygian</name>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Youlan scale: China</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 7</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+  </mode>
+  <mode>
+    <name>Messiaen's mode 7 inverse</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Major/Minor mixed</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Minor Pentatonic with leading tones</name>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Raga Sindhi-Bhairavi</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Symmetrical Decatonic</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>2</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+  <mode>
+    <name>Twelve-tone Chromatic</name>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+    <interval>1</interval>
+  </mode>
+</modes>
