@@ -25,6 +25,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.modifiers.AbstractModifier;
 import com.rockhoppertech.music.modifiers.Modifier.Operation;
@@ -36,7 +37,8 @@ import com.rockhoppertech.music.modifiers.Modifier.Operation;
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @see Circularlist
  */
-public class StartTimeFunction extends AbstractMIDINoteFunction {
+public class StartTimeFunction extends AbstractMusicFunction implements
+        TimedFunction {
     private static final Logger logger = LoggerFactory
             .getLogger(StartTimeFunction.class);
 
@@ -87,58 +89,58 @@ public class StartTimeFunction extends AbstractMIDINoteFunction {
      */
 
     @Override
-    public MIDINote apply(MIDINote note) {
-        logger.debug("before: " + note);
+    public Timed apply(Timed timed) {
+        logger.debug("before: " + timed);
         final double value = values.next().doubleValue();
         double d = 0d;
 
-        MIDINote returnedNote;
+        Timed returnedTimed;
         if (isCreateDuplicate()) {
-            returnedNote = note.duplicate();
+            returnedTimed = timed.duplicate();
         } else {
-            returnedNote = note;
+            returnedTimed = timed;
         }
 
         switch (operation) {
         case ADD:
-            d = returnedNote.getStartBeat() + value;
+            d = returnedTimed.getStartBeat() + value;
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
 
             break;
         case SUBTRACT:
-            d = returnedNote.getStartBeat() - value;
+            d = returnedTimed.getStartBeat() - value;
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
 
             break;
         case DIVIDE:
-            d = returnedNote.getStartBeat() / value;
+            d = returnedTimed.getStartBeat() / value;
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
             break;
         case MULTIPLY:
-            d = returnedNote.getStartBeat() * value;
+            d = returnedTimed.getStartBeat() * value;
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
             break;
         case MOD:
-            d = returnedNote.getStartBeat() % value;
+            d = returnedTimed.getStartBeat() % value;
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
             break;
         case SET:
-            returnedNote.setStartBeat(value);
+            returnedTimed.setStartBeat(value);
             break;
         case QUANTIZE:
-            d = AbstractModifier.quantize(returnedNote.getStartBeat(),
+            d = AbstractModifier.quantize(returnedTimed.getStartBeat(),
                     value);
             d = roundToOne(d);
-            returnedNote.setStartBeat(d);
+            returnedTimed.setStartBeat(d);
             break;
         }
-        logger.debug("returnedNote: " + returnedNote);
-        return returnedNote;
+        logger.debug("returnedNote: " + returnedTimed);
+        return returnedTimed;
     }
 
     private double roundToOne(double d) {
@@ -149,4 +151,5 @@ public class StartTimeFunction extends AbstractMIDINoteFunction {
         }
         return d;
     }
+
 }

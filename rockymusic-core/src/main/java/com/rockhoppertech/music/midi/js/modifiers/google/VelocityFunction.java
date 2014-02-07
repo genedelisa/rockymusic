@@ -25,23 +25,22 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.Pitch;
-import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.modifiers.AbstractModifier;
 
 /**
- * A Guava Function to change {@code MIDINot}e's MIDI pitch number. Uses a
+ * A Guava Function to change {@code MIDINot}e's MIDI velocity. Uses a
  * CircularList of values.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @see Circularlist
  */
-public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunction {
+public class VelocityFunction extends AbstractMusicFunction implements
+        MIDINoteFunction {
     private static final Logger logger = LoggerFactory
-            .getLogger(PitchFunction.class);
+            .getLogger(VelocityFunction.class);
 
-    public PitchFunction() {
+    public VelocityFunction() {
         super();
     }
 
@@ -50,7 +49,7 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
      * 
      * @param list
      */
-    public PitchFunction(List<Number> list) {
+    public VelocityFunction(List<Number> list) {
         super(list);
     }
 
@@ -59,7 +58,7 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
      * 
      * @param numbers
      */
-    public PitchFunction(Number... numbers) {
+    public VelocityFunction(Number... numbers) {
         super(numbers);
     }
 
@@ -69,7 +68,7 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
      * @param op
      * @param list
      */
-    public PitchFunction(Operation op, List<Number> list) {
+    public VelocityFunction(Operation op, List<Number> list) {
         super(op, list);
     }
 
@@ -79,7 +78,7 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
      * @param operation
      * @param numbers
      */
-    public PitchFunction(Operation operation, Number... numbers) {
+    public VelocityFunction(Operation operation, Number... numbers) {
         super(operation, numbers);
     }
 
@@ -90,8 +89,7 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
     @Override
     public MIDINote apply(MIDINote note) {
         logger.debug("before: " + note);
-        final double value = values.next().doubleValue();
-        Pitch newPitch = null;
+        final int value = values.next().intValue();
         int midiNumber = 0;
 
         MIDINote returnedNote;
@@ -103,59 +101,49 @@ public class PitchFunction extends AbstractMusicFunction implements MIDINoteFunc
 
         switch (operation) {
         case ADD:
-            midiNumber = (int) (note.getMidiNumber() + value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            returnedNote.setPitch(newPitch);
+            midiNumber = note.getVelocity() + value;
+            midiNumber = validateValue(note, midiNumber);
+            returnedNote.setVelocity(midiNumber);
             break;
         case SUBTRACT:
-            midiNumber = (int) (note.getMidiNumber() - value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            returnedNote.setPitch(newPitch);
+            midiNumber = note.getVelocity() - value;
+            midiNumber = validateValue(note, midiNumber);
+            returnedNote.setVelocity(midiNumber);
             break;
         case DIVIDE:
-            midiNumber = (int) (note.getMidiNumber() / value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            returnedNote.setPitch(newPitch);
+            midiNumber = note.getVelocity() / value;
+            midiNumber = validateValue(note, midiNumber);
+            returnedNote.setVelocity(midiNumber);
             break;
         case MULTIPLY:
-            midiNumber = (int) (note.getMidiNumber() * value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            returnedNote.setPitch(newPitch);
+            midiNumber = note.getVelocity() * value;
+            midiNumber = validateValue(note, midiNumber);
+            returnedNote.setVelocity(midiNumber);
             break;
         case MOD:
-            midiNumber = (int) (note.getMidiNumber() % value);
-            if ((midiNumber < 0) || (midiNumber > 127)) {
-                midiNumber = note.getMidiNumber();
-            }
-            newPitch = PitchFactory.getPitch(midiNumber);
-            returnedNote.setPitch(newPitch);
+            midiNumber = note.getVelocity() % value;
+            midiNumber = validateValue(note, midiNumber);
+            returnedNote.setVelocity(midiNumber);
             break;
         case SET:
-            newPitch = PitchFactory.getPitch(value);
-            returnedNote.setPitch(newPitch);
+            returnedNote.setVelocity(midiNumber);
             break;
         case QUANTIZE:
-            double d = AbstractModifier.quantize(note.getMidiNumber(),
+            double d = AbstractModifier.quantize(note.getVelocity(),
                     value);
             if ((d < 0) || (d > 127)) {
-                d = note.getMidiNumber();
+                d = note.getVelocity();
             }
-            newPitch = PitchFactory.getPitch(d);
-            returnedNote.setPitch(newPitch);
+            returnedNote.setVelocity(midiNumber);
         }
         logger.debug("returnedNote: " + returnedNote);
         return returnedNote;
+    }
+
+    private int validateValue(MIDINote note, int midiNumber) {
+        if ((midiNumber < 0) || (midiNumber > 127)) {
+            midiNumber = note.getVelocity();
+        }
+        return midiNumber;
     }
 }

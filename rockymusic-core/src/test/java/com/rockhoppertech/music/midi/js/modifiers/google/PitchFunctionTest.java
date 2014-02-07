@@ -33,7 +33,7 @@ import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
-import com.rockhoppertech.music.modifiers.Modifier.Operation;
+import com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction.Operation;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;

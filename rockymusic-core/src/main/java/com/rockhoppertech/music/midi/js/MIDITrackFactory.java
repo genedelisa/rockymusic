@@ -46,6 +46,7 @@ import com.google.common.collect.Lists;
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 
 import static com.rockhoppertech.music.Pitch.*;
@@ -1373,6 +1374,12 @@ public class MIDITrackFactory {
         return newTrack;
     }
 
+    public static MIDITrack createTrackFromTimedPredicate(MIDITrack track,
+            Predicate<Timed> p) {
+        MIDITrack newTrack = new MIDITrack(Iterables.filter(track, p));
+        return newTrack;
+    }
+
     /**
      * Create a new track by applying the function to the supplied track.
      * 
@@ -1386,6 +1393,35 @@ public class MIDITrackFactory {
             Function<MIDINote, MIDINote> function) {
         List<MIDINote> newnotes = Lists.transform(track.getNotes(), function);
         MIDITrack newTrack = new MIDITrack(newnotes);
+        return newTrack;
+    }
+
+    /**
+     * Create a new track by applying the function on the supplied track. If the
+     * Timed objects are MIDINotes, they are duplicated and added. If they are
+     * not MIDINotes, a new MIDINote will be created with middle c, and the
+     * start and duration of the Timed.
+     * 
+     * @param track
+     *            a {@code MIDITrack}
+     * @param function
+     *            a Guava Function
+     * @return a new {@code MIDITrack}
+     */
+    public static MIDITrack createFromTimed(MIDITrack track,
+            Function<Timed, Timed> function) {
+        List<Timed> newnotes = Lists.transform(track.getNotes(), function);
+
+        List<MIDINote> notes = new ArrayList<>();
+        for (Timed timed : newnotes) {
+            if (timed instanceof MIDINote) {
+                notes.add((MIDINote) timed.duplicate());
+            } else {
+                notes.add(new MIDINote(Pitch.C5, timed.getStartBeat(), timed
+                        .getDuration()));
+            }
+        }
+        MIDITrack newTrack = new MIDITrack(notes);
         return newTrack;
     }
 

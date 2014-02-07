@@ -25,18 +25,20 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.modifiers.AbstractModifier;
 import com.rockhoppertech.music.modifiers.Modifier.Operation;
 
 /**
- * A Guava Function to change {@code MIDINot}e's duration. Uses a
- * CircularList of values.
+ * A Guava Function to change {@code MIDINot}e's duration. Uses a CircularList
+ * of values.
  * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * @see Circularlist
  */
-public class DurationFunction extends AbstractMIDINoteFunction {
+public class DurationFunction extends AbstractMusicFunction implements
+        TimedFunction {
     private static final Logger logger = LoggerFactory
             .getLogger(DurationFunction.class);
 
@@ -87,58 +89,58 @@ public class DurationFunction extends AbstractMIDINoteFunction {
      */
 
     @Override
-    public MIDINote apply(MIDINote note) {
-        logger.debug("before: " + note);
+    public Timed apply(Timed timed) {
+        logger.debug("before: " + timed);
         final double value = values.next().doubleValue();
         double d = 0d;
 
-        MIDINote returnedNote;
+        Timed returnedTimed;
         if (isCreateDuplicate()) {
-            returnedNote = note.duplicate();
+            returnedTimed = timed.duplicate();
         } else {
-            returnedNote = note;
+            returnedTimed = timed;
         }
 
         switch (operation) {
         case ADD:
-            d = returnedNote.getDuration() + value;
+            d = returnedTimed.getDuration() + value;
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
 
             break;
         case SUBTRACT:
-            d = returnedNote.getDuration() - value;
+            d = returnedTimed.getDuration() - value;
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
 
             break;
         case DIVIDE:
-            d = returnedNote.getDuration() / value;
+            d = returnedTimed.getDuration() / value;
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
             break;
         case MULTIPLY:
-            d = returnedNote.getDuration() * value;
+            d = returnedTimed.getDuration() * value;
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
             break;
         case MOD:
-            d = returnedNote.getDuration() % value;
+            d = returnedTimed.getDuration() % value;
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
             break;
         case SET:
-            returnedNote.setDuration(value);
+            returnedTimed.setDuration(value);
             break;
         case QUANTIZE:
-            d = AbstractModifier.quantize(returnedNote.getDuration(),
+            d = AbstractModifier.quantize(returnedTimed.getDuration(),
                     value);
             d = roundToOne(d);
-            returnedNote.setDuration(d);
+            returnedTimed.setDuration(d);
             break;
         }
-        logger.debug("returnedNote: " + returnedNote);
-        return returnedNote;
+        logger.debug("returnedNote: " + returnedTimed);
+        return returnedTimed;
     }
 
     private double roundToOne(double d) {
@@ -149,4 +151,5 @@ public class DurationFunction extends AbstractMIDINoteFunction {
         }
         return d;
     }
+
 }

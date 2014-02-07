@@ -279,14 +279,14 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param iterable
      *            a Guava Iterable
      */
-    public MIDITrack(Iterable<MIDINote> iterable) {
+    public MIDITrack(final Iterable<MIDINote> iterable) {
         this(Lists.newArrayList(iterable));
     }
 
     /**
      * @return the description
      */
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
 
@@ -294,7 +294,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param description
      *            the description
      */
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -305,7 +305,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            the event to add
      * @return this to cascade calls
      */
-    public MIDITrack add(MIDIEvent event) {
+    public final MIDITrack add(final MIDIEvent event) {
         events.add(event);
         event.setTrack(this);
         this.changes.firePropertyChange(ADD, null, this);
@@ -315,7 +315,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * @return the name
      */
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
@@ -323,14 +323,14 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param name
      *            the name
      */
-    public void setName(String name) {
+    public final void setName(final String name) {
         this.name = name;
     }
 
     /**
      * @return the score
      */
-    public Score getScore() {
+    public final Score getScore() {
         return score;
     }
 
@@ -338,7 +338,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param score
      *            the score to set
      */
-    public void setScore(Score score) {
+    public final void setScore(final Score score) {
         this.score = score;
     }
 
@@ -347,7 +347,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * 
      * @return a {@code List} of {@code MIDIEvent}s
      */
-    public List<MIDIEvent> getEvents() {
+    public final List<MIDIEvent> getEvents() {
         return Collections.unmodifiableList(events);
     }
 
@@ -358,8 +358,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      * @param events
      *            a List of events
      */
-    public void setEvents(List<MIDIEvent> events) {
-        this.events = events;
+    public void setEvents(final List<MIDIEvent> events) {
+        this.events = Lists.newArrayList(events);
         this.changes.firePropertyChange(MODIFIED, null, this);
     }
 
@@ -373,7 +373,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     public void setNotes(List<MIDINote> notes) {
-        this.notes = notes;
+        this.notes = Lists.newArrayList(notes);
         this.changes.firePropertyChange(MODIFIED, null, this);
 
     }
@@ -391,7 +391,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            the note to append
      * @return this to cascade calls
      */
-    public MIDITrack append(MIDINote note) {
+    public MIDITrack append(final MIDINote note) {
         double end = getEndBeat();
         note.setStartBeat(end);
         notes.add(note);
@@ -407,7 +407,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            a MIDI pitch number
      * @return this to cascade calls
      */
-    public MIDITrack append(int midiNumber) {
+    public MIDITrack append(final int midiNumber) {
         MIDINote note = new MIDINote(midiNumber);
         return this.append(note);
     }
@@ -428,7 +428,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            a {@code Pitch} instance
      * @return true if the pitch is in this track
      */
-    public boolean contains(Pitch p) {
+    public boolean contains(final Pitch p) {
         for (MIDINote n : this) {
             if (n.getPitch().equals(p)) {
                 return true;
@@ -444,7 +444,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      *            an index
      * @return a {@code MIDINote}
      */
-    public MIDINote get(int i) {
+    public MIDINote get(final int i) {
         return notes.get(i);
     }
 

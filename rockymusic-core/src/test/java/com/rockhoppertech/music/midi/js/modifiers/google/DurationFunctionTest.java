@@ -29,11 +29,12 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
-import com.rockhoppertech.music.modifiers.Modifier.Operation;
+import com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction.Operation;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -60,7 +61,7 @@ public class DurationFunctionTest {
         DurationFunction function = new DurationFunction();
         function.setOperation(Operation.ADD);
 
-        MIDINote note = function.apply(new MIDINote(Pitch.C5));
+        Timed note = function.apply(new MIDINote(Pitch.C5));
         double actual = note.getDuration();
         double expected = 2d;
         assertThat("duration is correct",
@@ -78,7 +79,7 @@ public class DurationFunctionTest {
         DurationFunction function = new DurationFunction(1, 2, 3);
         function.setOperation(Operation.ADD);
 
-        MIDINote note = function.apply(new MIDINote(Pitch.C5));
+        Timed note = function.apply(new MIDINote(Pitch.C5));
         double actual = note.getDuration();
         double expected = 2d;
         assertThat("duration is correct",
@@ -109,7 +110,7 @@ public class DurationFunctionTest {
     public final void transform() {
         DurationFunction function = new DurationFunction();
         function.setOperation(Operation.ADD);
-        List<MIDINote> newnotes = Lists.transform(track.getNotes(), function);
+        List<Timed> newnotes = Lists.transform(track.getNotes(), function);
         List<Double> expectedNotes = Lists.newArrayList(
                 2d, 2d, 2d, 2d, 2d, 2d);
 
@@ -128,7 +129,7 @@ public class DurationFunctionTest {
         function.setOperation(Operation.ADD);
 
         MIDITrack newTrack = MIDITrackFactory
-                .create(track, function);
+                .createFromTimed(track, function);
         assertThat("the new track is not null",
                 newTrack, is(notNullValue()));
 
