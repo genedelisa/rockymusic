@@ -1,4 +1,4 @@
-#Scales
+# Rockhopper Music Scales
 
 documentation coming soon.
 

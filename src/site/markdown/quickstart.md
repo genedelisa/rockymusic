@@ -1,4 +1,4 @@
-# Rockhopper (rocky) Music Quick start
+# Rockhopper Music Quick start
 
 ## Main classes
 
@@ -225,7 +225,7 @@ I have Chord classes also in my legacy library. I'll refactor them RSN.
 		
 ### GUI
 
-There ia JavaFX 2 project that will let you play around with the note text format.
+There ia JavaFX 2 project that will let you play around with the note text format. I have a metric ****ton of Swing that uses these classes. I'm porting them to JavaFX now.
 	
 ### There is a lot more to document
 

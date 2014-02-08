@@ -1,4 +1,4 @@
-# Tracks
+# Rockhopper Music Tracks
 
 MIDITracks contain MIDINotes and MIDIEvents. You can create a MIDITrack using
 its constructors, the MIDITrackFactory (or other factories such as the

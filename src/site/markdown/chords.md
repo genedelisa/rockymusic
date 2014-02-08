@@ -1,4 +1,4 @@
-# Chords
+# Rockhopper Music Chords
 
 
 There is an incipient chord capability in the library.
