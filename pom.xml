@@ -324,6 +324,7 @@
 									<link>http://docs.spring.io/spring/docs/current/javadoc-api//</link>
 									<link>http://docs.spring.io/spring-data/data-jpa/docs/current/api/</link>
 									<link>http://slf4j.org/api//</link>
+									<link>http://docs.guava-libraries.googlecode.com/git/javadoc/</link>
 									<link>http://junit.sourceforge.net/javadoc/</link>
 								</links>
 
