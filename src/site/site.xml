@@ -70,6 +70,8 @@
 			<item name="MIDI Tracks" href="midiTracks.html" />			
 			<item name="Chords" href="chords.html" />			
 			<item name="Scales" href="scales.html" />						
+			<item name="Functional" href="functional.html" />
+			<item name="Time Series" href="timeseries.html" />															
 			<item name="FAQ" href="faq.html" />
 		</menu>
 		
