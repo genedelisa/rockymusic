@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.function;
 
 /*
  * #%L
@@ -26,23 +26,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Timed;
-import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.modifiers.AbstractModifier;
-import com.rockhoppertech.music.modifiers.Modifier.Operation;
 
 /**
- * A Guava Function to change {@code MIDINot}e's MIDI pitch number. Uses a
- * CircularList of values.
+ * A Guava Function to change {@code MIDINot}e's duration. Uses a CircularList
+ * of values.
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @see Circularlist
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see com.rockhoppertech.collections.CircularArrayList
+ * @see AbstractMusicFunction
+ * @see TimedFunction
+ * @see com.google.common.base.Function
  */
-public class StartTimeFunction extends AbstractMusicFunction implements
+public class DurationFunction extends AbstractMusicFunction implements
         TimedFunction {
     private static final Logger logger = LoggerFactory
-            .getLogger(StartTimeFunction.class);
+            .getLogger(DurationFunction.class);
 
-    public StartTimeFunction() {
+    public DurationFunction() {
         super();
     }
 
@@ -51,7 +52,7 @@ public class StartTimeFunction extends AbstractMusicFunction implements
      * 
      * @param list
      */
-    public StartTimeFunction(List<Number> list) {
+    public DurationFunction(List<Number> list) {
         super(list);
     }
 
@@ -60,7 +61,7 @@ public class StartTimeFunction extends AbstractMusicFunction implements
      * 
      * @param numbers
      */
-    public StartTimeFunction(Number... numbers) {
+    public DurationFunction(Number... numbers) {
         super(numbers);
     }
 
@@ -70,7 +71,7 @@ public class StartTimeFunction extends AbstractMusicFunction implements
      * @param op
      * @param list
      */
-    public StartTimeFunction(Operation op, List<Number> list) {
+    public DurationFunction(Operation op, List<Number> list) {
         super(op, list);
     }
 
@@ -80,7 +81,7 @@ public class StartTimeFunction extends AbstractMusicFunction implements
      * @param operation
      * @param numbers
      */
-    public StartTimeFunction(Operation operation, Number... numbers) {
+    public DurationFunction(Operation operation, Number... numbers) {
         super(operation, numbers);
     }
 
@@ -103,40 +104,40 @@ public class StartTimeFunction extends AbstractMusicFunction implements
 
         switch (operation) {
         case ADD:
-            d = returnedTimed.getStartBeat() + value;
+            d = returnedTimed.getDuration() + value;
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
 
             break;
         case SUBTRACT:
-            d = returnedTimed.getStartBeat() - value;
+            d = returnedTimed.getDuration() - value;
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
 
             break;
         case DIVIDE:
-            d = returnedTimed.getStartBeat() / value;
+            d = returnedTimed.getDuration() / value;
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
             break;
         case MULTIPLY:
-            d = returnedTimed.getStartBeat() * value;
+            d = returnedTimed.getDuration() * value;
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
             break;
         case MOD:
-            d = returnedTimed.getStartBeat() % value;
+            d = returnedTimed.getDuration() % value;
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
             break;
         case SET:
-            returnedTimed.setStartBeat(value);
+            returnedTimed.setDuration(value);
             break;
         case QUANTIZE:
-            d = AbstractModifier.quantize(returnedTimed.getStartBeat(),
+            d = AbstractModifier.quantize(returnedTimed.getDuration(),
                     value);
             d = roundToOne(d);
-            returnedTimed.setStartBeat(d);
+            returnedTimed.setDuration(d);
             break;
         }
         logger.debug("returnedNote: " + returnedTimed);

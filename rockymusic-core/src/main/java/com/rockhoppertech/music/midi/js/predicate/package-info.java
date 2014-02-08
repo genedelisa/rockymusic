@@ -1,10 +1,17 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+/**
+ * Guava Predicates.
+ * 
+ *
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @version 1.0
+ */
+package com.rockhoppertech.music.midi.js.predicate;
 
 /*
  * #%L
  * Rocky Music Core
  * %%
- * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * Copyright (C) 1996 - 2013 Rockhopper Technologies
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +26,3 @@ package com.rockhoppertech.music.midi.js.modifiers.google;
  * limitations under the License.
  * #L%
  */
-
-import com.google.common.base.Predicate;
-import com.rockhoppertech.music.midi.js.MIDINote;
-
-public abstract class AbstractMIDINotePredicate implements Predicate<MIDINote> {
-
-}

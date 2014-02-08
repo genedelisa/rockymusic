@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.predicate;
 
 /*
  * #%L
@@ -23,13 +20,18 @@ package com.rockhoppertech.music.midi.js.modifiers.google;
  * #L%
  */
 
-import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
+
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * Abstract class that implements {@code Predicate<MIDINote}.
  * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see MIDINote
+ * @see com.google.common.base.Predicate
+ *
  */
-public interface MIDINoteFunction extends Function<MIDINote, MIDINote> {
+public abstract class AbstractMIDINotePredicate implements Predicate<MIDINote> {
 
 }

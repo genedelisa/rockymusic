@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.function;
 
 /*
  * #%L
@@ -27,9 +27,13 @@ import com.google.common.base.Function;
 import com.rockhoppertech.music.Timed;
 
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * Blank interface that implements Function<Timed, Timed>.
  * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see Timed
+ * @see com.google.common.base.Function
  */
+
 public interface TimedFunction extends Function<Timed, Timed> {
 
 }

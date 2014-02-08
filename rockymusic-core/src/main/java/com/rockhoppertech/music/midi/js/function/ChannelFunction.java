@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.function;
 
 /*
  * #%L
@@ -32,9 +32,13 @@ import com.rockhoppertech.music.modifiers.AbstractModifier;
  * A Guava Function to change {@code MIDINot}e's MIDI channel. Uses a
  * CircularList of values.
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * @see Circularlist
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see com.rockhoppertech.collections.CircularArrayList
+ * @see AbstractMusicFunction
+ * @see MIDINoteFunction
+ * @see com.google.common.base.Function
  */
+
 public class ChannelFunction extends AbstractMusicFunction implements
         MIDINoteFunction {
     private static final Logger logger = LoggerFactory

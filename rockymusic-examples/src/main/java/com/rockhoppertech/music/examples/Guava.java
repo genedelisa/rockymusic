@@ -44,12 +44,12 @@ import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
-import com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction.Operation;
-import com.rockhoppertech.music.midi.js.modifiers.google.DurationFunction;
-import com.rockhoppertech.music.midi.js.modifiers.google.PitchFunction;
-import com.rockhoppertech.music.midi.js.modifiers.google.PitchGreaterThanPredicate;
-import com.rockhoppertech.music.midi.js.modifiers.google.PitchLessThanPredicate;
-import com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction;
+import com.rockhoppertech.music.midi.js.function.DurationFunction;
+import com.rockhoppertech.music.midi.js.function.PitchFunction;
+import com.rockhoppertech.music.midi.js.function.StartTimeFunction;
+import com.rockhoppertech.music.midi.js.function.AbstractMusicFunction.Operation;
+import com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate;
+import com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate;
 
 /**
  * Guava playground.

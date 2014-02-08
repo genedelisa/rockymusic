@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.function;
 
 /*
  * #%L
@@ -25,34 +25,48 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Function;
 import com.rockhoppertech.collections.CircularArrayList;
-import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier;
-import com.rockhoppertech.music.modifiers.Modifier.Operation;
 
 /**
- * Superclass for all Functions that operate on MIDINotes.
+ * Superclass for all Functions that operate on something besides MIDINotes
+ * specifically. Right now {@code Timed} implementations are used, so both
+ * MIDINotes and TimeEvents can be used.
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see com.google.common.base.Function
  */
-public abstract class AbstractMIDINoteFunction implements
-        Function<MIDINote, MIDINote> {
+public abstract class AbstractMusicFunction {
 
     private static final Logger logger = LoggerFactory
             .getLogger(AbstractMIDINoteModifier.class);
+
+    /**
+     * Which operation the Function will execute.
+     * 
+     * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+     * 
+     */
+    public enum Operation {
+        SET,
+        ADD,
+        SUBTRACT,
+        MULTIPLY,
+        DIVIDE,
+        MOD,
+        QUANTIZE
+    }
 
     protected CircularArrayList<Number> values;
     protected Operation operation = Operation.SET;
     protected boolean createDuplicate = false;
 
-    public AbstractMIDINoteFunction() {
+    public AbstractMusicFunction() {
         this.values = new CircularArrayList<Number>();
         this.values.add(1);
     }
 
-    public AbstractMIDINoteFunction(final Operation operation,
+    public AbstractMusicFunction(final Operation operation,
             final Number... numbers) {
 
         this.values = new CircularArrayList<Number>();
@@ -60,18 +74,18 @@ public abstract class AbstractMIDINoteFunction implements
         this.setValues(numbers);
     }
 
-    public AbstractMIDINoteFunction(final Number... numbers) {
+    public AbstractMusicFunction(final Number... numbers) {
         this(Operation.SET, numbers);
     }
 
-    public AbstractMIDINoteFunction(final Operation op,
+    public AbstractMusicFunction(final Operation op,
             final List<Number> list) {
         this.operation = op;
         this.values = new CircularArrayList<Number>();
         this.setValues(list);
     }
 
-    public AbstractMIDINoteFunction(final List<Number> list) {
+    public AbstractMusicFunction(final List<Number> list) {
         this(Operation.SET, list);
     }
 
@@ -130,7 +144,8 @@ public abstract class AbstractMIDINoteFunction implements
     }
 
     /**
-     * @param createDuplicate the createDuplicate to set
+     * @param createDuplicate
+     *            the createDuplicate to set
      */
     public void setCreateDuplicate(boolean createDuplicate) {
         this.createDuplicate = createDuplicate;
