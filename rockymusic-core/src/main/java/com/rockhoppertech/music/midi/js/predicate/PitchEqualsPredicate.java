@@ -20,6 +20,7 @@ package com.rockhoppertech.music.midi.js.predicate;
  * #L%
  */
 
+import com.google.common.base.Preconditions;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
@@ -39,6 +40,7 @@ public class PitchEqualsPredicate extends AbstractMIDINotePredicate {
 
     @Override
     public boolean apply(MIDINote n) {
+        Preconditions.checkNotNull(n);
         return n.getMidiNumber() == this.midiNumber;
     }
 }

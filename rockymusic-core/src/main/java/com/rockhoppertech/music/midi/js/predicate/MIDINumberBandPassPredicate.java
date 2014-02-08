@@ -23,6 +23,7 @@ package com.rockhoppertech.music.midi.js.predicate;
  * #L%
  */
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Range;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
@@ -74,6 +75,7 @@ public class MIDINumberBandPassPredicate extends AbstractMIDINotePredicate {
      */
     @Override
     public boolean apply(MIDINote n) {
+        Preconditions.checkNotNull(n);
         boolean accept = false;
         int d = n.getMidiNumber();
         if (range.contains(d)) {

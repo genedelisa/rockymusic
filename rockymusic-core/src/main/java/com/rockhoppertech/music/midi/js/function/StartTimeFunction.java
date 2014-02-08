@@ -30,7 +30,7 @@ import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.modifiers.AbstractModifier;
 
 /**
- * A Guava Function to change a {@code MIDINot}e's MIDI pitch number. Uses a
+ * A Guava Function to change a {@code MIDINot}e's start time. Uses a
  * CircularList of values.
  * 
  * 

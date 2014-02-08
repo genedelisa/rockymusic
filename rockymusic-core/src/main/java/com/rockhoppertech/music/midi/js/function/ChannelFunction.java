@@ -133,12 +133,12 @@ public class ChannelFunction extends AbstractMusicFunction implements
             returnedNote.setChannel(midiNumber);
             break;
         case QUANTIZE:
-            double d = AbstractModifier.quantize(note.getChannel(),
+            int d = (int) AbstractModifier.quantize(note.getChannel(),
                     value);
             if ((d < 0) || (d > 127)) {
                 d = note.getChannel();
             }
-            returnedNote.setChannel(midiNumber);
+            returnedNote.setChannel(d);
         }
         logger.debug("returnedNote: " + returnedNote);
         return returnedNote;

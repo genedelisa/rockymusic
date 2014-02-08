@@ -131,12 +131,12 @@ public class VelocityFunction extends AbstractMusicFunction implements
             returnedNote.setVelocity(midiNumber);
             break;
         case QUANTIZE:
-            double d = AbstractModifier.quantize(note.getVelocity(),
+            int d = (int) AbstractModifier.quantize(note.getVelocity(),
                     value);
             if ((d < 0) || (d > 127)) {
                 d = note.getVelocity();
             }
-            returnedNote.setVelocity(midiNumber);
+            returnedNote.setVelocity(d);
         }
         logger.debug("returnedNote: " + returnedNote);
         return returnedNote;
