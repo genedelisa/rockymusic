@@ -10,25 +10,25 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper
-	c646 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleFactoryXMLHelper.html">
+	c743 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ScaleFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleFactoryXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScaleFactoryXMLHelper </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScaleFactoryXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.ModeFactoryXMLHelper
-	c647 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ModeFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModeFactoryXMLHelper.html">
+	c744 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ModeFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ModeFactoryXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ModeFactoryXMLHelper </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ModeFactoryXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper
-	c648 [label=<<table title="com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackXMLHelper.html">
+	c745 [label=<<table title="com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDITrackXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackXMLHelper </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper
-	c649 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordFactoryXMLHelper.html">
+	c746 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChordFactoryXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordFactoryXMLHelper </td></tr>
 		</table></td></tr>

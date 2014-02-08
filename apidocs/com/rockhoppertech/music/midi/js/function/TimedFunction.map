@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./TimedFunction.html" title="com.rockhoppertech.music.midi.js.function.TimedFunction" alt="" coords="105,126,204,167"/>
+<area shape="rect" id="node1" href="./TimedFunction.html" title="&lt;TABLE&gt;" alt="" coords="95,121,215,173"/>
+<area shape="rect" id="node2_1" href="./StartTimeFunction.html" title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" alt="" coords="16,233,133,258"/>
+<area shape="rect" id="node2" href="./StartTimeFunction.html" title="&lt;TABLE&gt;" alt="" coords="5,221,144,269"/>
+<area shape="rect" id="node3_2" href="./DurationFunction.html" title="com.rockhoppertech.music.midi.js.function.DurationFunction" alt="" coords="179,233,290,258"/>
+<area shape="rect" id="node3" href="./DurationFunction.html" title="&lt;TABLE&gt;" alt="" coords="169,221,301,269"/>
+<area shape="rect" id="node4_3" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html" title="com.google.common.base.Function" alt="" coords="91,11,218,66"/>
+<area shape="rect" id="node4" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html" title="&lt;TABLE&gt;" alt="" coords="81,6,229,71"/>
+</map>

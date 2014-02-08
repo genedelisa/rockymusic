@@ -10,68 +10,68 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.CircularList<E>
-	c2880 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularList.html">
+	c2977 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CircularList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.CircularArrayList<E>
-	c2882 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularArrayList.html">
+	c2979 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularArrayList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction
-	c2938 [label=<<table title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/modifiers/google/AbstractMusicFunction.html">
+	// com.rockhoppertech.music.midi.js.function.AbstractMusicFunction
+	c3031 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/function/AbstractMusicFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMusicFunction </font></td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.modifiers.google </font></td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.function </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="../music/midi/js/modifiers/google/AbstractMusicFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.modifiers.google.AbstractMIDINoteFunction
-	c2941 [label=<<table title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/modifiers/google/AbstractMIDINoteFunction.html">
+		</table>>, URL="../music/midi/js/function/AbstractMusicFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.rockhoppertech.music.midi.js.function.AbstractMIDINoteFunction
+	c3033 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/function/AbstractMIDINoteFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINoteFunction </font></td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.modifiers.google </font></td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.function </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="../music/midi/js/modifiers/google/AbstractMIDINoteFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, URL="../music/midi/js/function/AbstractMIDINoteFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractModifier
-	c2962 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractModifier.html">
+	c3059 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractModifier </font></td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/modifiers/AbstractModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier
-	c2963 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractMIDINoteModifier.html">
+	c3060 [label=<<table title="com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/modifiers/AbstractMIDINoteModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINoteModifier </font></td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/modifiers/AbstractMIDINoteModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeSeries
-	c2970 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeries.html">
+	c3067 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeries.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSeries </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.series.time </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/series/time/TimeSeries.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.collections.CircularArrayList<E> implements com.rockhoppertech.collections.CircularList<E>
-	c2880:p -> c2882:p [dir=back,arrowtail=empty,style=dashed];
-	// com.rockhoppertech.music.midi.js.modifiers.google.AbstractMusicFunction NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c2938:p -> c2882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.midi.js.modifiers.google.AbstractMIDINoteFunction NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c2941:p -> c2882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2977:p -> c2979:p [dir=back,arrowtail=empty,style=dashed];
+	// com.rockhoppertech.music.midi.js.function.AbstractMusicFunction NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
+	c3031:p -> c2979:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.rockhoppertech.music.midi.js.function.AbstractMIDINoteFunction NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
+	c3033:p -> c2979:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.AbstractModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c2962:p -> c2882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3059:p -> c2979:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.modifiers.AbstractMIDINoteModifier NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c2963:p -> c2882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3060:p -> c2979:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c2970:p -> c2882:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3067:p -> c2979:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c2970:p -> c2880:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3067:p -> c2977:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c2970:p -> c2880:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3067:p -> c2977:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

@@ -1,0 +1,22 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./VelocityFunction.html" title="com.rockhoppertech.music.midi.js.function.VelocityFunction" alt="" coords="15,121,123,146"/>
+<area shape="rect" id="node1" href="./VelocityFunction.html" title="&lt;TABLE&gt;" alt="" coords="5,109,134,157"/>
+<area shape="rect" id="node2_1" href="./TimedFunction.html" title="com.rockhoppertech.music.midi.js.function.TimedFunction" alt="" coords="697,11,796,53"/>
+<area shape="rect" id="node2" href="./TimedFunction.html" title="&lt;TABLE&gt;" alt="" coords="687,6,807,58"/>
+<area shape="rect" id="node3_2" href="./StartTimeFunction.html" title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" alt="" coords="608,121,725,146"/>
+<area shape="rect" id="node3" href="./StartTimeFunction.html" title="&lt;TABLE&gt;" alt="" coords="597,109,736,157"/>
+<area shape="rect" id="node6_3" href="./DurationFunction.html" title="com.rockhoppertech.music.midi.js.function.DurationFunction" alt="" coords="771,121,882,146"/>
+<area shape="rect" id="node6" href="./DurationFunction.html" title="&lt;TABLE&gt;" alt="" coords="761,109,893,157"/>
+<area shape="rect" id="node4_4" href="./PitchFunction.html" title="com.rockhoppertech.music.midi.js.function.PitchFunction" alt="" coords="169,121,261,146"/>
+<area shape="rect" id="node4" href="./PitchFunction.html" title="&lt;TABLE&gt;" alt="" coords="158,109,271,157"/>
+<area shape="rect" id="node5_5" href="./MIDINoteFunction.html" title="com.rockhoppertech.music.midi.js.function.MIDINoteFunction" alt="" coords="157,11,273,53"/>
+<area shape="rect" id="node5" href="./MIDINoteFunction.html" title="&lt;TABLE&gt;" alt="" coords="146,6,283,58"/>
+<area shape="rect" id="node7_6" href="./ChannelFunction.html" title="com.rockhoppertech.music.midi.js.function.ChannelFunction" alt="" coords="306,121,417,146"/>
+<area shape="rect" id="node7" href="./ChannelFunction.html" title="&lt;TABLE&gt;" alt="" coords="295,109,427,157"/>
+<area shape="rect" id="node8_7" href="./AbstractMusicFunction.html" title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" alt="" coords="375,19,516,45"/>
+<area shape="rect" id="node8" href="./AbstractMusicFunction.html" title="&lt;TABLE&gt;" alt="" coords="364,8,527,56"/>
+<area shape="rect" id="node9_8" href="./AbstractMusicFunction.Operation.html" title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction.Operation" alt="" coords="462,113,562,154"/>
+<area shape="rect" id="node9" href="./AbstractMusicFunction.Operation.html" title="&lt;TABLE&gt;" alt="" coords="451,107,573,159"/>
+<area shape="rect" id="node10_9" href="./AbstractMIDINoteFunction.html" title="com.rockhoppertech.music.midi.js.function.AbstractMIDINoteFunction" alt="" coords="841,19,1001,45"/>
+<area shape="rect" id="node10" href="./AbstractMIDINoteFunction.html" title="&lt;TABLE&gt;" alt="" coords="831,8,1012,56"/>
+</map>

@@ -10,34 +10,34 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Timed
-	c9888 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Timed.html">
+	c9985 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Note
-	c9897 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Note.html">
+	c9994 [label=<<table title="com.rockhoppertech.music.Note" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Note.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Note </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Note.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction
-	c9925 [label=<<table title="com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./midi/js/modifiers/google/StartTimeFunction.html">
+	// com.rockhoppertech.music.midi.js.function.StartTimeFunction
+	c10022 [label=<<table title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./midi/js/function/StartTimeFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartTimeFunction </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.modifiers.google </font></td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.function </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./midi/js/modifiers/google/StartTimeFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.modifiers.google.DurationFunction
-	c9932 [label=<<table title="com.rockhoppertech.music.midi.js.modifiers.google.DurationFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./midi/js/modifiers/google/DurationFunction.html">
+		</table>>, URL="./midi/js/function/StartTimeFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.rockhoppertech.music.midi.js.function.DurationFunction
+	c10025 [label=<<table title="com.rockhoppertech.music.midi.js.function.DurationFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./midi/js/function/DurationFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationFunction </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.modifiers.google </font></td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js.function </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./midi/js/modifiers/google/DurationFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, URL="./midi/js/function/DurationFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.TimedModifier
-	c9946 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/TimedModifier.html">
+	c10043 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/TimedModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TimedModifier </td></tr>
@@ -45,58 +45,58 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="./modifiers/TimedModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.StartBeatModifier
-	c9947 [label=<<table title="com.rockhoppertech.music.modifiers.StartBeatModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/StartBeatModifier.html">
+	c10044 [label=<<table title="com.rockhoppertech.music.modifiers.StartBeatModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/StartBeatModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartBeatModifier </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./modifiers/StartBeatModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.DurationModifier
-	c9955 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/DurationModifier.html">
+	c10052 [label=<<table title="com.rockhoppertech.music.modifiers.DurationModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./modifiers/DurationModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationModifier </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.modifiers </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./modifiers/DurationModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeSeries
-	c9966 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./series/time/TimeSeries.html">
+	c10063 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./series/time/TimeSeries.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSeries </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.series.time </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./series/time/TimeSeries.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeEvent
-	c9967 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./series/time/TimeEvent.html">
+	c10064 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./series/time/TimeEvent.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeEvent </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.series.time </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./series/time/TimeEvent.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.Note implements com.rockhoppertech.music.Timed
-	c9888:p -> c9897:p [dir=back,arrowtail=empty,style=dashed];
+	c9985:p -> c9994:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.StartBeatModifier implements com.rockhoppertech.music.modifiers.TimedModifier
-	c9946:p -> c9947:p [dir=back,arrowtail=empty,style=dashed];
+	c10043:p -> c10044:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.modifiers.DurationModifier implements com.rockhoppertech.music.modifiers.TimedModifier
-	c9946:p -> c9955:p [dir=back,arrowtail=empty,style=dashed];
+	c10043:p -> c10052:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.series.time.TimeEvent implements com.rockhoppertech.music.Timed
-	c9888:p -> c9967:p [dir=back,arrowtail=empty,style=dashed];
-	// com.rockhoppertech.music.midi.js.modifiers.google.StartTimeFunction DEPEND com.rockhoppertech.music.Timed
-	c9925:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.modifiers.google.DurationFunction DEPEND com.rockhoppertech.music.Timed
-	c9932:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c9985:p -> c10064:p [dir=back,arrowtail=empty,style=dashed];
+	// com.rockhoppertech.music.midi.js.function.StartTimeFunction DEPEND com.rockhoppertech.music.Timed
+	c10022:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.function.DurationFunction DEPEND com.rockhoppertech.music.Timed
+	c10025:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
-	c9946:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10043:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Timed
-	c9947:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10044:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.StartBeatModifier DEPEND com.rockhoppertech.music.Note
-	c9947:p -> c9897:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10044:p -> c9994:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Timed
-	c9955:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10052:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Note
-	c9955:p -> c9897:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
-	c9966:p -> c9946:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10052:p -> c9994:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
-	c9966:p -> c9888:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10063:p -> c9985:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
+	c10063:p -> c10043:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

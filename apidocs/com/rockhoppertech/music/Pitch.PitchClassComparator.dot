@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Pitch.PitchClassComparator
-	c7463 [label=<<table title="com.rockhoppertech.music.Pitch.PitchClassComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Pitch.PitchClassComparator.html">
+	c7560 [label=<<table title="com.rockhoppertech.music.Pitch.PitchClassComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Pitch.PitchClassComparator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchClassComparator </td></tr>
 		</table></td></tr>

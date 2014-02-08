@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../MIDINote.html" title="com.rockhoppertech.music.midi.js.MIDINote" alt="" coords="15,203,174,242"/>
+<area shape="rect" id="node1" href="../MIDINote.html" title="&lt;TABLE&gt;" alt="" coords="5,198,185,247"/>
+<area shape="rect" id="node2_1" href="./MIDINumberBandPassPredicate.html" title="com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate" alt="" coords="121,113,314,138"/>
+<area shape="rect" id="node2" href="./MIDINumberBandPassPredicate.html" title="&lt;TABLE&gt;" alt="" coords="110,101,325,149"/>
+<area shape="rect" id="node4_2" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html" title="com.google.common.collect.Range" alt="" coords="220,203,463,242"/>
+<area shape="rect" id="node4" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html" title="&lt;TABLE&gt;" alt="" coords="209,198,473,247"/>
+<area shape="rect" id="node3_3" href="./AbstractMIDINotePredicate.html" title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate" alt="" coords="135,17,300,42"/>
+<area shape="rect" id="node3" href="./AbstractMIDINotePredicate.html" title="&lt;TABLE&gt;" alt="" coords="124,5,311,53"/>
+</map>
