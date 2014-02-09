@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.CircularList<E>
-	c9680 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularList.html">
+	c10279 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CircularList&lt;E&gt; </td></tr>
@@ -18,14 +18,14 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../collections/CircularList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.CircularArrayList<E>
-	c9682 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularArrayList.html">
+	c10281 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../collections/CircularArrayList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.collections </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../collections/CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.Timed
-	c9692 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Timed.html">
+	c10291 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
@@ -33,21 +33,21 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.DurationParser
-	c9704 [label=<<table title="com.rockhoppertech.music.DurationParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../DurationParser.html">
+	c10303 [label=<<table title="com.rockhoppertech.music.DurationParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../DurationParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationParser </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../DurationParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrack
-	c9716 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../midi/js/MIDITrack.html">
+	c10315 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrack" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../midi/js/MIDITrack.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrack </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../midi/js/MIDITrack.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.TimedModifier
-	c9750 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../modifiers/TimedModifier.html">
+	c10352 [label=<<table title="com.rockhoppertech.music.modifiers.TimedModifier" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../modifiers/TimedModifier.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TimedModifier </td></tr>
@@ -55,7 +55,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../modifiers/TimedModifier.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.modifiers.Modifier.Operation
-	c9756 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier.Operation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../modifiers/Modifier.Operation.html">
+	c10358 [label=<<table title="com.rockhoppertech.music.modifiers.Modifier.Operation" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../modifiers/Modifier.Operation.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Operation </td></tr>
@@ -63,45 +63,45 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../modifiers/Modifier.Operation.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeSeries
-	c9770 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimeSeries.html">
+	c10372 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimeSeries.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSeries </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimeSeries.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.collections.CircularArrayList<E> implements com.rockhoppertech.collections.CircularList<E>
-	c9680:p -> c9682:p [dir=back,arrowtail=empty,style=dashed];
+	c10279:p -> c10281:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.google.common.collect.RangeSet<C extends java.lang.Comparable>
-	c9770:p -> c9775:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10372:p -> c10377:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c9770:p -> c9682:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10372:p -> c10281:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9770:p -> c9776:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10372:p -> c10378:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9770:p -> c9776:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c10372:p -> c10378:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.DurationParser DEPEND com.rockhoppertech.music.series.time.TimeSeries
-	c9704:p -> c9770:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10303:p -> c10372:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrack DEPEND com.rockhoppertech.music.series.time.TimeSeries
-	c9716:p -> c9770:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10315:p -> c10372:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.TimedModifier DEPEND com.rockhoppertech.music.Timed
-	c9750:p -> c9692:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
-	c9770:p -> c9692:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10352:p -> c10291:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9770:p -> c9776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
-	c9770:p -> c9750:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9770:p -> c9776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c9770:p -> c9680:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9770:p -> c9776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c9770:p -> c9680:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10372:p -> c10378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.Modifier.Operation
-	c9770:p -> c9756:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10372:p -> c10358:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
+	c10372:p -> c10291:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
+	c10372:p -> c10352:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
+	c10372:p -> c10378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
+	c10372:p -> c10279:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
+	c10372:p -> c10279:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
+	c10372:p -> c10378:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.google.common.collect.RangeSet<C extends java.lang.Comparable>
-	c9775 [label=<<table title="com.google.common.collect.RangeSet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/RangeSet.html">
+	c10377 [label=<<table title="com.google.common.collect.RangeSet" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/RangeSet.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> RangeSet&lt;C extends java.lang.Comparable&gt; </td></tr>
@@ -109,7 +109,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/RangeSet.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9776 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
+	c10378 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Range&lt;C extends java.lang.Comparable&gt; </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.google.common.collect </font></td></tr>

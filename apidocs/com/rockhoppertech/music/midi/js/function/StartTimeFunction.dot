@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Timed
-	c9400 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../Timed.html">
+	c9990 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
@@ -18,29 +18,29 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../../Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.TimedFunction
-	c9436 [label=<<table title="com.rockhoppertech.music.midi.js.function.TimedFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimedFunction.html">
+	c10026 [label=<<table title="com.rockhoppertech.music.midi.js.function.TimedFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./TimedFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TimedFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimedFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.StartTimeFunction
-	c9437 [label=<<table title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StartTimeFunction.html">
+	c10027 [label=<<table title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./StartTimeFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartTimeFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StartTimeFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.AbstractMusicFunction
-	c9442 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMusicFunction.html">
+	c10034 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMusicFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMusicFunction </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMusicFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.function.StartTimeFunction extends com.rockhoppertech.music.midi.js.function.AbstractMusicFunction
-	c9442:p -> c9437:p [dir=back,arrowtail=empty];
+	c10034:p -> c10027:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.midi.js.function.StartTimeFunction implements com.rockhoppertech.music.midi.js.function.TimedFunction
-	c9436:p -> c9437:p [dir=back,arrowtail=empty,style=dashed];
+	c10026:p -> c10027:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.midi.js.function.StartTimeFunction DEPEND com.rockhoppertech.music.Timed
-	c9437:p -> c9400:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10027:p -> c9990:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

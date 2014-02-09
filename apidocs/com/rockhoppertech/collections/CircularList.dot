@@ -10,74 +10,74 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.collections.CircularList<E>
-	c3171 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularList.html">
+	c3367 [label=<<table title="com.rockhoppertech.collections.CircularList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CircularList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CircularList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.CircularLinkedList<E>
-	c3172 [label=<<table title="com.rockhoppertech.collections.CircularLinkedList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularLinkedList.html">
+	c3368 [label=<<table title="com.rockhoppertech.collections.CircularLinkedList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularLinkedList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CircularLinkedList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularLinkedList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.collections.CircularArrayList<E>
-	c3173 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularArrayList.html">
+	c3369 [label=<<table title="com.rockhoppertech.collections.CircularArrayList" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CircularArrayList.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CircularArrayList&lt;E&gt; </td></tr>
 		</table></td></tr>
 		</table>>, URL="./CircularArrayList.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory
-	c3205 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/MIDITrackFactory.html">
+	c3401 [label=<<table title="com.rockhoppertech.music.midi.js.MIDITrackFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/midi/js/MIDITrackFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDITrackFactory </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/midi/js/MIDITrackFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory
-	c3260 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeriesFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeriesFactory.html">
+	c3459 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeriesFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeriesFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSeriesFactory </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.series.time </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/series/time/TimeSeriesFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeSeries
-	c3261 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeries.html">
+	c3460 [label=<<table title="com.rockhoppertech.music.series.time.TimeSeries" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../music/series/time/TimeSeries.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeSeries </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.series.time </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../music/series/time/TimeSeries.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.collections.CircularLinkedList<E> implements com.rockhoppertech.collections.CircularList<E>
-	c3171:p -> c3172:p [dir=back,arrowtail=empty,style=dashed];
+	c3367:p -> c3368:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.collections.CircularArrayList<E> implements com.rockhoppertech.collections.CircularList<E>
-	c3171:p -> c3173:p [dir=back,arrowtail=empty,style=dashed];
+	c3367:p -> c3369:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries NAVASSOC com.rockhoppertech.collections.CircularArrayList<E>
-	c3261:p -> c3173:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c3460:p -> c3369:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3205:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3401:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3205:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3401:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeriesFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3260:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3459:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3261:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3460:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.collections.CircularList<E>
-	c3261:p -> c3171:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c3460:p -> c3367:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

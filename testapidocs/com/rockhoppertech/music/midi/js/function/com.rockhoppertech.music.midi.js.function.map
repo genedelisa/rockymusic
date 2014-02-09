@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./StartTimeFunctionTest.html" title="com.rockhoppertech.music.midi.js.function.StartTimeFunctionTest" alt="" coords="16,17,157,42"/>
+<area shape="rect" id="node1" href="./StartTimeFunctionTest.html" title="&lt;TABLE&gt;" alt="" coords="5,5,168,53"/>
+<area shape="rect" id="node2_1" href="./PitchFunctionTest.html" title="com.rockhoppertech.music.midi.js.function.PitchFunctionTest" alt="" coords="203,17,319,42"/>
+<area shape="rect" id="node2" href="./PitchFunctionTest.html" title="&lt;TABLE&gt;" alt="" coords="193,5,330,53"/>
+<area shape="rect" id="node3_2" href="./DurationFunctionTest.html" title="com.rockhoppertech.music.midi.js.function.DurationFunctionTest" alt="" coords="365,17,499,42"/>
+<area shape="rect" id="node3" href="./DurationFunctionTest.html" title="&lt;TABLE&gt;" alt="" coords="354,5,510,53"/>
+</map>

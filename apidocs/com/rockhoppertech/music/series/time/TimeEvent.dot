@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.Timed
-	c9594 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Timed.html">
+	c10190 [label=<<table title="com.rockhoppertech.music.Timed" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../Timed.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Timed </td></tr>
@@ -18,35 +18,35 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="../../Timed.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.TimeEvent
-	c9673 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimeEvent.html">
+	c10272 [label=<<table title="com.rockhoppertech.music.series.time.TimeEvent" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimeEvent.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> TimeEvent </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimeEvent.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.Sound
-	c9675 [label=<<table title="com.rockhoppertech.music.series.time.Sound" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Sound.html">
+	c10274 [label=<<table title="com.rockhoppertech.music.series.time.Sound" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Sound.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Sound </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Sound.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.series.time.Silence
-	c9676 [label=<<table title="com.rockhoppertech.music.series.time.Silence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Silence.html">
+	c10275 [label=<<table title="com.rockhoppertech.music.series.time.Silence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Silence.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Silence </td></tr>
 		</table></td></tr>
 		</table>>, URL="./Silence.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.series.time.TimeEvent implements com.rockhoppertech.music.Timed
-	c9594:p -> c9673:p [dir=back,arrowtail=empty,style=dashed];
+	c10190:p -> c10272:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.series.time.Sound extends com.rockhoppertech.music.series.time.TimeEvent
-	c9673:p -> c9675:p [dir=back,arrowtail=empty];
+	c10272:p -> c10274:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.series.time.Silence extends com.rockhoppertech.music.series.time.TimeEvent
-	c9673:p -> c9676:p [dir=back,arrowtail=empty];
+	c10272:p -> c10275:p [dir=back,arrowtail=empty];
 	// com.rockhoppertech.music.series.time.TimeEvent DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9673:p -> c9677:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10272:p -> c10276:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeEvent DEPEND com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9673:p -> c9677:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c10272:p -> c10276:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.google.common.collect.Range<C extends java.lang.Comparable>
-	c9677 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
+	c10276 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Range&lt;C extends java.lang.Comparable&gt; </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.google.common.collect </font></td></tr>

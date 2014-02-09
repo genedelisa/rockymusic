@@ -10,37 +10,37 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.chord.ChordProgression
-	c2595 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../chord/ChordProgression.html">
+	c2773 [label=<<table title="com.rockhoppertech.music.chord.ChordProgression" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../chord/ChordProgression.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordProgression </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.chord </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../chord/ChordProgression.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.Chord
-	c2598 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../chord/Chord.html">
+	c2776 [label=<<table title="com.rockhoppertech.music.chord.Chord" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../../chord/Chord.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Chord </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.chord </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../../../chord/Chord.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper
-	c2652 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordFactoryXMLHelper.html">
+	c2833 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordFactoryXMLHelper.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordFactoryXMLHelper </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChordFactoryXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.chord.ChordProgression NAVASSOC com.rockhoppertech.music.chord.Chord
-	c2595:p -> c2598:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
-	c2652:p -> c2598:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2773:p -> c2776:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND org.w3c.dom.Node
-	c2652:p -> c2682:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2833:p -> c2863:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.ChordProgression
-	c2652:p -> c2595:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2833:p -> c2773:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND org.w3c.dom.Document
-	c2652:p -> c2683:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c2833:p -> c2864:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
+	c2833:p -> c2776:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// org.w3c.dom.Document
-	c2683 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
+	c2864 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Document </td></tr>
@@ -48,7 +48,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// org.w3c.dom.Node
-	c2682 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
+	c2863 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Node </td></tr>

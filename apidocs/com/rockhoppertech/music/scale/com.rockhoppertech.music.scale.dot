@@ -10,31 +10,31 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.scale.UnknownScaleException
-	c1056 [label=<<table title="com.rockhoppertech.music.scale.UnknownScaleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UnknownScaleException.html">
+	c1089 [label=<<table title="com.rockhoppertech.music.scale.UnknownScaleException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./UnknownScaleException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> UnknownScaleException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./UnknownScaleException.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.scale.ScaleTrackBuilder
-	c1057 [label=<<table title="com.rockhoppertech.music.scale.ScaleTrackBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleTrackBuilder.html">
+	c1090 [label=<<table title="com.rockhoppertech.music.scale.ScaleTrackBuilder" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleTrackBuilder.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScaleTrackBuilder </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScaleTrackBuilder.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.scale.ScaleFactory
-	c1058 [label=<<table title="com.rockhoppertech.music.scale.ScaleFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleFactory.html">
+	c1091 [label=<<table title="com.rockhoppertech.music.scale.ScaleFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScaleFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScaleFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.scale.ScaleComparator
-	c1059 [label=<<table title="com.rockhoppertech.music.scale.ScaleComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleComparator.html">
+	c1092 [label=<<table title="com.rockhoppertech.music.scale.ScaleComparator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ScaleComparator.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScaleComparator </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ScaleComparator.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.scale.Scale
-	c1060 [label=<<table title="com.rockhoppertech.music.scale.Scale" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scale.html">
+	c1093 [label=<<table title="com.rockhoppertech.music.scale.Scale" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Scale.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Scale </td></tr>
 		</table></td></tr>

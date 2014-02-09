@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelperTest
-	c835 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelperTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordFactoryXMLHelperTest.html">
+	c884 [label=<<table title="com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelperTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ChordFactoryXMLHelperTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChordFactoryXMLHelperTest </td></tr>
 		</table></td></tr>

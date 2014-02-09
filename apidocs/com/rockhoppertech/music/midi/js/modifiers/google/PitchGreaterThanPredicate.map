@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1_0" href="../../MIDINote.html" title="com.rockhoppertech.music.midi.js.MIDINote" alt="" coords="19,203,178,242"/>
-<area shape="rect" id="node1" href="../../MIDINote.html" title="&lt;TABLE&gt;" alt="" coords="9,198,189,247"/>
-<area shape="rect" id="node2_1" href="./PitchGreaterThanPredicate.html" title="com.rockhoppertech.music.midi.js.modifiers.google.PitchGreaterThanPredicate" alt="" coords="16,113,181,138"/>
-<area shape="rect" id="node2" href="./PitchGreaterThanPredicate.html" title="&lt;TABLE&gt;" alt="" coords="5,101,192,149"/>
-<area shape="rect" id="node3_2" href="./AbstractMIDINotePredicate.html" title="com.rockhoppertech.music.midi.js.modifiers.google.AbstractMIDINotePredicate" alt="" coords="16,17,181,42"/>
-<area shape="rect" id="node3" href="./AbstractMIDINotePredicate.html" title="&lt;TABLE&gt;" alt="" coords="5,5,192,53"/>
-</map>

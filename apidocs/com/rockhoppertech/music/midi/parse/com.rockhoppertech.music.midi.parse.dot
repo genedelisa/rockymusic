@@ -10,25 +10,25 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser
-	c844 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.html">
+	c871 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIStringParser </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c845 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.StartMode.html">
+	c872 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIStringParser.StartMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> StartMode </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIStringParser.StartMode.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIParserException
-	c846 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIParserException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIParserException.html">
+	c873 [label=<<table title="com.rockhoppertech.music.midi.parse.MIDIParserException" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDIParserException.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDIParserException </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDIParserException.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.parse.MIDIStringParser NAVASSOC com.rockhoppertech.music.midi.parse.MIDIStringParser.StartMode
-	c844:p -> c845:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c871:p -> c872:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

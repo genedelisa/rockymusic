@@ -10,32 +10,32 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c5346 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../MIDINote.html">
+	c5810 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate
-	c5366 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINumberBandPassPredicate.html">
+	c5832 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINumberBandPassPredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINumberBandPassPredicate </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINumberBandPassPredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c5367 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINotePredicate.html">
+	c5833 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINotePredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINotePredicate </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMIDINotePredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate extends com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c5367:p -> c5366:p [dir=back,arrowtail=empty];
+	c5833:p -> c5832:p [dir=back,arrowtail=empty];
 	// com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate NAVASSOC com.google.common.collect.Range<C extends java.lang.Comparable>
-	c5366:p -> c5401:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c5832:p -> c5868:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c5366:p -> c5346:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c5832:p -> c5810:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.google.common.collect.Range<C extends java.lang.Comparable>
-	c5401 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
+	c5868 [label=<<table title="com.google.common.collect.Range" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/collect/Range.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Range&lt;C extends java.lang.Comparable&gt; </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.google.common.collect </font></td></tr>

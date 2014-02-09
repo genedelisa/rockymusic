@@ -10,32 +10,32 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.function.TimedFunction
-	c10118 [label=<<table title="com.rockhoppertech.music.midi.js.function.TimedFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimedFunction.html">
+	c10729 [label=<<table title="com.rockhoppertech.music.midi.js.function.TimedFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./TimedFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> TimedFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./TimedFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.StartTimeFunction
-	c10119 [label=<<table title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartTimeFunction.html">
+	c10730 [label=<<table title="com.rockhoppertech.music.midi.js.function.StartTimeFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StartTimeFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StartTimeFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./StartTimeFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.DurationFunction
-	c10122 [label=<<table title="com.rockhoppertech.music.midi.js.function.DurationFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationFunction.html">
+	c10735 [label=<<table title="com.rockhoppertech.music.midi.js.function.DurationFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DurationFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DurationFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./DurationFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.function.TimedFunction implements com.google.common.base.Function<F, T>
-	c10165:p -> c10118:p [dir=back,arrowtail=empty,style=dashed];
+	c10779:p -> c10729:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.midi.js.function.StartTimeFunction implements com.rockhoppertech.music.midi.js.function.TimedFunction
-	c10118:p -> c10119:p [dir=back,arrowtail=empty,style=dashed];
+	c10729:p -> c10730:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.midi.js.function.DurationFunction implements com.rockhoppertech.music.midi.js.function.TimedFunction
-	c10118:p -> c10122:p [dir=back,arrowtail=empty,style=dashed];
+	c10729:p -> c10735:p [dir=back,arrowtail=empty,style=dashed];
 	// com.google.common.base.Function<F, T>
-	c10165 [label=<<table title="com.google.common.base.Function" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html">
+	c10779 [label=<<table title="com.google.common.base.Function" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Function&lt;F, T&gt; </td></tr>

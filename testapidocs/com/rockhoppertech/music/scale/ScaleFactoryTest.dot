@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.scale.ScaleFactoryTest
-	c2492 [label=<<table title="com.rockhoppertech.music.scale.ScaleFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ScaleFactoryTest.html">
+	c2541 [label=<<table title="com.rockhoppertech.music.scale.ScaleFactoryTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ScaleFactoryTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ScaleFactoryTest </td></tr>
 		</table></td></tr>

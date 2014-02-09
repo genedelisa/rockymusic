@@ -10,40 +10,40 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.function.VelocityFunction
-	c5158 [label=<<table title="com.rockhoppertech.music.midi.js.function.VelocityFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VelocityFunction.html">
+	c5515 [label=<<table title="com.rockhoppertech.music.midi.js.function.VelocityFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./VelocityFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> VelocityFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./VelocityFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.PitchFunction
-	c5161 [label=<<table title="com.rockhoppertech.music.midi.js.function.PitchFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFunction.html">
+	c5518 [label=<<table title="com.rockhoppertech.music.midi.js.function.PitchFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c5162 [label=<<table title="com.rockhoppertech.music.midi.js.function.MIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINoteFunction.html">
+	c5520 [label=<<table title="com.rockhoppertech.music.midi.js.function.MIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./MIDINoteFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> MIDINoteFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.ChannelFunction
-	c5164 [label=<<table title="com.rockhoppertech.music.midi.js.function.ChannelFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelFunction.html">
+	c5523 [label=<<table title="com.rockhoppertech.music.midi.js.function.ChannelFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ChannelFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ChannelFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ChannelFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.function.VelocityFunction implements com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c5162:p -> c5158:p [dir=back,arrowtail=empty,style=dashed];
+	c5520:p -> c5515:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.midi.js.function.PitchFunction implements com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c5162:p -> c5161:p [dir=back,arrowtail=empty,style=dashed];
+	c5520:p -> c5518:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.midi.js.function.MIDINoteFunction implements com.google.common.base.Function<F, T>
-	c5206:p -> c5162:p [dir=back,arrowtail=empty,style=dashed];
+	c5566:p -> c5520:p [dir=back,arrowtail=empty,style=dashed];
 	//com.rockhoppertech.music.midi.js.function.ChannelFunction implements com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c5162:p -> c5164:p [dir=back,arrowtail=empty,style=dashed];
+	c5520:p -> c5523:p [dir=back,arrowtail=empty,style=dashed];
 	// com.google.common.base.Function<F, T>
-	c5206 [label=<<table title="com.google.common.base.Function" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html">
+	c5566 [label=<<table title="com.google.common.base.Function" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Function.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Function&lt;F, T&gt; </td></tr>

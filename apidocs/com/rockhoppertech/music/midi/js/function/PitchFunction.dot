@@ -10,36 +10,36 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.MIDINote
-	c7971 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../MIDINote.html">
+	c8516 [label=<<table title="com.rockhoppertech.music.midi.js.MIDINote" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../MIDINote.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINote </td></tr>
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.midi.js </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../MIDINote.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.PitchFunction
-	c7981 [label=<<table title="com.rockhoppertech.music.midi.js.function.PitchFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PitchFunction.html">
+	c8526 [label=<<table title="com.rockhoppertech.music.midi.js.function.PitchFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./PitchFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c7982 [label=<<table title="com.rockhoppertech.music.midi.js.function.MIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteFunction.html">
+	c8528 [label=<<table title="com.rockhoppertech.music.midi.js.function.MIDINoteFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINoteFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> MIDINoteFunction </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINoteFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.function.AbstractMusicFunction
-	c7985 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMusicFunction.html">
+	c8532 [label=<<table title="com.rockhoppertech.music.midi.js.function.AbstractMusicFunction" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMusicFunction.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMusicFunction </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMusicFunction.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.function.PitchFunction extends com.rockhoppertech.music.midi.js.function.AbstractMusicFunction
-	c7985:p -> c7981:p [dir=back,arrowtail=empty];
+	c8532:p -> c8526:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.midi.js.function.PitchFunction implements com.rockhoppertech.music.midi.js.function.MIDINoteFunction
-	c7982:p -> c7981:p [dir=back,arrowtail=empty,style=dashed];
+	c8528:p -> c8526:p [dir=back,arrowtail=empty,style=dashed];
 	// com.rockhoppertech.music.midi.js.function.PitchFunction DEPEND com.rockhoppertech.music.midi.js.MIDINote
-	c7981:p -> c7971:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	c8526:p -> c8516:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

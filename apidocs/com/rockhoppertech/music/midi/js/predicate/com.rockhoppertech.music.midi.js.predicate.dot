@@ -10,42 +10,49 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate
-	c641 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchLessThanPredicate.html">
+	c661 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchLessThanPredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchLessThanPredicate </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchLessThanPredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate
-	c642 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchGreaterThanPredicate.html">
+	c662 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchGreaterThanPredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchGreaterThanPredicate </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchGreaterThanPredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.PitchEqualsPredicate
-	c643 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchEqualsPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchEqualsPredicate.html">
+	c663 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.PitchEqualsPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PitchEqualsPredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> PitchEqualsPredicate </td></tr>
 		</table></td></tr>
 		</table>>, URL="./PitchEqualsPredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate
-	c644 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINumberBandPassPredicate.html">
+	c664 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MIDINumberBandPassPredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MIDINumberBandPassPredicate </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDINumberBandPassPredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c645 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINotePredicate.html">
+	c665 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINotePredicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AbstractMIDINotePredicate </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="./AbstractMIDINotePredicate.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate.Operator
+	c666 [label=<<table title="com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate.Operator" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AbstractMIDINotePredicate.Operator.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> Operator </td></tr>
+		</table></td></tr>
+		</table>>, URL="./AbstractMIDINotePredicate.Operator.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate extends com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c645:p -> c641:p [dir=back,arrowtail=empty];
+	c665:p -> c661:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate extends com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c645:p -> c642:p [dir=back,arrowtail=empty];
+	c665:p -> c662:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.midi.js.predicate.PitchEqualsPredicate extends com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c645:p -> c643:p [dir=back,arrowtail=empty];
+	c665:p -> c663:p [dir=back,arrowtail=empty];
 	//com.rockhoppertech.music.midi.js.predicate.MIDINumberBandPassPredicate extends com.rockhoppertech.music.midi.js.predicate.AbstractMIDINotePredicate
-	c645:p -> c644:p [dir=back,arrowtail=empty];
+	c665:p -> c664:p [dir=back,arrowtail=empty];
 }
 
