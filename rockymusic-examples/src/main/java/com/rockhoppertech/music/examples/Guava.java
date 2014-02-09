@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Collections2;
@@ -44,10 +45,11 @@ import com.rockhoppertech.music.Timed;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
+import com.rockhoppertech.music.midi.js.function.AbstractMusicFunction.Operation;
 import com.rockhoppertech.music.midi.js.function.DurationFunction;
+import com.rockhoppertech.music.midi.js.function.IntToMIDINote;
 import com.rockhoppertech.music.midi.js.function.PitchFunction;
 import com.rockhoppertech.music.midi.js.function.StartTimeFunction;
-import com.rockhoppertech.music.midi.js.function.AbstractMusicFunction.Operation;
 import com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate;
 import com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate;
 
@@ -61,8 +63,9 @@ public class Guava {
     static Logger logger = LoggerFactory.getLogger(Guava.class);
 
     public static void main(String[] args) {
-        composed();
+        // composed();
         // permute();
+        toNotes();
     }
 
     public static void composed() {
@@ -205,6 +208,49 @@ public class Guava {
             note.setMidiNumber(note.getMidiNumber() + this.value);
             return note;
         }
+    }
+
+    static void toNotes() {
+        final Function<Integer, MIDINote> intToNote = new Function<Integer, MIDINote>() {
+            public MIDINote apply(Integer n) {
+                Preconditions.checkNotNull(n, "cannot be null.");
+                Preconditions.checkArgument(
+                        n < 128,
+                        "arg was %s. MIDI pitch must be 0 - 127", n);
+                Preconditions
+                        .checkArgument(
+                                n >= 0,
+                                "arg was %s. MIDI pitch must be 0 - 127",
+                                n);
+                return new MIDINote(n);
+            }
+        };
+
+        List<Integer> pits = Lists.newArrayList(Pitch.C5, Pitch.EF5);
+        ImmutableList<MIDINote> notes = FluentIterable
+                .from(pits)
+                .transform(intToNote)
+                .toList();
+        for (MIDINote note : notes) {
+            System.out.println(note);
+        }
+
+        // in library
+        IntToMIDINote iToMN = new IntToMIDINote();
+
+        System.out.println("another");
+        ImmutableList<MIDINote> noteList = ImmutableList.copyOf(
+                Iterables.transform(pits, iToMN));
+        for (MIDINote note : noteList) {
+            System.out.println(note);
+        }
+
+        Iterable<MIDINote> noteIterable =
+                Iterables.transform(pits, intToNote);
+        for (MIDINote note : noteIterable) {
+            System.out.println(note);
+        }
+
     }
 
     public static void funpred() {
