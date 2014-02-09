@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.predicate;
 
 /*
  * #%L
@@ -38,9 +38,10 @@ import com.rockhoppertech.music.midi.js.predicate.PitchEqualsPredicate;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ *
  */
 public class PitchEqualsPredicateTest {
     static Logger logger = LoggerFactory

@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.function;
 
 /*
  * #%L
@@ -33,15 +33,15 @@ import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
-import com.rockhoppertech.music.midi.js.function.PitchFunction;
 import com.rockhoppertech.music.midi.js.function.AbstractMusicFunction.Operation;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ *
  */
 public class PitchFunctionTest {
     static Logger logger = LoggerFactory

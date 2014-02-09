@@ -23,15 +23,21 @@ package com.rockhoppertech.music.midi.js.predicate;
 import com.google.common.base.Predicate;
 import com.rockhoppertech.music.midi.js.MIDINote;
 
-
 /**
  * Abstract class that implements {@code Predicate<MIDINote}.
  * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * @see MIDINote
  * @see com.google.common.base.Predicate
- *
+ * 
  */
 public abstract class AbstractMIDINotePredicate implements Predicate<MIDINote> {
 
+    public enum Operator {
+        EQ,
+        LT,
+        GT,
+        LT_EQ,
+        GT_EQ
+    }
 }

@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.midi.js.modifiers.google;
+package com.rockhoppertech.music.midi.js.predicate;
 
 /*
  * #%L
@@ -33,18 +33,19 @@ import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 import com.rockhoppertech.music.midi.js.MIDITrackFactory;
-import com.rockhoppertech.music.midi.js.predicate.PitchLessThanPredicate;
+import com.rockhoppertech.music.midi.js.predicate.PitchGreaterThanPredicate;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
+
 /**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ *
  */
-public class PitchLessThanPredicateTest {
+public class PitchGreaterThanPredicateTest {
     static Logger logger = LoggerFactory
-            .getLogger(PitchLessThanPredicateTest.class);
+            .getLogger(PitchGreaterThanPredicateTest.class);
 
     MIDITrack track;
 
@@ -57,20 +58,20 @@ public class PitchLessThanPredicateTest {
 
     @Test
     public final void testApply() {
-        PitchLessThanPredicate p = new PitchLessThanPredicate(
+        PitchGreaterThanPredicate p = new PitchGreaterThanPredicate(
                 Pitch.E5);
         boolean actual = p.apply(new MIDINote(Pitch.C5));
-        boolean expected = true;
+        boolean expected = false;
         assertThat("pitch is correct",
                 actual, is(equalTo(expected)));
 
         actual = p.apply(new MIDINote(Pitch.C4));
-        expected = true;
+        expected = false;
         assertThat("pitch is correct",
                 actual, is(equalTo(expected)));
 
         actual = p.apply(new MIDINote(Pitch.F5));
-        expected = false;
+        expected = true;
         assertThat("pitch is correct",
                 actual, is(equalTo(expected)));
 
@@ -78,7 +79,7 @@ public class PitchLessThanPredicateTest {
 
     @Test
     public final void trackFactory() {
-        PitchLessThanPredicate p = new PitchLessThanPredicate(
+        PitchGreaterThanPredicate p = new PitchGreaterThanPredicate(
                 Pitch.E5);
         MIDITrack newTrack = MIDITrackFactory
                 .createTrackFromPredicate(track, p);
@@ -86,19 +87,13 @@ public class PitchLessThanPredicateTest {
                 newTrack, is(notNullValue()));
 
         List<MIDINote> expectedNotes = Lists.newArrayList(
-                new MIDINote(Pitch.C5),
-                new MIDINote(Pitch.CS5),
-                new MIDINote(Pitch.F4));
+                new MIDINote(Pitch.F5),
+                new MIDINote(Pitch.FS5));
 
         logger.debug("notes size is {}", newTrack.getNotes().size());
         logger.debug("notes {}", newTrack.getNotes());
 
         int index = 0;
-        assertThat(
-                "note is correct",
-                newTrack.getNotes().get(index).getMidiNumber(),
-                is(equalTo(expectedNotes.get(index).getMidiNumber())));
-        index++;
         assertThat(
                 "note is correct",
                 newTrack.getNotes().get(index).getMidiNumber(),
