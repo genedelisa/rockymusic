@@ -20,7 +20,6 @@ package com.rockhoppertech.music.midi.js;
  * #L%
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Shoves data directly to a channel on a device. No real timing. Useful for GUI
  * things like keyboards or sliders.
+ * 
  * <pre>
 MIDINote note = MIDINoteBuilder.create()
                 .channel(0)
@@ -53,11 +53,13 @@ MIDINote note = MIDINoteBuilder.create()
 MIDISender sender = new MIDISender();
 sender.play(note);
 sender.closeDevice();
- </pre>                                         
+ </pre>
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
+
 public class MIDISender {
     /**
      * 
@@ -86,21 +88,24 @@ public class MIDISender {
             logger.error(e.getMessage(), e);
         }
     }
-    
+
     /**
      * Plays on the specified MIDI device.
-     * @param midiDevice the device to play on.
+     * 
+     * @param midiDevice
+     *            the device to play on.
      */
     public MIDISender(MidiDevice midiDevice) {
         this.midiDevice = midiDevice;
     }
 
-   
-
     public void play(MIDINote note) {
         this.openDevice();
         this.sleepValue = (long) (note.getDuration() * 1000L);
-        this.sendMessage(note.getMidiNumber(), note.getVelocity(), note.getProgram());
+        this.sendMessage(
+                note.getMidiNumber(),
+                note.getVelocity(),
+                note.getProgram());
         // this.closeDevice();
     }
 
@@ -108,7 +113,66 @@ public class MIDISender {
         this.sendMessage(num, 0, sendVelocity);
     }
 
-    public void sendMessage(final int midiPitchNumber, final int velocity, final int program) {
+    public void sendNoteOn(final int midiPitchNumber, final int velocity) {
+        if (!midiDevice.isOpen()) {
+            this.openDevice();
+        }
+        if (this.channel != null) {
+            logger.debug("using channel");
+            this.channel.noteOn(midiPitchNumber, velocity);
+        } else {
+            logger.debug("not using channel");
+        }
+        if (this.receivers != null && this.receivers.isEmpty() == false) {
+            ShortMessage sm = new ShortMessage();
+            try {
+                sm.setMessage(
+                        ShortMessage.NOTE_ON,
+                        sendChannel,
+                        midiPitchNumber,
+                        sendVelocity);
+            } catch (InvalidMidiDataException e1) {
+                e1.printStackTrace();
+                logger.error(e1.getLocalizedMessage(), e1);
+            }
+            for (Receiver r : receivers) {
+                logger.debug("sending to receiver {}", sm);
+                r.send(sm, this.midiDevice.getMicrosecondPosition());
+            }
+        }
+    }
+
+    public void sendNoteOff(final int midiPitchNumber) {
+        if (!midiDevice.isOpen()) {
+            this.openDevice();
+        }
+        if (this.channel != null) {
+            logger.debug("using channel");
+            this.channel.noteOff(midiPitchNumber);
+        } else {
+            logger.debug("not using channel");
+        }
+        if (this.receivers != null && this.receivers.isEmpty() == false) {
+            ShortMessage sm = new ShortMessage();
+            try {
+                sm.setMessage(
+                        ShortMessage.NOTE_OFF,
+                        sendChannel,
+                        midiPitchNumber,
+                        sendVelocity);
+            } catch (InvalidMidiDataException e1) {
+                e1.printStackTrace();
+                logger.error(e1.getLocalizedMessage(), e1);
+            }
+            for (Receiver r : receivers) {
+                logger.debug("sending to receiver {}", sm);
+                r.send(sm, this.midiDevice.getMicrosecondPosition());
+            }
+        }
+    }
+
+    public void sendMessage(final int midiPitchNumber, final int velocity,
+            final int program) {
         // Timer timer = new Timer();
         // timer.schedule(new TimerTask() {
         // @Override
@@ -152,7 +216,10 @@ public class MIDISender {
             // }
 
             try {
-                sm.setMessage(ShortMessage.NOTE_ON, sendChannel, midiPitchNumber,
+                sm.setMessage(
+                        ShortMessage.NOTE_ON,
+                        sendChannel,
+                        midiPitchNumber,
                         sendVelocity);
             } catch (InvalidMidiDataException e1) {
                 e1.printStackTrace();
@@ -174,7 +241,11 @@ public class MIDISender {
 
             // turn it off
             try {
-                sm.setMessage(ShortMessage.NOTE_ON, sendChannel, midiPitchNumber, 0);
+                sm.setMessage(
+                        ShortMessage.NOTE_ON,
+                        sendChannel,
+                        midiPitchNumber,
+                        0);
             } catch (InvalidMidiDataException e) {
                 e.printStackTrace();
             }
@@ -190,7 +261,7 @@ public class MIDISender {
     }
 
     public Instrument[] openDevice() {
-        Instrument[] insts =  new Instrument[1];
+        Instrument[] insts = new Instrument[1];
         if (this.midiDevice == null) {
             logger.debug("midi device is null! Using default synthesizer.");
             try {
@@ -234,7 +305,7 @@ public class MIDISender {
     }
 
     public void closeDevice() {
-        if(this.midiDevice == null) {
+        if (this.midiDevice == null) {
             return;
         }
         logger.debug("Closing device {}",
@@ -252,7 +323,8 @@ public class MIDISender {
     }
 
     /**
-     * @param inst the instrument
+     * @param inst
+     *            the instrument
      * @return the instrument
      */
     public Instrument setInstrument(Instrument inst) {
@@ -286,7 +358,9 @@ public class MIDISender {
 
     /**
      * Sends a program change message.
-     * @param num the program number
+     * 
+     * @param num
+     *            the program number
      */
     public void setProgram(int num) {
         logger.debug("sending pchange {}", num);
@@ -309,9 +383,7 @@ public class MIDISender {
             for (Receiver r : receivers) {
                 r.send(sm, this.midiDevice.getMicrosecondPosition());
             }
-
         }
-
     }
 
     /**
@@ -400,7 +472,8 @@ public class MIDISender {
     /**
      * doesn't work.
      * 
-     * @param myReceiver a JavaSound Receiver
+     * @param myReceiver
+     *            a JavaSound Receiver
      */
     // TODO fix this
     public void addReceiver(Receiver myReceiver) {
