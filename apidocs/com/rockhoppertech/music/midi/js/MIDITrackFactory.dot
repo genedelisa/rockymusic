@@ -30,20 +30,20 @@ digraph G {
 <tr><td align="center" balign="center"> MIDITrackFactory </td></tr>
 		</table></td></tr>
 		</table>>, URL="./MIDITrackFactory.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c6605:p -> c6571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
-	c6605:p -> c6571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Predicate<T>
 	c6605:p -> c6669:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
+	c6605:p -> c6571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.collections.CircularList<E>
+	c6605:p -> c6571:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
+	c6605:p -> c6670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.rockhoppertech.music.Pitch
 	c6605:p -> c6586:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
+	c6605:p -> c6670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Predicate<T>
 	c6605:p -> c6669:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
-	c6605:p -> c6670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.MIDITrackFactory DEPEND com.google.common.base.Function<F, T>
-	c6605:p -> c6670:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.google.common.base.Predicate<T>
 	c6669 [label=<<table title="com.google.common.base.Predicate" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/Predicate.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">

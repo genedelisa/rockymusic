@@ -94,9 +94,9 @@ digraph G {
 	c10663:p -> c10602:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.modifiers.DurationModifier DEPEND com.rockhoppertech.music.Timed
 	c10663:p -> c10593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
-	c10674:p -> c10593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.modifiers.TimedModifier
 	c10674:p -> c10654:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.series.time.TimeSeries DEPEND com.rockhoppertech.music.Timed
+	c10674:p -> c10593:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

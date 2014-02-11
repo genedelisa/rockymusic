@@ -29,9 +29,9 @@ digraph G {
 <tr><td align="center" balign="center"><font point-size="7.0"> com.rockhoppertech.music.scale </font></td></tr>
 		</table></td></tr>
 		</table>>, URL="../scale/Scale.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.rockhoppertech.music.chord.ChordFactory DEPEND com.rockhoppertech.music.scale.Scale
-	c2674:p -> c2756:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.ChordFactory DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c2674:p -> c2701:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.chord.ChordFactory DEPEND com.rockhoppertech.music.scale.Scale
+	c2674:p -> c2756:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

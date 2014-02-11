@@ -24,9 +24,9 @@ digraph G {
 		</table>>, URL="./MIDITrackXMLHelper.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND org.w3c.dom.Element
 	c6840:p -> c6871:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND org.w3c.dom.Node
-	c6840:p -> c6872:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND org.w3c.dom.Document
+	c6840:p -> c6872:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND org.w3c.dom.Node
 	c6840:p -> c6873:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.MIDITrackXMLHelper DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c6840:p -> c6809:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
@@ -39,7 +39,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Element.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// org.w3c.dom.Document
-	c6873 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
+	c6872 [label=<<table title="org.w3c.dom.Document" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Document </td></tr>
@@ -47,7 +47,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, URL="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html", fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// org.w3c.dom.Node
-	c6872 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
+	c6873 [label=<<table title="org.w3c.dom.Node" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Node </td></tr>

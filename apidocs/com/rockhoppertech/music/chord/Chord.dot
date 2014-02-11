@@ -54,17 +54,17 @@ digraph G {
 	c2476:p -> c2471:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 	// com.rockhoppertech.music.chord.ChordVoicing DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c2471:p -> c2501:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.scale.Scale
-	c2473:p -> c2556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c2473:p -> c2501:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.scale.Scale
-	c2476:p -> c2556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.chord.ChordProgression DEPEND com.rockhoppertech.music.scale.Scale
+	c2473:p -> c2556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.midi.js.MIDITrack
 	c2476:p -> c2501:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.ChordProgression
-	c2533:p -> c2473:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.chord.Chord DEPEND com.rockhoppertech.music.scale.Scale
+	c2476:p -> c2556:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.Chord
 	c2533:p -> c2476:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.rockhoppertech.music.midi.js.xml.ChordFactoryXMLHelper DEPEND com.rockhoppertech.music.chord.ChordProgression
+	c2533:p -> c2473:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 
