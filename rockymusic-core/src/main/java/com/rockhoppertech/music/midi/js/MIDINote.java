@@ -33,11 +33,16 @@ import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
 import com.rockhoppertech.music.midi.parse.MIDIStringParser;
 
-/**
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
- */
 
+
+/** 
+ * A Note subclass with MIDI paramters.
+ * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * 
+ * @see Note
+ *
+ */
 public class MIDINote extends Note {
     private static final long serialVersionUID = 1L;
 
@@ -191,6 +196,7 @@ public class MIDINote extends Note {
         velocity = n.getVelocity();
         pitchbend = n.getPitchBend();
         voice = n.getVoice();
+        setSpelling(n.getSpelling());
     }
 
     /**
@@ -211,7 +217,9 @@ public class MIDINote extends Note {
      * <blockquote>
      * 
      * <pre>
+     * <code>
      * MIDINote n1 = new MIDINote(PitchFactory.getPitch(Pitch.C5));
+     * </code>
      * </pre>
      * 
      * </blockquote>
@@ -249,6 +257,7 @@ public class MIDINote extends Note {
         this(PitchFactory.getPitchByName(pitch).getMidiNumber(), startbeat,
                 duration, defaultChannel, defaultVelocity, defaultProgram,
                 defaultBend, defaultBank, defaultVoice);
+        this.setSpelling (pitch);
     }
 
     public MIDINote(final String pitch, final double startbeat,
@@ -257,6 +266,7 @@ public class MIDINote extends Note {
         this(PitchFactory.getPitchByName(pitch).getMidiNumber(), startbeat,
                 duration, chan, velocity, program, bend, defaultBank,
                 defaultVoice);
+        this.setSpelling (pitch);
     }
 
     /**
@@ -294,6 +304,7 @@ public class MIDINote extends Note {
                 getStartBeat(), getDuration(), channel,
                 velocity, program, pitchbend, bank,
                 voice);
+        clone.setSpelling(this.getSpelling());
         return clone;
     }
 
@@ -541,7 +552,8 @@ public class MIDINote extends Note {
         sb.append("(").append(MIDIGMPatch.getName(program)).append(") ");
         sb.append("pitchbend: ").append(pitchbend).append(' ');
         sb.append("voice: ").append(voice).append(' ');
-        sb.append("pan: ").append(pan).append(' ');        
+        sb.append("pan: ").append(pan).append(' ');    
+        sb.append("spelling: ").append(this.getSpelling()).append(' ');  
         if (this.midiTrack != null) {
             String s = this.midiTrack.getName();
             if(s == null) s = "unnamed track";

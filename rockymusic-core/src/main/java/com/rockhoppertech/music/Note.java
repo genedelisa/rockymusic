@@ -75,6 +75,11 @@ public class Note implements Comparable<Note>, Timed, Serializable {
     // these are optional
     private double endBeat;
 
+    /**
+     * Hint to notation. e.g. Is it G# or Ab?
+     */
+    private String spelling;
+    
     protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
     /**
      * Name of the bound property, also XML attributes.
@@ -96,6 +101,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         duration = 1d;
         pitch = PitchFactory.getPitch(Pitch.C5);
         endBeat = startBeat + duration;
+        this.spelling = pitch.getPreferredSpelling();
     }
 
     /**
@@ -121,6 +127,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
     public Note(final int midiNumber, final double startBeat,
             final double duration) {
         this(PitchFactory.getPitch(midiNumber), startBeat, duration);
+        this.spelling = pitch.getPreferredSpelling();
     }
 
     /**
@@ -138,6 +145,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         setStartBeat(startBeat);
         endBeat = startBeat + duration;
         this.duration = duration;
+        this.spelling = pitch.getPreferredSpelling();
     }
 
     /**
@@ -156,6 +164,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         setStartBeat(startBeat);
         endBeat = startBeat + duration;
         this.duration = duration;
+        this.spelling = pitch;
     }
 
     /**
@@ -170,6 +179,7 @@ public class Note implements Comparable<Note>, Timed, Serializable {
         this.pitch = note.pitch;
         this.rest = note.rest;
         this.endBeat = note.endBeat;
+        this.spelling = note.spelling;
     }
 
     /*
@@ -561,6 +571,20 @@ public class Note implements Comparable<Note>, Timed, Serializable {
     @Override
     public Timed duplicate() {
         return new Note(this);
+    }
+
+    /**
+     * @return the spelling
+     */
+    public String getSpelling() {
+        return spelling;
+    }
+
+    /**
+     * @param spelling the spelling to set
+     */
+    public void setSpelling(String spelling) {
+        this.spelling = spelling;
     }
 
 }
