@@ -60,6 +60,7 @@ public class NotationView {
     private Font font;
     private Pane canvasPane;
     private StaffModel staffModel;
+
     // private NotationController controller;
 
     public NotationView(StaffModel staffModel) {
@@ -77,7 +78,7 @@ public class NotationView {
                     }
                 });
 
-        this.canvas = new Canvas(1300, 300);
+        this.canvas = new Canvas(2300, 300);
         this.canvas.setCursor(Cursor.CROSSHAIR);
         this.canvas.setOpacity(1d);
 
@@ -100,9 +101,9 @@ public class NotationView {
 
         // ScrollPane sp = new ScrollPane();
         // sp.setContent(this.canvas);
-       // canvasPane.getChildren().add(canvas);
-      //  canvas.widthProperty().bind(canvasPane.widthProperty());
-//        canvas.heightProperty().bind(canvasPane.heightProperty());
+        // canvasPane.getChildren().add(canvas);
+        // canvas.widthProperty().bind(canvasPane.widthProperty());
+        // canvas.heightProperty().bind(canvasPane.heightProperty());
 
         drawStaff();
 
@@ -151,22 +152,24 @@ public class NotationView {
             break;
         }
 
-        // String staff = SymbolFactory.staff5Lines();
-        // double inc = fontSize / 2d;
-        // for (double xx = x; xx < 1250; xx += inc) {
-        // gc.fillText(staff, xx, y);
-        // }
+        logger.debug("canvas width {}", canvas.getWidth());
+        String staff = SymbolFactory.staff5Lines();
+        double inc = staffModel.getFontSize() / 2d;
+        double width = canvas.getWidth();
+        for (double xx = x; xx < width; xx += inc) {
+            gc.fillText(staff, xx, y);
+        }
 
         // TODO why is this gray and not black?
-        gc.setLineWidth(SymbolFactory.getStaffLineThickness());
-        gc.setStroke(Color.BLACK);
-        gc.setFill(Color.BLACK);
-        gc.setLineCap(StrokeLineCap.ROUND);
-        gc.setLineJoin(StrokeLineJoin.ROUND);
-        for (int i = 0; i < 5; i++) {
-            double yy = y - i * staffModel.getLineInc();
-            gc.strokeLine(x, yy, 1250d, yy);
-        }
+        // gc.setLineWidth(SymbolFactory.getStaffLineThickness());
+        // gc.setStroke(Color.BLACK);
+        // gc.setFill(Color.BLACK);
+        // gc.setLineCap(StrokeLineCap.ROUND);
+        // gc.setLineJoin(StrokeLineJoin.ROUND);
+        // for (int i = 0; i < 5; i++) {
+        // double yy = y - i * staffModel.getLineInc();
+        // gc.strokeLine(x, yy, 2500d, yy);
+        // }
     }
 
     public Pane getCanvasPane() {
@@ -203,8 +206,6 @@ public class NotationView {
         // shapeRenderer.render(shape, gc);
         // }
     }
-
-   
 
     public Canvas getCanvas() {
         return this.canvas;
