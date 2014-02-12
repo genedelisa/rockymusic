@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * </p>
  * 
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * @version 1.0 Mon Aug 10, 1998
  * @see com.rockhoppertech.music.PitchFactory
  * @see com.rockhoppertech.music.PitchFormat
@@ -1724,6 +1724,14 @@ public class Pitch implements Serializable, Comparable<Pitch> {
      * @return the preferredSpelling
      */
     public String getPreferredSpelling() {
+        if (preferredSpelling == null || preferredSpelling.equals("")) {
+            logger.debug(
+                    "preferred spelling empty for pitch {}",
+                    this.midiNumber);
+            preferredSpelling = PitchFormat.getInstance().format(
+                    this.midiNumber);
+        }
+
         return preferredSpelling;
     }
 
