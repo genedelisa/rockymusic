@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
@@ -58,7 +59,7 @@ public class StaffSymbolManager {
             // addLedgers(note, x);
 
             // some padding between the symbols
-            x += staffModel.getFontSize() /2d;
+            x += staffModel.getFontSize() / 2d;
         }
     }
 
@@ -324,38 +325,110 @@ public class StaffSymbolManager {
         // double lx = staffModel.getFontSize() / 4.3;
         double lx = staffModel.stringWidth(line) / 4d;
 
-        if (pitch < Pitch.CS5) {
-            int nledgers = staffModel.getNumberOfLedgers(pitch,
-                    useFlat);
-            logger.debug("there are {} ledgers for pitch {}",
-                    nledgers, pitch);
+        if (staffModel.getClef() == Clef.TREBLE) {
+            if (pitch < Pitch.CS5) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
 
-            for (int i = 0; i < nledgers; i++) {
-                double ly = (staffBottom + lineinc + lineinc * i);
-                logger.debug("ledger y {}", ly);
-                // StaffSymbol symbol = new StaffSymbol(x, ly,
-                // SymbolFactory.staff1Line());
-                // StaffSymbol symbol = new StaffSymbol(x, ly,
-                // SymbolFactory.unicodeToString(0x005F));
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffBottom + lineinc + lineinc * i);
+                    logger.debug("ledger y {}", ly);
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.staff1Line());
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.unicodeToString(0x005F));
 
-                ly += lineinc * 2d; // 1linestaff kludge
-                StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                symbols.add(symbol);
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
             }
-        }
 
-        if (pitch > Pitch.FS6) {
-            int nledgers = staffModel.getNumberOfLedgers(pitch,
-                    useFlat);
-            logger.debug("there are {} ledgers for pitch {}",
-                    nledgers, pitch);
+            if (pitch > Pitch.FS6) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
 
-            for (int i = 0; i < nledgers; i++) {
-                double ly = (staffTop - lineinc - lineinc * i);
-                ly += lineinc * 2d; // 1linestaff kludge
-                logger.debug("ledger y {}", ly);
-                StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                symbols.add(symbol);
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffTop - lineinc - lineinc * i);
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    logger.debug("ledger y {}", ly);
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
+            }
+        } else if (staffModel.getClef() == Clef.BASS) {
+            if (pitch < Pitch.F3) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
+
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffBottom + lineinc + lineinc * i);
+                    logger.debug("ledger y {}", ly);
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.staff1Line());
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.unicodeToString(0x005F));
+
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
+            }
+
+            if (pitch > Pitch.B4) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
+
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffTop - lineinc - lineinc * i);
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    logger.debug("ledger y {}", ly);
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
+            }
+        } else if (staffModel.getClef() == Clef.ALTO) {
+            if (pitch < Pitch.E4) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
+
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffBottom + lineinc + lineinc * i);
+                    logger.debug("ledger y {}", ly);
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.staff1Line());
+                    // StaffSymbol symbol = new StaffSymbol(x, ly,
+                    // SymbolFactory.unicodeToString(0x005F));
+
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
+            }
+
+            if (pitch > Pitch.A5) {
+                int nledgers = staffModel.getNumberOfLedgers(pitch,
+                        useFlat);
+                logger.debug("there are {} ledgers for pitch {}",
+                        nledgers, pitch);
+
+                for (int i = 0; i < nledgers; i++) {
+                    double ly = (staffTop - lineinc - lineinc * i);
+                    ly += lineinc * 2d; // 1linestaff kludge
+                    logger.debug("ledger y {}", ly);
+                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    symbols.add(symbol);
+                }
             }
         }
 
