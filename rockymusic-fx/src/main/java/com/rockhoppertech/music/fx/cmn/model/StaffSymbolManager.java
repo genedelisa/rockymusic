@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
-import com.rockhoppertech.music.fx.cmn.NotationView;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
@@ -52,12 +51,14 @@ public class StaffSymbolManager {
         double x = staffModel.getStartX() + 1d * staffModel.getFontSize();
         symbols.clear();
         for (MIDINote note : track) {
-            StaffSymbol symbol = createSymbol(
-                    note,
-                    x);
-            symbols.add(symbol);
-            addLedgers(note, x);
-            x += staffModel.getFontSize();
+
+            x = createSymbol(note, x);
+            // damn. the ledger will be on an augmentation dot since the
+            // returned x includes that.
+            // addLedgers(note, x);
+
+            // some padding between the symbols
+            x += staffModel.getFontSize() /2d;
         }
     }
 
@@ -73,30 +74,14 @@ public class StaffSymbolManager {
      *            the x locaiton where this symbol will appear
      * @return a StaffSymbol
      */
-    private static StaffSymbol createSymbol(final MIDINote note, double x) {
+    private static double createSymbol(final MIDINote note, double x) {
         int pitch = note.getPitch().getMidiNumber();
         double duration = note.getDuration();
         String glyph = "";
-        float advance = 0f;
 
-        // 1 determine stem direction
-        // 2 get accidental
+        // 1 get accidental
+        // 2 determine stem direction
         // 3 get duration
-
-        boolean stemUp = true;
-        // if (pitch < Pitch.C5) {
-        // if (pitch < Pitch.C4) {
-        // stemUp = true;
-        // } else {
-        // stemUp = false;
-        // }
-        // } else {
-        // if (pitch < Pitch.A5) {
-        // stemUp = true;
-        // } else {
-        // stemUp = false;
-        // }
-        // }
 
         // for non accidentals.
         double y = staffModel.getYpositionForPitch(pitch, true);
@@ -105,11 +90,8 @@ public class StaffSymbolManager {
             glyph = glyph + SymbolFactory.flat();
             logger.debug("is flat");
             y = staffModel.getYpositionForPitch(pitch, true);
-
-            // TODO try this instead
-            // advance += fm.charWidth(flat);
-            advance += staffModel.stringWidth(SymbolFactory.flat());
-            // symbols.add(new StaffSymbol(x, y, SymbolFactory.flat()));
+            x += staffModel.stringWidth(SymbolFactory.flat());
+            symbols.add(new StaffSymbol(x, y, SymbolFactory.flat()));
         }
 
         if (isSpellingSharp(note)) {
@@ -119,6 +101,7 @@ public class StaffSymbolManager {
         }
 
         double center = staffModel.getStaffCenterLine();
+        boolean stemUp = true;
         if (y < center) {
             stemUp = false;
         } else {
@@ -132,60 +115,98 @@ public class StaffSymbolManager {
         // whole
         if (duration - 4d >= 0d) {
             duration -= 4d;
-            glyph = glyph + SymbolFactory.noteWhole();
+            glyph = SymbolFactory.noteWhole();
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         // dotted half
         if (duration - 3d >= 0d) {
             duration -= 3d;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteHalfUp();
+                glyph = SymbolFactory.noteHalfUp();
             } else {
-                glyph = glyph + SymbolFactory.noteHalfDown();
+                glyph = SymbolFactory.noteHalfDown();
             }
-            glyph = glyph + SymbolFactory.augmentationDot();
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
+
+            // get the x for the note and add it, not the dot's x
+            x += staffModel.stringWidth(glyph);
+            glyph = SymbolFactory.augmentationDot();
+            // now add a bit of space between the note and the dot
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
         }
 
         // half
         if (duration - 2d >= 0d) {
             duration -= 2d;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteHalfUp();
+                glyph = SymbolFactory.noteHalfUp();
             } else {
-                glyph = glyph + SymbolFactory.noteHalfDown();
+                glyph = SymbolFactory.noteHalfDown();
             }
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         // dotted quarter
         if (duration - 1.5 >= 0d) {
             duration -= 1.5;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteQuarterUp();
+                glyph = SymbolFactory.noteQuarterUp();
             } else {
-                glyph = glyph + SymbolFactory.noteQuarterDown();
+                glyph = SymbolFactory.noteQuarterDown();
             }
-            glyph = glyph + SymbolFactory.augmentationDot();
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+
+            addLedgers(note, x);
+
+            // get the x for the note and add it, not the dot's x
+            x += staffModel.stringWidth(glyph);
+            glyph = SymbolFactory.augmentationDot();
+            // now add a bit of space between the note and the dot
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
         }
 
         // quarter
         if (duration - 1d >= 0d) {
             duration -= 1d;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteQuarterUp();
+                glyph = SymbolFactory.noteQuarterUp();
             } else {
-                glyph = glyph + SymbolFactory.noteQuarterDown();
+                glyph = SymbolFactory.noteQuarterDown();
             }
             logger.debug("quarter note. remainder {}", duration);
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
         // dotted eighth
         if (duration - .75 >= 0d) {
             duration -= .75;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.note8thUp();
+                glyph = SymbolFactory.note8thUp();
             } else {
-                glyph = glyph + SymbolFactory.note8thDown();
+                glyph = SymbolFactory.note8thDown();
             }
-            glyph = glyph + SymbolFactory.augmentationDot();
+
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
+
+            // get the x for the note and add it, not the dot's x
+            x += staffModel.stringWidth(glyph);
+            glyph = SymbolFactory.augmentationDot();
+            // now add a bit of space between the note and the dot
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
             logger.debug("dotted eighth note. remainder {}", duration);
         }
 
@@ -194,55 +215,69 @@ public class StaffSymbolManager {
         if (duration - qtriplet >= 0d) {
             duration -= qtriplet;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteQuarterUp();
+                glyph = SymbolFactory.noteQuarterUp();
             } else {
-                glyph = glyph + SymbolFactory.noteQuarterDown();
+                glyph = SymbolFactory.noteQuarterDown();
             }
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         // eighth
         if (duration - .5 >= 0d) {
             duration -= .5;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.note8thUp();
+                glyph = SymbolFactory.note8thUp();
             } else {
-                glyph = glyph + SymbolFactory.note8thDown();
+                glyph = SymbolFactory.note8thDown();
             }
             logger.debug("eighth note. remainder {}", duration);
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         // 16th
         if (duration - .25 >= 0d) {
             duration -= .25;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.note16thUp();
+                glyph = SymbolFactory.note16thUp();
             } else {
-                glyph = glyph + SymbolFactory.note16thDown();
+                glyph = SymbolFactory.note16thDown();
             }
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         double etriplet = 1d / 3d;
         if (duration - etriplet >= 0d) {
             duration -= etriplet;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.note8thUp();
+                glyph = SymbolFactory.note8thUp();
             } else {
-                glyph = glyph + SymbolFactory.note8thDown();
+                glyph = SymbolFactory.note8thDown();
             }
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
         // 32nd
         if (duration - .1875 >= 0) {
             duration -= .1875;
             if (stemUp) {
-                glyph = glyph + SymbolFactory.noteheadBlack();
+                glyph = SymbolFactory.noteheadBlack();
             } else {
-                glyph = glyph + SymbolFactory.noteheadBlack();
+                glyph = SymbolFactory.noteheadBlack();
             }
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
+            addLedgers(note, x);
         }
 
-        StaffSymbol symbol = new StaffSymbol(x, y, glyph);
-        return symbol;
+        return x;
     }
 
     public static final boolean isSpellingFlat(MIDINote note) {
@@ -267,8 +302,9 @@ public class StaffSymbolManager {
         // String line = SymbolFactory.unicodeToString(94);
         // line = "___";
 
-        // this seems to be the only one that actually draws
-        String line = SymbolFactory.staff1LineWide();
+        // these seem to be the only ones that actually draw
+        String line = SymbolFactory.staff1Line();
+        // String line = SymbolFactory.staff1LineWide();
 
         double lineinc = staffModel.getLineInc();
         double staffBottom = staffModel.getStaffBottom();
@@ -284,10 +320,9 @@ public class StaffSymbolManager {
             useFlat = false;
         }
 
-        // TODO the ledger x is wrong if there is an accidental
-
         // lacking fontmetrics, we guess at centering the ledger
-        double lx = staffModel.getFontSize() / 4.3;
+        // double lx = staffModel.getFontSize() / 4.3;
+        double lx = staffModel.stringWidth(line) / 4d;
 
         if (pitch < Pitch.CS5) {
             int nledgers = staffModel.getNumberOfLedgers(pitch,
