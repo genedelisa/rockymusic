@@ -377,7 +377,7 @@
 							<configuration>
 								<skip>${checkstyle.skip}</skip>
 								<aggregate>true</aggregate>
-								<configLocation>checkstyle-rockhopper.xml</configLocation>
+								<configLocation>analysis/checkstyle-rockhopper.xml</configLocation>
 								<failsOnError>false</failsOnError>
 								<enableRulesSummary>true</enableRulesSummary>
 								<includeTestSourceDirectory>true</includeTestSourceDirectory>
