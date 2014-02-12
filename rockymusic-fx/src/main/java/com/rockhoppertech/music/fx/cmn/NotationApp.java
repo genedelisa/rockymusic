@@ -26,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.SceneBuilder;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBuilder;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextAreaBuilder;
@@ -63,7 +64,8 @@ public class NotationApp extends Application {
 
     private NotationController controller;
     private StaffModel staffModel;
-    private NotationView view;
+    //private NotationView view;
+    private NotationCanvas view;
 
     // private static ObservableList<MIDINote> tableDataList;
 
@@ -84,7 +86,7 @@ public class NotationApp extends Application {
                 .build();
         System.out.println(track);
         this.staffModel.setTrack(track);
-        this.view = new NotationView(this.staffModel);
+        this.view = new NotationCanvas(this.staffModel);
         this.controller = new NotationController(staffModel, view);
         this.view.repaintCanvas();
 
@@ -133,13 +135,27 @@ public class NotationApp extends Application {
                 .build();
         controller.setNoteStringButton(b);
         
+        final ComboBox<String> clefComboBox = new ComboBox<>();
+        clefComboBox.getItems().addAll(
+                "Treble",
+                "Bass",
+                "Alto"
+                );
+       // clefComboBox.setValue("Treble");
+        clefComboBox.getSelectionModel().selectFirst(); 
+        controller.setClefCombBox(clefComboBox);
+        
+        FXTextAreaReceiver receiver = new FXTextAreaReceiver();
+        controller.addReceiver(receiver);
+        
         VBox vbox = VBoxBuilder.create()
                 .padding(new Insets(20))
-                .children(textArea, b)
+                .children(textArea, b, clefComboBox, receiver)
                 .build();
 
         ScrollPane sp = new ScrollPane();
-        sp.setContent(view.getCanvas());
+        //sp.setContent(view.getCanvas());
+        sp.setContent(view);
         sp.setPrefSize(1300, 300);
 
         BorderPane bp = BorderPaneBuilder.create()

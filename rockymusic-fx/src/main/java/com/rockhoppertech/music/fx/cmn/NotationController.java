@@ -24,10 +24,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+import javax.sound.midi.Receiver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.ConsoleReceiver;
 import com.rockhoppertech.music.midi.js.MIDISender;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -45,7 +49,7 @@ public class NotationController {
             .getLogger(NotationController.class);
 
     StaffModel model;
-    NotationView view;
+    NotationCanvas view;
     Stage stage;
     MIDISender midiSender;
 
@@ -57,13 +61,13 @@ public class NotationController {
      * @param model
      * @param view
      */
-    public NotationController(StaffModel model, NotationView view) {
+    public NotationController(StaffModel model, NotationCanvas view) {
         this.model = model;
         this.view = view;
         this.midiSender = new MIDISender();
-        this.midiSender.addReceiver(new ConsoleReceiver());
-        //
-        this.setCanvas(this.view.getCanvas());
+        //this.midiSender.addReceiver(new ConsoleReceiver());
+
+        this.setCanvas(this.view);
     }
 
     public void setFontSize(double fontSize) {
@@ -75,7 +79,7 @@ public class NotationController {
     public void mousePressed(MouseEvent evt) {
         pitch = model.whichNote(evt.getY());
         this.midiSender.sendNoteOn(pitch, 64);
-        Pitch p= PitchFactory.getPitch(pitch);
+        Pitch p = PitchFactory.getPitch(pitch);
         String s = p.getPreferredSpelling() + " ";
         textArea.appendText(s);
         model.addNote(pitch);
@@ -164,6 +168,7 @@ public class NotationController {
     }
 
     Button noteStringButton;
+
     public void setNoteStringButton(Button b) {
         this.noteStringButton = b;
         this.noteStringButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -172,7 +177,33 @@ public class NotationController {
                 notestringAction(event);
             }
         });
-        
+
+    }
+
+    ComboBox<String> clefComboBox;
+
+    public void setClefCombBox(ComboBox<String> clefComboBox) {
+        this.clefComboBox = clefComboBox;
+        clefComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String sel = NotationController.this.clefComboBox
+                        .getSelectionModel().getSelectedItem();
+                if (sel.equals("Treble")) {
+                    model.setClef(Clef.TREBLE);
+                } else if (sel.equals("Bass")) {
+                    model.setClef(Clef.BASS);
+                } else if (sel.equals("Alto")) {
+                    model.setClef(Clef.ALTO);
+                }
+            }
+        });
+
+    }
+
+
+    public void addReceiver(Receiver receiver) {
+        this.midiSender.addReceiver(receiver);
     }
 
 }
