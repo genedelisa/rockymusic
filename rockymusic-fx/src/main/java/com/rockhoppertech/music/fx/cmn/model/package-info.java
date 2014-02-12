@@ -1,10 +1,10 @@
 /**
- * Common Music Notation classes.
+ * Common Music Notation model classes.
  * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  *
  */
-package com.rockhoppertech.music.fx.musicfont;
+package com.rockhoppertech.music.fx.cmn.model;
 
 /*
  * #%L

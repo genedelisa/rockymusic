@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont;
+package com.rockhoppertech.music.fx.cmn;
 
 /*
  * #%L
@@ -20,17 +20,21 @@ package com.rockhoppertech.music.fx.musicfont;
  * #L%
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import com.rockhoppertech.music.fx.musicfont.model.StaffModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.midi.js.ConsoleReceiver;
 import com.rockhoppertech.music.midi.js.MIDISender;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -71,6 +75,10 @@ public class NotationController {
     public void mousePressed(MouseEvent evt) {
         pitch = model.whichNote(evt.getY());
         this.midiSender.sendNoteOn(pitch, 64);
+        Pitch p= PitchFactory.getPitch(pitch);
+        String s = p.getPreferredSpelling() + " ";
+        textArea.appendText(s);
+        model.addNote(pitch);
     }
 
     public void mouseReleased(MouseEvent evt) {
@@ -119,8 +127,8 @@ public class NotationController {
 
     }
 
-    public void notestringTextFieldAction(ActionEvent event) {
-        String ns = textField.getText();
+    public void notestringAction(ActionEvent event) {
+        String ns = textArea.getText();
         MIDITrack track = MIDITrackBuilder
                 .create()
                 .noteString(ns)
@@ -138,9 +146,33 @@ public class NotationController {
         this.textField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                notestringTextFieldAction(event);
+                notestringAction(event);
             }
         });
+    }
+
+    TextArea textArea;
+
+    public void setTextArea(TextArea textArea) {
+        this.textArea = textArea;
+        this.textField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                notestringAction(event);
+            }
+        });
+    }
+
+    Button noteStringButton;
+    public void setNoteStringButton(Button b) {
+        this.noteStringButton = b;
+        this.noteStringButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                notestringAction(event);
+            }
+        });
+        
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rockhoppertech.music.fx.musicfont.model;
+package com.rockhoppertech.music.fx.cmn.model;
 
 /*
  * #%L
@@ -23,7 +23,6 @@ package com.rockhoppertech.music.fx.musicfont.model;
  * #L%
  */
 
-
 import java.util.List;
 
 import javafx.beans.property.DoubleProperty;
@@ -41,7 +40,7 @@ import com.rockhoppertech.music.Pitch;
 import static com.rockhoppertech.music.Pitch.*;
 
 import com.rockhoppertech.music.PitchFormat;
-import com.rockhoppertech.music.fx.musicfont.NotationApp;
+import com.rockhoppertech.music.fx.cmn.NotationApp;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.sun.javafx.tk.Toolkit;
 
@@ -333,7 +332,7 @@ public class StaffModel {
         this.calcStaffMetrics();
         setClef(this.clef);
         this.font = new Font("Bravura", fontSize);
-        
+
         // needed the first time.
         if (this.track != null) {
             StaffSymbolManager.setMIDITrack(this.track);
@@ -552,12 +551,27 @@ public class StaffModel {
         return fontSizeProperty;
     }
 
+    /**
+     * JavaFX 2 still does not have a FontMetrics class. This is a kludge.
+     * 
+     * @param string
+     *            a string
+     * @return the width
+     */
     public final float stringWidth(String string) {
         if (font == null) {
             return 0f;
         }
+
         return Toolkit.getToolkit().getFontLoader()
                 .computeStringWidth(string, font);
+
+    }
+
+    public void addNote(int midiNumber) {
+        this.trackProperty.get().append(midiNumber);
+        
+        //this.track.append(midiNumber);
 
     }
 

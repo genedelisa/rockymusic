@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont.model;
+package com.rockhoppertech.music.fx.cmn.model;
 
 /*
  * #%L
@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
-import com.rockhoppertech.music.fx.musicfont.NotationView;
+import com.rockhoppertech.music.fx.cmn.NotationView;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 

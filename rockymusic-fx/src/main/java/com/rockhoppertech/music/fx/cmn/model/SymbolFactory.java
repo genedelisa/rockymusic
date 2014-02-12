@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont.model;
+package com.rockhoppertech.music.fx.cmn.model;
 
 /*
  * #%L

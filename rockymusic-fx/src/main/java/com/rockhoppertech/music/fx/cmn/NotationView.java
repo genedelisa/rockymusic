@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont;
+package com.rockhoppertech.music.fx.cmn;
 
 /*
  * #%L
@@ -40,13 +40,15 @@ import javafx.scene.text.Font;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.fx.musicfont.model.StaffModel;
-import com.rockhoppertech.music.fx.musicfont.model.StaffSymbol;
-import com.rockhoppertech.music.fx.musicfont.model.SymbolFactory;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
+import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.sun.javafx.tk.Toolkit;
 
 /**
+ * A drawing Canvas with a staff and symbols.
+ * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
@@ -54,35 +56,16 @@ public class NotationView {
     private static final Logger logger = LoggerFactory
             .getLogger(NotationView.class);
 
-    // private NotationController controller;
     private Canvas canvas;
-    // double fontSize = 24d;
-    // double fontSize = 36d;
-    // double fontSize = 96d;
-   // private static double fontSize = 48d;
-    //DoubleProperty fontSizeProperty = new SimpleDoubleProperty();
-    
-    private static Font font;
+    private Font font;
     private Pane canvasPane;
     private StaffModel staffModel;
-
-//    static {
-//        // font = new Font("Bravura", fontSize);
-//        font = Font.loadFont(
-//                FontApp.class.getResource("/fonts/Bravura.otf")
-//                        .toExternalForm(),
-//                fontSize);
-//        if (font == null) {
-//            throw new IllegalStateException("music font not found");
-//        }
-//    }
+    // private NotationController controller;
 
     public NotationView(StaffModel staffModel) {
         this.staffModel = staffModel;
-        font = this.staffModel.getFont();
-        //this.staffModel.setFontSize(fontSize);
+        this.font = this.staffModel.getFont();
 
-        // add listeners to model properties
         this.staffModel.getTrackProperty().addListener(
                 new ChangeListener<MIDITrack>() {
                     @Override
@@ -117,7 +100,7 @@ public class NotationView {
 
         // ScrollPane sp = new ScrollPane();
         // sp.setContent(this.canvas);
-        canvasPane.getChildren().add(canvas);
+       // canvasPane.getChildren().add(canvas);
       //  canvas.widthProperty().bind(canvasPane.widthProperty());
 //        canvas.heightProperty().bind(canvasPane.heightProperty());
 

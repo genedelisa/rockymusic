@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont;
+package com.rockhoppertech.music.fx.cmn;
 
 /*
  * #%L
@@ -33,7 +33,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.rockhoppertech.music.fx.musicfont.model.SymbolFactory;
+import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 
 public class SwingMetricsDumper extends JPanel {
 
@@ -61,9 +61,17 @@ public class SwingMetricsDumper extends JPanel {
         }
         font = font.deriveFont(48f);
         FontMetrics fm = gc.getFontMetrics(font);
-        int i = 0xE050;
-        String s = SymbolFactory.unicodeToString(0xE050);
+        
+        String s = SymbolFactory.staff1Line();
         Rectangle2D b = fm.getStringBounds(s, gc);
+        System.err.println(b);
+        
+        s = SymbolFactory.noteQuarterDown();
+        b = fm.getStringBounds(s, gc);
+        System.err.println(b);
+        
+        s = SymbolFactory.noteQuarterUp();
+        b = fm.getStringBounds(s, gc);
         System.err.println(b);
 
     }

@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.musicfont;
+package com.rockhoppertech.music.fx.cmn;
 
 /*
  * #%L
@@ -21,8 +21,14 @@ package com.rockhoppertech.music.fx.musicfont;
  */
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.SceneBuilder;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBuilder;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextAreaBuilder;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFieldBuilder;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +36,8 @@ import javafx.scene.layout.AnchorPaneBuilder;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderPaneBuilder;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBoxBuilder;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -37,7 +45,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.fx.musicfont.model.StaffModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 
@@ -47,7 +55,8 @@ import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
  */
 public class NotationApp extends Application {
 
-    private static final Logger logger = LoggerFactory.getLogger(NotationApp.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(NotationApp.class);
     Stage stage;
     Scene scene;
     Pane root;
@@ -87,7 +96,7 @@ public class NotationApp extends Application {
     private void configureStage() {
         stage.setTitle("Music Notation");
 
-        fullScreen();
+       // fullScreen();
 
         stage.setScene(this.scene);
         controller.setStage(this.stage);
@@ -109,23 +118,46 @@ public class NotationApp extends Application {
                 .promptText("Enter a note string")
                 .build();
         controller.setTextField(text);
-         
+        
+        TextArea textArea = TextAreaBuilder.create()
+                .id("noteStringText")
+                .editable(true)
+                .promptText("Enter a note string")
+                .wrapText(true)
+                .build();
+        controller.setTextArea(textArea);
+        Button b = ButtonBuilder.create()
+                .id("noteStringButton")
+                .style("-fx-font: 22 arial; -fx-base: #1055FF;")
+                .text("Evaluate note string")
+                .build();
+        controller.setNoteStringButton(b);
+        
+        VBox vbox = VBoxBuilder.create()
+                .padding(new Insets(20))
+                .children(textArea, b)
+                .build();
+
+        ScrollPane sp = new ScrollPane();
+        sp.setContent(view.getCanvas());
+        sp.setPrefSize(1300, 300);
+
         BorderPane bp = BorderPaneBuilder.create()
                 .id("rootpane")
                 // .padding(new Insets(20))
-                // .style("-fx-padding: 30")
-                .center(view.getCanvasPane())
-                .bottom(text)
+                .style("-fx-padding: 30")
+                .top(sp)
+                .center(vbox)
                 .build();
         AnchorPane.setTopAnchor(bp, 10.0);
         AnchorPane.setBottomAnchor(bp, 10.0);
         AnchorPane.setLeftAnchor(bp, 10.0);
-        //AnchorPane.setRightAnchor(bp, 65.0);
+        AnchorPane.setRightAnchor(bp, 65.0);
 
         root = AnchorPaneBuilder.create()
                 .children(bp)
                 .build();
-        
+
         this.scene = SceneBuilder.create()
                 .root(root)
                 .fill(Color.web("#1030F0"))
