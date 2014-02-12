@@ -202,6 +202,12 @@
 						<phase>process-sources</phase>
 						<configuration>
 							<licenseName>apache_v2</licenseName>
+							<excludes>
+								<exclude>*.png</exclude>
+								<exclude>*.json</exclude>
+								<exclude>*.otf</exclude>
+								<exclude>**/fonts/*</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
@@ -220,8 +226,8 @@
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<configuration>
 					<aggregate>true</aggregate>
-					<!-- executed on install. will fail if coverage is below these values which
-					are ridiculously low right now-->
+					<!-- executed on install. will fail if coverage is below these values 
+						which are ridiculously low right now -->
 					<check>
 						<haltOnFailure>false</haltOnFailure>
 						<branchRate>20</branchRate>
@@ -283,7 +289,7 @@
 						<version>${plugin.wagon-ssh.version}</version>
 					</dependency>
 				</dependencies>
-				
+
 				<!-- use parent's site.xml for submodules -->
 				<executions>
 					<execution>
