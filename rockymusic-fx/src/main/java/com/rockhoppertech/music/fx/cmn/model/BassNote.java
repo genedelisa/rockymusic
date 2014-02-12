@@ -74,6 +74,9 @@ public class BassNote {
         int ledgers = 0;
         int gs = 80; // g sharp
         int g = 79; // g natural
+        
+        gs = 60; // actually middle c
+        g = 59; // actually b
 
         if (sharps) {
             trans[0] = gs;
