@@ -1724,7 +1724,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
      * @return the preferredSpelling
      */
     public String getPreferredSpelling() {
-        if (preferredSpelling == null || preferredSpelling.equals("")) {
+        if (preferredSpelling == null || preferredSpelling.equals("") || preferredSpelling.equals("null")) {
             logger.debug(
                     "preferred spelling empty for pitch {}",
                     this.midiNumber);
