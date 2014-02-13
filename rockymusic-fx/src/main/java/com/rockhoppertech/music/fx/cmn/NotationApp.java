@@ -82,7 +82,8 @@ public class NotationApp extends Application {
                 .create()
                 .noteString(
                         "E5 F G Ab G# A B C C6 D Eb F# G A B C7 B4 Bf4 A4 Af4")
-                .durations(1, 1.5, .5, .75, .25)
+                .durations(1, 1.5, .5, .75, .25, .25)
+                .sequential()
                 .build();
         System.out.println(track);
         this.staffModel.setTrack(track);
@@ -134,6 +135,12 @@ public class NotationApp extends Application {
                 .text("Evaluate note string")
                 .build();
         controller.setNoteStringButton(b);
+        Button pb = ButtonBuilder.create()
+                .id("playButton")
+                .style("-fx-font: 22 arial; -fx-base: #1055FF;")
+                .text("Play")
+                .build();
+        controller.setPlayButton(pb);
         
         final ComboBox<String> clefComboBox = new ComboBox<>();
         clefComboBox.getItems().addAll(
@@ -150,7 +157,7 @@ public class NotationApp extends Application {
         
         VBox vbox = VBoxBuilder.create()
                 .padding(new Insets(20))
-                .children(textArea, b, clefComboBox, receiver)
+                .children(textArea, b, pb, clefComboBox, receiver)
                 .build();
 
         ScrollPane sp = new ScrollPane();

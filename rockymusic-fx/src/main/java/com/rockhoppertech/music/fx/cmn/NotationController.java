@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.ConsoleReceiver;
@@ -78,10 +79,23 @@ public class NotationController {
 
     public void mousePressed(MouseEvent evt) {
         pitch = model.whichNote(evt.getY());
+        if(pitch < 0 || pitch > 127) {
+            return;
+        }
         this.midiSender.sendNoteOn(pitch, 64);
         Pitch p = PitchFactory.getPitch(pitch);
-        String s = p.getPreferredSpelling() + " ";
-        textArea.appendText(s);
+        String preferredSpelling = p.getPreferredSpelling();
+        if (preferredSpelling == null || preferredSpelling.equals("") || preferredSpelling.equals("null")) {
+            logger.debug(
+                    "preferred spelling empty for pitch {}",
+                    pitch);
+            preferredSpelling = PitchFormat.getInstance().format(
+                    pitch);
+        }
+        preferredSpelling += " ";
+    
+        logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
+        textArea.appendText(preferredSpelling);
         model.addNote(pitch);
     }
 
@@ -136,6 +150,7 @@ public class NotationController {
         MIDITrack track = MIDITrackBuilder
                 .create()
                 .noteString(ns)
+                .sequential()
                 .build();
         logger.debug("track from string\n{}", track);
         this.model.setTrack(track);
@@ -204,6 +219,16 @@ public class NotationController {
 
     public void addReceiver(Receiver receiver) {
         this.midiSender.addReceiver(receiver);
+    }
+
+    public void setPlayButton(Button b) {
+        b.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                model.getTrackProperty().get().play();
+            }
+        });
+        
     }
 
 }
