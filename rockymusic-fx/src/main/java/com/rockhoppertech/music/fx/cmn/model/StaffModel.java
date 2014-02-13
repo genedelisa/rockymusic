@@ -79,6 +79,11 @@ public class StaffModel {
      */
     private ListProperty<MIDINote> noteListProperty;
 
+    /**
+     * The class that calculates which symbols to use.
+     */
+    private StaffSymbolManager staffSymbolManager;
+
     static {
 
     }
@@ -158,8 +163,9 @@ public class StaffModel {
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
         this.fontProperty = new SimpleObjectProperty<Font>(this.font);
-        this.setClef(Clef.TREBLE);
 
+        this.staffSymbolManager = new StaffSymbolManager();
+        this.setClef(Clef.TREBLE);
         // StaffSymbolManager.setStaffModel(this);
     }
 
@@ -342,7 +348,9 @@ public class StaffModel {
         } else {
             throw new IllegalArgumentException("Clef not supported yet");
         }
-        StaffSymbolManager.refresh();
+
+        if (staffSymbolManager != null)
+            staffSymbolManager.refresh();
     }
 
     /**
@@ -564,7 +572,7 @@ public class StaffModel {
     }
 
     public List<StaffSymbol> getSymbols() {
-        return StaffSymbolManager.getSymbols();
+        return staffSymbolManager.getSymbols();
     }
 
     /**
@@ -628,7 +636,7 @@ public class StaffModel {
 
             }
         });
-        StaffSymbolManager.setNoteList(noteList);
+        staffSymbolManager.setNoteList(noteList);
         this.noteListProperty.setValue(this.noteList);
     }
 
@@ -642,8 +650,8 @@ public class StaffModel {
                 .observableArrayList(this.track.getNotes());
         this.setNoteList(noteList);
 
-        StaffSymbolManager.setStaffModel(this);
-        StaffSymbolManager.setNoteList(noteList);
+        staffSymbolManager.setStaffModel(this);
+        staffSymbolManager.setNoteList(noteList);
 
         // track.getNotes();
         // TODO fix this

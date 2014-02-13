@@ -49,15 +49,15 @@ public class StaffSymbolManager {
     private static final Logger logger = LoggerFactory
             .getLogger(StaffSymbolManager.class);
 
-    private static List<StaffSymbol> symbols = new ArrayList<>();
-    private static StaffModel staffModel;
-    private static ObservableList<MIDINote> noteList;
+    private  List<StaffSymbol> symbols = new ArrayList<>();
+    private  StaffModel staffModel;
+    private  ObservableList<MIDINote> noteList;
 
     /**
      * @param noteList
      *            the noteList to set
      */
-    public static void setNoteList(ObservableList<MIDINote> list) {
+    public  void setNoteList(ObservableList<MIDINote> list) {
         noteList = list;
         noteList.addListener(new ListChangeListener<MIDINote>() {
             @Override
@@ -68,7 +68,7 @@ public class StaffSymbolManager {
         });
     }
 
-    public static void refresh() {
+    public  void refresh() {
         if(staffModel == null) {
             return;
         }
@@ -111,7 +111,7 @@ public class StaffSymbolManager {
      *            the x locaiton where this symbol will appear
      * @return a StaffSymbol
      */
-    private static double createSymbol(final MIDINote note, double x) {
+    private  double createSymbol(final MIDINote note, double x) {
         int pitch = note.getPitch().getMidiNumber();
         double duration = note.getDuration();
         String glyph = "";
@@ -342,7 +342,7 @@ public class StaffSymbolManager {
         return false;
     }
 
-    public static final void addLedgers(MIDINote note, double x) {
+    public  final void addLedgers(MIDINote note, double x) {
         int pitch = note.getPitch().getMidiNumber();
         // String line = SymbolFactory.unicodeToString(0x005A);
         // String line = SymbolFactory.unicodeToString(94);
@@ -503,7 +503,7 @@ public class StaffSymbolManager {
     /**
      * @return the staffModel
      */
-    public static StaffModel getStaffModel() {
+    public  StaffModel getStaffModel() {
         return staffModel;
     }
 
@@ -511,8 +511,8 @@ public class StaffSymbolManager {
      * @param staffModel
      *            the staffModel to set
      */
-    public static void setStaffModel(StaffModel staffModel) {
-        StaffSymbolManager.staffModel = staffModel;
+    public  void setStaffModel(StaffModel staffModel) {
+        this.staffModel = staffModel;
 
         setNoteList(staffModel.getNoteList());
         refresh();
@@ -532,7 +532,7 @@ public class StaffSymbolManager {
     /**
      * @return the symbols
      */
-    public static List<StaffSymbol> getSymbols() {
+    public  List<StaffSymbol> getSymbols() {
         return symbols;
     }
 
