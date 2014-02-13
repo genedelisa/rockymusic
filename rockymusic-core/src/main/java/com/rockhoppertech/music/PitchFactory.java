@@ -142,6 +142,7 @@ public final class PitchFactory {
 
         } else {
             p = new Pitch(i.intValue());
+            p.setPreferredSpelling(pitchString);
             pitches.put(i, p);
             logger.debug("created and cached new pitch: {}", p);
         }

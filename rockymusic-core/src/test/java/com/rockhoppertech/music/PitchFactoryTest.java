@@ -23,7 +23,6 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,16 +33,17 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 /**
- *
+ * 
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- *
+ * 
  */
 public class PitchFactoryTest {
 
     private static final Logger logger = LoggerFactory
             .getLogger(PitchFactoryTest.class);
+
     /**
-     *
+     * 
      * @throws java.lang.Exception
      */
     @Before
@@ -51,7 +51,7 @@ public class PitchFactoryTest {
     }
 
     /**
-     *
+     * 
      * @throws java.lang.Exception
      */
     @After
@@ -59,7 +59,8 @@ public class PitchFactoryTest {
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.PitchFactory#getPitch(int)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.PitchFactory#getPitch(int)}.
      */
     @Test
     public void testGetPitchInt() {
@@ -67,12 +68,13 @@ public class PitchFactoryTest {
             Pitch pitch = PitchFactory.getPitch(p);
             assertNotNull(pitch);
             assertEquals(p,
-                         pitch.getMidiNumber());
+                    pitch.getMidiNumber());
         }
     }
 
     /**
-     * Test method for {@link com.rockhoppertech.music.PitchFactory#getPitch(java.lang.String)}.
+     * Test method for
+     * {@link com.rockhoppertech.music.PitchFactory#getPitch(java.lang.String)}.
      */
     @Test
     public void testGetPitchString() {
@@ -81,7 +83,7 @@ public class PitchFactoryTest {
                     .midiNumberToString(p));
             assertNotNull(pitch);
             assertEquals(p,
-                         pitch.getMidiNumber());
+                    pitch.getMidiNumber());
         }
     }
 
@@ -91,250 +93,250 @@ public class PitchFactoryTest {
     @Test
     public void getPitchByName() {
         Pitch pitch = PitchFactory.getPitchByName("CS");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(1));
+                pitch.getMidiNumber(),
+                equalTo(1));
 
         int oct = 0;
         pitch = PitchFactory.getPitchByName("C");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 0));
+                pitch.getMidiNumber(),
+                equalTo(oct + 0));
 
         pitch = PitchFactory.getPitchByName("CS");
         Pitch reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
 
         pitch = PitchFactory.getPitchByName("Cs");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("C#");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("DF");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("Df");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("Db");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("DB");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 1));
+                pitch.getMidiNumber(),
+                equalTo(oct + 1));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         // ///
         pitch = PitchFactory.getPitchByName("D");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 2));
+                pitch.getMidiNumber(),
+                equalTo(oct + 2));
 
         pitch = PitchFactory.getPitchByName("Ds");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 3));
+                pitch.getMidiNumber(),
+                equalTo(oct + 3));
 
         pitch = PitchFactory.getPitchByName("Ef");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 3));
+                pitch.getMidiNumber(),
+                equalTo(oct + 3));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         //
         pitch = PitchFactory.getPitchByName("E");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 4));
+                pitch.getMidiNumber(),
+                equalTo(oct + 4));
 
         pitch = PitchFactory.getPitchByName("F");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 5));
+                pitch.getMidiNumber(),
+                equalTo(oct + 5));
 
         pitch = PitchFactory.getPitchByName("F#");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 6));
+                pitch.getMidiNumber(),
+                equalTo(oct + 6));
 
         pitch = PitchFactory.getPitchByName("Gf");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 6));
+                pitch.getMidiNumber(),
+                equalTo(oct + 6));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("G");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 7));
+                pitch.getMidiNumber(),
+                equalTo(oct + 7));
 
         pitch = PitchFactory.getPitchByName("Gs");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 8));
+                pitch.getMidiNumber(),
+                equalTo(oct + 8));
 
         pitch = PitchFactory.getPitchByName("Af");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 8));
+                pitch.getMidiNumber(),
+                equalTo(oct + 8));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("A");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 9));
+                pitch.getMidiNumber(),
+                equalTo(oct + 9));
 
         pitch = PitchFactory.getPitchByName("Bf");
         reference = pitch;
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 10));
+                pitch.getMidiNumber(),
+                equalTo(oct + 10));
 
         pitch = PitchFactory.getPitchByName("As");
-        logger.debug("pitch {}",pitch);
+        logger.debug("pitch {}", pitch);
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 10));
+                pitch.getMidiNumber(),
+                equalTo(oct + 10));
         assertThat("the pitch is the same instance",
-                   pitch,
-                   is(reference));
+                pitch,
+                is(reference));
 
         pitch = PitchFactory.getPitchByName("B");
         assertThat("pitch is not null",
-                   pitch,
-                   notNullValue());
+                pitch,
+                notNullValue());
         assertThat("the MIDI number is correct",
-                   pitch.getMidiNumber(),
-                   equalTo(oct + 11));
+                pitch.getMidiNumber(),
+                equalTo(oct + 11));
     }
 
     @Test
@@ -343,274 +345,308 @@ public class PitchFactoryTest {
 
         for (int oct = 0; oct < 10; oct++) {
             pitch = PitchFactory.getPitchByName("C" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             int expectedPitch = (oct * 12) + 0;
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
+
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("C" + oct)));
 
             expectedPitch = (oct * 12) + 1;
             pitch = PitchFactory.getPitchByName("CS" + oct);
             Pitch reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("CS" + oct)));
 
             pitch = PitchFactory.getPitchByName("Cs" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("Cs" + oct)));
 
             pitch = PitchFactory.getPitchByName("C#" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("C#" + oct)));
 
             pitch = PitchFactory.getPitchByName("DF" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("DF" + oct)));
 
             pitch = PitchFactory.getPitchByName("Df" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("Df" + oct)));
 
             pitch = PitchFactory.getPitchByName("Db" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("Db" + oct)));
 
             pitch = PitchFactory.getPitchByName("DB" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("DB" + oct)));
 
             // ///
             expectedPitch = (oct * 12) + 2;
             pitch = PitchFactory.getPitchByName("D" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("D" + oct)));
 
             expectedPitch = (oct * 12) + 3;
             pitch = PitchFactory.getPitchByName("Ds" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("Ds" + oct)));
 
             pitch = PitchFactory.getPitchByName("Ef" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
+            assertThat("the spelling is correct",
+                    pitch.getPreferredSpelling().trim(),
+                    is(equalTo("Ef" + oct)));
 
             //
             expectedPitch = (oct * 12) + 4;
             pitch = PitchFactory.getPitchByName("E" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             expectedPitch = (oct * 12) + 5;
             pitch = PitchFactory.getPitchByName("F" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             expectedPitch = (oct * 12) + 6;
             pitch = PitchFactory.getPitchByName("F#" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("Gf" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
 
             expectedPitch = (oct * 12) + 7;
             pitch = PitchFactory.getPitchByName("G" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             expectedPitch = (oct * 12) + 8;
             pitch = PitchFactory.getPitchByName("Gs" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("Af" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
 
             expectedPitch = (oct * 12) + 9;
             pitch = PitchFactory.getPitchByName("A" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             expectedPitch = (oct * 12) + 10;
             pitch = PitchFactory.getPitchByName("Bf" + oct);
             reference = pitch;
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
 
             pitch = PitchFactory.getPitchByName("As" + oct);
-            logger.debug("pitch {}",pitch);
+            logger.debug("pitch {}", pitch);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
             assertThat("the pitch is the same instance",
-                       pitch,
-                       is(reference));
+                    pitch,
+                    is(reference));
 
             expectedPitch = (oct * 12) + 11;
             pitch = PitchFactory.getPitchByName("B" + oct);
             assertThat("pitch is not null",
-                       pitch,
-                       notNullValue());
+                    pitch,
+                    notNullValue());
             assertThat(String.format("the MIDI number is correct %d",
-                                     expectedPitch),
-                       expectedPitch,
-                       equalTo(pitch.getMidiNumber()));
+                    expectedPitch),
+                    expectedPitch,
+                    equalTo(pitch.getMidiNumber()));
         }
     }
 
@@ -624,51 +660,51 @@ public class PitchFactoryTest {
         Pitch p = PitchFactory.createFromFrequency(freq);
         Pitch p2 = PitchFactory.createFromFrequency(freq);
         logger.debug(p.toProlixString());
-        
+
         assertThat("The pitches are the same",
-                   p,
-                   sameInstance(p2));
+                p,
+                sameInstance(p2));
         assertThat("The pitch is not null",
-                   p,
-                   notNullValue());
+                p,
+                notNullValue());
         assertThat("The fq is correct",
-                   p.getFrequency(),
-                   equalTo(freq));
+                p.getFrequency(),
+                equalTo(freq));
         assertThat("The midi number is correct",
-                   p.getMidiNumber(),
-                   equalTo(60));
+                p.getMidiNumber(),
+                equalTo(60));
         assertThat("The pitch is middle c",
-                   p,
-                   equalTo(new Pitch(Pitch.C5)));
+                p,
+                equalTo(new Pitch(Pitch.C5)));
         assertThat("The cents is correct",
-                   p.getCents(),
-                   equalTo((short) 0));
+                p.getCents(),
+                equalTo((short) 0));
         assertThat("The pitchbend is correct",
-                   p.getPitchBend(),
-                   equalTo((short) 0));
+                p.getPitchBend(),
+                equalTo((short) 0));
 
         freq = 261;
         p = PitchFactory.createFromFrequency(freq);
         p2 = PitchFactory.createFromFrequency(freq);
         assertThat("The pitches are the same",
-                   p,
-                   sameInstance(p2));
+                p,
+                sameInstance(p2));
         logger.debug(p.toProlixString());
         assertThat("The pitch is not null",
-                   p,
-                   notNullValue());
+                p,
+                notNullValue());
         assertThat("The fq is correct",
-                   p.getFrequency(),
-                   equalTo(freq));
+                p.getFrequency(),
+                equalTo(freq));
         assertThat("The midi number is correct",
-                   p.getMidiNumber(),
-                   equalTo(60));
+                p.getMidiNumber(),
+                equalTo(60));
         assertThat("The cents is correct",
-                   p.getCents(),
-                   equalTo((short) -4));
+                p.getCents(),
+                equalTo((short) -4));
         assertThat("The pitchbend is correct",
-                   p.getPitchBend(),
-                   equalTo((short) 8188));
+                p.getPitchBend(),
+                equalTo((short) 8188));
 
     }
 

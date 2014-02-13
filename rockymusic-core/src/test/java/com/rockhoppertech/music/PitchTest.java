@@ -23,24 +23,17 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 
-//import static org.hamcrest.CoreMatchers.*;
+import static com.rockhoppertech.music.Pitch.*;
 
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+//import static org.hamcrest.CoreMatchers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.hamcrest.Matchers.*;
-
-import static com.rockhoppertech.music.Pitch.*;
 
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
@@ -58,9 +51,16 @@ public class PitchTest {
     @Test
     public void testPitch() {
         Pitch p = new Pitch();
-        assertNotNull(p);
-        assertEquals(p.getMidiNumber(),
-                0);
+        assertThat("The pitch is not null.",
+                p, is(notNullValue()));
+        assertThat("the pitch midi number is correct",
+                p.getMidiNumber(), is(equalTo(00)));
+
+        String actual = p.getPreferredSpelling();
+        assertThat("The actual spelling is not null.",
+                actual, is(notNullValue()));
+        assertThat("the pitch preferred spelling is correct",
+                actual.trim(), is(equalTo("C0")));
     }
 
     @Test
@@ -136,9 +136,17 @@ public class PitchTest {
     @Test
     public void testPitchInt() {
         Pitch p = new Pitch(60);
-        assertNotNull(p);
-        assertEquals(p.getMidiNumber(),
-                60);
+        
+        assertThat("The pitch is not null.",
+                p, is(notNullValue()));
+        assertThat("the pitch midi number is correct",
+                p.getMidiNumber(), is(equalTo(60)));
+
+        String actual = p.getPreferredSpelling();
+        assertThat("The actual spelling is not null.",
+                actual, is(notNullValue()));
+        assertThat("the pitch preferred spelling is correct",
+                actual.trim(), is(equalTo("C5")));
     }
 
     /**
@@ -148,9 +156,16 @@ public class PitchTest {
     @Test
     public void testPitchString() {
         Pitch p = new Pitch("C5");
-        assertNotNull(p);
-        assertEquals(p.getMidiNumber(),
-                60);
+        assertThat("The pitch is not null.",
+                p, is(notNullValue()));
+        assertThat("the pitch midi number is correct",
+                p.getMidiNumber(), is(equalTo(60)));
+
+        String actual = p.getPreferredSpelling();
+        assertThat("The actual spelling is not null.",
+                actual, is(notNullValue()));
+        assertThat("the pitch preferred spelling is correct",
+                actual.trim(), is(equalTo("C5")));
     }
 
     /**
@@ -238,6 +253,7 @@ public class PitchTest {
         assertEquals(fq,
                 261.625,
                 .01);
+
     }
 
     /**
@@ -400,7 +416,9 @@ public class PitchTest {
 
         for (int i = Pitch.C0; i < Pitch.C1; i += Interval.MINOR_SECOND) {
             Pitch p = PitchFactory.getPitch(i);
-            logger.debug("Pitch {}", p);
+            //logger.debug("Pitch {}", p);
+            logger.debug("Pitch {}", p.getPreferredSpelling());
         }
+        
     }
 }
