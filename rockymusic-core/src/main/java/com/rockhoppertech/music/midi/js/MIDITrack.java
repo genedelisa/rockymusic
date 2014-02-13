@@ -77,8 +77,9 @@ import com.rockhoppertech.music.series.time.TimeSeries;
  * {@code javafx.beans.property.adapter.JavaBeanStringPropertyBuilder} for
  * example.
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
  * 
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ * @see javafx.beans.property.adapter.JavaBeanStringPropertyBuilder
  */
 
 public class MIDITrack implements Serializable, Iterable<MIDINote> {
@@ -102,7 +103,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     }
 
     /**
-     * For serializaiton.
+     * For serialization.
      */
     private static final long serialVersionUID = 1L;
 
@@ -112,16 +113,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     /**
      * JavaBean property.
      */
-    private static final String MODIFIED = "MIDITrack.MODIFIED";
+    public static final String MODIFIED = "MIDITrack.MODIFIED";
     /**
      * JavaBean property.
      */
-    private static final String ADD = "MIDITrack.ADD";
+    public static final String ADD = "MIDITrack.ADD";
 
     /**
      * JavaBean property.
      */
-    private static final String REMOVE = "MIDITrack.REMOVED";
+    public static final String REMOVE = "MIDITrack.REMOVED";
 
     /**
      * Meta text track name.
@@ -396,6 +397,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         note.setStartBeat(end);
         notes.add(note);
         this.changes.firePropertyChange(ADD, null, this);
+        this.changes.firePropertyChange("notes", null, this);
         return this;
     }
 
