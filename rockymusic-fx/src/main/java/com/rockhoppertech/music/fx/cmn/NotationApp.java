@@ -21,6 +21,8 @@ package com.rockhoppertech.music.fx.cmn;
  */
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.SceneBuilder;
@@ -49,6 +51,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
+import com.rockhoppertech.music.midi.js.MIDITrackFactory;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -64,7 +67,7 @@ public class NotationApp extends Application {
 
     private NotationController controller;
     private StaffModel staffModel;
-    //private NotationView view;
+    // private NotationView view;
     private NotationCanvas view;
 
     // private static ObservableList<MIDINote> tableDataList;
@@ -99,7 +102,7 @@ public class NotationApp extends Application {
     private void configureStage() {
         stage.setTitle("Music Notation");
 
-       // fullScreen();
+        // fullScreen();
 
         stage.setScene(this.scene);
         controller.setStage(this.stage);
@@ -121,7 +124,7 @@ public class NotationApp extends Application {
                 .promptText("Enter a note string")
                 .build();
         controller.setTextField(text);
-        
+
         TextArea textArea = TextAreaBuilder.create()
                 .id("noteStringText")
                 .editable(true)
@@ -129,6 +132,9 @@ public class NotationApp extends Application {
                 .wrapText(true)
                 .build();
         controller.setTextArea(textArea);
+        //textArea.setText(this.staffModel.getTrackProperty().get()
+                //.toBriefMIDIString());
+
         Button b = ButtonBuilder.create()
                 .id("noteStringButton")
                 .style("-fx-font: 22 arial; -fx-base: #1055FF;")
@@ -141,27 +147,36 @@ public class NotationApp extends Application {
                 .text("Play")
                 .build();
         controller.setPlayButton(pb);
-        
+
         final ComboBox<String> clefComboBox = new ComboBox<>();
         clefComboBox.getItems().addAll(
                 "Treble",
                 "Bass",
                 "Alto"
                 );
-       // clefComboBox.setValue("Treble");
-        clefComboBox.getSelectionModel().selectFirst(); 
+        clefComboBox.getSelectionModel().selectFirst();
+        clefComboBox.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends String> observable,
+                            String oldValue, String newValue) {
+
+                    }
+                });
+        ;
         controller.setClefCombBox(clefComboBox);
-        
+
         FXTextAreaReceiver receiver = new FXTextAreaReceiver();
         controller.addReceiver(receiver);
-        
+
         VBox vbox = VBoxBuilder.create()
                 .padding(new Insets(20))
                 .children(textArea, b, pb, clefComboBox, receiver)
                 .build();
 
         ScrollPane sp = new ScrollPane();
-        //sp.setContent(view.getCanvas());
+        // sp.setContent(view.getCanvas());
         sp.setContent(view);
         sp.setPrefSize(1300, 300);
 

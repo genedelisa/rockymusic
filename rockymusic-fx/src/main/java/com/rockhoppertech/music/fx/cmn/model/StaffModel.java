@@ -26,13 +26,14 @@ package com.rockhoppertech.music.fx.cmn.model;
 import java.util.List;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.adapter.JavaBeanObjectProperty;
-import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.text.Font;
 
 import org.slf4j.Logger;
@@ -67,6 +68,17 @@ public class StaffModel {
      * The music font.
      */
     private Font font;
+
+    /**
+     * The notes that are drawn.
+     */
+    private ObservableList<MIDINote> noteList;
+
+    /**
+     * The notelist property.
+     */
+    private ListProperty<MIDINote> noteListProperty;
+
     static {
 
     }
@@ -140,14 +152,15 @@ public class StaffModel {
             throw new IllegalStateException("music font not found");
         }
 
-        this.setClef(Clef.TREBLE);
+        this.noteListProperty = new SimpleListProperty<>();
         this.startX = 10d;
         this.trackProperty = new SimpleObjectProperty<MIDITrack>();
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
         this.fontProperty = new SimpleObjectProperty<Font>(this.font);
+        this.setClef(Clef.TREBLE);
 
-        StaffSymbolManager.setStaffModel(this);
+        // StaffSymbolManager.setStaffModel(this);
     }
 
     /**
@@ -255,8 +268,8 @@ public class StaffModel {
             } else {
                 num = AltoNote.altoLedgersSharp[pitch];
             }
-        } 
-        //TODO other clefs
+        }
+        // TODO other clefs
         return num;
     }
 
@@ -329,6 +342,7 @@ public class StaffModel {
         } else {
             throw new IllegalArgumentException("Clef not supported yet");
         }
+        StaffSymbolManager.refresh();
     }
 
     /**
@@ -345,7 +359,7 @@ public class StaffModel {
 
         // needed the first time.
         if (this.track != null) {
-            StaffSymbolManager.setMIDITrack(this.track);
+            // StaffSymbolManager.setMIDITrack(this.track);
         }
     }
 
@@ -408,37 +422,42 @@ public class StaffModel {
 
     // c cs d ds e f fs g gs a as b
     // c df d ef e f gf g af a bf b
-    // TODO  just a first cut.
+    // TODO just a first cut.
     public int altoMidiNumToY(final int num, final boolean sharps) {
         // the "which" arrays are by pitch class
         // f4 is the bottom line in the alto staff
 
         // number of yincs, which are line to space or space to line
-        //                             c, df,  d, ef, e,  f, gf,g, af, a, bf, b
-        final int[] whichLineFlat = { -3, -2, -2, -1, -1, 0, 1,  1, 2, 2, 3, 3 };
-        //                              c, c#,  d,  d#, e, f, f#, g, G#, a, a#, b
-        //final int[] whichLineSharp = { -3, -3, -3, -2, -2, -1, 0, 0,  1, 1,  2, 2,  3};
-        final int[] whichLineSharp = { -3, -3, -2, -2, -1, 0, 0,  1, 1,  2, 2,  3};
-        final int[] octaveOffset = {  -28, -21, -14, -7, 0, 7, 14, 21, 28,
+        // c, df, d, ef, e, f, gf,g, af, a, bf, b
+        final int[] whichLineFlat = { -3, -2, -2, -1, -1, 0, 1, 1, 2, 2, 3, 3 };
+        // c, c#, d, d#, e, f, f#, g, G#, a, a#, b
+        // final int[] whichLineSharp = { -3, -3, -3, -2, -2, -1, 0, 0, 1, 1, 2,
+        // 2, 3};
+        final int[] whichLineSharp = { -3, -3, -2, -2, -1, 0, 0, 1, 1, 2, 2, 3 };
+        final int[] octaveOffset = { -28, -21, -14, -7, 0, 7, 14, 21, 28,
                 35, 42 };
         final double oct = octaveOffset[num / 12] * this.yspacing;
-        
+
         // 0,
         // final int[] alto = { F4, G4, A4, B4, C5, D5, E5 };
 
         double theY = 0d;
         if (sharps) {
-            theY =  this.staffBottom
+            theY = this.staffBottom
                     - (whichLineSharp[num % 12] * this.yspacing);
-            logger.debug("sharps. y {} for num {} which {}", theY, num, whichLineSharp[num % 12]);
+            logger.debug(
+                    "sharps. y {} for num {} which {}",
+                    theY,
+                    num,
+                    whichLineSharp[num % 12]);
         } else {
             theY = this.staffBottom
                     - (whichLineFlat[num % 12] * this.yspacing);
         }
-        // System.err.printf("num %d y %f\n", num, theY);        
+        // System.err.printf("num %d y %f\n", num, theY);
         theY -= oct;
-        logger.debug("sharps. y oct {} staff bottom {}", theY, staffBottom);        
-        
+        logger.debug("sharps. y oct {} staff bottom {}", theY, staffBottom);
+
         return (int) theY;
     }
 
@@ -537,34 +556,6 @@ public class StaffModel {
         return this.yspacing;
     }
 
-    public void setTrack(MIDITrack track) {
-        this.trackProperty.setValue(track);
-        this.track = track;
-        StaffSymbolManager.setMIDITrack(track);
-
-        // track.getNotes();
-        //TODO fix this
-        JavaBeanObjectProperty<List<MIDINote>> tp = null;
-        try {
-            tp = JavaBeanObjectPropertyBuilder.create()
-                    .bean(track)
-                    .name("notes")
-                    .build();
-
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        
-        tp.addListener(new ChangeListener(){
-            @Override
-            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-                System.err.println(arg0);
-                System.err.println(arg1);
-                System.err.println(arg2);
-                
-            }});
-    }
-
     /**
      * @return the trackProperty
      */
@@ -608,12 +599,87 @@ public class StaffModel {
     }
 
     public void addNote(int midiNumber) {
-        MIDITrack track = this.trackProperty.get().append(midiNumber).sequential();
-        track.append(midiNumber);
-        track.sequential();        
-        this.trackProperty.setValue(track);
-       // this.track.append(midiNumber);
+        // MIDITrack track = this.trackProperty.get().append(midiNumber)
+        // .sequential();
+        // track.append(midiNumber);
+        // track.sequential();
+        // this.trackProperty.setValue(track);
+        // this.track.append(midiNumber);
 
+        MIDINote note = new MIDINote(midiNumber);
+        MIDINote prev = this.noteList.get(this.noteList.size() - 1);
+        if (prev != null) {
+            note.setStartBeat(prev.getStartBeat() + prev.getDuration());
+        }
+        this.noteList.add(note);
+    }
+
+    /**
+     * @param noteList
+     *            the noteList to set
+     */
+    public void setNoteList(ObservableList<MIDINote> noteList) {
+        this.noteList = noteList;
+        this.noteList.addListener(new ListChangeListener<MIDINote>() {
+            @Override
+            public void onChanged(
+                    ListChangeListener.Change<? extends MIDINote> c) {
+                logger.debug("notelist changed {}", c);
+
+            }
+        });
+        StaffSymbolManager.setNoteList(noteList);
+        this.noteListProperty.setValue(this.noteList);
+    }
+
+    public void setTrack(MIDITrack track) {
+        this.trackProperty.setValue(track);
+        this.track = track;
+
+        // StaffSymbolManager.setMIDITrack(track);
+
+        this.noteList = FXCollections
+                .observableArrayList(this.track.getNotes());
+        this.setNoteList(noteList);
+
+        StaffSymbolManager.setStaffModel(this);
+        StaffSymbolManager.setNoteList(noteList);
+
+        // track.getNotes();
+        // TODO fix this
+        // JavaBeanObjectProperty<List<MIDINote>> tp = null;
+        // JavaBeanObjectProperty<List<MIDINote>> tp = null;
+        // try {
+        // tp = JavaBeanObjectPropertyBuilder.create()
+        // .bean(track)
+        // .name("notes")
+        // .build();
+        //
+        // } catch (NoSuchMethodException e) {
+        // e.printStackTrace();
+        // }
+        //
+        // tp.addListener(new ChangeListener<Object>(){
+        // @Override
+        // public void changed(ObservableValue<?> arg0, Object arg1, Object
+        // arg2) {
+        // System.err.println(arg0);
+        // System.err.println(arg1);
+        // System.err.println(arg2);
+        //
+        // }});
+
+        // labelProperty.bindBidirectional(tp);
+
+        // ObservableValue<? extends List<MIDINote>> mylist ;
+        // tp.bind(mylist);
+    }
+
+    /**
+     * @return the noteList
+     */
+    public ObservableList<MIDINote> getNoteList() {
+        return noteList;
     }
 
 }

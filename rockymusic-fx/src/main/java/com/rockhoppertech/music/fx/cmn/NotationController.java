@@ -22,7 +22,6 @@ package com.rockhoppertech.music.fx.cmn;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -40,11 +39,14 @@ import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
-import com.rockhoppertech.music.midi.js.ConsoleReceiver;
 import com.rockhoppertech.music.midi.js.MIDISender;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 
+/**
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
+ *
+ */
 public class NotationController {
     private static final Logger logger = LoggerFactory
             .getLogger(NotationController.class);
@@ -55,7 +57,7 @@ public class NotationController {
     MIDISender midiSender;
 
     // GUI. maybe fxml sometime
-    private Canvas canvas;
+    private NotationCanvas canvas;
     private TextField textField;
 
     /**
@@ -97,6 +99,7 @@ public class NotationController {
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         textArea.appendText(preferredSpelling);
         model.addNote(pitch);
+        canvas.repaintCanvas();
     }
 
     public void mouseReleased(MouseEvent evt) {
@@ -122,7 +125,7 @@ public class NotationController {
         this.stage = stage;
     }
 
-    public void setCanvas(Canvas canvas2) {
+    public void setCanvas(NotationCanvas canvas2) {
         this.canvas = canvas2;
         this.canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -154,6 +157,7 @@ public class NotationController {
                 .build();
         logger.debug("track from string\n{}", track);
         this.model.setTrack(track);
+        canvas.repaintCanvas();
     }
 
     /**
@@ -211,6 +215,7 @@ public class NotationController {
                 } else if (sel.equals("Alto")) {
                     model.setClef(Clef.ALTO);
                 }
+                canvas.repaintCanvas();
             }
         });
 

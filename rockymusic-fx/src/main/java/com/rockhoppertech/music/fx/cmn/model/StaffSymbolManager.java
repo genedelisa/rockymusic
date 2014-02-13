@@ -26,11 +26,15 @@ import java.util.Locale;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
+import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -47,21 +51,53 @@ public class StaffSymbolManager {
 
     private static List<StaffSymbol> symbols = new ArrayList<>();
     private static StaffModel staffModel;
+    private static ObservableList<MIDINote> noteList;
 
-    public static final void setMIDITrack(MIDITrack track) {
+    /**
+     * @param noteList
+     *            the noteList to set
+     */
+    public static void setNoteList(ObservableList<MIDINote> list) {
+        noteList = list;
+        noteList.addListener(new ListChangeListener<MIDINote>() {
+            @Override
+            public void onChanged(
+                    javafx.collections.ListChangeListener.Change<? extends MIDINote> c) {
+                refresh();
+            }
+        });
+    }
+
+    public static void refresh() {
+        if(staffModel == null) {
+            return;
+        }
         double x = staffModel.getStartX() + 1d * staffModel.getFontSize();
         symbols.clear();
-        for (MIDINote note : track) {
-
+        if (noteList == null) {
+            return;
+        }
+        for (MIDINote note : noteList) {
             x = createSymbol(note, x);
-            // damn. the ledger will be on an augmentation dot since the
-            // returned x includes that.
-            // addLedgers(note, x);
-
             // some padding between the symbols
             x += staffModel.getFontSize() / 2d;
         }
     }
+
+    // public static final void setMIDITrack(MIDITrack track) {
+    // double x = staffModel.getStartX() + 1d * staffModel.getFontSize();
+    // symbols.clear();
+    // for (MIDINote note : track) {
+    //
+    // x = createSymbol(note, x);
+    // // damn. the ledger will be on an augmentation dot since the
+    // // returned x includes that.
+    // // addLedgers(note, x);
+    //
+    // // some padding between the symbols
+    // x += staffModel.getFontSize() / 2d;
+    // }
+    // }
 
     // to really get the x correct, we should use the Measure class and get the
     // beat x.
@@ -284,7 +320,11 @@ public class StaffSymbolManager {
     }
 
     public static final boolean isSpellingFlat(MIDINote note) {
-        String spelling = note.getSpelling().toUpperCase(Locale.ENGLISH);
+        String spelling = note.getSpelling();
+        if (spelling == null) {
+            spelling = PitchFormat.getInstance().format(note.getMidiNumber());
+        }
+        spelling = spelling.toUpperCase(Locale.ENGLISH);
         if (spelling.charAt(1) == 'B' || spelling.charAt(1) == 'F') {
             return true;
         }
@@ -292,7 +332,10 @@ public class StaffSymbolManager {
     }
 
     public static final boolean isSpellingSharp(MIDINote note) {
-        String spelling = note.getSpelling().toUpperCase(Locale.ENGLISH);
+        String spelling = note.getSpelling();
+        if (spelling == null) {
+            spelling = PitchFormat.getInstance().format(note.getMidiNumber());
+        }
         if (spelling.charAt(1) == '#' || spelling.charAt(1) == 'S') {
             return true;
         }
@@ -470,6 +513,10 @@ public class StaffSymbolManager {
      */
     public static void setStaffModel(StaffModel staffModel) {
         StaffSymbolManager.staffModel = staffModel;
+
+        setNoteList(staffModel.getNoteList());
+        refresh();
+
         staffModel.getTrackProperty().addListener(
                 new ChangeListener<MIDITrack>() {
                     @Override
@@ -477,7 +524,7 @@ public class StaffSymbolManager {
                             ObservableValue<? extends MIDITrack> observable,
                             MIDITrack oldValue, MIDITrack newValue) {
                         logger.debug("staff model track changed. using new value");
-                        setMIDITrack(newValue);
+                        // setMIDITrack(newValue);
                     }
                 });
     }
