@@ -511,8 +511,17 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         StringBuilder sb = new StringBuilder();
         sb.append("S+ ");
         for (MIDINote note : notes) {
-            sb.append(PitchFormat.getInstance().format(note.getPitch()).trim())
-                    .append(",");
+
+            String spelling = note.getSpelling();
+            if (spelling == null) {
+                
+                spelling = PitchFormat.getInstance().format(
+                        note.getPitch());
+            }
+            sb.append(spelling.trim()).append(",");
+
+            // sb.append(PitchFormat.getInstance().format(note.getPitch()).trim())
+            // .append(",");
             sb.append(note.getStartBeat()).append(",");
             sb.append(note.getDuration()).append(' ');
         }
