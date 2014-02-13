@@ -88,17 +88,19 @@ public class StaffSymbolManager {
         double y = staffModel.getYpositionForPitch(pitch, true);
 
         if (isSpellingFlat(note)) {
-            glyph = glyph + SymbolFactory.flat();
+            glyph = SymbolFactory.flat();
             logger.debug("is flat");
             y = staffModel.getYpositionForPitch(pitch, true);
-            x += staffModel.stringWidth(SymbolFactory.flat());
-            symbols.add(new StaffSymbol(x, y, SymbolFactory.flat()));
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
         }
 
         if (isSpellingSharp(note)) {
-            glyph = glyph + SymbolFactory.sharp();
+            glyph = SymbolFactory.sharp();
             logger.debug("is sharp");
             y = staffModel.getYpositionForPitch(pitch, false);
+            x += staffModel.stringWidth(glyph);
+            symbols.add(new StaffSymbol(x, y, glyph));
         }
 
         double center = staffModel.getStaffCenterLine();
