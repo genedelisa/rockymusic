@@ -29,20 +29,23 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.layout.Pane;
+import javafx.beans.property.adapter.JavaBeanObjectProperty;
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.text.Font;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
-
-import static com.rockhoppertech.music.Pitch.*;
-
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.NotationApp;
+import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.sun.javafx.tk.Toolkit;
+
+import static com.rockhoppertech.music.Pitch.*;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -246,7 +249,14 @@ public class StaffModel {
             } else {
                 num = BassNote.bassLedgersSharp[pitch];
             }
-        }
+        } else if (this.clef == Clef.ALTO) {
+            if (useFlat) {
+                num = AltoNote.altoLedgersFlat[pitch];
+            } else {
+                num = AltoNote.altoLedgersSharp[pitch];
+            }
+        } 
+        //TODO other clefs
         return num;
     }
 
@@ -396,32 +406,39 @@ public class StaffModel {
         return (int) theY;
     }
 
-    // TODO do this nothing is right here. test it. just a first cut.
+    // c cs d ds e f fs g gs a as b
+    // c df d ef e f gf g af a bf b
+    // TODO  just a first cut.
     public int altoMidiNumToY(final int num, final boolean sharps) {
         // the "which" arrays are by pitch class
-        // e.g. pcs 3 ef and 4 e are on the bottom line so they are both 0
+        // f4 is the bottom line in the alto staff
 
-        // c, df, d, ef, e, f, gf,g,af, a, bf, b
-        // number of yincs
-        final int[] whichLineFlat = { -3, -2, -2, 1, 1, 0, 1, 1, 2, 2, 3, 3 };
-        // c, c#, d, d#, e, f, f#, g, G#, a, a#, b
-        final int[] whichLineSharp = { -3, -3, -2, -2, 0, 1, 1, 2, 2, 3, 3, 4 };
-        final int[] octaveOffset = { -35, -28, -21, -14, -7, 0, 7, 14, 21, 28,
-                35 };
+        // number of yincs, which are line to space or space to line
+        //                             c, df,  d, ef, e,  f, gf,g, af, a, bf, b
+        final int[] whichLineFlat = { -3, -2, -2, -1, -1, 0, 1,  1, 2, 2, 3, 3 };
+        //                              c, c#,  d,  d#, e, f, f#, g, G#, a, a#, b
+        //final int[] whichLineSharp = { -3, -3, -3, -2, -2, -1, 0, 0,  1, 1,  2, 2,  3};
+        final int[] whichLineSharp = { -3, -3, -2, -2, -1, 0, 0,  1, 1,  2, 2,  3};
+        final int[] octaveOffset = {  -28, -21, -14, -7, 0, 7, 14, 21, 28,
+                35, 42 };
+        final double oct = octaveOffset[num / 12] * this.yspacing;
+        
         // 0,
         // final int[] alto = { F4, G4, A4, B4, C5, D5, E5 };
 
         double theY = 0d;
         if (sharps) {
-            theY = this.staffBottom
-                    - (whichLineSharp[num % 12] * this.yspacing)
-                    - (octaveOffset[num / 12] * this.yspacing);
+            theY =  this.staffBottom
+                    - (whichLineSharp[num % 12] * this.yspacing);
+            logger.debug("sharps. y {} for num {} which {}", theY, num, whichLineSharp[num % 12]);
         } else {
             theY = this.staffBottom
-                    - (whichLineFlat[num % 12] * this.yspacing)
-                    - (octaveOffset[num / 12] * this.yspacing);
-            // System.err.printf("num %d y %f\n", num, theY);
+                    - (whichLineFlat[num % 12] * this.yspacing);
         }
+        // System.err.printf("num %d y %f\n", num, theY);        
+        theY -= oct;
+        logger.debug("sharps. y oct {} staff bottom {}", theY, staffBottom);        
+        
         return (int) theY;
     }
 
@@ -524,6 +541,28 @@ public class StaffModel {
         this.trackProperty.setValue(track);
         this.track = track;
         StaffSymbolManager.setMIDITrack(track);
+
+        // track.getNotes();
+        //TODO fix this
+        JavaBeanObjectProperty<List<MIDINote>> tp = null;
+        try {
+            tp = JavaBeanObjectPropertyBuilder.create()
+                    .bean(track)
+                    .name("notes")
+                    .build();
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        
+        tp.addListener(new ChangeListener(){
+            @Override
+            public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+                System.err.println(arg0);
+                System.err.println(arg1);
+                System.err.println(arg2);
+                
+            }});
     }
 
     /**
@@ -569,9 +608,11 @@ public class StaffModel {
     }
 
     public void addNote(int midiNumber) {
-        this.trackProperty.get().append(midiNumber);
-        
-        //this.track.append(midiNumber);
+        MIDITrack track = this.trackProperty.get().append(midiNumber).sequential();
+        track.append(midiNumber);
+        track.sequential();        
+        this.trackProperty.setValue(track);
+       // this.track.append(midiNumber);
 
     }
 
