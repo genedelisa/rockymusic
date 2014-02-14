@@ -38,6 +38,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.AnchorPaneBuilder;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderPaneBuilder;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.VBoxBuilder;
@@ -51,7 +53,6 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
-import com.rockhoppertech.music.midi.js.MIDITrackFactory;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -68,7 +69,8 @@ public class NotationApp extends Application {
     private NotationController controller;
     private StaffModel staffModel;
     // private NotationView view;
-    private NotationCanvas view;
+    // private NotationCanvas view;
+    private StaffControl view;
 
     // private static ObservableList<MIDINote> tableDataList;
 
@@ -90,9 +92,11 @@ public class NotationApp extends Application {
                 .build();
         System.out.println(track);
         this.staffModel.setTrack(track);
-        this.view = new NotationCanvas(this.staffModel);
+        // this.view = new NotationCanvas(this.staffModel);
+        this.view = new StaffControl(this.staffModel);
         this.controller = new NotationController(staffModel, view);
-        this.view.repaintCanvas();
+        this.view.drawShapes();
+        ;
 
         this.configureScene();
         this.configureStage();
@@ -132,8 +136,8 @@ public class NotationApp extends Application {
                 .wrapText(true)
                 .build();
         controller.setTextArea(textArea);
-        //textArea.setText(this.staffModel.getTrackProperty().get()
-                //.toBriefMIDIString());
+        // textArea.setText(this.staffModel.getTrackProperty().get()
+        // .toBriefMIDIString());
 
         Button b = ButtonBuilder.create()
                 .id("noteStringButton")
@@ -167,12 +171,26 @@ public class NotationApp extends Application {
         ;
         controller.setClefCombBox(clefComboBox);
 
+        final ComboBox<Double> fontSizeComboBox = new ComboBox<>();
+        fontSizeComboBox.getItems().addAll(12d, 24d, 36d, 48d, 72d, 96d);
+        fontSizeComboBox.getSelectionModel().select(3);
+        controller.setFontSizeComboBox(fontSizeComboBox);
+
         FXTextAreaReceiver receiver = new FXTextAreaReceiver();
         controller.addReceiver(receiver);
-
+        
+        HBox hbox = HBoxBuilder.create()
+                .padding(new Insets(20))
+                .children(clefComboBox, fontSizeComboBox)
+                .build();
+        HBox buttonbox = HBoxBuilder.create()
+                .padding(new Insets(20))
+                .children(b, pb)
+                .build();
+        
         VBox vbox = VBoxBuilder.create()
                 .padding(new Insets(20))
-                .children(textArea, b, pb, clefComboBox, receiver)
+                .children(textArea, buttonbox, hbox, receiver)
                 .build();
 
         ScrollPane sp = new ScrollPane();
