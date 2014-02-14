@@ -139,6 +139,11 @@ public class SymbolFactory {
         return getGlyph("augmentationDot");
     }
     
+    public static final String timeSig4() {
+        return getGlyph("timeSig4");
+    }
+    
+    
     
     
     
@@ -196,7 +201,10 @@ public class SymbolFactory {
 
     public static final Point2D getStemUpSE(final String notehead) {
         JsonObject metag = fontMetaData.getJsonObject("glyphs");
+        logger.debug("metag '{}'", metag);
         JsonObject jobj = metag.getJsonObject(notehead);
+        logger.debug("for glyph '{}'", notehead);
+        logger.debug("jobj for glyph '{}'", jobj);
         JsonArray stemDownNW = jobj.getJsonArray("stemUpSE");
         // System.err.println(stemDownNW.getJsonNumber(0));
         // System.err.println(stemDownNW.getJsonNumber(1));

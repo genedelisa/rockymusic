@@ -20,25 +20,21 @@ package com.rockhoppertech.music.fx.cmn;
  * #L%
  */
 
-import java.awt.Panel;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.VPos;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
-import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
 import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
@@ -48,17 +44,21 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
-public class NotationCanvas extends Canvas {
+public class StaffControl extends Region {
+    //public class StaffControl extends Control {
     private static final Logger logger = LoggerFactory
-            .getLogger(NotationCanvas.class);
+            .getLogger(StaffControl.class);
 
     private Font font;
     private StaffModel staffModel;
+
     // private NotationController controller;
 
-    public NotationCanvas(StaffModel staffModel) {
+    public StaffControl(StaffModel staffModel) {
         this.staffModel = staffModel;
         this.font = this.staffModel.getFont();
+
+       // this.setSkin(new StaffControlSkin(this));
 
         this.staffModel.getTrackProperty().addListener(
                 new ChangeListener<MIDITrack>() {
@@ -66,7 +66,7 @@ public class NotationCanvas extends Canvas {
                     public void changed(
                             ObservableValue<? extends MIDITrack> observable,
                             MIDITrack oldValue, MIDITrack newValue) {
-                        repaintCanvas();
+                        drawShapes();
                         logger.debug("staff model track changed. repainting");
                     }
                 });
@@ -75,48 +75,61 @@ public class NotationCanvas extends Canvas {
         this.setOpacity(1d);
         this.setWidth(2300d);
         this.setHeight(300d);
-
-        GraphicsContext gc = this.getGraphicsContext2D();
-        gc.clearRect(0, 0, this.getWidth(), this.getHeight());
-        gc.setFill(Color.WHITE);
-        gc.fillRect(0, 0, this.getWidth(), this.getHeight());
-        gc.setFill(Color.BLACK);
-        gc.setTextBaseline(VPos.CENTER);
-        gc.setFont(font);
-
+        // this.setFont(font);
+        
+        // this call doens't work
         drawStaff();
     }
 
     private void drawStaff() {
-        GraphicsContext gc = this.getGraphicsContext2D();
+        logger.debug("drawing the staff");
         double x = staffModel.getStartX();
         double y = staffModel.getStaffBottom();
         double yspacing = staffModel.getYSpacing();
+        
+        font = staffModel.getFont();
 
         // draw the clef
+        Text text = null;
         switch (staffModel.getClef()) {
         case TREBLE:
-            gc.fillText(SymbolFactory.gClef(), x, y - (yspacing * 2d));
+            text = new Text(x, y - (yspacing * 2d), SymbolFactory.gClef());
             break;
         case BASS:
-            gc.fillText(SymbolFactory.fClef(), x, y - (yspacing * 6d));
+            text = new Text(x, y - (yspacing * 6d), SymbolFactory.fClef());
             break;
         case ALTO:
-            gc.fillText(SymbolFactory.cClef(), x, y - (yspacing * 4d));
+            text = new Text(x, y - (yspacing * 4d), SymbolFactory.cClef());
             break;
         case BARITONE:
+            // top line
+            text = new Text(x, y - (yspacing * 8d), SymbolFactory.cClef());
             break;
         case MEZZO_SOPRANO:
+            text = new Text(x, y - (yspacing * 2d), SymbolFactory.cClef());
             break;
         case SOPRANO:
+            // bottom line
+            text = new Text(x, y, SymbolFactory.cClef());
             break;
         case SUB_BASS:
+            // top line
+            text = new Text(x, y - (yspacing * 8d), SymbolFactory.fClef());
             break;
         case TENOR:
+            text = new Text(x, y - (yspacing * 6d), SymbolFactory.cClef());
             break;
         default:
+            text = new Text(x,y, "What clef?");
             break;
         }
+        text.setFont(font);
+        //text.setStyle("-fx-background-color: #CCFF99; -fx-stroke: black; -fx-font: 48px Bravura;");
+        text.setFontSmoothingType(FontSmoothingType.LCD);
+        text.autosize();
+        this.getChildren().add(text);
+        
+        // TODO fill in the rest of the clefs
 
         // draw the staff
         logger.debug("canvas width {}", this.getWidth());
@@ -124,46 +137,28 @@ public class NotationCanvas extends Canvas {
         double inc = staffModel.getFontSize() / 2d;
         double width = this.getWidth();
         for (double xx = x; xx < width; xx += inc) {
-            gc.fillText(staff, xx, y);
+            text = new Text(xx, y, staff);
+            text.setFont(font);
+            this.getChildren().add(text);
         }
-
-        // TODO why is this gray and not black?
-        // gc.setLineWidth(SymbolFactory.getStaffLineThickness());
-        // gc.setStroke(Color.BLACK);
-        // gc.setFill(Color.BLACK);
-        // gc.setLineCap(StrokeLineCap.ROUND);
-        // gc.setLineJoin(StrokeLineJoin.ROUND);
-        // for (int i = 0; i < 5; i++) {
-        // double yy = y - i * staffModel.getLineInc();
-        // gc.strokeLine(x, yy, 2500d, yy);
-        // }
     }
 
-    public void repaintCanvas() {
-        GraphicsContext gc = this.getGraphicsContext2D();
-        gc.setFill(Color.WHITE);
-        // gc.setFill(controller.getBackgroundColor());
-        gc.fillRect(0, 0, this.getWidth(), this.getHeight());
-        gc.setFill(Color.BLACK);
+    public void drawShapes() {
+        logger.debug("drawing shapes before clearing {}", getChildren().size());
+        this.getChildren().clear();
+        //this.getManagedChildren().clear();
+        logger.debug("drawing shapes after clearing {}", getChildren().size());
 
-        this.drawStaff();
-
-        // gc.setStroke(Color.RED);
-        // gc.setFill(Color.RED);
-       
+        drawStaff();
+        List<Shape> shapes = staffModel.getShapes();
+        logger.debug("drawing shapes {}", shapes.size());
+        this.getChildren().addAll(shapes);
         
+//        this.layout();
+        //setNeedsLayout(true);
         
-        List<StaffSymbol> symbols = staffModel.getSymbols();
-        for (StaffSymbol symbol : symbols) {
-            // maybe a note renderer?
-            // noterenderer.render(symbol, gc);
-            gc.fillText(symbol.getSymbol(), symbol.getX(), symbol.getY());
-            // gc.strokeText(symbol.getSymbol(), symbol.getX(), symbol.getY());
-            logger.debug(
-                    "drawing symbol '{}' at x {} y {}",
-                    symbol.getSymbol(),
-                    symbol.getX(),
-                    symbol.getY());
-        }
+        // for (Shape shape : shapes) {
+        // this.getChildren().add(shape);
+        // }
     }
 }

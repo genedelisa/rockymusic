@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.MIDISender;
@@ -45,30 +44,31 @@ import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
- *
+ * 
  */
 public class NotationController {
     private static final Logger logger = LoggerFactory
             .getLogger(NotationController.class);
 
     StaffModel model;
-    NotationCanvas view;
+    // NotationCanvas view;
+    StaffControl view;
     Stage stage;
     MIDISender midiSender;
 
     // GUI. maybe fxml sometime
-    private NotationCanvas canvas;
+    private StaffControl canvas;
     private TextField textField;
 
     /**
      * @param model
      * @param view
      */
-    public NotationController(StaffModel model, NotationCanvas view) {
+    public NotationController(StaffModel model, StaffControl view) {
         this.model = model;
         this.view = view;
         this.midiSender = new MIDISender();
-        //this.midiSender.addReceiver(new ConsoleReceiver());
+        // this.midiSender.addReceiver(new ConsoleReceiver());
 
         this.setCanvas(this.view);
     }
@@ -81,29 +81,34 @@ public class NotationController {
 
     public void mousePressed(MouseEvent evt) {
         pitch = model.whichNote(evt.getY());
-        if(pitch < 0 || pitch > 127) {
+        if (pitch < 0 || pitch > 127) {
             return;
         }
         this.midiSender.sendNoteOn(pitch, 64);
         Pitch p = PitchFactory.getPitch(pitch);
         String preferredSpelling = p.getPreferredSpelling();
-        if (preferredSpelling == null || preferredSpelling.equals("") || preferredSpelling.equals("null")) {
+        if (preferredSpelling == null || preferredSpelling.equals("")
+                || preferredSpelling.equals("null")) {
             logger.debug(
                     "preferred spelling empty for pitch {}",
                     pitch);
-            preferredSpelling = PitchFormat.getInstance().format(
-                    pitch);
+            // preferredSpelling = PitchFormat.getInstance().format(
+            // pitch);
         }
         preferredSpelling += " ";
-    
+
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         textArea.appendText(preferredSpelling);
         model.addNote(pitch);
-        canvas.repaintCanvas();
+        // canvas.repaintCanvas();
+
     }
 
     public void mouseReleased(MouseEvent evt) {
         this.midiSender.sendNoteOff(pitch);
+        // if you draw in the mouse down, the Text will grab the mouseReleased
+        // event
+        canvas.drawShapes();
     }
 
     public void mouseDragged(MouseEvent evt) {
@@ -125,8 +130,8 @@ public class NotationController {
         this.stage = stage;
     }
 
-    public void setCanvas(NotationCanvas canvas2) {
-        this.canvas = canvas2;
+    public void setCanvas(StaffControl view2) {
+        this.canvas = view2;
         this.canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent evt) {
@@ -157,7 +162,8 @@ public class NotationController {
                 .build();
         logger.debug("track from string\n{}", track);
         this.model.setTrack(track);
-        canvas.repaintCanvas();
+        // canvas.repaintCanvas();
+        canvas.drawShapes();
     }
 
     /**
@@ -215,12 +221,12 @@ public class NotationController {
                 } else if (sel.equals("Alto")) {
                     model.setClef(Clef.ALTO);
                 }
-                canvas.repaintCanvas();
+                // canvas.repaintCanvas();
+                canvas.drawShapes();
             }
         });
 
     }
-
 
     public void addReceiver(Receiver receiver) {
         this.midiSender.addReceiver(receiver);
@@ -233,7 +239,22 @@ public class NotationController {
                 model.getTrackProperty().get().play();
             }
         });
-        
+
+    }
+
+    private ComboBox<Double> fontSizeComboBox;
+
+    public void setFontSizeComboBox(ComboBox<Double> fontSizeComboBox) {
+        this.fontSizeComboBox = fontSizeComboBox;
+        fontSizeComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Double sel = NotationController.this.fontSizeComboBox
+                        .getSelectionModel().getSelectedItem();
+                model.setFontSize(sel);
+                canvas.drawShapes();
+            }
+        });
     }
 
 }

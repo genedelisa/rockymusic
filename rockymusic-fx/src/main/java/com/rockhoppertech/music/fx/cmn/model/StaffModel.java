@@ -34,6 +34,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 
 import org.slf4j.Logger;
@@ -359,12 +360,16 @@ public class StaffModel {
      */
     public void setFontSize(final double fontSize2) {
         this.fontSize = fontSize2;
+        this.font = new Font("Bravura", fontSize);
+        // set the font before the fontsize property for listeners who use the
+        // font
         this.fontSizeProperty.setValue(this.fontSize);
         this.staffBottom = 4d * this.fontSize;
         this.calcStaffMetrics();
         setClef(this.clef);
-        this.font = new Font("Bravura", fontSize);
 
+        if (staffSymbolManager != null)
+            staffSymbolManager.refresh();
         // needed the first time.
         if (this.track != null) {
             // StaffSymbolManager.setMIDITrack(this.track);
@@ -575,6 +580,10 @@ public class StaffModel {
         return staffSymbolManager.getSymbols();
     }
 
+    public List<Shape> getShapes() {
+        return staffSymbolManager.getShapes();
+    }
+
     /**
      * @return the font
      */
@@ -688,6 +697,13 @@ public class StaffModel {
      */
     public ObservableList<MIDINote> getNoteList() {
         return noteList;
+    }
+
+    /**
+     * @return the noteListProperty
+     */
+    public ListProperty<MIDINote> getNoteListProperty() {
+        return noteListProperty;
     }
 
 }
