@@ -130,6 +130,7 @@ public class Pitch implements Serializable, Comparable<Pitch> {
         // this.frequency = Pitch.midiFq(this.midiNumber);
         frequency = PitchFactory.EQUAL_TEMPERAMENT.get(midiNumber);
         this.preferredSpelling = PitchFormat.getInstance().format(n);
+        logger.debug("spelling '{}'", this.preferredSpelling);
     }
 
     /**
