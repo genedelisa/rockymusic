@@ -509,7 +509,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     public String toBriefMIDIString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("S+ ");
+        
         for (MIDINote note : notes) {
 
             String spelling = note.getSpelling();
@@ -530,6 +530,23 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         // sb.append(n.toReadableString()).append('\n');
         // }
 
+        return sb.toString();
+    }
+    
+    public String toBriefMIDIString(String delimiter) {
+        StringBuilder sb = new StringBuilder();
+
+        for (MIDINote note : notes) {
+
+            String spelling = note.getSpelling();
+            if (spelling == null) {
+                spelling = PitchFormat.getInstance().format(
+                        note.getPitch());
+            }
+            sb.append(spelling.trim()).append(",");
+            sb.append(note.getStartBeat()).append(",");
+            sb.append(note.getDuration()).append(delimiter);
+        }
         return sb.toString();
     }
 
@@ -1592,8 +1609,9 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public static String getPitchesAsString(MIDITrack n) {
         StringBuilder sb = new StringBuilder();
         for (MIDINote note : n) {
-            sb.append(PitchFormat.getInstance().format(note.getPitch()))
-                    .append(' ');
+            sb.append(note.getPitch().getPreferredSpelling()).append(' ');
+            //sb.append(PitchFormat.getInstance().format(note.getPitch()))
+                    //.append(' ');
         }
         return sb.toString();
     }
