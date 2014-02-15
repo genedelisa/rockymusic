@@ -25,7 +25,7 @@ import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
-import javafx.scene.layout.Region;
+import javafx.scene.control.Control;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -39,13 +39,13 @@ import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
- * A drawing Canvas with a staff and symbols.
+ * A drawing region with a staff and symbols.
  * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
-public class StaffControl extends Region {
-    //public class StaffControl extends Control {
+
+public class StaffControl extends Control {
     private static final Logger logger = LoggerFactory
             .getLogger(StaffControl.class);
 
@@ -55,10 +55,12 @@ public class StaffControl extends Region {
     // private NotationController controller;
 
     public StaffControl(StaffModel staffModel) {
+        getStyleClass().setAll("staff-control");
+
         this.staffModel = staffModel;
         this.font = this.staffModel.getFont();
 
-       // this.setSkin(new StaffControlSkin(this));
+        // this.setSkin(new StaffControlSkin(this));
 
         this.staffModel.getTrackProperty().addListener(
                 new ChangeListener<MIDITrack>() {
@@ -76,7 +78,7 @@ public class StaffControl extends Region {
         this.setWidth(2300d);
         this.setHeight(300d);
         // this.setFont(font);
-        
+
         // this call doens't work
         drawStaff();
     }
@@ -86,9 +88,10 @@ public class StaffControl extends Region {
         double x = staffModel.getStartX();
         double y = staffModel.getStaffBottom();
         double yspacing = staffModel.getYSpacing();
-        
+
         font = staffModel.getFont();
 
+        // TODO this logic belongs elsewhere
         // draw the clef
         Text text = null;
         switch (staffModel.getClef()) {
@@ -120,15 +123,15 @@ public class StaffControl extends Region {
             text = new Text(x, y - (yspacing * 6d), SymbolFactory.cClef());
             break;
         default:
-            text = new Text(x,y, "What clef?");
+            text = new Text(x, y, "What clef?");
             break;
         }
         text.setFont(font);
-        //text.setStyle("-fx-background-color: #CCFF99; -fx-stroke: black; -fx-font: 48px Bravura;");
+        // text.setStyle("-fx-background-color: #CCFF99; -fx-stroke: black; -fx-font: 48px Bravura;");
         text.setFontSmoothingType(FontSmoothingType.LCD);
         text.autosize();
         this.getChildren().add(text);
-        
+
         // TODO fill in the rest of the clefs
 
         // draw the staff
@@ -143,22 +146,22 @@ public class StaffControl extends Region {
         }
     }
 
+    /**
+     * Removes all current shapes, gets the shapes from the model, then draws
+     * them.
+     */
     public void drawShapes() {
-        logger.debug("drawing shapes before clearing {}", getChildren().size());
         this.getChildren().clear();
-        //this.getManagedChildren().clear();
-        logger.debug("drawing shapes after clearing {}", getChildren().size());
+        // this.getManagedChildren().clear();
 
         drawStaff();
         List<Shape> shapes = staffModel.getShapes();
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
-        
-//        this.layout();
-        //setNeedsLayout(true);
-        
-        // for (Shape shape : shapes) {
-        // this.getChildren().add(shape);
-        // }
+    }
+
+    @Override
+    protected String getUserAgentStylesheet() {
+        return getClass().getResource("StaffControl.css").toExternalForm();
     }
 }
