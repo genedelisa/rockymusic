@@ -70,7 +70,9 @@ public class NotationApp extends Application {
     private StaffModel staffModel;
     // private NotationView view;
     // private NotationCanvas view;
-    private StaffControl view;
+    private StaffRegion view;
+
+    // private StaffControl view;
 
     // private static ObservableList<MIDINote> tableDataList;
 
@@ -93,10 +95,9 @@ public class NotationApp extends Application {
         System.out.println(track);
         this.staffModel.setTrack(track);
         // this.view = new NotationCanvas(this.staffModel);
-        this.view = new StaffControl(this.staffModel);
+        this.view = new StaffRegion(this.staffModel);
         this.controller = new NotationController(staffModel, view);
         this.view.drawShapes();
-        ;
 
         this.configureScene();
         this.configureStage();
@@ -122,23 +123,21 @@ public class NotationApp extends Application {
     }
 
     private void configureScene() {
-        TextField text = TextFieldBuilder.create()
-                .id("noteStringText")
-                .editable(true)
-                .promptText("Enter a note string")
-                .build();
-        controller.setTextField(text);
+        // TextField text = new TextField();
+        // text.setId("noteStringText");
+        // text.setEditable(true);
+        // text.setPromptText("Enter a note string");
+        // controller.setTextField(text);
 
-        TextArea textArea = TextAreaBuilder.create()
-                .id("noteStringText")
-                .editable(true)
-                .promptText("Enter a note string")
-                .wrapText(true)
-                .build();
+        TextArea textArea = new TextArea();
+        textArea.setId("noteStringText");
+        textArea.setEditable(true);
+        textArea.setPromptText("Enter a note string");
+        textArea.setWrapText(true);
+        textArea.setText(MIDITrack
+                .getPitchesAsString(this.staffModel.getTrackProperty().get()));
         controller.setTextArea(textArea);
-        // textArea.setText(this.staffModel.getTrackProperty().get()
-        // .toBriefMIDIString());
-
+        
         Button b = ButtonBuilder.create()
                 .id("noteStringButton")
                 .style("-fx-font: 22 arial; -fx-base: #1055FF;")
@@ -178,7 +177,7 @@ public class NotationApp extends Application {
 
         FXTextAreaReceiver receiver = new FXTextAreaReceiver();
         controller.addReceiver(receiver);
-        
+
         HBox hbox = HBoxBuilder.create()
                 .padding(new Insets(20))
                 .children(clefComboBox, fontSizeComboBox)
@@ -187,7 +186,7 @@ public class NotationApp extends Application {
                 .padding(new Insets(20))
                 .children(b, pb)
                 .build();
-        
+
         VBox vbox = VBoxBuilder.create()
                 .padding(new Insets(20))
                 .children(textArea, buttonbox, hbox, receiver)

@@ -52,21 +52,31 @@ public class NotationController {
 
     StaffModel model;
     // NotationCanvas view;
-    StaffControl view;
+    StaffRegion view;
     Stage stage;
     MIDISender midiSender;
 
     // GUI. maybe fxml sometime
-    private StaffControl canvas;
+    //private StaffControl canvas;
+    private StaffRegion canvas;
     private TextField textField;
 
     /**
      * @param model
      * @param view
      */
-    public NotationController(StaffModel model, StaffControl view) {
-        this.model = model;
-        this.view = view;
+//    public NotationController(StaffModel model, StaffControl view) {
+//        this.model = model;
+//        this.view = view;
+//        this.midiSender = new MIDISender();
+//        // this.midiSender.addReceiver(new ConsoleReceiver());
+//
+//        this.setCanvas(this.view);
+//    }
+
+    public NotationController(StaffModel staffModel, StaffRegion view2) {
+        this.model = staffModel;
+        this.view = view2;
         this.midiSender = new MIDISender();
         // this.midiSender.addReceiver(new ConsoleReceiver());
 
@@ -130,7 +140,7 @@ public class NotationController {
         this.stage = stage;
     }
 
-    public void setCanvas(StaffControl view2) {
+    public void setCanvas(StaffRegion view2) {
         this.canvas = view2;
         this.canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -184,12 +194,12 @@ public class NotationController {
 
     public void setTextArea(TextArea textArea) {
         this.textArea = textArea;
-        this.textField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                notestringAction(event);
-            }
-        });
+//        this.textField.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                notestringAction(event);
+//            }
+//        });
     }
 
     Button noteStringButton;
