@@ -134,8 +134,10 @@ public class NotationApp extends Application {
         textArea.setEditable(true);
         textArea.setPromptText("Enter a note string");
         textArea.setWrapText(true);
-        textArea.setText(MIDITrack
-                .getPitchesAsString(this.staffModel.getTrackProperty().get()));
+//        textArea.setText(MIDITrack
+                //.getPitchesAsString(this.staffModel.getTrackProperty().get()));
+        
+        textArea.setText(this.staffModel.getTrackProperty().get().toBriefMIDIString("\n"));
         controller.setTextArea(textArea);
         
         Button b = ButtonBuilder.create()
