@@ -230,7 +230,8 @@ public class AltoNote {
         flatLedgersMap.put(B6, 4);
         
         // not filled in for oct 7 and 8
-        flatLedgersMap.put(C7, 1);
+        flatLedgersMap.put(C7, 5);
+        
         flatLedgersMap.put(DF7, 1);
         flatLedgersMap.put(D7, 2);
         flatLedgersMap.put(EF7, 2);
