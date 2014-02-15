@@ -310,10 +310,18 @@ public class StaffSymbolManager {
         // dotted eighth
         if (duration - .75 >= 0d) {
             duration -= .75;
-            if (stemUp) {
-                glyph = SymbolFactory.note8thUp();
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(x, y, stemUp);
+                add8thFlag(x, y, stemUp);
             } else {
-                glyph = SymbolFactory.note8thDown();
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
             }
 
             // x += staffModel.stringWidth(glyph);
@@ -358,6 +366,7 @@ public class StaffSymbolManager {
             if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
                 addStem(x, y, stemUp);
+                add8thFlag(x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note8thUp();
@@ -377,12 +386,21 @@ public class StaffSymbolManager {
         // 16th
         if (duration - .25 >= 0d) {
             duration -= .25;
-            if (stemUp) {
-                glyph = SymbolFactory.note16thUp();
+            
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(x, y, stemUp);
+                add16thFlag(x, y, stemUp);
             } else {
-                glyph = SymbolFactory.note16thDown();
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
             }
-            // x += staffModel.stringWidth(glyph);
+            
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
@@ -422,6 +440,66 @@ public class StaffSymbolManager {
         return x;
     }
 
+    private void add8thFlag(double x, double y, boolean stemUp) {
+        String glyph;
+        Point2D p = null;
+        double fx;
+        if (stemUp) {
+            p = SymbolFactory.getStemUpNW("flag8thUp");
+            glyph = SymbolFactory.flag8thUp();
+            fx = x + p.getX() + this.quarterNoteWidth;
+        } else {
+            p = SymbolFactory.stemDownSW("flag8thDown");
+            glyph = SymbolFactory.flag8thDown();
+            fx = x + p.getX();
+        }
+
+        double fy = staffModel.getStaffCenterLine() + p.getY();
+        logger.debug("adding flag at x {} y {}", x + fx, fy);
+        addText(fx,
+                fy,
+                glyph);
+    }
+    private void add16thFlag(double x, double y, boolean stemUp) {
+        String glyph;
+        Point2D p = null;
+        double fx;
+        if (stemUp) {
+            p = SymbolFactory.getStemUpNW("flag16thUp");
+            glyph = SymbolFactory.flag16thUp();
+            fx = x + p.getX() + this.quarterNoteWidth;
+        } else {
+            p = SymbolFactory.stemDownSW("flag16thDown");
+            glyph = SymbolFactory.flag16thDown();
+            fx = x + p.getX();
+        }
+
+        double fy = staffModel.getStaffCenterLine() + p.getY();
+        logger.debug("adding flag at x {} y {}", x + p.getX(), fy);
+        addText(fx,
+                fy,
+                glyph);
+    }
+    /*
+     *  "flag16thDown": {
+            "stemDownSW": [
+                0.0, 
+                0.128
+            ]
+        }, 
+        "flag16thUp": {
+            "stemUpNW": [
+                0.0, 
+                -0.088
+            ]
+        }, 
+     */
+
+    /*
+     * "flag8thDown": { "stemDownSW": [ 0.0, 0.132 ] }, "flag8thUp": {
+     * "stemUpNW": [ 0.0, -0.048 ] },
+     */
+
     private void addStemHalf(double x, double y, boolean stemUp) {
         if (stemUp) {
             Point2D p = SymbolFactory.getStemUpSE("noteheadHalf");
@@ -449,7 +527,11 @@ public class StaffSymbolManager {
             Line line = new Line(lx, ly, lx, staffModel.getStaffCenterLine());
             // line.setStrokeWidth(SymbolFactory.getStemThickness());
             shapes.add(line);
-            logger.debug("added stem x {} y {}, center {}", lx, ly, staffModel.getStaffCenterLine());
+            logger.debug(
+                    "added stem x {} y {}, center {}",
+                    lx,
+                    ly,
+                    staffModel.getStaffCenterLine());
         } else {
             Point2D p = SymbolFactory.getStemDownNW("noteheadBlack");
             double lx = x + p.getX();
@@ -457,7 +539,11 @@ public class StaffSymbolManager {
             Line line = new Line(lx, ly, lx, staffModel.getStaffCenterLine());
             // line.setStrokeWidth(SymbolFactory.getStemThickness());
             shapes.add(line);
-            logger.debug("added stem x {} y {}, center {}", lx, ly, staffModel.getStaffCenterLine());
+            logger.debug(
+                    "added stem x {} y {}, center {}",
+                    lx,
+                    ly,
+                    staffModel.getStaffCenterLine());
         }
         logger.debug("added stem");
     }
@@ -759,9 +845,9 @@ public class StaffSymbolManager {
                     @Override
                     public void onChanged(
                             javafx.collections.ListChangeListener.Change<? extends MIDINote> change) {
-//                        if(change.wasReplaced()) {
-//                            
-//                        }
+                        // if(change.wasReplaced()) {
+                        //
+                        // }
                         logger.debug("list was changed");
                         refresh();
                     }

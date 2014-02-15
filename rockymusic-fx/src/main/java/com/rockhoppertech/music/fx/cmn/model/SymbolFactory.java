@@ -143,6 +143,19 @@ public class SymbolFactory {
         return getGlyph("timeSig4");
     }
     
+    // 
+    public static final String flag8thDown() {
+        return getGlyph("flag8thDown");
+    }
+    public static final String flag8thUp() {
+        return getGlyph("flag8thUp");
+    }
+    public static final String flag16thUp() {
+        return getGlyph("flag16thUp");
+    }
+    public static final String flag16thDown() {
+        return getGlyph("flag16thDown");
+    }
     
     
     
@@ -189,6 +202,15 @@ public class SymbolFactory {
         return stemThickness.doubleValue();
     }
 
+    public static final Point2D getStemUpNW(final String notehead) {
+        JsonObject metag = fontMetaData.getJsonObject("glyphs");
+        // JsonObject jobj = metag.getJsonObject("noteheadBlack");
+        JsonObject jobj = metag.getJsonObject(notehead);
+        JsonArray stemDownNW = jobj.getJsonArray("stemUpNW");
+        Point2D p = new Point2D(stemDownNW.getJsonNumber(0).doubleValue(),
+                stemDownNW.getJsonNumber(1).doubleValue());
+        return p;
+    }
     public static final Point2D getStemDownNW(final String notehead) {
         JsonObject metag = fontMetaData.getJsonObject("glyphs");
         // JsonObject jobj = metag.getJsonObject("noteheadBlack");
@@ -205,11 +227,23 @@ public class SymbolFactory {
         JsonObject jobj = metag.getJsonObject(notehead);
         logger.debug("for glyph '{}'", notehead);
         logger.debug("jobj for glyph '{}'", jobj);
-        JsonArray stemDownNW = jobj.getJsonArray("stemUpSE");
+        JsonArray jarray = jobj.getJsonArray("stemUpSE");
         // System.err.println(stemDownNW.getJsonNumber(0));
         // System.err.println(stemDownNW.getJsonNumber(1));
-        Point2D p = new Point2D(stemDownNW.getJsonNumber(0).doubleValue(),
-                stemDownNW.getJsonNumber(1).doubleValue());
+        Point2D p = new Point2D(jarray.getJsonNumber(0).doubleValue(),
+                jarray.getJsonNumber(1).doubleValue());
+        return p;
+    }
+
+    public static Point2D stemDownSW(String string) {
+        JsonObject metag = fontMetaData.getJsonObject("glyphs");
+        logger.debug("metag '{}'", metag);
+        JsonObject jobj = metag.getJsonObject(string);
+        logger.debug("for glyph '{}'", string);
+        logger.debug("jobj for glyph '{}'", jobj);
+        JsonArray jarray = jobj.getJsonArray("stemDownSW");
+        Point2D p = new Point2D(jarray.getJsonNumber(0).doubleValue(),
+                jarray.getJsonNumber(1).doubleValue());
         return p;
     }
 
@@ -259,4 +293,6 @@ public class SymbolFactory {
         // }
         // System.err.println(result.getString("alternateCodepoint"));
     }
+
+   
 }
