@@ -188,6 +188,61 @@ public class SymbolFactory {
     
     // flag8thUp 
     
+    public static final String rest1024th() {
+        return getGlyph("rest1024th");
+    }
+    public static final String rest128th() {
+        return getGlyph("rest128th");
+    }
+    public static final String rest16th() {
+        return getGlyph("rest16th");
+    }
+    public static final String restWhole() {
+        return getGlyph("restWhole");
+    }
+    public static final String restQuarter() {
+        return getGlyph("restQuarter");
+    }
+    public static final String restHalf() {
+        return getGlyph("restHalf");
+    }
+    
+    public static final String restDoubleWhole() {
+        return getGlyph("restDoubleWhole");
+    }
+
+    public static final String rest8th() {
+        return getGlyph("rest8th");
+    }
+
+    public static final String rest32nd() {
+        return getGlyph("rest32nd");
+    }
+
+    public static final String rest64th() {
+        return getGlyph("rest64th");
+    }
+
+    public static final String rest256th() {
+        return getGlyph("rest256th");
+    }
+    
+
+//
+//    "rest512th": {
+//    "restHBar": {
+//    "restHBarLeft": {
+//    "restHBarRight": {
+//    "restLonga": {
+//    "restQuarterOld": {
+
+
+    
+    
+    
+    
+    
+    
 
     // meta accessors
     public static final double getStemThickness() {
