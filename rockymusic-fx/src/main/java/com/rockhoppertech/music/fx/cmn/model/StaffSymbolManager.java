@@ -29,8 +29,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeType;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 
@@ -54,7 +57,15 @@ public class StaffSymbolManager {
             .getLogger(StaffSymbolManager.class);
 
     private List<StaffSymbol> symbols = new ArrayList<>();
+
+    /**
+     * these shapes are filled.
+     */
     private List<Shape> shapes = new ArrayList<>();
+    /**
+     * these shapes are stroked.
+     */
+    private List<Shape> strokedShapes = new ArrayList<>();
     private StaffModel staffModel;
     private ObservableList<MIDINote> noteList;
 
@@ -174,6 +185,8 @@ public class StaffSymbolManager {
         }
         logger.debug("is stem up? {}", stemUp);
 
+        QuadCurve tie = null;
+
         // Now pick the duration. not complete right now.
         // this ignores beaming completely.
 
@@ -185,7 +198,25 @@ public class StaffSymbolManager {
             symbols.add(new StaffSymbol(x, y, glyph));
             addLedgers(note, x);
             text = addText(x, y, glyph);
-            x += text.getLayoutBounds().getWidth();
+
+            // double height = text.getLayoutBounds().getWidth();
+
+            double width = text.getLayoutBounds().getWidth();
+            // if (slur != null) {
+            // endSlur(x, y, slur, width);
+            // slur = null;
+            // }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
         }
 
         // dotted half
@@ -209,6 +240,22 @@ public class StaffSymbolManager {
             // x += staffModel.stringWidth(glyph);
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
+
+            double width = text.getLayoutBounds().getWidth();
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
             x += text.getLayoutBounds().getWidth();
         }
 
@@ -232,6 +279,22 @@ public class StaffSymbolManager {
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
+
+            double width = text.getLayoutBounds().getWidth();
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
             x += text.getLayoutBounds().getWidth();
         }
 
@@ -263,6 +326,22 @@ public class StaffSymbolManager {
             x += text.getLayoutBounds().getWidth() / 2d;
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
+
+            double width = text.getLayoutBounds().getWidth();
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
             x += text.getLayoutBounds().getWidth();
         }
 
@@ -304,9 +383,26 @@ public class StaffSymbolManager {
                     );
 
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
             // x += staffModel.stringWidth(glyph);
         }
+
         // dotted eighth
         if (duration - .75 >= 0d) {
             duration -= .75;
@@ -386,8 +482,8 @@ public class StaffSymbolManager {
         // 16th
         if (duration - .25 >= 0d) {
             duration -= .25;
-            
-         // if the pitch is more than an octave from the center line, draw a
+
+            // if the pitch is more than an octave from the center line, draw a
             // notehead and a stem.
             if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
@@ -400,7 +496,7 @@ public class StaffSymbolManager {
                     glyph = SymbolFactory.note16thDown();
                 }
             }
-            
+
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
@@ -440,6 +536,57 @@ public class StaffSymbolManager {
         return x;
     }
 
+    private void endTie(double x, double y, QuadCurve slur, double width) {
+        double endx = x - width / 2d;
+        slur.setEndX(endx);
+        // the center of the slur
+        double cx = slur.getStartX() + (endx - slur.getStartX()) / 2d;
+        slur.setControlX(cx);
+        shapes.add(slur);
+    }
+
+    private QuadCurve startTieUnder(double x, double y, double width) {
+        QuadCurve slur;
+        slur = new QuadCurve();
+        slur.setStartX(x + width / 2d);
+        // slur.setStartX(x + width );
+        slur.setStartY(y + staffModel.getLineInc());
+        slur.setEndY(y + staffModel.getLineInc());
+        // control x is set when added
+        // slur.setControlY(y + 25d); // + is under
+        slur.setControlY(y + staffModel.getLineInc() * 2d); // + is under
+        slur.setFill(null);
+        slur.setStroke(Color.BLACK);
+        // slur.setStroke(Color.web("#b9c0c5"));
+        slur.setStrokeWidth(1d);
+        return slur;
+    }
+
+    private QuadCurve startTieOver(double x, double y, double width) {
+        QuadCurve slur;
+        slur = new QuadCurve();
+        slur.setStartX(x + width / 2d);
+        //slur.setStartY(y + staffModel.getYSpacing());
+        slur.setStartY(y - staffModel.getLineInc());
+        slur.setEndY(y - staffModel.getLineInc());
+        // control x is set when added
+        slur.setControlY(y - staffModel.getLineInc() * 2d); // + is under
+        slur.setFill(null);
+        slur.setStroke(Color.BLACK);
+        slur.setStrokeWidth(1d);
+        return slur;
+    }
+    
+//    private void endTieOver(double x, double y, QuadCurve slur, double width) {
+//        double endx = x - width / 2d;
+//        slur.setEndX(endx);
+//        slur.setEndY(y);
+//        // the center of the slur
+//        double cx = slur.getStartX() + (endx - slur.getStartX()) / 2d;
+//        slur.setControlX(cx);
+//        shapes.add(slur);
+//    }
+
     private void add8thFlag(double x, double y, boolean stemUp) {
         String glyph;
         Point2D p = null;
@@ -460,6 +607,7 @@ public class StaffSymbolManager {
                 fy,
                 glyph);
     }
+
     private void add16thFlag(double x, double y, boolean stemUp) {
         String glyph;
         Point2D p = null;
@@ -480,19 +628,10 @@ public class StaffSymbolManager {
                 fy,
                 glyph);
     }
+
     /*
-     *  "flag16thDown": {
-            "stemDownSW": [
-                0.0, 
-                0.128
-            ]
-        }, 
-        "flag16thUp": {
-            "stemUpNW": [
-                0.0, 
-                -0.088
-            ]
-        }, 
+     * "flag16thDown": { "stemDownSW": [ 0.0, 0.128 ] }, "flag16thUp": {
+     * "stemUpNW": [ 0.0, -0.088 ] },
      */
 
     /*
@@ -879,6 +1018,13 @@ public class StaffSymbolManager {
      */
     public List<Shape> getShapes() {
         return shapes;
+    }
+
+    /**
+     * @return the strokedShapes
+     */
+    public List<Shape> getStrokedShapes() {
+        return strokedShapes;
     }
 
     /*

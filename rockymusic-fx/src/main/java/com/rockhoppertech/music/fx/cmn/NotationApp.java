@@ -89,7 +89,7 @@ public class NotationApp extends Application {
                 .create()
                 .noteString(
                         "E5 F G Ab G# A B C C6 D Eb F# G A B C7 B4 Bf4 A4 Af4")
-                .durations(1, 1.5, .5, .75, .25, .25)
+                .durations(5, 4, 3, 2, 1, 1.5, .5, .75, .25, .25)
                 .sequential()
                 .build();
         System.out.println(track);
