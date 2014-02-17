@@ -20,12 +20,17 @@ package com.rockhoppertech.music.fx.cmn;
  * #L%
  */
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.geom.Line2D;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -159,6 +164,8 @@ public class StaffRegion extends Region {
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
     }
+    
+
 
    // @Override
     protected String getUserAgentStylesheet() {

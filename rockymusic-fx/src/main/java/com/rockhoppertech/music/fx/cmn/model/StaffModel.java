@@ -138,6 +138,7 @@ public class StaffModel {
 
     /**
      * y location of the staff bottom line.
+     * This is set in {@link #setFontSize(double)}
      */
     private double staffBottom;
     private double staffTop;
@@ -146,6 +147,16 @@ public class StaffModel {
     private ObjectProperty<MIDITrack> trackProperty;
     private ObjectProperty<Font> fontProperty;
     private DoubleProperty fontSizeProperty;
+
+    /**
+     * y location of the treble staff in a grand staff.
+     */
+    private double trebleStaffBottom;
+
+    /**
+     * y location of the bass staff in a grand staff.
+     */
+    private double bassStaffBottom;
 
     public StaffModel() {
 
@@ -367,6 +378,13 @@ public class StaffModel {
         this.staffBottom = 4d * this.fontSize;
         this.calcStaffMetrics();
         setClef(this.clef);
+        
+        // the bottom of the treble staff
+        this.trebleStaffBottom = staffBottom;
+
+        // the bass staff is 2 staves height down from the treble
+        // so there is a lot of space between the staves
+        this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
 
         if (staffSymbolManager != null)
             staffSymbolManager.refresh();
@@ -692,6 +710,11 @@ public class StaffModel {
         // tp.bind(mylist);
     }
 
+//  void drawBeat(double x) {
+//  Line line = new Line(x, staffModel.getStaffBottom(), x, staffModel.getStaffTop());
+//  shapes.add(line);
+//}
+    
     /**
      * @return the noteList
      */

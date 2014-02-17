@@ -29,6 +29,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
@@ -97,6 +98,10 @@ public class StaffSymbolManager {
         if (noteList == null) {
             return;
         }
+        
+        x = addTimeSignature(x, staffModel.getStaffBottom(), 4, 4);
+        //spacing between ts and first note
+        x += staffModel.getFontSize()/2d;
         for (MIDINote note : noteList) {
             x = createSymbol(note, x);
             // some padding between the symbols
@@ -566,7 +571,7 @@ public class StaffSymbolManager {
         QuadCurve slur;
         slur = new QuadCurve();
         slur.setStartX(x + width / 2d);
-        //slur.setStartY(y + staffModel.getYSpacing());
+        // slur.setStartY(y + staffModel.getYSpacing());
         slur.setStartY(y - staffModel.getLineInc());
         slur.setEndY(y - staffModel.getLineInc());
         // control x is set when added
@@ -576,16 +581,17 @@ public class StaffSymbolManager {
         slur.setStrokeWidth(1d);
         return slur;
     }
-    
-//    private void endTieOver(double x, double y, QuadCurve slur, double width) {
-//        double endx = x - width / 2d;
-//        slur.setEndX(endx);
-//        slur.setEndY(y);
-//        // the center of the slur
-//        double cx = slur.getStartX() + (endx - slur.getStartX()) / 2d;
-//        slur.setControlX(cx);
-//        shapes.add(slur);
-//    }
+
+    // private void endTieOver(double x, double y, QuadCurve slur, double width)
+    // {
+    // double endx = x - width / 2d;
+    // slur.setEndX(endx);
+    // slur.setEndY(y);
+    // // the center of the slur
+    // double cx = slur.getStartX() + (endx - slur.getStartX()) / 2d;
+    // slur.setControlX(cx);
+    // shapes.add(slur);
+    // }
 
     private void add8thFlag(double x, double y, boolean stemUp) {
         String glyph;
@@ -693,12 +699,13 @@ public class StaffSymbolManager {
      */
 
     private Text addText(double x, double y, String glyph) {
-        Text text;
-        text = new Text(x, y, glyph);
+        Text text = new Text(x, y, glyph);
         text.setFont(staffModel.getFont());
         text.setFontSmoothingType(FontSmoothingType.LCD);
+        text.setCursor(Cursor.HAND);
         text.autosize();
         shapes.add(text);
+        // return the Text so the caller can query for the width etc.
         return text;
     }
 
@@ -1032,4 +1039,119 @@ public class StaffSymbolManager {
      * 
      * fontMap.put(LEDGERLINE, new Character((char) 94));
      */
+
+    public double addTimeSignature(double x, double y, int timeSigNum,
+            int timeSigDen) {
+
+        double advance = x;
+        // which ts number string is the longest?
+
+        Text numerator;
+        switch (timeSigNum) {
+        case 0:
+            numerator = new Text(SymbolFactory.timeSig0());
+            break;
+        case 1:
+            numerator = new Text(SymbolFactory.timeSig1());
+            break;
+        case 2:
+            numerator = new Text(SymbolFactory.timeSig2());
+            break;
+        case 3:
+            numerator = new Text(SymbolFactory.timeSig3());
+            break;
+        case 4:
+            numerator = new Text(SymbolFactory.timeSig4());
+            break;
+        case 5:
+            numerator = new Text(SymbolFactory.timeSig5());
+            break;
+        case 6:
+            numerator = new Text(SymbolFactory.timeSig6());
+            break;
+        case 7:
+            numerator = new Text(SymbolFactory.timeSig7());
+            break;
+        case 8:
+            numerator = new Text(SymbolFactory.timeSig8());
+            break;
+        case 9:
+            numerator = new Text(SymbolFactory.timeSig9());
+            break;
+        default:
+            numerator = new Text(SymbolFactory.timeSig0());
+            break;
+        }
+        Text denomenator;
+        switch (timeSigDen) {
+        case 0:
+            denomenator = new Text(SymbolFactory.timeSig0());
+            break;
+        case 1:
+            denomenator = new Text(SymbolFactory.timeSig1());
+            break;
+        case 2:
+            denomenator = new Text(SymbolFactory.timeSig2());
+            break;
+        case 3:
+            denomenator = new Text(SymbolFactory.timeSig3());
+            break;
+        case 4:
+            denomenator = new Text(SymbolFactory.timeSig4());
+            break;
+        case 5:
+            denomenator = new Text(SymbolFactory.timeSig5());
+            break;
+        case 6:
+            denomenator = new Text(SymbolFactory.timeSig6());
+            break;
+        case 7:
+            denomenator = new Text(SymbolFactory.timeSig7());
+            break;
+        case 8:
+            denomenator = new Text(SymbolFactory.timeSig8());
+            break;
+        case 9:
+            denomenator = new Text(SymbolFactory.timeSig9());
+            break;
+        default:
+            denomenator = new Text(SymbolFactory.timeSig0());
+            break;
+        }
+        numerator.setFont(staffModel.getFont());
+        numerator.setFontSmoothingType(FontSmoothingType.LCD);
+        denomenator.setFont(staffModel.getFont());
+        denomenator.setFontSmoothingType(FontSmoothingType.LCD);
+        
+        double numwidth = numerator.getLayoutBounds().getWidth();
+        double denomwidth = denomenator.getLayoutBounds().getWidth();
+        double offset = 0d;
+        if (numwidth > denomwidth) {
+            offset = numwidth / 2d;
+            offset -= denomwidth / 2d;
+            numerator.setX(x);
+            numerator.setY(y - 3d * staffModel.getLineInc());
+            denomenator.setX(x + offset);
+            denomenator.setY(y - 1d * staffModel.getLineInc());
+            advance += numwidth;
+        } else if (numwidth < denomwidth) {
+            offset = denomwidth / 2d;
+            offset -= numwidth / 2d;
+            numerator.setX(x + offset);
+            numerator.setY(y - 3d * staffModel.getLineInc());
+            denomenator.setX(x);
+            denomenator.setY(y - 1d * staffModel.getLineInc());
+            advance += numwidth;
+        } else if (numwidth == denomwidth) {
+            numerator.setX(x);
+            numerator.setY(y - 3d * staffModel.getLineInc());
+            denomenator.setX(x);
+            denomenator.setY(y - 1d * staffModel.getLineInc());
+            advance += numwidth;
+        }
+
+        shapes.add(numerator);
+        shapes.add(denomenator);
+        return advance;
+    }
 }
