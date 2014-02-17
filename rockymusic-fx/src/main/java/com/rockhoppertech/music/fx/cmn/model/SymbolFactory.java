@@ -87,6 +87,12 @@ public class SymbolFactory {
     public static final String sharp() {
         return getGlyph("accidentalSharp");
     }
+    
+    public static final String natural() {
+        return getGlyph("accidentalNatural");
+    }
+    
+    
 
     public static final String noteQuarterUp() {
         return getGlyph("noteQuarterUp");
@@ -139,9 +145,7 @@ public class SymbolFactory {
         return getGlyph("augmentationDot");
     }
     
-    public static final String timeSig4() {
-        return getGlyph("timeSig4");
-    }
+   
     
     // 
     public static final String flag8thDown() {
@@ -238,9 +242,58 @@ public class SymbolFactory {
 
 
     
+
+    public static final String timeSig0() {
+        return getGlyph("timeSig0");
+    }
+    public static final String timeSig1() {
+        return getGlyph("timeSig1");
+    }
+    public static final String timeSig2() {
+        return getGlyph("timeSig2");
+    }
+    public static final String timeSig3() {
+        return getGlyph("timeSig3");
+    }
+    public static final String timeSig4() {
+        return getGlyph("timeSig4");
+    }
+    public static final String timeSig5() {
+        return getGlyph("timeSig5");
+    }
+    public static final String timeSig6() {
+        return getGlyph("timeSig6");
+    }
+    public static final String timeSig7() {
+        return getGlyph("timeSig7");
+    }
+    public static final String timeSig8() {
+        return getGlyph("timeSig8");
+    }
+    public static final String timeSig9() {
+        return getGlyph("timeSig9");
+    }
+
     
     
-    
+    public static final String barlineFinal() {
+        return getGlyph("barlineFinal");
+    }
+    public static final String barlineSingle() {
+        return getGlyph("barlineSingle");
+    }
+    public static final String brace() {
+        return getGlyph("brace");
+    }
+    public static final String bracket() {
+        return getGlyph("bracket");
+    }
+    public static final String bracketBottom() {
+        return getGlyph("bracketBottom");
+    }
+    public static final String bracketTop() {
+        return getGlyph("bracketTop");
+    }
     
     
 
