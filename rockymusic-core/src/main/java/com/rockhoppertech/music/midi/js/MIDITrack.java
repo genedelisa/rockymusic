@@ -2036,6 +2036,22 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         this.changes.firePropertyChange(ADD, null, this);
 
     }
+    /**
+     * Get the {@code TimeSignature} at the specified beat. Returns null if there is no
+     * time signature at that beat.
+     * 
+     * @param beat
+     *            the beat
+     * @return the {@code TimeSignature} or null
+     */
+    public TimeSignature getTimeSignatureAtBeat(double beat) {
+        TimeSignature ts = null;
+        Double time = timeSignatures.floorKey(beat);
+        if (time != null) {
+            ts = timeSignatures.get(time);
+        }
+        return ts;
+    }
 
     /**
      * Insert a key signature into this track.
