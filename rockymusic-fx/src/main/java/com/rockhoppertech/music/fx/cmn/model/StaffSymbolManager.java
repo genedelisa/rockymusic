@@ -1154,4 +1154,6 @@ public class StaffSymbolManager {
         shapes.add(denomenator);
         return advance;
     }
+
+  
 }
