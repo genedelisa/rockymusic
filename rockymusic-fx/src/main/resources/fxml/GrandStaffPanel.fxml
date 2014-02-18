@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.rockhoppertech.music.fx.cmn.*?>
+<?import com.rockhoppertech.music.fx.cmn.FXTextAreaReceiver?>
+<?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?scenebuilder-classpath-element ../../../../target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar?>
+<?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
+
+<fx:root type="AnchorPane" prefHeight="616.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.GrandStaffAppController">
+  <children>
+    <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <GridPane>
+          <children>
+            <TextArea id="noteStringText" fx:id="noteStringTextArea" prefColumnCount="80" prefRowCount="8" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.vgrow="ALWAYS" />
+            <Label text="Note String" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <ComboBox fx:id="fontSizeCombo" onAction="#fontSizeAction" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Button fx:id="evaluateButton" mnemonicParsing="false" onAction="#evaluateNoteString" text="Evaluate" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="2" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints maxHeight="22.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="22.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="22.0" minHeight="10.0" prefHeight="22.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </bottom>
+      <center>
+        <ScrollPane fx:id="staffScrollPane" fitToHeight="false" fitToWidth="false" hbarPolicy="ALWAYS" pannable="true" prefHeight="-1.0" prefViewportHeight="0.0" prefViewportWidth="0.0" prefWidth="-1.0" vbarPolicy="ALWAYS">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="606.0">
+              <children>
+                <GrandStaff fx:id="grandStaff" layoutX="0.0" layoutY="0.0" maxHeight="-1.0" maxWidth="-1.0" onMousePressed="#staffMousePressed" onMouseReleased="#staffMouseReleased" prefHeight="-1.0" prefWidth="-1.0" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+      </center>
+      <top>
+        <FXTextAreaReceiver fx:id="midiReceiver" BorderPane.alignment="CENTER" />
+      </top>
+    </BorderPane>
+  </children>
+</fx:root>
