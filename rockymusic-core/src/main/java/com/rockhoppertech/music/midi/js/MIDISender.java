@@ -136,7 +136,8 @@ public class MIDISender {
                 logger.error(e1.getLocalizedMessage(), e1);
             }
             for (Receiver r : receivers) {
-                logger.debug("sending to receiver {}", sm);
+                logger.debug("sending to receiver {}", r);
+                logger.debug("msg {}", MIDIUtils.toString(sm));
                 r.send(sm, this.midiDevice.getMicrosecondPosition());
             }
         }
