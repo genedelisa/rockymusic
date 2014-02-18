@@ -67,6 +67,7 @@ public class NotationApp extends Application {
     Pane root;
 
     private NotationController controller;
+
     private StaffModel staffModel;
     // private NotationView view;
     // private NotationCanvas view;
@@ -95,8 +96,10 @@ public class NotationApp extends Application {
         System.out.println(track);
         this.staffModel.setTrack(track);
         // this.view = new NotationCanvas(this.staffModel);
+
         this.view = new StaffRegion(this.staffModel);
         this.controller = new NotationController(staffModel, view);
+
         this.view.drawShapes();
 
         this.configureScene();
@@ -134,12 +137,13 @@ public class NotationApp extends Application {
         textArea.setEditable(true);
         textArea.setPromptText("Enter a note string");
         textArea.setWrapText(true);
-//        textArea.setText(MIDITrack
-                //.getPitchesAsString(this.staffModel.getTrackProperty().get()));
-        
-        textArea.setText(this.staffModel.getTrackProperty().get().toBriefMIDIString("\n"));
+        // textArea.setText(MIDITrack
+        // .getPitchesAsString(this.staffModel.getTrackProperty().get()));
+
+        textArea.setText(this.staffModel.getTrackProperty().get()
+                .toBriefMIDIString("\n"));
         controller.setTextArea(textArea);
-        
+
         Button b = ButtonBuilder.create()
                 .id("noteStringButton")
                 .style("-fx-font: 22 arial; -fx-base: #1055FF;")

@@ -137,8 +137,8 @@ public class StaffModel {
     private final int[] altoSharpYpositions = new int[127];
 
     /**
-     * y location of the staff bottom line.
-     * This is set in {@link #setFontSize(double)}
+     * y location of the staff bottom line. This is set in
+     * {@link #setFontSize(double)}
      */
     private double staffBottom;
     private double staffTop;
@@ -179,6 +179,11 @@ public class StaffModel {
         this.staffSymbolManager = new StaffSymbolManager();
         this.setClef(Clef.TREBLE);
         // StaffSymbolManager.setStaffModel(this);
+
+        MIDITrack track = new MIDITrack();
+        this.setTrack(track);
+        //this.noteList = FXCollections.observableArrayList();
+        //this.setNoteList(noteList);
     }
 
     /**
@@ -378,7 +383,7 @@ public class StaffModel {
         this.staffBottom = 4d * this.fontSize;
         this.calcStaffMetrics();
         setClef(this.clef);
-        
+
         // the bottom of the treble staff
         this.trebleStaffBottom = staffBottom;
 
@@ -642,9 +647,11 @@ public class StaffModel {
         // this.track.append(midiNumber);
 
         MIDINote note = new MIDINote(midiNumber);
-        MIDINote prev = this.noteList.get(this.noteList.size() - 1);
-        if (prev != null) {
-            note.setStartBeat(prev.getStartBeat() + prev.getDuration());
+        if (!this.noteList.isEmpty()) {
+            MIDINote prev = this.noteList.get(this.noteList.size() - 1);
+            if (prev != null) {
+                note.setStartBeat(prev.getStartBeat() + prev.getDuration());
+            }
         }
         this.noteList.add(note);
     }
@@ -710,11 +717,12 @@ public class StaffModel {
         // tp.bind(mylist);
     }
 
-//  void drawBeat(double x) {
-//  Line line = new Line(x, staffModel.getStaffBottom(), x, staffModel.getStaffTop());
-//  shapes.add(line);
-//}
-    
+    // void drawBeat(double x) {
+    // Line line = new Line(x, staffModel.getStaffBottom(), x,
+    // staffModel.getStaffTop());
+    // shapes.add(line);
+    // }
+
     /**
      * @return the noteList
      */
@@ -727,6 +735,14 @@ public class StaffModel {
      */
     public ListProperty<MIDINote> getNoteListProperty() {
         return noteListProperty;
+    }
+
+    public double getTrebleStaffBottom() {
+        return this.trebleStaffBottom;
+    }
+
+    public double getBassStaffBottom() {
+        return this.bassStaffBottom;
     }
 
 }
