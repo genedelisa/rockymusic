@@ -4,3 +4,4 @@
 /.project
 /muxi .log
 /logs
+*.fxml.bak
