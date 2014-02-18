@@ -47,6 +47,10 @@ public class FXTextAreaReceiver extends TextArea implements Receiver {
     double tempo = 120d;
     double division = 480d;
     double factor = (60000000d / tempo) / division;
+    
+    public FXTextAreaReceiver() {
+        
+    }
 
     /**
      * <p>
