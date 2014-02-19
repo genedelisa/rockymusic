@@ -88,7 +88,9 @@ public class GrandStaffSymbolManager {
     }
 
     /**
-     * Clear out the existing shapes, then calculate and add new ones.
+     * Clear out the existing shapes, then calculate and add new ones. Draws a
+     * simple representation. Does not pay any attention to the note's start
+     * time. That what the MeasureCanvas will do when finished.
      */
     public void refresh() {
         if (grandStaffModel == null) {
@@ -112,6 +114,8 @@ public class GrandStaffSymbolManager {
             return;
         }
 
+        // TODO this doesn't cover initial rests i.e. when start beat > 1
+        // TODO rests > 5 beats long don't work well
         MIDINote previousNote = noteList.get(0);
         MIDINote firstNote = noteList.get(0);
         double gap = firstNote.getStartBeat() - 1d;
@@ -196,11 +200,11 @@ public class GrandStaffSymbolManager {
                 Text text = addText(x, restYposition, glyph);
                 double width = text.getLayoutBounds().getWidth();
                 x += (width * 2d);
-                
+
                 glyph = SymbolFactory.restQuarter();
                 text = addText(x, restYposition, glyph);
                 x += (width * 1d);
-                
+
             } else if (restDur == 2d) {
                 // same symbol as whole rest but location is different
                 glyph = SymbolFactory.restWhole();
