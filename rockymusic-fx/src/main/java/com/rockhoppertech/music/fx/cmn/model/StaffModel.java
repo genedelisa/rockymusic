@@ -637,7 +637,17 @@ public class StaffModel {
                 .computeStringWidth(string, font);
 
     }
-
+    
+    public void addNote(MIDINote note) {
+        if (!this.noteList.isEmpty()) {
+            MIDINote prev = this.noteList.get(this.noteList.size() - 1);
+            if (prev != null) {
+                note.setStartBeat(prev.getStartBeat() + prev.getDuration());
+            }
+        }
+        this.noteList.add(note);
+    }
+    
     public void addNote(int midiNumber) {
         // MIDITrack track = this.trackProperty.get().append(midiNumber)
         // .sequential();
@@ -647,13 +657,7 @@ public class StaffModel {
         // this.track.append(midiNumber);
 
         MIDINote note = new MIDINote(midiNumber);
-        if (!this.noteList.isEmpty()) {
-            MIDINote prev = this.noteList.get(this.noteList.size() - 1);
-            if (prev != null) {
-                note.setStartBeat(prev.getStartBeat() + prev.getDuration());
-            }
-        }
-        this.noteList.add(note);
+        addNote(note);
     }
 
     /**
@@ -744,5 +748,7 @@ public class StaffModel {
     public double getBassStaffBottom() {
         return this.bassStaffBottom;
     }
+
+    
 
 }
