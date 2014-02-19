@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -82,6 +83,9 @@ public class GrandStaffAppController {
 
     @FXML
     private ScrollPane staffScrollPane;
+    
+    @FXML
+    private CheckBox sequentialCheckBox;
 
     // Handler for Button[fx:id="evaluateButton"] onAction
     @FXML
@@ -90,10 +94,12 @@ public class GrandStaffAppController {
         MIDITrack track = MIDITrackBuilder
                 .create()
                 .noteString(ns)
-                //.sequential()
                 .build();
+        if(sequentialCheckBox.isSelected()) {
+            track.sequential();
+        }
         logger.debug("track from string\n{}", track);
-        grandStaff.getStaffModel().setTrack(track);
+        grandStaff.setTrack(track);
         grandStaff.drawShapes();
     }
 
@@ -101,7 +107,7 @@ public class GrandStaffAppController {
     @FXML
     void fontSizeAction(ActionEvent event) {
         double size = fontSizeCombo.getSelectionModel().getSelectedItem();
-        grandStaff.getStaffModel().setFontSize(size);
+        grandStaff.setFontSize(size);
         grandStaff.drawShapes();
         grandStaff.setPrefSize(size * 1000d, size * 10d);
         //staffScrollPane.setPrefSize(size * 1000d, size * 10d);
@@ -114,7 +120,7 @@ public class GrandStaffAppController {
     // Handler for GrandStaff[fx:id="grandStaff"] onMousePressed
     @FXML
     void staffMousePressed(MouseEvent event) {
-        pitch = grandStaff.getStaffModel().whichNote(event.getY());
+        pitch = grandStaff.whichNote(event.getY());
         if (pitch < 0 || pitch > 127) {
             return;
         }
@@ -133,7 +139,7 @@ public class GrandStaffAppController {
 
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         noteStringTextArea.appendText(preferredSpelling);
-        grandStaff.getStaffModel().addNote(pitch);
+        grandStaff.addNote(pitch);
         // canvas.repaintCanvas();
     }
 

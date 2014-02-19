@@ -36,10 +36,11 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.fx.cmn.model.GrandStaffModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
 import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
+import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
- *
+ * 
  */
 public class GrandStaff extends Region {
     final static Logger logger = LoggerFactory.getLogger(GrandStaff.class);
@@ -51,7 +52,7 @@ public class GrandStaff extends Region {
     public GrandStaff() {
         this(new GrandStaffModel());
     }
-    
+
     public GrandStaff(GrandStaffModel staffModel) {
         getStyleClass().setAll("grandstaff-control");
 
@@ -90,18 +91,19 @@ public class GrandStaff extends Region {
         brace.setFont(font);
         brace.setFontSmoothingType(FontSmoothingType.LCD);
         this.getChildren().add(brace);
-        x += (4d*brace.getLayoutBounds().getWidth());
-        
+        x += (4d * brace.getLayoutBounds().getWidth());
+
         Line barline = new Line(x, staffModel.getBassStaffBottom(),
-                x, staffModel.getTrebleStaffBottom() - staffModel.getLineInc() * 4);
+                x, staffModel.getTrebleStaffBottom() - staffModel.getLineInc()
+                        * 4);
         this.getChildren().add(barline);
         x += (barline.getLayoutBounds().getWidth());
-        
+
         // just some spacing
-        //x += staffModel.getFontSize();
+        // x += staffModel.getFontSize();
         y = staffModel.getTrebleStaffBottom();
-        //double clefX =  x+10d;
-        double clefX =  x + staffModel.getFontSize() /4d;
+        // double clefX = x+10d;
+        double clefX = x + staffModel.getFontSize() / 4d;
         Text trebleClef = new Text(clefX, y - (yspacing * 2d),
                 SymbolFactory.gClef());
         trebleClef.setFont(font);
@@ -123,7 +125,8 @@ public class GrandStaff extends Region {
         }
 
         y = staffModel.getBassStaffBottom();
-        Text bassClef = new Text(clefX, y - (yspacing * 6d), SymbolFactory.fClef());
+        Text bassClef = new Text(clefX, y - (yspacing * 6d),
+                SymbolFactory.fClef());
         bassClef.setFont(font);
         bassClef.setFontSmoothingType(FontSmoothingType.LCD);
         this.getChildren().add(bassClef);
@@ -144,9 +147,31 @@ public class GrandStaff extends Region {
     }
 
     /**
-     * @param staffModel the staffModel to set
+     * @param staffModel
+     *            the staffModel to set
      */
     public void setStaffModel(GrandStaffModel staffModel) {
         this.staffModel = staffModel;
+    }
+
+    public void setTrack(MIDITrack track) {
+        this.getStaffModel().setTrack(track);
+    }
+
+    public void setFontSize(double size) {
+        this.getStaffModel().setFontSize(size);
+    }
+
+    /**
+     * @param y
+     *            the y location
+     * @return which note is at y
+     */
+    public int whichNote(double y) {
+        return getStaffModel().whichNote(y);
+    }
+
+    public void addNote(int pitch) {
+        getStaffModel().addNote(pitch);
     }
 }
