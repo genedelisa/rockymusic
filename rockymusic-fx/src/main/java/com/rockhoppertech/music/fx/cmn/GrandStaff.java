@@ -85,8 +85,8 @@ public class GrandStaff extends Region {
         y = staffModel.getBassStaffBottom();
         Text brace = new Text(x, y,
                 SymbolFactory.brace());
-        brace.setScaleY(4d);
-        brace.setScaleX(4d);
+        brace.setScaleY(2.8);
+        brace.setScaleX(3d);
         brace.setFont(font);
         brace.setFontSmoothingType(FontSmoothingType.LCD);
         this.getChildren().add(brace);
@@ -97,8 +97,12 @@ public class GrandStaff extends Region {
         this.getChildren().add(barline);
         x += (barline.getLayoutBounds().getWidth());
         
+        // just some spacing
+        //x += staffModel.getFontSize();
         y = staffModel.getTrebleStaffBottom();
-        Text trebleClef = new Text(x, y - (yspacing * 2d),
+        //double clefX =  x+10d;
+        double clefX =  x + staffModel.getFontSize() /4d;
+        Text trebleClef = new Text(clefX, y - (yspacing * 2d),
                 SymbolFactory.gClef());
         trebleClef.setFont(font);
         trebleClef.setFontSmoothingType(FontSmoothingType.LCD);
@@ -119,7 +123,7 @@ public class GrandStaff extends Region {
         }
 
         y = staffModel.getBassStaffBottom();
-        Text bassClef = new Text(x, y - (yspacing * 6d), SymbolFactory.fClef());
+        Text bassClef = new Text(clefX, y - (yspacing * 6d), SymbolFactory.fClef());
         bassClef.setFont(font);
         bassClef.setFontSmoothingType(FontSmoothingType.LCD);
         this.getChildren().add(bassClef);

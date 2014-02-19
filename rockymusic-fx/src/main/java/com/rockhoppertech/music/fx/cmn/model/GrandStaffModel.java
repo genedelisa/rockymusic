@@ -423,7 +423,11 @@ public class GrandStaffModel {
 
         // the bass staff is 2 staves height down from the treble
         // so there is a lot of space between the staves
-        this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
+        //this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
+        
+        this.lineInc = this.fontSize / 4d;
+        // whichY() will break if further apart. It doesn't know the notes between the staves.
+        this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 7d);
 
         this.calcStaffMetrics();
         setClef(this.clef);

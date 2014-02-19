@@ -100,9 +100,12 @@ public class GrandStaffSymbolManager {
             return;
         }
 
-        x = addTimeSignature(x, grandStaffModel.getStaffBottom(), 4, 4);
+        
+        x += grandStaffModel.getFontSize() /2d;
+        x = addTimeSignature(x, 4, 4);
+
         // spacing between ts and first note
-        x += grandStaffModel.getFontSize() / 2d;
+        x += grandStaffModel.getFontSize() / 1d;
         for (MIDINote note : noteList) {
             x = createSymbol(note, x);
             // some padding between the symbols
@@ -1003,118 +1006,176 @@ public class GrandStaffSymbolManager {
      * fontMap.put(LEDGERLINE, new Character((char) 94));
      */
 
-    public double addTimeSignature(double x, double y, int timeSigNum,
+    public double addTimeSignature(double x, int timeSigNum,
             int timeSigDen) {
 
         double advance = x;
         // which ts number string is the longest?
 
         Text numerator;
+        Text numerator1;
         switch (timeSigNum) {
         case 0:
             numerator = new Text(SymbolFactory.timeSig0());
+            numerator1 = new Text(SymbolFactory.timeSig0());
             break;
         case 1:
             numerator = new Text(SymbolFactory.timeSig1());
+            numerator1 = new Text(SymbolFactory.timeSig1());
             break;
         case 2:
             numerator = new Text(SymbolFactory.timeSig2());
+            numerator1 = new Text(SymbolFactory.timeSig2());
             break;
         case 3:
             numerator = new Text(SymbolFactory.timeSig3());
+            numerator1 = new Text(SymbolFactory.timeSig3());
             break;
         case 4:
             numerator = new Text(SymbolFactory.timeSig4());
+            numerator1 = new Text(SymbolFactory.timeSig4());
             break;
         case 5:
             numerator = new Text(SymbolFactory.timeSig5());
+            numerator1 = new Text(SymbolFactory.timeSig5());
             break;
         case 6:
             numerator = new Text(SymbolFactory.timeSig6());
+            numerator1 = new Text(SymbolFactory.timeSig6());
             break;
         case 7:
             numerator = new Text(SymbolFactory.timeSig7());
+            numerator1 = new Text(SymbolFactory.timeSig7());
             break;
         case 8:
             numerator = new Text(SymbolFactory.timeSig8());
+            numerator1 = new Text(SymbolFactory.timeSig8());
             break;
         case 9:
             numerator = new Text(SymbolFactory.timeSig9());
+            numerator1 = new Text(SymbolFactory.timeSig9());
             break;
         default:
             numerator = new Text(SymbolFactory.timeSig0());
+            numerator1 = new Text(SymbolFactory.timeSig0());
             break;
         }
         Text denomenator;
+        Text denomenator1;
         switch (timeSigDen) {
         case 0:
             denomenator = new Text(SymbolFactory.timeSig0());
+            denomenator1 = new Text(SymbolFactory.timeSig0());
             break;
         case 1:
             denomenator = new Text(SymbolFactory.timeSig1());
+            denomenator1 = new Text(SymbolFactory.timeSig1());
             break;
         case 2:
             denomenator = new Text(SymbolFactory.timeSig2());
+            denomenator1 = new Text(SymbolFactory.timeSig2());
             break;
         case 3:
             denomenator = new Text(SymbolFactory.timeSig3());
+            denomenator1 = new Text(SymbolFactory.timeSig3());
             break;
         case 4:
             denomenator = new Text(SymbolFactory.timeSig4());
+            denomenator1 = new Text(SymbolFactory.timeSig4());
             break;
         case 5:
             denomenator = new Text(SymbolFactory.timeSig5());
+            denomenator1 = new Text(SymbolFactory.timeSig5());
             break;
         case 6:
             denomenator = new Text(SymbolFactory.timeSig6());
+            denomenator1 = new Text(SymbolFactory.timeSig6());
             break;
         case 7:
             denomenator = new Text(SymbolFactory.timeSig7());
+            denomenator1 = new Text(SymbolFactory.timeSig7());
             break;
         case 8:
             denomenator = new Text(SymbolFactory.timeSig8());
+            denomenator1 = new Text(SymbolFactory.timeSig8());
             break;
         case 9:
             denomenator = new Text(SymbolFactory.timeSig9());
+            denomenator1 = new Text(SymbolFactory.timeSig9());
             break;
         default:
             denomenator = new Text(SymbolFactory.timeSig0());
+            denomenator1 = new Text(SymbolFactory.timeSig0());
             break;
         }
         numerator.setFont(grandStaffModel.getFont());
         numerator.setFontSmoothingType(FontSmoothingType.LCD);
         denomenator.setFont(grandStaffModel.getFont());
         denomenator.setFontSmoothingType(FontSmoothingType.LCD);
+        
+        numerator1.setFont(grandStaffModel.getFont());
+        numerator1.setFontSmoothingType(FontSmoothingType.LCD);
+        denomenator1.setFont(grandStaffModel.getFont());
+        denomenator1.setFontSmoothingType(FontSmoothingType.LCD);
 
         double numwidth = numerator.getLayoutBounds().getWidth();
         double denomwidth = denomenator.getLayoutBounds().getWidth();
         double offset = 0d;
+        
+        double ty = grandStaffModel.getTrebleStaffBottom();
+        double by = grandStaffModel.getBassStaffBottom();
+        
         if (numwidth > denomwidth) {
             offset = numwidth / 2d;
             offset -= denomwidth / 2d;
             numerator.setX(x);
-            numerator.setY(y - 3d * grandStaffModel.getLineInc());
+            numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x + offset);
-            denomenator.setY(y - 1d * grandStaffModel.getLineInc());
+            denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
+            
+            numerator1.setX(x);
+            numerator1.setY(by - 3d * grandStaffModel.getLineInc());
+            denomenator1.setX(x + offset);
+            denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
+            
             advance += numwidth;
+           
+            
+            
         } else if (numwidth < denomwidth) {
             offset = denomwidth / 2d;
             offset -= numwidth / 2d;
             numerator.setX(x + offset);
-            numerator.setY(y - 3d * grandStaffModel.getLineInc());
+            numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x);
-            denomenator.setY(y - 1d * grandStaffModel.getLineInc());
+            denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
+            
+            numerator1.setX(x + offset);
+            numerator1.setY(by - 3d * grandStaffModel.getLineInc());
+            denomenator1.setX(x);
+            denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
             advance += numwidth;
+            
+            
         } else if (numwidth == denomwidth) {
             numerator.setX(x);
-            numerator.setY(y - 3d * grandStaffModel.getLineInc());
+            numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x);
-            denomenator.setY(y - 1d * grandStaffModel.getLineInc());
+            denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
+            
+            numerator1.setX(x);
+            numerator1.setY(by - 3d * grandStaffModel.getLineInc());
+            denomenator1.setX(x);
+            denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
             advance += numwidth;
+            
+            
         }
-
         shapes.add(numerator);
         shapes.add(denomenator);
+        shapes.add(numerator1);
+        shapes.add(denomenator1);
+       
         return advance;
     }
 
