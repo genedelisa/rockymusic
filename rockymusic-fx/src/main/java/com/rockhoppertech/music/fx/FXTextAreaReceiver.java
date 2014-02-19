@@ -1,4 +1,4 @@
-package com.rockhoppertech.music.fx.cmn;
+package com.rockhoppertech.music.fx;
 
 /*
  * #%L

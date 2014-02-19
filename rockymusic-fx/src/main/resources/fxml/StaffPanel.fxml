@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.rockhoppertech.music.fx.cmn.*?>
-<?import com.rockhoppertech.music.fx.cmn.FXTextAreaReceiver?>
+<?import com.rockhoppertech.music.fx.FXTextAreaReceiver?>
 <?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>

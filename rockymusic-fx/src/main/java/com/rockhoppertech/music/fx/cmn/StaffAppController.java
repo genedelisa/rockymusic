@@ -38,6 +38,7 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.fx.FXTextAreaReceiver;
 import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDISender;
