@@ -20,17 +20,12 @@ package com.rockhoppertech.music.fx.cmn;
  * #L%
  */
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Paint;
-import java.awt.geom.Line2D;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -44,28 +39,31 @@ import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
- * A drawing Canvas with a staff and symbols.
+ * A drawing Region with a single staff and symbols.
  * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
 public class StaffRegion extends Region {
-    // public class StaffControl extends Control {
+
     private static final Logger logger = LoggerFactory
             .getLogger(StaffRegion.class);
 
     private Font font;
     private StaffModel staffModel;
 
-    // private NotationController controller;
+    /**
+     * Used by fxml. Creates an empty model.
+     */
+    public StaffRegion() {
+        this(new StaffModel());
+    }
 
     public StaffRegion(StaffModel staffModel) {
-        getStyleClass().setAll("staff-control");
-        
+        getStyleClass().setAll("staff-region");
+
         this.staffModel = staffModel;
         this.font = this.staffModel.getFont();
-
-        // this.setSkin(new StaffControlSkin(this));
 
         this.staffModel.getTrackProperty().addListener(
                 new ChangeListener<MIDITrack>() {
@@ -82,9 +80,8 @@ public class StaffRegion extends Region {
         this.setOpacity(1d);
         this.setWidth(2300d);
         this.setHeight(300d);
-        // this.setFont(font);
 
-        // this call doens't work
+        // this call doens't work here
         drawStaff();
     }
 
@@ -164,11 +161,13 @@ public class StaffRegion extends Region {
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
     }
-    
 
-
-   // @Override
+    // @Override
     protected String getUserAgentStylesheet() {
         return getClass().getResource("StaffControl.css").toExternalForm();
+    }
+
+    public StaffModel getStaffModel() {
+        return staffModel;
     }
 }
