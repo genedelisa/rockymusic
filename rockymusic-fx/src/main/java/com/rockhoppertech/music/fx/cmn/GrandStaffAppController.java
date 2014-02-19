@@ -90,7 +90,7 @@ public class GrandStaffAppController {
         MIDITrack track = MIDITrackBuilder
                 .create()
                 .noteString(ns)
-                .sequential()
+                //.sequential()
                 .build();
         logger.debug("track from string\n{}", track);
         grandStaff.getStaffModel().setTrack(track);

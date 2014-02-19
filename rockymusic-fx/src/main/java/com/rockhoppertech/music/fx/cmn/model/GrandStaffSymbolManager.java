@@ -23,6 +23,7 @@ package com.rockhoppertech.music.fx.cmn.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -40,6 +41,7 @@ import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.model.GrandStaffModel.Clef;
@@ -56,7 +58,7 @@ public class GrandStaffSymbolManager {
     private static final Logger logger = LoggerFactory
             .getLogger(GrandStaffSymbolManager.class);
 
-  //  private List<StaffSymbol> symbols = new ArrayList<>();
+    // private List<StaffSymbol> symbols = new ArrayList<>();
 
     /**
      * these shapes are filled.
@@ -94,23 +96,176 @@ public class GrandStaffSymbolManager {
         }
         double x = grandStaffModel.getStartX() + 1d
                 * grandStaffModel.getFontSize();
-       // symbols.clear();
+        // symbols.clear();
         shapes.clear();
         if (noteList == null) {
             return;
         }
 
-        
-        x += grandStaffModel.getFontSize() /2d;
+        x += grandStaffModel.getFontSize() / 2d;
         x = addTimeSignature(x, 4, 4);
 
         // spacing between ts and first note
         x += grandStaffModel.getFontSize() / 1d;
-        for (MIDINote note : noteList) {
-            x = createSymbol(note, x);
-            // some padding between the symbols
-            x += grandStaffModel.getFontSize() / 2d;
+
+        if (noteList.isEmpty()) {
+            return;
         }
+
+        MIDINote previousNote = noteList.get(0);
+        MIDINote firstNote = noteList.get(0);
+        double gap = firstNote.getStartBeat() - 1d;
+        double eb = 1d;
+
+        for (MIDINote note : noteList) {
+
+            double sb = note.getStartBeat();
+
+            if (sb > 1d) {
+                eb = previousNote.getEndBeat();
+            }
+            gap = sb - eb;
+
+            logger.debug("sb {} eb {} gap {} x {}", sb, eb, gap, x);
+            if (gap > 0) {
+                int pitch = note.getPitch().getMidiNumber();
+                x = addRests(x, gap, pitch);
+                x += grandStaffModel.getFontSize() / 2d;
+                logger.debug("x {} after adding rest", x);
+            } else {
+                x += grandStaffModel.getFontSize() / 2d;
+            }
+
+            x = createSymbol(note, x);
+            logger.debug("x {} after adding symbol", x);
+            if (gap >= 0) {
+                logger.debug("adding padding");
+                // some padding between the symbols
+                x += grandStaffModel.getFontSize() / 2d;
+                logger.debug("x {} after adding gap 0 spacingl", x);
+            }
+
+            gap = 0;
+            previousNote = note;
+        }
+    }
+
+    double addRests(double x, double gap, int pitch) {
+
+        String restString = Duration.getRestString(gap);
+        logger.debug("rest string {}", restString);
+
+        Scanner scanner = new Scanner(restString);
+        scanner.useDelimiter(",");
+        while (scanner.hasNext()) {
+            String rest = scanner.next().trim();
+            Double restDur = Double.parseDouble(rest);
+            logger.debug("rest {} dur {}", rest, restDur);
+
+            String glyph = SymbolFactory.restWhole();
+
+            // position is middle line
+            double restYposition = 0d;
+            // TODO quarter rest is ok. fix the other positions
+            if (restDur == 4d) {
+                glyph = SymbolFactory.restWhole();
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.E4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.C6,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 1d);
+            } else if (restDur == 3d) {
+                // same symbol as whole rest but location is different
+                glyph = SymbolFactory.restWhole();
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.D4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.B5,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 2d);
+                
+                glyph = SymbolFactory.restQuarter();
+                text = addText(x, restYposition, glyph);
+                x += (width * 1d);
+                
+            } else if (restDur == 2d) {
+                // same symbol as whole rest but location is different
+                glyph = SymbolFactory.restWhole();
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.D4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.B5,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 1d);
+            } else if (restDur == 1d) {
+                glyph = SymbolFactory.restQuarter();
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.D4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.B5,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 1d);
+            } else if (restDur == .5d) {
+                glyph = SymbolFactory.rest8th();
+
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.E4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.C6,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 1d);
+                // punt on the rest of them
+            } else if (restDur < .5d) {
+                glyph = SymbolFactory.rest16th();
+                if (pitch < 60) {
+                    restYposition = grandStaffModel.bassMidiNumToY(
+                            Pitch.C4,
+                            false);
+                } else {
+                    restYposition = grandStaffModel.trebleMidiNumToY(
+                            Pitch.A5,
+                            false);
+                }
+                Text text = addText(x, restYposition, glyph);
+                double width = text.getLayoutBounds().getWidth();
+                x += (width * 1d);
+            }
+
+        } // while scanner
+        scanner.close();
+        return x;
+
     }
 
     boolean isTreble(int pitch) {
@@ -163,7 +318,7 @@ public class GrandStaffSymbolManager {
             logger.debug("is flat");
             y = grandStaffModel.getYpositionForPitch(pitch, true);
             // x += grandStaffModel.stringWidth(glyph);
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
 
             text = new Text(x, y, glyph);
             text.setFont(grandStaffModel.getFont());
@@ -179,7 +334,7 @@ public class GrandStaffSymbolManager {
             logger.debug("is sharp");
             y = grandStaffModel.getYpositionForPitch(pitch, false);
             // x += grandStaffModel.stringWidth(glyph);
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
 
             text = new Text(x, y, glyph);
             text.setFont(grandStaffModel.getFont());
@@ -215,7 +370,7 @@ public class GrandStaffSymbolManager {
             duration -= 4d;
             glyph = SymbolFactory.noteWhole();
             // x += grandStaffModel.stringWidth(glyph);
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             addLedgers(note, x);
             text = addText(x, y, glyph);
 
@@ -248,11 +403,11 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.noteHalfDown();
             }
 
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
-            
+
             x += width;
 
             // get the x for the note and add it, not the dot's x
@@ -260,7 +415,7 @@ public class GrandStaffSymbolManager {
             glyph = SymbolFactory.augmentationDot();
             // now add a bit of space between the note and the dot
             // x += grandStaffModel.stringWidth(glyph);
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
 
             width = text.getLayoutBounds().getWidth();
@@ -298,7 +453,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
 
@@ -336,7 +491,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -346,7 +501,7 @@ public class GrandStaffSymbolManager {
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
             x += text.getLayoutBounds().getWidth() / 2d;
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
 
             double width = text.getLayoutBounds().getWidth();
@@ -387,7 +542,7 @@ public class GrandStaffSymbolManager {
 
             logger.debug("quarter note. remainder {}", duration);
 
-         //   symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
 
             text = addText(x, y, glyph);
 
@@ -397,12 +552,12 @@ public class GrandStaffSymbolManager {
             // shapes.add(new Rectangle(x,y,text.getLayoutBounds().getWidth(),
             // text.getLayoutBounds().getHeight()));
 
-//            logger.debug("width local {} parent {} layout {} stringwidth {}",
-//                    text.getBoundsInLocal().getWidth(),
-//                    text.getBoundsInParent().getWidth(),
-//                    text.getLayoutBounds().getWidth(),
-//                    grandStaffModel.stringWidth(glyph)
-//                    );
+            // logger.debug("width local {} parent {} layout {} stringwidth {}",
+            // text.getBoundsInLocal().getWidth(),
+            // text.getBoundsInParent().getWidth(),
+            // text.getLayoutBounds().getWidth(),
+            // grandStaffModel.stringWidth(glyph)
+            // );
 
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
@@ -443,7 +598,7 @@ public class GrandStaffSymbolManager {
             }
 
             // x += grandStaffModel.stringWidth(glyph);
-           // symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -452,7 +607,7 @@ public class GrandStaffSymbolManager {
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
             x += text.getLayoutBounds().getWidth() / 2d;
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             x += text.getLayoutBounds().getWidth();
 
@@ -460,7 +615,7 @@ public class GrandStaffSymbolManager {
 
         }
 
-        //TODO
+        // TODO
         // quarter triplet
         double qtriplet = 2d / 3d;
         if (duration - qtriplet >= 0d) {
@@ -471,7 +626,7 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.noteQuarterDown();
             }
 
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
@@ -496,7 +651,7 @@ public class GrandStaffSymbolManager {
             }
 
             logger.debug("eighth note. remainder {}", duration);
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             // x += grandStaffModel.stringWidth(glyph);
@@ -521,7 +676,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-          //  symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -536,7 +691,7 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.note8thDown();
             }
             // x += grandStaffModel.stringWidth(glyph);
-        //    symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -551,7 +706,7 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.noteheadBlack();
             }
             // x += grandStaffModel.stringWidth(glyph);
-         //   symbols.add(new StaffSymbol(x, y, glyph));
+            // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -688,8 +843,8 @@ public class GrandStaffSymbolManager {
             double lx = x + p.getX() + this.quarterNoteWidth;
             // double lx = x + p.getX();
             double ly = y + p.getY();
-            Line line = new Line(lx, ly, lx,center);
-                    
+            Line line = new Line(lx, ly, lx, center);
+
             // line.setStrokeWidth(SymbolFactory.getStemThickness());
             shapes.add(line);
             logger.debug(
@@ -702,7 +857,7 @@ public class GrandStaffSymbolManager {
             double lx = x + p.getX();
             double ly = y + p.getY();
             Line line = new Line(lx, ly, lx, center);
-                    
+
             // line.setStrokeWidth(SymbolFactory.getStemThickness());
             shapes.add(line);
             logger.debug(
@@ -792,10 +947,10 @@ public class GrandStaffSymbolManager {
 
         // lacking fontmetrics, we guess at centering the ledger
         // double lx = grandStaffModel.getFontSize() / 4.3;
-        //double lx = grandStaffModel.stringWidth(line) / 4d;
+        // double lx = grandStaffModel.stringWidth(line) / 4d;
         double lx = 0d;
-        
-       // double width = line.getLayoutBounds().getWidth();
+
+        // double width = line.getLayoutBounds().getWidth();
 
         if (isSpellingFlat(note)) {
             useFlat = true;
@@ -822,12 +977,12 @@ public class GrandStaffSymbolManager {
                     // SymbolFactory.unicodeToString(0x005F));
 
                     ly += lineinc * 2d; // 1linestaff kludge
-                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    //symbols.add(symbol);
+                    // StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    // symbols.add(symbol);
                     Text text = addText(x - lx, ly, line);
                     double width = text.getLayoutBounds().getWidth();
                     lx = width / 4d;
-                    text.setX(x-lx);
+                    text.setX(x - lx);
 
                 }
             }
@@ -842,14 +997,14 @@ public class GrandStaffSymbolManager {
                     double ly = (staffTop - lineinc - lineinc * i);
                     ly += lineinc * 2d; // 1linestaff kludge
                     logger.debug("ledger y {}", ly);
-//                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    //symbols.add(symbol);
-                    
+                    // StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    // symbols.add(symbol);
+
                     Text text = addText(x - lx, ly, line);
                     double width = text.getLayoutBounds().getWidth();
                     lx = width / 4d;
-                    text.setX(x-lx);
-                    
+                    text.setX(x - lx);
+
                 }
             }
         } else {
@@ -870,13 +1025,13 @@ public class GrandStaffSymbolManager {
                     // SymbolFactory.unicodeToString(0x005F));
 
                     ly += lineinc * 2d; // 1linestaff kludge
-                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    //symbols.add(symbol);
-                    //addText(x - lx, ly, line);
+                    // StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    // symbols.add(symbol);
+                    // addText(x - lx, ly, line);
                     Text text = addText(x - lx, ly, line);
                     double width = text.getLayoutBounds().getWidth();
                     lx = width / 4d;
-                    text.setX(x-lx);
+                    text.setX(x - lx);
                 }
             }
 
@@ -890,13 +1045,13 @@ public class GrandStaffSymbolManager {
                     double ly = (staffTop - lineinc - lineinc * i);
                     ly += lineinc * 2d; // 1linestaff kludge
                     logger.debug("ledger y {}", ly);
-                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    //symbols.add(symbol);
-                    //addText(x - lx, ly, line);
+                    // StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    // symbols.add(symbol);
+                    // addText(x - lx, ly, line);
                     Text text = addText(x - lx, ly, line);
                     double width = text.getLayoutBounds().getWidth();
                     lx = width / 4d;
-                    text.setX(x-lx);
+                    text.setX(x - lx);
                 }
             }
         }
@@ -1006,9 +1161,9 @@ public class GrandStaffSymbolManager {
     /**
      * @return the symbols
      */
-//    public List<StaffSymbol> getSymbols() {
-//        return symbols;
-//    }
+    // public List<StaffSymbol> getSymbols() {
+    // return symbols;
+    // }
 
     /**
      * @return the shapes
@@ -1136,7 +1291,7 @@ public class GrandStaffSymbolManager {
         numerator.setFontSmoothingType(FontSmoothingType.LCD);
         denomenator.setFont(grandStaffModel.getFont());
         denomenator.setFontSmoothingType(FontSmoothingType.LCD);
-        
+
         numerator1.setFont(grandStaffModel.getFont());
         numerator1.setFontSmoothingType(FontSmoothingType.LCD);
         denomenator1.setFont(grandStaffModel.getFont());
@@ -1145,10 +1300,10 @@ public class GrandStaffSymbolManager {
         double numwidth = numerator.getLayoutBounds().getWidth();
         double denomwidth = denomenator.getLayoutBounds().getWidth();
         double offset = 0d;
-        
+
         double ty = grandStaffModel.getTrebleStaffBottom();
         double by = grandStaffModel.getBassStaffBottom();
-        
+
         if (numwidth > denomwidth) {
             offset = numwidth / 2d;
             offset -= denomwidth / 2d;
@@ -1156,16 +1311,14 @@ public class GrandStaffSymbolManager {
             numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x + offset);
             denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
-            
+
             numerator1.setX(x);
             numerator1.setY(by - 3d * grandStaffModel.getLineInc());
             denomenator1.setX(x + offset);
             denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
-            
+
             advance += numwidth;
-           
-            
-            
+
         } else if (numwidth < denomwidth) {
             offset = denomwidth / 2d;
             offset -= numwidth / 2d;
@@ -1173,33 +1326,31 @@ public class GrandStaffSymbolManager {
             numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x);
             denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
-            
+
             numerator1.setX(x + offset);
             numerator1.setY(by - 3d * grandStaffModel.getLineInc());
             denomenator1.setX(x);
             denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
             advance += numwidth;
-            
-            
+
         } else if (numwidth == denomwidth) {
             numerator.setX(x);
             numerator.setY(ty - 3d * grandStaffModel.getLineInc());
             denomenator.setX(x);
             denomenator.setY(ty - 1d * grandStaffModel.getLineInc());
-            
+
             numerator1.setX(x);
             numerator1.setY(by - 3d * grandStaffModel.getLineInc());
             denomenator1.setX(x);
             denomenator1.setY(by - 1d * grandStaffModel.getLineInc());
             advance += numwidth;
-            
-            
+
         }
         shapes.add(numerator);
         shapes.add(denomenator);
         shapes.add(numerator1);
         shapes.add(denomenator1);
-       
+
         return advance;
     }
 
