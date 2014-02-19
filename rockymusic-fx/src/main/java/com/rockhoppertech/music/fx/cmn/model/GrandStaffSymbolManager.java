@@ -56,7 +56,7 @@ public class GrandStaffSymbolManager {
     private static final Logger logger = LoggerFactory
             .getLogger(GrandStaffSymbolManager.class);
 
-    private List<StaffSymbol> symbols = new ArrayList<>();
+  //  private List<StaffSymbol> symbols = new ArrayList<>();
 
     /**
      * these shapes are filled.
@@ -94,7 +94,7 @@ public class GrandStaffSymbolManager {
         }
         double x = grandStaffModel.getStartX() + 1d
                 * grandStaffModel.getFontSize();
-        symbols.clear();
+       // symbols.clear();
         shapes.clear();
         if (noteList == null) {
             return;
@@ -163,7 +163,7 @@ public class GrandStaffSymbolManager {
             logger.debug("is flat");
             y = grandStaffModel.getYpositionForPitch(pitch, true);
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+           // symbols.add(new StaffSymbol(x, y, glyph));
 
             text = new Text(x, y, glyph);
             text.setFont(grandStaffModel.getFont());
@@ -179,7 +179,7 @@ public class GrandStaffSymbolManager {
             logger.debug("is sharp");
             y = grandStaffModel.getYpositionForPitch(pitch, false);
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+           // symbols.add(new StaffSymbol(x, y, glyph));
 
             text = new Text(x, y, glyph);
             text.setFont(grandStaffModel.getFont());
@@ -215,7 +215,7 @@ public class GrandStaffSymbolManager {
             duration -= 4d;
             glyph = SymbolFactory.noteWhole();
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+           // symbols.add(new StaffSymbol(x, y, glyph));
             addLedgers(note, x);
             text = addText(x, y, glyph);
 
@@ -247,21 +247,23 @@ public class GrandStaffSymbolManager {
             } else {
                 glyph = SymbolFactory.noteHalfDown();
             }
-            x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+
+           // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            
+            x += width;
 
             // get the x for the note and add it, not the dot's x
             // x += grandStaffModel.stringWidth(glyph);
             glyph = SymbolFactory.augmentationDot();
             // now add a bit of space between the note and the dot
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
 
-            double width = text.getLayoutBounds().getWidth();
+            width = text.getLayoutBounds().getWidth();
             if (tie != null) {
                 endTie(x, y, tie, width);
                 tie = null;
@@ -296,7 +298,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
 
@@ -334,7 +336,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -344,7 +346,7 @@ public class GrandStaffSymbolManager {
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
             x += text.getLayoutBounds().getWidth() / 2d;
-            symbols.add(new StaffSymbol(x, y, glyph));
+           // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
 
             double width = text.getLayoutBounds().getWidth();
@@ -385,7 +387,7 @@ public class GrandStaffSymbolManager {
 
             logger.debug("quarter note. remainder {}", duration);
 
-            symbols.add(new StaffSymbol(x, y, glyph));
+         //   symbols.add(new StaffSymbol(x, y, glyph));
 
             text = addText(x, y, glyph);
 
@@ -395,12 +397,12 @@ public class GrandStaffSymbolManager {
             // shapes.add(new Rectangle(x,y,text.getLayoutBounds().getWidth(),
             // text.getLayoutBounds().getHeight()));
 
-            logger.debug("width local {} parent {} layout {} stringwidth {}",
-                    text.getBoundsInLocal().getWidth(),
-                    text.getBoundsInParent().getWidth(),
-                    text.getLayoutBounds().getWidth(),
-                    grandStaffModel.stringWidth(glyph)
-                    );
+//            logger.debug("width local {} parent {} layout {} stringwidth {}",
+//                    text.getBoundsInLocal().getWidth(),
+//                    text.getBoundsInParent().getWidth(),
+//                    text.getLayoutBounds().getWidth(),
+//                    grandStaffModel.stringWidth(glyph)
+//                    );
 
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
@@ -441,7 +443,7 @@ public class GrandStaffSymbolManager {
             }
 
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+           // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -450,7 +452,7 @@ public class GrandStaffSymbolManager {
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
             x += text.getLayoutBounds().getWidth() / 2d;
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             x += text.getLayoutBounds().getWidth();
 
@@ -458,6 +460,7 @@ public class GrandStaffSymbolManager {
 
         }
 
+        //TODO
         // quarter triplet
         double qtriplet = 2d / 3d;
         if (duration - qtriplet >= 0d) {
@@ -467,11 +470,12 @@ public class GrandStaffSymbolManager {
             } else {
                 glyph = SymbolFactory.noteQuarterDown();
             }
-            x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
         }
 
         // eighth
@@ -492,7 +496,7 @@ public class GrandStaffSymbolManager {
             }
 
             logger.debug("eighth note. remainder {}", duration);
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             // x += grandStaffModel.stringWidth(glyph);
@@ -517,7 +521,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-            symbols.add(new StaffSymbol(x, y, glyph));
+          //  symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -532,7 +536,7 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.note8thDown();
             }
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+        //    symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -547,7 +551,7 @@ public class GrandStaffSymbolManager {
                 glyph = SymbolFactory.noteheadBlack();
             }
             // x += grandStaffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+         //   symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
@@ -788,7 +792,10 @@ public class GrandStaffSymbolManager {
 
         // lacking fontmetrics, we guess at centering the ledger
         // double lx = grandStaffModel.getFontSize() / 4.3;
-        double lx = grandStaffModel.stringWidth(line) / 4d;
+        //double lx = grandStaffModel.stringWidth(line) / 4d;
+        double lx = 0d;
+        
+       // double width = line.getLayoutBounds().getWidth();
 
         if (isSpellingFlat(note)) {
             useFlat = true;
@@ -815,9 +822,13 @@ public class GrandStaffSymbolManager {
                     // SymbolFactory.unicodeToString(0x005F));
 
                     ly += lineinc * 2d; // 1linestaff kludge
-                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    symbols.add(symbol);
-                    addText(x - lx, ly, line);
+                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    //symbols.add(symbol);
+                    Text text = addText(x - lx, ly, line);
+                    double width = text.getLayoutBounds().getWidth();
+                    lx = width / 4d;
+                    text.setX(x-lx);
+
                 }
             }
 
@@ -831,9 +842,14 @@ public class GrandStaffSymbolManager {
                     double ly = (staffTop - lineinc - lineinc * i);
                     ly += lineinc * 2d; // 1linestaff kludge
                     logger.debug("ledger y {}", ly);
-                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    symbols.add(symbol);
-                    addText(x - lx, ly, line);
+//                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    //symbols.add(symbol);
+                    
+                    Text text = addText(x - lx, ly, line);
+                    double width = text.getLayoutBounds().getWidth();
+                    lx = width / 4d;
+                    text.setX(x-lx);
+                    
                 }
             }
         } else {
@@ -854,9 +870,13 @@ public class GrandStaffSymbolManager {
                     // SymbolFactory.unicodeToString(0x005F));
 
                     ly += lineinc * 2d; // 1linestaff kludge
-                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    symbols.add(symbol);
-                    addText(x - lx, ly, line);
+                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    //symbols.add(symbol);
+                    //addText(x - lx, ly, line);
+                    Text text = addText(x - lx, ly, line);
+                    double width = text.getLayoutBounds().getWidth();
+                    lx = width / 4d;
+                    text.setX(x-lx);
                 }
             }
 
@@ -870,9 +890,13 @@ public class GrandStaffSymbolManager {
                     double ly = (staffTop - lineinc - lineinc * i);
                     ly += lineinc * 2d; // 1linestaff kludge
                     logger.debug("ledger y {}", ly);
-                    StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
-                    symbols.add(symbol);
-                    addText(x - lx, ly, line);
+                    //StaffSymbol symbol = new StaffSymbol(x - lx, ly, line);
+                    //symbols.add(symbol);
+                    //addText(x - lx, ly, line);
+                    Text text = addText(x - lx, ly, line);
+                    double width = text.getLayoutBounds().getWidth();
+                    lx = width / 4d;
+                    text.setX(x-lx);
                 }
             }
         }
@@ -982,9 +1006,9 @@ public class GrandStaffSymbolManager {
     /**
      * @return the symbols
      */
-    public List<StaffSymbol> getSymbols() {
-        return symbols;
-    }
+//    public List<StaffSymbol> getSymbols() {
+//        return symbols;
+//    }
 
     /**
      * @return the shapes

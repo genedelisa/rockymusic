@@ -87,7 +87,7 @@ public class Measure {
             this.keySignatureMap.put(0d, ks);
         }
 
-        TimeSignature ts = this.track.getTimeSignatureAtBeat(1d);
+        TimeSignature ts = this.track.getTimeSignatureAtBeat(1d); 
         if (ts == null) {
             this.timeSignature = new TimeSignature(4, 4);
         } else {

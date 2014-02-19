@@ -42,10 +42,8 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
-import com.rockhoppertech.music.fx.cmn.NotationApp;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
-import com.sun.javafx.tk.Toolkit;
 
 import static com.rockhoppertech.music.Pitch.*;
 
@@ -145,14 +143,14 @@ public class GrandStaffModel {
 
     private MIDITrack track;
     private ObjectProperty<MIDITrack> trackProperty;
-    private ObjectProperty<Font> fontProperty;
+   // private ObjectProperty<Font> fontProperty;
     private DoubleProperty fontSizeProperty;
 
     public GrandStaffModel() {
 
         fontSize = 48d;
         font = Font.loadFont(
-                NotationApp.class.getResource("/fonts/Bravura.otf")
+                GrandStaffModel.class.getResource("/fonts/Bravura.otf")
                         .toExternalForm(),
                 fontSize);
         if (font == null) {
@@ -164,7 +162,7 @@ public class GrandStaffModel {
         this.trackProperty = new SimpleObjectProperty<MIDITrack>();
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
-        this.fontProperty = new SimpleObjectProperty<Font>(this.font);
+       // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
 
         this.staffSymbolManager = new GrandStaffSymbolManager();
         this.setClef(Clef.TREBLE);
@@ -205,7 +203,7 @@ public class GrandStaffModel {
     }
 
     /**
-     * 
+     * Calculate metrics based on font size.
      */
     public void calcStaffMetrics() {
         this.lineInc = this.fontSize / 4d;
@@ -250,8 +248,8 @@ public class GrandStaffModel {
     }
 
     /**
-     * 
-     * @return
+     * The y spacing between lines. Fontsize / 4.
+     * @return the line increment
      */
     public double getLineInc() {
         return this.lineInc;
@@ -348,6 +346,7 @@ public class GrandStaffModel {
 
     /**
      * Get the y location for a given MIDI pitch number.
+     * If the pitch is middle C or higher, it is on the treble staff. Otherwise it is on the bass staff.
      * 
      * The positions are set according to clef.
      * 
@@ -373,11 +372,7 @@ public class GrandStaffModel {
             }
         }
 
-        // if (useFlat) {
-        // y = this.flatYpositions[pitch];
-        // } else {
-        // y = this.sharpYpositions[pitch];
-        // }
+       
         return y;
     }
 
@@ -407,6 +402,10 @@ public class GrandStaffModel {
     }
 
     /**
+     * Set the font size and kick off recalculating staff metrics.
+     * 
+     * Sets treble staffbottom to be 4 x font size.
+     * 
      * @param fontSize2
      *            the fontSize to set
      */
@@ -578,6 +577,8 @@ public class GrandStaffModel {
 
         double distance = 0d;
 
+        //this will not work if there is too much space between the two staves.
+        
         // above the bottom line i.e. in the staff
         if (y < this.staffBottom) {
             final double d = (this.staffBottom - y) / this.yspacing;
@@ -630,9 +631,9 @@ public class GrandStaffModel {
         return trackProperty;
     }
 
-    public List<StaffSymbol> getSymbols() {
-        return staffSymbolManager.getSymbols();
-    }
+//    public List<StaffSymbol> getSymbols() {
+//        return staffSymbolManager.getSymbols();
+//    }
 
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
@@ -659,15 +660,15 @@ public class GrandStaffModel {
      *            a string
      * @return the width
      */
-    public final float stringWidth(String string) {
-        if (font == null) {
-            return 0f;
-        }
-
-        return Toolkit.getToolkit().getFontLoader()
-                .computeStringWidth(string, font);
-
-    }
+    // public final float stringWidth(String string) {
+    // if (font == null) {
+    // return 0f;
+    // }
+    //
+    // return Toolkit.getToolkit().getFontLoader()
+    // .computeStringWidth(string, font);
+    //
+    // }
 
     public void addNote(int midiNumber) {
         // MIDITrack track = this.trackProperty.get().append(midiNumber)
