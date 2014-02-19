@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.rockhoppertech.music.fx.FXTextAreaReceiver?>
+<?import com.rockhoppertech.music.fx.cmn.*?>
+<?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?scenebuilder-classpath-element ../../../../target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar?>
+<?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
+<?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/javax/json/javax.json-api/1.0/javax.json-api-1.0.jar?>
+<?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
+
+<fx:root type="AnchorPane" prefHeight="616.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.InputStaffAppController">
+  <children>
+    <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <bottom>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+          <children>
+            <TextField fx:id="resultText" prefWidth="200.0" />
+          </children>
+        </VBox>
+      </bottom>
+      <center>
+        <Staff fx:id="staff" focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" onKeyTyped="#staffKeyTyped" onMouseDragged="#staffMouseDragged" onMousePressed="#staffMousePressed" onMouseReleased="#staffMouseReleased" prefHeight="-1.0" prefWidth="-1.0" />
+      </center>
+    </BorderPane>
+  </children>
+</fx:root>
