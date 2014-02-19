@@ -42,7 +42,6 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
-import com.rockhoppertech.music.fx.cmn.NotationApp;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.sun.javafx.tk.Toolkit;
@@ -162,7 +161,7 @@ public class StaffModel {
 
         fontSize = 48d;
         font = Font.loadFont(
-                NotationApp.class.getResource("/fonts/Bravura.otf")
+                StaffModel.class.getResource("/fonts/Bravura.otf")
                         .toExternalForm(),
                 fontSize);
         if (font == null) {
