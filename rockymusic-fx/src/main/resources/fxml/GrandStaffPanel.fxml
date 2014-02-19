@@ -23,6 +23,7 @@
             <TextArea id="noteStringText" fx:id="noteStringTextArea" prefColumnCount="80" prefRowCount="8" prefWidth="200.0" wrapText="true" />
             <Button fx:id="evaluateButton" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#evaluateNoteString" text="Evaluate" />
             <ComboBox fx:id="fontSizeCombo" onAction="#fontSizeAction" />
+            <CheckBox fx:id="sequentialCheckBox" mnemonicParsing="false" text="Sequential" />
           </children>
         </VBox>
       </bottom>
