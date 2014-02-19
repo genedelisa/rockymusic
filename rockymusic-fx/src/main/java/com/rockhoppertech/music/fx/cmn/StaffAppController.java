@@ -81,7 +81,7 @@ public class StaffAppController {
     private TextArea noteStringTextArea; // Value injected by FXMLLoader
 
     @FXML
-    private StaffRegion staff; // Value injected by FXMLLoader
+    private Staff staff; // Value injected by FXMLLoader
 
     @FXML
     private ScrollPane staffScrollPane;

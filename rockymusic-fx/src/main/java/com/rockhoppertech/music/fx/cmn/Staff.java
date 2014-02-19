@@ -44,10 +44,10 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
-public class StaffRegion extends Region {
+public class Staff extends Region {
 
     private static final Logger logger = LoggerFactory
-            .getLogger(StaffRegion.class);
+            .getLogger(Staff.class);
 
     private Font font;
     private StaffModel staffModel;
@@ -55,11 +55,11 @@ public class StaffRegion extends Region {
     /**
      * Used by fxml. Creates an empty model.
      */
-    public StaffRegion() {
+    public Staff() {
         this(new StaffModel());
     }
 
-    public StaffRegion(StaffModel staffModel) {
+    public Staff(StaffModel staffModel) {
         getStyleClass().setAll("staff-region");
 
         this.staffModel = staffModel;

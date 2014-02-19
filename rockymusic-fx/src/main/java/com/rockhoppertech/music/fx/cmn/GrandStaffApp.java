@@ -35,8 +35,6 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.fx.MainApp;
-
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
@@ -59,7 +57,7 @@ public class GrandStaffApp extends Application {
         logger.debug("Loading FXML for main view from: {}", fxmlFile);
         try {
             FXMLLoader loader = new FXMLLoader(
-                    MainApp.class.getResource(fxmlFile));
+                    GrandStaffApp.class.getResource(fxmlFile));
             root = (AnchorPane) loader.load();
             controller = loader.getController();
         } catch (IOException e) {
