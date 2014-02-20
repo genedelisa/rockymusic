@@ -14,7 +14,7 @@
 <?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
 
-<fx:root type="AnchorPane" prefHeight="616.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.GrandStaffAppController">
+<fx:root type="AnchorPane" prefHeight="616.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
   <children>
     <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -32,7 +32,7 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="606.0">
               <children>
-                <MeasureCanvas fx:id="measureCanvas" layoutX="0.0" layoutY="0.0" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
+                <MeasureCanvas fx:id="measureCanvas" layoutX="0.0" layoutY="0.0" />
               </children>
             </AnchorPane>
           </content>

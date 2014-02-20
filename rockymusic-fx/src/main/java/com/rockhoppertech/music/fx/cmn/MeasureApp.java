@@ -46,7 +46,7 @@ public class MeasureApp extends Application {
     private Stage stage;
     private Scene scene;
     private Pane root;
-    private GrandStaffAppController controller;
+    private MeasureAppController controller;
 
     public static void main(String[] args) throws Exception {
         launch(args);
