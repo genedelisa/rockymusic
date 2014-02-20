@@ -113,6 +113,8 @@ public class GrandStaffSymbolManager {
         if (noteList.isEmpty()) {
             return;
         }
+        
+        grandStaffModel.setFirstNoteX(x);
 
         // TODO this doesn't cover initial rests i.e. when start beat > 1
         // TODO rests > 5 beats long don't work well

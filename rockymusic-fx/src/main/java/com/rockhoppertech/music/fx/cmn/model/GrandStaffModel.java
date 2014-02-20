@@ -36,6 +36,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,6 +146,8 @@ public class GrandStaffModel {
     private ObjectProperty<MIDITrack> trackProperty;
    // private ObjectProperty<Font> fontProperty;
     private DoubleProperty fontSizeProperty;
+
+private double firstNoteX;
 
     public GrandStaffModel() {
 
@@ -852,6 +855,24 @@ public class GrandStaffModel {
      */
     public void setBassStaffBottom(double bassStaffBottom) {
         this.bassStaffBottom = bassStaffBottom;
+    }
+
+    public double getQuarterNoteWidth() {
+        String glyph = SymbolFactory.noteQuarterUp();
+        Text text = new Text(0,0,glyph);
+        return text.getLayoutBounds().getWidth();
+    }
+
+    public double getSingleStaffHeight() {
+        return this.trebleStaffBottom - this.trebleStaffTop;
+    }
+
+    public void setFirstNoteX(double x) {
+       this.firstNoteX = x;
+    }
+    
+    public double getFirstNoteX() {
+        return firstNoteX;
     }
 
 }
