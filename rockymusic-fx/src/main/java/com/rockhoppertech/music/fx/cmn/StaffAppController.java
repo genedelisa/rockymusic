@@ -107,7 +107,7 @@ public class StaffAppController {
     @FXML
     void fontSizeAction(ActionEvent event) {
         double size = fontSizeCombo.getSelectionModel().getSelectedItem();
-        staff.getStaffModel().setFontSize(size);
+        staff.setFontSize(size);
         staff.drawShapes();
         staff.setPrefSize(size * 1000d, size * 10d);
         // staffScrollPane.setPrefSize(size * 1000d, size * 10d);
@@ -122,11 +122,11 @@ public class StaffAppController {
         String sel = clefCombo
                 .getSelectionModel().getSelectedItem();
         if (sel.equals("Treble")) {
-            staff.getStaffModel().setClef(Clef.TREBLE);
+            staff.setClef(Clef.TREBLE);
         } else if (sel.equals("Bass")) {
-            staff.getStaffModel().setClef(Clef.BASS);
+            staff.setClef(Clef.BASS);
         } else if (sel.equals("Alto")) {
-            staff.getStaffModel().setClef(Clef.ALTO);
+            staff.setClef(Clef.ALTO);
         }
 
         staff.drawShapes();
@@ -158,7 +158,7 @@ public class StaffAppController {
     // Handler for GrandStaff[fx:id="grandStaff"] onMousePressed
     @FXML
     void staffMousePressed(MouseEvent event) {
-        pitch = staff.getStaffModel().whichNote(event.getY());
+        pitch = staff.whichNote(event.getY());
         if (pitch < 0 || pitch > 127) {
             return;
         }
@@ -178,7 +178,7 @@ public class StaffAppController {
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         noteStringTextArea.appendText(preferredSpelling);
         inputNote = new MIDINote(pitch);
-        staff.getStaffModel().addNote(inputNote);
+        staff.addNote(inputNote);
         //staff.getStaffModel().addNote(pitch);
         // canvas.repaintCanvas();
     }

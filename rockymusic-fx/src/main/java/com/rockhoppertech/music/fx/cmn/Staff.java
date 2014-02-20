@@ -35,7 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.model.StaffModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffModel.Clef;
 import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
+import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
@@ -60,7 +62,7 @@ public class Staff extends Region {
     }
 
     public Staff(StaffModel staffModel) {
-        getStyleClass().setAll("staff-region");
+        getStyleClass().setAll("staff");
 
         this.staffModel = staffModel;
         this.font = this.staffModel.getFont();
@@ -169,5 +171,35 @@ public class Staff extends Region {
 
     public StaffModel getStaffModel() {
         return staffModel;
+    }
+    
+    public void setTrack(MIDITrack track) {
+        this.getStaffModel().setTrack(track);
+    }
+
+    public void setFontSize(double size) {
+        this.getStaffModel().setFontSize(size);
+    }
+
+    /**
+     * @param y
+     *            the y location
+     * @return which note is at y
+     */
+    public int whichNote(double y) {
+        return getStaffModel().whichNote(y);
+    }
+
+    public void addNote(int pitch) {
+        getStaffModel().addNote(pitch);
+    }
+
+    public void setClef(Clef treble) {
+        getStaffModel().setClef(Clef.TREBLE);
+    }
+
+    public void addNote(MIDINote inputNote) {
+        getStaffModel().addNote(inputNote);
+        
     }
 }
