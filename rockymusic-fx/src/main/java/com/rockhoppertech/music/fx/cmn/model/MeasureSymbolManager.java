@@ -34,6 +34,7 @@ import javafx.scene.Cursor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
@@ -44,9 +45,11 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.fx.cmn.Measure;
 import com.rockhoppertech.music.fx.cmn.model.MeasureModel.Clef;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+import com.rockhoppertech.music.midi.js.TimeSignature;
 
 /**
  * The things that are drawn on the notation canvas.
@@ -58,19 +61,32 @@ public class MeasureSymbolManager {
     private static final Logger logger = LoggerFactory
             .getLogger(MeasureSymbolManager.class);
 
-    // private List<StaffSymbol> symbols = new ArrayList<>();
-
     /**
      * these shapes are filled.
      */
     private List<Shape> shapes = new ArrayList<>();
-    /**
-     * these shapes are stroked.
-     */
-    private List<Shape> strokedShapes = new ArrayList<>();
 
+    /**
+     * 
+     */
     private MeasureModel model;
+    /**
+     * 
+     */
     private ObservableList<MIDINote> noteList;
+    private Measure measure;
+    private List<Rectangle> beatRectangles = new ArrayList<>();
+    private boolean drawBeatRectangles = true;
+    private double inputBeatQuantization = .125d;
+    // metrics
+    double quarterNoteWidth;
+    double gclefWidth;
+    double beatSpacing;
+    double timeSignatureWidth;
+
+    public MeasureSymbolManager() {
+
+    }
 
     /**
      * @param noteList
@@ -113,8 +129,9 @@ public class MeasureSymbolManager {
         if (noteList.isEmpty()) {
             return;
         }
-        
+
         model.setFirstNoteX(x);
+        this.createBeatRectangles();
 
         // TODO this doesn't cover initial rests i.e. when start beat > 1
         // TODO rests > 5 beats long don't work well
@@ -125,22 +142,24 @@ public class MeasureSymbolManager {
 
         for (MIDINote note : noteList) {
 
-            double sb = note.getStartBeat();
+            x = getXofBeatN(note.getStartBeat());
 
-            if (sb > 1d) {
-                eb = previousNote.getEndBeat();
-            }
-            gap = sb - eb;
-
-            logger.debug("sb {} eb {} gap {} x {}", sb, eb, gap, x);
-            if (gap > 0) {
-                int pitch = note.getPitch().getMidiNumber();
-                x = addRests(x, gap, pitch);
-                x += model.getFontSize() / 2d;
-                logger.debug("x {} after adding rest", x);
-            } else {
-                x += model.getFontSize() / 2d;
-            }
+            // double sb = note.getStartBeat();
+            //
+            // if (sb > 1d) {
+            // eb = previousNote.getEndBeat();
+            // }
+            // gap = sb - eb;
+            //
+            // logger.debug("sb {} eb {} gap {} x {}", sb, eb, gap, x);
+            // if (gap > 0) {
+            // int pitch = note.getPitch().getMidiNumber();
+            // x = addRests(x, gap, pitch);
+            // x += model.getFontSize() / 2d;
+            // logger.debug("x {} after adding rest", x);
+            // } else {
+            // x += model.getFontSize() / 2d;
+            // }
 
             x = createSymbol(note, x);
             logger.debug("x {} after adding symbol", x);
@@ -1085,14 +1104,6 @@ public class MeasureSymbolManager {
         return (false);
     }
 
- 
-
-    // metrics
-    double quarterNoteWidth;
-    double gclefWidth;
-    double beatSpacing;
-    double timeSignatureWidth;
-
     void calcMetrics() {
         // do some metrics
         Text text = new Text(SymbolFactory.noteQuarterUp());
@@ -1113,16 +1124,123 @@ public class MeasureSymbolManager {
         logger.debug("beatSpacing  width {}", beatSpacing);
     }
 
+    double getXofBeatN(double beat) {
+        beat -= 1;
+        if (beat < 0 || beat > this.beatRectangles.size())
+            throw new IllegalArgumentException("bad beat " + beat);
+
+        int beatIndex = (int) Math.floor(beat);
+        Rectangle rect = (Rectangle) this.beatRectangles.get(beatIndex);
+        logger.debug(
+                "for beat {} index {} the rectangle x {} y {} w {} h {}",
+                beat,
+                beatIndex,
+                rect.getX(),
+                rect.getY(),
+                rect.getWidth(),
+                rect.getHeight());
+
+        double x = rect.getX();
+        double mant = beat - Math.floor(beat);
+        logger.debug("mant {} ", mant);
+        if (mant != 0d) {
+            mant = this.quantize(mant, inputBeatQuantization);
+            logger.debug("man quantizedt {} ", mant);
+            x += rect.getWidth() * mant;
+        }
+        logger.debug("returning x {} for beat {}", x, beat);
+        return x;
+    }
+
+    // c,1,.25 c,1.25,.25 c,1.5,.25
+
+    double quantize(double value, double q) {
+        return Math.floor(value / q) * q;
+    }
+
+    public void setMeasure(Measure measure) {
+        this.measure = measure;
+    }
+
+    /**
+     * Determine the number of attacks in a beat.
+     * e.g. c,1,q would be one. c,1,e c,1.5,3 would be two.
+     * @param track a track for a beat
+     * @return the number of attacks
+     */
+    int getNAttacks(MIDITrack track) {
+        int a = 0;
+        double last = 0d;
+        for (MIDINote n : track) {
+            if (n.getStartBeat() != last) {
+                last = n.getStartBeat();
+                a++;
+            }
+        }
+        logger.debug("returning {} attacks", a);
+        return a;
+    }
+
+    private void createBeatRectangles() {
+        this.beatRectangles.clear();
+        TimeSignature t = this.measure.getTimeSignature();
+
+        // set up beat widths. create a Rectangle for each beat.
+
+        double x = this.model.getFirstNoteX();
+        // double y = this.staffModel.getBassStaffBottom();
+        double y = this.model.getTrebleStaffTop();
+        double height = this.model.getBassStaffBottom()
+                - this.model.getTrebleStaffTop();
+
+        // double lastBeat = 0;
+        for (double bbeat = 1d; bbeat <= t.getNumerator(); bbeat += 1d) {
+            logger.debug("looping beat {}", bbeat);
+            // KeySignature ks = mm.getKeySignatureAtBeat(bbeat);
+            MIDITrack nlAtBeat = this.measure.getNotesAtBeat(bbeat);
+
+            // determine width of this beat
+            // no, should be num different start beats within beat * spacing
+            //double beatWidth = (nlAtBeat.size() + 1d) * this.beatSpacing;
+            double beatWidth = ( getNAttacks(nlAtBeat) + 1d) * this.beatSpacing;
+            //TODO what about accidentals and dots?
+            
+            Rectangle rect = new Rectangle(x, y, beatWidth, height);
+            rect.setFill(Color.web("blue", 0.1));
+            rect.setStroke(Color.web("blue", 0.7));
+            logger.debug(
+                    "rectangle x {} y {} w {} h {}",
+                    rect.getX(),
+                    rect.getY(),
+                    rect.getWidth(),
+                    rect.getHeight());
+            this.beatRectangles.add(rect);
+
+            // this.getChildren().add(rect);
+            x += beatWidth;
+
+            if (nlAtBeat != null && nlAtBeat.size() != 0) {
+                double shortest = nlAtBeat.getShortestDuration();
+            }
+        }
+    }
+
     public void setMeasureModel(MeasureModel mm) {
         this.model = mm;
+        this.setMeasure(this.model.getMeasure());
 
         setNoteList(model.getNoteList());
+
+        String glyph = SymbolFactory.sharp() + SymbolFactory.note8thUp()
+                + SymbolFactory.augmentationDot();
+        Text t = new Text(glyph);
+        t.setFont(this.model.getFont());
+        this.beatSpacing = t.getLayoutBounds().getWidth();
 
         calcMetrics();
 
         model.getFontSizeProperty().addListener(
                 new ChangeListener<Number>() {
-
                     @Override
                     public void changed(
                             ObservableValue<? extends Number> observable,
@@ -1132,59 +1250,26 @@ public class MeasureSymbolManager {
                     }
                 });
 
-        model.getNoteListProperty().addListener(
-                new ListChangeListener<MIDINote>() {
-                    @Override
-                    public void onChanged(
-                            javafx.collections.ListChangeListener.Change<? extends MIDINote> change) {
-                        // if(change.wasReplaced()) {
-                        //
-                        // }
-                        logger.debug("list was changed");
-                        refresh();
-                    }
-                });
+        model.getMeasureProperty().addListener(new ChangeListener<Measure>() {
+            @Override
+            public void changed(ObservableValue<? extends Measure> observable,
+                    Measure oldValue, Measure newValue) {
+                setMeasure(newValue);
+            }
+        });
 
         refresh();
-
-        model.getTrackProperty().addListener(
-                new ChangeListener<MIDITrack>() {
-                    @Override
-                    public void changed(
-                            ObservableValue<? extends MIDITrack> observable,
-                            MIDITrack oldValue, MIDITrack newValue) {
-                        logger.debug("staff model track changed. using new value");
-                        // setMIDITrack(newValue);
-                    }
-                });
     }
-
-    /**
-     * @return the symbols
-     */
-    // public List<StaffSymbol> getSymbols() {
-    // return symbols;
-    // }
 
     /**
      * @return the shapes
      */
     public List<Shape> getShapes() {
+        if (this.drawBeatRectangles) {
+            shapes.addAll(this.beatRectangles);
+        }
         return shapes;
     }
-
-    /**
-     * @return the strokedShapes
-     */
-    public List<Shape> getStrokedShapes() {
-        return strokedShapes;
-    }
-
-    /*
-     * fontMap.put(DOT, new Character((char) 46));
-     * 
-     * fontMap.put(LEDGERLINE, new Character((char) 94));
-     */
 
     public double addTimeSignature(double x, int timeSigNum,
             int timeSigDen) {
@@ -1353,6 +1438,10 @@ public class MeasureSymbolManager {
         shapes.add(denomenator1);
 
         return advance;
+    }
+
+    public void setShowBeats(boolean showBeats) {
+        this.drawBeatRectangles = showBeats;
     }
 
 }

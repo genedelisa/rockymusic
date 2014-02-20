@@ -34,6 +34,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -43,8 +45,10 @@ import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.fx.cmn.Measure;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+import com.rockhoppertech.music.midi.js.TimeSignature;
 
 import static com.rockhoppertech.music.Pitch.*;
 
@@ -54,6 +58,8 @@ import static com.rockhoppertech.music.Pitch.*;
  */
 public class MeasureModel {
     final static Logger logger = LoggerFactory.getLogger(MeasureModel.class);
+
+    private Measure measure;
 
     public enum Clef {
         TREBLE, BASS, ALTO, TENOR, SOPRANO, MEZZO_SOPRANO, BARITONE, SUB_BASS
@@ -143,11 +149,9 @@ public class MeasureModel {
     private double bassStaffCenter;
 
     private MIDITrack track;
-    private ObjectProperty<MIDITrack> trackProperty;
-   // private ObjectProperty<Font> fontProperty;
     private DoubleProperty fontSizeProperty;
-
-private double firstNoteX;
+    private double firstNoteX;
+    private ObjectProperty<Measure> measureProperty;
 
     public MeasureModel() {
 
@@ -162,17 +166,14 @@ private double firstNoteX;
 
         this.noteListProperty = new SimpleListProperty<>();
         this.startX = 10d;
-        this.trackProperty = new SimpleObjectProperty<MIDITrack>();
+        this.measureProperty = new SimpleObjectProperty<Measure>();
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
-       // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
+        // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
 
         this.staffSymbolManager = new MeasureSymbolManager();
         this.setClef(Clef.TREBLE);
         // StaffSymbolManager.setStaffModel(this);
-
-        MIDITrack track = new MIDITrack();
-        this.setTrack(track);
         // this.noteList = FXCollections.observableArrayList();
         // this.setNoteList(noteList);
     }
@@ -252,6 +253,7 @@ private double firstNoteX;
 
     /**
      * The y spacing between lines. Fontsize / 4.
+     * 
      * @return the line increment
      */
     public double getLineInc() {
@@ -348,8 +350,9 @@ private double firstNoteX;
     }
 
     /**
-     * Get the y location for a given MIDI pitch number.
-     * If the pitch is middle C or higher, it is on the treble staff. Otherwise it is on the bass staff.
+     * Get the y location for a given MIDI pitch number. If the pitch is middle
+     * C or higher, it is on the treble staff. Otherwise it is on the bass
+     * staff.
      * 
      * The positions are set according to clef.
      * 
@@ -375,7 +378,6 @@ private double firstNoteX;
             }
         }
 
-       
         return y;
     }
 
@@ -425,10 +427,11 @@ private double firstNoteX;
 
         // the bass staff is 2 staves height down from the treble
         // so there is a lot of space between the staves
-        //this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
-        
+        // this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
+
         this.lineInc = this.fontSize / 4d;
-        // whichY() will break if further apart. It doesn't know the notes between the staves.
+        // whichY() will break if further apart. It doesn't know the notes
+        // between the staves.
         this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 7d);
 
         this.calcStaffMetrics();
@@ -580,8 +583,8 @@ private double firstNoteX;
 
         double distance = 0d;
 
-        //this will not work if there is too much space between the two staves.
-        
+        // this will not work if there is too much space between the two staves.
+
         // above the bottom line i.e. in the staff
         if (y < this.staffBottom) {
             final double d = (this.staffBottom - y) / this.yspacing;
@@ -628,15 +631,11 @@ private double firstNoteX;
     }
 
     /**
-     * @return the trackProperty
+     * @return the measureProperty
      */
-    public ObjectProperty<MIDITrack> getTrackProperty() {
-        return trackProperty;
+    public ObjectProperty<Measure> getMeasureProperty() {
+        return measureProperty;
     }
-
-//    public List<StaffSymbol> getSymbols() {
-//        return staffSymbolManager.getSymbols();
-//    }
 
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
@@ -708,55 +707,6 @@ private double firstNoteX;
         staffSymbolManager.setNoteList(noteList);
         this.noteListProperty.setValue(this.noteList);
     }
-
-    public void setTrack(MIDITrack track) {
-        this.trackProperty.setValue(track);
-        this.track = track;
-
-        // StaffSymbolManager.setMIDITrack(track);
-
-        this.noteList = FXCollections
-                .observableArrayList(this.track.getNotes());
-        this.setNoteList(noteList);
-
-        staffSymbolManager.setMeasureModel(this);
-        staffSymbolManager.setNoteList(noteList);
-
-        // track.getNotes();
-        // TODO fix this
-        // JavaBeanObjectProperty<List<MIDINote>> tp = null;
-        // JavaBeanObjectProperty<List<MIDINote>> tp = null;
-        // try {
-        // tp = JavaBeanObjectPropertyBuilder.create()
-        // .bean(track)
-        // .name("notes")
-        // .build();
-        //
-        // } catch (NoSuchMethodException e) {
-        // e.printStackTrace();
-        // }
-        //
-        // tp.addListener(new ChangeListener<Object>(){
-        // @Override
-        // public void changed(ObservableValue<?> arg0, Object arg1, Object
-        // arg2) {
-        // System.err.println(arg0);
-        // System.err.println(arg1);
-        // System.err.println(arg2);
-        //
-        // }});
-
-        // labelProperty.bindBidirectional(tp);
-
-        // ObservableValue<? extends List<MIDINote>> mylist ;
-        // tp.bind(mylist);
-    }
-
-    // void drawBeat(double x) {
-    // Line line = new Line(x, staffModel.getStaffBottom(), x,
-    // staffModel.getStaffTop());
-    // shapes.add(line);
-    // }
 
     /**
      * @return the noteList
@@ -859,7 +809,7 @@ private double firstNoteX;
 
     public double getQuarterNoteWidth() {
         String glyph = SymbolFactory.noteQuarterUp();
-        Text text = new Text(0,0,glyph);
+        Text text = new Text(0, 0, glyph);
         return text.getLayoutBounds().getWidth();
     }
 
@@ -868,11 +818,36 @@ private double firstNoteX;
     }
 
     public void setFirstNoteX(double x) {
-       this.firstNoteX = x;
+        this.firstNoteX = x;
     }
-    
+
     public double getFirstNoteX() {
         return firstNoteX;
+    }
+
+    /**
+     * @param measure
+     *            the measure to set
+     */
+    public void setMeasure(Measure measure) {
+        this.measure = measure;
+        this.noteList = FXCollections
+                .observableArrayList(this.measure.gettrack().getNotes());
+        this.setNoteList(noteList);
+        
+        this.staffSymbolManager.setMeasureModel(this);
+        //this.staffSymbolManager.setMeasure(measure);
+    }
+
+    public void setShowBeats(boolean showBeats) {
+        this.staffSymbolManager.setShowBeats(showBeats);
+    }
+
+    /**
+     * @return the measure
+     */
+    public Measure getMeasure() {
+        return measure;
     }
 
 }
