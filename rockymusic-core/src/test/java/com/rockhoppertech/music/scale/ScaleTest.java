@@ -562,7 +562,8 @@ public class ScaleTest {
      */
     @Test
     public void isDiatonic() {
-        Scale scale = ScaleFactory.createFromName("Major");
+        //Scale scale = ScaleFactory.createFromName("Major");
+        Scale scale = ScaleFactory.getScaleByKeyAndName("C", "Major");
         assertThat("scale is not null",
                 scale, is(notNullValue()));
 
@@ -575,6 +576,129 @@ public class ScaleTest {
         expected = false;
         assertThat("the pitch is diatonic",
                 actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.CS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.D5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.DS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.E5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.F5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.FS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.G5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.GS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.A5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.AS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.B5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        
+        scale = ScaleFactory.getScaleByKeyAndName("D", "Major");
+        assertThat("scale is not null",
+                scale, is(notNullValue()));
+
+         actual = scale.isDiatonic(Pitch.C5);
+         expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+
+        actual = scale.isDiatonic(Pitch.CS5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+       
+        
+        actual = scale.isDiatonic(Pitch.D5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.DS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.E5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.F5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.FS5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.G5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.GS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.A5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.AS5);
+        expected = false;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
+        actual = scale.isDiatonic(Pitch.B5);
+        expected = true;
+        assertThat("the pitch is diatonic",
+                actual, equalTo(expected));
+        
 
     }
 

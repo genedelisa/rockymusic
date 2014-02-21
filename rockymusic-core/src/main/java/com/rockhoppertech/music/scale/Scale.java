@@ -532,13 +532,20 @@ public class Scale implements Cloneable {
     }
 
     public boolean isDiatonic(int p) {
-        p = p % 12;
-        final int[] degrees = getDegrees();
-        if (ArrayUtils.contains(degrees,
-                p)) {
-            return true;
-        }
-        return false;
+        List<Integer> pcs = this.getDegreesAsPitchClasses(key);
+        logger.debug("pcs {}", pcs);
+         int pitchClass = p % 12;
+         return pcs.contains(pitchClass);
+             
+
+         
+//        p = p % 12;
+//        final int[] degrees = getDegrees();
+//        if (ArrayUtils.contains(degrees,
+//                p)) {
+//            return true;
+//        }
+//        return false;
     }
 
     public int pitchToDegree(final String pitch) {
