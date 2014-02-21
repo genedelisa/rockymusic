@@ -14,7 +14,7 @@
 <?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
 
-<fx:root type="AnchorPane" prefHeight="616.0" prefWidth="768.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
+<fx:root type="AnchorPane" prefHeight="786.0" prefWidth="855.0000999999975" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
   <children>
     <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
@@ -24,6 +24,11 @@
             <Button fx:id="evaluateButton" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#evaluateNoteString" text="Evaluate" />
             <ComboBox fx:id="fontSizeCombo" onAction="#fontSizeAction" />
             <CheckBox fx:id="sequentialCheckBox" mnemonicParsing="false" text="Sequential" />
+            <CheckBox fx:id="drawTimeSignatureCheckBox" mnemonicParsing="false" onAction="#drawTimeSignature" text="Draw Time Signature" />
+            <CheckBox id="drawStaffCheckBox" fx:id="drawClefCheckBox" mnemonicParsing="false" onAction="#drawClefs" text="Draw Clefs" />
+            <CheckBox fx:id="drawKeySignatureKeySignatureCheckBox" mnemonicParsing="false" onAction="#drawKeySignature" text="Draw Key Signature" />
+            <CheckBox fx:id="drawBeatsCheckBox" mnemonicParsing="false" onAction="#drawBeats" text="Draw Beats" />
+            <CheckBox fx:id="drawBracesCheckBox" mnemonicParsing="false" onAction="#drawBraces" text="Draw Braces" />
           </children>
         </VBox>
       </bottom>
@@ -38,9 +43,6 @@
           </content>
         </ScrollPane>
       </center>
-      <top>
-        <FXTextAreaReceiver fx:id="midiReceiver" BorderPane.alignment="CENTER" />
-      </top>
     </BorderPane>
   </children>
 </fx:root>
