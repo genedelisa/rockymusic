@@ -73,7 +73,7 @@ public class MeasureApp extends Application {
 
         this.scene = SceneBuilder.create()
                 .root(root)
-                .fill(Color.web("#1030F0"))
+                .fill(Color.web("aliceBlue"))
                 .stylesheets("/styles/grandStaffApp.css")
                 .build();
         this.configureStage();

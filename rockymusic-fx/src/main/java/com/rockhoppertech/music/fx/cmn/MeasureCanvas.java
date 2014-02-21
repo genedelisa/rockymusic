@@ -22,6 +22,9 @@ package com.rockhoppertech.music.fx.cmn;
 
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
 
@@ -45,10 +48,12 @@ public class MeasureCanvas extends Region {
     private boolean showBeats = true;
 
     public MeasureCanvas() {
-        this.setWidth(500d);
+        this.setWidth(800d);
         this.setHeight(200d);
         this.model = new MeasureModel();
         this.model.setFontSize(48d);
+        this.model.setStaffWidth(this.getWidth() - 10d);
+
 
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
@@ -100,11 +105,86 @@ public class MeasureCanvas extends Region {
 
     public void drawShapes() {
         this.getChildren().clear();
-        double width = this.getWidth();
-        this.model.setStaffWidth(width);
+        //double width = this.getWidth();
+        //this.model.setStaffWidth(this.getWidth());
 
         List<Shape> shapes = model.getShapes();
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
+    }
+    
+    
+    /**
+     * @return the drawBeatRectangles
+     */
+    public boolean isDrawBeatRectangles() {
+        return this.model.isDrawBeatRectangles();
+    }
+
+    /**
+     * @param drawBeatRectangles
+     *            the drawBeatRectangles to set
+     */
+    public void setDrawBeatRectangles(boolean drawBeatRectangles) {
+        this.model.setDrawBeatRectangles(drawBeatRectangles);
+        this.drawShapes();
+    }
+
+    /**
+     * @return the drawTimeSignature
+     */
+    public boolean isDrawTimeSignature() {
+        return this.model.isDrawTimeSignature();
+    }
+
+    /**
+     * @param drawTimeSignature
+     *            the drawTimeSignature to set
+     */
+    public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.model.setDrawTimeSignature(drawTimeSignature);
+        this.drawShapes();
+    }
+
+    /**
+     * @param drawClefs
+     *            the drawClefs to set
+     */
+    public void setDrawClefs(boolean drawClefs) {
+        this.model.setDrawClefs(drawClefs);
+        this.drawShapes();
+    }
+
+    /**
+     * @return the drawKeySignature
+     */
+    public boolean isDrawClefs() {
+        return this.model.isDrawClefs();
+    }
+
+    /**
+     * @return the drawKeySignature
+     */
+    public boolean isDrawKeySignature() {
+        return this.model.isDrawKeySignature();
+    }
+
+    /**
+     * @param drawKeySignature
+     *            the drawKeySignature to set
+     */
+    public void setDrawKeySignature(boolean drawKeySignature) {
+        this.model.setDrawKeySignature(drawKeySignature);
+        this.drawShapes();
+    }
+
+    BooleanProperty drawBeatsProperty = new SimpleBooleanProperty();
+    public BooleanProperty drawBeatsProperty() {
+        return drawBeatsProperty;
+    }
+
+    public void setDrawBraces(boolean selected) {
+       this.model.setDrawBraces(selected);
+       this.drawShapes();
     }
 }

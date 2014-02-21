@@ -25,17 +25,17 @@ package com.rockhoppertech.music.fx.cmn.model;
 
 import java.util.List;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -48,7 +48,6 @@ import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.Measure;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
-import com.rockhoppertech.music.midi.js.TimeSignature;
 
 import static com.rockhoppertech.music.Pitch.*;
 
@@ -152,12 +151,12 @@ public class MeasureModel {
     private DoubleProperty fontSizeProperty;
     private double firstNoteX;
     private ObjectProperty<Measure> measureProperty;
-    
+
     private boolean clefDrawn = true;
     private boolean timeSigDrawn = true;
     private boolean keySigDrawn = true;
     private int currentInsertBeat = 1;
- // show every beat?
+    // show every beat?
     private int showBeatModulus = 1;
 
     public MeasureModel() {
@@ -180,7 +179,7 @@ public class MeasureModel {
 
         this.staffSymbolManager = new MeasureSymbolManager();
         this.setClef(Clef.TREBLE);
-
+        
         this.staffSymbolManager.setMeasureModel(this);
         this.staffSymbolManager.refresh();
 
@@ -871,4 +870,83 @@ public class MeasureModel {
         return measure;
     }
 
+    private double beginningBarlineX;
+
+    public void setBeginningBarlineX(double x) {
+        this.beginningBarlineX = x;
+
+    }
+
+    public double getBeginningBarlineX() {
+        return beginningBarlineX;
+    }
+
+    
+    private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty();
+    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty();
+    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty();
+    
+    /**
+     * @return the drawBeatRectangles
+     */
+    public boolean isDrawBeatRectangles() {
+        return this.staffSymbolManager.isDrawBeatRectangles();
+    }
+
+    /**
+     * @param drawBeatRectangles
+     *            the drawBeatRectangles to set
+     */
+    public void setDrawBeatRectangles(boolean drawBeatRectangles) {
+        this.staffSymbolManager.setDrawBeatRectangles(drawBeatRectangles);
+    }
+
+    /**
+     * @return the drawTimeSignature
+     */
+    public boolean isDrawTimeSignature() {
+        return this.staffSymbolManager.isDrawTimeSignature();
+    }
+
+    /**
+     * @param drawTimeSignature
+     *            the drawTimeSignature to set
+     */
+    public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.staffSymbolManager.setDrawTimeSignature(drawTimeSignature);
+    }
+
+    /**
+     * @param drawClefs
+     *            the drawClefs to set
+     */
+    public void setDrawClefs(boolean drawClefs) {
+        this.staffSymbolManager.setDrawClefs(drawClefs);
+    }
+
+    /**
+     * @return the drawKeySignature
+     */
+    public boolean isDrawClefs() {
+        return this.staffSymbolManager.isDrawClefs();
+    }
+
+    /**
+     * @return the drawKeySignature
+     */
+    public boolean isDrawKeySignature() {
+        return this.staffSymbolManager.isDrawKeySignature();
+    }
+
+    /**
+     * @param drawKeySignature
+     *            the drawKeySignature to set
+     */
+    public void setDrawKeySignature(boolean drawKeySignature) {
+        this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
+    }
+
+    public void setDrawBraces(boolean selected) {
+        this.staffSymbolManager.setDrawBraces(selected);
+    }
 }
