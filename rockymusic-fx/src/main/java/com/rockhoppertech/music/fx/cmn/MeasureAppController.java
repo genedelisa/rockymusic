@@ -70,9 +70,9 @@ public class MeasureAppController {
     // fx:id="fontSizeCombo"
     private ComboBox<Double> fontSizeCombo; // Value injected by FXMLLoader
 
-    @FXML
+    //@FXML
     // fx:id="midiReceiver"
-    private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
+   // private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
 
     @FXML
     // fx:id="noteStringTextArea"
@@ -86,6 +86,46 @@ public class MeasureAppController {
     
     @FXML
     private CheckBox sequentialCheckBox;
+    
+    @FXML
+    private CheckBox drawKeySignatureKeySignatureCheckBox;
+
+    @FXML
+    private CheckBox drawClefCheckBox;
+
+    @FXML
+    private CheckBox drawTimeSignatureCheckBox;
+    
+    @FXML
+    private CheckBox drawBeatsCheckBox;
+    
+    @FXML
+    private CheckBox drawBracesCheckBox;
+    @FXML
+    void drawBraces(ActionEvent event) {
+        this.measureCanvas.setDrawBraces(drawBracesCheckBox.isSelected());
+    }
+    
+    @FXML
+    void drawBeats(ActionEvent event) {
+        drawBeatsCheckBox.selectedProperty().bindBidirectional(measureCanvas.drawBeatsProperty());
+        this.measureCanvas.setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
+    }
+    
+    @FXML
+    void drawKeySignature(ActionEvent event) {
+        this.measureCanvas.setDrawKeySignature(drawKeySignatureKeySignatureCheckBox.isSelected());
+    }
+
+    @FXML
+    void drawClefs(ActionEvent event) {
+        this.measureCanvas.setDrawClefs(drawClefCheckBox.isSelected());
+    }
+
+    @FXML
+    void drawTimeSignature(ActionEvent event) {
+        this.measureCanvas.setDrawTimeSignature(drawTimeSignatureCheckBox.isSelected());
+    }
 
     // Handler for Button[fx:id="evaluateButton"] onAction
     @FXML
@@ -165,17 +205,17 @@ public class MeasureAppController {
     void initialize() {
         assert evaluateButton != null : "fx:id=\"evaluateButton\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert fontSizeCombo != null : "fx:id=\"fontSizeCombo\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
-        assert midiReceiver != null : "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
+        //assert midiReceiver != null : "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert noteStringTextArea != null : "fx:id=\"noteStringTextArea\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert measureCanvas != null : "fx:id=\"measureCanvas\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been
         // injected
 
-        logger.debug("fxml midireceiver {}", midiReceiver);
-        this.midiSender = new MIDISender();
-        if (this.midiReceiver != null)
-            this.midiSender.addReceiver(this.midiReceiver);
+//        logger.debug("fxml midireceiver {}", midiReceiver);
+        //this.midiSender = new MIDISender();
+//        if (this.midiReceiver != null)
+//            this.midiSender.addReceiver(this.midiReceiver);
 
         fontSizeCombo.getItems().addAll(12d, 18d, 24d, 36d, 48d, 72d, 96d);
         fontSizeCombo.getSelectionModel().select(4);
