@@ -36,6 +36,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 
@@ -47,9 +48,12 @@ import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.Measure;
 import com.rockhoppertech.music.fx.cmn.model.MeasureModel.Clef;
+import com.rockhoppertech.music.midi.js.KeySignature;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.TimeSignature;
+import com.rockhoppertech.music.scale.Scale;
+import com.rockhoppertech.music.scale.ScaleFactory;
 
 /**
  * The things that are drawn on the notation canvas.
@@ -93,11 +97,15 @@ public class MeasureSymbolManager {
      *            the noteList to set
      */
     public void setNoteList(ObservableList<MIDINote> list) {
+        if (list == null) {
+            return;
+        }
         noteList = list;
         noteList.addListener(new ListChangeListener<MIDINote>() {
             @Override
             public void onChanged(
-                    javafx.collections.ListChangeListener.Change<? extends MIDINote> c) {
+                    ListChangeListener.Change<? extends MIDINote> c) {
+                logger.debug("notelist changed. refreshing");
                 refresh();
             }
         });
@@ -109,16 +117,18 @@ public class MeasureSymbolManager {
      * time. That what the MeasureCanvas will do when finished.
      */
     public void refresh() {
+        logger.debug("refreshing");
+
         if (model == null) {
             return;
         }
+        
+        
         double x = model.getStartX() + 1d
                 * model.getFontSize();
-        // symbols.clear();
+
         shapes.clear();
-        if (noteList == null) {
-            return;
-        }
+        createStaves();
 
         x += model.getFontSize() / 2d;
         x = addTimeSignature(x, 4, 4);
@@ -126,12 +136,16 @@ public class MeasureSymbolManager {
         // spacing between ts and first note
         x += model.getFontSize() / 1d;
 
-        if (noteList.isEmpty()) {
+        model.setFirstNoteX(x);
+        this.createBeatRectangles();
+
+        if (noteList == null) {
             return;
         }
 
-        model.setFirstNoteX(x);
-        this.createBeatRectangles();
+        if (noteList.isEmpty()) {
+            return;
+        }
 
         // TODO this doesn't cover initial rests i.e. when start beat > 1
         // TODO rests > 5 beats long don't work well
@@ -297,6 +311,15 @@ public class MeasureSymbolManager {
         return pitch >= Pitch.C5;
     }
 
+    void normalizeRectangles() {
+        for (int index = 0; index < this.beatRectangles.size() - 1; index++) {
+            Rectangle beat = this.beatRectangles.get(index);
+            Rectangle nextBeat = this.beatRectangles.get(index + 1);
+            double x = beat.getX() + beat.getWidth();
+            nextBeat.setX(x);
+        }
+    }
+
     // public static final void setMIDITrack(MIDITrack track) {
     // double x = grandStaffModel.getStartX() + 1d *
     // grandStaffModel.getFontSize();
@@ -329,6 +352,28 @@ public class MeasureSymbolManager {
         int pitch = note.getPitch().getMidiNumber();
         double duration = note.getDuration();
         String glyph = "";
+
+        int index = (int) Math.floor(note.getStartBeat()) - 1;
+        Rectangle beatRectangle = this.beatRectangles.get(index);
+        logger.debug(
+                "beat rect for index {} the rectangle x {} y {} w {} h {}",
+                index,
+                beatRectangle.getX(),
+                beatRectangle.getY(),
+                beatRectangle.getWidth(),
+                beatRectangle.getHeight());
+        // Rectangle nextBeatRectangle = null;
+        // index++;
+        // if (index < this.beatRectangles.size() - 1) {
+        // nextBeatRectangle = this.beatRectangles.get(index);
+        // logger.debug(
+        // "next beat rect for index {} the rectangle x {} y {} w {} h {}",
+        // index,
+        // nextBeatRectangle.getX(),
+        // nextBeatRectangle.getY(),
+        // nextBeatRectangle.getWidth(),
+        // nextBeatRectangle.getHeight());
+        // }
 
         // 1 get accidental
         // 2 determine stem direction
@@ -416,6 +461,7 @@ public class MeasureSymbolManager {
                 x += width;
             }
 
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
             x += width;
         }
 
@@ -432,8 +478,8 @@ public class MeasureSymbolManager {
             text = addText(x, y, glyph);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
-
             x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
 
             // get the x for the note and add it, not the dot's x
             // x += grandStaffModel.stringWidth(glyph);
@@ -458,7 +504,8 @@ public class MeasureSymbolManager {
                 x += width;
             }
 
-            x += text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // half
@@ -497,7 +544,8 @@ public class MeasureSymbolManager {
                 x += width;
             }
 
-            x += text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // dotted quarter
@@ -519,17 +567,19 @@ public class MeasureSymbolManager {
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
             // x += grandStaffModel.stringWidth(glyph);
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
 
             // now add the dot
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
-            x += text.getLayoutBounds().getWidth() / 2d;
+            x += width / 2d;
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
 
-            double width = text.getLayoutBounds().getWidth();
+            width = text.getLayoutBounds().getWidth();
             if (tie != null) {
                 endTie(x, y, tie, width);
                 tie = null;
@@ -544,7 +594,8 @@ public class MeasureSymbolManager {
                 x += width;
             }
 
-            x += text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // quarter
@@ -602,7 +653,8 @@ public class MeasureSymbolManager {
                 x += width;
             }
 
-            // x += grandStaffModel.stringWidth(glyph);
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+
         }
 
         // dotted eighth
@@ -626,15 +678,19 @@ public class MeasureSymbolManager {
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
 
             // now add the dot
             glyph = SymbolFactory.augmentationDot();
             // space between note and dot
-            x += text.getLayoutBounds().getWidth() / 2d;
+            x += width / 2d;
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
-            x += text.getLayoutBounds().getWidth();
+            width = text.getLayoutBounds().getWidth();
+            x += width;
+
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
 
             logger.debug("dotted eighth note. remainder {}", duration);
 
@@ -676,11 +732,12 @@ public class MeasureSymbolManager {
             }
 
             logger.debug("eighth note. remainder {}", duration);
-            // symbols.add(new StaffSymbol(x, y, glyph));
+
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            // x += grandStaffModel.stringWidth(glyph);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // 16th
@@ -704,7 +761,9 @@ public class MeasureSymbolManager {
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         double etriplet = 1d / 3d;
@@ -719,7 +778,9 @@ public class MeasureSymbolManager {
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // 32nd
@@ -734,8 +795,13 @@ public class MeasureSymbolManager {
             // symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
             addLedgers(note, x);
-            x += text.getLayoutBounds().getWidth();
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+            beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
+
+        // push all the x locations to be the previous x + width
+        normalizeRectangles();
 
         return x;
     }
@@ -1163,9 +1229,11 @@ public class MeasureSymbolManager {
     }
 
     /**
-     * Determine the number of attacks in a beat.
-     * e.g. c,1,q would be one. c,1,e c,1.5,3 would be two.
-     * @param track a track for a beat
+     * Determine the number of attacks in a beat. e.g. c,1,q would be one. c,1,e
+     * c,1.5,3 would be two.
+     * 
+     * @param track
+     *            a track for a beat
      * @return the number of attacks
      */
     int getNAttacks(MIDITrack track) {
@@ -1183,7 +1251,13 @@ public class MeasureSymbolManager {
 
     private void createBeatRectangles() {
         this.beatRectangles.clear();
-        TimeSignature t = this.measure.getTimeSignature();
+
+        TimeSignature t = null;
+        if (this.measure == null) {
+            t = new TimeSignature(4, 4);
+        } else {
+            t = this.measure.getTimeSignature();
+        }
 
         // set up beat widths. create a Rectangle for each beat.
 
@@ -1194,17 +1268,32 @@ public class MeasureSymbolManager {
                 - this.model.getTrebleStaffTop();
 
         // double lastBeat = 0;
+        double beatWidth = this.beatSpacing;
+        
+        beatWidth = (staffWidth - model.getFirstNoteX()) / t.getNumerator();
+        //beatWidth = (staffWidth - model.getStartX()) / t.getNumerator();
+
         for (double bbeat = 1d; bbeat <= t.getNumerator(); bbeat += 1d) {
             logger.debug("looping beat {}", bbeat);
-            // KeySignature ks = mm.getKeySignatureAtBeat(bbeat);
-            MIDITrack nlAtBeat = this.measure.getNotesAtBeat(bbeat);
 
-            // determine width of this beat
-            // no, should be num different start beats within beat * spacing
-            //double beatWidth = (nlAtBeat.size() + 1d) * this.beatSpacing;
-            double beatWidth = ( getNAttacks(nlAtBeat) + 1d) * this.beatSpacing;
-            //TODO what about accidentals and dots?
-            
+            if (this.measure != null) {
+                MIDITrack nlAtBeat = this.measure.getNotesAtBeat(bbeat);
+
+                // determine width of this beat
+                // should be num different start beats within beat * spacing
+                beatWidth = (getNAttacks(nlAtBeat) + 1d) * this.beatSpacing;
+
+                KeySignature ks = measure.getKeySignatureAtBeat(bbeat);
+                if (ks == null) {
+                    ks = KeySignature.CMAJOR;
+                }
+                for (MIDINote n : nlAtBeat) {
+                    if (isAccidental(ks, n.getMidiNumber())) {
+                        // now what
+                    }
+                }
+            }
+
             Rectangle rect = new Rectangle(x, y, beatWidth, height);
             rect.setFill(Color.web("blue", 0.1));
             rect.setStroke(Color.web("blue", 0.7));
@@ -1219,10 +1308,31 @@ public class MeasureSymbolManager {
             // this.getChildren().add(rect);
             x += beatWidth;
 
-            if (nlAtBeat != null && nlAtBeat.size() != 0) {
-                double shortest = nlAtBeat.getShortestDuration();
-            }
+            // if (nlAtBeat != null && nlAtBeat.size() != 0) {
+            // double shortest = nlAtBeat.getShortestDuration();
+            // }
         }
+    }
+
+    public static boolean isAccidental(KeySignature ks, int pitch) {
+        boolean accidental = false;
+        Scale scale = getScale(ks);
+        accidental = scale.isDiatonic(pitch);
+        return accidental;
+    }
+    
+    static Scale getScale(KeySignature ks) {
+        String key;
+        String name;
+        if (ks.isMajor()) {
+            name = "Major";
+        } else {
+            name = "Melodic Minor";
+        }
+        key = ks.getRoot().getPreferredSpelling();
+        Scale scale = ScaleFactory.getScaleByKeyAndName(key, name);
+        logger.debug("scale {}", scale);
+        return scale;
     }
 
     public void setMeasureModel(MeasureModel mm) {
@@ -1231,11 +1341,14 @@ public class MeasureSymbolManager {
 
         setNoteList(model.getNoteList());
 
+        // get the width of a beat
         String glyph = SymbolFactory.sharp() + SymbolFactory.note8thUp()
                 + SymbolFactory.augmentationDot();
         Text t = new Text(glyph);
         t.setFont(this.model.getFont());
         this.beatSpacing = t.getLayoutBounds().getWidth();
+
+        // KeySignature keysig = this.measure.getKeySignatureAtBeat(1d);
 
         calcMetrics();
 
@@ -1444,4 +1557,74 @@ public class MeasureSymbolManager {
         this.drawBeatRectangles = showBeats;
     }
 
+    double staffWidth = 250d;
+
+    public void setStaffWidth(double width) {
+        this.staffWidth = width;
+    }
+
+    void createStaves() {
+        createStaves(this.staffWidth);
+    }
+
+    void createStaves(double staffWidth) {
+        logger.debug("drawing the staves {}", staffWidth);
+        double x = model.getStartX();
+        double y = model.getStaffBottom();
+        double yspacing = model.getYSpacing();
+        Font font = model.getFont();
+
+        y = model.getBassStaffBottom();
+        Text brace = new Text(x, y,
+                SymbolFactory.brace());
+        brace.setScaleY(2.8);
+        brace.setScaleX(3d);
+        brace.setFont(font);
+        brace.setFontSmoothingType(FontSmoothingType.LCD);
+        this.shapes.add(brace);
+        x += (4d * brace.getLayoutBounds().getWidth());
+
+        Line barline = new Line(x, model.getBassStaffBottom(),
+                x, model.getTrebleStaffBottom() - model.getLineInc()
+                        * 4);
+        this.shapes.add(barline);
+        x += (barline.getLayoutBounds().getWidth());
+
+        // just some spacing
+        // x += staffModel.getFontSize();
+        y = model.getTrebleStaffBottom();
+        // double clefX = x+10d;
+        double clefX = x + model.getFontSize() / 4d;
+        Text trebleClef = new Text(clefX, y - (yspacing * 2d),
+                SymbolFactory.gClef());
+        trebleClef.setFont(font);
+        trebleClef.setFontSmoothingType(FontSmoothingType.LCD);
+        this.shapes.add(trebleClef);
+
+        String staff = SymbolFactory.staff5Lines();
+        double staffStringIncrement = model.getFontSize() / 2d;
+
+        Text text;
+
+        // draw the treble staff
+        for (double xx = x; xx < staffWidth; xx += staffStringIncrement) {
+            text = new Text(xx, y, staff);
+            text.setFont(font);
+            this.shapes.add(text);
+        }
+
+        y = model.getBassStaffBottom();
+        Text bassClef = new Text(clefX, y - (yspacing * 6d),
+                SymbolFactory.fClef());
+        bassClef.setFont(font);
+        bassClef.setFontSmoothingType(FontSmoothingType.LCD);
+        this.shapes.add(bassClef);
+
+        // draw the bass staff
+        for (double xx = x; xx < staffWidth; xx += staffStringIncrement) {
+            text = new Text(xx, y, staff);
+            text.setFont(font);
+            this.shapes.add(text);
+        }
+    }
 }

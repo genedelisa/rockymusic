@@ -167,7 +167,7 @@ public class MeasureAppController {
         assert fontSizeCombo != null : "fx:id=\"fontSizeCombo\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert midiReceiver != null : "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert noteStringTextArea != null : "fx:id=\"noteStringTextArea\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
-        assert measureCanvas != null : "fx:id=\"topRegion\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
+        assert measureCanvas != null : "fx:id=\"measureCanvas\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been
         // injected
@@ -177,8 +177,11 @@ public class MeasureAppController {
         if (this.midiReceiver != null)
             this.midiSender.addReceiver(this.midiReceiver);
 
-        fontSizeCombo.getItems().addAll(12d, 24d, 36d, 48d, 72d, 96d);
-        fontSizeCombo.getSelectionModel().select(3);
+        fontSizeCombo.getItems().addAll(12d, 18d, 24d, 36d, 48d, 72d, 96d);
+        fontSizeCombo.getSelectionModel().select(4);
+        
+        measureCanvas.setFontSize(48d);
+        measureCanvas.drawShapes();
 
 //        grandStaff.boundsInLocalProperty().addListener(
 //                new ChangeListener<Bounds>() {

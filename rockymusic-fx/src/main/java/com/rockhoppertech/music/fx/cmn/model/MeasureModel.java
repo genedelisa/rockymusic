@@ -152,6 +152,13 @@ public class MeasureModel {
     private DoubleProperty fontSizeProperty;
     private double firstNoteX;
     private ObjectProperty<Measure> measureProperty;
+    
+    private boolean clefDrawn = true;
+    private boolean timeSigDrawn = true;
+    private boolean keySigDrawn = true;
+    private int currentInsertBeat = 1;
+ // show every beat?
+    private int showBeatModulus = 1;
 
     public MeasureModel() {
 
@@ -173,9 +180,17 @@ public class MeasureModel {
 
         this.staffSymbolManager = new MeasureSymbolManager();
         this.setClef(Clef.TREBLE);
+
+        this.staffSymbolManager.setMeasureModel(this);
+        this.staffSymbolManager.refresh();
+
         // StaffSymbolManager.setStaffModel(this);
         // this.noteList = FXCollections.observableArrayList();
         // this.setNoteList(noteList);
+    }
+
+    public void setStaffWidth(double width) {
+        this.staffSymbolManager.setStaffWidth(width);
     }
 
     /**
@@ -230,10 +245,10 @@ public class MeasureModel {
                     false);
             this.bassSharpYpositions[i] = this.bassMidiNumToY(i,
                     true);
-            this.altoFlatYpositions[i] = this.altoMidiNumToY(i,
-                    false);
-            this.altoSharpYpositions[i] = this.altoMidiNumToY(i,
-                    true);
+            // this.altoFlatYpositions[i] = this.altoMidiNumToY(i,
+            // false);
+            // this.altoSharpYpositions[i] = this.altoMidiNumToY(i,
+            // true);
         }
     }
 
@@ -381,6 +396,7 @@ public class MeasureModel {
         return y;
     }
 
+    // not really needed
     /**
      * Set the clef and also set the appropriate yposition arrays.
      * 
@@ -404,6 +420,11 @@ public class MeasureModel {
 
         if (staffSymbolManager != null)
             staffSymbolManager.refresh();
+    }
+
+    public void setWidth(double width) {
+        if (staffSymbolManager != null)
+            staffSymbolManager.createStaves(width);
     }
 
     /**
@@ -834,9 +855,9 @@ public class MeasureModel {
         this.noteList = FXCollections
                 .observableArrayList(this.measure.gettrack().getNotes());
         this.setNoteList(noteList);
-        
+
         this.staffSymbolManager.setMeasureModel(this);
-        //this.staffSymbolManager.setMeasure(measure);
+        // this.staffSymbolManager.setMeasure(measure);
     }
 
     public void setShowBeats(boolean showBeats) {
