@@ -660,6 +660,10 @@ public class MeasureModel {
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
     }
+    
+    public List<StaffSymbol> getSymbols() {
+        return staffSymbolManager.getSymbols();
+    }
 
     /**
      * @return the font

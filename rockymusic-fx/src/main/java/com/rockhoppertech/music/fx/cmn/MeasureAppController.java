@@ -211,6 +211,8 @@ public class MeasureAppController {
 
         // Initialize your logic here: all @FXML variables will have been
         // injected
+        
+        noteStringTextArea.setText("s+ c,s c#,s df,s d,s ef,s e,s f,s f#,s gf,s g,s g#,s af,s a,s a#,s bb,s b,s");
 
 //        logger.debug("fxml midireceiver {}", midiReceiver);
         //this.midiSender = new MIDISender();

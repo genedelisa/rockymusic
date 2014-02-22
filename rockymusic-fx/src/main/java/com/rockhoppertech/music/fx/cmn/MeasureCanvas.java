@@ -23,15 +23,18 @@ package com.rockhoppertech.music.fx.cmn;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.model.MeasureModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -53,7 +56,6 @@ public class MeasureCanvas extends Region {
         this.model = new MeasureModel();
         this.model.setFontSize(48d);
         this.model.setStaffWidth(this.getWidth() - 10d);
-
 
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
@@ -105,15 +107,31 @@ public class MeasureCanvas extends Region {
 
     public void drawShapes() {
         this.getChildren().clear();
-        //double width = this.getWidth();
-        //this.model.setStaffWidth(this.getWidth());
+        // double width = this.getWidth();
+        // this.model.setStaffWidth(this.getWidth());
 
         List<Shape> shapes = model.getShapes();
         logger.debug("drawing shapes {}", shapes.size());
+        // staves, clefs, time sig
         this.getChildren().addAll(shapes);
+
+        List<StaffSymbol> symbols = model.getSymbols();
+        this.getChildren().addAll(symbols);
+        for (StaffSymbol s : symbols) {
+            Line stem = s.getStem();
+            if (stem != null) {
+                this.getChildren().add(stem);
+            }
+            for (Text ledger : s.getLedgers()) {
+                this.getChildren().add(ledger);
+            }
+            QuadCurve tie = s.getTie();
+            if (tie != null) {
+                this.getChildren().add(tie);
+            }
+        }
     }
-    
-    
+
     /**
      * @return the drawBeatRectangles
      */
@@ -179,12 +197,13 @@ public class MeasureCanvas extends Region {
     }
 
     BooleanProperty drawBeatsProperty = new SimpleBooleanProperty();
+
     public BooleanProperty drawBeatsProperty() {
         return drawBeatsProperty;
     }
 
     public void setDrawBraces(boolean selected) {
-       this.model.setDrawBraces(selected);
-       this.drawShapes();
+        this.model.setDrawBraces(selected);
+        this.drawShapes();
     }
 }
