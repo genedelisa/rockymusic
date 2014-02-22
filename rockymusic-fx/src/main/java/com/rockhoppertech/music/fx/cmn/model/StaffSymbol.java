@@ -23,25 +23,40 @@ package com.rockhoppertech.music.fx.cmn.model;
  * #L%
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.rockhoppertech.music.midi.js.MIDINote;
 
 import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.Text;
 
 /**
  * A thing that is drawn on a staff. Might be a note, clef, etc.
  * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
- *
+ * 
  */
-public class StaffSymbol {
+public class StaffSymbol extends Text {
 
-    private double x;
-    private double y;
+    // or just separate Text objects?
+
     private String symbol;
-    private boolean stemmed;
+    private String accidental;
+    private String augmentationDots;
     private Line stem;
+    private QuadCurve tie;
+
+    private List<Text> ledgers;
+
+    private boolean stemmed;
+
     private boolean tied;
-    //private FontMetrics fontMetrics;
-    //private List<Character> articulation;
+    private MIDINote note;
+
+    // private List<Character> articulation;
 
     /**
      * @return the stemmed
@@ -51,7 +66,8 @@ public class StaffSymbol {
     }
 
     /**
-     * @param stemmed the stemmed to set
+     * @param stemmed
+     *            the stemmed to set
      */
     public void setStemmed(boolean stemmed) {
         this.stemmed = stemmed;
@@ -65,55 +81,33 @@ public class StaffSymbol {
     }
 
     /**
-     * @param tied the tied to set
+     * @param tied
+     *            the tied to set
      */
     public void setTied(boolean tied) {
         this.tied = tied;
     }
 
     public StaffSymbol(double x, double y, String symbol) {
-        this.x = x;
-        this.y = y;
+        this();
+        this.setX(x);
+        this.setX(y);
         this.symbol = symbol;
     }
 
-    /**
-     * @return the x
-     */
-    public double getX() {
-        return this.x;
+    public StaffSymbol() {
+        this.ledgers = new ArrayList<>();
+        this.setStyle("-fx-cursor: hand; -fx-font-smoothing-type: lcd;");
+        this.setFontSmoothingType(FontSmoothingType.LCD);
+        this.setManaged(false);
     }
 
-    /**
-     * @param x the x to set
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    /**
-     * @return the y
-     */
-    public double getY() {
-        return this.y;
-    }
-
-    /**
-     * @param y the y to set
-     */
-    public void setY(double y) {
-        this.y = y;
+    public void addLedger(Text ledger) {
+        this.ledgers.add(ledger);
     }
 
     public double getWidth() {
-        //TODO update when font metrics are available
-        double width = 48d;
-//        if (fontMetrics != null) {
-//            width += fontMetrics.charWidth(this.symbol);
-//            if (this.accidental != Character.MIN_VALUE) {
-//                width += fontMetrics.charWidth(this.accidental);
-//            }
-//        }
+        double width = this.getLayoutBounds().getWidth();
         return width;
     }
 
@@ -125,10 +119,28 @@ public class StaffSymbol {
     }
 
     /**
-     * @param symbol the symbol to set
+     * @param symbol
+     *            the symbol to set
      */
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+        this.updateText();
+    }
+    
+    private void updateText() {
+        StringBuilder sb = new StringBuilder();
+        
+        if(this.accidental != null) {
+            sb.append(this.accidental);
+        }
+        if(this.symbol != null) {
+            sb.append(this.symbol);
+        }
+        if(this.augmentationDots != null) {
+            sb.append(this.augmentationDots);
+        }
+        this.setText(sb.toString());
+        
     }
 
     /**
@@ -139,9 +151,95 @@ public class StaffSymbol {
     }
 
     /**
-     * @param stem the stem to set
+     * @param stem
+     *            the stem to set
      */
     public void setStem(Line stem) {
         this.stem = stem;
+    }
+
+    /**
+     * @return the accidental
+     */
+    public String getAccidental() {
+        return accidental;
+    }
+
+    /**
+     * @param accidental
+     *            the accidental to set
+     */
+    public void setAccidental(String accidental) {
+        this.accidental = accidental;
+        this.updateText();
+    }
+
+    /**
+     * @return the augmentationDots
+     */
+    public String getAugmentationDots() {
+        return augmentationDots;
+    }
+
+    /**
+     * @param augmentationDots
+     *            the augmentationDots to set
+     */
+    public void setAugmentationDots(String augmentationDots) {
+        this.augmentationDots = augmentationDots;
+        this.updateText();
+    }
+
+    /**
+     * @return the tie
+     */
+    public QuadCurve getTie() {
+        return tie;
+    }
+
+    /**
+     * @param tie
+     *            the tie to set
+     */
+    public void setTie(QuadCurve tie) {
+        this.tie = tie;
+    }
+
+    /**
+     * @return the ledgers
+     */
+    public List<Text> getLedgers() {
+        return ledgers;
+    }
+
+    /**
+     * @param ledgers
+     *            the ledgers to set
+     */
+    public void setLedgers(List<Text> ledgers) {
+        this.ledgers = ledgers;
+    }
+
+    public void setMIDINote(MIDINote note) {
+        this.note = note;
+    }
+
+    public MIDINote getNote() {
+        return note;
+    }
+
+    /**
+     * @param note the note to set
+     */
+    public void setNote(MIDINote note) {
+        this.note = note;
+    }
+
+    private Text flag;
+    public void setFlag(Text flag) {
+        this.flag = flag;
+    }
+    public Text getFlag() {
+        return flag;
     }
 }
