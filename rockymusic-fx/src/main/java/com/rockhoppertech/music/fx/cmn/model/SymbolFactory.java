@@ -189,6 +189,41 @@ public class SymbolFactory {
     public static final String note8thUp() {
         return getGlyph("note8thUp");
     }
+    public static final String note64thDown() {
+        return getGlyph("note64thDown");
+    }
+    public static final String note64thUp() {
+        return getGlyph("note64thUp");
+    }
+    public static final String note32ndDown() {
+        return getGlyph("note32ndDown");
+    }
+    public static final String note32ndUp() {
+        return getGlyph("note32ndUp");
+    }
+    public static final String note128thDown() {
+        return getGlyph("note128thDown");
+    }
+    public static final String note128thUp() {
+        return getGlyph("note128thUp");
+    }
+    public static final String note256thDown() {
+        return getGlyph("note256thDown");
+    }
+    public static final String note256thUp() {
+        return getGlyph("note256thUp");
+    }
+  
+    
+    
+    
+    
+//    "note1024thDown": {
+//    "note1024thUp": {
+//    "note512thDown": {
+//    "note512thUp": {
+
+
     
     // flag8thUp 
     
