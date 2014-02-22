@@ -148,13 +148,21 @@ public class StaffSymbolManager {
         // for non accidentals.
         double y = staffModel.getYpositionForPitch(pitch, true);
         Text text;
+        
+        StaffSymbol staffSymbol = new StaffSymbol();
+        staffSymbol.setFont(staffModel.getFont());
+        symbols.add(staffSymbol);
 
         if (isSpellingFlat(note)) {
             glyph = SymbolFactory.flat();
             logger.debug("is flat");
             y = staffModel.getYpositionForPitch(pitch, true);
-            // x += staffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+
+            
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setAccidental(glyph);
+
 
             text = new Text(x, y, glyph);
             text.setFont(staffModel.getFont());
@@ -169,8 +177,11 @@ public class StaffSymbolManager {
             glyph = SymbolFactory.sharp();
             logger.debug("is sharp");
             y = staffModel.getYpositionForPitch(pitch, false);
-            // x += staffModel.stringWidth(glyph);
-            symbols.add(new StaffSymbol(x, y, glyph));
+            
+            
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setAccidental(glyph);
 
             text = new Text(x, y, glyph);
             text.setFont(staffModel.getFont());
@@ -203,6 +214,8 @@ public class StaffSymbolManager {
             symbols.add(new StaffSymbol(x, y, glyph));
             addLedgers(note, x);
             text = addText(x, y, glyph);
+            
+            staffSymbol.setSymbol(glyph);
 
             // double height = text.getLayoutBounds().getWidth();
 
@@ -237,6 +250,8 @@ public class StaffSymbolManager {
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
+            
+            staffSymbol.setSymbol(glyph);
 
             // get the x for the note and add it, not the dot's x
             // x += staffModel.stringWidth(glyph);
@@ -245,10 +260,13 @@ public class StaffSymbolManager {
             // x += staffModel.stringWidth(glyph);
             symbols.add(new StaffSymbol(x, y, glyph));
             text = addText(x, y, glyph);
+            
+            staffSymbol.setAugmentationDots(glyph);
 
             double width = text.getLayoutBounds().getWidth();
             if (tie != null) {
                 endTie(x, y, tie, width);
+                staffSymbol.setTie(tie);
                 tie = null;
             }
 
