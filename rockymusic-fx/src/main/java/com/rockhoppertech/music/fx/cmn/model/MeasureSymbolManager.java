@@ -840,22 +840,58 @@ public class MeasureSymbolManager {
             beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
+
+        
         // 32nd
-        if (duration - .1875 >= 0) {
-            duration -= .1875;
-            if (stemUp) {
+        if (duration - .125 >= 0) {
+            duration -= .125;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(center, x, y, stemUp);
             } else {
-                glyph = SymbolFactory.noteheadBlack();
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
             }
-            // x += grandStaffModel.stringWidth(glyph);
-            // symbols.add(new StaffSymbol(x, y, glyph));
+
             text = addText(x, y, glyph);
             text.setUserData(note);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
             x += width;
             beatRectangle.setWidth(beatRectangle.getWidth() + width);
+        }
+        
+        // 64th
+        if (duration - .0625 >= 0) {
+            duration -= .0625;
+            
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+            
+           
+            text = addText(x, y, glyph);
+            text.setUserData(note);
+            addLedgers(note, x);
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+           // beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         // push all the x locations to be the previous x + width
