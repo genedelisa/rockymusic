@@ -129,6 +129,10 @@ public class MeasureCanvas extends Region {
             if (tie != null) {
                 this.getChildren().add(tie);
             }
+            Text flag = s.getFlag();
+            if (flag != null) {
+                this.getChildren().add(flag);
+            }
         }
     }
 
