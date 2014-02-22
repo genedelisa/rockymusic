@@ -187,6 +187,12 @@ public class MIDIStringParser {
         if (sc.hasNextDouble()) {
             start = sc.nextDouble();
         }
+        
+//        boolean sequential = false;
+//        if(sc.hasNext("\\+")) {
+//            sequential = true;
+//            logger.debug("sequential");
+//        }
 
         // couldBeDurationString(tok);
 
@@ -449,8 +455,8 @@ public class MIDIStringParser {
                     continue;
                 }
 
-                // S+ C5,.5
-                // S= C5, 1.0, .5
+                // S+ C5,.5 or just pitch and duration
+                // S= C5, 1.0, .5 is the default anyway pitch, start, dur
                 if (tok.startsWith("S") || tok.startsWith("s")) {
                     String op = tok.substring(1);
                     op = op.trim();
