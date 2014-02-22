@@ -160,9 +160,18 @@ public class SymbolFactory {
     public static final String flag16thDown() {
         return getGlyph("flag16thDown");
     }
-    
-    
-    
+    public static final String flag32ndDown() {
+        return getGlyph("flag32ndDown");
+    }
+    public static final String flag32ndUp() {
+        return getGlyph("flag32ndUp");
+    }
+    public static final String flag64thDown() {
+        return getGlyph("flag64thDown");
+    }
+    public static final String flag64thUp() {
+        return getGlyph("flag64thUp");
+    }
     
     
     public static final String noteWhole() {
