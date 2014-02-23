@@ -73,7 +73,7 @@ public class MeasureSymbolManager {
      * these shapes are filled.
      */
     private List<Shape> shapes = new ArrayList<>();
-    
+
     private List<StaffSymbol> symbols = new ArrayList<>();
 
     /**
@@ -114,6 +114,8 @@ public class MeasureSymbolManager {
     private boolean drawBrace;
     private BooleanProperty drawBraceProperty = new SimpleBooleanProperty(
             drawBrace);
+
+    private double beatPadding;
 
     public MeasureSymbolManager() {
 
@@ -354,20 +356,106 @@ public class MeasureSymbolManager {
             double x = beat.getX() + beat.getWidth();
             nextBeat.setX(x);
         }
+        dumpBeatRectangles();
+
     }
 
+    void dumpBeatRectangles() {
+        for (Rectangle beat : this.beatRectangles) {
+            logger.debug(
+                    "beat rectangle x {} y {} w {} h {}",
+                    beat.getX(),
+                    beat.getY(),
+                    beat.getWidth(),
+                    beat.getHeight());
+        }
+    }
+
+    /**
+     * Here's the problem. The initial size of each beat was simply based on the
+     * size of the drawn measure.
+     * <p>
+     * At this point, there should be shapes for each beat created. Now we
+     * iterate across those shopes, get their sizes, and resize the beat
+     * accordingly.
+     */
     void enlargeBeatRectangles() {
+
+        double newx = model.getFirstNoteX();
+
         for (int beat = 0; beat < this.beatRectangles.size(); beat++) {
-            double width = getWidthOfBeat(beat);
+            int beat1based = beat + 1;
+
+            // the width of the symbols
+            double width = getWidthOfBeat(beat1based);
+
             Rectangle rect = this.beatRectangles.get(beat);
-            logger.debug("width is {} for beat {}", width, beat);
-            logger.debug("rect width is {} for beat {}", rect.getWidth(), beat);
+            logger.debug("symbol width is {} for beat {}", width, beat1based);
+            logger.debug(
+                    "rect width is {} for beat {} rect x is {}",
+                    rect.getWidth(),
+                    beat1based,
+                    rect.getX()
+                    );
+
+//            if (beat1based == 1) {
+//                newx = model.getFirstNoteX();
+//            } else {
+//                newx = rect.getX();
+//            }
+//            newx = rect.getX();
+//            logger.debug("new x is {} for beat {}", newx, beat1based);
             if (width > rect.getWidth()) {
                 rect.setWidth(width);
             }
+            List<StaffSymbol> list = getSymbolsAtBeat(beat1based);
+            if (list.size() > 0) {
+//                double xinc = (width) / list.size();
+//                logger.debug(
+//                        "xinc is {} for list size {} with width {}",
+//                        xinc,
+//                        list.size(),
+//                        width);
+                for (StaffSymbol s : list) {
+                    double x = getXofBeatN(s.getNote().getStartBeat());
+                    s.setX(x);
+                }
+
+                // now fix up the x locations of the rectangles
+                normalizeRectangles();
+            }
         }
-        // now fix up the x locations of the rectangles
-        normalizeRectangles();
+
+    }
+
+    /**
+     * @param beat
+     *            the 1 based beat
+     * @return the symbols
+     */
+    List<StaffSymbol> getSymbolsAtBeat(int beat) {
+        // beat++;
+        List<StaffSymbol> list = new ArrayList<>();
+        logger.debug("iterating symbols of size {}", symbols.size());
+        for (StaffSymbol s : this.symbols) {
+            MIDINote note = s.getNote();
+            if (note != null) {
+                int floor = (int) Math.floor(note.getStartBeat());
+                logger.debug(
+                        "checking beat {} with note floor {} note {}",
+                        beat,
+                        floor,
+                        note);
+                if (floor == beat) {
+                    logger.debug("adding note {}", note);
+                    list.add(s);
+                }
+            } else {
+                logger.debug("note is null for symbol {}", s);
+            }
+        }
+
+        return list;
     }
 
     /**
@@ -422,7 +510,7 @@ public class MeasureSymbolManager {
         staffSymbol.setMIDINote(note);
         staffSymbol.setX(x);
         staffSymbol.setY(y);
-        //shapes.add(staffSymbol);
+        // shapes.add(staffSymbol);
         symbols.add(staffSymbol);
 
         if (isSpellingFlat(note)) {
@@ -676,7 +764,7 @@ public class MeasureSymbolManager {
             if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
                 addStem(staffSymbol, center, x, y, stemUp);
-                add8thFlag(x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note8thUp();
@@ -733,7 +821,7 @@ public class MeasureSymbolManager {
             if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
                 addStem(staffSymbol, center, x, y, stemUp);
-                add8thFlag(x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note8thUp();
@@ -761,7 +849,7 @@ public class MeasureSymbolManager {
             if (shouldDrawStem(pitch)) {
                 glyph = SymbolFactory.noteheadBlack();
                 addStem(staffSymbol, center, x, y, stemUp);
-                add16thFlag(x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note16thUp();
@@ -775,7 +863,8 @@ public class MeasureSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+
+            // beatRectangle.setWidth(beatRectangle.getWidth() + width);
         }
 
         double etriplet = 1d / 3d;
@@ -808,6 +897,7 @@ public class MeasureSymbolManager {
                 glyph = SymbolFactory.noteheadBlack();
                 logger.debug("shoud draw stem at x {} y {}", x, y);
                 addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note32ndUp();
@@ -835,6 +925,7 @@ public class MeasureSymbolManager {
                 glyph = SymbolFactory.noteheadBlack();
                 logger.debug("shoud draw stem at x {} y {}", x, y);
                 addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
             } else {
                 if (stemUp) {
                     glyph = SymbolFactory.note64thUp();
@@ -984,6 +1075,52 @@ public class MeasureSymbolManager {
         } else {
             p = SymbolFactory.stemDownSW("flag16thDown");
             glyph = SymbolFactory.flag16thDown();
+            fx = x + p.getX();
+        }
+
+        double fy = model.getStaffCenterLine() + p.getY();
+        logger.debug("adding flag at x {} y {}", x + p.getX(), fy);
+        Text flag = newText(fx,
+                fy,
+                glyph);
+        symbol.setFlag(flag);
+    }
+
+    private void add32ndFlag(StaffSymbol symbol, double x, double y,
+            boolean stemUp) {
+        String glyph;
+        Point2D p = null;
+        double fx;
+        if (stemUp) {
+            p = SymbolFactory.getStemUpNW("flag32ndUp");
+            glyph = SymbolFactory.flag32ndUp();
+            fx = x + p.getX() + this.quarterNoteWidth;
+        } else {
+            p = SymbolFactory.stemDownSW("flag32ndDown");
+            glyph = SymbolFactory.flag32ndDown();
+            fx = x + p.getX();
+        }
+
+        double fy = model.getStaffCenterLine() + p.getY();
+        logger.debug("adding flag at x {} y {}", x + p.getX(), fy);
+        Text flag = newText(fx,
+                fy,
+                glyph);
+        symbol.setFlag(flag);
+    }
+
+    private void add64thFlag(StaffSymbol symbol, double x, double y,
+            boolean stemUp) {
+        String glyph;
+        Point2D p = null;
+        double fx;
+        if (stemUp) {
+            p = SymbolFactory.getStemUpNW("flag64thUp");
+            glyph = SymbolFactory.flag64thUp();
+            fx = x + p.getX() + this.quarterNoteWidth;
+        } else {
+            p = SymbolFactory.stemDownSW("flag64thDown");
+            glyph = SymbolFactory.flag64thDown();
             fx = x + p.getX();
         }
 
@@ -1488,7 +1625,16 @@ public class MeasureSymbolManager {
         text.setText(SymbolFactory.timeSig4());
         this.timeSignatureWidth = text.getLayoutBounds().getWidth();
 
-        this.beatSpacing = quarterNoteWidth * 2d;
+        // this.beatSpacing = quarterNoteWidth * 2d;
+
+        // get the width of a beat
+        String glyph = SymbolFactory.sharp() + SymbolFactory.note8thUp()
+                + SymbolFactory.augmentationDot();
+        Text t = new Text(glyph);
+        t.setFont(this.model.getFont());
+        this.beatSpacing = t.getLayoutBounds().getWidth();
+
+        this.beatPadding = this.quarterNoteWidth;
 
         logger.debug("quarter note width {}", quarterNoteWidth);
         logger.debug("gclefWidth  width {}", gclefWidth);
@@ -1509,7 +1655,7 @@ public class MeasureSymbolManager {
         Rectangle rect = (Rectangle) this.beatRectangles.get(beatIndex);
         logger.debug(
                 "for beat {} index {} the rectangle x {} y {} w {} h {}",
-                beat,
+                beat + 1,
                 beatIndex,
                 rect.getX(),
                 rect.getY(),
@@ -1524,7 +1670,7 @@ public class MeasureSymbolManager {
             logger.debug("man quantized {} ", mant);
             x += rect.getWidth() * mant;
         }
-        logger.debug("returning x {} for beat {}", x, beat);
+        logger.debug("returning x {} for beat {}", x, beat + 1);
         return x;
     }
 
@@ -1560,14 +1706,21 @@ public class MeasureSymbolManager {
     }
 
     List<Shape> shapesAtBeat(int beat) {
+        logger.debug(
+                "searching for shapes at beat {} n shapes is {}",
+                beat,
+                this.shapes.size());
         List<Shape> list = new ArrayList<>();
         for (Shape s : this.shapes) {
             MIDINote note = (MIDINote) s.getUserData();
             if (note != null) {
                 int sb = (int) Math.floor(note.getStartBeat());
+                logger.debug("checking start beat {}", sb);
                 if (sb == beat) {
                     list.add(s);
                 }
+            } else {
+                logger.debug("note is null for shape {}", s);
             }
         }
         return list;
@@ -1577,19 +1730,23 @@ public class MeasureSymbolManager {
      * Count the widths of shapes at beat.
      * 
      * @param beat
-     *            which beat
+     *            which beat. 1 based.
      * @return the width
      */
     double getWidthOfBeat(int beat) {
-        double shapePadding = model.getFontSize() / 2d;
+
+        // double shapePadding = model.getFontSize() / 2d;
         double width = 0;
-        List<Shape> list = shapesAtBeat(beat + 1);
+        // List<Shape> list = shapesAtBeat(beat);
+        List<StaffSymbol> list = getSymbolsAtBeat(beat);
         logger.debug("{} shapes at beat {}", list.size(), beat);
-        for (Shape s : list) {
-            width += s.getLayoutBounds().getWidth();
-            width += shapePadding;
+        for (StaffSymbol s : list) {
+            // width += s.getLayoutBounds().getWidth();
+            width += s.getWidth();
+            // width += shapePadding;
+            // width += this.beatPadding;
         }
-        logger.debug("Beat {} has width {}", beat, width);
+        logger.debug("returning Beat {} with width {}", beat, width);
         return width;
     }
 
@@ -1711,13 +1868,6 @@ public class MeasureSymbolManager {
         this.setMeasure(this.model.getMeasure());
 
         setNoteList(model.getNoteList());
-
-        // get the width of a beat
-        String glyph = SymbolFactory.sharp() + SymbolFactory.note8thUp()
-                + SymbolFactory.augmentationDot();
-        Text t = new Text(glyph);
-        t.setFont(this.model.getFont());
-        this.beatSpacing = t.getLayoutBounds().getWidth();
 
         // KeySignature keysig = this.measure.getKeySignatureAtBeat(1d);
 
@@ -2720,7 +2870,7 @@ public class MeasureSymbolManager {
 
         return x;
     }
-    
+
     public List<StaffSymbol> getSymbols() {
         return symbols;
     }

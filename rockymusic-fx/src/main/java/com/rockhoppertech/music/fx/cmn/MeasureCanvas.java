@@ -24,6 +24,8 @@ import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
@@ -51,7 +53,7 @@ public class MeasureCanvas extends Region {
     private boolean showBeats = true;
 
     public MeasureCanvas() {
-        this.setWidth(800d);
+        this.setWidth(1800d);
         this.setHeight(200d);
         this.model = new MeasureModel();
         this.model.setFontSize(48d);
@@ -59,6 +61,12 @@ public class MeasureCanvas extends Region {
 
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                System.err.println("Mouse pressed at x " + me.getX());
+            }
+        });
+
     }
 
     /**
@@ -119,16 +127,20 @@ public class MeasureCanvas extends Region {
         this.getChildren().addAll(symbols);
         for (StaffSymbol s : symbols) {
             Line stem = s.getStem();
+            
             if (stem != null) {
                 this.getChildren().add(stem);
             }
+            
             for (Text ledger : s.getLedgers()) {
                 this.getChildren().add(ledger);
             }
+            
             QuadCurve tie = s.getTie();
             if (tie != null) {
                 this.getChildren().add(tie);
             }
+            
             Text flag = s.getFlag();
             if (flag != null) {
                 this.getChildren().add(flag);
