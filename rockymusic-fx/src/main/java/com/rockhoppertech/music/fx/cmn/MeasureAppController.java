@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.fx.FXTextAreaReceiver;
+import com.rockhoppertech.music.midi.js.KeySignature;
 import com.rockhoppertech.music.midi.js.MIDISender;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
@@ -70,9 +71,9 @@ public class MeasureAppController {
     // fx:id="fontSizeCombo"
     private ComboBox<Double> fontSizeCombo; // Value injected by FXMLLoader
 
-    //@FXML
+    // @FXML
     // fx:id="midiReceiver"
-   // private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
+    // private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
 
     @FXML
     // fx:id="noteStringTextArea"
@@ -83,10 +84,10 @@ public class MeasureAppController {
 
     @FXML
     private ScrollPane staffScrollPane;
-    
+
     @FXML
     private CheckBox sequentialCheckBox;
-    
+
     @FXML
     private CheckBox drawKeySignatureKeySignatureCheckBox;
 
@@ -95,26 +96,39 @@ public class MeasureAppController {
 
     @FXML
     private CheckBox drawTimeSignatureCheckBox;
-    
+
     @FXML
     private CheckBox drawBeatsCheckBox;
-    
+
     @FXML
     private CheckBox drawBracesCheckBox;
+
+    @FXML
+    private ComboBox<String> keyComboBox;
+
+    @FXML
+    void keySignatureAction(ActionEvent event) {
+        String k = keyComboBox.getSelectionModel().getSelectedItem();
+    }
+
     @FXML
     void drawBraces(ActionEvent event) {
         this.measureCanvas.setDrawBraces(drawBracesCheckBox.isSelected());
     }
-    
+
     @FXML
     void drawBeats(ActionEvent event) {
-        drawBeatsCheckBox.selectedProperty().bindBidirectional(measureCanvas.drawBeatsProperty());
-        this.measureCanvas.setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
+        drawBeatsCheckBox.selectedProperty().bindBidirectional(
+                measureCanvas.drawBeatsProperty());
+        this.measureCanvas
+                .setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
     }
-    
+
     @FXML
     void drawKeySignature(ActionEvent event) {
-        this.measureCanvas.setDrawKeySignature(drawKeySignatureKeySignatureCheckBox.isSelected());
+        this.measureCanvas
+                .setDrawKeySignature(drawKeySignatureKeySignatureCheckBox
+                        .isSelected());
     }
 
     @FXML
@@ -124,7 +138,8 @@ public class MeasureAppController {
 
     @FXML
     void drawTimeSignature(ActionEvent event) {
-        this.measureCanvas.setDrawTimeSignature(drawTimeSignatureCheckBox.isSelected());
+        this.measureCanvas.setDrawTimeSignature(drawTimeSignatureCheckBox
+                .isSelected());
     }
 
     // Handler for Button[fx:id="evaluateButton"] onAction
@@ -138,6 +153,44 @@ public class MeasureAppController {
         if(sequentialCheckBox.isSelected()) {
             track.sequential();
         }
+        String k = keyComboBox.getSelectionModel().getSelectedItem();
+        if(k.equals("C#")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.CSMAJOR);    
+            //TODO add cb major to scales
+//        } else if(k.equals("Cb")) {
+//            track.addKeySignatureAtBeat(1d, KeySignature.C);
+        } else if(k.equals("Db")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.DFMAJOR);
+        } else if(k.equals("D")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.DMAJOR);
+        } else if(k.equals("Eb")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.EFMAJOR);
+        //} else if(k.equals("D#")) {
+            //track.addKeySignatureAtBeat(1d, KeySignature.d);
+        } else if(k.equals("E")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.EMAJOR);
+        } else if(k.equals("F")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.FMAJOR);
+        } else if(k.equals("F#")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.FSMAJOR);
+        } else if(k.equals("Gb")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.GFMAJOR);
+        } else if(k.equals("G")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.GMAJOR);
+//        } else if(k.equals("G#")) {
+//            track.addKeySignatureAtBeat(1d, KeySignature.GSMAJOR);
+        } else if(k.equals("Ab")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.AFMAJOR);
+        } else if(k.equals("A")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.AMAJOR);
+        } else if(k.equals("Bb")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.BFMAJOR);
+//        } else if(k.equals("A#")) {
+//            track.addKeySignatureAtBeat(1d, KeySignature.ASMAJOR);
+        } else if(k.equals("B")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.BMAJOR);
+        }
+
         logger.debug("track from string\n{}", track);
         
         NavigableMap<Double, Measure> measures = Measure.createMeasures(track);
@@ -157,8 +210,8 @@ public class MeasureAppController {
         double size = fontSizeCombo.getSelectionModel().getSelectedItem();
         measureCanvas.setFontSize(size);
         measureCanvas.drawShapes();
-       // measureCanvas.setPrefSize(size * 1000d, size * 10d);
-        //staffScrollPane.setPrefSize(size * 1000d, size * 10d);
+        // measureCanvas.setPrefSize(size * 1000d, size * 10d);
+        // staffScrollPane.setPrefSize(size * 1000d, size * 10d);
 
         // TODO what should I really do?
         staffScrollPane.setContent(measureCanvas);
@@ -205,85 +258,87 @@ public class MeasureAppController {
     void initialize() {
         assert evaluateButton != null : "fx:id=\"evaluateButton\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert fontSizeCombo != null : "fx:id=\"fontSizeCombo\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
-        //assert midiReceiver != null : "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
+        // assert midiReceiver != null :
+        // "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert noteStringTextArea != null : "fx:id=\"noteStringTextArea\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert measureCanvas != null : "fx:id=\"measureCanvas\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been
         // injected
-        
-        //noteStringTextArea.setText("s+ c,s c#,s df,s d,s ef,s e,s f,s f#,s gf,s g,s g#,s af,s a,s a#,s bb,s b,s");
-        noteStringTextArea.setText("s+ c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x ");
-        
-//        logger.debug("fxml midireceiver {}", midiReceiver);
-        //this.midiSender = new MIDISender();
-//        if (this.midiReceiver != null)
-//            this.midiSender.addReceiver(this.midiReceiver);
+
+        // noteStringTextArea.setText("s+ c,s c#,s df,s d,s ef,s e,s f,s f#,s gf,s g,s g#,s af,s a,s a#,s bb,s b,s");
+        noteStringTextArea
+                .setText("s+ c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x ");
+
+        // logger.debug("fxml midireceiver {}", midiReceiver);
+        // this.midiSender = new MIDISender();
+        // if (this.midiReceiver != null)
+        // this.midiSender.addReceiver(this.midiReceiver);
 
         fontSizeCombo.getItems().addAll(12d, 18d, 24d, 36d, 48d, 72d, 96d);
         fontSizeCombo.getSelectionModel().select(4);
-        
+
         measureCanvas.setFontSize(48d);
         measureCanvas.drawShapes();
 
-//        grandStaff.boundsInLocalProperty().addListener(
-//                new ChangeListener<Bounds>() {
-//                    @Override
-//                    public void changed(
-//                            ObservableValue<? extends Bounds> observableValue,
-//                            Bounds oldBounds, Bounds newBounds) {
-//                        logger.debug(
-//                                "staff value {} new bounds {}",
-//                                observableValue,
-//                                newBounds);
-//                        //staffScrollPane.setHmax(newBounds.getMaxY());
-//                        //staffScrollPane.setH
-//                        //staffScrollPane.setViewportBounds(newBounds);
-//                    }
-//                });
-//        grandStaff.boundsInParentProperty().addListener(
-//                new ChangeListener<Bounds>() {
-//                    @Override
-//                    public void changed(
-//                            ObservableValue<? extends Bounds> observableValue,
-//                            Bounds oldBounds, Bounds newBounds) {
-//                        logger.debug(
-//                                "staff bounds in parent value {} new bounds {}",
-//                                observableValue,
-//                                newBounds);
-//                        //staffScrollPane.setHmax(newBounds.getMaxY());
-//                        //staffScrollPane.setH
-//                        //staffScrollPane.setViewportBounds(newBounds);
-//                    }
-//                });
+        // grandStaff.boundsInLocalProperty().addListener(
+        // new ChangeListener<Bounds>() {
+        // @Override
+        // public void changed(
+        // ObservableValue<? extends Bounds> observableValue,
+        // Bounds oldBounds, Bounds newBounds) {
+        // logger.debug(
+        // "staff value {} new bounds {}",
+        // observableValue,
+        // newBounds);
+        // //staffScrollPane.setHmax(newBounds.getMaxY());
+        // //staffScrollPane.setH
+        // //staffScrollPane.setViewportBounds(newBounds);
+        // }
+        // });
+        // grandStaff.boundsInParentProperty().addListener(
+        // new ChangeListener<Bounds>() {
+        // @Override
+        // public void changed(
+        // ObservableValue<? extends Bounds> observableValue,
+        // Bounds oldBounds, Bounds newBounds) {
+        // logger.debug(
+        // "staff bounds in parent value {} new bounds {}",
+        // observableValue,
+        // newBounds);
+        // //staffScrollPane.setHmax(newBounds.getMaxY());
+        // //staffScrollPane.setH
+        // //staffScrollPane.setViewportBounds(newBounds);
+        // }
+        // });
 
-//        staffScrollPane.viewportBoundsProperty().addListener(
-//                new ChangeListener<Bounds>() {
-//                    @Override
-//                    public void changed(
-//                            ObservableValue<? extends Bounds> observableValue,
-//                            Bounds oldBounds, Bounds newBounds) {
-////                        logger.debug(
-////                                "scrollpane value {} new bounds {}",
-////                                observableValue,
-////                                newBounds);
-//                        
-//                        
-//
-//                        
-//                    }
-//                });
-        
-        
-//        scrollPane.viewportBoundsProperty().addListener(
-//                new ChangeListener<Bounds>() {
-//                @Override public void changed(ObservableValue<? extends Bounds> observableValue, Bounds oldBounds, Bounds newBounds) {
-//                  nodeContainer.setPrefSize(
-//                    Math.max(node.getBoundsInParent().getMaxX(), newBounds.getWidth()),
-//                    Math.max(node.getBoundsInParent().getMaxY(), newBounds.getHeight())
-//                  );
-//                }
-//              });
+        // staffScrollPane.viewportBoundsProperty().addListener(
+        // new ChangeListener<Bounds>() {
+        // @Override
+        // public void changed(
+        // ObservableValue<? extends Bounds> observableValue,
+        // Bounds oldBounds, Bounds newBounds) {
+        // // logger.debug(
+        // // "scrollpane value {} new bounds {}",
+        // // observableValue,
+        // // newBounds);
+        //
+        //
+        //
+        //
+        // }
+        // });
+
+        // scrollPane.viewportBoundsProperty().addListener(
+        // new ChangeListener<Bounds>() {
+        // @Override public void changed(ObservableValue<? extends Bounds>
+        // observableValue, Bounds oldBounds, Bounds newBounds) {
+        // nodeContainer.setPrefSize(
+        // Math.max(node.getBoundsInParent().getMaxX(), newBounds.getWidth()),
+        // Math.max(node.getBoundsInParent().getMaxY(), newBounds.getHeight())
+        // );
+        // }
+        // });
 
     }
 

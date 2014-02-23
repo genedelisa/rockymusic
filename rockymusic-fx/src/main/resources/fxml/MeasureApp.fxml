@@ -14,35 +14,77 @@
 <?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
 
-<fx:root type="AnchorPane" prefHeight="786.0" prefWidth="855.0000999999975" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
-  <children>
-    <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <bottom>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-          <children>
-            <TextArea id="noteStringText" fx:id="noteStringTextArea" prefColumnCount="80" prefRowCount="8" prefWidth="200.0" wrapText="true" />
-            <Button fx:id="evaluateButton" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#evaluateNoteString" text="Evaluate" />
-            <ComboBox fx:id="fontSizeCombo" onAction="#fontSizeAction" />
-            <CheckBox fx:id="sequentialCheckBox" mnemonicParsing="false" text="Sequential" />
-            <CheckBox fx:id="drawTimeSignatureCheckBox" mnemonicParsing="false" onAction="#drawTimeSignature" text="Draw Time Signature" />
-            <CheckBox id="drawStaffCheckBox" fx:id="drawClefCheckBox" mnemonicParsing="false" onAction="#drawClefs" text="Draw Clefs" />
-            <CheckBox fx:id="drawKeySignatureKeySignatureCheckBox" mnemonicParsing="false" onAction="#drawKeySignature" text="Draw Key Signature" />
-            <CheckBox fx:id="drawBeatsCheckBox" mnemonicParsing="false" onAction="#drawBeats" text="Draw Beats" />
-            <CheckBox fx:id="drawBracesCheckBox" mnemonicParsing="false" onAction="#drawBraces" text="Draw Braces" />
-          </children>
-        </VBox>
-      </bottom>
-      <center>
-        <ScrollPane fx:id="staffScrollPane" fitToHeight="false" fitToWidth="false" hbarPolicy="ALWAYS" pannable="true" prefHeight="-1.0" prefViewportHeight="0.0" prefViewportWidth="0.0" prefWidth="-1.0" vbarPolicy="ALWAYS">
-          <content>
-            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="606.0">
-              <children>
-                <MeasureCanvas fx:id="measureCanvas" layoutX="0.0" layoutY="0.0" />
-              </children>
-            </AnchorPane>
-          </content>
-        </ScrollPane>
-      </center>
-    </BorderPane>
-  </children>
+<fx:root type="AnchorPane" prefHeight="786.0" prefWidth="855.0000999999975"
+	xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
+	<children>
+		<BorderPane prefHeight="282.0" prefWidth="300.0"
+			AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+			AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<bottom>
+				<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+					<children>
+						<TextArea id="noteStringText" fx:id="noteStringTextArea"
+							prefColumnCount="80" prefRowCount="8" prefWidth="200.0" wrapText="true" />
+						<Button fx:id="evaluateButton" contentDisplay="CENTER"
+							defaultButton="true" mnemonicParsing="false" onAction="#evaluateNoteString"
+							text="Evaluate" />
+						<ComboBox fx:id="fontSizeCombo" onAction="#fontSizeAction" />
+						<CheckBox fx:id="sequentialCheckBox" mnemonicParsing="false"
+							text="Sequential" />
+						<CheckBox fx:id="drawTimeSignatureCheckBox"
+							mnemonicParsing="false" onAction="#drawTimeSignature" text="Draw Time Signature" />
+						<CheckBox id="drawStaffCheckBox" fx:id="drawClefCheckBox"
+							mnemonicParsing="false" onAction="#drawClefs" text="Draw Clefs" />
+						<CheckBox fx:id="drawKeySignatureKeySignatureCheckBox"
+							mnemonicParsing="false" onAction="#drawKeySignature" text="Draw Key Signature" />
+						<CheckBox fx:id="drawBeatsCheckBox" mnemonicParsing="false"
+							onAction="#drawBeats" text="Draw Beats" />
+						<CheckBox fx:id="drawBracesCheckBox" mnemonicParsing="false"
+							onAction="#drawBraces" text="Draw Braces" />
+						<ComboBox fx:id="keyComboBox" onAction="#keySignatureAction"
+							promptText="Key">
+							<items>
+								<FXCollections fx:factory="observableArrayList">
+									<String fx:value="Cb" />
+									<String fx:value="C" />
+									<String fx:value="C#" />
+									<String fx:value="Db" />
+									<String fx:value="D" />
+									<String fx:value="D#" />
+									<String fx:value="Eb" />
+									<String fx:value="E" />
+									<String fx:value="F" />
+									<String fx:value="F#" />
+									<String fx:value="Gb" />
+									<String fx:value="G" />
+									<String fx:value="G#" />
+									<String fx:value="Ab" />
+									<String fx:value="A" />
+									<String fx:value="A#" />
+									<String fx:value="Bb" />
+									<String fx:value="B" />
+								</FXCollections>
+							</items>
+						</ComboBox>
+					</children>
+				</VBox>
+			</bottom>
+			<center>
+				<ScrollPane fx:id="staffScrollPane" fitToHeight="false"
+					fitToWidth="false" hbarPolicy="ALWAYS" pannable="true" prefHeight="-1.0"
+					prefViewportHeight="0.0" prefViewportWidth="0.0" prefWidth="-1.0"
+					vbarPolicy="ALWAYS">
+					<content>
+						<AnchorPane id="Content" minHeight="0.0" minWidth="0.0"
+							prefHeight="200.0" prefWidth="606.0">
+							<children>
+								<MeasureCanvas fx:id="measureCanvas" layoutX="0.0"
+									layoutY="0.0" />
+							</children>
+						</AnchorPane>
+					</content>
+				</ScrollPane>
+			</center>
+		</BorderPane>
+	</children>
 </fx:root>

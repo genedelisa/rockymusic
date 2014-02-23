@@ -160,10 +160,13 @@ public class MeasureSymbolManager {
         double x = model.getBeginningBarlineX();
 
         // this will be at model startx
+        // sets first note x
         x = createStaves();
+        // x = this.model.getStartX();
 
         if (this.drawTimeSignature) {
-            x += model.getFontSize() / 2d;
+            if (!this.drawKeySignature)
+                x += model.getFontSize() / 2d;
             x = addTimeSignature(x, 4, 4);
         }
 
@@ -225,6 +228,8 @@ public class MeasureSymbolManager {
         // make sure all the rects are large enough, adjust widths and x
         // locations.
         enlargeBeatRectangles();
+        // resize the staves to the new rectangles
+        createStaves();
     }
 
     double addRests(double x, double gap, int pitch) {
@@ -381,7 +386,7 @@ public class MeasureSymbolManager {
      */
     void enlargeBeatRectangles() {
 
-        double newx = model.getFirstNoteX();
+        // double newx = model.getFirstNoteX();
 
         for (int beat = 0; beat < this.beatRectangles.size(); beat++) {
             int beat1based = beat + 1;
@@ -398,24 +403,24 @@ public class MeasureSymbolManager {
                     rect.getX()
                     );
 
-//            if (beat1based == 1) {
-//                newx = model.getFirstNoteX();
-//            } else {
-//                newx = rect.getX();
-//            }
-//            newx = rect.getX();
-//            logger.debug("new x is {} for beat {}", newx, beat1based);
+            // if (beat1based == 1) {
+            // newx = model.getFirstNoteX();
+            // } else {
+            // newx = rect.getX();
+            // }
+            // newx = rect.getX();
+            // logger.debug("new x is {} for beat {}", newx, beat1based);
             if (width > rect.getWidth()) {
                 rect.setWidth(width);
             }
             List<StaffSymbol> list = getSymbolsAtBeat(beat1based);
             if (list.size() > 0) {
-//                double xinc = (width) / list.size();
-//                logger.debug(
-//                        "xinc is {} for list size {} with width {}",
-//                        xinc,
-//                        list.size(),
-//                        width);
+                // double xinc = (width) / list.size();
+                // logger.debug(
+                // "xinc is {} for list size {} with width {}",
+                // xinc,
+                // list.size(),
+                // width);
                 for (StaffSymbol s : list) {
                     double x = getXofBeatN(s.getNote().getStartBeat());
                     s.setX(x);
@@ -423,6 +428,14 @@ public class MeasureSymbolManager {
 
                 // now fix up the x locations of the rectangles
                 normalizeRectangles();
+            }
+        }
+        if (!this.beatRectangles.isEmpty()) {
+            Rectangle r = this.beatRectangles
+                    .get(this.beatRectangles.size() - 1);
+            if (r != null) {
+                this.staffWidth = r.getX() + r.getWidth();
+                logger.debug("new staffwidth {}", this.staffWidth);
             }
         }
 
@@ -2092,6 +2105,7 @@ public class MeasureSymbolManager {
     }
 
     double createStaves() {
+        logger.debug("new staffwidth {}", this.staffWidth);
         return createStaves(this.staffWidth);
     }
 
@@ -2185,7 +2199,10 @@ public class MeasureSymbolManager {
         }
 
         if (this.drawKeySignature) {
-            x = drawKeySignature(x + trebleClefWidth);
+            logger.debug("drawing ks");
+            x = drawKeySignature(x + trebleClefWidth + model.getFontSize() / 2d);
+            model.setFirstNoteX(x + model.getFontSize()
+                    / 2d);
 
         }
 
@@ -2193,30 +2210,337 @@ public class MeasureSymbolManager {
     }
 
     private double drawKeySignature(double x) {
+        if (this.measure == null) {
+            logger.debug("null measure");
+            this.measure = this.model.getMeasure();
+            // return x;
+        }
         KeySignature ks = this.measure.getKeySignatureAtBeat(1d);
-        double width = 0;
 
+        logger.debug("drawing ks " + ks);
+        double y = 0d;
+        double startx = x;
+        Text text;
         if (ks != null) {
             String glyph = null;
             int n = ks.getSf();
             if (n < 0) {
-                glyph = SymbolFactory.sharp();
-            } else {
                 glyph = SymbolFactory.flat();
+
+            } else {
+                glyph = SymbolFactory.sharp();
             }
 
+            logger.debug("n accidentals {}", n);
             switch (n) {
+            case -7:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.C6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.F5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.C4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.F3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+
+                break;
+            case -6:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.C6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.C4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+
+                break;
+            case -5:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+
+                break;
+            case -4:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+
+            case -3:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case -2:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.EF4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+
+                break;
             case -1:
+                y = model.getYpositionForPitch(Pitch.BF5, true);
+                text = addText(x, y, glyph);
+                //
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.BF3, true);
+                text = addText(x, y, glyph);
                 break;
             case 0:
                 break;
             case 1:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                x = startx;
+                y = model.getYpositionForPitch(Pitch.FS4, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 2:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.CS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 3:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.CS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 4:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.CS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 5:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.CS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AS5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 6:
+                y = model.getYpositionForPitch(Pitch.FS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.CS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.GS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.DS6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.AS5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.E6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                break;
+            case 7:
+                y = model.getYpositionForPitch(Pitch.F6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.C6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.G6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.D6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.A5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.E6, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
+                y = model.getYpositionForPitch(Pitch.B5, true);
+                text = addText(x, y, glyph);
+                x += text.getLayoutBounds().getWidth();
                 break;
             default:
                 break;
             }
         }
-        return width;
+        return x;
 
     }
 
