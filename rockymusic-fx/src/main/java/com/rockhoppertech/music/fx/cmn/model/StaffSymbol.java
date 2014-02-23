@@ -26,8 +26,13 @@ package com.rockhoppertech.music.fx.cmn.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.rockhoppertech.music.midi.js.MIDINote;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.FontSmoothingType;
@@ -40,6 +45,8 @@ import javafx.scene.text.Text;
  * 
  */
 public class StaffSymbol extends Text {
+    private static final Logger logger = LoggerFactory
+            .getLogger(StaffSymbol.class);
 
     // or just separate Text objects?
 
@@ -95,11 +102,27 @@ public class StaffSymbol extends Text {
         this.symbol = symbol;
     }
 
+    protected void updateLedgers(double newx) {
+        
+        for(Text t: this.ledgers) {
+            double lx = newx - (t.getLayoutBounds().getWidth() / 4d);
+            logger.debug("updating ledgers {}", lx);
+            t.setX(lx);
+        }
+    }
+
     public StaffSymbol() {
         this.ledgers = new ArrayList<>();
         this.setStyle("-fx-cursor: hand; -fx-font-smoothing-type: lcd;");
         this.setFontSmoothingType(FontSmoothingType.LCD);
         this.setManaged(false);
+        this.xProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,
+                    Number oldValue, Number newValue) {
+                updateLedgers(newValue.doubleValue());
+            }
+        });
     }
 
     public void addLedger(Text ledger) {
@@ -107,10 +130,10 @@ public class StaffSymbol extends Text {
     }
 
     public double getWidth() {
-        double width = this.getLayoutBounds().getWidth();
+        double width = this.getLayoutBounds().getWidth() * 1d;
         return width;
     }
-
+    
     /**
      * @return the symbol
      */
@@ -139,6 +162,9 @@ public class StaffSymbol extends Text {
         if(this.augmentationDots != null) {
             sb.append(this.augmentationDots);
         }
+        
+        // some spacing at the end
+        sb.append(" ");
         this.setText(sb.toString());
         
     }
