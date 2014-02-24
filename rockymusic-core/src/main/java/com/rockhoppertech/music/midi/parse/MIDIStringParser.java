@@ -325,7 +325,7 @@ public class MIDIStringParser {
 
     public String checkMulti(String s) {
         Scanner sc = new Scanner(s);
-        String patternString = " *X(\\d)\\s+\\((.+?)\\)+?";
+        String patternString = " *X(\\d+)\\s+\\((.+?)\\)+?";
         Pattern multiPattern = Pattern
                 .compile(patternString);
         int numRepeats = 0;

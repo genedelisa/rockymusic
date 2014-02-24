@@ -590,13 +590,13 @@ public class MIDIStringParserTest {
 		String s;
 		String r;
 
-		s = "S+ X3 (C5 D5)";
+		s = "S+ X10 (C5 D5)";
 		r = parser.checkMulti(s);
 		logger.debug("returned '{}'", r);
 		r = r.replaceAll(" +", " "); // collapse multi spaces to one
 		assertThat("The returned string is not null.", r, notNullValue());
 		assertThat("the returned string is correct", r.trim(),
-				equalTo("S+ C5 D5 C5 D5 C5 D5"));
+				equalTo("S+ C5 D5 C5 D5 C5 D5 C5 D5 C5 D5 C5 D5 C5 D5 C5 D5 C5 D5 C5 D5"));
 
 		//
 
