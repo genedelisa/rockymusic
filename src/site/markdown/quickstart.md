@@ -157,9 +157,12 @@ You can use dots too.
 
 Xn (element) can specify a number of repeated elements
 
-	X3 (C)
+	X3 C
 	yields
 	C C C
+	
+Put multiple elements to be repeated inside parentheses.
+
 	
 	X3 (C D) E F
 	yields
