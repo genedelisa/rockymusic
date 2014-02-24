@@ -159,6 +159,8 @@ public class MeasureModel {
     // show every beat?
     private int showBeatModulus = 1;
 
+    private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
+
     public MeasureModel() {
 
         fontSize = 48d;
@@ -179,9 +181,12 @@ public class MeasureModel {
 
         this.staffSymbolManager = new MeasureSymbolManager();
         this.setClef(Clef.TREBLE);
-        
+
         this.staffSymbolManager.setMeasureModel(this);
         this.staffSymbolManager.refresh();
+
+        this.staffWidthProperty.bind(this.staffSymbolManager
+                .getStaffWidthProperty());
 
         // StaffSymbolManager.setStaffModel(this);
         // this.noteList = FXCollections.observableArrayList();
@@ -660,7 +665,7 @@ public class MeasureModel {
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
     }
-    
+
     public List<StaffSymbol> getSymbols() {
         return staffSymbolManager.getSymbols();
     }
@@ -885,11 +890,10 @@ public class MeasureModel {
         return beginningBarlineX;
     }
 
-    
     private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty();
     private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty();
     private BooleanProperty drawClefsProperty = new SimpleBooleanProperty();
-    
+
     /**
      * @return the drawBeatRectangles
      */
@@ -952,5 +956,12 @@ public class MeasureModel {
 
     public void setDrawBraces(boolean selected) {
         this.staffSymbolManager.setDrawBraces(selected);
+    }
+
+    /**
+     * @return the staffWidthProperty
+     */
+    public DoubleProperty getStaffWidthProperty() {
+        return staffWidthProperty;
     }
 }

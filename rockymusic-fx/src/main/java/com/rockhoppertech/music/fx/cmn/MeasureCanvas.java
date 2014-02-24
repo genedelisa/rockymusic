@@ -24,6 +24,8 @@ import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
@@ -55,12 +57,27 @@ public class MeasureCanvas extends Region {
     public MeasureCanvas() {
         this.setWidth(1800d);
         this.setHeight(200d);
+        this.setPrefHeight(200d);
+        this.setPrefWidth(1800d);
         this.model = new MeasureModel();
         this.model.setFontSize(48d);
         this.model.setStaffWidth(this.getWidth() - 10d);
 
+        this.model
+                .getStaffWidthProperty().addListener(
+                        new ChangeListener<Number>() {
+                            @Override
+                            public void changed(
+                                    ObservableValue<? extends Number> arg0,
+                                    Number arg1, Number newval) {
+                                setWidth(newval.doubleValue());
+                                logger.debug("new staff width {}", newval);
+                            }
+                        });
+
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
+        
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
                 System.err.println("Mouse pressed at x " + me.getX());
@@ -127,20 +144,20 @@ public class MeasureCanvas extends Region {
         this.getChildren().addAll(symbols);
         for (StaffSymbol s : symbols) {
             Line stem = s.getStem();
-            
+
             if (stem != null) {
                 this.getChildren().add(stem);
             }
-            
+
             for (Text ledger : s.getLedgers()) {
                 this.getChildren().add(ledger);
             }
-            
+
             QuadCurve tie = s.getTie();
             if (tie != null) {
                 this.getChildren().add(tie);
             }
-            
+
             Text flag = s.getFlag();
             if (flag != null) {
                 this.getChildren().add(flag);

@@ -26,7 +26,9 @@ import java.util.Locale;
 import java.util.Scanner;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -102,7 +104,7 @@ public class MeasureSymbolManager {
 
     private boolean drawKeySignature;
 
-    private boolean drawTimeSignature;
+    private boolean drawTimeSignature; 
 
     private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty(
             drawBeatRectangles);
@@ -116,6 +118,10 @@ public class MeasureSymbolManager {
             drawBrace);
 
     private double beatPadding;
+    
+    DoubleProperty staffWidthProperty = new SimpleDoubleProperty(); 
+    
+    
 
     public MeasureSymbolManager() {
 
@@ -190,7 +196,14 @@ public class MeasureSymbolManager {
 
         for (MIDINote note : noteList) {
 
-            x = getXofBeatN(note.getStartBeat());
+            // x = getXofBeatN(note.getStartBeat());
+
+            logger.debug(
+                    "beat {} beat in measure {}",
+                    note.getStartBeat(),
+                    measure.getBeatInMeasure(note));
+
+            x = getXofBeatN(measure.getBeatInMeasure(note));
 
             // double sb = note.getStartBeat();
             //
@@ -434,8 +447,7 @@ public class MeasureSymbolManager {
             Rectangle r = this.beatRectangles
                     .get(this.beatRectangles.size() - 1);
             if (r != null) {
-                this.staffWidth = r.getX() + r.getWidth();
-                logger.debug("new staffwidth {}", this.staffWidth);
+                this.setStaffWidth(r.getX() + r.getWidth());
             }
         }
 
@@ -485,7 +497,9 @@ public class MeasureSymbolManager {
         double duration = note.getDuration();
         String glyph = "";
 
-        int index = (int) Math.floor(note.getStartBeat()) - 1;
+        //int index = (int) Math.floor(note.getStartBeat()) - 1;
+        int index = (int) Math.floor(measure.getBeatInMeasure(note)) - 1;
+        
         Rectangle beatRectangle = this.beatRectangles.get(index);
         logger.debug(
                 "beat rect for index {} the rectangle x {} y {} w {} h {}",
@@ -2101,6 +2115,7 @@ public class MeasureSymbolManager {
 
     public void setStaffWidth(double width) {
         this.staffWidth = width;
+        this.staffWidthProperty.set(width);
         logger.debug("staff width set to {}", staffWidth);
     }
 
@@ -3197,5 +3212,12 @@ public class MeasureSymbolManager {
 
     public List<StaffSymbol> getSymbols() {
         return symbols;
+    }
+
+    /**
+     * @return the staffWidthProperty
+     */
+    public DoubleProperty getStaffWidthProperty() {
+        return staffWidthProperty;
     }
 }

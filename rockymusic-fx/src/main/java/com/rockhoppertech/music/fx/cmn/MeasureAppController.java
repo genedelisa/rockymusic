@@ -32,13 +32,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.fx.FXTextAreaReceiver;
 import com.rockhoppertech.music.midi.js.KeySignature;
 import com.rockhoppertech.music.midi.js.MIDISender;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -81,6 +81,9 @@ public class MeasureAppController {
 
     @FXML
     private MeasureCanvas measureCanvas; // Value injected by FXMLLoader
+
+    @FXML
+    private HBox measureParent;
 
     @FXML
     private ScrollPane staffScrollPane;
@@ -150,57 +153,65 @@ public class MeasureAppController {
                 .create()
                 .noteString(ns)
                 .build();
-        if(sequentialCheckBox.isSelected()) {
+        if (sequentialCheckBox.isSelected()) {
             track.sequential();
         }
         String k = keyComboBox.getSelectionModel().getSelectedItem();
-        if(k.equals("C#")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.CSMAJOR);    
-        } else if(k.equals("Cb")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.CFMAJOR);
-        } else if(k.equals("Db")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.DFMAJOR);
-        } else if(k.equals("D")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.DMAJOR);
-        } else if(k.equals("Eb")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.EFMAJOR);
-        //} else if(k.equals("D#")) {
-            //track.addKeySignatureAtBeat(1d, KeySignature.d);
-        } else if(k.equals("E")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.EMAJOR);
-        } else if(k.equals("F")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.FMAJOR);
-        } else if(k.equals("F#")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.FSMAJOR);
-        } else if(k.equals("Gb")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.GFMAJOR);
-        } else if(k.equals("G")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.GMAJOR);
-//        } else if(k.equals("G#")) {
-//            track.addKeySignatureAtBeat(1d, KeySignature.GSMAJOR);
-        } else if(k.equals("Ab")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.AFMAJOR);
-        } else if(k.equals("A")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.AMAJOR);
-        } else if(k.equals("Bb")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.BFMAJOR);
-//        } else if(k.equals("A#")) {
-//            track.addKeySignatureAtBeat(1d, KeySignature.ASMAJOR);
-        } else if(k.equals("B")) {
-            track.addKeySignatureAtBeat(1d, KeySignature.BMAJOR);
+        if (k != null) {
+
+            if (k.equals("C#")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.CSMAJOR);
+            } else if (k.equals("Cb")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.CFMAJOR);
+            } else if (k.equals("Db")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.DFMAJOR);
+            } else if (k.equals("D")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.DMAJOR);
+            } else if (k.equals("Eb")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.EFMAJOR);
+                // } else if(k.equals("D#")) {
+                // track.addKeySignatureAtBeat(1d, KeySignature.d);
+            } else if (k.equals("E")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.EMAJOR);
+            } else if (k.equals("F")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.FMAJOR);
+            } else if (k.equals("F#")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.FSMAJOR);
+            } else if (k.equals("Gb")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.GFMAJOR);
+            } else if (k.equals("G")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.GMAJOR);
+                // } else if(k.equals("G#")) {
+                // track.addKeySignatureAtBeat(1d, KeySignature.GSMAJOR);
+            } else if (k.equals("Ab")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.AFMAJOR);
+            } else if (k.equals("A")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.AMAJOR);
+            } else if (k.equals("Bb")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.BFMAJOR);
+                // } else if(k.equals("A#")) {
+                // track.addKeySignatureAtBeat(1d, KeySignature.ASMAJOR);
+            } else if (k.equals("B")) {
+                track.addKeySignatureAtBeat(1d, KeySignature.BMAJOR);
+            }
         }
 
         logger.debug("track from string\n{}", track);
-        
+
         NavigableMap<Double, Measure> measures = Measure.createMeasures(track);
         logger.debug("measures keyset {}", measures.keySet());
-        
+
         Measure measure = measures.get(1d);
         logger.debug("measure 0 {}", measure);
-        
+
         measureCanvas.setMeasure(measure);
-        
+
         measureCanvas.drawShapes();
+        
+//        MeasureCanvas mc = new MeasureCanvas();
+//        mc.setMeasure(measures.get(5d));
+//        mc.drawShapes();
+//        measureParent.getChildren().add(mc);
     }
 
     // Handler for ComboBox[fx:id="fontSizeCombo"] onAction
