@@ -96,6 +96,7 @@ public class KeySignature implements Serializable {
     }
 
     public static final KeySignature CMAJOR = new KeySignature(0, 0);
+    public static final KeySignature CFMAJOR = new KeySignature(0, -7);
     public static final KeySignature CMINOR = new KeySignature(1, -3);
     public static final KeySignature CSMAJOR = new KeySignature(0, 7);
     public static final KeySignature CSMINOR = new KeySignature(1, 4);
