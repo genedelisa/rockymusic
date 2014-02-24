@@ -156,9 +156,8 @@ public class MeasureAppController {
         String k = keyComboBox.getSelectionModel().getSelectedItem();
         if(k.equals("C#")) {
             track.addKeySignatureAtBeat(1d, KeySignature.CSMAJOR);    
-            //TODO add cb major to scales
-//        } else if(k.equals("Cb")) {
-//            track.addKeySignatureAtBeat(1d, KeySignature.C);
+        } else if(k.equals("Cb")) {
+            track.addKeySignatureAtBeat(1d, KeySignature.CFMAJOR);
         } else if(k.equals("Db")) {
             track.addKeySignatureAtBeat(1d, KeySignature.DFMAJOR);
         } else if(k.equals("D")) {
