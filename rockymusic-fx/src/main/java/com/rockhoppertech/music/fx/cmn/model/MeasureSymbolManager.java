@@ -104,7 +104,7 @@ public class MeasureSymbolManager {
 
     private boolean drawKeySignature;
 
-    private boolean drawTimeSignature; 
+    private boolean drawTimeSignature;
 
     private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty(
             drawBeatRectangles);
@@ -118,10 +118,8 @@ public class MeasureSymbolManager {
             drawBrace);
 
     private double beatPadding;
-    
-    DoubleProperty staffWidthProperty = new SimpleDoubleProperty(); 
-    
-    
+
+    DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
 
     public MeasureSymbolManager() {
 
@@ -497,9 +495,9 @@ public class MeasureSymbolManager {
         double duration = note.getDuration();
         String glyph = "";
 
-        //int index = (int) Math.floor(note.getStartBeat()) - 1;
+        // int index = (int) Math.floor(note.getStartBeat()) - 1;
         int index = (int) Math.floor(measure.getBeatInMeasure(note)) - 1;
-        
+
         Rectangle beatRectangle = this.beatRectangles.get(index);
         logger.debug(
                 "beat rect for index {} the rectangle x {} y {} w {} h {}",
@@ -1701,6 +1699,25 @@ public class MeasureSymbolManager {
         return x;
     }
 
+    public double getBeatForX(double x) {
+        double beat = 0d;
+        for (Rectangle r : this.beatRectangles) {
+            beat++;
+            logger.debug(
+                    "x {} for beat {} the rectangle x {} y {} w {} h {}",
+                    x,
+                    beat,
+                    r.getX(),
+                    r.getY(),
+                    r.getWidth(),
+                    r.getHeight());
+            if (r.contains(x, model.getStaffBottom())) {
+                break;
+            }
+        }
+        return beat;
+    }
+
     // c,1,.25 c,1.25,.25 c,1.5,.25
 
     double quantize(double value, double q) {
@@ -2190,7 +2207,9 @@ public class MeasureSymbolManager {
         double staffStringIncrement = text.getLayoutBounds().getWidth();
 
         // draw the treble staff
-        for (double xx = x; xx < staffWidth - staffStringIncrement; xx += staffStringIncrement) {
+        // for (double xx = x; xx < staffWidth - staffStringIncrement; xx +=
+        // staffStringIncrement) {
+        for (double xx = x; xx < staffWidth; xx += staffStringIncrement) {
             text = new Text(xx, y, staff);
             text.setFont(font);
             this.shapes.add(text);
@@ -2207,7 +2226,7 @@ public class MeasureSymbolManager {
         }
 
         // draw the bass staff
-        for (double xx = x; xx < staffWidth - staffStringIncrement; xx += staffStringIncrement) {
+        for (double xx = x; xx < staffWidth; xx += staffStringIncrement) {
             text = new Text(xx, y, staff);
             text.setFont(font);
             this.shapes.add(text);

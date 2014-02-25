@@ -198,6 +198,22 @@ public class MeasureModel {
     }
 
     /**
+     * Retrieve the absolute beat for x. 
+     * <p>
+     * e.g. In 4/4, beat 1 of measure 2 would be 5.
+     * @param x the x location
+     * @return the absolute beat
+     */
+    public double getBeatForX(double x) {
+        return this.staffSymbolManager.getBeatForX(x)
+                + this.measure.getStartBeat() - 1d;
+    }
+
+    public double getBeatInMeasureForX(double x) {
+        return this.staffSymbolManager.getBeatForX(x);
+    }
+
+    /**
      * Called from calcStaffMetrics to fill in the y position array.
      * 
      * @param num
@@ -445,7 +461,9 @@ public class MeasureModel {
         // set the font before the fontsize property for listeners who use the
         // font
         this.fontSizeProperty.setValue(this.fontSize);
-        this.staffBottom = 4d * this.fontSize;
+        // the prefWidth is 10 x fontSize
+        this.staffBottom = (5d * this.fontSize) - lineInc; // so middle c is the
+                                                           // center of the node
 
         // the bottom of the treble staff
         this.trebleStaffBottom = staffBottom;
