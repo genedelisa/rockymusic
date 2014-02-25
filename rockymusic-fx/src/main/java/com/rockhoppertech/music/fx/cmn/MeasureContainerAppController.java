@@ -69,16 +69,10 @@ public class MeasureContainerAppController {
     // fx:id="fontSizeCombo"
     private ComboBox<Double> fontSizeCombo; // Value injected by FXMLLoader
 
-    // @FXML
-    // fx:id="midiReceiver"
-    // private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
 
     @FXML
     // fx:id="noteStringTextArea"
     private TextArea noteStringTextArea; // Value injected by FXMLLoader
-
-    @FXML
-    private MeasureCanvas measureCanvas; // Value injected by FXMLLoader
 
     @FXML
     private MeasureContainer measureParent;
@@ -117,18 +111,11 @@ public class MeasureContainerAppController {
 
     @FXML
     void drawBraces(ActionEvent event) {
-        this.measureCanvas.setDrawBraces(drawBracesCheckBox.isSelected());
         this.measureParent.setDrawBraces(drawBracesCheckBox.isSelected());
     }
 
     @FXML
     void drawBeats(ActionEvent event) {
-        drawBeatsCheckBox.selectedProperty().bindBidirectional(
-                measureCanvas.drawBeatsProperty());
-        this.measureCanvas
-                .setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
-
-        // this.measureParent.setDrawBeatRectangles();
         drawBeatsCheckBox.selectedProperty().bindBidirectional(
                 measureParent.drawBeatsProperty());
         this.measureParent
@@ -137,9 +124,6 @@ public class MeasureContainerAppController {
 
     @FXML
     void drawKeySignature(ActionEvent event) {
-        this.measureCanvas
-                .setDrawKeySignature(drawKeySignatureKeySignatureCheckBox
-                        .isSelected());
         this.measureParent
                 .setDrawKeySignature(drawKeySignatureKeySignatureCheckBox
                         .isSelected());
@@ -148,18 +132,13 @@ public class MeasureContainerAppController {
 
     @FXML
     void drawClefs(ActionEvent event) {
-        this.measureCanvas.setDrawClefs(drawClefCheckBox.isSelected());
         this.measureParent.setDrawClefs(drawClefCheckBox.isSelected());
-        // this.measureParent.setDrawKeySignature();
     }
 
     @FXML
     void drawTimeSignature(ActionEvent event) {
-        this.measureCanvas.setDrawTimeSignature(drawTimeSignatureCheckBox
-                .isSelected());
         this.measureParent.setDrawTimeSignature(drawTimeSignatureCheckBox
                 .isSelected());
-        // this.measureParent.setDrawKeySignature();
     }
 
     // Handler for Button[fx:id="evaluateButton"] onAction
@@ -250,14 +229,12 @@ public class MeasureContainerAppController {
 
         // TODO what should I really do?
         staffScrollPane.setContent(measureParent);
-
     }
 
-    // Handler for GrandStaff[fx:id="grandStaff"] onMousePressed
     @FXML
     void staffMousePressed(MouseEvent event) {
         //pitch = measureParent.whichNote(event.getY());
-        pitch = measureCanvas.whichNote(event.getY());
+        pitch = measureParent.whichNote(event.getY());
         if (pitch < 0 || pitch > 127) {
             return;
         }
@@ -276,17 +253,15 @@ public class MeasureContainerAppController {
 
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         noteStringTextArea.appendText(preferredSpelling);
-        measureCanvas.addNote(pitch);
-        // canvas.repaintCanvas();
+//        measureParent.addNote(pitch);
     }
 
-    // Handler for GrandStaff[fx:id="grandStaff"] onMouseReleased
     @FXML
     void staffMouseReleased(MouseEvent event) {
         this.midiSender.sendNoteOff(pitch);
         // if you draw in the mouse down, the Text will grab the mouseReleased
         // event
-        measureCanvas.drawShapes();
+        measureParent.draw();
     }
 
     @FXML
