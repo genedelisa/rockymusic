@@ -55,16 +55,19 @@
         </VBox>
       </bottom>
       <center>
-        <ScrollPane fx:id="staffScrollPane" fitToHeight="false" fitToWidth="false" hbarPolicy="ALWAYS" pannable="false" prefHeight="-1.0" prefViewportHeight="100.0" prefViewportWidth="100.0" prefWidth="-1.0" vbarPolicy="ALWAYS">
+        <ScrollPane fx:id="staffScrollPane" fitToHeight="false" fitToWidth="false" hbarPolicy="ALWAYS" pannable="false" prefHeight="-1.0" prefViewportHeight="0.0" prefViewportWidth="0.0" prefWidth="-1.0" vbarPolicy="ALWAYS">
           <content>
-            <AnchorPane id="Content" minHeight="100.0" minWidth="100.0" prefHeight="496.0" prefWidth="606.0">
+            <AnchorPane id="Content" minHeight="100.0" minWidth="100.0" prefHeight="-1.0" prefWidth="-1.0">
               <children>
-                <MeasureContainer fx:id="measureParent" layoutX="0.0" layoutY="0.0" prefHeight="482.0" prefWidth="592.0" />
+                <MeasureContainer fx:id="measureParent" layoutY="0.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="14.0" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
       </center>
+      <top>
+        <TextArea fx:id="topTextArea" prefWidth="200.0" wrapText="false" />
+      </top>
     </BorderPane>
   </children>
 </fx:root>
