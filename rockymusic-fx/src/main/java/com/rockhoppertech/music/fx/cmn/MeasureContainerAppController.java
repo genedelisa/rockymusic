@@ -106,6 +106,9 @@ public class MeasureContainerAppController {
 
     @FXML
     private ComboBox<String> keyComboBox;
+    
+    @FXML
+    private TextArea topTextArea;
 
     @FXML
     void keySignatureAction(ActionEvent event) {
@@ -170,6 +173,7 @@ public class MeasureContainerAppController {
         if (sequentialCheckBox.isSelected()) {
             track.sequential();
         }
+        
         String k = keyComboBox.getSelectionModel().getSelectedItem();
         if (k != null) {
 
@@ -210,6 +214,7 @@ public class MeasureContainerAppController {
             }
         }
 
+        topTextArea.setText(track.toString());
         logger.debug("track from string\n{}", track);
         measureParent.setTrack(track);
         measureParent.draw();
