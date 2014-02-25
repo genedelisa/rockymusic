@@ -97,6 +97,12 @@ public class MeasureContainer extends HBox {
             HBox.setHgrow(mc, Priority.ALWAYS);
             this.getChildren().add(mc);
         }
+        MeasureCanvas firstMeasure = (MeasureCanvas) this.getChildren().get(0);
+        firstMeasure.setDrawClefs(true);
+        firstMeasure.setDrawKeySignature(true);
+        firstMeasure.setDrawTimeSignature(true);
+       // firstMeasure.setDrawBraces(true);
+        
       //  this.layout();
 //        this.requestLayout();
         //this.setNeedsLayout(true);
