@@ -56,8 +56,8 @@ public class MeasureCanvas extends Region {
 
     public MeasureCanvas() {
         this.setWidth(1800d);
-        this.setHeight(200d);
-        this.setPrefHeight(200d);
+        this.setHeight(480d);
+        this.setPrefHeight(480d); // fontsize * 10
         this.setPrefWidth(1800d);
         this.model = new MeasureModel();
         this.model.setFontSize(48d);
@@ -71,13 +71,15 @@ public class MeasureCanvas extends Region {
                                     ObservableValue<? extends Number> arg0,
                                     Number arg1, Number newval) {
                                 setWidth(newval.doubleValue());
+                                setPrefWidth(newval.doubleValue());
+                                // requestLayout();
                                 logger.debug("new staff width {}", newval);
                             }
                         });
 
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
-        
+
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
                 System.err.println("Mouse pressed at x " + me.getX());
@@ -128,6 +130,7 @@ public class MeasureCanvas extends Region {
 
     public void setFontSize(double size) {
         this.model.setFontSize(size);
+        this.setPrefHeight(size * 10d);
     }
 
     public void drawShapes() {
@@ -229,14 +232,29 @@ public class MeasureCanvas extends Region {
         this.drawShapes();
     }
 
+    public void setDrawBraces(boolean selected) {
+        this.model.setDrawBraces(selected);
+        this.drawShapes();
+    }
+
     BooleanProperty drawBeatsProperty = new SimpleBooleanProperty();
 
     public BooleanProperty drawBeatsProperty() {
         return drawBeatsProperty;
     }
 
-    public void setDrawBraces(boolean selected) {
-        this.model.setDrawBraces(selected);
-        this.drawShapes();
+    /**
+     * @return the drawBeatsProperty
+     */
+    public Boolean getDrawBeats() {
+        return drawBeatsProperty.get();
+    }
+
+    /**
+     * @param drawBeatsProperty
+     *            the drawBeatsProperty to set
+     */
+    public void setDrawBeats(boolean drawBeats) {
+        this.drawBeatsProperty.set(drawBeats);
     }
 }

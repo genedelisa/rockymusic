@@ -57,8 +57,12 @@ public class MeasureContainer extends HBox {
 
     public MeasureContainer() {
        // setManaged(true);
-        //this.setWidth(1200d);
-        //this.setHeight(200d);
+        
+        this.setWidth(1800d);
+        this.setHeight(480d);
+        this.setPrefHeight(480d); // fontsize * 10
+        this.setPrefWidth(1800d);
+        
         this.setStyle("-fx-background-color: aliceblue; -fx-border-color: black; -fx-border-width: 1px;");
 
     }
@@ -100,6 +104,7 @@ public class MeasureContainer extends HBox {
     }
 
     public void setFontSize(double d) {
+        this.setPrefHeight(d * 10d); // fontsize * 10
         for (Node n : this.getChildren()) {
             MeasureCanvas c = (MeasureCanvas) n;
             c.setFontSize(d);
