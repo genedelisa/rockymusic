@@ -173,7 +173,7 @@ public class MeasureModel {
         }
 
         this.noteListProperty = new SimpleListProperty<>();
-        this.startX = 10d;
+        this.startX = 0d;
         this.measureProperty = new SimpleObjectProperty<Measure>();
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
