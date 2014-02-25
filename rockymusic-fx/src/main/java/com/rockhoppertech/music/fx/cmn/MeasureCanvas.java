@@ -82,7 +82,13 @@ public class MeasureCanvas extends Region {
 
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
-                System.err.println("Mouse pressed at x " + me.getX());
+
+                logger.debug("Mouse pressed at x {} y {}", me.getX(), me.getY());
+                double beat = model.getBeatForX(me.getX());
+                logger.debug("beat {}", beat);
+                logger.debug(
+                        "beat in measure {}",
+                        model.getBeatInMeasureForX(me.getX()));
             }
         });
 
@@ -181,7 +187,7 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawBeatRectangles(boolean drawBeatRectangles) {
         this.model.setDrawBeatRectangles(drawBeatRectangles);
-        this.drawShapes();
+        // this.drawShapes();
     }
 
     /**
@@ -197,7 +203,7 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawTimeSignature(boolean drawTimeSignature) {
         this.model.setDrawTimeSignature(drawTimeSignature);
-        this.drawShapes();
+        // this.drawShapes();
     }
 
     /**
@@ -206,7 +212,7 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawClefs(boolean drawClefs) {
         this.model.setDrawClefs(drawClefs);
-        this.drawShapes();
+        // this.drawShapes();
     }
 
     /**
@@ -229,12 +235,12 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawKeySignature(boolean drawKeySignature) {
         this.model.setDrawKeySignature(drawKeySignature);
-        this.drawShapes();
+        // this.drawShapes();
     }
 
     public void setDrawBraces(boolean selected) {
         this.model.setDrawBraces(selected);
-        this.drawShapes();
+        // this.drawShapes();
     }
 
     BooleanProperty drawBeatsProperty = new SimpleBooleanProperty();
@@ -246,7 +252,7 @@ public class MeasureCanvas extends Region {
     /**
      * @return the drawBeatsProperty
      */
-    public Boolean getDrawBeats() {
+    public boolean getDrawBeats() {
         return drawBeatsProperty.get();
     }
 
