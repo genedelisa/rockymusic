@@ -29,6 +29,7 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -36,6 +37,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -46,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.Measure;
+import com.rockhoppertech.music.fx.cmn.MeasureCanvas;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
@@ -148,18 +151,25 @@ public class MeasureModel {
     private double bassStaffCenter;
 
     private MIDITrack track;
-    private DoubleProperty fontSizeProperty;
+
     private double firstNoteX;
-    private ObjectProperty<Measure> measureProperty;
 
-    private boolean clefDrawn = true;
-    private boolean timeSigDrawn = true;
-    private boolean keySigDrawn = true;
-    private int currentInsertBeat = 1;
+    // private int currentInsertBeat = 1;
     // show every beat?
-    private int showBeatModulus = 1;
+    // private int showBeatModulus = 1;
 
+    private DoubleProperty fontSizeProperty;
+    private ObjectProperty<Measure> measureProperty;
     private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
+    private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty();
+
+    private BooleanProperty drawKeySignatureProperty = new SimpleBooleanProperty(
+            true);
+    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(
+            true);
+    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
+
 
     public MeasureModel() {
 
@@ -175,7 +185,7 @@ public class MeasureModel {
         this.noteListProperty = new SimpleListProperty<>();
         this.startX = 0d;
         this.measureProperty = new SimpleObjectProperty<Measure>();
-        this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
+        this.fontSizeProperty = new SimpleDoubleProperty();
         this.setFontSize(48d);
         // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
 
@@ -187,6 +197,13 @@ public class MeasureModel {
 
         this.staffWidthProperty.bind(this.staffSymbolManager
                 .getStaffWidthProperty());
+        
+        this.drawBeatRectanglesProperty.bindBidirectional(this.staffSymbolManager.drawBeatsProperty());
+        this.drawBracesProperty.bindBidirectional(staffSymbolManager.drawBracesProperty());
+        this.drawClefsProperty.bindBidirectional(staffSymbolManager.drawClefsProperty());
+        this.drawTimeSignatureProperty.bindBidirectional(staffSymbolManager.drawTimeSignatureProperty());
+        this.drawKeySignatureProperty.bindBidirectional(staffSymbolManager.drawKeySignatureProperty());
+        
 
         // StaffSymbolManager.setStaffModel(this);
         // this.noteList = FXCollections.observableArrayList();
@@ -198,10 +215,12 @@ public class MeasureModel {
     }
 
     /**
-     * Retrieve the absolute beat for x. 
+     * Retrieve the absolute beat for x.
      * <p>
      * e.g. In 4/4, beat 1 of measure 2 would be 5.
-     * @param x the x location
+     * 
+     * @param x
+     *            the x location
      * @return the absolute beat
      */
     public double getBeatForX(double x) {
@@ -676,7 +695,7 @@ public class MeasureModel {
     /**
      * @return the measureProperty
      */
-    public ObjectProperty<Measure> getMeasureProperty() {
+    public ObjectProperty<Measure> measureProperty() {
         return measureProperty;
     }
 
@@ -698,7 +717,7 @@ public class MeasureModel {
     /**
      * @return the fontSizeProperty
      */
-    public DoubleProperty getFontSizeProperty() {
+    public DoubleProperty fontSizeProperty() {
         return fontSizeProperty;
     }
 
@@ -881,14 +900,15 @@ public class MeasureModel {
         this.noteList = FXCollections
                 .observableArrayList(this.measure.gettrack().getNotes());
         this.setNoteList(noteList);
+        this.measureProperty.set(measure);
 
         this.staffSymbolManager.setMeasureModel(this);
         // this.staffSymbolManager.setMeasure(measure);
     }
 
-    public void setShowBeats(boolean showBeats) {
-        this.staffSymbolManager.setShowBeats(showBeats);
-    }
+//    public void setShowBeats(boolean showBeats) {
+//        this.staffSymbolManager.setShowBeats(showBeats);
+//    }
 
     /**
      * @return the measure
@@ -908,15 +928,12 @@ public class MeasureModel {
         return beginningBarlineX;
     }
 
-    private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty();
-    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty();
-    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty();
-
     /**
      * @return the drawBeatRectangles
      */
     public boolean isDrawBeatRectangles() {
-        return this.staffSymbolManager.isDrawBeatRectangles();
+        return this.drawBeatRectanglesProperty.get();
+        //return this.staffSymbolManager.isDrawBeatRectangles();
     }
 
     /**
@@ -924,14 +941,20 @@ public class MeasureModel {
      *            the drawBeatRectangles to set
      */
     public void setDrawBeatRectangles(boolean drawBeatRectangles) {
-        this.staffSymbolManager.setDrawBeatRectangles(drawBeatRectangles);
+        this.drawBeatRectanglesProperty.set(drawBeatRectangles);
+
+       // this.staffSymbolManager.setDrawBeatRectangles(drawBeatRectangles);
+    }
+    public BooleanProperty drawBeatRectanglesProperty() {
+        return drawBeatRectanglesProperty;
     }
 
     /**
      * @return the drawTimeSignature
      */
     public boolean isDrawTimeSignature() {
-        return this.staffSymbolManager.isDrawTimeSignature();
+        return this.drawTimeSignatureProperty.get();
+        //return this.staffSymbolManager.isDrawTimeSignature();
     }
 
     /**
@@ -939,6 +962,7 @@ public class MeasureModel {
      *            the drawTimeSignature to set
      */
     public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.drawTimeSignatureProperty.set(drawTimeSignature);
         this.staffSymbolManager.setDrawTimeSignature(drawTimeSignature);
     }
 
@@ -947,6 +971,7 @@ public class MeasureModel {
      *            the drawClefs to set
      */
     public void setDrawClefs(boolean drawClefs) {
+        this.drawClefsProperty.set(drawClefs);
         this.staffSymbolManager.setDrawClefs(drawClefs);
     }
 
@@ -954,14 +979,16 @@ public class MeasureModel {
      * @return the drawKeySignature
      */
     public boolean isDrawClefs() {
-        return this.staffSymbolManager.isDrawClefs();
+        return this.drawClefsProperty.get();
+        //return this.staffSymbolManager.isDrawClefs();
     }
 
     /**
      * @return the drawKeySignature
      */
     public boolean isDrawKeySignature() {
-        return this.staffSymbolManager.isDrawKeySignature();
+        return this.drawKeySignatureProperty.get();
+        //return this.staffSymbolManager.isDrawKeySignature();
     }
 
     /**
@@ -969,17 +996,53 @@ public class MeasureModel {
      *            the drawKeySignature to set
      */
     public void setDrawKeySignature(boolean drawKeySignature) {
-        this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
+        this.drawKeySignatureProperty.set(drawKeySignature);
+        //this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
     }
 
     public void setDrawBraces(boolean selected) {
-        this.staffSymbolManager.setDrawBraces(selected);
+        this.drawBracesProperty.set(selected);
+        //this.staffSymbolManager.setDrawBraces(selected);
     }
 
     /**
      * @return the staffWidthProperty
      */
-    public DoubleProperty getStaffWidthProperty() {
+    public DoubleProperty staffWidthProperty() {
         return staffWidthProperty;
     }
+    
+    public Property<Boolean> drawKeySignatureProperty() {
+        return this.drawKeySignatureProperty;
+    }
+
+    public Property<Boolean> drawBracesProperty() {
+        return this.drawBracesProperty;
+    }
+
+    public Property<Boolean> drawTimeSignatureProperty() {
+        return drawTimeSignatureProperty;
+    }
+
+
+    public Property<Boolean> drawClefsProperty() {
+        return drawClefsProperty;
+    }
+
+    public boolean getDrawKeysignature() {
+        return this.drawKeySignatureProperty.get();
+    }
+
+    public boolean getDrawBraces() {
+        return this.drawBracesProperty.get();
+    }
+
+    public boolean getDrawTimeSignature() {
+        return drawTimeSignatureProperty.get();
+    }
+
+    public boolean getDrawClefs() {
+        return drawClefsProperty.get();
+    }
+
 }

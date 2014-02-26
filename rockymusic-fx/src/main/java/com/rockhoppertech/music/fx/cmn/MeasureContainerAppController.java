@@ -69,7 +69,6 @@ public class MeasureContainerAppController {
     // fx:id="fontSizeCombo"
     private ComboBox<Double> fontSizeCombo; // Value injected by FXMLLoader
 
-
     @FXML
     // fx:id="noteStringTextArea"
     private TextArea noteStringTextArea; // Value injected by FXMLLoader
@@ -100,7 +99,7 @@ public class MeasureContainerAppController {
 
     @FXML
     private ComboBox<String> keyComboBox;
-    
+
     @FXML
     private TextArea topTextArea;
 
@@ -116,10 +115,10 @@ public class MeasureContainerAppController {
 
     @FXML
     void drawBeats(ActionEvent event) {
-        drawBeatsCheckBox.selectedProperty().bindBidirectional(
-                measureParent.drawBeatsProperty());
-        this.measureParent
-                .setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
+
+        // this.measureParent
+        // .setDrawBeatRectangles(drawBeatsCheckBox.isSelected());
+
     }
 
     @FXML
@@ -152,7 +151,7 @@ public class MeasureContainerAppController {
         if (sequentialCheckBox.isSelected()) {
             track.sequential();
         }
-        
+
         String k = keyComboBox.getSelectionModel().getSelectedItem();
         if (k != null) {
 
@@ -222,8 +221,8 @@ public class MeasureContainerAppController {
         this.measureParent.setFontSize(size);
         this.measureParent.draw();
 
-       // measureCanvas.setFontSize(size);
-       // measureCanvas.drawShapes();
+        // measureCanvas.setFontSize(size);
+        // measureCanvas.drawShapes();
         // measureCanvas.setPrefSize(size * 1000d, size * 10d);
         // staffScrollPane.setPrefSize(size * 1000d, size * 10d);
 
@@ -233,7 +232,7 @@ public class MeasureContainerAppController {
 
     @FXML
     void staffMousePressed(MouseEvent event) {
-        //pitch = measureParent.whichNote(event.getY());
+        // pitch = measureParent.whichNote(event.getY());
         pitch = measureParent.whichNote(event.getY());
         if (pitch < 0 || pitch > 127) {
             return;
@@ -253,7 +252,7 @@ public class MeasureContainerAppController {
 
         logger.debug("pitch {} spelling '{}'", p, preferredSpelling);
         noteStringTextArea.appendText(preferredSpelling);
-//        measureParent.addNote(pitch);
+        // measureParent.addNote(pitch);
     }
 
     @FXML
@@ -272,7 +271,8 @@ public class MeasureContainerAppController {
         // assert midiReceiver != null :
         // "fx:id=\"midiReceiver\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert noteStringTextArea != null : "fx:id=\"noteStringTextArea\" was not injected: check your FXML file 'MeasureApp.fxml'.";
-        //assert measureCanvas != null : "fx:id=\"measureCanvas\" was not injected: check your FXML file 'MeasureApp.fxml'.";
+        // assert measureCanvas != null :
+        // "fx:id=\"measureCanvas\" was not injected: check your FXML file 'MeasureApp.fxml'.";
         assert measureParent != null : "fx:id=\"measureParent\" was not injected: check your FXML file 'MeasureApp.fxml'.";
 
         // Initialize your logic here: all @FXML variables will have been
@@ -281,16 +281,30 @@ public class MeasureContainerAppController {
         // noteStringTextArea.setText("s+ c,s c#,s df,s d,s ef,s e,s f,s f#,s gf,s g,s g#,s af,s a,s a#,s bb,s b,s");
         noteStringTextArea
                 .setText("s+ c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x c,x ");
-        
-        noteStringTextArea
-        .setText("X15 (c d e) ");
 
-      
+        noteStringTextArea
+                .setText("X15 (c d e) ");
+
         fontSizeCombo.getItems().addAll(12d, 18d, 24d, 36d, 48d, 72d, 96d);
         fontSizeCombo.getSelectionModel().select(4);
 
-        //measureCanvas.setFontSize(48d);
-        //measureCanvas.drawShapes();
+        drawBeatsCheckBox.selectedProperty().bindBidirectional(
+                measureParent.drawBeatsProperty());
+
+        drawBracesCheckBox.selectedProperty().bindBidirectional(
+                measureParent.drawBracesProperty());
+
+        drawClefCheckBox.selectedProperty().bindBidirectional(
+                measureParent.drawClefsProperty());
+
+        drawKeySignatureKeySignatureCheckBox.selectedProperty()
+                .bindBidirectional(measureParent.drawKeysignatureProperty());
+
+        drawTimeSignatureCheckBox.selectedProperty().bindBidirectional(
+                measureParent.drawTimeSignatureProperty());
+
+        // measureCanvas.setFontSize(48d);
+        // measureCanvas.drawShapes();
 
         this.measureParent.setFontSize(48d);
         this.measureParent.draw();

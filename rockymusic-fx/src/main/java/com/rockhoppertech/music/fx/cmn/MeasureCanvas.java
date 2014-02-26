@@ -50,9 +50,19 @@ public class MeasureCanvas extends Region {
 
     private Measure measure;
     private MeasureModel model;
+    private BooleanProperty drawBeatsProperty = new SimpleBooleanProperty(false);
+    private BooleanProperty selectedProperty = new SimpleBooleanProperty(false);
 
+    private BooleanProperty drawKeysignatureProperty = new SimpleBooleanProperty(
+            true);
+    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(
+            true);
+    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
+
+    
     // draw rectangles where the beats are
-    private boolean showBeats = true;
+   // private boolean showBeats = true;
 
     public MeasureCanvas() {
         this.setWidth(1800d);
@@ -64,7 +74,7 @@ public class MeasureCanvas extends Region {
         this.model.setStaffWidth(this.getWidth() - 10d);
 
         this.model
-                .getStaffWidthProperty().addListener(
+                .staffWidthProperty().addListener(
                         new ChangeListener<Number>() {
                             @Override
                             public void changed(
@@ -76,12 +86,34 @@ public class MeasureCanvas extends Region {
                                 logger.debug("new staff width {}", newval);
                             }
                         });
+        
+//        private BooleanProperty drawBeatsProperty = new SimpleBooleanProperty(true);
+
+        this.drawBeatsProperty.bindBidirectional(this.model.drawBeatRectanglesProperty());
+        
+        this.model.drawBeatRectanglesProperty().addListener(
+                new ChangeListener<Boolean>() {
+
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Boolean> arg0,
+                            Boolean arg1, Boolean arg2) {
+                        logger.debug("draw beats changed {}", arg2);
+                        drawShapes();
+                    }
+                });
 
         // so we can see where things are. debugging
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
 
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
+                selectedProperty.set(!selectedProperty.get());
+                if(selectedProperty.get()) {
+                    setSelectedStyle();
+                } else {
+                    setNormalStyle();
+                }
 
                 logger.debug("Mouse pressed at x {} y {}", me.getX(), me.getY());
                 double beat = model.getBeatForX(me.getX());
@@ -89,9 +121,19 @@ public class MeasureCanvas extends Region {
                 logger.debug(
                         "beat in measure {}",
                         model.getBeatInMeasureForX(me.getX()));
+                logger.debug(
+                        "pitch {}",
+                        model.whichNote(me.getY()));
             }
         });
 
+    }
+    public void setNormalStyle() {
+        this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
+    }
+    
+    public void setSelectedStyle() {
+        this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: red; -fx-border-width: 2px;");
     }
 
     /**
@@ -110,23 +152,7 @@ public class MeasureCanvas extends Region {
         this.model.setMeasure(measure);
     }
 
-    /**
-     * @return the showBeats
-     */
-    public boolean isShowBeats() {
-        return showBeats;
-    }
-
-    /**
-     * @param showBeats
-     *            the showBeats to set
-     */
-    public void setShowBeats(boolean showBeats) {
-        this.showBeats = showBeats;
-        this.model.setShowBeats(showBeats);
-    }
-
-    public int whichNote(double y) {
+     public int whichNote(double y) {
         return this.model.whichNote(y);
     }
 
@@ -141,6 +167,7 @@ public class MeasureCanvas extends Region {
 
     public void drawShapes() {
         this.getChildren().clear();
+
         // double width = this.getWidth();
         // this.model.setStaffWidth(this.getWidth());
 
@@ -243,8 +270,27 @@ public class MeasureCanvas extends Region {
         // this.drawShapes();
     }
 
-    BooleanProperty drawBeatsProperty = new SimpleBooleanProperty();
-
+    
+    public BooleanProperty selectedProperty() {
+        return selectedProperty;
+    }
+    public boolean isSelected() {
+        return selectedProperty.get();
+    }
+    
+    public BooleanProperty drawKeysignatureProperty() {
+        return drawKeysignatureProperty;
+    }
+    public BooleanProperty drawTimeSignatureProperty() {
+        return drawTimeSignatureProperty;
+    }
+    public BooleanProperty drawClefsProperty() {
+        return drawClefsProperty;
+    }
+    public BooleanProperty drawBracesProperty() {
+        return drawBracesProperty;
+    }
+    
     public BooleanProperty drawBeatsProperty() {
         return drawBeatsProperty;
     }
@@ -262,5 +308,18 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawBeats(boolean drawBeats) {
         this.drawBeatsProperty.set(drawBeats);
+       // if(drawBeats) this.model.setShowBeats(drawBeats);
+    }
+    /**
+     * @return the model
+     */
+    public MeasureModel getModel() {
+        return model;
+    }
+    /**
+     * @param model the model to set
+     */
+    public void setModel(MeasureModel model) {
+        this.model = model;
     }
 }

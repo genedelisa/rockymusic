@@ -27,6 +27,7 @@ import java.util.Scanner;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -106,18 +107,20 @@ public class MeasureSymbolManager {
 
     private boolean drawTimeSignature;
 
-    private BooleanProperty drawBeatRectanglesProperty = new SimpleBooleanProperty(
-            drawBeatRectangles);
-    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(
-            drawTimeSignature);
-    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(
-            drawClefs);
+    // private BooleanProperty drawBeatRectanglesProperty = new
+    // SimpleBooleanProperty(
+    // drawBeatRectangles);
+    // private BooleanProperty drawTimeSignatureProperty = new
+    // SimpleBooleanProperty(
+    // drawTimeSignature);
+    // private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(
+    // drawClefs);
 
     private boolean drawBrace;
     private BooleanProperty drawBraceProperty = new SimpleBooleanProperty(
             drawBrace);
 
-    private double beatPadding;
+    // private double beatPadding;
 
     DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
 
@@ -1659,7 +1662,7 @@ public class MeasureSymbolManager {
         t.setFont(this.model.getFont());
         this.beatSpacing = t.getLayoutBounds().getWidth();
 
-        this.beatPadding = this.quarterNoteWidth;
+        // this.beatPadding = this.quarterNoteWidth;
 
         logger.debug("quarter note width {}", quarterNoteWidth);
         logger.debug("gclefWidth  width {}", gclefWidth);
@@ -1917,7 +1920,7 @@ public class MeasureSymbolManager {
 
         calcMetrics();
 
-        model.getFontSizeProperty().addListener(
+        model.fontSizeProperty().addListener(
                 new ChangeListener<Number>() {
                     @Override
                     public void changed(
@@ -1928,13 +1931,70 @@ public class MeasureSymbolManager {
                     }
                 });
 
-        model.getMeasureProperty().addListener(new ChangeListener<Measure>() {
+        model.staffWidthProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+
+                    }
+                });
+
+        model.measureProperty().addListener(new ChangeListener<Measure>() {
             @Override
             public void changed(ObservableValue<? extends Measure> observable,
                     Measure oldValue, Measure newValue) {
                 setMeasure(newValue);
             }
 
+        });
+
+        model.drawBeatRectanglesProperty().addListener(
+                new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Boolean> observable,
+                            Boolean oldValue, Boolean newValue) {
+                        drawBeatRectangles = true;
+                        refresh();
+                    }
+                });
+        model.drawKeySignatureProperty().addListener(
+                new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Boolean> observable,
+                            Boolean oldValue, Boolean newValue) {
+                        drawKeySignature = newValue;
+                        refresh();
+                    }
+                });
+        model.drawTimeSignatureProperty().addListener(
+                new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Boolean> observable,
+                            Boolean oldValue, Boolean newValue) {
+                        drawTimeSignature = true;
+                        refresh();
+                    }
+                });
+        model.drawClefsProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable,
+                    Boolean oldValue, Boolean newValue) {
+                drawClefs = true;
+                refresh();
+            }
+        });
+        model.drawBracesProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable,
+                    Boolean oldValue, Boolean newValue) {
+                drawBrace = true;
+                refresh();
+            }
         });
 
         // this.drawBeatRectanglesProperty.bind(this.model.getDrawBeatRectanglesProperty());
@@ -1944,11 +2004,37 @@ public class MeasureSymbolManager {
         refresh();
     }
 
+    private BooleanProperty drawBeatsProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawKeySignatureProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
+    
+    BooleanProperty drawBeatsProperty() {
+        return drawBeatsProperty;
+    }
+
+    BooleanProperty drawTimeSignatureProperty() {
+        return drawTimeSignatureProperty;
+    }
+
+    BooleanProperty drawKeySignatureProperty() {
+        return drawKeySignatureProperty;
+    }
+    
+    BooleanProperty drawClefsProperty() {
+        return drawClefsProperty;
+    }
+
+    BooleanProperty drawBracesProperty() {
+        return drawBracesProperty;
+    }
+
     /**
      * @return the shapes
      */
     public List<Shape> getShapes() {
-        if (this.drawBeatRectangles) {
+        if (this.drawBeatsProperty.get()) {
             shapes.addAll(this.beatRectangles);
         }
         return shapes;
@@ -2126,9 +2212,9 @@ public class MeasureSymbolManager {
         return advance;
     }
 
-    public void setShowBeats(boolean showBeats) {
-        this.drawBeatRectangles = showBeats;
-    }
+    // public void setShowBeats(boolean showBeats) {
+    // this.drawBeatRectangles = showBeats;
+    // }
 
     public void setStaffWidth(double width) {
         this.staffWidth = width;
@@ -2642,69 +2728,70 @@ public class MeasureSymbolManager {
         refresh();
     }
 
-    /**
-     * @return the drawBeatRectanglesProperty
-     */
-    public BooleanProperty getDrawBeatRectanglesProperty() {
-        return drawBeatRectanglesProperty;
-    }
-
-    /**
-     * @param drawBeatRectanglesProperty
-     *            the drawBeatRectanglesProperty to set
-     */
-    public void setDrawBeatRectanglesProperty(
-            BooleanProperty drawBeatRectanglesProperty) {
-        this.drawBeatRectanglesProperty = drawBeatRectanglesProperty;
-    }
-
-    /**
-     * @return the drawTimeSignatureProperty
-     */
-    public BooleanProperty getDrawTimeSignatureProperty() {
-        return drawTimeSignatureProperty;
-    }
-
-    /**
-     * @param drawTimeSignatureProperty
-     *            the drawTimeSignatureProperty to set
-     */
-    public void setDrawTimeSignatureProperty(
-            BooleanProperty drawTimeSignatureProperty) {
-        this.drawTimeSignatureProperty = drawTimeSignatureProperty;
-    }
-
-    /**
-     * @return the drawClefsProperty
-     */
-    public BooleanProperty getDrawClefsProperty() {
-        return drawClefsProperty;
-    }
-
-    /**
-     * @param drawClefsProperty
-     *            the drawClefsProperty to set
-     */
-    public void setDrawClefsProperty(BooleanProperty drawClefsProperty) {
-        this.drawClefsProperty = drawClefsProperty;
-    }
-
-    /**
-     * @return the drawBraceProperty
-     */
-    public BooleanProperty getDrawBraceProperty() {
-        return drawBraceProperty;
-    }
-
-    /**
-     * @param drawBraceProperty
-     *            the drawBraceProperty to set
-     */
-    public void setDrawBraceProperty(BooleanProperty drawBraceProperty) {
-        this.drawBraceProperty = drawBraceProperty;
-    }
+    // /**
+    // * @return the drawBeatRectanglesProperty
+    // */
+    // public BooleanProperty drawBeatRectanglesProperty() {
+    // return drawBeatRectanglesProperty;
+    // }
+    //
+    // /**
+    // * @param drawBeatRectanglesProperty
+    // * the drawBeatRectanglesProperty to set
+    // */
+    // public void setDrawBeatRectanglesProperty(
+    // BooleanProperty drawBeatRectanglesProperty) {
+    // this.drawBeatRectanglesProperty = drawBeatRectanglesProperty;
+    // }
+    //
+    // /**
+    // * @return the drawTimeSignatureProperty
+    // */
+    // public BooleanProperty drawTimeSignatureProperty() {
+    // return drawTimeSignatureProperty;
+    // }
+    //
+    // /**
+    // * @param drawTimeSignatureProperty
+    // * the drawTimeSignatureProperty to set
+    // */
+    // public void setDrawTimeSignatureProperty(
+    // BooleanProperty drawTimeSignatureProperty) {
+    // this.drawTimeSignatureProperty = drawTimeSignatureProperty;
+    // }
+    //
+    // /**
+    // * @return the drawClefsProperty
+    // */
+    // public BooleanProperty drawClefsProperty() {
+    // return drawClefsProperty;
+    // }
+    //
+    // /**
+    // * @param drawClefsProperty
+    // * the drawClefsProperty to set
+    // */
+    // public void setDrawClefsProperty(BooleanProperty drawClefsProperty) {
+    // this.drawClefsProperty = drawClefsProperty;
+    // }
+    //
+    // /**
+    // * @return the drawBraceProperty
+    // */
+    // public BooleanProperty getDrawBraceProperty() {
+    // return drawBraceProperty;
+    // }
+    //
+    // /**
+    // * @param drawBraceProperty
+    // * the drawBraceProperty to set
+    // */
+    // public void setDrawBraceProperty(BooleanProperty drawBraceProperty) {
+    // this.drawBraceProperty = drawBraceProperty;
+    // }
 
     public void setDrawBraces(boolean selected) {
+        // this.drawBraceProperty.set(selected);
         this.drawBrace = selected;
         refresh();
     }

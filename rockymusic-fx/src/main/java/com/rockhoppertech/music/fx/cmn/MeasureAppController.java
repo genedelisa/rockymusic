@@ -290,6 +290,21 @@ public class MeasureAppController {
 
         measureCanvas.setFontSize(48d);
         measureCanvas.drawShapes();
+        
+        drawBeatsCheckBox.selectedProperty().bindBidirectional(
+                measureCanvas.drawBeatsProperty());
+
+        drawBracesCheckBox.selectedProperty().bindBidirectional(
+                measureCanvas.drawBracesProperty());
+
+        drawClefCheckBox.selectedProperty().bindBidirectional(
+                measureCanvas.drawClefsProperty());
+
+        drawKeySignatureKeySignatureCheckBox.selectedProperty()
+                .bindBidirectional(measureCanvas.drawKeysignatureProperty());
+
+        drawTimeSignatureCheckBox.selectedProperty().bindBidirectional(
+                measureCanvas.drawTimeSignatureProperty());
 
         // grandStaff.boundsInLocalProperty().addListener(
         // new ChangeListener<Bounds>() {
