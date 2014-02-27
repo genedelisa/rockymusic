@@ -95,7 +95,7 @@ public class DurationToggleController {
         }
     }
 
-    private DoubleProperty durationProperty = new SimpleDoubleProperty();
+    private DoubleProperty durationProperty = new SimpleDoubleProperty(1d);
 
     public DoubleProperty durationProperty() {
         return durationProperty;
