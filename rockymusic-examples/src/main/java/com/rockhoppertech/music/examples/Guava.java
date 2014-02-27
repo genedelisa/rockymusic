@@ -65,7 +65,42 @@ public class Guava {
     public static void main(String[] args) {
         // composed();
         // permute();
-        toNotes();
+        //toNotes();
+        ranges();
+    }
+
+    public static void ranges() {
+        RangeSet<Double> set = TreeRangeSet.create();
+//        for (double i = 1d; i < 4d; i++) {
+//            set.add(Range.closed(i, i + 1d));
+//        }
+        
+        set.add(Range.closed(1d, 4d));
+        logger.debug("the set {}", set);
+        
+        set.remove(Range.closed(2.5, 3d));
+        logger.debug("after remove: set {}", set);
+        RangeSet<Double> comp = set.complement();
+        logger.debug("after remove: set comp {}", comp);
+
+        Range<Double> first = Iterables.getFirst(set.asRanges(), null);
+        logger.debug("first {}", first);
+        
+        //Iterables.
+        
+        for(Range<Double> r : set.asRanges()) {
+            logger.debug("iterated range {}", r);
+        }
+
+
+//lowerEndpoint();
+        
+                set.clear();
+        set.add(Range.open(1d, 4d));
+        comp = set.complement();
+        logger.debug("open comp {}", comp);
+        
+
     }
 
     public static void composed() {
