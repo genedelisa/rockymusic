@@ -11,10 +11,10 @@
 <?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar?>
 <?scenebuilder-classpath-element ../../../../../rockymusic-core/target/classes?>
 <?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar?>
-
+<?scenebuilder-classpath-element ../../../../../../../../../.m2/repository/com/google/guava/guava/16.0.1/guava-16.0.1.jar?>
 <fx:root type="AnchorPane" prefHeight="786.0" prefWidth="855.0000999999975" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.MeasureAppController">
   <children>
-    <BorderPane prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <BorderPane fx:id="borderPane" prefHeight="282.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <bottom>
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
           <children>
