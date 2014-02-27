@@ -27,7 +27,6 @@ import java.util.Scanner;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -50,6 +49,9 @@ import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.Range;
+import com.google.common.collect.RangeSet;
+import com.google.common.collect.TreeRangeSet;
 import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
@@ -187,6 +189,7 @@ public class MeasureSymbolManager {
         if (noteList.isEmpty()) {
             return;
         }
+        logger.debug("notelist {}", this.noteList);
 
         // TODO this doesn't cover initial rests i.e. when start beat > 1
         // TODO rests > 5 beats long don't work well
@@ -195,34 +198,50 @@ public class MeasureSymbolManager {
         double gap = firstNote.getStartBeat() - 1d;
         double eb = 1d;
 
+        double beats = (double) measure.getTimeSignature().getNumerator();
+        RangeSet<Double> durSet = TreeRangeSet.create();
+        durSet.add(Range.closed(1d, beats));
+        logger.debug("initial durSet {} beats {}", durSet, beats);
+
         for (MIDINote note : noteList) {
 
-            // x = getXofBeatN(note.getStartBeat());
+            Range<Double> noteRange = Range.closed(
+                    note.getStartBeat(),
+                    note.getEndBeat());
+            durSet.remove(noteRange);
+            logger.debug("durSet {} after removing {}", durSet, noteRange);
 
             logger.debug(
                     "beat {} beat in measure {}",
                     note.getStartBeat(),
                     measure.getBeatInMeasure(note));
 
+            // figure out if there is a rest
+            double sb = note.getStartBeat();
+            if (sb > 1d) {
+                eb = previousNote.getEndBeat();
+            }
+            gap = sb - eb;
+            double restbeat = (sb - gap) - this.measure.getStartBeat() + 1d;
+            x = getXofBeatN(restbeat);
+            logger.debug(
+                    "sb {} eb {} gap {} x {} restbeat {}",
+                    sb,
+                    eb,
+                    gap,
+                    x,
+                    restbeat);
+            if (gap > 0) {
+                int pitch = note.getPitch().getMidiNumber();
+                x = addRests(x, gap, pitch);
+                x += model.getFontSize() / 2d;
+                logger.debug("x {} after adding rest", x);
+            } else {
+                x += model.getFontSize() / 2d;
+            }
+
+            // now worry about the note
             x = getXofBeatN(measure.getBeatInMeasure(note));
-
-            // double sb = note.getStartBeat();
-            //
-            // if (sb > 1d) {
-            // eb = previousNote.getEndBeat();
-            // }
-            // gap = sb - eb;
-            //
-            // logger.debug("sb {} eb {} gap {} x {}", sb, eb, gap, x);
-            // if (gap > 0) {
-            // int pitch = note.getPitch().getMidiNumber();
-            // x = addRests(x, gap, pitch);
-            // x += model.getFontSize() / 2d;
-            // logger.debug("x {} after adding rest", x);
-            // } else {
-            // x += model.getFontSize() / 2d;
-            // }
-
             // x = createSymbol(note, x);
             x = createStaffSymbol(note, x);
 
@@ -238,12 +257,24 @@ public class MeasureSymbolManager {
             previousNote = note;
         }
 
+        logger.debug("final durSet {}", durSet);
+        if (!durSet.isEmpty()) {
+            // then there are rests
+            for (Range<Double> restRange : durSet.asRanges()) {
+                logger.debug("restRange {}", restRange);
+            }
+        }
+
         // push all the x locations to be the previous x + width
         // make sure all the rects are large enough, adjust widths and x
         // locations.
         enlargeBeatRectangles();
         // resize the staves to the new rectangles
         createStaves();
+    }
+
+    double addRests(double x, Range<Double> restRange, int pitch) {
+        return x;
     }
 
     double addRests(double x, double gap, int pitch) {
@@ -263,6 +294,7 @@ public class MeasureSymbolManager {
             // position is middle line
             double restYposition = 0d;
             // TODO quarter rest is ok. fix the other positions
+
             if (restDur == 4d) {
                 glyph = SymbolFactory.restWhole();
                 if (pitch < 60) {
@@ -331,11 +363,11 @@ public class MeasureSymbolManager {
 
                 if (pitch < 60) {
                     restYposition = model.bassMidiNumToY(
-                            Pitch.E4,
+                            Pitch.D4,
                             false);
                 } else {
                     restYposition = model.trebleMidiNumToY(
-                            Pitch.C6,
+                            Pitch.B5,
                             false);
                 }
                 Text text = addText(x, restYposition, glyph);
@@ -502,13 +534,13 @@ public class MeasureSymbolManager {
         int index = (int) Math.floor(measure.getBeatInMeasure(note)) - 1;
 
         Rectangle beatRectangle = this.beatRectangles.get(index);
-        logger.debug(
-                "beat rect for index {} the rectangle x {} y {} w {} h {}",
-                index,
-                beatRectangle.getX(),
-                beatRectangle.getY(),
-                beatRectangle.getWidth(),
-                beatRectangle.getHeight());
+        // logger.debug(
+        // "beat rect for index {} the rectangle x {} y {} w {} h {}",
+        // index,
+        // beatRectangle.getX(),
+        // beatRectangle.getY(),
+        // beatRectangle.getWidth(),
+        // beatRectangle.getHeight());
 
         // let's try without. remove calls if this works.
         beatRectangle = new Rectangle();
@@ -1702,6 +1734,14 @@ public class MeasureSymbolManager {
         return x;
     }
 
+    /**
+     * Get the beat for x. Ignores fractional beats.
+     * 
+     * @param x
+     *            the x location
+     * @return the rounded beat
+     * @see #getBeatFractionForX(double)
+     */
     public double getBeatForX(double x) {
         double beat = 0d;
         for (Rectangle r : this.beatRectangles) {
@@ -1715,6 +1755,30 @@ public class MeasureSymbolManager {
                     r.getWidth(),
                     r.getHeight());
             if (r.contains(x, model.getStaffBottom())) {
+                break;
+            }
+        }
+        return beat;
+    }
+
+    /**
+     * Return the beat plus fraction of the beat.
+     * 
+     * @param x
+     *            the x location
+     * @return the exact beat
+     */
+    public double getBeatFractionForX(double x) {
+        double beat = 0d;
+        //x -= model.getFirstNoteX();
+        for (Rectangle r : this.beatRectangles) {
+            beat++;
+            if (r.contains(x, model.getStaffBottom())) {
+                logger.debug("x {} is contained at beat {}", x, beat);
+                double fraction = (x - model.getFirstNoteX()) / r.getWidth() - beat;
+                logger.debug("beat fraction {}", fraction);
+                beat += fraction;
+                beat++; // beats are 1 based
                 break;
             }
         }
@@ -2006,10 +2070,12 @@ public class MeasureSymbolManager {
 
     private BooleanProperty drawBeatsProperty = new SimpleBooleanProperty(true);
     private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
-    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(true);
-    private BooleanProperty drawKeySignatureProperty = new SimpleBooleanProperty(true);
+    private BooleanProperty drawTimeSignatureProperty = new SimpleBooleanProperty(
+            true);
+    private BooleanProperty drawKeySignatureProperty = new SimpleBooleanProperty(
+            true);
     private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
-    
+
     BooleanProperty drawBeatsProperty() {
         return drawBeatsProperty;
     }
@@ -2021,7 +2087,7 @@ public class MeasureSymbolManager {
     BooleanProperty drawKeySignatureProperty() {
         return drawKeySignatureProperty;
     }
-    
+
     BooleanProperty drawClefsProperty() {
         return drawClefsProperty;
     }

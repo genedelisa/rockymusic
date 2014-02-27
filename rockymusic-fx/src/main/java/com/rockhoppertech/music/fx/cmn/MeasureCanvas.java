@@ -23,10 +23,13 @@ package com.rockhoppertech.music.fx.cmn;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
@@ -37,8 +40,10 @@ import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.rockhoppertech.music.Duration;
 import com.rockhoppertech.music.fx.cmn.model.MeasureModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
+import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -60,9 +65,24 @@ public class MeasureCanvas extends Region {
     private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
     private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
 
-    
+    private DoubleProperty inputNoteDurationProperty = new SimpleDoubleProperty();
+
+    DoubleProperty inputNoteDurationProperty() {
+        return inputNoteDurationProperty;
+    }
+
+    public void setInputNoteDuration(double inputNoteDuration) {
+        this.inputNoteDurationProperty.set(inputNoteDuration);
+    }
+
+    public double getInputNoteDuration() {
+        return inputNoteDurationProperty.get();
+    }
+
+    private MIDINote inputNote;
+
     // draw rectangles where the beats are
-   // private boolean showBeats = true;
+    // private boolean showBeats = true;
 
     public MeasureCanvas() {
         this.setWidth(1800d);
@@ -83,14 +103,18 @@ public class MeasureCanvas extends Region {
                                 setWidth(newval.doubleValue());
                                 setPrefWidth(newval.doubleValue());
                                 // requestLayout();
-                                logger.debug("new staff width {}", newval);
+                                logger.debug(
+                                        "new pref width from staff width {}",
+                                        newval);
                             }
                         });
-        
-//        private BooleanProperty drawBeatsProperty = new SimpleBooleanProperty(true);
 
-        this.drawBeatsProperty.bindBidirectional(this.model.drawBeatRectanglesProperty());
-        
+        // private BooleanProperty drawBeatsProperty = new
+        // SimpleBooleanProperty(true);
+
+        this.drawBeatsProperty.bindBidirectional(this.model
+                .drawBeatRectanglesProperty());
+
         this.model.drawBeatRectanglesProperty().addListener(
                 new ChangeListener<Boolean>() {
 
@@ -107,9 +131,10 @@ public class MeasureCanvas extends Region {
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
 
         this.setOnMousePressed(new EventHandler<MouseEvent>() {
+
             public void handle(MouseEvent me) {
                 selectedProperty.set(!selectedProperty.get());
-                if(selectedProperty.get()) {
+                if (selectedProperty.get()) {
                     setSelectedStyle();
                 } else {
                     setNormalStyle();
@@ -124,14 +149,73 @@ public class MeasureCanvas extends Region {
                 logger.debug(
                         "pitch {}",
                         model.whichNote(me.getY()));
+
+                //
+                inputNote = new MIDINote(model.whichNote(me.getY()),
+                        model.getBeatFractionInMeasureForX(me.getX()),
+                        getInputNoteDuration()
+                        );
+                logger.debug("adding new note {}", inputNote);
+                getModel().addNote(inputNote);
+                drawShapes();
+                logger.debug("new notelist {}",
+                        getModel().getNoteList());
+            }
+        });
+
+        this.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent me) {
+                double b = model.getBeatFractionInMeasureForX(me.getX());
+                //double q = quantize(b, .5);
+                double q = quantize(b, getInputNoteDuration());
+
+                logger.debug("x {}", me.getX());
+                logger.debug(
+                        "beat {} quantized {}",
+                        b, q);
+                // logger.debug("note {}", model.whichNote(me.getY()));
+            }
+        });
+
+        // why doesn't this work?
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                case A:
+                    logger.debug("pressed a");
+                    break;
+                case UP:
+                    logger.debug("pressed up");
+                    if (inputNote != null) {
+                        inputNote.transpose(1);
+                        logger.debug("transposed {}", inputNote);
+                    }
+                    break;
+                case DOWN:
+                    break;
+                case LEFT:
+                    break;
+                case RIGHT:
+                    break;
+                case SHIFT:
+                    break;
+                default:
+                    break;
+                }
             }
         });
 
     }
+
+    double quantize(double value, double q) {
+        return Math.floor(value / q) * q;
+    }
+
     public void setNormalStyle() {
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
     }
-    
+
     public void setSelectedStyle() {
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: red; -fx-border-width: 2px;");
     }
@@ -152,7 +236,7 @@ public class MeasureCanvas extends Region {
         this.model.setMeasure(measure);
     }
 
-     public int whichNote(double y) {
+    public int whichNote(double y) {
         return this.model.whichNote(y);
     }
 
@@ -270,27 +354,30 @@ public class MeasureCanvas extends Region {
         // this.drawShapes();
     }
 
-    
     public BooleanProperty selectedProperty() {
         return selectedProperty;
     }
+
     public boolean isSelected() {
         return selectedProperty.get();
     }
-    
+
     public BooleanProperty drawKeysignatureProperty() {
         return drawKeysignatureProperty;
     }
+
     public BooleanProperty drawTimeSignatureProperty() {
         return drawTimeSignatureProperty;
     }
+
     public BooleanProperty drawClefsProperty() {
         return drawClefsProperty;
     }
+
     public BooleanProperty drawBracesProperty() {
         return drawBracesProperty;
     }
-    
+
     public BooleanProperty drawBeatsProperty() {
         return drawBeatsProperty;
     }
@@ -308,16 +395,19 @@ public class MeasureCanvas extends Region {
      */
     public void setDrawBeats(boolean drawBeats) {
         this.drawBeatsProperty.set(drawBeats);
-       // if(drawBeats) this.model.setShowBeats(drawBeats);
+        // if(drawBeats) this.model.setShowBeats(drawBeats);
     }
+
     /**
      * @return the model
      */
     public MeasureModel getModel() {
         return model;
     }
+
     /**
-     * @param model the model to set
+     * @param model
+     *            the model to set
      */
     public void setModel(MeasureModel model) {
         this.model = model;

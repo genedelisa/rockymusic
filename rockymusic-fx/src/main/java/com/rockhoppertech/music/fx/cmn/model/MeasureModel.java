@@ -37,7 +37,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -48,9 +47,9 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.fx.cmn.Measure;
-import com.rockhoppertech.music.fx.cmn.MeasureCanvas;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
+import com.rockhoppertech.music.midi.js.TimeSignature;
 
 import static com.rockhoppertech.music.Pitch.*;
 
@@ -170,9 +169,11 @@ public class MeasureModel {
     private BooleanProperty drawClefsProperty = new SimpleBooleanProperty(true);
     private BooleanProperty drawBracesProperty = new SimpleBooleanProperty(true);
 
-
     public MeasureModel() {
 
+        this.measure = new Measure();
+        this.measure.setTimeSignature(new TimeSignature(4,4));
+        
         fontSize = 48d;
         font = Font.loadFont(
                 MeasureModel.class.getResource("/fonts/Bravura.otf")
@@ -182,28 +183,32 @@ public class MeasureModel {
             throw new IllegalStateException("music font not found");
         }
 
-        this.noteListProperty = new SimpleListProperty<>();
+        this.noteList = FXCollections.observableArrayList();
+        this.noteListProperty = new SimpleListProperty<>(this.noteList);
         this.startX = 0d;
-        this.measureProperty = new SimpleObjectProperty<Measure>();
-        this.fontSizeProperty = new SimpleDoubleProperty();
+        this.measureProperty = new SimpleObjectProperty<Measure>(this.measure);
+        this.fontSizeProperty = new SimpleDoubleProperty(48d);
         this.setFontSize(48d);
         // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
-
-        this.staffSymbolManager = new MeasureSymbolManager();
         this.setClef(Clef.TREBLE);
-
-        this.staffSymbolManager.setMeasureModel(this);
+        
+        this.staffSymbolManager = new MeasureSymbolManager();
+                this.staffSymbolManager.setMeasureModel(this);
         this.staffSymbolManager.refresh();
 
         this.staffWidthProperty.bind(this.staffSymbolManager
                 .getStaffWidthProperty());
-        
-        this.drawBeatRectanglesProperty.bindBidirectional(this.staffSymbolManager.drawBeatsProperty());
-        this.drawBracesProperty.bindBidirectional(staffSymbolManager.drawBracesProperty());
-        this.drawClefsProperty.bindBidirectional(staffSymbolManager.drawClefsProperty());
-        this.drawTimeSignatureProperty.bindBidirectional(staffSymbolManager.drawTimeSignatureProperty());
-        this.drawKeySignatureProperty.bindBidirectional(staffSymbolManager.drawKeySignatureProperty());
-        
+
+        this.drawBeatRectanglesProperty
+                .bindBidirectional(this.staffSymbolManager.drawBeatsProperty());
+        this.drawBracesProperty.bindBidirectional(staffSymbolManager
+                .drawBracesProperty());
+        this.drawClefsProperty.bindBidirectional(staffSymbolManager
+                .drawClefsProperty());
+        this.drawTimeSignatureProperty.bindBidirectional(staffSymbolManager
+                .drawTimeSignatureProperty());
+        this.drawKeySignatureProperty.bindBidirectional(staffSymbolManager
+                .drawKeySignatureProperty());
 
         // StaffSymbolManager.setStaffModel(this);
         // this.noteList = FXCollections.observableArrayList();
@@ -211,6 +216,7 @@ public class MeasureModel {
     }
 
     public void setStaffWidth(double width) {
+        //this.staffWidthProperty().set(width);
         this.staffSymbolManager.setStaffWidth(width);
     }
 
@@ -230,6 +236,15 @@ public class MeasureModel {
 
     public double getBeatInMeasureForX(double x) {
         return this.staffSymbolManager.getBeatForX(x);
+    }
+    
+    public double getBeatFractionInMeasureForX(double x) {
+        return this.staffSymbolManager.getBeatFractionForX(x);
+    }
+    
+    public double getBeatFractionForX(double x) {
+        return this.staffSymbolManager.getBeatFractionForX(x)
+                + this.measure.getStartBeat() - 1d;
     }
 
     /**
@@ -345,7 +360,6 @@ public class MeasureModel {
                 num = AltoNote.altoLedgersSharp[pitch];
             }
         }
-        // TODO other clefs
         return num;
     }
 
@@ -371,7 +385,6 @@ public class MeasureModel {
                 num = AltoNote.altoLedgersSharp[pitch];
             }
         }
-        // TODO other clefs
         return num;
     }
 
@@ -469,7 +482,7 @@ public class MeasureModel {
     /**
      * Set the font size and kick off recalculating staff metrics.
      * 
-     * Sets treble staffbottom to be 4 x font size.
+     * Sets the location of middle c to be 5 x font size since the height of the canvas should be fontSize x 10.
      * 
      * @param fontSize2
      *            the fontSize to set
@@ -501,9 +514,10 @@ public class MeasureModel {
 
         if (staffSymbolManager != null)
             staffSymbolManager.refresh();
+
         // needed the first time.
         if (this.track != null) {
-            // StaffSymbolManager.setMIDITrack(this.track);
+            staffSymbolManager.setNoteList(this.noteList);
         }
     }
 
@@ -755,6 +769,19 @@ public class MeasureModel {
         }
         this.noteList.add(note);
     }
+    
+    public void addNote(MIDINote note) {
+        this.noteList.add(note);
+    }
+    public void appendNote(MIDINote note) {
+        if (!this.noteList.isEmpty()) {
+            MIDINote prev = this.noteList.get(this.noteList.size() - 1);
+            if (prev != null) {
+                note.setStartBeat(prev.getStartBeat() + prev.getDuration());
+            }
+        }
+        this.noteList.add(note);
+    }
 
     /**
      * @param noteList
@@ -762,16 +789,15 @@ public class MeasureModel {
      */
     public void setNoteList(ObservableList<MIDINote> noteList) {
         this.noteList = noteList;
+        this.noteListProperty.setValue(this.noteList);
         this.noteList.addListener(new ListChangeListener<MIDINote>() {
             @Override
             public void onChanged(
                     ListChangeListener.Change<? extends MIDINote> c) {
                 logger.debug("notelist changed {}", c);
-
             }
         });
         staffSymbolManager.setNoteList(noteList);
-        this.noteListProperty.setValue(this.noteList);
     }
 
     /**
@@ -784,7 +810,7 @@ public class MeasureModel {
     /**
      * @return the noteListProperty
      */
-    public ListProperty<MIDINote> getNoteListProperty() {
+    public ListProperty<MIDINote> noteListProperty() {
         return noteListProperty;
     }
 
@@ -906,9 +932,9 @@ public class MeasureModel {
         // this.staffSymbolManager.setMeasure(measure);
     }
 
-//    public void setShowBeats(boolean showBeats) {
-//        this.staffSymbolManager.setShowBeats(showBeats);
-//    }
+    // public void setShowBeats(boolean showBeats) {
+    // this.staffSymbolManager.setShowBeats(showBeats);
+    // }
 
     /**
      * @return the measure
@@ -933,7 +959,7 @@ public class MeasureModel {
      */
     public boolean isDrawBeatRectangles() {
         return this.drawBeatRectanglesProperty.get();
-        //return this.staffSymbolManager.isDrawBeatRectangles();
+        // return this.staffSymbolManager.isDrawBeatRectangles();
     }
 
     /**
@@ -943,8 +969,9 @@ public class MeasureModel {
     public void setDrawBeatRectangles(boolean drawBeatRectangles) {
         this.drawBeatRectanglesProperty.set(drawBeatRectangles);
 
-       // this.staffSymbolManager.setDrawBeatRectangles(drawBeatRectangles);
+        // this.staffSymbolManager.setDrawBeatRectangles(drawBeatRectangles);
     }
+
     public BooleanProperty drawBeatRectanglesProperty() {
         return drawBeatRectanglesProperty;
     }
@@ -954,7 +981,7 @@ public class MeasureModel {
      */
     public boolean isDrawTimeSignature() {
         return this.drawTimeSignatureProperty.get();
-        //return this.staffSymbolManager.isDrawTimeSignature();
+        // return this.staffSymbolManager.isDrawTimeSignature();
     }
 
     /**
@@ -980,7 +1007,7 @@ public class MeasureModel {
      */
     public boolean isDrawClefs() {
         return this.drawClefsProperty.get();
-        //return this.staffSymbolManager.isDrawClefs();
+        // return this.staffSymbolManager.isDrawClefs();
     }
 
     /**
@@ -988,7 +1015,7 @@ public class MeasureModel {
      */
     public boolean isDrawKeySignature() {
         return this.drawKeySignatureProperty.get();
-        //return this.staffSymbolManager.isDrawKeySignature();
+        // return this.staffSymbolManager.isDrawKeySignature();
     }
 
     /**
@@ -997,12 +1024,12 @@ public class MeasureModel {
      */
     public void setDrawKeySignature(boolean drawKeySignature) {
         this.drawKeySignatureProperty.set(drawKeySignature);
-        //this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
+        // this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
     }
 
     public void setDrawBraces(boolean selected) {
         this.drawBracesProperty.set(selected);
-        //this.staffSymbolManager.setDrawBraces(selected);
+        // this.staffSymbolManager.setDrawBraces(selected);
     }
 
     /**
@@ -1011,7 +1038,7 @@ public class MeasureModel {
     public DoubleProperty staffWidthProperty() {
         return staffWidthProperty;
     }
-    
+
     public Property<Boolean> drawKeySignatureProperty() {
         return this.drawKeySignatureProperty;
     }
@@ -1023,7 +1050,6 @@ public class MeasureModel {
     public Property<Boolean> drawTimeSignatureProperty() {
         return drawTimeSignatureProperty;
     }
-
 
     public Property<Boolean> drawClefsProperty() {
         return drawClefsProperty;
@@ -1044,5 +1070,8 @@ public class MeasureModel {
     public boolean getDrawClefs() {
         return drawClefsProperty.get();
     }
-
+    
+    public MIDITrack getMIDITrack() {
+        return new MIDITrack(this.noteList);
+    }
 }
