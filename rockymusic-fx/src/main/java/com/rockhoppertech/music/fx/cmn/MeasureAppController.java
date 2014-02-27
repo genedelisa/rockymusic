@@ -20,18 +20,22 @@ package com.rockhoppertech.music.fx.cmn;
  * #L%
  */
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.NavigableMap;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import org.slf4j.Logger;
@@ -74,6 +78,9 @@ public class MeasureAppController {
     // @FXML
     // fx:id="midiReceiver"
     // private FXTextAreaReceiver midiReceiver; // Value injected by FXMLLoader
+
+    @FXML
+    private BorderPane borderPane;
 
     @FXML
     // fx:id="noteStringTextArea"
@@ -207,11 +214,11 @@ public class MeasureAppController {
         measureCanvas.setMeasure(measure);
 
         measureCanvas.drawShapes();
-        
-//        MeasureCanvas mc = new MeasureCanvas();
-//        mc.setMeasure(measures.get(5d));
-//        mc.drawShapes();
-//        measureParent.getChildren().add(mc);
+
+        // MeasureCanvas mc = new MeasureCanvas();
+        // mc.setMeasure(measures.get(5d));
+        // mc.drawShapes();
+        // measureParent.getChildren().add(mc);
     }
 
     // Handler for ComboBox[fx:id="fontSizeCombo"] onAction
@@ -273,6 +280,8 @@ public class MeasureAppController {
         assert noteStringTextArea != null : "fx:id=\"noteStringTextArea\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
         assert measureCanvas != null : "fx:id=\"measureCanvas\" was not injected: check your FXML file 'GrandStaffPanel.fxml'.";
 
+        assert borderPane != null : "fx:id=\"borderPane\" was not injected: check your FXML file 'MeasureApp.fxml'.";
+
         // Initialize your logic here: all @FXML variables will have been
         // injected
 
@@ -290,7 +299,7 @@ public class MeasureAppController {
 
         measureCanvas.setFontSize(48d);
         measureCanvas.drawShapes();
-        
+
         drawBeatsCheckBox.selectedProperty().bindBidirectional(
                 measureCanvas.drawBeatsProperty());
 
@@ -305,6 +314,13 @@ public class MeasureAppController {
 
         drawTimeSignatureCheckBox.selectedProperty().bindBidirectional(
                 measureCanvas.drawTimeSignatureProperty());
+
+        loadTogglesFxml();
+        borderPane.setTop(this.durationPane);
+        // durationToggleController.durationProperty().bind(
+        // measureCanvas.inputNoteDurationProperty());
+        measureCanvas.inputNoteDurationProperty().bind(
+                durationToggleController.durationProperty());
 
         // grandStaff.boundsInLocalProperty().addListener(
         // new ChangeListener<Bounds>() {
@@ -365,6 +381,22 @@ public class MeasureAppController {
         // }
         // });
 
+    }
+
+    private AnchorPane durationPane;
+    private DurationToggleController durationToggleController;
+
+    void loadTogglesFxml() {
+        String fxmlFile = "/fxml/DurationToggles.fxml";
+        logger.debug("Loading FXML for main view from: {}", fxmlFile);
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    DurationToggleApp.class.getResource(fxmlFile));
+            durationPane = (AnchorPane) loader.load();
+            durationToggleController = loader.getController();
+        } catch (IOException e) {
+            logger.error(e.getLocalizedMessage(), e);
+        }
     }
 
 }
