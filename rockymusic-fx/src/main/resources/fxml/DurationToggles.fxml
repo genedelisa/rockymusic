@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="root" prefHeight="-1.0" prefWidth="-1.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.rockhoppertech.music.fx.cmn.DurationToggleController">
+  <children>
+    <HBox fx:id="box" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <ToggleButton fx:id="wholeToggle" mnemonicParsing="false" onAction="#durationAction" text="w" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+          <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup" />
+          </toggleGroup>
+        </ToggleButton>
+        <ToggleButton fx:id="halfToggle" mnemonicParsing="false" onAction="#durationAction" text="h" textAlignment="CENTER" toggleGroup="$toggleGroup" HBox.hgrow="ALWAYS" />
+        <ToggleButton fx:id="quarterToggle" mnemonicParsing="false" onAction="#durationAction"  selected="true" text="q" textAlignment="CENTER"  toggleGroup="$toggleGroup" HBox.hgrow="ALWAYS">
+        </ToggleButton>
+        <ToggleButton fx:id="eighthToggle" mnemonicParsing="false" onAction="#durationAction" text="e" textAlignment="CENTER" toggleGroup="$toggleGroup" HBox.hgrow="ALWAYS" />
+        <ToggleButton fx:id="sixteenthToggle" mnemonicParsing="false" onAction="#durationAction" text="16" textAlignment="CENTER" toggleGroup="$toggleGroup" HBox.hgrow="ALWAYS" />
+        <ToggleButton fx:id="thirtySecondToggle" mnemonicParsing="false" onAction="#durationAction" text="32" textAlignment="CENTER" toggleGroup="$toggleGroup" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>
