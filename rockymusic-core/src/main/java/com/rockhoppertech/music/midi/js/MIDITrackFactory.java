@@ -43,6 +43,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 import com.rockhoppertech.collections.CircularArrayList;
 import com.rockhoppertech.collections.CircularList;
 import com.rockhoppertech.music.Pitch;
@@ -685,12 +686,19 @@ public class MIDITrackFactory {
     }
 
     /**
+     * Create a {@code MIDITrack} from intervals.
+     * 
      * @param intervals
+     *            an array of intervals
      * @param baseInt
+     *            the pitch from which succeeding pitches are calculated
      * @param unit
+     *            how many halfs steps
      * @param absolute
+     *            are the intervals
      * @param numOctaves
-     * @return
+     *            how many octaves
+     * @return a {@code MIDITrack}
      */
     public static MIDITrack createFromIntervals(int[] intervals,
             int baseInt, int unit, boolean absolute, int numOctaves) {
@@ -717,6 +725,28 @@ public class MIDITrackFactory {
             baseInt += 12;
         }
         return track;
+    }
+
+    /**
+     * Create a {@code MIDITrack} from intervals.
+     * 
+     * @param intervals
+     *            a list of intervals
+     * @param baseInt
+     *            the pitch from which succeeding pitches are calculated
+     * @param unit
+     *            how many halfs steps
+     * @param absolute
+     *            are the intervals
+     * @param numOctaves
+     *            how many octaves
+     * @return a {@code MIDITrack}
+     */
+    public static MIDITrack createFromIntervals(List<Integer> intervals,
+            int baseInt, int unit, boolean absolute, int numOctaves) {
+        int[] a = Ints.toArray(intervals);
+        return createFromIntervals(a,
+                baseInt, unit, absolute, numOctaves);
     }
 
     /**
