@@ -144,10 +144,16 @@ public class GrandStaffModel {
 
     private MIDITrack track;
     private ObjectProperty<MIDITrack> trackProperty;
-   // private ObjectProperty<Font> fontProperty;
+    // private ObjectProperty<Font> fontProperty;
     private DoubleProperty fontSizeProperty;
 
-private double firstNoteX;
+    private double firstNoteX;
+
+    private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
+
+    public DoubleProperty staffWidthProperty() {
+        return staffWidthProperty;
+    }
 
     public GrandStaffModel() {
 
@@ -165,12 +171,14 @@ private double firstNoteX;
         this.trackProperty = new SimpleObjectProperty<MIDITrack>();
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
         this.setFontSize(48d);
-       // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
+        // this.fontProperty = new SimpleObjectProperty<Font>(this.font);
 
         this.staffSymbolManager = new GrandStaffSymbolManager();
         this.setClef(Clef.TREBLE);
         // StaffSymbolManager.setStaffModel(this);
-
+        this.staffWidthProperty.bind(this.staffSymbolManager
+                .staffWidthProperty());
+        
         MIDITrack track = new MIDITrack();
         this.setTrack(track);
         // this.noteList = FXCollections.observableArrayList();
@@ -252,6 +260,7 @@ private double firstNoteX;
 
     /**
      * The y spacing between lines. Fontsize / 4.
+     * 
      * @return the line increment
      */
     public double getLineInc() {
@@ -348,8 +357,9 @@ private double firstNoteX;
     }
 
     /**
-     * Get the y location for a given MIDI pitch number.
-     * If the pitch is middle C or higher, it is on the treble staff. Otherwise it is on the bass staff.
+     * Get the y location for a given MIDI pitch number. If the pitch is middle
+     * C or higher, it is on the treble staff. Otherwise it is on the bass
+     * staff.
      * 
      * The positions are set according to clef.
      * 
@@ -375,7 +385,6 @@ private double firstNoteX;
             }
         }
 
-       
         return y;
     }
 
@@ -418,17 +427,20 @@ private double firstNoteX;
         // set the font before the fontsize property for listeners who use the
         // font
         this.fontSizeProperty.setValue(this.fontSize);
-        this.staffBottom = 4d * this.fontSize;
+
+        this.staffBottom = (5d * this.fontSize) - lineInc; // so middle c is the
+        // center of the node
 
         // the bottom of the treble staff
         this.trebleStaffBottom = staffBottom;
 
         // the bass staff is 2 staves height down from the treble
         // so there is a lot of space between the staves
-        //this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
-        
+        // this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 12d);
+
         this.lineInc = this.fontSize / 4d;
-        // whichY() will break if further apart. It doesn't know the notes between the staves.
+        // whichY() will break if further apart. It doesn't know the notes
+        // between the staves.
         this.bassStaffBottom = this.trebleStaffBottom + (this.lineInc * 7d);
 
         this.calcStaffMetrics();
@@ -580,8 +592,8 @@ private double firstNoteX;
 
         double distance = 0d;
 
-        //this will not work if there is too much space between the two staves.
-        
+        // this will not work if there is too much space between the two staves.
+
         // above the bottom line i.e. in the staff
         if (y < this.staffBottom) {
             final double d = (this.staffBottom - y) / this.yspacing;
@@ -634,9 +646,9 @@ private double firstNoteX;
         return trackProperty;
     }
 
-//    public List<StaffSymbol> getSymbols() {
-//        return staffSymbolManager.getSymbols();
-//    }
+    // public List<StaffSymbol> getSymbols() {
+    // return staffSymbolManager.getSymbols();
+    // }
 
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
@@ -859,7 +871,7 @@ private double firstNoteX;
 
     public double getQuarterNoteWidth() {
         String glyph = SymbolFactory.noteQuarterUp();
-        Text text = new Text(0,0,glyph);
+        Text text = new Text(0, 0, glyph);
         return text.getLayoutBounds().getWidth();
     }
 
@@ -868,9 +880,9 @@ private double firstNoteX;
     }
 
     public void setFirstNoteX(double x) {
-       this.firstNoteX = x;
+        this.firstNoteX = x;
     }
-    
+
     public double getFirstNoteX() {
         return firstNoteX;
     }

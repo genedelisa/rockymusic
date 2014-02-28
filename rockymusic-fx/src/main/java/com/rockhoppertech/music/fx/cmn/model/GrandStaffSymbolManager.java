@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -71,6 +73,11 @@ public class GrandStaffSymbolManager {
 
     private GrandStaffModel grandStaffModel;
     private ObservableList<MIDINote> noteList;
+    private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
+
+    public DoubleProperty staffWidthProperty() {
+        return staffWidthProperty;
+    }
 
     /**
      * @param noteList
@@ -113,7 +120,7 @@ public class GrandStaffSymbolManager {
         if (noteList.isEmpty()) {
             return;
         }
-        
+
         grandStaffModel.setFirstNoteX(x);
 
         // TODO this doesn't cover initial rests i.e. when start beat > 1
@@ -154,6 +161,8 @@ public class GrandStaffSymbolManager {
             gap = 0;
             previousNote = note;
         }
+        
+        staffWidthProperty.set(x);
     }
 
     double addRests(double x, double gap, int pitch) {

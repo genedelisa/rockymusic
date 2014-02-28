@@ -22,6 +22,8 @@ package com.rockhoppertech.music.fx.cmn;
 
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Line;
@@ -62,6 +64,21 @@ public class GrandStaff extends Region {
         this.setWidth(2300d);
         this.setHeight(300d);
         this.setPrefSize(2300d, 300d);
+        this.staffModel.setFontSize(48d);
+        this.setPrefHeight(480d); // fontsize * 10
+        this.staffModel.staffWidthProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends Number> arg0,
+                            Number arg1, Number newval) {
+                        setWidth(newval.doubleValue());
+                        setPrefWidth(newval.doubleValue());
+                        logger.debug(
+                                "new pref width from staff width {}",
+                                newval);
+                    }
+                });
     }
 
     /**
@@ -160,6 +177,7 @@ public class GrandStaff extends Region {
 
     public void setFontSize(double size) {
         this.getStaffModel().setFontSize(size);
+        this.setPrefHeight(size * 10d); // fontsize * 10
     }
 
     /**
