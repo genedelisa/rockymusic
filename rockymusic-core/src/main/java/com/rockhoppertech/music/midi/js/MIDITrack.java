@@ -454,6 +454,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Track Name:").append(name).append('\n');
+        if(this.description != null || this.description.equals("")) 
+            sb.append("Description:").append(this.description).append('\n');
         // sb.append("Instrument:").append(this.gmpatch).append('\n');
         sb.append("Instrument:").append(this.instrument).append('\n');
 
