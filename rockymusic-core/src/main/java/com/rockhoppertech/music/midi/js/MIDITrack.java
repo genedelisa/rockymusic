@@ -454,7 +454,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Track Name:").append(name).append('\n');
-        if(this.description != null || this.description.equals("")) 
+        if (this.description != null || this.description.equals(""))
             sb.append("Description:").append(this.description).append('\n');
         // sb.append("Instrument:").append(this.gmpatch).append('\n');
         sb.append("Instrument:").append(this.instrument).append('\n');
@@ -511,12 +511,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     public String toBriefMIDIString() {
         StringBuilder sb = new StringBuilder();
-        
+
         for (MIDINote note : notes) {
 
             String spelling = note.getSpelling();
             if (spelling == null) {
-                
+
                 spelling = PitchFormat.getInstance().format(
                         note.getPitch());
             }
@@ -534,7 +534,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
 
         return sb.toString();
     }
-    
+
     public String toBriefMIDIString(String delimiter) {
         StringBuilder sb = new StringBuilder();
 
@@ -1612,8 +1612,16 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         StringBuilder sb = new StringBuilder();
         for (MIDINote note : n) {
             sb.append(note.getPitch().getPreferredSpelling()).append(' ');
-            //sb.append(PitchFormat.getInstance().format(note.getPitch()))
-                    //.append(' ');
+            // sb.append(PitchFormat.getInstance().format(note.getPitch()))
+            // .append(' ');
+        }
+        return sb.toString();
+    }
+
+    public static String getPitchesMIDINumbersAsString(MIDITrack n) {
+        StringBuilder sb = new StringBuilder();
+        for (MIDINote note : n) {
+            sb.append(note.getPitch().getMidiNumber()).append(' ');
         }
         return sb.toString();
     }
@@ -2038,9 +2046,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
         this.changes.firePropertyChange(ADD, null, this);
 
     }
+
     /**
-     * Get the {@code TimeSignature} at the specified beat. Returns null if there is no
-     * time signature at that beat.
+     * Get the {@code TimeSignature} at the specified beat. Returns null if
+     * there is no time signature at that beat.
      * 
      * @param beat
      *            the beat
