@@ -192,4 +192,8 @@ public class GrandStaff extends Region {
     public void addNote(int pitch) {
         getStaffModel().addNote(pitch);
     }
+
+    public MIDITrack getMIDITrack() {
+        return getStaffModel().getTrackProperty().get();
+    }
 }

@@ -162,7 +162,7 @@ public class GrandStaffSymbolManager {
             previousNote = note;
         }
         
-        staffWidthProperty.set(x);
+        staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
     }
 
     double addRests(double x, double gap, int pitch) {
