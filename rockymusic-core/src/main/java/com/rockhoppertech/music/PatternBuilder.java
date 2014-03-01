@@ -22,11 +22,14 @@ package com.rockhoppertech.music;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.google.common.primitives.Ints;
 import com.rockhoppertech.music.Pitch;
 
 /**
  * Josh Bloch's pattern and not the GoF pattern. Modified a bit though.
- * 
+ * <p>
+ * At a minimum, you need to specify the degrees and pattern.
  * 
  * <pre>
  * @{code
@@ -42,8 +45,8 @@ import com.rockhoppertech.music.Pitch;
  }
  * </pre>
  * 
- * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
+ *
+ * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  */
 public class PatternBuilder {
 
@@ -135,6 +138,12 @@ public class PatternBuilder {
         return this;
     }
 
+    public PatternBuilder degrees(List<Integer> degreeList) {
+        int[] a = Ints.toArray(degreeList);
+        this.degrees = Arrays.copyOf(a, a.length);
+        return this;
+    }
+
     /**
      * Set the pattern to use. Makes a copy.
      * 
@@ -144,6 +153,12 @@ public class PatternBuilder {
      */
     public PatternBuilder pattern(int[] pattern) {
         this.pattern = Arrays.copyOf(pattern, pattern.length);
+        return this;
+    }
+
+    public PatternBuilder pattern(List<Integer> patternList) {
+        int[] a = Ints.toArray(patternList);
+        this.pattern = Arrays.copyOf(a, a.length);
         return this;
     }
 
