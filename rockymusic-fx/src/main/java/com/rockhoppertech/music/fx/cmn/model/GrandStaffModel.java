@@ -151,6 +151,8 @@ public class GrandStaffModel {
 
     private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
 
+    private double beginningBarlineX;
+
     public DoubleProperty staffWidthProperty() {
         return staffWidthProperty;
     }
@@ -885,6 +887,11 @@ public class GrandStaffModel {
 
     public double getFirstNoteX() {
         return firstNoteX;
+    }
+
+    public void setBeginningBarlineX(double x) {
+        this.beginningBarlineX = x;
+        
     }
 
 }
