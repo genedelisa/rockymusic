@@ -26,18 +26,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontSmoothingType;
-import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.model.GrandStaffModel;
-import com.rockhoppertech.music.fx.cmn.model.StaffModel;
-import com.rockhoppertech.music.fx.cmn.model.SymbolFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
@@ -61,11 +55,15 @@ public class GrandStaff extends Region {
         this.staffModel = staffModel;
         this.setCursor(Cursor.CROSSHAIR);
         this.setOpacity(1d);
-        this.setWidth(2300d);
+
         this.setHeight(300d);
+        this.setWidth(2300d);
+        this.staffModel.setStaffWidth(2300d);
         this.setPrefSize(2300d, 300d);
+
         this.staffModel.setFontSize(48d);
         this.setPrefHeight(480d); // fontsize * 10
+
         this.staffModel.staffWidthProperty().addListener(
                 new ChangeListener<Number>() {
                     @Override
@@ -81,79 +79,32 @@ public class GrandStaff extends Region {
                 });
     }
 
+    public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.staffModel.setDrawTimeSignature(drawTimeSignature);
+    }
+
+    public void setDrawBrace(boolean drawBrace) {
+        this.staffModel.setDrawBrace(drawBrace);
+    }
+
+    public void setDrawClefs(boolean drawClefs) {
+        this.staffModel.setDrawClefs(drawClefs);
+    }
+
+    public void setDrawKeySignature(boolean drawKeySignature) {
+        this.staffModel.setDrawKeySignature(drawKeySignature);
+    }
+
     /**
      * Removes all current shapes, gets the shapes from the model, then draws
      * them.
      */
     public void drawShapes() {
         this.getChildren().clear();
-        drawStaves();
+
         List<Shape> shapes = staffModel.getShapes();
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
-    }
-
-    private void drawStaves() {
-        logger.debug("drawing the staves");
-        double x = staffModel.getStartX();
-        double y = staffModel.getStaffBottom();
-        double yspacing = staffModel.getYSpacing();
-        Font font = staffModel.getFont();
-
-        y = staffModel.getBassStaffBottom();
-        Text brace = new Text(x, y,
-                SymbolFactory.brace());
-        brace.setScaleY(2.8);
-        brace.setScaleX(3d);
-        brace.setFont(font);
-        brace.setFontSmoothingType(FontSmoothingType.LCD);
-        this.getChildren().add(brace);
-        x += (4d * brace.getLayoutBounds().getWidth());
-
-        Line barline = new Line(x, staffModel.getBassStaffBottom(),
-                x, staffModel.getTrebleStaffBottom() - staffModel.getLineInc()
-                        * 4);
-        this.getChildren().add(barline);
-        x += (barline.getLayoutBounds().getWidth());
-
-        // just some spacing
-        // x += staffModel.getFontSize();
-        y = staffModel.getTrebleStaffBottom();
-        // double clefX = x+10d;
-        double clefX = x + staffModel.getFontSize() / 4d;
-        Text trebleClef = new Text(clefX, y - (yspacing * 2d),
-                SymbolFactory.gClef());
-        trebleClef.setFont(font);
-        trebleClef.setFontSmoothingType(FontSmoothingType.LCD);
-        this.getChildren().add(trebleClef);
-
-        logger.debug("canvas width {}", this.getWidth());
-        String staff = SymbolFactory.staff5Lines();
-        double staffStringIncrement = staffModel.getFontSize() / 2d;
-        double width = this.getWidth();
-
-        Text text;
-
-        // draw the treble staff
-        for (double xx = x; xx < width; xx += staffStringIncrement) {
-            text = new Text(xx, y, staff);
-            text.setFont(font);
-            this.getChildren().add(text);
-        }
-
-        y = staffModel.getBassStaffBottom();
-        Text bassClef = new Text(clefX, y - (yspacing * 6d),
-                SymbolFactory.fClef());
-        bassClef.setFont(font);
-        bassClef.setFontSmoothingType(FontSmoothingType.LCD);
-        this.getChildren().add(bassClef);
-
-        // draw the bass staff
-        for (double xx = x; xx < width; xx += staffStringIncrement) {
-            text = new Text(xx, y, staff);
-            text.setFont(font);
-            this.getChildren().add(text);
-        }
     }
 
     /**

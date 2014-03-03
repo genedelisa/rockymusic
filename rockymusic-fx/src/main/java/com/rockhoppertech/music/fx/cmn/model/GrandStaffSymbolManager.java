@@ -75,6 +75,21 @@ public class GrandStaffSymbolManager {
 
     private GrandStaffModel grandStaffModel;
     private ObservableList<MIDINote> noteList;
+
+    // metrics
+    double quarterNoteWidth;
+    double gclefWidth;
+    double beatSpacing;
+    double timeSignatureWidth;
+
+    private boolean drawKeySignature = false;
+
+    private boolean drawClefs = true;
+
+    private boolean drawBrace = true;
+
+    private boolean drawTimeSignature = false;
+
     private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
 
     public DoubleProperty staffWidthProperty() {
@@ -107,14 +122,22 @@ public class GrandStaffSymbolManager {
         }
         double x = grandStaffModel.getStartX() + 1d
                 * grandStaffModel.getFontSize();
-        // symbols.clear();
+
         shapes.clear();
+
+        // this will be at model startx
+        // sets first note x
+        x = createStaves();
+
+        // symbols.clear();
+
         if (noteList == null) {
             return;
         }
 
         x += grandStaffModel.getFontSize() / 2d;
-        x = addTimeSignature(x, 4, 4);
+        if (this.drawTimeSignature)
+            x = addTimeSignature(x, 4, 4);
 
         // spacing between ts and first note
         x += grandStaffModel.getFontSize() / 1d;
@@ -163,7 +186,7 @@ public class GrandStaffSymbolManager {
             gap = 0;
             previousNote = note;
         }
-        
+
         staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
     }
 
@@ -1103,18 +1126,6 @@ public class GrandStaffSymbolManager {
         return grandStaffModel;
     }
 
-    // metrics
-    double quarterNoteWidth;
-    double gclefWidth;
-    double beatSpacing;
-    double timeSignatureWidth;
-
-    private boolean drawKeySignature;
-
-    private boolean drawClefs;
-
-    private boolean drawBrace;
-
     void calcMetrics() {
         // do some metrics
         Text text = new Text(SymbolFactory.noteQuarterUp());
@@ -1377,6 +1388,34 @@ public class GrandStaffSymbolManager {
         return advance;
     }
 
+    double getStaffWidth() {
+        return this.staffWidthProperty.get();
+    }
+
+    public void setStaffWidth(double w) {
+        this.staffWidthProperty.set(w);
+    }
+
+    double createStaves() {
+        logger.debug("staffwidth {}", this.getStaffWidth());
+        return createStaves(this.getStaffWidth());
+    }
+
+    public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.drawTimeSignature = drawTimeSignature;
+    }
+    public void setDrawBrace(boolean drawBrace) {
+        this.drawBrace = drawBrace;
+    }
+
+    public void setDrawClefs(boolean drawClefs) {
+        this.drawClefs = drawClefs;
+    }
+
+    public void setDrawKeySignature(boolean drawKeySignature) {
+        this.drawKeySignature = drawKeySignature;
+    }
+
     /**
      * Create the staves.
      * 
@@ -1411,7 +1450,8 @@ public class GrandStaffSymbolManager {
         grandStaffModel.setFirstNoteX(x + grandStaffModel.getFontSize() / 2d);
 
         Line barline = new Line(x, grandStaffModel.getBassStaffBottom(),
-                x, grandStaffModel.getTrebleStaffBottom() - grandStaffModel.getLineInc()
+                x, grandStaffModel.getTrebleStaffBottom()
+                        - grandStaffModel.getLineInc()
                         * 4);
         this.shapes.add(barline);
         x += (barline.getLayoutBounds().getWidth());
@@ -1433,7 +1473,8 @@ public class GrandStaffSymbolManager {
             clefX = x + trebleClefWidth / 2d;
             trebleClef.setX(clefX);
 
-            grandStaffModel.setFirstNoteX(clefX + trebleClefWidth + grandStaffModel.getFontSize()
+            grandStaffModel.setFirstNoteX(clefX + trebleClefWidth
+                    + grandStaffModel.getFontSize()
                     / 2d);
         }
 
@@ -1443,6 +1484,10 @@ public class GrandStaffSymbolManager {
         text.setFont(font);
         double staffStringIncrement = text.getLayoutBounds().getWidth();
 
+        logger.debug(
+                "drawing the treble staff at x {}, width {}",
+                x,
+                staffWidth);
         // draw the treble staff
         // for (double xx = x; xx < staffWidth - staffStringIncrement; xx +=
         // staffStringIncrement) {
@@ -1471,7 +1516,8 @@ public class GrandStaffSymbolManager {
 
         if (this.drawKeySignature) {
             logger.debug("drawing ks");
-            x = drawKeySignature(x + trebleClefWidth + grandStaffModel.getFontSize() / 2d);
+            x = drawKeySignature(x + trebleClefWidth
+                    + grandStaffModel.getFontSize() / 2d);
             grandStaffModel.setFirstNoteX(x + grandStaffModel.getFontSize()
                     / 2d);
 
@@ -1479,13 +1525,17 @@ public class GrandStaffSymbolManager {
 
         return x + trebleClefWidth;
     }
-    
+
     private double drawKeySignature(double x) {
         GrandStaffModel model = this.grandStaffModel;
-        
-        
-        KeySignature ks;
-        ks = KeySignature.CMAJOR;
+
+        MIDITrack track = this.grandStaffModel.getTrackProperty().get();
+        KeySignature ks = null;
+        if (track != null) {
+            ks = track.getKeySignatureAtBeat(1d);
+        }
+        if (ks == null)
+            ks = KeySignature.CMAJOR;
 
         logger.debug("drawing ks " + ks);
         double y = 0d;

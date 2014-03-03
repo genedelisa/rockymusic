@@ -655,6 +655,20 @@ public class GrandStaffModel {
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
     }
+    public void setDrawTimeSignature(boolean drawTimeSignature) {
+        this.staffSymbolManager.setDrawTimeSignature(drawTimeSignature);
+    }
+    public void setDrawBrace(boolean drawBrace) {
+        this.staffSymbolManager .setDrawBrace(drawBrace);
+    }
+
+    public void setDrawClefs(boolean drawClefs) {
+        this.staffSymbolManager.setDrawClefs(drawClefs);
+    }
+
+    public void setDrawKeySignature(boolean drawKeySignature) {
+        this.staffSymbolManager.setDrawKeySignature(drawKeySignature);
+    }
 
     /**
      * @return the font
@@ -892,6 +906,13 @@ public class GrandStaffModel {
     public void setBeginningBarlineX(double x) {
         this.beginningBarlineX = x;
         
+    }
+    public double getBeginningBarlineX() {
+        return beginningBarlineX;
+    }
+
+    public void setStaffWidth(double w) {
+        this.staffSymbolManager.setStaffWidth(w);
     }
 
 }
