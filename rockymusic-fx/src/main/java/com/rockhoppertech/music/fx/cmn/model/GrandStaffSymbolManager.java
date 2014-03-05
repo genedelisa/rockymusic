@@ -71,7 +71,7 @@ public class GrandStaffSymbolManager {
     /**
      * these shapes are stroked.
      */
-    private List<Shape> strokedShapes = new ArrayList<>();
+  //  private List<Shape> strokedShapes = new ArrayList<>();
 
     private GrandStaffModel grandStaffModel;
     private ObservableList<MIDINote> noteList;
@@ -92,9 +92,7 @@ public class GrandStaffSymbolManager {
 
     private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
 
-    public DoubleProperty staffWidthProperty() {
-        return staffWidthProperty;
-    }
+  
 
     /**
      * @param noteList
@@ -187,7 +185,9 @@ public class GrandStaffSymbolManager {
             previousNote = note;
         }
 
-        staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
+        logger.debug("Setting staff width property");
+        this.setStaffWidth(x + this.grandStaffModel.getFontSize());
+        //staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
     }
 
     double addRests(double x, double gap, int pitch) {
@@ -1206,13 +1206,7 @@ public class GrandStaffSymbolManager {
         return shapes;
     }
 
-    /**
-     * @return the strokedShapes
-     */
-    public List<Shape> getStrokedShapes() {
-        return strokedShapes;
-    }
-
+   
     /*
      * fontMap.put(DOT, new Character((char) 46));
      * 
@@ -1388,6 +1382,10 @@ public class GrandStaffSymbolManager {
         return advance;
     }
 
+    public DoubleProperty staffWidthProperty() {
+        return staffWidthProperty;
+    }
+    
     double getStaffWidth() {
         return this.staffWidthProperty.get();
     }

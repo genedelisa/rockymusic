@@ -183,6 +183,7 @@ public class GrandStaffModel {
         
         MIDITrack track = new MIDITrack();
         this.setTrack(track);
+        
         // this.noteList = FXCollections.observableArrayList();
         // this.setNoteList(noteList);
     }
@@ -720,10 +721,12 @@ public class GrandStaffModel {
     }
 
     /**
+     * it's from the MIDITrack.
+     * 
      * @param noteList
      *            the noteList to set
      */
-    public void setNoteList(ObservableList<MIDINote> noteList) {
+    private void setNoteList(ObservableList<MIDINote> noteList) {
         this.noteList = noteList;
         this.noteList.addListener(new ListChangeListener<MIDINote>() {
             @Override
