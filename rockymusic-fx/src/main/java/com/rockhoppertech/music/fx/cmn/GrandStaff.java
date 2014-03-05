@@ -70,10 +70,17 @@ public class GrandStaff extends Region {
                     public void changed(
                             ObservableValue<? extends Number> arg0,
                             Number arg1, Number newval) {
-                        setWidth(newval.doubleValue());
-                        setPrefWidth(newval.doubleValue());
+                        setMinWidth(newval.doubleValue());
+                        
+                        if(newval.doubleValue() > getWidth()) {
+                            setPrefWidth(newval.doubleValue());
+                            logger.debug(
+                                    "new pref width from staff width {}",
+                                    newval);
+                        }
+                        
                         logger.debug(
-                                "new pref width from staff width {}",
+                                "staff width {}",
                                 newval);
                     }
                 });
