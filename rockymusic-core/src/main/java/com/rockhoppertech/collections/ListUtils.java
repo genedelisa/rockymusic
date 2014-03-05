@@ -57,6 +57,10 @@ public class ListUtils {
     public static String asString(List<Double> list) {
         return asString(list, " ");
     }
+    
+    public static String asIntString(List<Integer> list) {
+        return asIntString(list, " ");
+    }
 
     public static String asString(Set<Double> list, String delim) {
         NumberFormat nf = NumberFormat.getNumberInstance();
@@ -79,6 +83,20 @@ public class ListUtils {
         int counter = 0;
         StringBuilder sb = new StringBuilder();
         for (Double o : list) {
+            sb.append(nf.format(o));
+            if (counter++ < size)
+                sb.append(delim);
+        }
+        return sb.toString();
+    }
+    
+    public static String asIntString(List<Integer> list, String delim) {
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMinimumFractionDigits(0);
+        int size = list.size();
+        int counter = 0;
+        StringBuilder sb = new StringBuilder();
+        for (Number o : list) {
             sb.append(nf.format(o));
             if (counter++ < size)
                 sb.append(delim);
