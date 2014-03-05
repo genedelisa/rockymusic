@@ -187,7 +187,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote>,
     /**
      * Whatever data you want to attach to this track.
      */
-    private Object userData;
+    private Serializable userData;
 
     /**
      * Initializes a new {@code MIDITrack} with no {@code MIDINote}s nor
@@ -2515,14 +2515,14 @@ public class MIDITrack implements Serializable, Iterable<MIDINote>,
     /**
      * @return the userData
      */
-    public Object getUserData() {
+    public Serializable getUserData() {
         return userData;
     }
 
     /**
      * @param userData the userData to set
      */
-    public void setUserData(Object userData) {
+    public void setUserData(Serializable userData) {
         this.userData = userData;
     }
 }
