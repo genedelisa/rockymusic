@@ -82,7 +82,8 @@ import com.rockhoppertech.music.series.time.TimeSeries;
  * @see javafx.beans.property.adapter.JavaBeanStringPropertyBuilder
  */
 
-public class MIDITrack implements Serializable, Iterable<MIDINote> {
+public class MIDITrack implements Serializable, Iterable<MIDINote>,
+        Comparable<MIDITrack> {
 
     private static final class AscendingPitchComparator implements
             Comparator<MIDINote>, Serializable {
@@ -182,6 +183,11 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
      */
     private transient PropertyChangeSupport changes = new PropertyChangeSupport(
             this);
+    
+    /**
+     * Whatever data you want to attach to this track.
+     */
+    private Object userData;
 
     /**
      * Initializes a new {@code MIDITrack} with no {@code MIDINote}s nor
@@ -454,8 +460,8 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Track Name:").append(name).append('\n');
-       // if (this.description != null || this.description.equals(""))
-            //sb.append("Description:").append(this.description).append('\n');
+        // if (this.description != null || this.description.equals(""))
+        // sb.append("Description:").append(this.description).append('\n');
         // sb.append("Instrument:").append(this.gmpatch).append('\n');
         sb.append("Instrument:").append(this.instrument).append('\n');
 
@@ -2494,5 +2500,29 @@ public class MIDITrack implements Serializable, Iterable<MIDINote> {
             final PropertyChangeListener listener) {
         this.changes.removePropertyChangeListener(propertyName,
                 listener);
+    }
+
+    @Override
+    public int compareTo(MIDITrack o) {
+        if (o.getStartBeat() > o.getStartBeat()) {
+            return 1;
+        } else if (o.getStartBeat() < o.getStartBeat()) {
+            return -1;
+        }
+        return 0;
+    }
+
+    /**
+     * @return the userData
+     */
+    public Object getUserData() {
+        return userData;
+    }
+
+    /**
+     * @param userData the userData to set
+     */
+    public void setUserData(Object userData) {
+        this.userData = userData;
     }
 }
