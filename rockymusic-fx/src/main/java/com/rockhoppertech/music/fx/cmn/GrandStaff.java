@@ -41,6 +41,13 @@ import com.rockhoppertech.music.midi.js.MIDITrack;
 public class GrandStaff extends Region {
     final static Logger logger = LoggerFactory.getLogger(GrandStaff.class);
     private GrandStaffModel staffModel;
+    
+    
+//    public static void main(String[] args) {
+//        GrandStaff gs= new GrandStaff();
+//        gs.setFontSize(24d);
+//        gs.drawShapes();
+//    }
 
     /**
      * This one is used when specified in fxml.
