@@ -756,11 +756,21 @@ public class GrandStaffSymbolManager {
         // s+ c,t c,t c,t c,t c,t c,t c,t c,t
         if (duration - Duration.THIRTY_SECOND_NOTE >= 0d) {
             duration -= Duration.THIRTY_SECOND_NOTE;
-            if (stemUp) {
-                glyph = SymbolFactory.note32ndUp();
+            
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(center, x, y, stemUp);
             } else {
-                glyph = SymbolFactory.note32ndDown();
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
             }
+           
             text = addText(x, y, glyph);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
