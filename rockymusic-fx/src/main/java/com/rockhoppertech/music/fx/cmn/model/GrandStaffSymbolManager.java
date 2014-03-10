@@ -737,7 +737,7 @@ public class GrandStaffSymbolManager {
             x += text.getLayoutBounds().getWidth();
         }
 
-        // 32nd
+        // dotted 32nd
         if (duration - .1875 >= 0) {
             duration -= .1875;
             if (stemUp) {
@@ -750,6 +750,35 @@ public class GrandStaffSymbolManager {
             text = addText(x, y, glyph);
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
+        }
+        
+        // 32nd
+        // s+ c,t c,t c,t c,t c,t c,t c,t c,t
+        if (duration - Duration.THIRTY_SECOND_NOTE >= 0d) {
+            duration -= Duration.THIRTY_SECOND_NOTE;
+            if (stemUp) {
+                glyph = SymbolFactory.note32ndUp();
+            } else {
+                glyph = SymbolFactory.note32ndDown();
+            }
+            text = addText(x, y, glyph);
+            addLedgers(note, x);
+            double width = text.getLayoutBounds().getWidth();
+            x += width;
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
         }
 
         return x;
