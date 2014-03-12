@@ -71,16 +71,16 @@ public class GrandStaffSymbolManager {
      * these shapes are filled.
      */
     private List<Shape> shapes = new ArrayList<>();
-    
+
     private List<StaffSymbol> symbols = new ArrayList<>();
-    
+
     /**
      * these shapes are stroked.
      */
-  //  private List<Shape> strokedShapes = new ArrayList<>();
+    // private List<Shape> strokedShapes = new ArrayList<>();
 
     private GrandStaffModel model;
-    
+
     private ObservableList<MIDINote> noteList;
 
     // metrics
@@ -98,8 +98,6 @@ public class GrandStaffSymbolManager {
     private boolean drawTimeSignature = false;
 
     private DoubleProperty staffWidthProperty = new SimpleDoubleProperty();
-
-  
 
     /**
      * @param noteList
@@ -180,7 +178,7 @@ public class GrandStaffSymbolManager {
                 x += model.getFontSize() / 2d;
             }
 
-            //x = createSymbol(note, x);
+            // x = createSymbol(note, x);
             x = createStaffSymbol(note, x);
             logger.debug("x {} after adding symbol", x);
             if (gap >= 0) {
@@ -196,7 +194,7 @@ public class GrandStaffSymbolManager {
 
         logger.debug("Setting staff width property");
         this.setStaffWidth(x + this.model.getFontSize());
-        //staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
+        // staffWidthProperty.set(x + this.grandStaffModel.getFontSize());
     }
 
     double addRests(double x, double gap, int pitch) {
@@ -336,8 +334,7 @@ public class GrandStaffSymbolManager {
     // x += grandStaffModel.getFontSize() / 2d;
     // }
     // }
-    
-    
+
     /**
      * Create a StaffSymbol for the {@code MIDINote}.
      * 
@@ -353,14 +350,9 @@ public class GrandStaffSymbolManager {
         String glyph = "";
 
         // int index = (int) Math.floor(note.getStartBeat()) - 1;
-        //int index = (int) Math.floor(measure.getBeatInMeasure(note)) - 1;
+        // int index = (int) Math.floor(measure.getBeatInMeasure(note)) - 1;
 
-        Rectangle beatRectangle;
-       
-        // let's try without. remove calls if this works.
-        beatRectangle = new Rectangle();
-
-       
+        logger.debug("creating symbol at x {} for note {}", x, note);
 
         // 1 get accidental
         // 2 determine stem direction
@@ -419,6 +411,1154 @@ public class GrandStaffSymbolManager {
         // Now pick the duration. not complete right now.
         // this ignores beaming completely.
 
+        // qt. ==1 et. = .5, so skip t.
+        // durrake = Duration.getDotted(Duration.QUARTER_TRIPLET_NOTE);
+
+        double durrake = Duration.getDoubleDotted(Duration.WHOLE_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            glyph = SymbolFactory.noteWhole();
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            // add two dots
+            staffSymbol.setAugmentationDots(glyph + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug("Added whole.. x {} y {} durleft {}", x, y, duration);
+
+        }
+
+        durrake = Duration.getDotted(Duration.WHOLE_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            glyph = SymbolFactory.noteWhole();
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug("Added whole. x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.WHOLE_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+
+            glyph = SymbolFactory.noteWhole();
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug("Added whole x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.HALF_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            if (stemUp) {
+                glyph = SymbolFactory.noteHalfUp();
+            } else {
+                glyph = SymbolFactory.noteHalfDown();
+            }
+
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+
+            glyph = SymbolFactory.augmentationDot();
+            // add two dots
+            staffSymbol.setAugmentationDots(glyph + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                staffSymbol.setTie(tie);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug(
+                    "Added dotted half x {} y {} durleft {}",
+                    x,
+                    y,
+                    duration);
+        }
+
+        durrake = Duration.getDotted(Duration.HALF_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            if (stemUp) {
+                glyph = SymbolFactory.noteHalfUp();
+            } else {
+                glyph = SymbolFactory.noteHalfDown();
+            }
+
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                staffSymbol.setTie(tie);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug(
+                    "Added dotted half x {} y {} durleft {}",
+                    x,
+                    y,
+                    duration);
+        }
+
+        durrake = Duration.HALF_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadHalf();
+                addStemHalf(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteHalfUp();
+                } else {
+                    glyph = SymbolFactory.noteHalfDown();
+                }
+            }
+
+            staffSymbol.setX(x);
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+
+            x += width;
+            logger.debug("Added half x {} y {} durleft {}", x, y, duration);
+        }
+
+//        durrake = Duration.getDoubleDotted(Duration.HALF_TRIPLET_NOTE);
+//        if (duration - durrake >= 0d) {
+//            duration -= durrake;
+//        }
+//        durrake = Duration.getDotted(Duration.HALF_TRIPLET_NOTE);
+//        if (duration - durrake >= 0d) {
+//            duration -= durrake;
+//        }
+//        durrake = Duration.HALF_TRIPLET_NOTE;
+//        if (duration - durrake >= 0d) {
+//            duration -= durrake;
+//        }
+
+        //
+        durrake = Duration.getDoubleDotted(Duration.QUARTER_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteQuarterUp();
+                } else {
+                    glyph = SymbolFactory.noteQuarterDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" "+glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+            logger.debug("Added quarter.. x {} y {} durleft {}", x, y, duration);
+        }
+        
+        
+        durrake = Duration.getDotted(Duration.QUARTER_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteQuarterUp();
+                } else {
+                    glyph = SymbolFactory.noteQuarterDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+            logger.debug("Added quarter. x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDoubleDotted(Duration.QUARTER_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteQuarterUp();
+                } else {
+                    glyph = SymbolFactory.noteQuarterDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" "+glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+            logger.debug("Added quarter t.. x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.QUARTER_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteQuarterUp();
+                } else {
+                    glyph = SymbolFactory.noteQuarterDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+            logger.debug("Added quarter x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.EIGHTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
+            }
+
+            logger.debug("eighth note. remainder {}", duration);
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" "+glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x+=width;
+            logger.debug("Added 8th .. x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDotted(Duration.EIGHTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
+            }
+
+            logger.debug("eighth note. remainder {}", duration);
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 8th . x {} y {} durleft {}", x, y, duration);
+        }
+        
+        durrake = Duration.QUARTER_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.noteQuarterUp();
+                } else {
+                    glyph = SymbolFactory.noteQuarterDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+
+            if (tie != null) {
+                endTie(x, y, tie, width);
+                tie = null;
+            }
+
+            if (duration > 0d) {
+                if (stemUp) {
+                    tie = startTieUnder(x, y, width);
+                } else {
+                    tie = startTieOver(x, y, width);
+                }
+                x += width;
+            }
+            logger.debug("Added quarter trip x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDoubleDotted(Duration.EIGHTH_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
+            }
+
+            logger.debug("eighth note. remainder {}", duration);
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" "+glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 8th t .. x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.EIGHTH_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
+            }
+
+            logger.debug("eighth note. remainder {}", duration);
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 8th x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.SIXTEENTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 16th .. x {} y {} durleft {}", x, y, duration);
+        }
+        
+        durrake = Duration.getDotted(Duration.SIXTEENTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 16th . x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.EIGHTH_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add8thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note8thUp();
+                } else {
+                    glyph = SymbolFactory.note8thDown();
+                }
+            }
+
+            //TODO triplet flag
+            
+            logger.debug("eighth note. remainder {}", duration);
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 8th trip x {} y {} durleft {}", x, y, duration);
+        }
+        
+        durrake = Duration.getDoubleDotted(Duration.SIXTEENTH_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 16th .. x {} y {} durleft {}", x, y, duration);
+        }
+        
+        durrake = Duration.SIXTEENTH_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 16th x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.THIRTY_SECOND_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+        }
+        
+        durrake = Duration.getDotted(Duration.THIRTY_SECOND_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+        }
+        
+        durrake = Duration.SIXTEENTH_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                addStem(staffSymbol, center, x, y, stemUp);
+                add16thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note16thUp();
+                } else {
+                    glyph = SymbolFactory.note16thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 16th triplet x {} y {} durleft {}", x, y, duration);
+        }
+        
+        durrake = Duration.getDoubleDotted(Duration.THIRTY_SECOND_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph+" " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 32nd x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.THIRTY_SECOND_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 32nd x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.SIXTY_FOURTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDotted(Duration.SIXTY_FOURTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.THIRTY_SECOND_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add32ndFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note32ndUp();
+                } else {
+                    glyph = SymbolFactory.note32ndDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 32nd x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDoubleDotted(Duration.SIXTY_FOURTH_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.SIXTY_FOURTH_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.getDoubleDotted(Duration.ONE_TWENTY_EIGHTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note128thUp();
+                } else {
+                    glyph = SymbolFactory.note128thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 128th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.getDotted(Duration.ONE_TWENTY_EIGHTH_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note128thUp();
+                } else {
+                    glyph = SymbolFactory.note128thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 128th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration.SIXTY_FOURTH_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note64thUp();
+                } else {
+                    glyph = SymbolFactory.note64thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
+        }
+        durrake = Duration
+                .getDoubleDotted(Duration.ONE_TWENTY_EIGHTH_TRIPLET_NOTE);
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+            // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note128thUp();
+                } else {
+                    glyph = SymbolFactory.note128thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            glyph = SymbolFactory.augmentationDot();
+            staffSymbol.setAugmentationDots(glyph + " " + glyph);
+            width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 128th x {} y {} durleft {}", x, y, duration);
+            
+        }
+        durrake = Duration.ONE_TWENTY_EIGHTH_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note128thUp();
+                } else {
+                    glyph = SymbolFactory.note128thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 128th x {} y {} durleft {}", x, y, duration);
+        }
+
+        durrake = Duration.ONE_TWENTY_EIGHTH_TRIPLET_NOTE;
+        if (duration - durrake >= 0d) {
+            duration -= durrake;
+         // if the pitch is more than an octave from the center line, draw a
+            // notehead and a stem.
+            if (shouldDrawStem(pitch)) {
+                glyph = SymbolFactory.noteheadBlack();
+                logger.debug("shoud draw stem at x {} y {}", x, y);
+                addStem(staffSymbol, center, x, y, stemUp);
+                add64thFlag(staffSymbol, x, y, stemUp);
+            } else {
+                if (stemUp) {
+                    glyph = SymbolFactory.note128thUp();
+                } else {
+                    glyph = SymbolFactory.note128thDown();
+                }
+            }
+
+            staffSymbol.setY(y);
+            staffSymbol.setSymbol(glyph);
+            addLedgers(staffSymbol, note, x);
+            double width = staffSymbol.getLayoutBounds().getWidth();
+            x += width;
+            logger.debug("Added 128th x {} y {} durleft {}", x, y, duration);
+        }
+        logger.debug("Added staff symbol {}", staffSymbol);
+        return x;
+    }
+    
+    double foo() {
+        double duration = 0;
+        String glyph;
+        StaffSymbol staffSymbol = null;
+        boolean stemUp = false;
+        QuadCurve tie = null;
+        double x = 0;
+        double y = 0;
+        MIDINote note = null;
+        int pitch = 0;
+        double center = 0;
+        
         // whole
         if (duration - 4d >= 0d) {
             duration -= 4d;
@@ -440,6 +1580,7 @@ public class GrandStaffSymbolManager {
             }
 
             x += width;
+            logger.debug("Added whole x {} y {} durleft {}", x, y, duration);
         }
 
         // dotted half
@@ -479,9 +1620,14 @@ public class GrandStaffSymbolManager {
             }
 
             x += width;
-
+            logger.debug(
+                    "Added dotted half x {} y {} durleft {}",
+                    x,
+                    y,
+                    duration);
         }
 
+       
         // half
         if (duration - 2d >= 0d) {
             duration -= 2d;
@@ -520,7 +1666,7 @@ public class GrandStaffSymbolManager {
             }
 
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added half x {} y {} durleft {}", x, y, duration);
         }
 
         // dotted quarter
@@ -546,7 +1692,7 @@ public class GrandStaffSymbolManager {
 
             x += width;
             // x += grandStaffModel.stringWidth(glyph);
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+           // beatRectangle.setWidth(beatRectangle.getWidth() + width);
 
             // now add the dot
             glyph = SymbolFactory.augmentationDot();
@@ -572,7 +1718,11 @@ public class GrandStaffSymbolManager {
             }
 
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug(
+                    "Added dotted quarter x {} y {} durleft {}",
+                    x,
+                    y,
+                    duration);
         }
 
         // quarter
@@ -615,6 +1765,7 @@ public class GrandStaffSymbolManager {
                 }
                 x += width;
             }
+            logger.debug("Added quarter x {} y {} durleft {}", x, y, duration);
 
         }
 
@@ -650,10 +1801,11 @@ public class GrandStaffSymbolManager {
             staffSymbol.setAugmentationDots(glyph);
             width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
-
-            logger.debug("dotted eighth note. remainder {}", duration);
+            logger.debug(
+                    "Added dotted 8th x {} y {} durleft {}",
+                    x,
+                    y,
+                    duration);
 
         }
 
@@ -673,6 +1825,7 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
+            logger.debug("Added qtriplet x {} y {} durleft {}", x, y, duration);
         }
 
         // eighth
@@ -699,7 +1852,7 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added 8th x {} y {} durleft {}", x, y, duration);
         }
 
         // 16th
@@ -725,8 +1878,7 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-
-            // beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added 16th x {} y {} durleft {}", x, y, duration);
         }
 
         double etriplet = 1d / 3d;
@@ -743,11 +1895,10 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added etriplet x {} y {} durleft {}", x, y, duration);
         }
 
         // .1875 dotted 32nd
-        double d = Duration.getDotted(Duration.THIRTY_SECOND_NOTE);
 
         // 32nd
         // s+ c,t c,t c,t c,t c,t c,t c,t c,t
@@ -773,7 +1924,8 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-            beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added 32nd x {} y {} durleft {}", x, y, duration);
+
         }
 
         // 64th
@@ -801,13 +1953,12 @@ public class GrandStaffSymbolManager {
             addLedgers(staffSymbol, note, x);
             double width = staffSymbol.getLayoutBounds().getWidth();
             x += width;
-            // beatRectangle.setWidth(beatRectangle.getWidth() + width);
+            logger.debug("Added 64th x {} y {} durleft {}", x, y, duration);
         }
 
         logger.debug("Added staff symbol {}", staffSymbol);
         return x;
     }
-    
 
     // to really get the x correct, we should use the Measure class and get the
     // beat x.
@@ -1232,12 +2383,12 @@ public class GrandStaffSymbolManager {
             addLedgers(note, x);
             x += text.getLayoutBounds().getWidth();
         }
-        
+
         // 32nd
         // s+ c,t c,t c,t c,t c,t c,t c,t c,t
         if (duration - Duration.THIRTY_SECOND_NOTE >= 0d) {
             duration -= Duration.THIRTY_SECOND_NOTE;
-            
+
             // if the pitch is more than an octave from the center line, draw a
             // notehead and a stem.
             if (shouldDrawStem(pitch)) {
@@ -1251,7 +2402,7 @@ public class GrandStaffSymbolManager {
                     glyph = SymbolFactory.note32ndDown();
                 }
             }
-           
+
             text = addText(x, y, glyph);
             addLedgers(note, x);
             double width = text.getLayoutBounds().getWidth();
@@ -1327,47 +2478,47 @@ public class GrandStaffSymbolManager {
     // shapes.add(slur);
     // }
 
-//    private void add8thFlag(double x, double y, boolean stemUp) {
-//        String glyph;
-//        Point2D p = null;
-//        double fx;
-//        if (stemUp) {
-//            p = SymbolFactory.getStemUpNW("flag8thUp");
-//            glyph = SymbolFactory.flag8thUp();
-//            fx = x + p.getX() + this.quarterNoteWidth;
-//        } else {
-//            p = SymbolFactory.stemDownSW("flag8thDown");
-//            glyph = SymbolFactory.flag8thDown();
-//            fx = x + p.getX();
-//        }
-//
-//        double fy = model.getStaffCenterLine() + p.getY();
-//        logger.debug("adding flag at x {} y {}", x + fx, fy);
-//        addText(fx,
-//                fy,
-//                glyph);
-//    }
-//
-//    private void add16thFlag(double x, double y, boolean stemUp) {
-//        String glyph;
-//        Point2D p = null;
-//        double fx;
-//        if (stemUp) {
-//            p = SymbolFactory.getStemUpNW("flag16thUp");
-//            glyph = SymbolFactory.flag16thUp();
-//            fx = x + p.getX() + this.quarterNoteWidth;
-//        } else {
-//            p = SymbolFactory.stemDownSW("flag16thDown");
-//            glyph = SymbolFactory.flag16thDown();
-//            fx = x + p.getX();
-//        }
-//
-//        double fy = model.getStaffCenterLine() + p.getY();
-//        logger.debug("adding flag at x {} y {}", x + p.getX(), fy);
-//        addText(fx,
-//                fy,
-//                glyph);
-//    }
+    // private void add8thFlag(double x, double y, boolean stemUp) {
+    // String glyph;
+    // Point2D p = null;
+    // double fx;
+    // if (stemUp) {
+    // p = SymbolFactory.getStemUpNW("flag8thUp");
+    // glyph = SymbolFactory.flag8thUp();
+    // fx = x + p.getX() + this.quarterNoteWidth;
+    // } else {
+    // p = SymbolFactory.stemDownSW("flag8thDown");
+    // glyph = SymbolFactory.flag8thDown();
+    // fx = x + p.getX();
+    // }
+    //
+    // double fy = model.getStaffCenterLine() + p.getY();
+    // logger.debug("adding flag at x {} y {}", x + fx, fy);
+    // addText(fx,
+    // fy,
+    // glyph);
+    // }
+    //
+    // private void add16thFlag(double x, double y, boolean stemUp) {
+    // String glyph;
+    // Point2D p = null;
+    // double fx;
+    // if (stemUp) {
+    // p = SymbolFactory.getStemUpNW("flag16thUp");
+    // glyph = SymbolFactory.flag16thUp();
+    // fx = x + p.getX() + this.quarterNoteWidth;
+    // } else {
+    // p = SymbolFactory.stemDownSW("flag16thDown");
+    // glyph = SymbolFactory.flag16thDown();
+    // fx = x + p.getX();
+    // }
+    //
+    // double fy = model.getStaffCenterLine() + p.getY();
+    // logger.debug("adding flag at x {} y {}", x + p.getX(), fy);
+    // addText(fx,
+    // fy,
+    // glyph);
+    // }
 
     /*
      * "flag16thDown": { "stemDownSW": [ 0.0, 0.128 ] }, "flag16thUp": {
@@ -1379,55 +2530,56 @@ public class GrandStaffSymbolManager {
      * "stemUpNW": [ 0.0, -0.048 ] },
      */
 
-//    private void addStemHalf(double center, double x, double y, boolean stemUp) {
-//        if (stemUp) {
-//            Point2D p = SymbolFactory.getStemUpSE("noteheadHalf");
-//            double lx = x + p.getX() + this.quarterNoteWidth;
-//            double ly = y + p.getY();
-//            Line line = new Line(lx, ly, lx, center);
-//            // line.setStrokeWidth(SymbolFactory.getStemThickness());
-//            shapes.add(line);
-//        } else {
-//            Point2D p = SymbolFactory.getStemDownNW("noteheadHalf");
-//            double lx = x + p.getX();
-//            double ly = y + p.getY();
-//            Line line = new Line(lx, ly, lx, center);
-//            // line.setStrokeWidth(SymbolFactory.getStemThickness());
-//            shapes.add(line);
-//        }
-//    }
-//
-//    private void addStem(double center, double x, double y, boolean stemUp) {
-//        if (stemUp) {
-//            Point2D p = SymbolFactory.getStemUpSE("noteheadBlack");
-//            double lx = x + p.getX() + this.quarterNoteWidth;
-//            // double lx = x + p.getX();
-//            double ly = y + p.getY();
-//            Line line = new Line(lx, ly, lx, center);
-//
-//            // line.setStrokeWidth(SymbolFactory.getStemThickness());
-//            shapes.add(line);
-//            logger.debug(
-//                    "added stem x {} y {}, center {}",
-//                    lx,
-//                    ly,
-//                    center);
-//        } else {
-//            Point2D p = SymbolFactory.getStemDownNW("noteheadBlack");
-//            double lx = x + p.getX();
-//            double ly = y + p.getY();
-//            Line line = new Line(lx, ly, lx, center);
-//
-//            // line.setStrokeWidth(SymbolFactory.getStemThickness());
-//            shapes.add(line);
-//            logger.debug(
-//                    "added stem x {} y {}, center {}",
-//                    lx,
-//                    ly,
-//                    center);
-//        }
-//        logger.debug("added stem");
-//    }
+    // private void addStemHalf(double center, double x, double y, boolean
+    // stemUp) {
+    // if (stemUp) {
+    // Point2D p = SymbolFactory.getStemUpSE("noteheadHalf");
+    // double lx = x + p.getX() + this.quarterNoteWidth;
+    // double ly = y + p.getY();
+    // Line line = new Line(lx, ly, lx, center);
+    // // line.setStrokeWidth(SymbolFactory.getStemThickness());
+    // shapes.add(line);
+    // } else {
+    // Point2D p = SymbolFactory.getStemDownNW("noteheadHalf");
+    // double lx = x + p.getX();
+    // double ly = y + p.getY();
+    // Line line = new Line(lx, ly, lx, center);
+    // // line.setStrokeWidth(SymbolFactory.getStemThickness());
+    // shapes.add(line);
+    // }
+    // }
+    //
+    // private void addStem(double center, double x, double y, boolean stemUp) {
+    // if (stemUp) {
+    // Point2D p = SymbolFactory.getStemUpSE("noteheadBlack");
+    // double lx = x + p.getX() + this.quarterNoteWidth;
+    // // double lx = x + p.getX();
+    // double ly = y + p.getY();
+    // Line line = new Line(lx, ly, lx, center);
+    //
+    // // line.setStrokeWidth(SymbolFactory.getStemThickness());
+    // shapes.add(line);
+    // logger.debug(
+    // "added stem x {} y {}, center {}",
+    // lx,
+    // ly,
+    // center);
+    // } else {
+    // Point2D p = SymbolFactory.getStemDownNW("noteheadBlack");
+    // double lx = x + p.getX();
+    // double ly = y + p.getY();
+    // Line line = new Line(lx, ly, lx, center);
+    //
+    // // line.setStrokeWidth(SymbolFactory.getStemThickness());
+    // shapes.add(line);
+    // logger.debug(
+    // "added stem x {} y {}, center {}",
+    // lx,
+    // ly,
+    // center);
+    // }
+    // logger.debug("added stem");
+    // }
 
     /*
      * "noteheadBlack": { "stemDownNW": [ 0.0, -0.184 ], "stemUpSE": [ 1.328,
@@ -1726,7 +2878,6 @@ public class GrandStaffSymbolManager {
         return shapes;
     }
 
-   
     /*
      * fontMap.put(DOT, new Character((char) 46));
      * 
@@ -1905,7 +3056,7 @@ public class GrandStaffSymbolManager {
     public DoubleProperty staffWidthProperty() {
         return staffWidthProperty;
     }
-    
+
     double getStaffWidth() {
         return this.staffWidthProperty.get();
     }
@@ -1922,6 +3073,7 @@ public class GrandStaffSymbolManager {
     public void setDrawTimeSignature(boolean drawTimeSignature) {
         this.drawTimeSignature = drawTimeSignature;
     }
+
     public void setDrawBrace(boolean drawBrace) {
         this.drawBrace = drawBrace;
     }
@@ -2381,6 +3533,7 @@ public class GrandStaffSymbolManager {
         return x;
 
     }
+
     private void add8thFlag(double x, double y, boolean stemUp) {
         String glyph;
         Point2D p = null;
@@ -2628,6 +3781,7 @@ public class GrandStaffSymbolManager {
         }
         logger.debug("added stem");
     }
+
     public final void addLedgers(StaffSymbol staffSymbol, MIDINote note,
             double x) {
         int pitch = note.getPitch().getMidiNumber();
@@ -2683,7 +3837,7 @@ public class GrandStaffSymbolManager {
                     lx = width / 4d;
                     text.setX(x - lx);
                     staffSymbol.addLedger(text);
-                    logger.debug("added ledger x {} y {}", x-lx, ly);
+                    logger.debug("added ledger x {} y {}", x - lx, ly);
 
                 }
             }
@@ -2760,6 +3914,7 @@ public class GrandStaffSymbolManager {
         }
 
     }
+
     private Text newText(double x, double y, String glyph) {
         Text text = new Text(x, y, glyph);
         text.setFont(model.getFont());
@@ -2784,6 +3939,7 @@ public class GrandStaffSymbolManager {
         // return the Text so the caller can query for the width etc.
         return text;
     }
+
     public List<StaffSymbol> getSymbols() {
         return symbols;
     }
