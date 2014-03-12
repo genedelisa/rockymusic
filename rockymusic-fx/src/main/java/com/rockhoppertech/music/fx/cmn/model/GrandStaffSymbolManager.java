@@ -593,7 +593,7 @@ public class GrandStaffSymbolManager {
                 }
             }
 
-            logger.debug("quarter note. remainder {}", duration);
+            logger.debug("quarter note. remainder {} x {}", duration, x);
 
             staffSymbol.setY(y);
             staffSymbol.setSymbol(glyph);
@@ -615,8 +615,6 @@ public class GrandStaffSymbolManager {
                 }
                 x += width;
             }
-
-            // beatRectangle.setWidth(beatRectangle.getWidth() + width);
 
         }
 
@@ -2685,6 +2683,7 @@ public class GrandStaffSymbolManager {
                     lx = width / 4d;
                     text.setX(x - lx);
                     staffSymbol.addLedger(text);
+                    logger.debug("added ledger x {} y {}", x-lx, ly);
 
                 }
             }

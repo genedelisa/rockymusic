@@ -26,7 +26,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,6 +126,27 @@ public class GrandStaff extends Region {
         
         List<StaffSymbol> symbols = this.staffModel.getSymbols();
         this.getChildren().addAll(symbols);
+        for (StaffSymbol s : symbols) {
+            Line stem = s.getStem();
+
+            if (stem != null) {
+                this.getChildren().add(stem);
+            }
+
+            for (Text ledger : s.getLedgers()) {
+                this.getChildren().add(ledger);
+            }
+
+            QuadCurve tie = s.getTie();
+            if (tie != null) {
+                this.getChildren().add(tie);
+            }
+
+            Text flag = s.getFlag();
+            if (flag != null) {
+                this.getChildren().add(flag);
+            }
+        }
     }
 
     /**
