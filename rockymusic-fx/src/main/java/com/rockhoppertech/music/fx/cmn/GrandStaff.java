@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.model.GrandStaffModel;
+import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
@@ -119,6 +120,9 @@ public class GrandStaff extends Region {
         List<Shape> shapes = staffModel.getShapes();
         logger.debug("drawing shapes {}", shapes.size());
         this.getChildren().addAll(shapes);
+        
+        List<StaffSymbol> symbols = this.staffModel.getSymbols();
+        this.getChildren().addAll(symbols);
     }
 
     /**

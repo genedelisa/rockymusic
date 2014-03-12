@@ -656,6 +656,9 @@ public class GrandStaffModel {
     public List<Shape> getShapes() {
         return staffSymbolManager.getShapes();
     }
+    public List<StaffSymbol> getSymbols() {
+        return staffSymbolManager.getSymbols();
+    }
     public void setDrawTimeSignature(boolean drawTimeSignature) {
         this.staffSymbolManager.setDrawTimeSignature(drawTimeSignature);
     }
