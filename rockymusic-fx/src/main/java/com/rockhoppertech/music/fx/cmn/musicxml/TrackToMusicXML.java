@@ -2,6 +2,7 @@ package com.rockhoppertech.music.fx.cmn.musicxml;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Locale;
 import java.util.NavigableMap;
 
@@ -14,6 +15,9 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.Measure;
 import com.rockhoppertech.music.midi.js.KeySignature;
@@ -29,6 +33,8 @@ import com.rockhoppertech.music.midi.js.TimeSignature;
  * 
  */
 public class TrackToMusicXML {
+    private static final Logger logger = LoggerFactory
+            .getLogger(TrackToMusicXML.class);
 
     public static void main(String[] args) {
 
@@ -42,7 +48,8 @@ public class TrackToMusicXML {
         track.addKeySignatureAtBeat(1d, KeySignature.EFMAJOR);
 
         try {
-            emitXML(track);
+            OutputStream os = new FileOutputStream("testmusicxml.xml");
+            emitXML(track, os);
         } catch (IOException | XMLStreamException e) {
             e.printStackTrace();
         }
@@ -64,16 +71,25 @@ public class TrackToMusicXML {
 
     static String dtd = "<!DOCTYPE score-partwise PUBLIC  \"-//Recordare//DTD MusicXML 3.0 Partwise//EN\"  \"http://www.musicxml.org/dtds/partwise.dtd\">";
 
-    public static void emitXML(MIDITrack track) throws IOException,
+    /**
+     * Write a track to a stream as MusicXML.
+     * 
+     * @param track
+     *            the {@code MIDITrack}
+     * @param out
+     *            the output stream to write to
+     * @throws IOException
+     *             oops
+     * @throws XMLStreamException
+     *             oops
+     */
+    public static void emitXML(MIDITrack track, OutputStream out)
+            throws IOException,
             XMLStreamException {
 
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 
-        XMLEventWriter writer = outputFactory
-                .createXMLEventWriter(new FileOutputStream("testmusicxml.xml"));
-
-        // XMLEventWriter writer = outputFactory
-        // .createXMLEventWriter(System.out);
+        XMLEventWriter writer = outputFactory.createXMLEventWriter(out);
 
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
         // DTD dtddec = eventFactory.createDTD(dtd);
@@ -98,7 +114,7 @@ public class TrackToMusicXML {
         writer.add(eventFactory.createStartElement("", "", "identification"));
         writer.add(createNewLine(eventFactory));
 
-        //TODO make this configurable
+        // TODO make this configurable
         createNode(eventFactory, writer, "creator", "Alban Berg",
                 "type", "composer");
 
@@ -133,8 +149,10 @@ public class TrackToMusicXML {
         int measureNumber = 1;
         System.out.println("n mesures: " + measures.size());
         KeySignature ks = track.getKeySignatureAtBeat(1d);
+        TimeSignature ts = track.getTimeSignatureAtBeat(1d);
 
         for (Measure m : measures.values()) {
+            logger.debug("measure {}", m);
 
             writer.add(eventFactory.createStartElement("", "", "measure"));
             writer.add(eventFactory.createAttribute("number", ""
@@ -144,29 +162,67 @@ public class TrackToMusicXML {
 
             createNode(eventFactory, writer, "divisions", "" + divisions);
 
-            KeySignature mks = m.getKeySignatureAtBeat(1d);
-            if (mks == null) {
+            // TODO add the ks and ts only if different from the previous ks or
+            // ts
+            // KeySignature mks = m.getKeySignatureAtBeat(1d);
+            // TimeSignature mts = m.getTimeSignature();
+            KeySignature mks = null;
+            TimeSignature mts = null;
+
+            // first time through (it's already been incremented)
+            if (measureNumber == 2) {
+                // always add the ts and ks
                 mks = ks;
+                mts = ts;
+                writer.add(eventFactory.createStartElement("", "", "key"));
+                createNode(eventFactory, writer, "fifths", "" + mks.getSf());
+                writer.add(eventFactory.createEndElement("", "", "key"));
+                writer.add(createNewLine(eventFactory));
+                writer.add(eventFactory.createStartElement("", "", "time"));
+                createNode(
+                        eventFactory,
+                        writer,
+                        "beats",
+                        "" + mts.getNumerator());
+                createNode(
+                        eventFactory,
+                        writer,
+                        "beat-type",
+                        "" + mts.getDenominator());
+                writer.add(eventFactory.createEndElement("", "", "time"));
+                writer.add(createNewLine(eventFactory));
+            } else {
+                mks = m.getKeySignatureAtBeat(m.getStartBeat());
+                mts = m.getTimeSignature();
+
+                logger.debug("mks is {}", mks);
+                // if the current ks is different from the previous ks, add the
+                // new one
+                if (!mks.equals(ks)) {
+                    writer.add(eventFactory.createStartElement("", "", "key"));
+                    createNode(eventFactory, writer, "fifths", "" + mks.getSf());
+                    writer.add(eventFactory.createEndElement("", "", "key"));
+                    writer.add(createNewLine(eventFactory));
+                }
+
+                // if the current ts is different from the previous ts, add the
+                // new one
+                if (!mts.equals(ts)) {
+                    writer.add(eventFactory.createStartElement("", "", "time"));
+                    createNode(
+                            eventFactory,
+                            writer,
+                            "beats",
+                            "" + mts.getNumerator());
+                    createNode(
+                            eventFactory,
+                            writer,
+                            "beat-type",
+                            "" + mts.getDenominator());
+                    writer.add(eventFactory.createEndElement("", "", "time"));
+                    writer.add(createNewLine(eventFactory));
+                }
             }
-            TimeSignature ts = m.getTimeSignature();
-
-            writer.add(eventFactory.createStartElement("", "", "key"));
-            createNode(eventFactory, writer, "fifths", "" + mks.getSf());
-
-            writer.add(eventFactory.createEndElement("", "", "key"));
-            writer.add(createNewLine(eventFactory));
-
-            writer.add(eventFactory.createStartElement("", "", "time"));
-
-            createNode(eventFactory, writer, "beats", "" + ts.getNumerator());
-            createNode(
-                    eventFactory,
-                    writer,
-                    "beat-type",
-                    "" + ts.getDenominator());
-
-            writer.add(eventFactory.createEndElement("", "", "time"));
-            writer.add(createNewLine(eventFactory));
 
             // <clef> <sign>G</sign> <line>2</line> </clef>
 
@@ -186,7 +242,7 @@ public class TrackToMusicXML {
 
                 String step = ps.substring(0, 1).toUpperCase(Locale.ENGLISH);
                 createNode(eventFactory, writer, "step", step);
-                
+
                 if (ps.endsWith("b")) {
                     createNode(eventFactory, writer, "alter", "-1");
                 }
@@ -198,7 +254,6 @@ public class TrackToMusicXML {
                     createNode(eventFactory, writer, "alter", "1");
                 }
 
-                
                 // bloody musicxml makes middle c in oct 4.
                 int oct = (n.getMidiNumber() - 12) / 12;
                 createNode(eventFactory, writer, "octave", "" + oct);
