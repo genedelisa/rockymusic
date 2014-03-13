@@ -185,15 +185,20 @@ public class TrackToMusicXML {
                 ps = ps.substring(0, ps.length() - 1);
 
                 String step = ps.substring(0, 1).toUpperCase(Locale.ENGLISH);
-
-                if (ps.endsWith("f") || ps.endsWith("b")) {
+                createNode(eventFactory, writer, "step", step);
+                
+                if (ps.endsWith("b")) {
+                    createNode(eventFactory, writer, "alter", "-1");
+                }
+                // f can mean flat or pitch step
+                if (ps.endsWith("f") && ps.length() > 1) {
                     createNode(eventFactory, writer, "alter", "-1");
                 }
                 if (ps.endsWith("s") || ps.endsWith("#")) {
                     createNode(eventFactory, writer, "alter", "1");
                 }
 
-                createNode(eventFactory, writer, "step", step);
+                
                 // bloody musicxml makes middle c in oct 4.
                 int oct = (n.getMidiNumber() - 12) / 12;
                 createNode(eventFactory, writer, "octave", "" + oct);
