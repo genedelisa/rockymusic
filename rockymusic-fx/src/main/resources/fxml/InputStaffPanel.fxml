@@ -2,7 +2,7 @@
 
 <?import com.rockhoppertech.music.fx.FXTextAreaReceiver?>
 <?import com.rockhoppertech.music.fx.cmn.*?>
-<?import com.rockhoppertech.music.fx.cmn.GrandStaff?>
+<?import com.rockhoppertech.music.fx.cmn.InputStaff?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
@@ -20,12 +20,16 @@
       <bottom>
         <VBox prefHeight="200.0" prefWidth="100.0">
           <children>
+            <Label fx:id="pitchLabel" text="" />
             <TextField fx:id="resultText" prefWidth="200.0" />
           </children>
         </VBox>
       </bottom>
       <center>
+        <!-- 
         <Staff fx:id="staff" focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" onKeyTyped="#staffKeyTyped" onMouseDragged="#staffMouseDragged" onMousePressed="#staffMousePressed" onMouseReleased="#staffMouseReleased" prefHeight="-1.0" prefWidth="-1.0" />
+         -->
+        <InputStaff fx:id="staff" focusTraversable="true" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
       </center>
     </BorderPane>
   </children>
