@@ -20,6 +20,8 @@ package com.rockhoppertech.music.fx.cmn;
  * #L%
  */
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
@@ -164,6 +166,10 @@ public class Staff extends Region {
         this.getChildren().addAll(shapes);
     }
 
+    public void update() {
+
+    }
+
     // @Override
     protected String getUserAgentStylesheet() {
         return getClass().getResource("StaffControl.css").toExternalForm();
@@ -172,7 +178,7 @@ public class Staff extends Region {
     public StaffModel getStaffModel() {
         return staffModel;
     }
-    
+
     public void setTrack(MIDITrack track) {
         this.getStaffModel().setTrack(track);
     }
@@ -200,6 +206,15 @@ public class Staff extends Region {
 
     public void addNote(MIDINote inputNote) {
         getStaffModel().addNote(inputNote);
-        
+        System.out.println("adding property change listener");
+        inputNote.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                System.out.println("note changed");
+
+            }
+        });
+
     }
 }
