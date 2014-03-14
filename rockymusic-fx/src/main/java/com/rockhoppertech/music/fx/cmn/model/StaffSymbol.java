@@ -128,6 +128,10 @@ public class StaffSymbol extends Text {
     public void addLedger(Text ledger) {
         this.ledgers.add(ledger);
     }
+    
+    public void removeLedgers() {
+        this.ledgers.clear();
+    }
 
     public double getWidth() {
         double width = this.getLayoutBounds().getWidth() * 1d;
