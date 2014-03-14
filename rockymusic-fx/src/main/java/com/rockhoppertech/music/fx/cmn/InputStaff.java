@@ -27,7 +27,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
@@ -43,6 +42,10 @@ import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDISender;
 
 /**
+ * A staff that will respond to mouse events. A single note is shown on a single
+ * staff. The mouse will change the pitch of the note. Bind to the pitch
+ * property.
+ * 
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
  * 
  */
@@ -65,13 +68,13 @@ public class InputStaff extends Region {
         this.setCursor(Cursor.CROSSHAIR);
         this.setOpacity(1d);
         this.midiSender = new MIDISender();
-        
+
         pitchProperty.bindBidirectional(staffModel.pitchProperty());
 
+        // this is ignored
         this.setWidth(2300d);
         this.staffModel.setStaffWidth(2300d);
         this.setFontSize(48d);
-
 
         this.staffModel.staffWidthProperty().addListener(
                 new ChangeListener<Number>() {
@@ -120,7 +123,7 @@ public class InputStaff extends Region {
                 });
 
     }
-    
+
     void staffMouseDragged(MouseEvent event) {
         logger.debug("dragged {}", event);
 
@@ -161,21 +164,25 @@ public class InputStaff extends Region {
         this.draw();
         this.midiSender.sendNoteOff(getStaffModel().getNote().getMidiNumber());
     }
-    
+
     MIDINote getNote() {
         return this.staffModel.getNote();
     }
+
     void updateSymbol() {
         this.staffModel.updateSymbol();
     }
-    
+
     private IntegerProperty pitchProperty = new SimpleIntegerProperty(60);
+
     public IntegerProperty pitchProperty() {
         return pitchProperty;
     }
+
     public void setPitch(int p) {
         pitchProperty.set(p);
     }
+
     public int getPitch() {
         return pitchProperty.get();
     }
