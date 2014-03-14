@@ -23,17 +23,20 @@ package com.rockhoppertech.music.fx.cmn;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-import com.rockhoppertech.music.Pitch;
-import com.rockhoppertech.music.PitchFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.PitchFormat;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDISender;
 
@@ -54,87 +57,113 @@ public class InputStaffAppController {
     private URL location;
 
     @FXML
-    // fx:id="resultText"
     private TextField resultText; // Value injected by FXMLLoader
 
     @FXML
-    // fx:id="staff"
-    private Staff staff; // Value injected by FXMLLoader
+    private InputStaff staff; // Value injected by FXMLLoader
+    
+    @FXML
+    private Label pitchLabel;
 
-    // Handler for StaffRegion[fx:id="staff"] onKeyTyped
     @FXML
     void staffKeyTyped(KeyEvent event) {
-        logger.debug("key typed", event);
+        logger.debug("key typed {}", event);
+        logger.debug("key typed code {}", event.getCode());
         if (event.getCode() == KeyCode.LEFT) {
             event.consume();
         }
     }
 
-    // Handler for StaffRegion[fx:id="staff"] onMouseDragged
     @FXML
     void staffMouseDragged(MouseEvent event) {
         logger.debug("dragged {}", event);
-        
+
         int currentPitch = inputNote.getMidiNumber();
         this.midiSender.sendNoteOff(currentPitch);
-        // if you draw in the mouse down, the Text will grab the mouseReleased
-        // event
-
-        
-        int pitch = staff.getStaffModel().whichNote(event.getY());
-        if(pitch != currentPitch) {
-            this.inputNote.setMidiNumber(pitch);
-            this.midiSender.sendNoteOn(pitch, 64);
-            logger.debug("note {}", inputNote);
-            staff.drawShapes();
-        }
-       
-        
-       
-    }
-
-    // Handler for StaffRegion[fx:id="staff"] onMousePressed
-    @FXML
-    void staffMousePressed(MouseEvent event) {
-        staff.requestFocus();
         
         int pitch = staff.getStaffModel().whichNote(event.getY());
         if (pitch < 0 || pitch > 127) {
             return;
         }
         
-        int currentPitch = inputNote.getMidiNumber();
-        if(pitch != currentPitch) {
-            this.inputNote.setMidiNumber(pitch);
+        if (pitch != currentPitch) {
+            staff.getStaffModel().setPitch(pitch);
             this.midiSender.sendNoteOn(pitch, 64);
             logger.debug("note {}", inputNote);
-            staff.drawShapes();
+            staff.updateSymbol();
+            staff.draw();
         }
-
     }
 
-    // Handler for StaffRegion[fx:id="staff"] onMouseReleased
+    @FXML
+    void staffMousePressed(MouseEvent event) {
+        // staff.requestFocus();
+
+        int pitch = staff.getStaffModel().whichNote(event.getY());
+        if (pitch < 0 || pitch > 127) {
+            return;
+        }
+
+        int currentPitch = inputNote.getMidiNumber();
+        if (pitch != currentPitch) {
+            staff.getStaffModel().setPitch(pitch);
+            this.midiSender.sendNoteOn(pitch, 64);
+            logger.debug("note {}", inputNote);
+            staff.updateSymbol();
+            staff.draw();
+        }
+    }
+
     @FXML
     void staffMouseReleased(MouseEvent event) {
         this.midiSender.sendNoteOff(inputNote.getMidiNumber());
-        // if you draw in the mouse down, the Text will grab the mouseReleased
-        // event
-        staff.drawShapes();
+        staff.draw();
     }
 
     @FXML
-    // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert resultText != null : "fx:id=\"resultText\" was not injected: check your FXML file 'InputStaffPanel.fxml'.";
         assert staff != null : "fx:id=\"staff\" was not injected: check your FXML file 'InputStaffPanel.fxml'.";
 
-        // Initialize your logic here: all @FXML variables will have been
-        // injected
         this.midiSender = new MIDISender();
+
         staff.requestFocus();
-        inputNote = new MIDINote(Pitch.C6);
-        staff.getStaffModel().addNote(inputNote);
-        staff.drawShapes();
+        inputNote = this.staff.getNote();
+        staff.draw();
+        
+        //pitchLabel.textProperty().bind(staff.getStaffModel().pitchProperty());
+        staff.getStaffModel().pitchProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0,
+                    Number arg1, Number newPitch) {
+                pitchLabel.setText(PitchFormat.midiNumberToString(newPitch.intValue()));
+            }});
+        
+
+        staff.addEventFilter(
+                MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMouseDragged(mouseEvent);
+                    }
+                });
+        staff.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMousePressed(mouseEvent);
+                    }
+                });
+        staff.addEventFilter(
+                MouseEvent.MOUSE_RELEASED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMouseReleased(mouseEvent);
+                    }
+                });
 
     }
 
