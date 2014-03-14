@@ -505,10 +505,8 @@ public class StaffModel {
      */
     public int whichNote(final double y) {
         int[] noteNums = null;
-        final int[] treble = { Pitch.E5, Pitch.F5, Pitch.G5, Pitch.A5,
-                Pitch.B5, Pitch.C6, Pitch.D6, Pitch.E6, Pitch.F6 };
-        final int[] bass = { Pitch.G3, Pitch.A3, Pitch.B3, Pitch.C4, Pitch.D4,
-                Pitch.E4, Pitch.F4, Pitch.G4, Pitch.A4 };
+        final int[] treble = { E5, F5, G5, A5, B5, C6, D6, E6, F6 };
+        final int[] bass = { G3, A3, B3, C4, D4, E4, F4, G4, A4 };
         final int[] alto = { F4, G4, A4, B4, C5, D5, E5, F5, G5 };
 
         if (this.clef == Clef.TREBLE) {
@@ -537,49 +535,33 @@ public class StaffModel {
         if (y < this.staffBottom) {
             final double d = (this.staffBottom - y) / this.yspacing;
             note = (int) d;
-            if (logger.isDebugEnabled()) {
-                logger.debug(String.format("y %f is above bottom of staff %f",
-                        y,
-                        this.staffBottom));
-            }
+            logger.debug("y {} is above bottom of staff {}",
+                    y, this.staffBottom);
         } else {
             // fudge = modval / 2;
             distance = Math.abs(this.staffBottom - y) / this.yspacing;
             note = (int) (distance * -1);
         }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("note1 is %d",
-                    note));
-        }
+        logger.debug("note1 is {}", note);
 
         // high notes
         while (note > 6) {
             oct++;
             note -= 7;
-            if (logger.isDebugEnabled()) {
-                logger.debug(String.format("note is > 6: oct %d note %d",
-                        oct,
-                        note));
-            }
+            logger.debug("note is > 6: oct {} note {}", oct, note);
         }
         // low notes
         while (note < 0) {
             oct--;
             note += 7;
         }
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("note adjusted for oct is %d",
-                    note));
-        }
+        logger.debug("note adjusted for oct is {}", note);
 
         note = noteNums[note % 7] + oct * 12;
 
-        if (logger.isDebugEnabled()) {
-            logger.debug(String.format("Final note is %d or %s",
-                    note,
-                    PitchFormat.getPitchString(note)));
-        }
+        logger.debug("Final note is {} or {}",
+                note, PitchFormat.getPitchString(note));
         return note;
     }
 
