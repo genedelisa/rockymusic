@@ -22,9 +22,14 @@ package com.rockhoppertech.music.fx.cmn;
 
 import java.util.List;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
@@ -35,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import com.rockhoppertech.music.fx.cmn.model.InputStaffModel;
 import com.rockhoppertech.music.fx.cmn.model.StaffSymbol;
 import com.rockhoppertech.music.midi.js.MIDINote;
+import com.rockhoppertech.music.midi.js.MIDISender;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -43,6 +49,7 @@ import com.rockhoppertech.music.midi.js.MIDINote;
 public class InputStaff extends Region {
     final static Logger logger = LoggerFactory.getLogger(InputStaff.class);
     private InputStaffModel staffModel;
+    private MIDISender midiSender;
 
     /**
      * This one is used when specified in fxml.
@@ -57,14 +64,14 @@ public class InputStaff extends Region {
         this.staffModel = staffModel;
         this.setCursor(Cursor.CROSSHAIR);
         this.setOpacity(1d);
+        this.midiSender = new MIDISender();
+        
+        pitchProperty.bindBidirectional(staffModel.pitchProperty());
 
-        this.setHeight(300d);
         this.setWidth(2300d);
         this.staffModel.setStaffWidth(2300d);
-        this.setPrefSize(2300d, 300d);
+        this.setFontSize(48d);
 
-        this.staffModel.setFontSize(48d);
-        this.setPrefHeight(480d); // fontsize * 10
 
         this.staffModel.staffWidthProperty().addListener(
                 new ChangeListener<Number>() {
@@ -87,7 +94,72 @@ public class InputStaff extends Region {
                     }
                 });
         this.setStyle("-fx-background-color: antiquewhite; -fx-border-color: black; -fx-border-width: 1px;");
+        this.addEventFilter(
+                MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMouseDragged(mouseEvent);
+                    }
+                });
+        this.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMousePressed(mouseEvent);
+                    }
+                });
+        this.addEventFilter(
+                MouseEvent.MOUSE_RELEASED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        staffMouseReleased(mouseEvent);
+                    }
+                });
 
+    }
+    
+    void staffMouseDragged(MouseEvent event) {
+        logger.debug("dragged {}", event);
+
+        int currentPitch = getStaffModel().getNote().getMidiNumber();
+        this.midiSender.sendNoteOff(currentPitch);
+
+        int pitch = this.getStaffModel().whichNote(event.getY());
+        if (pitch < 0 || pitch > 127) {
+            return;
+        }
+
+        if (pitch != currentPitch) {
+            this.getStaffModel().setPitch(pitch);
+            this.updateSymbol();
+            this.draw();
+            this.midiSender.sendNoteOn(pitch, 64);
+        }
+    }
+
+    void staffMousePressed(MouseEvent event) {
+        // staff.requestFocus();
+
+        int pitch = this.getStaffModel().whichNote(event.getY());
+        if (pitch < 0 || pitch > 127) {
+            return;
+        }
+
+        int currentPitch = getStaffModel().getNote().getMidiNumber();
+        if (pitch != currentPitch) {
+            this.getStaffModel().setPitch(pitch);
+            this.midiSender.sendNoteOn(pitch, 64);
+            this.updateSymbol();
+            this.draw();
+        }
+    }
+
+    void staffMouseReleased(MouseEvent event) {
+        this.draw();
+        this.midiSender.sendNoteOff(getStaffModel().getNote().getMidiNumber());
     }
     
     MIDINote getNote() {
@@ -95,6 +167,17 @@ public class InputStaff extends Region {
     }
     void updateSymbol() {
         this.staffModel.updateSymbol();
+    }
+    
+    private IntegerProperty pitchProperty = new SimpleIntegerProperty(60);
+    public IntegerProperty pitchProperty() {
+        return pitchProperty;
+    }
+    public void setPitch(int p) {
+        pitchProperty.set(p);
+    }
+    public int getPitch() {
+        return pitchProperty.get();
     }
 
     /**
@@ -117,8 +200,12 @@ public class InputStaff extends Region {
     }
 
     public void setFontSize(double size) {
+        this.getChildren().clear();
         this.getStaffModel().setFontSize(size);
+        this.setHeight(size * 10d); // fontsize * 10
+        this.setMinHeight(size * 10d); // fontsize * 10
         this.setPrefHeight(size * 10d); // fontsize * 10
+        this.setPrefWidth(size * 6d);
     }
 
     /**

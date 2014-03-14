@@ -161,7 +161,9 @@ public class InputStaffModel {
     }
 
     public InputStaffModel() {
-
+        this.shapes = new ArrayList<>();
+        this.setNote( new MIDINote(Pitch.C6));
+        
         fontSize = 48d;
         font = Font.loadFont(
                 InputStaffModel.class.getResource("/fonts/Bravura.otf")
@@ -173,12 +175,11 @@ public class InputStaffModel {
 
         this.startX = 10d;
         this.fontSizeProperty = new SimpleDoubleProperty(this.fontSize);
-        this.setFontSize(48d);
+        this.setFontSize(fontSize);
         this.setClef(Clef.TREBLE);
-        this.shapes = new ArrayList<>();
-        this.setNote( new MIDINote(Pitch.C5));
-        this.createStaves(fontSize * 3);
-        this.createSymbol(this.getNote());
+
+        //this.createStaves(fontSize * 3);
+        //this.createSymbol(this.getNote());
         
         
         this.noteProperty.addListener(new ChangeListener<MIDINote>(){
@@ -193,6 +194,7 @@ public class InputStaffModel {
             public void changed(ObservableValue<? extends Number> observable,
                     Number oldValue, Number newValue) {
                 getNote().setMidiNumber(newValue.intValue());
+                updateSymbol();
             }});
     }
     
@@ -431,6 +433,7 @@ public class InputStaffModel {
      *            the fontSize to set
      */
     public void setFontSize(final double fontSize2) {
+        this.shapes.clear();
         this.fontSize = fontSize2;
         this.font = new Font("Bravura", fontSize);
         // set the font before the fontsize property for listeners who use the
@@ -444,6 +447,8 @@ public class InputStaffModel {
 
         this.calcStaffMetrics();
         setClef(this.clef);
+        this.createStaves(fontSize * 3);
+        this.createSymbol(this.getNote());
     }
 
     /**

@@ -21,6 +21,7 @@
         <VBox prefHeight="200.0" prefWidth="100.0">
           <children>
             <Label fx:id="pitchLabel" text="" />
+            <Button fx:id="popupButton" onAction="#popupAction" text="Pop up dialog" />
             <TextField fx:id="resultText" prefWidth="200.0" />
           </children>
         </VBox>
