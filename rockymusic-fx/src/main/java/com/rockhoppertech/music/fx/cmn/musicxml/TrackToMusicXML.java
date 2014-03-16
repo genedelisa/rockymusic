@@ -201,10 +201,10 @@ public class TrackToMusicXML {
         writer.add(eventFactory.createCharacters(track.getName()));
         writer.add(eventFactory.createEndElement("", "", "part-name"));
         writer.add(createNewLine(eventFactory));
-        
-//        <part-name-display> 
-//        <display-text>some track</display-text>
-//         </part-name-display>
+
+        // <part-name-display>
+        // <display-text>some track</display-text>
+        // </part-name-display>
         writer.add(eventFactory.createStartElement("", "", "part-name-display"));
         writer.add(createNewLine(eventFactory));
         createNode(eventFactory, writer, "display-text", track.getName());
@@ -277,40 +277,14 @@ public class TrackToMusicXML {
                 // always add the ts and ks
                 mks = ks;
                 mts = ts;
-                writer.add(eventFactory.createStartElement("", "", "key"));
-                createNode(eventFactory, writer, "fifths", "" + mks.getSf());
-                writer.add(eventFactory.createEndElement("", "", "key"));
-                writer.add(createNewLine(eventFactory));
-                writer.add(eventFactory.createStartElement("", "", "time"));
-                createNode(
-                        eventFactory,
-                        writer,
-                        "beats",
-                        "" + mts.getNumerator());
-                createNode(
-                        eventFactory,
-                        writer,
-                        "beat-type",
-                        "" + mts.getDenominator());
-                writer.add(eventFactory.createEndElement("", "", "time"));
-                writer.add(createNewLine(eventFactory));
-            } else {
-                mks = m.getKeySignatureAtBeat(m.getStartBeat());
-                mts = m.getTimeSignature();
-
-                logger.debug("mks is {}", mks);
-                // if the current ks is different from the previous ks, add the
-                // new one
-                if (!mks.equals(ks)) {
+                if (mks != null) {
                     writer.add(eventFactory.createStartElement("", "", "key"));
                     createNode(eventFactory, writer, "fifths", "" + mks.getSf());
                     writer.add(eventFactory.createEndElement("", "", "key"));
                     writer.add(createNewLine(eventFactory));
                 }
 
-                // if the current ts is different from the previous ts, add the
-                // new one
-                if (!mts.equals(ts)) {
+                if (mts != null) {
                     writer.add(eventFactory.createStartElement("", "", "time"));
                     createNode(
                             eventFactory,
@@ -324,6 +298,53 @@ public class TrackToMusicXML {
                             "" + mts.getDenominator());
                     writer.add(eventFactory.createEndElement("", "", "time"));
                     writer.add(createNewLine(eventFactory));
+                }
+
+            } else {
+                mks = m.getKeySignatureAtBeat(m.getStartBeat());
+                mts = m.getTimeSignature();
+
+                logger.debug("mks is {}", mks);
+                // if the current ks is different from the previous ks, add the
+                // new one
+                if (mks != null) {
+                    if (!mks.equals(ks)) {
+                        writer.add(eventFactory.createStartElement(
+                                "",
+                                "",
+                                "key"));
+                        createNode(
+                                eventFactory,
+                                writer,
+                                "fifths",
+                                "" + mks.getSf());
+                        writer.add(eventFactory.createEndElement("", "", "key"));
+                        writer.add(createNewLine(eventFactory));
+                    }
+                }
+
+                // if the current ts is different from the previous ts, add the
+                // new one
+                if (mts != null) {
+                    if (!mts.equals(ts)) {
+                        writer.add(eventFactory.createStartElement(
+                                "",
+                                "",
+                                "time"));
+                        createNode(
+                                eventFactory,
+                                writer,
+                                "beats",
+                                "" + mts.getNumerator());
+                        createNode(
+                                eventFactory,
+                                writer,
+                                "beat-type",
+                                "" + mts.getDenominator());
+                        writer.add(eventFactory
+                                .createEndElement("", "", "time"));
+                        writer.add(createNewLine(eventFactory));
+                    }
                 }
             }
 
