@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.rockhoppertech.music.fx.cmn.Measure;
+import com.rockhoppertech.music.midi.js.Instrument;
 import com.rockhoppertech.music.midi.js.KeySignature;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
@@ -64,15 +65,17 @@ public class TrackToMusicXML {
                 .name("some track")
                 .description("this is the description")
                 .noteString("c d Ef cs3 f#5 e f g")
-                .durations(1d)
+                .durations(1d, 1.5, .5)
+                .instrument(Instrument.TRUMPET)
                 .sequential()
                 .build();
         track.addTimeSignatureAtBeat(1d, new TimeSignature(4, 4));
         track.addKeySignatureAtBeat(1d, KeySignature.EFMAJOR);
+        track.play();
 
         try {
             OutputStream os = new FileOutputStream("testmusicxml.xml");
-            emitXML(track, os);
+            emitXML(track, os, "Grand Opus", "Giacomo");
         } catch (IOException | XMLStreamException e) {
             e.printStackTrace();
         }
@@ -91,35 +94,22 @@ public class TrackToMusicXML {
      * </pitch> <duration>4</duration> <type>whole</type> </note> </measure>
      * </part> </score-partwise>
      */
-    
-    /*
-     <identification>
-    <miscellaneous>
-      <miscellaneous-field name="description">All pitches from G to c'''' in 
-          ascending steps; First without accidentals, then with a sharp and then 
-          with a flat accidental. Double alterations and cautionary accidentals 
-          are tested at the end.</miscellaneous-field>
-    </miscellaneous>
-  </identification>
-     */
-    
-    /*
-     <part-list>
-  <score-part id="P1">
-   <part-name>some track</part-name>
-   <part-name-display>
-    <display-text>some track</display-text>
-   </part-name-display>
-   <score-instrument id="P1-I1">
-    <instrument-name> </instrument-name>
-    <virtual-instrument>
-     <virtual-library>General MIDI</virtual-library>
-     <virtual-name>Bright Piano</virtual-name>
-    </virtual-instrument>
-   </score-instrument>
-  </score-part>
- </part-list>
 
+    /*
+     * <identification> <miscellaneous> <miscellaneous-field
+     * name="description">All pitches from G to c'''' in ascending steps; First
+     * without accidentals, then with a sharp and then with a flat accidental.
+     * Double alterations and cautionary accidentals are tested at the
+     * end.</miscellaneous-field> </miscellaneous> </identification>
+     */
+
+    /*
+     * <part-list> <score-part id="P1"> <part-name>some track</part-name>
+     * <part-name-display> <display-text>some track</display-text>
+     * </part-name-display> <score-instrument id="P1-I1"> <instrument-name>
+     * </instrument-name> <virtual-instrument> <virtual-library>General
+     * MIDI</virtual-library> <virtual-name>Bright Piano</virtual-name>
+     * </virtual-instrument> </score-instrument> </score-part> </part-list>
      */
 
     static String dtd = "<!DOCTYPE score-partwise PUBLIC  \"-//Recordare//DTD MusicXML 3.0 Partwise//EN\"  \"http://www.musicxml.org/dtds/partwise.dtd\">";
@@ -131,12 +121,16 @@ public class TrackToMusicXML {
      *            the {@code MIDITrack}
      * @param out
      *            the output stream to write to
+     * @param workTitle
+     * @param composer
      * @throws IOException
      *             oops
      * @throws XMLStreamException
      *             oops
      */
-    public static void emitXML(MIDITrack track, OutputStream out)
+
+    public static void emitXML(MIDITrack track, OutputStream out,
+            String workTitle, String composer)
             throws IOException,
             XMLStreamException {
 
@@ -160,22 +154,27 @@ public class TrackToMusicXML {
 
         writer.add(eventFactory.createStartElement("", "", "work"));
         writer.add(createNewLine(eventFactory));
-        createNode(eventFactory, writer, "work-title", "Title");
+        createNode(eventFactory, writer, "work-title", workTitle);
         writer.add(eventFactory.createEndElement("", "", "work"));
         writer.add(createNewLine(eventFactory));
 
         // Indentification
         writer.add(eventFactory.createStartElement("", "", "identification"));
         writer.add(createNewLine(eventFactory));
-        
+
         writer.add(eventFactory.createStartElement("", "", "miscellaneous"));
         writer.add(createNewLine(eventFactory));
-        createNode(eventFactory, writer, "miscellaneous-field", track.getDescription(), "name", "description");
+        createNode(
+                eventFactory,
+                writer,
+                "miscellaneous-field",
+                track.getDescription(),
+                "name",
+                "description");
         writer.add(eventFactory.createEndElement("", "", "miscellaneous"));
         writer.add(createNewLine(eventFactory));
 
-        // TODO make this configurable
-        createNode(eventFactory, writer, "creator", "Alban Berg",
+        createNode(eventFactory, writer, "creator", composer,
                 "type", "composer");
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -191,7 +190,7 @@ public class TrackToMusicXML {
 
         writer.add(eventFactory.createEndElement("", "", "identification"));
         writer.add(createNewLine(eventFactory));
-        /// end Indentification
+        // / end Indentification
 
         writer.add(eventFactory.createStartElement("", "", "part-list"));
         writer.add(createNewLine(eventFactory));
@@ -203,36 +202,46 @@ public class TrackToMusicXML {
         writer.add(eventFactory.createEndElement("", "", "part-name"));
         writer.add(createNewLine(eventFactory));
         
-        
-//        <score-instrument id="P1-I1">
-//        <instrument-name> </instrument-name>
-//        <virtual-instrument>
-//         <virtual-library>General MIDI</virtual-library>
-//         <virtual-name>Bright Piano</virtual-name>
-//        </virtual-instrument>
-//       </score-instrument>
+//        <part-name-display> 
+//        <display-text>some track</display-text>
+//         </part-name-display>
+        writer.add(eventFactory.createStartElement("", "", "part-name-display"));
+        writer.add(createNewLine(eventFactory));
+        createNode(eventFactory, writer, "display-text", track.getName());
+        writer.add(eventFactory.createEndElement("", "", "part-name-display"));
+        writer.add(createNewLine(eventFactory));
+
+        // <score-instrument id="P1-I1">
+        // <instrument-name> </instrument-name>
+        // <virtual-instrument>
+        // <virtual-library>General MIDI</virtual-library>
+        // <virtual-name>Bright Piano</virtual-name>
+        // </virtual-instrument>
+        // </score-instrument>
         writer.add(eventFactory.createStartElement("", "", "score-instrument"));
         writer.add(eventFactory.createAttribute("id", "P1-I1"));
         writer.add(createNewLine(eventFactory));
-        createNode(eventFactory, writer, "instrument-name", track.getInstrument().getName());
+        createNode(eventFactory, writer, "instrument-name", track
+                .getInstrument().getName());
         writer.add(createNewLine(eventFactory));
-        
-        writer.add(eventFactory.createStartElement("", "", "virtual-instrument"));
+
+        writer.add(eventFactory
+                .createStartElement("", "", "virtual-instrument"));
         writer.add(createNewLine(eventFactory));
         createNode(eventFactory, writer, "virtual-library", "General MIDI");
-        createNode(eventFactory, writer, "virtual-name", track.getInstrument().getName());
+        createNode(eventFactory, writer, "virtual-name", track.getInstrument()
+                .getName());
         writer.add(eventFactory.createEndElement("", "", "virtual-instrument"));
         writer.add(createNewLine(eventFactory));
-        
+
         writer.add(eventFactory.createEndElement("", "", "score-instrument"));
         writer.add(createNewLine(eventFactory));
         //
-        
+
         writer.add(eventFactory.createEndElement("", "", "score-part"));
         writer.add(createNewLine(eventFactory));
         writer.add(eventFactory.createEndElement("", "", "part-list"));
         writer.add(createNewLine(eventFactory));
-        
 
         writer.add(eventFactory.createStartElement("", "", "part"));
         writer.add(eventFactory.createAttribute("id", "P1"));
