@@ -21,6 +21,10 @@ package com.rockhoppertech.music.midi.js;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.midi.gm.MIDIGMPatch;
@@ -37,12 +41,21 @@ public class Instrument implements Serializable {
      * For Serialization.
      */
     private static final long serialVersionUID = 3727585180676573574L;
-
+    
+    private static List<Instrument> all;
+    private static Map<String, Instrument> allMap;
+    
+    static {
+        all = new ArrayList<>();
+        allMap = new TreeMap<>();
+    }
+    
     /**
      * 
      */
     public static final Instrument PIANO = new Instrument(MIDIGMPatch.PIANO,
             MIDIGMPatch.PIANO.getName(), Pitch.A1, Pitch.C8);
+    
 
     public static final Instrument HARP = new Instrument(MIDIGMPatch.HARP,
             MIDIGMPatch.HARP.getName(), Pitch.B2, Pitch.GS8);
@@ -411,6 +424,10 @@ public class Instrument implements Serializable {
     // Soundbank soundbank = synth.getDefaultSoundbank();
     // Instrument[] instr = soundbank.getInstruments();
 
+    static {
+//        all.add(PIANO);
+    }
+    
     /**
      * 
      */
@@ -431,21 +448,32 @@ public class Instrument implements Serializable {
     /**
      * 
      */
+   
+
+    /**
+     * 
+     */
     public Instrument() {
 
     }
 
     /**
-     * @param patch the patch to use
-     * @param name the name
-     * @param minPitch the min pitch
-     * @param maxPitch the max pitch
+     * @param patch
+     *            the patch to use
+     * @param name
+     *            the name
+     * @param minPitch
+     *            the min pitch
+     * @param maxPitch
+     *            the max pitch
      */
     public Instrument(MIDIGMPatch patch, String name, int minPitch, int maxPitch) {
         this.patch = patch;
         this.name = name;
         this.minPitch = minPitch;
         this.maxPitch = maxPitch;
+        all.add(this);
+        allMap.put(this.name, this);
     }
 
     public Instrument(MIDIGMPatch patch, int minPitch, int maxPitch) {
@@ -453,10 +481,21 @@ public class Instrument implements Serializable {
         this.name = patch.getName();
         this.minPitch = minPitch;
         this.maxPitch = maxPitch;
+        all.add(this);
+        allMap.put(this.name, this);
+    }
+
+    public static List<Instrument> getAll() {
+        return all;
+    }
+    
+    public static Instrument getByName(String name) {
+        return allMap.get(name);
     }
 
     /**
-     * @param pitch a MIDI number
+     * @param pitch
+     *            a MIDI number
      * @return true if it is in range for this instrument
      */
     public boolean isPitchInRange(int pitch) {
@@ -464,7 +503,8 @@ public class Instrument implements Serializable {
     }
 
     /**
-     * @param pitch a Pitch instance
+     * @param pitch
+     *            a Pitch instance
      * @return true if it is in range for this instrument
      */
     public boolean isPitchInRange(Pitch pitch) {
