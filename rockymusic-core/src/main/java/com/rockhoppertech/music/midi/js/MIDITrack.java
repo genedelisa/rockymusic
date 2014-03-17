@@ -115,6 +115,12 @@ public class MIDITrack implements Serializable, Iterable<MIDINote>,
      * JavaBean property.
      */
     public static final String MODIFIED = "MIDITrack.MODIFIED";
+    
+    /**
+     * JavaBean property.
+     */
+    public static final String STARTBEAT = "startBeat";
+    
     /**
      * JavaBean property.
      */
@@ -1847,11 +1853,10 @@ public class MIDITrack implements Serializable, Iterable<MIDINote>,
         double diff = now - b;
 
         if (b < 0) {
-            logger.error("setstrt < 0");
+            logger.error("setStartBeat < 0");
             throw new IllegalArgumentException("Start beat < 0");
         }
 
-        // TODO use the start beat modifier
         for (MIDINote n : notes) {
             double s = n.getStartBeat();
             double newStart = s - diff;
@@ -1859,7 +1864,7 @@ public class MIDITrack implements Serializable, Iterable<MIDINote>,
             n.setStartBeat(newStart);
             // n.setStartBeat(s - newStart);
         }
-        this.changes.firePropertyChange(MODIFIED, null, this);
+        this.changes.firePropertyChange(STARTBEAT, null, this);
 
         // StartBeatModifier m = new
         // StartBeatModifier(Modifier.Operation.SUBTRACT);
