@@ -9,6 +9,7 @@ import javafx.geometry.Orientation;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
 
 import org.slf4j.Logger;
@@ -61,7 +62,7 @@ public class PianoKey extends Region implements Serializable {
 
     private static MIDISender midiSender;
     static {
-        midiSender = new MIDISender();
+        // midiSender = new MIDISender();
         theFont = new Font("monospaced", fontSize);
     }
 
@@ -69,25 +70,34 @@ public class PianoKey extends Region implements Serializable {
         theFont = new Font("monospaced", (fontSize * zoom));
     }
 
+    int sendMIDInote;
+
     public PianoKey(int key) {
         this.key = key;
         this.setDisplayPitch(false);
         this.setDisplayCKeys(false);
 
         this.text = new Text();
+        text.setFontSmoothingType(FontSmoothingType.LCD);
         this.text.setFont(theFont);
         this.getChildren().add(text);
 
-        logger.debug("created key for {}", this.key);
+        // logger.debug("created key for {}", this.key);
 
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                logger.debug("clicked {}", PianoKey.this.key);
-                midiSender.play(new MIDINote(PianoKey.this.key));
-                logger.debug(" key: {}", PianoKey.this);
+                midiSender.sendNoteOn(PianoKey.this.key, 64);
+                // midiSender.play(new MIDINote(PianoKey.this.key));
             }
         });
+        this.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                midiSender.sendNoteOff(PianoKey.this.key);
+            }
+        });
+
         this.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
@@ -102,6 +112,7 @@ public class PianoKey extends Region implements Serializable {
                 text.setVisible(false);
             }
         });
+
     }
 
     public void defaultStyle() {
@@ -128,9 +139,8 @@ public class PianoKey extends Region implements Serializable {
 
     protected void updateText() {
 
-        double textX = 0;
-        double textY = 0;
-        String theText = null;
+        String theText = PitchFormat.midiNumberToString(this.key).trim();
+        text.setText(theText);
 
         // if (this.getDisplayPitch() == true) {
         // theText = PitchFormat.midiNumberToString(this.key);
@@ -143,27 +153,57 @@ public class PianoKey extends Region implements Serializable {
         // this.text.setText(theText);
         // }
 
-        theText = PitchFormat.midiNumberToString(this.key);
-        text.setText(theText);
-
-        double w = this.getLayoutBounds().getWidth();
-        // w = this.getWidth();
-        double h = this.getLayoutBounds().getHeight();
-        double tw = text.getLayoutBounds().getWidth();
-        double th = text.getLayoutBounds().getHeight();
-        logger.debug("w {} tw {}", w, tw);
+        // double w = this.getLayoutBounds().getWidth();
+        // // w = this.getWidth();
+        // double h = this.getLayoutBounds().getHeight();
+        // double tw = text.getLayoutBounds().getWidth();
+        // double th = text.getLayoutBounds().getHeight();
+        // logger.debug("w {} tw {}", w, tw);
         if (this.orientation == Orientation.HORIZONTAL) {
-            textX = w / 2d - tw / 2d;
-            textY = h - th;
+
+            text.layoutXProperty()
+                    .bind(
+                            this.widthProperty().subtract(text.prefWidth(-1))
+                                    .divide(2));
+
+            text.layoutYProperty()
+                    .bind(this.heightProperty().subtract(text.prefHeight(-1)));
+
         } else {
-            // 4 pixels from the right edge
-            //textX = w - tw - 4;
-            textX = w - tw;
-            //textY = h / 2d + th / 2d;
-            textY = h / 2d;
+
+            // centered
+            // text.layoutXProperty()
+            // .bind(
+            // this.widthProperty().subtract(text.prefWidth(-1))
+            // .divide(2));
+
+            // 3 pixels left of the right edge
+            text.layoutXProperty()
+                    .bind(
+                            this.widthProperty().subtract(text.prefWidth(-1))
+                                    .subtract(3d));
+
+            // text.layoutYProperty()
+            // .bind(
+            // this.heightProperty().divide(2)
+            // .subtract(text.prefHeight(-1))
+            //
+            // .divide(2));
+            // text.layoutYProperty()
+            // .bind(
+            // this.heightProperty().divide(2));
+
+            text.layoutYProperty()
+                    .bind(
+                            this.heightProperty().divide(2)
+                                    .add(text.prefHeight(-1))
+                                    .divide(2));
+
+            // text.layoutYProperty()
+            // .bind(
+            // this.heightProperty().divide(2d));
+
         }
-        text.setLayoutX(textX);
-        text.setLayoutY(textY);
         text.setVisible(false);
     }
 
@@ -196,6 +236,10 @@ public class PianoKey extends Region implements Serializable {
     public static void setZoom(double z) {
         zoom = z;
         updateFont();
+    }
+
+    public static void setMIDISender(MIDISender sender) {
+        midiSender = sender;
     }
 
 }

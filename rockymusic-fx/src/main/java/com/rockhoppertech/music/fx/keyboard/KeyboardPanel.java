@@ -5,12 +5,39 @@ import java.util.Map;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.midi.js.Instrument;
+import com.rockhoppertech.music.midi.js.MIDISender;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -61,6 +88,13 @@ public class KeyboardPanel extends Pane {
         this(Orientation.HORIZONTAL, startOctave, numberOfOctaves);
     }
 
+    int sendOctave = 5;
+    int sendPitch = 0;
+    int sendMidiPitchNumber;
+    int sendVelocity = 64;
+    private MIDISender midiSender;
+    private ComboBox<Instrument> instrumentComboBox;
+
     public KeyboardPanel(Orientation orientation, int startOctave,
             int numberOfOctaves) {
         this.startOctave = startOctave;
@@ -69,6 +103,145 @@ public class KeyboardPanel extends Pane {
         this.locations = new HashMap<Integer, Point2D>();
         this.setPreferredSize();
         this.setupKeys();
+        this.midiSender = new MIDISender();
+        this.setupKeyEvents();
+        this.configureInstrumentComboBox();
+        this.setupContextMenu();
+        PianoKey.setMIDISender(midiSender);
+    }
+
+    void setupContextMenu() {
+        final ContextMenu cm = new ContextMenu();
+
+//        MenuItem cmItem1 = new MenuItem("Copy");
+//        cmItem1.setOnAction(new EventHandler<ActionEvent>() {
+//            public void handle(ActionEvent e) {
+//                Clipboard clipboard = Clipboard.getSystemClipboard();
+//                ClipboardContent content = new ClipboardContent();
+//                // content.putImage(pic.getImage());
+//                clipboard.setContent(content);
+//            }
+//        });
+//        cm.getItems().add(cmItem1);
+
+//         CustomMenuItem sliderMenuItem = new CustomMenuItem(new Slider());
+//         sliderMenuItem.setHideOnClick(false);
+//         cm.getItems().add(sliderMenuItem);
+
+        CustomMenuItem comboBoxMenuItem = new CustomMenuItem(instrumentComboBox);
+        comboBoxMenuItem.setHideOnClick(false);
+        cm.getItems().add(comboBoxMenuItem);
+
+        this.addEventFilter(MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent e) {
+                        logger.debug("mouse clicked");
+                        if (e.getButton() == MouseButton.SECONDARY) {
+                            cm.show(
+                                    KeyboardPanel.this,
+                                    e.getScreenX(),
+                                    e.getScreenY());
+                            e.consume();
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Play notes when keys are pressed.
+     */
+    private void setupKeyEvents() {
+        this.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                midiSender.sendNoteOff(sendMidiPitchNumber);
+            }
+        });
+        this.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+
+                if (event.getCode() == KeyCode.A) {
+
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "A" + sendOctave)
+                            .getMidiNumber();
+
+                    // these don't seem to work
+                    if (event.isShiftDown()) {
+                        sendMidiPitchNumber++;
+                    }
+                    if (event.isControlDown()) {
+                        sendMidiPitchNumber--;
+                    }
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+
+                } else if (event.getCode() == KeyCode.B) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "B" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.C) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "C" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.D) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "D" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.E) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "E" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.F) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "F" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.G) {
+                    sendMidiPitchNumber = PitchFactory.getPitch(
+                            "G" + sendOctave)
+                            .getMidiNumber();
+                    midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+                } else if (event.getCode() == KeyCode.DIGIT0) {
+                    sendOctave = 0;
+                } else if (event.getCode() == KeyCode.DIGIT1) {
+                    sendOctave = 1;
+                } else if (event.getCode() == KeyCode.DIGIT2) {
+                    sendOctave = 2;
+                } else if (event.getCode() == KeyCode.DIGIT3) {
+                    sendOctave = 3;
+                } else if (event.getCode() == KeyCode.DIGIT4) {
+                    sendOctave = 4;
+                } else if (event.getCode() == KeyCode.DIGIT5) {
+                    sendOctave = 5;
+                } else if (event.getCode() == KeyCode.DIGIT6) {
+                    sendOctave = 6;
+                } else if (event.getCode() == KeyCode.DIGIT7) {
+                    sendOctave = 7;
+                } else if (event.getCode() == KeyCode.DIGIT8) {
+                    sendOctave = 8;
+                } else if (event.getCode() == KeyCode.DIGIT9) {
+                    sendOctave = 9;
+                }
+            }
+        });
+
+        this.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                requestFocus();
+            }
+        });
+        this.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+            }
+        });
     }
 
     public BooleanProperty sendMIDIMessageProperty() {
@@ -145,6 +318,7 @@ public class KeyboardPanel extends Pane {
 
             this.locations.put(new Integer(wk.getKey()), new Point2D(x, y));
             this.pianoKeys.put(wk.getKey(), wk);
+            
             x += ww;
         }
 
@@ -289,4 +463,123 @@ public class KeyboardPanel extends Pane {
         this.setupKeys();
     }
 
+    /**
+     * for a ScrollPane
+     * 
+     * @return bounds
+     */
+    public Bounds getPreferredScrollableViewportSize() {
+        PianoKey wk = new WhiteKey(0, this.orientation);
+
+        // 2 octaves
+
+        if (this.orientation == Orientation.HORIZONTAL)
+            return new BoundingBox(0d, 0d, wk.getPrefWidth() * 14d,
+                    wk.getPrefHeight());
+        else
+            return new BoundingBox(0, 0, wk.getPrefHeight(),
+                    wk.getPrefHeight() * 14);
+    }
+
+    public double getOctaveWidth() {
+        PianoKey wk = new WhiteKey(0, Orientation.HORIZONTAL);
+        return wk.getPrefWidth() * 7d;
+    }
+
+    public double getOctaveHeight() {
+        PianoKey wk = new WhiteKey(0, Orientation.VERTICAL);
+        return wk.getPrefHeight() * 7d;
+    }
+
+    /**
+     * ScrollPane doesn't have this yet.
+     * 
+     * @return the increment
+     */
+    public double getScrollableUnitIncrement() {
+        PianoKey wk = new WhiteKey(0, this.orientation);
+        if (this.orientation == Orientation.HORIZONTAL)
+            return wk.getPrefWidth();
+        else
+            return wk.getPrefHeight();
+    }
+
+    /**
+     * ScrollPane doesn't have this yet.
+     * 
+     * @return the increment
+     */
+    public double getScrollableBlockIncrement() {
+        PianoKey wk = new WhiteKey(0, this.orientation);
+        if (this.orientation == Orientation.HORIZONTAL)
+            return wk.getPrefWidth() * 7;
+        else
+            return wk.getPrefHeight() * 7;
+    }
+
+    void configureInstrumentComboBox() {
+        this.instrumentComboBox = new ComboBox<Instrument>();
+        
+        ObservableList<Instrument> instrumentList = FXCollections
+                .observableArrayList();
+        for (Instrument p : Instrument.getAll()) {
+            logger.debug("adding instrument {}", p);
+            instrumentList.add(p);
+        }
+        instrumentComboBox.setItems(instrumentList);
+        instrumentComboBox.getSelectionModel().selectFirst();
+
+        instrumentComboBox.getSelectionModel().selectedItemProperty()
+                .addListener(new ChangeListener<Instrument>() {
+                    public void changed(
+                            ObservableValue<? extends Instrument> source,
+                            Instrument oldValue, Instrument newValue) {
+                        logger.debug("You selected: " + newValue);
+                        // model.getSelectedTrack().setInstrument(newValue);
+                        midiSender.setProgram(newValue.getPatch().getProgram());
+                        // midiSender.setInstrument(newValue);
+                    }
+                });
+
+        instrumentComboBox.setCellFactory(
+                new Callback<ListView<Instrument>, ListCell<Instrument>>() {
+                    @Override
+                    public ListCell<Instrument> call(
+                            ListView<Instrument> param) {
+
+                        final ListCell<Instrument> cell = new ListCell<Instrument>() {
+                            @Override
+                            public void updateItem(Instrument item,
+                                    boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item != null) {
+                                    setText(item.getName());
+                                }
+                                else {
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    }
+                });
+
+        // otherwise, you'd get the Instrument toString when combo is in
+        // unselected state
+        instrumentComboBox.setConverter(new StringConverter<Instrument>() {
+            @Override
+            public String toString(Instrument inst) {
+                if (inst == null) {
+                    return null;
+                } else {
+                    return inst.getName();
+                }
+            }
+
+            @Override
+            public Instrument fromString(String name) {
+                return Instrument.getByName(name);
+            }
+        });
+    }
 }
