@@ -261,8 +261,10 @@ public class MIDISender {
         }
     }
 
+    
+    
     public Instrument[] openDevice() {
-        Instrument[] insts = new Instrument[1];
+        Instrument[] insts = new Instrument[1];    
         if (this.midiDevice == null) {
             logger.debug("midi device is null! Using default synthesizer.");
             try {
@@ -487,6 +489,12 @@ public class MIDISender {
         // }
         // midiDevice.getReceivers().add(myReceiver);
 
+    }
+
+    public void setInstrument(
+            com.rockhoppertech.music.midi.js.Instrument newValue) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
