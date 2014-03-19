@@ -1,7 +1,30 @@
 package com.rockhoppertech.music.fx.keyboard;
 
+/*
+ * #%L
+ * Rocky Music FX
+ * %%
+ * Copyright (C) 1996 - 2014 Rockhopper Technologies
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,7 +32,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -20,15 +42,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 
@@ -68,6 +87,12 @@ public class KeyboardPanel extends Pane {
      * To find a key given a midi number.
      */
     private Map<Integer, PianoKey> pianoKeys;
+
+    // given a y, get the pitch
+    //private Map<Double, Integer> pitches;
+
+    NavigableMap<Double, Integer> pitches = new TreeMap<>();
+
     /**
      * The first octave drawn
      */
@@ -101,6 +126,8 @@ public class KeyboardPanel extends Pane {
         this.numberOfOctaves = numberOfOctaves;
         this.orientation = orientation;
         this.locations = new HashMap<Integer, Point2D>();
+        //this.pitches = new TreeMap<Double, Integer>();
+
         this.setPreferredSize();
         this.setupKeys();
         this.midiSender = new MIDISender();
@@ -113,20 +140,20 @@ public class KeyboardPanel extends Pane {
     void setupContextMenu() {
         final ContextMenu cm = new ContextMenu();
 
-//        MenuItem cmItem1 = new MenuItem("Copy");
-//        cmItem1.setOnAction(new EventHandler<ActionEvent>() {
-//            public void handle(ActionEvent e) {
-//                Clipboard clipboard = Clipboard.getSystemClipboard();
-//                ClipboardContent content = new ClipboardContent();
-//                // content.putImage(pic.getImage());
-//                clipboard.setContent(content);
-//            }
-//        });
-//        cm.getItems().add(cmItem1);
+        // MenuItem cmItem1 = new MenuItem("Copy");
+        // cmItem1.setOnAction(new EventHandler<ActionEvent>() {
+        // public void handle(ActionEvent e) {
+        // Clipboard clipboard = Clipboard.getSystemClipboard();
+        // ClipboardContent content = new ClipboardContent();
+        // // content.putImage(pic.getImage());
+        // clipboard.setContent(content);
+        // }
+        // });
+        // cm.getItems().add(cmItem1);
 
-//         CustomMenuItem sliderMenuItem = new CustomMenuItem(new Slider());
-//         sliderMenuItem.setHideOnClick(false);
-//         cm.getItems().add(sliderMenuItem);
+        // CustomMenuItem sliderMenuItem = new CustomMenuItem(new Slider());
+        // sliderMenuItem.setHideOnClick(false);
+        // cm.getItems().add(sliderMenuItem);
 
         CustomMenuItem comboBoxMenuItem = new CustomMenuItem(instrumentComboBox);
         comboBoxMenuItem.setHideOnClick(false);
@@ -316,9 +343,10 @@ public class KeyboardPanel extends Pane {
             this.getChildren().add(wk);
             logger.debug("white key: {}", wk);
 
+            this.pitches.put(y, wk.getKey());
             this.locations.put(new Integer(wk.getKey()), new Point2D(x, y));
             this.pianoKeys.put(wk.getKey(), wk);
-            
+
             x += ww;
         }
 
@@ -341,6 +369,7 @@ public class KeyboardPanel extends Pane {
             this.getChildren().add(bk);
             logger.debug("black key: {}", bk);
 
+            this.pitches.put(y, bk.getKey());
             this.locations.put(new Integer(bk.getKey()), new Point2D(x, y));
             this.pianoKeys.put(bk.getKey(), bk);
             x += ww;
@@ -385,6 +414,7 @@ public class KeyboardPanel extends Pane {
             this.locations.put(new Integer(wk.getKey()), new Point2D(x, y));
             y += wh;
             this.pianoKeys.put(wk.getKey(), wk);
+            this.pitches.put(y, wk.getKey());
         }
 
         // black keys
@@ -400,6 +430,7 @@ public class KeyboardPanel extends Pane {
             this.locations.put(new Integer(bk.getKey()), new Point2D(x, y));
             y += wh;
             this.pianoKeys.put(bk.getKey(), bk);
+            this.pitches.put(y, bk.getKey());
         }
     }
 
@@ -443,6 +474,45 @@ public class KeyboardPanel extends Pane {
         else
             throw new IllegalArgumentException("bad key" + key);
     }
+
+    public int getPitchForY(double y) {
+        logger.debug("getting pitch for y {}", y);
+        logger.debug("pitches {}", pitches);
+       // y -= y % (PianoKey.getWhiteKeyHeight(Orientation.VERTICAL) / 2d);
+        //logger.debug("y snapped {}", y);
+        
+        Double floor = this.pitches.floorKey(y);
+        logger.debug("floor {}", floor);
+        int p = this.pitches.get(floor);
+        logger.debug("pitch {}", p);
+        return p;
+    }
+
+
+//    public int getKeyAt(double x, double y) {
+//
+//        // this.locations.put(new Integer(wk.getKey()), new Point2D(x, y));
+//
+//        for (Entry<Integer, Point2D> e : locations.entrySet()) {
+//            Rectangle r = new Rectangle(e.getValue().getX(),
+//
+//                    e.getValue().getY(),
+//                    100d,
+//                    PianoKey.getWhiteKeyHeight(this.orientation));
+//            if (r.contains(x, y)) {
+//                return e.getKey().intValue();
+//            }
+//        }
+//
+//        return 0;
+//
+//        // PianoKey k = (PianoKey) getComponentAt(x, y);
+//        // if (k == null) {
+//        // logger.debug("bad location for key" + x + " y=" + y);
+//        // return 0;
+//        // }
+//        // return k.getKey();
+//    }
 
     // public int getKeyAt(int x, int y) {
     // PianoKey k = (PianoKey) getComponentAt(x, y);
@@ -519,7 +589,7 @@ public class KeyboardPanel extends Pane {
 
     void configureInstrumentComboBox() {
         this.instrumentComboBox = new ComboBox<Instrument>();
-        
+
         ObservableList<Instrument> instrumentList = FXCollections
                 .observableArrayList();
         for (Instrument p : Instrument.getAll()) {
