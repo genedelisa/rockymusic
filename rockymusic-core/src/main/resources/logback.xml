@@ -34,13 +34,13 @@
 		</encoder>
 	</appender>
 
-	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-		<file>muxi .log</file>
-		<encoder>
-			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
-			</pattern>
-		</encoder>
-	</appender>
+	<!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+		<!--<file>muxi .log</file>-->
+		<!--<encoder>-->
+			<!--<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n-->
+			<!--</pattern>-->
+		<!--</encoder>-->
+	<!--</appender>-->
 
 	<appender name="RollingFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
