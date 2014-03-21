@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.rockhoppertech.music;
 
@@ -23,21 +23,21 @@ package com.rockhoppertech.music;
  * #L%
  */
 
-import java.util.Set;
-
 import org.junit.Test;
-
-import static com.rockhoppertech.music.Pitch.*;
-
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-//import static org.hamcrest.CoreMatchers.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Set;
+
+import static com.rockhoppertech.music.Pitch.C5;
+import static com.rockhoppertech.music.Pitch.CS5;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+//import static org.hamcrest.CoreMatchers.*;
+
 /**
  * @author <a href="mailto:gene@rockhoppertech.com">Gene De Lisa</a>
- * 
  */
 public class PitchTest {
     private static final Logger logger = LoggerFactory
@@ -103,6 +103,7 @@ public class PitchTest {
                 b,
                 equalTo(true));
 
+
         b = Pitch.isFlat("Cb");
         assertThat("should be flat",
                 b,
@@ -136,7 +137,7 @@ public class PitchTest {
     @Test
     public void testPitchInt() {
         Pitch p = new Pitch(60);
-        
+
         assertThat("The pitch is not null.",
                 p, is(notNullValue()));
         assertThat("the pitch midi number is correct",
@@ -177,9 +178,13 @@ public class PitchTest {
 
         // logger.debug("fq is {}",p.getFrequency());
         assertThat("The pitch is not null.", p, notNullValue());
-        assertThat("the frequency is correct",
-                p.getFrequency(),
-                equalTo(440d));
+        double epsilon = .1;
+        assertThat("the fq is correct",
+                Math.abs(440d - p.getFrequency()) < epsilon, is(equalTo(true)));
+
+//        assertThat("the frequency is correct",
+//                p.getFrequency(),
+//                equalTo(440d));
     }
 
     /**
@@ -237,9 +242,16 @@ public class PitchTest {
         double fq = Pitch.midiFq(9d,
                 5);
         // logger.debug("fq is {}",fq);
-        assertEquals(fq,
-                440d,
-                0d);
+
+        double epsilon = .1;
+        assertThat("the fq is correct",
+                Math.abs(440d - fq) < epsilon, is(equalTo(true)));
+
+//        assertThat("the fq is correct", fq, is(equalTo(440d)));
+
+//        assertEquals(fq,
+//                440d,
+//                0d);
     }
 
     /**
@@ -419,6 +431,6 @@ public class PitchTest {
             //logger.debug("Pitch {}", p);
             logger.debug("Pitch {}", p.getPreferredSpelling());
         }
-        
+
     }
 }

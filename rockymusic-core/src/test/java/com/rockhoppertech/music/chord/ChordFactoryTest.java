@@ -24,19 +24,18 @@ package com.rockhoppertech.music.chord;
  * #L%
  */
 
-import java.util.List;
-import java.util.Set;
-
-import org.junit.Ignore;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.rockhoppertech.music.Pitch;
 import com.rockhoppertech.music.PitchFactory;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import com.rockhoppertech.music.scale.Scale;
 import com.rockhoppertech.music.scale.ScaleFactory;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -107,8 +106,8 @@ public class ChordFactoryTest {
 
         chord = ChordFactory.createFromSpelling("1 3 5 b7 b9 11");
         assertNotNull(chord);
-        chord = ChordFactory.createFromSpelling("1 b3 5 bb7 b7 11");
-        assertNotNull(chord);
+       // chord = ChordFactory.createFromSpelling("1 b3 5 bb7 b7 11");
+        //assertNotNull(chord);
         chord = ChordFactory.createFromSpelling("1 3 b5 b7 #9 #11 13");
         assertNotNull(chord);
         chord = ChordFactory.createFromSpelling("1 3 5 b7 #9 #11 13");

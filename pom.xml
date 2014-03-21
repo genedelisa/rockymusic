@@ -95,7 +95,7 @@
 
 		<checkstyle.skip>false</checkstyle.skip>
 		<cobertura.skip>false</cobertura.skip>
-		<findbugs.skip>false</findbugs.skip>
+		<findbugs.skip>true</findbugs.skip>
 		<javadocs.skip>false</javadocs.skip>
 		<pmd.skip>false</pmd.skip>
 		<!-- Plugin versions -->
@@ -568,7 +568,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <configuration>
-                    <aggregate>true</aggregate>
+
                 </configuration>
             </plugin>
             <plugin>
