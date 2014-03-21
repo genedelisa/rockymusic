@@ -20,34 +20,21 @@ package com.rockhoppertech.music.fx.cmn.musicxml;
  * #L%
  */
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.NavigableMap;
+import com.rockhoppertech.music.fx.cmn.Measure;
+import com.rockhoppertech.music.midi.js.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.Characters;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartDocument;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.rockhoppertech.music.fx.cmn.Measure;
-import com.rockhoppertech.music.midi.js.Instrument;
-import com.rockhoppertech.music.midi.js.KeySignature;
-import com.rockhoppertech.music.midi.js.MIDINote;
-import com.rockhoppertech.music.midi.js.MIDITrack;
-import com.rockhoppertech.music.midi.js.MIDITrackBuilder;
-import com.rockhoppertech.music.midi.js.TimeSignature;
+import javax.xml.stream.events.*;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.NavigableMap;
 
 /**
  * Uses Stax to emit MusicXML for a MIDITrack.
@@ -114,6 +101,22 @@ public class TrackToMusicXML {
 
     static String dtd = "<!DOCTYPE score-partwise PUBLIC  \"-//Recordare//DTD MusicXML 3.0 Partwise//EN\"  \"http://www.musicxml.org/dtds/partwise.dtd\">";
 
+
+    public static void emitXML(MIDITrack track, Writer w,
+                               String workTitle, String composer)
+            throws IOException,
+            XMLStreamException {
+
+        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+
+        XMLEventWriter writer = outputFactory.createXMLEventWriter(w);
+
+
+        XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+
+        spew(track,eventFactory,writer, workTitle, composer);
+    }
+
     /**
      * Write a track to a stream as MusicXML.
      * 
@@ -142,6 +145,12 @@ public class TrackToMusicXML {
         // DTD dtddec = eventFactory.createDTD(dtd);
         // writer.add(eventFactory.createDTD(dtd));
         // writer.add(createNewLine(eventFactory));
+        spew(track, eventFactory,writer, workTitle, composer);
+    }
+
+    static void spew(MIDITrack track, XMLEventFactory eventFactory, XMLEventWriter writer, String workTitle, String composer)
+            throws IOException,
+            XMLStreamException {
 
         StartDocument startDocument = eventFactory.createStartDocument();
         writer.add(startDocument);
@@ -158,21 +167,24 @@ public class TrackToMusicXML {
         writer.add(eventFactory.createEndElement("", "", "work"));
         writer.add(createNewLine(eventFactory));
 
-        // Indentification
+        // Identification
         writer.add(eventFactory.createStartElement("", "", "identification"));
         writer.add(createNewLine(eventFactory));
 
-        writer.add(eventFactory.createStartElement("", "", "miscellaneous"));
-        writer.add(createNewLine(eventFactory));
-        createNode(
-                eventFactory,
-                writer,
-                "miscellaneous-field",
-                track.getDescription(),
-                "name",
-                "description");
-        writer.add(eventFactory.createEndElement("", "", "miscellaneous"));
-        writer.add(createNewLine(eventFactory));
+        String description = track.getDescription();
+        if(description != null) {
+            writer.add(eventFactory.createStartElement("", "", "miscellaneous"));
+            writer.add(createNewLine(eventFactory));
+            createNode(
+                    eventFactory,
+                    writer,
+                    "miscellaneous-field",
+                    track.getDescription(),
+                    "name",
+                    "description");
+            writer.add(eventFactory.createEndElement("", "", "miscellaneous"));
+            writer.add(createNewLine(eventFactory));
+        }
 
         createNode(eventFactory, writer, "creator", composer,
                 "type", "composer");
