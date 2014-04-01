@@ -20,12 +20,13 @@ package com.rockhoppertech.music.fx.pianoroll;
  * #L%
  */
 
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,6 +52,14 @@ public class BeatHeader extends Region {
         this.orientation = Orientation.HORIZONTAL;
         // this.units = 60d;
         // this.increment = units / 2;
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                double beat = pianorollPane.getBeatFromX(e.getX());
+                pianorollPane.setCurrentInsertBeat(beat);
+                logger.debug("beat {}", beat);
+            }
+        });
     }
 
     /**
