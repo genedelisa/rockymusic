@@ -73,6 +73,8 @@ public class PianorollPane extends Pane {
 
     private double snapBeatDivision = 4d;
 
+    private double currentInsertBeat = 1d;
+
     private KeyboardPanel keyboard;
 
     public PianorollPane(KeyboardPanel keyboard) {
@@ -104,6 +106,10 @@ public class PianorollPane extends Pane {
 
             }
         });
+    }
+
+    public void setCurrentInsertBeat(double currentInsertBeat) {
+        this.currentInsertBeat = currentInsertBeat;
     }
 
     void drawSnapGrid() {
