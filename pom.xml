@@ -104,7 +104,8 @@
 		<plugin.maven-resources.version>2.6</plugin.maven-resources.version>
 		<plugin.maven-jar.version>2.4</plugin.maven-jar.version>
 		<plugin.maven-project-info-reports.version>2.7</plugin.maven-project-info-reports.version>
-		<plugin.findbugs-maven.version>2.5.4-SNAPSHOT</plugin.findbugs-maven.version>
+        <plugin.findbugs-maven.version>2.5.4-SNAPSHOT</plugin.findbugs-maven.version>
+        <!--<plugin.findbugs-maven.version>2.5.3</plugin.findbugs-maven.version>-->
 		<plugin.taglist-maven.version>2.4</plugin.taglist-maven.version>
 		<plugin.checkstyle.version>2.11</plugin.checkstyle.version>
 		<plugin.compiler.version>2.5.1</plugin.compiler.version>
@@ -307,6 +308,43 @@
 					<locales>en</locales>
 				</configuration>
 			</plugin>
+
+
+            <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${plugin.findbugs-maven.version}</version>
+                    <configuration>
+                        <skip>${findbugs.skip}</skip>
+                        <!--
+                           Enables analysis which takes more memory but finds more bugs.
+                           If you run out of memory, changes the value of the effort element
+                           to 'Low'.
+                       -->
+                        <effort>Max</effort>
+                        <!-- Build doesn't fail if problems are found -->
+                        <failOnError>false</failOnError>
+                        <!-- Reports all bugs (other values are medium and max) -->
+                        <threshold>Low</threshold>
+                        <!-- Produces XML report -->
+                        <xmlOutput>true</xmlOutput>
+                        <!-- Configures the directory in which the XML report is created -->
+                        <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+                    </configuration>
+                    <executions>
+                        <!--
+                           Ensures that FindBugs inspects source code when project is compiled.
+                       -->
+                        <execution>
+                            <id>analyze-compile</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
 
 		</plugins>
 
@@ -783,6 +821,35 @@
 		<module>rockymusic-examples</module>
 	</modules>
 
+    <pluginRepositories>
+       <!-- <pluginRepository>
+            <id>codehaus</id>
+            <name>codehaus repository</name>
+            <url>http://repository.codehaus.org/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>-->
+
+        <pluginRepository>
+            <id>codehaus-snapshots</id>
+            <name>codehaus snapshot repository</name>
+            <!--<url>http://snapshots.repository.codehaus.org/</url>-->
+
+            <url>http://maven.wso2.org/nexus/content/repositories/codehaus-snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+
+
+    </pluginRepositories>
 
 	<profiles>
 		<profile>
