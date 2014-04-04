@@ -20,6 +20,11 @@ package com.rockhoppertech.music.fx.pianoroll;
  * #L%
  */
 
+import com.rockhoppertech.music.fx.DragContext;
+import com.rockhoppertech.music.fx.keyboard.KeyboardPanel;
+import com.rockhoppertech.music.fx.keyboard.WhiteKey;
+import com.rockhoppertech.music.midi.js.MIDINote;
+import com.rockhoppertech.music.midi.js.MIDITrack;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
@@ -29,15 +34,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rockhoppertech.music.fx.DragContext;
-import com.rockhoppertech.music.fx.keyboard.KeyboardPanel;
-import com.rockhoppertech.music.fx.keyboard.WhiteKey;
-import com.rockhoppertech.music.midi.js.MIDINote;
-import com.rockhoppertech.music.midi.js.MIDITrack;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -148,7 +146,8 @@ public class PianorollPane extends Pane {
             node.setPrefWidth(note.getDuration() * this.beatWidth);
             node.setLayoutX((note.getStartBeat() - 1d) * this.beatWidth);
             node.setLayoutY(getYforPitchNumber(note.getMidiNumber()));
-            this.getChildren().add(makeDraggable(node));
+            //this.getChildren().add(makeDraggable(node));
+            this.getChildren().add(node);
         }
     }
 
