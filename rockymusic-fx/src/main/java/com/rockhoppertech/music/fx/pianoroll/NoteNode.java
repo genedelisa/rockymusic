@@ -20,29 +20,25 @@ package com.rockhoppertech.music.fx.pianoroll;
  * #L%
  */
 
+import com.rockhoppertech.music.PitchFormat;
+import com.rockhoppertech.music.fx.ResizeHandle;
+import com.rockhoppertech.music.midi.js.MIDINote;
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.adapter.JavaBeanDoublePropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.geometry.Orientation;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.Text;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.rockhoppertech.music.PitchFormat;
-import com.rockhoppertech.music.fx.DragContext;
-import com.rockhoppertech.music.fx.ResizeHandle;
-import com.rockhoppertech.music.fx.keyboard.PianoKey;
-import com.rockhoppertech.music.midi.js.MIDINote;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -56,14 +52,22 @@ public class NoteNode extends Region {
     private MIDINote note;
     private Text text;
     private ResizeHandle rightHandle;
-    private DragContext dragContext;
+    private ResizeHandle leftHandle;
+    private Tooltip tooltip;
+    // for dragging
+    private double nodeX;
+    private double nodeY;
+    private double mouseX;
+    private double mouseY;
+
+    // grabbed when mouse is pressed
     private PianorollPane parent;
 
     public NoteNode() {
         getStyleClass().setAll("notenode-control");
         this.setStyle("-fx-background-color: gray;");
 
-        this.rightHandle = new ResizeHandle();
+        this.rightHandle = new ResizeHandle(ResizeHandle.ResizeMode.RIGHT);
         this.getChildren().add(rightHandle);
         rightHandle.layoutXProperty().bind(
                 this.widthProperty().subtract(rightHandle.getPrefWidth()));
@@ -73,83 +77,124 @@ public class NoteNode extends Region {
                         this.heightProperty()
                                 .subtract(rightHandle.prefHeight(-1)).divide(2));
 
-        this.dragContext = new DragContext();
-       // this.setupMouse();
+        this.leftHandle = new ResizeHandle(ResizeHandle.ResizeMode.LEFT);
+        this.getChildren().add(leftHandle);
+        leftHandle.layoutXProperty().set(0);
+        leftHandle
+                .layoutYProperty()
+                .bind(
+                        this.heightProperty()
+                                .subtract(leftHandle.prefHeight(-1)).divide(2));
+
+        this.text = new Text();
+        this.text.setStyle("-fx-stroke:white; -fx-stroke-width: 1;");
+        text.setFontSmoothingType(FontSmoothingType.LCD);
+        text.layoutXProperty()
+                .bind(
+                        this.widthProperty().subtract(text.prefWidth(-1))
+                                .divide(2));
+        text.layoutYProperty()
+                .bind(
+                        this.heightProperty().divide(2)
+                                .add(text.prefHeight(-1)).divide(2));
+        this.getChildren().add(text);
+
+        this.tooltip = new Tooltip();
+        Tooltip.install(this, this.tooltip);
+
+        this.enableDrag(this);
     }
 
-    void setupMouse() {
-        this.setOnMouseDragged(new EventHandler<MouseEvent>() {
+
+    private Node enableDrag(final Node node) {
+
+        node.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e) {
-                logger.debug("drag x {} y {}", e.getX(), e.getY());
-                double xx = dragContext.initialTranslateX
-                        + e.getX()
-                        - dragContext.mouseAnchorX;
-                logger.debug("xx {}", xx);
-                // xx -= xx % snapX;
-                if (xx < 0) {
-                    xx = 0;
+            public void handle(MouseEvent mouseEvent) {
+                    node.getScene().setCursor(Cursor.MOVE);
+
+                final double parentScaleX = node.getParent().
+                        localToSceneTransformProperty().getValue().getMxx();
+                final double parentScaleY = node.getParent().
+                        localToSceneTransformProperty().getValue().getMyy();
+
+                mouseX = mouseEvent.getSceneX();
+                mouseY = mouseEvent.getSceneY();
+                nodeX = node.getLayoutX() * parentScaleX;
+                nodeY = node.getLayoutY() * parentScaleY;
+                parent = (PianorollPane) node.getParent();
+                rightHandle.setSnapX(parent.getSnapX());
+                leftHandle.setSnapX(parent.getSnapX());
+            }
+        });
+
+        node.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                node.getScene().setCursor(Cursor.HAND);
+            }
+        });
+
+        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                final double parentScaleX = node.getParent().
+                        localToSceneTransformProperty().getValue().getMxx();
+                final double parentScaleY = node.getParent().
+                        localToSceneTransformProperty().getValue().getMyy();
+
+                double offsetX = mouseEvent.getSceneX() - mouseX;
+                double offsetY = mouseEvent.getSceneY() - mouseY;
+
+                nodeX += offsetX;
+                nodeY += offsetY;
+
+                double scaledX = nodeX * 1 / parentScaleX;
+                double scaledY = nodeY * 1 / parentScaleY;
+
+                // snap
+                //scaledY -= scaledY % (PianoKey.getWhiteKeyHeight(Orientation.VERTICAL) / 2d);
+                scaledY -= scaledY % ( parent.getSnapY() / 2d );
+                scaledX -= scaledX % ( parent.getSnapX());
+
+                //TODO check for b and e since there is no black key
+                if(parent != null) {
+                    int pitch = parent.getPitchForY(scaledY);
+                    logger.debug("pitch {}", pitch);
+                    note.setMidiNumber(pitch);
+                    double beat = parent.getBeatFromX(scaledX);
+                    logger.debug("beat {}", beat);
+                    note.setStartBeat(beat);
                 }
-                // logger.debug("snapped xx {}", xx);
-                // Region parent = (Region) NoteNode.this.getParent();
 
-                double yy = dragContext.initialTranslateY
-                        + e.getY()
-                        - dragContext.mouseAnchorY;
-                logger.debug("yy {}", yy);
+                node.setLayoutX(scaledX);
+                node.setLayoutY(scaledY);
 
-                NoteNode.this.setTranslateX(xx);
-                NoteNode.this.setTranslateY(yy);
+                mouseX = mouseEvent.getSceneX();
+                mouseY = mouseEvent.getSceneY();
             }
         });
-        this.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                logger.debug("press x {} y {}", e.getX(), e.getY());
 
-                dragContext.mouseAnchorX = e.getX();
-                dragContext.mouseAnchorY = e.getY();
-                dragContext.initialTranslateX =
-                        NoteNode.this.getTranslateX();
-                dragContext.initialTranslateY =
-                        NoteNode.this.getTranslateY();
-                NoteNode.this.setCursor(Cursor.MOVE);
-                parent = (PianorollPane) getParent();
-            }
-        });
-        this.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent e) {
-                logger.debug("released x {}", e.getX());
-                double xx = dragContext.initialTranslateX
-                        + e.getX()
-                        - dragContext.mouseAnchorX;
-                // xx -= xx % 25;
-                // xx -= xx % snapX;
-                if (xx < 0) {
-                    xx = 0;
+            public void handle(MouseEvent mouseEvent) {
+                if (!mouseEvent.isPrimaryButtonDown()) {
+                    node.getScene().setCursor(Cursor.HAND);
                 }
-                double yy = dragContext.initialTranslateY
-                        + e.getY()
-                        - dragContext.mouseAnchorY;
-                
-                yy -= yy % PianoKey.getWhiteKeyHeight(Orientation.VERTICAL);
-                NoteNode.this.setTranslateX(xx);
-                NoteNode.this.setTranslateY(yy);
-
-                int pitch = parent.getPitchForY(yy);
-                logger.debug("pitch {}", pitch);
-                note.setMidiNumber(pitch);
-
-                // logger.debug("released at beat {}", getBeatForX(xx));
-                // if (ResizeHandle.this instanceof TrackNode) {
-                // TrackNode tn = (TrackNode) node;
-                // tn.getTrack().setStartBeat(getBeatForX(xx));
-                // }
-                NoteNode.this.setCursor(Cursor.DEFAULT);
             }
         });
+
+        node.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if (!mouseEvent.isPrimaryButtonDown()) {
+                    node.getScene().setCursor(Cursor.DEFAULT);
+                }
+            }
+        });
+        return node;
     }
+
 
     /**
      * @return the note
@@ -164,37 +209,21 @@ public class NoteNode extends Region {
      */
     public void setNote(MIDINote note) {
         this.note = note;
-        logger.debug("new note {}", note);
-
-        String ps = PitchFormat.getInstance().format(note.getPitch());
-
-        this.text = new Text(ps);
-        this.text.setStyle("-fx-stroke:white; -fx-stroke-width: 1;");
-        text.setFontSmoothingType(FontSmoothingType.LCD);
-        text.layoutXProperty()
-                .bind(
-                        this.widthProperty().subtract(text.prefWidth(-1))
-                                .divide(2));
-        text.layoutYProperty()
-                .bind(
-                        this.heightProperty().divide(2)
-                                .add(text.prefHeight(-1)).divide(2));
-
-        this.getChildren().add(text);
-
-        Tooltip t = new Tooltip(String.format(
-                "%s %.2f %.2f",
-                ps,
-                note.getStartBeat(),
-                note.getDuration()
-                ));
-        Tooltip.install(this, t);
+        logger.debug("setting note {}", note);
+        updateLabels();
         this.setupProperties();
     }
     
     void updateLabels() {
         String ps = PitchFormat.getInstance().format(note.getPitch());
         this.text.setText(ps);
+        String s =String.format(
+                "%s %.2f %.2f",
+                ps,
+                note.getStartBeat(),
+                note.getDuration()
+        );
+        tooltip.setText(s);
     }
     
 
@@ -204,7 +233,8 @@ public class NoteNode extends Region {
 
     private DoubleProperty startBeatProperty;
     private DoubleProperty durationProperty;
-    private IntegerProperty pitchProperty;
+    //private IntegerProperty midiNumberProperty;
+    private ObjectProperty pitchProperty;
 
     public DoubleProperty startBeatProperty() {
         return startBeatProperty;
@@ -214,11 +244,15 @@ public class NoteNode extends Region {
         return durationProperty;
     }
 
-    public IntegerProperty pitchProperty() {
+    /*public IntegerProperty midiNumberProperty() {
+        return midiNumberProperty;
+    }*/
+    public ObjectProperty pitchProperty() {
         return pitchProperty;
     }
 
     void setupProperties() {
+        logger.debug("setting up listeners for note {}", this.note);
         try {
             startBeatProperty = JavaBeanDoublePropertyBuilder.create()
                     .bean(this.note)
@@ -228,7 +262,8 @@ public class NoteNode extends Region {
                 @Override
                 public void changed(ObservableValue<? extends Number> arg0,
                         Number old, Number newStart) {
-                    logger.debug("listener new {}", newStart);
+                    logger.debug("listener start beat new {}", newStart);
+                    updateLabels();
                 }
             });
             durationProperty = JavaBeanDoublePropertyBuilder.create()
@@ -240,22 +275,25 @@ public class NoteNode extends Region {
                 public void changed(ObservableValue<? extends Number> arg0,
                         Number old, Number newDuration) {
                     logger.debug("listener new {}", newDuration);
+                    updateLabels();
                 }
             });
-            pitchProperty = JavaBeanIntegerPropertyBuilder.create()
+            //TODO why doesn't this work?
+            pitchProperty = JavaBeanObjectPropertyBuilder.create()
                     .bean(this.note)
-                    .name("midiNumber")
+                    .name("pitch")
                     .build();
             pitchProperty.addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> arg0,
                         Number old, Number newPitch) {
-                    logger.debug("listener new {}", newPitch);
+                    logger.debug("listener pitch new {}", newPitch);
                     updateLabels();
                 }
             });
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+            logger.error(e.getLocalizedMessage(), e);
         }
     }
 
