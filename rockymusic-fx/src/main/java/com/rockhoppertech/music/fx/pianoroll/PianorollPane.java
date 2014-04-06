@@ -20,15 +20,12 @@ package com.rockhoppertech.music.fx.pianoroll;
  * #L%
  */
 
-import com.rockhoppertech.music.fx.DragContext;
 import com.rockhoppertech.music.fx.keyboard.KeyboardPanel;
 import com.rockhoppertech.music.fx.keyboard.WhiteKey;
 import com.rockhoppertech.music.midi.js.MIDINote;
 import com.rockhoppertech.music.midi.js.MIDITrack;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -39,7 +36,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
- * 
  */
 public class PianorollPane extends Pane {
 
@@ -146,10 +142,6 @@ public class PianorollPane extends Pane {
             node.setPrefWidth(note.getDuration() * this.beatWidth);
             node.setLayoutX((note.getStartBeat() - 1d) * this.beatWidth);
             node.setLayoutY(getYforPitchNumber(note.getMidiNumber()));
-
-            //this.getChildren().add(enableDrag(node));
-            //this.getChildren().add(makeDraggable(node));
-            //this.getChildren().add(addMouseHandlers(node));
             this.getChildren().add(node);
         }
     }
@@ -162,8 +154,7 @@ public class PianorollPane extends Pane {
     }
 
     /**
-     * @param track
-     *            the track to set
+     * @param track the track to set
      */
     public void setTrack(MIDITrack track) {
         this.track = track;
@@ -202,8 +193,7 @@ public class PianorollPane extends Pane {
     }
 
     /**
-     * @param snapX
-     *            the snapX to set
+     * @param snapX the snapX to set
      */
     public void setSnapX(double snapX) {
         this.snapX = snapX;
@@ -217,8 +207,7 @@ public class PianorollPane extends Pane {
     }
 
     /**
-     * @param snapY
-     *            the snapY to set
+     * @param snapY the snapY to set
      */
     public void setSnapY(double snapY) {
         this.snapY = snapY;
@@ -232,364 +221,9 @@ public class PianorollPane extends Pane {
     }
 
     /**
-     * @param beatWidth
-     *            the beatWidth to set
+     * @param beatWidth the beatWidth to set
      */
     public void setBeatWidth(double beatWidth) {
         this.beatWidth = beatWidth;
     }
-
-    private Node makeDraggable(final Node node) {
-        final DragContext dragContext = new DragContext();
-        final Group wrapGroup = new Group(node);
-
-        wrapGroup.addEventFilter(
-                MouseEvent.ANY,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-                        // disable mouse events for all children
-                        // mouseEvent.consume();
-                    }
-                });
-
-        wrapGroup.addEventFilter(
-                MouseEvent.MOUSE_PRESSED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        // remember initial mouse cursor coordinates
-                        // and node position
-                        dragContext.mouseAnchorX = mouseEvent.getX();
-                        dragContext.mouseAnchorY = mouseEvent.getY();
-                        dragContext.initialTranslateX =
-                                node.getTranslateX();
-                        dragContext.initialTranslateY =
-                                node.getTranslateY();
-                        node.setCursor(Cursor.MOVE);
-
-                    }
-                });
-
-        wrapGroup.addEventFilter(
-                MouseEvent.MOUSE_DRAGGED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        // shift node from its initial position by delta
-                        // calculated from mouse cursor movement
-                        double xx = dragContext.initialTranslateX
-                                + mouseEvent.getX()
-                                - dragContext.mouseAnchorX;
-                        System.err.println("xx " + xx);
-                        // xx = xx - xx % 25;
-                        // xx -= xx % 25;
-                        xx -= xx % snapX;
-                        if (xx < 0) {
-                            xx = 0;
-                        }
-                        System.err.println("sx " + xx);
-                        node.setTranslateX(xx);
-
-                        node.setTranslateY(
-                                dragContext.initialTranslateY
-                                        + mouseEvent.getY()
-                                        - dragContext.mouseAnchorY);
-                        logger.debug("dragged to beat {}", getBeatFromX(xx));
-                        // TODO might not be performant with big tracks.
-                        // configurable?
-                        if (node instanceof NoteNode) {
-                            NoteNode tn = (NoteNode) node;
-                            tn.getNote().setStartBeat(getBeatFromX(xx));
-                        }
-
-                    }
-                });
-
-        wrapGroup.addEventFilter(
-                MouseEvent.MOUSE_RELEASED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        double xx = dragContext.initialTranslateX
-                                + mouseEvent.getX()
-                                - dragContext.mouseAnchorX;
-                        // xx -= xx % 25;
-                        xx -= xx % snapX;
-                        if (xx < 0) {
-                            xx = 0;
-                        }
-                        double yy = dragContext.initialTranslateY
-                                + mouseEvent.getY()
-                                - dragContext.mouseAnchorY;
-                        
-                        yy -= yy % snapY;
-                        
-                        
-                        node.setTranslateX(xx);
-                        node.setTranslateY(yy);
-                        logger.debug("released at beat {}", getBeatFromX(xx));
-                        if (node instanceof NoteNode) {
-                            NoteNode tn = (NoteNode) node;
-                            MIDINote note = tn.getNote();
-                            note.setStartBeat(getBeatFromX(xx));
-                            note.setMidiNumber(getPitchForY(yy));
-                            
-                        }
-                        node.setCursor(Cursor.DEFAULT);
-
-                    }
-
-                });
-
-        return wrapGroup;
-    }
-
-    private Node addMouseHandlers(final Node node) {
-        final DragContext dragContext = new DragContext();
-
-        node.addEventHandler(
-                MouseEvent.ANY,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-                        // disable mouse events for all children
-                        // mouseEvent.consume();
-                    }
-                }
-        );
-
-        node.addEventHandler(
-                MouseEvent.MOUSE_PRESSED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        // remember initial mouse cursor coordinates
-                        // and node position
-                        dragContext.mouseAnchorX = mouseEvent.getX();
-                        dragContext.mouseAnchorY = mouseEvent.getY();
-                        dragContext.initialTranslateX =
-                                node.getTranslateX();
-                        dragContext.initialTranslateY =
-                                node.getTranslateY();
-                        node.setCursor(Cursor.MOVE);
-
-                    }
-                }
-        );
-
-        node.addEventHandler(
-                MouseEvent.MOUSE_DRAGGED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        // shift node from its initial position by delta
-                        // calculated from mouse cursor movement
-                        double xx = dragContext.initialTranslateX
-                                + mouseEvent.getX()
-                                - dragContext.mouseAnchorX;
-                        System.err.println("xx " + xx);
-                        // xx = xx - xx % 25;
-                        // xx -= xx % 25;
-
-                        // xx -= xx % snapX;
-                       /* if (xx < 0) {
-                            xx = 0;
-                        }*/
-                        System.err.println("sx " + xx);
-                        node.setTranslateX(xx);
-
-                        node.setTranslateY(
-                                dragContext.initialTranslateY
-                                        + mouseEvent.getY()
-                                        - dragContext.mouseAnchorY
-                        );
-                        logger.debug("dragged to beat {}", getBeatFromX(xx));
-
-                        // TODO might not be performant with big tracks.
-                        // configurable?
-                        if (node instanceof NoteNode) {
-                            NoteNode tn = (NoteNode) node;
-                            //   tn.getNote().setStartBeat(getBeatFromX(xx));
-                        }
-
-                    }
-                }
-        );
-
-        node.addEventHandler(
-                MouseEvent.MOUSE_RELEASED,
-                new EventHandler<MouseEvent>() {
-                    public void handle(final MouseEvent mouseEvent) {
-
-                        double xx = dragContext.initialTranslateX
-                                + mouseEvent.getX()
-                                - dragContext.mouseAnchorX;
-                        // xx -= xx % 25;
-                        xx -= xx % snapX;
-                        if (xx < 0) {
-                            xx = 0;
-                        }
-                        double yy = dragContext.initialTranslateY
-                                + mouseEvent.getY()
-                                - dragContext.mouseAnchorY;
-
-                        yy -= yy % snapY;
-
-
-                        node.setTranslateX(xx);
-                        node.setTranslateY(yy);
-                        logger.debug("released at beat {}", getBeatFromX(xx));
-                        if (node instanceof NoteNode) {
-                            NoteNode tn = (NoteNode) node;
-                            MIDINote note = tn.getNote();
-                            note.setStartBeat(getBeatFromX(xx));
-                            note.setMidiNumber(getPitchForY(yy));
-
-                        }
-                        node.setCursor(Cursor.DEFAULT);
-
-                    }
-
-                }
-        );
-
-        return node;
-    }
-
-
-    private double nodeX;
-    private double nodeY;
-    private double mouseX;
-    private double mouseY;
-    static class Delta { double x, y; }
-
-    private Node enableDrag(final Node node) {
-        final Delta dragDelta = new Delta();
-        node.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                // record a delta distance for the drag and drop operation.
-               // dragDelta.x = node.getLayoutX() - mouseEvent.getX();
-                //dragDelta.y = node.getLayoutY() - mouseEvent.getY();
-                node.getScene().setCursor(Cursor.MOVE);
-
-                final double parentScaleX = node.getParent().
-                        localToSceneTransformProperty().getValue().getMxx();
-                final double parentScaleY = node.getParent().
-                        localToSceneTransformProperty().getValue().getMyy();
-
-                // record the current mouse X and Y position on Node
-                mouseX = mouseEvent.getSceneX();
-                mouseY = mouseEvent.getSceneY();
-
-                nodeX = node.getLayoutX() * parentScaleX;
-                nodeY = node.getLayoutY() * parentScaleY;
-
-            }
-        });
-        node.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                node.getScene().setCursor(Cursor.HAND);
-            }
-        });
-        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                //node.setLayoutX(mouseEvent.getX() + dragDelta.x);
-                //node.setLayoutY(mouseEvent.getY() + dragDelta.y);
-                //node.setLayoutX(mouseEvent.getX());
-               // node.setLayoutY(mouseEvent.getY());
-
-
-                final double parentScaleX = node.getParent().
-                        localToSceneTransformProperty().getValue().getMxx();
-                final double parentScaleY = node.getParent().
-                        localToSceneTransformProperty().getValue().getMyy();
-
-                // Get the exact moved X and Y
-
-                double offsetX = mouseEvent.getSceneX() - mouseX;
-                double offsetY = mouseEvent.getSceneY() - mouseY;
-
-                nodeX += offsetX;
-                nodeY += offsetY;
-
-                double scaledX = nodeX * 1 / parentScaleX;
-                double scaledY = nodeY * 1 / parentScaleY;
-
-                node.setLayoutX(scaledX);
-                node.setLayoutY(scaledY);
-
-                // again set current Mouse x AND y position
-                mouseX = mouseEvent.getSceneX();
-                mouseY = mouseEvent.getSceneY();
-
-
-            }
-        });
-        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    node.getScene().setCursor(Cursor.HAND);
-                }
-            }
-        });
-        node.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    node.getScene().setCursor(Cursor.DEFAULT);
-                }
-            }
-        });
-        return node;
-    }
-
-    private Node origenableDrag(final Node node) {
-        final Delta dragDelta = new Delta();
-        node.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                // record a delta distance for the drag and drop operation.
-                dragDelta.x = node.getLayoutX() - mouseEvent.getX();
-                dragDelta.y = node.getLayoutY() - mouseEvent.getY();
-                node.getScene().setCursor(Cursor.MOVE);
-            }
-        });
-        node.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                node.getScene().setCursor(Cursor.HAND);
-            }
-        });
-        node.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                //node.setLayoutX(mouseEvent.getX() + dragDelta.x);
-                //node.setLayoutY(mouseEvent.getY() + dragDelta.y);
-                node.setLayoutX(mouseEvent.getX());
-                node.setLayoutY(mouseEvent.getY());
-
-            }
-        });
-        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    node.getScene().setCursor(Cursor.HAND);
-                }
-            }
-        });
-        node.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (!mouseEvent.isPrimaryButtonDown()) {
-                    node.getScene().setCursor(Cursor.DEFAULT);
-                }
-            }
-        });
-        return node;
-    }
-
 }
