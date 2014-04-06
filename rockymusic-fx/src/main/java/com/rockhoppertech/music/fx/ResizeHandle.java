@@ -49,20 +49,29 @@ public class ResizeHandle extends Region {
 
     private boolean isInside;
     private DragContext dragContext;
+    private double snapX;
+    private double snapY;
 
     public ResizeHandle() {
         this(ResizeMode.RIGHT);
     }
 
+
+
     public ResizeHandle(ResizeMode mode) {
         getStyleClass().setAll("resizehandle-control");
-        this.setStyle("-fx-background-color: red;");
+
+        // if you want to see it. otherwise, the cursor is the cue.
+        //this.setStyle("-fx-background-color: red;");
+
         this.setMinHeight(6);
         this.setMinHeight(6);
         this.setPrefWidth(8);
         this.setPrefHeight(8);
         this.setResizeMode(mode);
         this.dragContext = new DragContext();
+        this.snapX = 10d;
+        this.snapY = 10d;
 
         this.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
@@ -71,18 +80,25 @@ public class ResizeHandle extends Region {
                 double xx = dragContext.initialTranslateX
                         + e.getX()
                         - dragContext.mouseAnchorX;
-                System.err.println("xx " + xx);
-                // xx -= xx % snapX;
-                if (xx < 0) {
+                logger.debug("xx " + xx);
+                xx -= xx % snapX;
+  /*              if (xx < 0) {
                     xx = 0;
-                }
-                System.err.println("sx " + xx);
+                }*/
+                logger.debug("sx " + xx);
                 Region parent = (Region) ResizeHandle.this.getParent();
+                double w = 0d;
                 switch (resizeMode) {
                 case RIGHT:
-                    double w = parent.getWidth() + xx;
+                    w = parent.getWidth() + xx;
                     parent.setPrefWidth(w);
                     break;
+                    case LEFT:
+                        double px = parent.getLayoutX();
+                        parent.setLayoutX(px+xx);
+                        w = parent.getWidth() - xx;
+                        parent.setPrefWidth(w);
+                        break;
                 default:
                     break;
                 }
@@ -352,6 +368,21 @@ public class ResizeHandle extends Region {
             this.setCursor(Cursor.SW_RESIZE);
             break;
         }
+    }
+    public double getSnapX() {
+        return snapX;
+    }
+
+    public void setSnapX(double snapX) {
+        this.snapX = snapX;
+    }
+
+    public double getSnapY() {
+        return snapY;
+    }
+
+    public void setSnapY(double snapY) {
+        this.snapY = snapY;
     }
 
 }
