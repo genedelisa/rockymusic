@@ -20,13 +20,12 @@ package com.rockhoppertech.music.fx.keyboard;
  * #L%
  */
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.NavigableMap;
-import java.util.TreeMap;
-
+import com.rockhoppertech.music.PitchFactory;
+import com.rockhoppertech.music.midi.js.Instrument;
+import com.rockhoppertech.music.midi.js.MIDINote;
+import com.rockhoppertech.music.midi.js.MIDISender;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,26 +36,21 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.rockhoppertech.music.PitchFactory;
-import com.rockhoppertech.music.midi.js.Instrument;
-import com.rockhoppertech.music.midi.js.MIDISender;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 /**
  * @author <a href="http://genedelisa.com/">Gene De Lisa</a>
@@ -175,10 +169,23 @@ public class KeyboardPanel extends Pane {
                 });
     }
 
+    private ObjectProperty<MIDINote> midiNoteProperty;
+
+    public ObjectProperty<MIDINote> midiNoteProperty() {
+        return midiNoteProperty;
+    }
+    public MIDINote getMIDINote() {
+        return midiNoteProperty.get();
+    }
+    public void setMIDINote(MIDINote n) {
+        midiNoteProperty.set(n);
+    }
+
     /**
      * Play notes when keys are pressed.
      */
     private void setupKeyEvents() {
+
         this.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -188,7 +195,7 @@ public class KeyboardPanel extends Pane {
         this.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-
+                MIDINote note = null;
                 if (event.getCode() == KeyCode.A) {
 
                     sendMidiPitchNumber = PitchFactory.getPitch(
@@ -203,6 +210,8 @@ public class KeyboardPanel extends Pane {
                         sendMidiPitchNumber--;
                     }
                     midiSender.sendNoteOn(sendMidiPitchNumber, sendVelocity);
+
+
 
                 } else if (event.getCode() == KeyCode.B) {
                     sendMidiPitchNumber = PitchFactory.getPitch(
@@ -255,6 +264,8 @@ public class KeyboardPanel extends Pane {
                 } else if (event.getCode() == KeyCode.DIGIT9) {
                     sendOctave = 9;
                 }
+                note = new MIDINote(sendMidiPitchNumber);
+                setMIDINote(note);
             }
         });
 
