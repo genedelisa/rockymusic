@@ -20,8 +20,15 @@ package com.rockhoppertech.music.fx.pianoroll;
  * #L%
  */
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -84,14 +91,36 @@ public class BeatHeader extends Region {
         // this.layoutXProperty().bindBidirectional(
         // this.pianorollPane.layoutXProperty());
 
-        this.units = pianorollPane.getBeatWidth();
-        this.increment = units / 2d;
+        //TODO make this a property
+        //this.units = pianorollPane.getBeatWidth();
+        this.unitsProperty.bind(pianorollPane.beatWidthProperty());
+        this.increment = getUnits() / 2d;
+        unitsProperty.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> arg0,
+                                Number old, Number newWidth) {
+                logger.debug("listener new beatwidth or units {}", newWidth);
+                increment = getUnits() / 2d;
+                logger.debug("listener new increment {}", increment);
+                drawLines();
+            }
+        });
 
         this.drawLines();
         // this.drawSnapGrid();
     }
-
-    void drawSnapGrid() {
+    void removeGridLines() {
+        ObservableList<Node> kids = this.getChildren();
+        ObservableList<Node> lines = FXCollections.observableArrayList();
+        for (Node n : kids) {
+            if (n instanceof Line) {
+                lines.add(n);
+                logger.debug("removing line {}", n);
+            }
+        }
+        this.getChildren().removeAll(lines);
+    }
+   /* void drawSnapGrid() {
 
         final double width = this.getLayoutBounds().getWidth();
         final double height = this.getLayoutBounds().getHeight();
@@ -108,14 +137,28 @@ public class BeatHeader extends Region {
             logger.debug("created line {}", line.getLayoutX());
             this.getChildren().add(line);
         }
-    }
+    }*/
 
     Orientation orientation;
     public static final double SIZE = 35;
     private double increment;
-    private double units;
+//    private double units;
+
+    private DoubleProperty unitsProperty = new SimpleDoubleProperty(60d);
+
+    public DoubleProperty unitsProperty() {
+        return unitsProperty;
+    }
+    public double getUnits() {
+        return unitsProperty.get();
+    }
+    public void setUnits(double d) {
+        unitsProperty.set(d);
+    }
 
     public void drawLines() {
+        //removeGridLines();
+        getChildren().clear();
 
         // some vars we need
         double end = 0;
@@ -125,7 +168,8 @@ public class BeatHeader extends Region {
 
         // use clipping bounds to calculate first tick and last tick location
         if (orientation == Orientation.HORIZONTAL) {
-            start = (this.getLayoutX() / increment) * increment;
+            //start = (this.getLayoutX() / increment) * increment;
+            start = 0d;
             end = (((this.getLayoutX() + getLayoutBounds().getWidth()) / increment) + 1)
                     * increment;
         } else {
@@ -162,12 +206,14 @@ public class BeatHeader extends Region {
 
         // ticks and labels
         for (double i = start; i < end; i += increment) {
+           // logger.debug("tick loop i {}", i);
+
             // FIXME some rounding error here
             // logger.debug("mod " + (i % units));
-            if (i % units == 0) {
+            if (i % getUnits() == 0) {
                 tickLength = 10;
                 // beats are 1 based
-                text = String.format("%3.0f", (i / units) + 1);
+                text = String.format("%3.0f", (i / getUnits()) + 1);
                 logger.debug("header text {}", text);
             } else {
                 // logger.debug("null text ");
