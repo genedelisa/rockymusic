@@ -123,8 +123,9 @@ public class KeyboardPanel extends Pane {
         this.locations = new HashMap<Integer, Point2D>();
         //this.pitches = new TreeMap<Double, Integer>();
 
-        this.setPreferredSize();
+
         this.setupKeys();
+        this.setPreferredSize();
         this.midiSender = new MIDISender();
         this.setupKeyEvents();
         this.configureInstrumentComboBox();
@@ -309,7 +310,8 @@ public class KeyboardPanel extends Pane {
         // weird but it works to give 10 octaves sort of
         // ill fix later
         // TODO fix this to use startOctave and numberOfOctaves
-        int j = -1;
+        //int j = -1;
+        int j = 0;
         for (int oct = 9; oct >= 0; oct--, j++) {
             this.makeVerticalOctave(oct, j);
         }
@@ -448,6 +450,7 @@ public class KeyboardPanel extends Pane {
             wk = new WhiteKey(whitePc[i] + octave, this.orientation);
             wk.setLayoutX(x);
             wk.setLayoutY(y);
+            logger.debug("y {} for pitch {}", y, whitePc[i] + octave);
             wk.setOnMousePressed(onPianoKeyMousePressed);
             wk.setOnMouseReleased(onPianoKeyMouseReleased);
             this.getChildren().add(wk);
