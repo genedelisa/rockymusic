@@ -27,6 +27,7 @@ import com.rockhoppertech.music.midi.js.MIDISender;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -169,7 +170,7 @@ public class KeyboardPanel extends Pane {
                 });
     }
 
-    private ObjectProperty<MIDINote> midiNoteProperty;
+    private ObjectProperty<MIDINote> midiNoteProperty = new SimpleObjectProperty<>();
 
     public ObjectProperty<MIDINote> midiNoteProperty() {
         return midiNoteProperty;
@@ -321,6 +322,28 @@ public class KeyboardPanel extends Pane {
         }
     }
 
+
+
+
+    EventHandler<MouseEvent> onPianoKeyMousePressed = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent me) {
+            PianoKey pk = (PianoKey) me.getSource();
+            midiSender.sendNoteOn(pk.getKey(), 64);
+            logger.debug("onpianokeypressed {}", pk.getKey());
+            setMIDINote(new MIDINote(pk.getKey()));
+
+        }
+    };
+    EventHandler<MouseEvent> onPianoKeyMouseReleased = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent me) {
+            PianoKey pk = (PianoKey) me.getSource();
+            midiSender.sendNoteOff(pk.getKey());
+            logger.debug("onpianokeyReleased {}", pk.getKey());
+        }
+    };
+
     private void makeHorizontalOctave(int oct) {
         double x = 0;
         double y = 2; // so you can see the border
@@ -351,6 +374,8 @@ public class KeyboardPanel extends Pane {
             wk = new WhiteKey(whitePc[i] + (octave), this.orientation);
             wk.setLayoutX(x);
             wk.setLayoutY(y);
+            wk.setOnMousePressed(onPianoKeyMousePressed);
+            wk.setOnMouseReleased(onPianoKeyMouseReleased);
             this.getChildren().add(wk);
             logger.debug("white key: {}", wk);
 
@@ -376,6 +401,8 @@ public class KeyboardPanel extends Pane {
 
             bk.setLayoutX(x);
             bk.setLayoutY(y);
+            bk.setOnMousePressed(onPianoKeyMousePressed);
+            bk.setOnMouseReleased(onPianoKeyMouseReleased);
             bk.toFront();
             this.getChildren().add(bk);
             logger.debug("black key: {}", bk);
@@ -421,6 +448,8 @@ public class KeyboardPanel extends Pane {
             wk = new WhiteKey(whitePc[i] + octave, this.orientation);
             wk.setLayoutX(x);
             wk.setLayoutY(y);
+            wk.setOnMousePressed(onPianoKeyMousePressed);
+            wk.setOnMouseReleased(onPianoKeyMouseReleased);
             this.getChildren().add(wk);
             this.locations.put(new Integer(wk.getKey()), new Point2D(x, y));
             y += wh;
@@ -437,6 +466,8 @@ public class KeyboardPanel extends Pane {
             bk = new BlackKey(blackPc[i] + octave, this.orientation);
             bk.setLayoutX(x);
             bk.setLayoutY(y);
+            bk.setOnMousePressed(onPianoKeyMousePressed);
+            bk.setOnMouseReleased(onPianoKeyMouseReleased);
             this.getChildren().add(bk);
             this.locations.put(new Integer(bk.getKey()), new Point2D(x, y));
             y += wh;

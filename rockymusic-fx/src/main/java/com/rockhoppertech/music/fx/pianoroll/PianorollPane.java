@@ -107,6 +107,18 @@ public class PianorollPane extends Pane {
         this.keyboard = keyboard;
         // this.setTrack(track);
 
+        keyboard.midiNoteProperty().addListener(new ChangeListener<MIDINote>() {
+            @Override
+            public void changed(ObservableValue<? extends MIDINote> observableValue, MIDINote oldMidiNote, MIDINote newMidiNote) {
+                logger.debug("got a midi note {}", newMidiNote);
+                newMidiNote.setStartBeat(currentInsertBeat);
+                track.add(newMidiNote);
+                createNode(newMidiNote);
+                currentInsertBeat += newMidiNote.getDuration();
+                updateInsertBeat();
+            }
+        });
+
         currentInsertBeatLine = new Line(0d, 0d, 0d, this.getHeight() );
         currentInsertBeatLine.setStroke(new Color(1, 0, 0, .8));
         currentInsertBeatLine.setStrokeWidth(2d);
@@ -223,14 +235,18 @@ public class PianorollPane extends Pane {
         getChildren().add(currentInsertBeatLine);
 
         for (MIDINote note : this.track) {
-            NoteNode node = new NoteNode();
-            node.setNote(note);
-            node.setPrefHeight(this.snapY);
-            node.setPrefWidth(note.getDuration() * this.getBeatWidth());
-            node.setLayoutX((note.getStartBeat() - 1d) * this.getBeatWidth());
-            node.setLayoutY(getYforPitchNumber(note.getMidiNumber()));
-            this.getChildren().add(node);
+            createNode(note);
         }
+    }
+
+    void createNode(MIDINote note) {
+        NoteNode node = new NoteNode();
+        node.setNote(note);
+        node.setPrefHeight(this.snapY);
+        node.setPrefWidth(note.getDuration() * this.getBeatWidth());
+        node.setLayoutX((note.getStartBeat() - 1d) * this.getBeatWidth());
+        node.setLayoutY(getYforPitchNumber(note.getMidiNumber()));
+        this.getChildren().add(node);
     }
 
     /**

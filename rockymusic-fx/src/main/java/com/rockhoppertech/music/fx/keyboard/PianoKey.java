@@ -105,19 +105,20 @@ public class PianoKey extends Region implements Serializable {
 
         // logger.debug("created key for {}", this.key);
 
-        this.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                midiSender.sendNoteOn(PianoKey.this.key, 64);
-                // midiSender.play(new MIDINote(PianoKey.this.key));
-            }
-        });
-        this.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent me) {
-                midiSender.sendNoteOff(PianoKey.this.key);
-            }
-        });
+        // pressed and released more properly handled in the keyboardpanel
+//        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent me) {
+//                midiSender.sendNoteOn(PianoKey.this.key, 64);
+//                // midiSender.play(new MIDINote(PianoKey.this.key));
+//            }
+//        });
+//        this.setOnMouseReleased(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent me) {
+//                midiSender.sendNoteOff(PianoKey.this.key);
+//            }
+//        });
 
         this.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
