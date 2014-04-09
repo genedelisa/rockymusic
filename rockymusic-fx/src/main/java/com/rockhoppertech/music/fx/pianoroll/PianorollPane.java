@@ -232,7 +232,9 @@ public class PianorollPane extends Pane {
         double lx = currentInsertBeat * this.getBeatWidth();
         currentInsertBeatLine.setStartX(lx);
         currentInsertBeatLine.setEndX(lx);
-        getChildren().add(currentInsertBeatLine);
+        if(getShowInsertBeat()) {
+            getChildren().add(currentInsertBeatLine);
+        }
 
         for (MIDINote note : this.track) {
             createNode(note);
@@ -316,7 +318,7 @@ public class PianorollPane extends Pane {
         this.snapY = snapY;
     }
 
-    private BooleanProperty showInsertBeatProperty = new SimpleBooleanProperty();
+    private BooleanProperty showInsertBeatProperty = new SimpleBooleanProperty(false);
 
     public void setShowInsertBeat(boolean b) {
         this.showInsertBeatProperty.set(b);
@@ -368,10 +370,15 @@ public class PianorollPane extends Pane {
 
         CheckMenuItem cmi = new CheckMenuItem("Show Insert Beat");
         cmi.setSelected(false);
-        cmi.selectedProperty().bind(showInsertBeatProperty);
+        cmi.selectedProperty().bindBidirectional(showInsertBeatProperty);
         cmi.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue ov,
                                 Boolean old, Boolean newVal) {
+                if(newVal) {
+                    getChildren().add(currentInsertBeatLine);
+                } else {
+                    getChildren().remove(currentInsertBeatLine);
+                }
             }
         });
         cm.getItems().add(cmi);
