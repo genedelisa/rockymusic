@@ -166,6 +166,8 @@ public class BeatHeader extends Region {
         double tickLength = 0;
         String text = null;
 
+        // TODO but when we scroll, we run out. bind width to pianoroll?
+
         // use clipping bounds to calculate first tick and last tick location
         if (orientation == Orientation.HORIZONTAL) {
             //start = (this.getLayoutX() / increment) * increment;
