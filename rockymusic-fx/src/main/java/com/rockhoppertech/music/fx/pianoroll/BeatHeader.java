@@ -91,8 +91,6 @@ public class BeatHeader extends Region {
         // this.layoutXProperty().bindBidirectional(
         // this.pianorollPane.layoutXProperty());
 
-        //TODO make this a property
-        //this.units = pianorollPane.getBeatWidth();
         this.unitsProperty.bind(pianorollPane.beatWidthProperty());
         this.increment = getUnits() / 2d;
         unitsProperty.addListener(new ChangeListener<Number>() {
@@ -139,11 +137,10 @@ public class BeatHeader extends Region {
         }
     }*/
 
-    Orientation orientation;
+    private Orientation orientation;
+    /** the line height */
     public static final double SIZE = 35;
     private double increment;
-//    private double units;
-
     private DoubleProperty unitsProperty = new SimpleDoubleProperty(60d);
 
     public DoubleProperty unitsProperty() {
@@ -166,7 +163,7 @@ public class BeatHeader extends Region {
         double tickLength = 0;
         String text = null;
 
-        // TODO but when we scroll, we run out. bind width to pianoroll?
+        // TODO but when we scroll, we run out. width is bound to pianoroll already.
 
         // use clipping bounds to calculate first tick and last tick location
         if (orientation == Orientation.HORIZONTAL) {
@@ -174,7 +171,10 @@ public class BeatHeader extends Region {
             start = 0d;
             end = (((this.getLayoutX() + getLayoutBounds().getWidth()) / increment) + 1)
                     * increment;
-        } else {
+            end = this.getLayoutX() + getLayoutBounds().getWidth() ;
+
+
+         } else {
             start = (this.getLayoutY() / increment) * increment;
             end = (((this.getLayoutY() + getLayoutBounds().getHeight()) / increment) + 1)
                     * increment;
