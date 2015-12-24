@@ -188,7 +188,7 @@ I've created a few Builders (ask the Google about the builder design pattern). T
 	 Score score = new Score("Chord");
      MIDITrack violin = MIDITrackBuilder.create()
                 .name("Violin I")
-                .instrument(MIDIGMPatch.VIOLIN)
+                .instrument(Instrument.VIOLIN)
                 .noteString("C6 E G")
                 .startBeats(4.5)
                 .durations(4d)
